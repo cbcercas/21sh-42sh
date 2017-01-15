@@ -1,0 +1,4 @@
+[submodule "libft"]
+	path = libft
+	url = git@mongit.mesamis.org:cbcercas/Libft_corrige.git
+	branch = fusion_printf_gnl
