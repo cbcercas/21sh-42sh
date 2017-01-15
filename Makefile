@@ -6,14 +6,15 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/01/15 19:45:37 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/01/15 20:49:36 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			=	minishell
+NAME			= minishell
 
-SRCS_CORE		=	main.c
+SRCS_MAIN		= main.c
 
+SRCS_CORE		= prompt.c
 ###############################################################################
 #																			  #
 #									CONFIG									  #
@@ -29,14 +30,15 @@ SRCS_DIR	= srcs
 OBJS_DIR	= objs
 DEPS_DIR	= .deps
 LIBFT_DIR	= libft
-VPATH 		= $(SRCS_DIR)/core
+VPATH 		= $(SRCS_DIR) $(SRCS_DIR)/core
 
 #Flags, Libraries, Objects and Includes
+SRCS		+= $(patsubst %.c,$(SRCS_DIR)/%.c, $(SRCS_MAIN))
 SRCS		+= $(patsubst %.c,$(SRCS_DIR)/core/%.c, $(SRCS_CORE))
 OBJS		= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 DEPS		= $(patsubst $(SRCS_DIR)%.c,$(DEPDIR)%.d,$(SRCS))
 LIBFT_FILE	= $(LIBFT_DIR)/libft.a
-INC			= -I includes
+INC			= -I includes -I includes/core
 ## libft includes
 INC			+= -I $(LIBFT_DIR)/includes -I $(LIBFT_DIR)/includes/ft_printf -I $(LIBFT_DIR)/includes/gnl
 
@@ -63,6 +65,10 @@ endef
 ##  AUTO DEPENDENCY GENERATOR ##
  ##############################
 
+$(DEPS_DIR)/%.d: %.c
+	@$(MKDIR) $(dir $@)
+	@$(DEPS-COMMAND)
+
 $(DEPS_DIR)/core/%.d: %.c
 	@$(MKDIR) $(dir $@)
 	@$(DEPS-COMMAND)
@@ -81,6 +87,11 @@ $(DEPS_DIR)/core/%.d: %.c
 all: $(NAME)
 
 re: clean fclean all
+
+$(OBJS_DIR)/%.o: %.c $(DEPS_DIR)/%.d
+	@echo "\033[K\033[35mMinishell core  :\033[0m [Compilation:\033[33m $^\033[0m]\033[1A"
+	@$(MKDIR) $(dir $@)
+	@$(CC-COMMAND)
 
 $(OBJS_DIR)/core/%.o: %.c $(DEPS_DIR)/core/%.d
 	@echo "\033[K\033[35mMinishell core  :\033[0m [Compilation:\033[33m $^\033[0m]\033[1A"
@@ -109,5 +120,5 @@ fclean: clean
 	@$(RM) $(NAME)
 
 .PHONY: re clean fclean all
-.PRECIOUS: $(DEPS_DIR)/core/%.d $(DEPS_DIR)/gnl/%.d $(DEPS_DIR)/ft_printf/%.d
+.PRECIOUS: $(DEPS_DIR)/%.d $(DEPS_DIR)/core/%.d
 .SUFFIXES: .c .h .o .d
