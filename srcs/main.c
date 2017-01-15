@@ -6,15 +6,15 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/15 20:21:51 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/15 20:36:25 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
-#include "libftprintf.h"
+#include "main.h"
 
 int main(int ac, char const *av[])
 {
-	if (ac && av)
-		ft_printf("Hello %s\n", "World");
+	if (!ac || !av)
+		return (1);
+	cbc_print_prompt();
 	return (0);
 }
