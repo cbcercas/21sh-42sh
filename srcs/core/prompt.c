@@ -6,12 +6,12 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:25:01 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/15 20:30:39 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/15 21:10:19 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "prompt.h"
 
 void	cbc_print_prompt(void)
 {
-	ft_printf("$>");
+	ft_printf("$> ");
 }
