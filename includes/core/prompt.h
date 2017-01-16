@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:27:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/15 20:30:00 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/16 11:46:01 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 # define PROMPT_H
 # include "libftprintf.h"
 
-void	cbc_print_prompt(void);
+void	ms_print_prompt(void);
 
 #endif

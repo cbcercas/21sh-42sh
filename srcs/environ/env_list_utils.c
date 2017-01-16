@@ -6,12 +6,12 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:24:48 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 09:48:17 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/16 11:47:36 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "env_list_utils.h"
 
-char	*cbc_getenv_name(char *env)
+char	*ms_getenv_name(char *env)
 {
 	char	*sep;
 	char	*name;
@@ -21,7 +21,7 @@ char	*cbc_getenv_name(char *env)
 	return (name);
 }
 
-char	*cbc_getenv_value(char *env)
+char	*ms_getenv_value(char *env)
 {
 	char	*sep;
 	char	*value;
@@ -31,7 +31,7 @@ char	*cbc_getenv_value(char *env)
 	return (value);
 }
 
-t_env	*cbc_new_env(char *env)
+t_env	*ms_new_env(char *env)
 {
 	t_env	*e;
 
@@ -39,9 +39,9 @@ t_env	*cbc_new_env(char *env)
 	if (!e)
 		return (NULL);
 	e->next = NULL;
-	if (!(e->name = cbc_getenv_name(env)))
+	if (!(e->name = ms_getenv_name(env)))
 		ft_memdel((void **)&e);
-	else if (!(e->value = cbc_getenv_value(env)))
+	else if (!(e->value = ms_getenv_value(env)))
 	{
 		ft_strdel(&e->name);
 		ft_memdel((void **)&e);

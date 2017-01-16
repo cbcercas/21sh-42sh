@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 21:43:28 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 09:48:57 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/16 11:45:46 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 # define ENVIRON_H
 # include "env_list_utils.h"
 
-t_env	*cbc_copy_environ(void);
+t_env	*ms_copy_environ(void);
 
 #endif
