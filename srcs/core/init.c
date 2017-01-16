@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 13:06:07 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/16 15:12:52 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "init.h"
@@ -30,6 +30,7 @@ t_ms_data		*ms_init(void)
 	{
 		data->env = ms_copy_environ();
 		data->cwd = getwd(data->cwd);
+		data->builtins = ms_builtins_init();
 	}
 	if (!data || !data->env || !data->cwd)
 	{

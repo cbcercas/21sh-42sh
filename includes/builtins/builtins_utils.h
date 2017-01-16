@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   builtins_utils.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/16 10:09:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 15:13:12 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/01/16 13:58:45 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/01/16 15:27:38 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef INIT_H
-# define INIT_H
-# include <unistd.h>
-# include "libft.h"
-# include "libftprintf.h"
-# include "env_list_utils.h"
-# include "environ.h"
-# include "builtins_utils.h"
+#ifndef BUILTINS_UTILS_H
+# define BUILTINS_UTILS_H
+#include "exit.h"
 
-typedef struct	s_ms_data
-{
-	t_env		*env;
-	char		*cwd;
-	t_builtins	builtins;
-}				t_ms_data;
+typedef 	int (**t_builtins)(char **arg);
+typedef 	int (*t_builtin)(char **arg);
 
-t_ms_data		*ms_init(void);
-void		ms_deinit(t_ms_data **data);
+enum		builtins{
+	ems_exit,
+	last
+};
+
+t_builtins	ms_builtins_init(void);
 
 #endif

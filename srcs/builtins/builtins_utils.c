@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.h                                             :+:      :+:    :+:   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/16 10:09:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 15:13:12 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/01/16 13:58:16 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/01/16 15:18:08 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef INIT_H
-# define INIT_H
-# include <unistd.h>
-# include "libft.h"
-# include "libftprintf.h"
-# include "env_list_utils.h"
-# include "environ.h"
-# include "builtins_utils.h"
+#include "builtins_utils.h"
+#include "init.h"
 
-typedef struct	s_ms_data
+t_builtins	ms_builtins_init(void)
 {
-	t_env		*env;
-	char		*cwd;
-	t_builtins	builtins;
-}				t_ms_data;
-
-t_ms_data		*ms_init(void);
-void		ms_deinit(t_ms_data **data);
-
-#endif
+	t_builtins builtins;
+	builtins = ft_memalloc(sizeof(t_builtins) * last);
+	builtins[0] = ms_exit;
+	return (builtins);
+}

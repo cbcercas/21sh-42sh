@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/01/16 11:22:35 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/01/16 15:17:21 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,11 @@ NAME			= minishell
 
 SRCS_MAIN		= main.c
 
-SRCS_CORE		= prompt.c environ.c init.c
+SRCS_CORE		= prompt.c environ.c init.c input.c
 
 SRCS_ENVIRON	= env_list_utils.c
+
+SRCS_BUILTINS	= builtins_utils.c exit.c
 ###############################################################################
 #																			  #
 #									CONFIG									  #
@@ -38,10 +40,11 @@ VPATH 		= $(SRCS_DIR) $(SRCS_DIR)/core $(SRCS_DIR)/environ
 SRCS		+= $(patsubst %.c,$(SRCS_DIR)/%.c, $(SRCS_MAIN))
 SRCS		+= $(patsubst %.c,$(SRCS_DIR)/core/%.c, $(SRCS_CORE))
 SRCS		+= $(patsubst %.c,$(SRCS_DIR)/environ/%.c, $(SRCS_ENVIRON))
+SRCS		+= $(patsubst %.c,$(SRCS_DIR)/builtins/%.c, $(SRCS_BUILTINS))
 OBJS		= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 DEPS		= $(patsubst $(SRCS_DIR)%.c,$(DEPDIR)%.d,$(SRCS))
 LIBFT_FILE	= $(LIBFT_DIR)/libft.a
-INC			= -I includes -I includes/core -I includes/environ
+INC			= -I includes -I includes/core -I includes/environ -I includes/builtins
 ## libft includes
 INC			+= -I $(LIBFT_DIR)/includes -I $(LIBFT_DIR)/includes/ft_printf -I $(LIBFT_DIR)/includes/gnl
 
@@ -80,6 +83,9 @@ $(DEPS_DIR)/environ/%.d: %.c
 	@$(MKDIR) $(dir $@)
 	@$(DEPS-COMMAND)
 
+$(DEPS_DIR)/builtins/%.d: %.c
+	@$(MKDIR) $(dir $@)
+	@$(DEPS-COMMAND)
 # Add dependency as prerequisites
 -include $(DEPS)
 
@@ -110,6 +116,11 @@ $(OBJS_DIR)/environ/%.o: %.c $(DEPS_DIR)/environ/%.d
 	@$(MKDIR) $(dir $@)
 	@$(CC-COMMAND)
 
+$(OBJS_DIR)/builtins/%.o: %.c $(DEPS_DIR)/builtins/%.d
+	@echo "\033[K\033[35mMinishell core  :\033[0m [Compilation:\033[33m $^\033[0m]\033[1A"
+	@$(MKDIR) $(dir $@)
+	@$(CC-COMMAND)
+
 $(NAME): $(LIBFT_FILE) $(OBJS)
 	@echo "\033[K\033[35mMinishell  :\033[0m [Compilation:\033[33m des .o\033[0m][\033[32mOK!\033[0m]"
 	@echo "\033[35mLIBFT  :\033[0m [Compilation:\033[33m $(NAME)\033[0m]"
@@ -132,5 +143,5 @@ fclean: clean
 	@$(RM) $(NAME)
 
 .PHONY: re clean fclean all
-.PRECIOUS: $(DEPS_DIR)/%.d $(DEPS_DIR)/core/%.d $(DEPS_DIR)/environ/%.d
+.PRECIOUS: $(DEPS_DIR)/%.d $(DEPS_DIR)/core/%.d $(DEPS_DIR)/environ/%.d $(DEPS_DIR)/builtins/%.d
 .SUFFIXES: .c .h .o .d
