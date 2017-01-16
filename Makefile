@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/01/16 09:33:11 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/01/16 10:01:43 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,18 +25,19 @@ SRCS_ENVIRON	= env_list_utils.c
 
 #  Compiler
 CC			= clang
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -v -Wall -Wextra -Werror
 
 #The Directories, Source, Includes, Objects and Libraries
 SRCS_DIR	= srcs
 OBJS_DIR	= objs
 DEPS_DIR	= .deps
 LIBFT_DIR	= libft
-VPATH 		= $(SRCS_DIR) $(SRCS_DIR)/core
+VPATH 		= $(SRCS_DIR) $(SRCS_DIR)/core $(SRCS_DIR)/environ
 
 #Flags, Libraries, Objects and Includes
 SRCS		+= $(patsubst %.c,$(SRCS_DIR)/%.c, $(SRCS_MAIN))
 SRCS		+= $(patsubst %.c,$(SRCS_DIR)/core/%.c, $(SRCS_CORE))
+SRCS		+= $(patsubst %.c,$(SRCS_DIR)/environ/%.c, $(SRCS_ENVIRON))
 OBJS		= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
 DEPS		= $(patsubst $(SRCS_DIR)%.c,$(DEPDIR)%.d,$(SRCS))
 LIBFT_FILE	= $(LIBFT_DIR)/libft.a
@@ -104,7 +105,7 @@ $(OBJS_DIR)/core/%.o: %.c $(DEPS_DIR)/core/%.d
 	@$(MKDIR) $(dir $@)
 	@$(CC-COMMAND)
 
-$(OBJS_DIR)/environ/%.o: %.c $(DEPS_DIR)/core/%.d
+$(OBJS_DIR)/environ/%.o: %.c $(DEPS_DIR)/environ/%.d
 	@echo "\033[K\033[35mMinishell core  :\033[0m [Compilation:\033[33m $^\033[0m]\033[1A"
 	@$(MKDIR) $(dir $@)
 	@$(CC-COMMAND)
