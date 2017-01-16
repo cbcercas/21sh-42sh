@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:24:48 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 11:47:36 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/16 13:00:04 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "env_list_utils.h"
@@ -47,4 +47,19 @@ t_env	*ms_new_env(char *env)
 		ft_memdel((void **)&e);
 	}
 	return (e);
+}
+
+void	ms_env_del(t_env **e)
+{
+	ft_strdel(&(*e)->name);
+	ft_strdel(&(*e)->value);
+	ft_memdel((void**)e);
+
+}
+
+void	ms_lst_env_del(t_env **head)
+{
+	while ((*head)->next)
+		ms_lst_env_del(&(*head)->next);
+	ms_env_del(head);
 }

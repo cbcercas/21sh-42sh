@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 11:46:39 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/16 13:06:07 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "init.h"
@@ -14,8 +14,7 @@
 static void			*ms_data_free(t_ms_data	**data)
 {
 	if ((*data)->env)
-		// TODO add free tenv list cbc_tenv_del((*data)->env);
-		ft_printf("free data->env\n");
+		ms_lst_env_del(&(*data)->env);
 	if ((*data)->cwd)
 		ft_strdel(&(*data)->cwd);
 	if (*data)
@@ -39,4 +38,9 @@ t_ms_data		*ms_init(void)
 		return(ms_data_free(&data));
 	}
 	return (data);
+}
+
+void		ms_deinit(t_ms_data **data)
+{
+	ms_data_free(data);
 }
