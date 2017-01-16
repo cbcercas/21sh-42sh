@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 11:27:09 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/01/16 10:09:45 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/01/16 11:18:52 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "main.h"
+#ifndef INIT_H
+# define INIT_H
+# include <unistd.h>
+# include "libft.h"
+# include "libftprintf.h"
+# include "env_list_utils.h"
+# include "environ.h"
 
-int main(int ac, char const *av[])
+typedef struct	s_main_data
 {
-	t_main_data	*data;
+	t_env	*env;
+	char	*cwd;
+}				t_main_data;
 
-	if (!ac || !av)
-		return (1);
-	if (!(data = init()))
-		return (1);
-	cbc_print_prompt();
-	return (0);
-}
+t_main_data		*init(void);
+#endif

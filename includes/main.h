@@ -6,12 +6,13 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/15 20:36:14 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/16 11:19:07 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAIN_H
 # define MAIN_H
-#include "prompt.h"
+# include "init.h"
+# include "prompt.h"
 
 #endif

@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/01/16 10:01:43 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/01/16 11:22:35 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= minishell
 
 SRCS_MAIN		= main.c
 
-SRCS_CORE		= prompt.c environ.c
+SRCS_CORE		= prompt.c environ.c init.c
 
 SRCS_ENVIRON	= env_list_utils.c
 ###############################################################################
@@ -25,7 +25,7 @@ SRCS_ENVIRON	= env_list_utils.c
 
 #  Compiler
 CC			= clang
-CFLAGS		= -v -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror
 
 #The Directories, Source, Includes, Objects and Libraries
 SRCS_DIR	= srcs
