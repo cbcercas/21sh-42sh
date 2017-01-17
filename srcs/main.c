@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 11:53:06 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/17 16:06:57 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "main.h"
@@ -20,6 +20,8 @@ int main(int ac, char const *av[])
 	if (!(data = ms_init()))
 		return (1);
 	ms_print_prompt();
+	while (!ms_get_command(data))
+		ms_print_prompt();
 	ms_deinit(&data);
 	return (0);
 }
