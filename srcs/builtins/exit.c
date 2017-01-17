@@ -6,13 +6,14 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:49:07 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 15:35:25 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/17 16:41:57 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "exit.h"
 
-int	ms_exit(char **arg)
+int	ms_exit(char *arg)
 {
 	(void)arg;
+	ft_printf("exit\n");
 	return (1);
 }
