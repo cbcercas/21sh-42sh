@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/01/16 15:17:21 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/01/17 08:07:44 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= minishell
 
 SRCS_MAIN		= main.c
 
-SRCS_CORE		= prompt.c environ.c init.c input.c
+SRCS_CORE		= prompt.c environ.c init.c input.c parsing_command.c
 
 SRCS_ENVIRON	= env_list_utils.c
 
