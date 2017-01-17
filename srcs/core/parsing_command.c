@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 15:40:34 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/17 10:05:41 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/17 16:31:32 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "parsing_command.h"
@@ -16,7 +16,6 @@ static t_command	*ms_get_command(char *command)
 	t_command	*e;
 	char		*tmp;
 	char		*tmp2;
-	char		*arg;
 
 	e = ft_memalloc(sizeof(*e));
 	tmp = command;
@@ -29,10 +28,9 @@ static t_command	*ms_get_command(char *command)
 	while (*tmp2 && ft_iswhitespace(*tmp2))
 		tmp2++;
 	if (*tmp2)
-		arg = ft_strtrim(tmp2);
+		e->args = ft_strtrim(tmp2);
 	else
-		arg = NULL;
-	e->args = arg;
+		e->args = NULL;
 	e->next = NULL;
 	return (e);
 }
