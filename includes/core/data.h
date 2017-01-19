@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/16 13:49:07 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/17 21:59:48 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/01/17 21:17:26 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/01/17 21:25:24 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "exit.h"
+#ifndef DATA_H
+# define DATA_H
+#include "env_list_utils.h"
 
-int	ms_exit(t_ms_data *data, char *arg)
+typedef struct	s_ms_data
 {
-	(void)arg;
-	(void)data;
-	ft_printf("exit\n");
-	return (1);
-}
+	t_env				*env;
+	char				*cwd;
+	struct s_builtin_e	*builtins;
+}				t_ms_data;
+
+#endif

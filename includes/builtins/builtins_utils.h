@@ -6,14 +6,16 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/17 15:46:42 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/19 15:23:51 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef BUILTINS_UTILS_H
 # define BUILTINS_UTILS_H
-#include "exit.h"
+# include "exit.h"
+# include "echo.h"
+# include "data.h"
 
-typedef 	int (*t_builtin)(char *arg);
+typedef 	int (*t_builtin)(t_ms_data *data, char *arg);
 
 typedef struct			s_builtin_e
 {
