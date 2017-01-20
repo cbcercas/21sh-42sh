@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/17 16:30:41 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/19 14:44:52 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "input.h"
@@ -29,6 +29,7 @@ int	ms_get_command(t_ms_data *data)
 			return (1);
 		e = e->next;
 	}
+	// TODO free t_command
 	ft_strdel(&command);
 	return (0);
 }
