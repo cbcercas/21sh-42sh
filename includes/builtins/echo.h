@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:25 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/19 15:22:38 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/19 17:54:09 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef ECHO_H
@@ -16,6 +16,7 @@
 # include "parsing_command.h"
 # include "data.h"
 # include "command.h"
+# include "builtins_utils.h"
 
 typedef struct s_echo
 {

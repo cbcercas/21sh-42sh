@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/19 15:22:19 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/19 17:55:07 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "echo.h"
@@ -22,44 +22,6 @@ char	*ms_echo_first_quote(char *str)
 		return (q);
 	else
 		return (dq);
-}
-
-char	*ms_echo_find_quote_end(char *arg)
-{
-	int	lvl;
-	char cur_q;
-
-	lvl = 1;
-	cur_q = *arg;
-	arg++;
-	while (*arg)
-	{
-		if (cur_q == *arg && lvl)
-		{
-			lvl -= 1;
-			if (lvl)
-				cur_q = (cur_q == '"') ? '`' : '"';
-		}
-		else if ((*arg == '"' || *arg == '`') && lvl)
-		{
-			cur_q = *arg;
-			lvl += 1;
-		}
-		if (*arg == cur_q && lvl == 0)
-			return (arg);
-		arg++;
-	}
-	return ((*arg) ? arg : NULL);
-}
-
-char	*ms_echo_get_str(char *arg)
-{
-	char	*str;
-	char	*q_end;
-
-	q_end = ms_echo_find_quote_end(arg);
-	str = ft_strsub(arg, 1, q_end - arg - 1);
-	return (str);
 }
 
 void ms_echo_cmd(t_ms_data *data, char *arg)
@@ -95,7 +57,7 @@ int ms_echo_parsing(t_ms_data *data, char *arg, int protect)
 	}
 	else if (arg && *arg && c == arg)
 	{
-		str = ms_echo_get_str(arg);
+		str = ms_extract_str(arg);
 		if (*c == '"')
 			ms_echo_parsing(data, str, 1);
 		else

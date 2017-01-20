@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:16 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/19 15:24:45 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/19 17:53:23 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "builtins_utils.h"
@@ -70,4 +70,42 @@ t_builtin ms_is_builtin(t_builtin_e *head, char *name)
 		e = e->next;
 	}
 	return (NULL);
+}
+
+static char	*ms_find_quote_end(char *arg)
+{
+	int	lvl;
+	char cur_q;
+
+	lvl = 1;
+	cur_q = *arg;
+	arg++;
+	while (*arg)
+	{
+		if (cur_q == *arg && lvl)
+		{
+			lvl -= 1;
+			if (lvl)
+				cur_q = (cur_q == '"') ? '`' : '"';
+		}
+		else if ((*arg == '"' || *arg == '`') && lvl)
+		{
+			cur_q = *arg;
+			lvl += 1;
+		}
+		if (*arg == cur_q && lvl == 0)
+			return (arg);
+		arg++;
+	}
+	return ((*arg) ? arg : NULL);
+}
+
+char	*ms_extract_str(char *arg)
+{
+	char	*str;
+	char	*q_end;
+
+	q_end = ms_find_quote_end(arg);
+	str = ft_strsub(arg, 1, q_end - arg - 1);
+	return (str);
 }
