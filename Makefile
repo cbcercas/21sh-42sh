@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/01/17 15:33:43 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/01/19 17:43:37 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS_CORE		= prompt.c environ.c init.c input.c command.c parsing_command.c
 
 SRCS_ENVIRON	= env_list_utils.c
 
-SRCS_BUILTINS	= builtins_utils.c exit.c
+SRCS_BUILTINS	= builtins_utils.c exit.c echo.c chdir.c
 ###############################################################################
 #																			  #
 #									CONFIG									  #

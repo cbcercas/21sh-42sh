@@ -55,6 +55,10 @@ t_builtin_e			*ms_builtins_init(void)
 		return (head);
 	if (!(head = ms_add_builtin(&head, "echo", ms_echo)))
 		return (head);
+	if (!(head = ms_add_builtin(&head, "cd", ms_chdir)))
+		return (head);
+	if (!(head = ms_add_builtin(&head, "chdir", ms_chdir)))
+		return (head);
 	return (head);
 }
 
