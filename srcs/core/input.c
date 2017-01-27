@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/19 14:44:52 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/27 02:16:21 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "input.h"
@@ -32,4 +32,43 @@ int	ms_get_command(t_ms_data *data)
 	// TODO free t_command
 	ft_strdel(&command);
 	return (0);
+}
+
+BOOL remove_escaped_newline(char **input)
+{
+	size_t	len;
+
+	len = ft_strlen(*input);
+	if (*(*input + len - 1) == '\\')
+	{
+		*(*input + len - 1) = '\0';
+		return true;
+	}
+	return (false);
+}
+
+/**
+** @brief      Read the input on standard entry
+**
+** @return     A pointer to the input string
+*/
+char	*ms_get_line(void)
+{
+	char	*line;
+	char	*input;
+	int		ret;
+
+	input = NULL;
+	ret = get_next_line(0, &line);
+	input = ft_strjoincl(input, line, 3);
+	while (remove_escaped_newline(&input))
+	{
+		ft_printf(">");
+		ret = get_next_line(0, &line);
+		input = ft_strjoincl(input, line, 3);
+	}
+	if (*input != '\0')
+		return (input);
+	ft_strdel(&input);
+	return (NULL);
 }
