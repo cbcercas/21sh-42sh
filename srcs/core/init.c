@@ -22,6 +22,18 @@ static void			*ms_data_free(t_ms_data	**data)
 	return (NULL);
 }
 
+void	ms_print_env(t_env *env)
+{
+	ft_printf("\n-------------- DEBUG --------------\n");
+	while (env)
+	{
+		ft_printf("%s=%s\n",env->name, env->value);
+		env = env->next;
+	}
+	ft_printf("-----------------------------------\n");
+}
+
+
 t_ms_data		*ms_init(void)
 {
 	t_ms_data	*data;
@@ -32,12 +44,15 @@ t_ms_data		*ms_init(void)
 		data->cwd = getwd(data->cwd);
 		data->builtins = ms_builtins_init();
 	}
+	if (!(ms_getenv(data->env, "TERM")) || ft_strequ(ms_getenv(data->env, "TERM"), ""))
+		ms_setenv(data->env, "TERM", "dumb");
 	if (!data || !data->env || !data->cwd)
 	{
 		// TODO add error function malloc
 		ft_printf("minishell: error when initialising main data\n");
 		return(ms_data_free(&data));
 	}
+	//ms_print_env(data->env);
 	return (data);
 }
 
