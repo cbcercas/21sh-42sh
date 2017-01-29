@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:24:48 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 13:00:04 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/01/29 14:37:20 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "env_list_utils.h"
@@ -31,7 +31,7 @@ char	*ms_getenv_value(char *env)
 	return (value);
 }
 
-t_env	*ms_new_env(char *env)
+t_env	*ms_new_env(char *name, char *value)
 {
 	t_env	*e;
 
@@ -39,9 +39,9 @@ t_env	*ms_new_env(char *env)
 	if (!e)
 		return (NULL);
 	e->next = NULL;
-	if (!(e->name = ms_getenv_name(env)))
+	if (!(e->name = name))
 		ft_memdel((void **)&e);
-	else if (!(e->value = ms_getenv_value(env)))
+	else if (!(e->value = value))
 	{
 		ft_strdel(&e->name);
 		ft_memdel((void **)&e);
