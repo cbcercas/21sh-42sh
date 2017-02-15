@@ -6,11 +6,11 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 21:20:28 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/29 15:10:03 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/15 10:59:01 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 extern char **environ;
-#include "environ.h"
+#include <environ/environ.h>
 
 t_env	*ms_copy_environ(void)
 {

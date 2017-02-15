@@ -6,10 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:24:48 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/29 14:37:20 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/15 11:02:23 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "env_list_utils.h"
+#include <environ/env_list_utils.h>
 
 char	*ms_getenv_name(char *env)
 {
