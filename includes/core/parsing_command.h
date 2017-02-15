@@ -6,13 +6,13 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 15:40:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/17 08:47:55 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/14 11:13:45 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef PARSING_COMMAND_H
 # define PARSING_COMMAND_H
-# include "libft.h"
-# include "libftprintf.h"
+# include <libft.h>
+# include <ft_printf/libftprintf.h>
 
 typedef struct	s_command
 {

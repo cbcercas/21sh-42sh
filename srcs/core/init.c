@@ -6,10 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/16 15:12:52 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/15 11:00:06 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "init.h"
+#include <core/init.h>
 
 static void			*ms_data_free(t_ms_data	**data)
 {

@@ -6,10 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/27 02:16:21 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/14 11:10:24 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "input.h"
+#include <core/input.h>
 
 int	ms_get_command(t_ms_data *data)
 {

@@ -6,12 +6,12 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:27:49 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/29 14:37:15 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/13 23:53:10 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef ENV_LIST_UTILS_H
 # define ENV_LIST_UTILS_H
-# include "libft.h"
+# include <libft.h>
 
 typedef struct	s_env
 {

@@ -6,10 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 15:40:34 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/01/17 16:31:32 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/15 11:00:22 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "parsing_command.h"
+#include <core/parsing_command.h>
 
 static t_command	*ms_get_command(char *command)
 {

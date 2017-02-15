@@ -6,142 +6,100 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/01/19 17:43:37 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/02/15 13:29:48 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
-SRCS_MAIN		= main.c
+SRC_SUBDIR		= core
+SRCS			+= main.c prompt.c environ.c init.c input.c command.c parsing_command.c
 
-SRCS_CORE		= prompt.c environ.c init.c input.c command.c parsing_command.c
+SRC_SUBDIR		+= environ
+SRCS			+= env_list_utils.c
 
-SRCS_ENVIRON	= env_list_utils.c
-
-SRCS_BUILTINS	= builtins_utils.c exit.c echo.c chdir.c
+SRC_SUBDIR		+= builtins
+SRCS			+= builtins_utils.c exit.c echo.c chdir.c
 ###############################################################################
 #																			  #
 #									CONFIG									  #
 #																			  #
 ###############################################################################
-
 #  Compiler
 CC			= clang
 CFLAGS		= -Wall -Wextra -Werror
 
 #The Directories, Source, Includes, Objects and Libraries
+INC			= -I includes
 SRCS_DIR	= srcs
-OBJS_DIR	= objs
-DEPS_DIR	= .deps
-LIBFT_DIR	= libft
-VPATH 		= $(SRCS_DIR) $(SRCS_DIR)/core $(SRCS_DIR)/environ
+vpath  %c $(addprefix $(SRCS_DIR)/,$(SRC_SUBDIR))
 
-#Flags, Libraries, Objects and Includes
-SRCS		+= $(patsubst %.c,$(SRCS_DIR)/%.c, $(SRCS_MAIN))
-SRCS		+= $(patsubst %.c,$(SRCS_DIR)/core/%.c, $(SRCS_CORE))
-SRCS		+= $(patsubst %.c,$(SRCS_DIR)/environ/%.c, $(SRCS_ENVIRON))
-SRCS		+= $(patsubst %.c,$(SRCS_DIR)/builtins/%.c, $(SRCS_BUILTINS))
-OBJS		= $(patsubst $(SRCS_DIR)%.c, $(OBJS_DIR)%.o, $(SRCS))
-DEPS		= $(patsubst $(SRCS_DIR)%.c,$(DEPDIR)%.d,$(SRCS))
-LIBFT_FILE	= $(LIBFT_DIR)/libft.a
-INC			= -I includes -I includes/core -I includes/environ -I includes/builtins
+#Objects
+OBJS_DIR	= objs
+OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
+
+# Dependencies
+DEPS_DIR	= .deps
+DEPS		= $(SRCS:%.c=$(DEPS_DIR)/%.d)
+BUILD_DIR	= $(OBJS_DIR) $(DEPS_DIR)
+
+# Libraries
+LIBFT_DIR	= libft/
+LIBFT_FILE	= $(LIBFT_DIR)libft.a
+INC			= -I includes
 ## libft includes
-INC			+= -I $(LIBFT_DIR)/includes -I $(LIBFT_DIR)/includes/ft_printf -I $(LIBFT_DIR)/includes/gnl
+INC			+= -I $(LIBFT_DIR)includes
 
 #Utils
 RM					= rm -rf
 MKDIR				= mkdir -p
-
-# Commande
-define CC-COMMAND
-	@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
-endef
-
-define DEPS-COMMAND
-	@$(CC) $(CFLAGS) $(INC) -MM -MT $(DEPS_DIR)/$(patsubst %.c,$(DEPS_DIR)/%.d, $(notdir $@)) $< -MF $@
-endef
 
 ###############################################################################
 #																			  #
 #								DOT NOT EDIT BELOW							  #
 #																			  #
 ###############################################################################
-
- ##############################
-##  AUTO DEPENDENCY GENERATOR ##
- ##############################
-
-$(DEPS_DIR)/%.d: %.c
-	@$(MKDIR) $(dir $@)
-	@$(DEPS-COMMAND)
-
-$(DEPS_DIR)/core/%.d: %.c
-	@$(MKDIR) $(dir $@)
-	@$(DEPS-COMMAND)
-
-$(DEPS_DIR)/environ/%.d: %.c
-	@$(MKDIR) $(dir $@)
-	@$(DEPS-COMMAND)
-
-$(DEPS_DIR)/builtins/%.d: %.c
-	@$(MKDIR) $(dir $@)
-	@$(DEPS-COMMAND)
-# Add dependency as prerequisites
--include $(DEPS)
-
- ##################################
-##  END AUTO DEPENDENCY GENERATOR ##
- ##################################
-
  #########
 ## RULES ##
  #########
+.SECONDARY: $(OBJS) lib
 
-all: $(NAME)
+all: $(DEPS) $(NAME)
+
+# Add dependency as prerequisites
+-include $(DEPS)
+
+$(NAME): $(OBJS) lib
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L $(LIBFT_DIR) -lft $(INC)
+	@echo "[\033[35m---------------------------------\033[0m]"
+	@echo "[\033[36m-------- Minishell Done ! -------\033[0m]"
+	@echo "[\033[35m---------------------------------\033[0m]"
+
+$(OBJS): $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+
+$(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
+	$(CC) $(CFLAGS) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
+
+$(BUILD_DIR):
+	@$(MKDIR) -p $@
+
+lib:
+	@make -C $(LIBFT_DIR)
 
 re: clean fclean all
-
-$(OBJS_DIR)/%.o: %.c $(DEPS_DIR)/%.d
-	@echo "\033[K\033[35mMinishell core  :\033[0m [Compilation:\033[33m $^\033[0m]\033[1A"
-	@$(MKDIR) $(dir $@)
-	@$(CC-COMMAND)
-
-$(OBJS_DIR)/core/%.o: %.c $(DEPS_DIR)/core/%.d
-	@echo "\033[K\033[35mMinishell core  :\033[0m [Compilation:\033[33m $^\033[0m]\033[1A"
-	@$(MKDIR) $(dir $@)
-	@$(CC-COMMAND)
-
-$(OBJS_DIR)/environ/%.o: %.c $(DEPS_DIR)/environ/%.d
-	@echo "\033[K\033[35mMinishell core  :\033[0m [Compilation:\033[33m $^\033[0m]\033[1A"
-	@$(MKDIR) $(dir $@)
-	@$(CC-COMMAND)
-
-$(OBJS_DIR)/builtins/%.o: %.c $(DEPS_DIR)/builtins/%.d
-	@echo "\033[K\033[35mMinishell core  :\033[0m [Compilation:\033[33m $^\033[0m]\033[1A"
-	@$(MKDIR) $(dir $@)
-	@$(CC-COMMAND)
-
-$(NAME): $(LIBFT_FILE) $(OBJS)
-	@echo "\033[K\033[35mMinishell  :\033[0m [Compilation:\033[33m des .o\033[0m][\033[32mOK!\033[0m]"
-	@echo "\033[35mLIBFT  :\033[0m [Compilation:\033[33m $(NAME)\033[0m]"
-	 @$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L $(LIBFT_DIR) -lft $(INC)
-	@echo "[\033[35m--------------------------------\033[0m]"
-	@echo "[\033[36m------- Minishell Done ! -------\033[0m]"
-	@echo "[\033[35m--------------------------------\033[0m]"
-
-$(LIBFT_FILE):
-	@make -C $(LIBFT_DIR)
 
 clean:
 	@echo "\033[35mMinishell  :\033[0m [\033[31mSuppression des .o\033[0m]"
 	@$(RM) $(OBJS_DIR)
 	@echo "\033[35mMinishell  :\033[0m [\033[31mSuppression des .d\033[0m]"
 	@$(RM) $(DEPS_DIR)
+	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	@echo "\033[35mMinishell  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
 	@$(RM) $(NAME)
+	@make fclean -C $(LIBFT_DIR)
 
-.PHONY: re clean fclean all
-.PRECIOUS: $(DEPS_DIR)/%.d $(DEPS_DIR)/core/%.d $(DEPS_DIR)/environ/%.d $(DEPS_DIR)/builtins/%.d
+.PHONY: re clean fclean all lib
 .SUFFIXES: .c .h .o .d
