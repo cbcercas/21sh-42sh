@@ -44,11 +44,11 @@ DEPS		= $(SRCS:%.c=$(DEPS_DIR)/%.d)
 BUILD_DIR	= $(OBJS_DIR) $(DEPS_DIR)
 
 # Libraries
-LIBFT_DIR	= libft/
-LIBFT_FILE	= $(LIBFT_DIR)libft.a
-INC			= -I includes
-## libft includes
-INC			+= -I $(LIBFT_DIR)includes
+LIBS_FOLDER	= lib
+## libft
+LIBFT_DIR	= $(LIBS_FOLDER)/libft
+LIBFT_FILE	= $(LIBFT_DIR)/libft.a
+INC			+= -I $(LIBFT_DIR)/includes
 
 #Utils
 RM					= rm -rf
