@@ -2,7 +2,3 @@
 	path = libft
 	url = https://mongit.mesamis.org/cbcercas/Libft_corrige.git
 	branch = fusion_printf_gnl
-[submodule "criterion"]
-	path = criterion
-	url = https://github.com/Snaipe/Criterion
-	branch = bleeding
