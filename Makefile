@@ -29,6 +29,15 @@ SRCS			+= builtins_utils.c exit.c echo.c chdir.c
 CC			= clang
 CFLAGS		= -Wall -Wextra -Werror
 
+ifeq ($(DEV),yes)
+	CFLAGS		+= -std=c11 -pedantic -pedantic-errors
+endif
+
+ifeq ($(SAN),yes)
+	LDFLAGS += -fsanitize=address
+	CFLAGS += -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
+endif
+
 #The Directories, Source, Includes, Objects and Libraries
 INC			= -I includes
 SRCS_DIR	= srcs
@@ -70,16 +79,16 @@ all: $(DEPS) $(NAME)
 -include $(DEPS)
 
 $(NAME): $(OBJS) lib
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L $(LIBFT_DIR) -lft $(INC)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L $(LIBFT_DIR) -lft $(INC)
 	@echo "[\033[35m---------------------------------\033[0m]"
 	@echo "[\033[36m-------- Minishell Done ! -------\033[0m]"
 	@echo "[\033[35m---------------------------------\033[0m]"
 
 $(OBJS): $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
+	$(CC) $(LDFLAGS) $(INC) -o $@ -c $<
 
 $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
-	$(CC) $(CFLAGS) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
+	$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
 
 $(BUILD_DIR):
 	@$(MKDIR) -p $@
