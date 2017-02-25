@@ -1,33 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_path.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/24 16:24:34 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/02/23 21:06:22 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/02/24 16:32:11 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <core/main.h>
+#ifndef CHECK_PATH_H
+#define CHECK_PATH_H
 
-int main(int ac, char const *av[])
-{
-	t_ms_data	*data;
-	char		*input;
-	char		**command;
+# include <libft.h>
+# include <ft_printf/libftprintf.h>
+# include <environ/env_list_utils.h>
+# include <environ/environ.h>
 
-	if (!ac || !av)
-		return (1);
-	if (!(data = ms_init()))
-		return (1);
-	while (true)
-	{
-		ms_print_prompt();
-		input = ms_get_line();
-		if ((command = ms_get_command(input)))
-			ms_exec_command(command, data->env);
-	}
-	ms_deinit(&data);
-	return (0);
-}
+#include <sys/stat.h>
+
+char	*ms_check_path(char const *cmd_name, t_env const *env);
+
+#endif

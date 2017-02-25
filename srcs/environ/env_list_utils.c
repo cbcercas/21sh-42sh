@@ -6,12 +6,12 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:24:48 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 11:02:23 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/24 16:39:43 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <environ/env_list_utils.h>
 
-char	*ms_getenv_name(char *env)
+char	*ms_getenv_name(char const*env)
 {
 	char	*sep;
 	char	*name;
@@ -21,7 +21,7 @@ char	*ms_getenv_name(char *env)
 	return (name);
 }
 
-char	*ms_getenv_value(char *env)
+char	*ms_getenv_value(char const *env)
 {
 	char	*sep;
 	char	*value;

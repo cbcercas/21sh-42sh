@@ -6,33 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/14 11:10:24 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/25 20:15:46 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/input.h>
-
-int	ms_get_command(t_ms_data *data)
-{
-	t_command	*com_list;
-	t_command	*e;
-	char		*command;
-	int			ret;
-
-	com_list = NULL;
-	ret = get_next_line(0, &command);
-	if (ret == 1 && ft_strcmp(command, ""))
-		com_list = ms_parse_command(command);
-	e = com_list;
-	while (e)
-	{
-		if (ms_command(data, e))
-			return (1);
-		e = e->next;
-	}
-	// TODO free t_command
-	ft_strdel(&command);
-	return (0);
-}
 
 BOOL remove_escaped_newline(char **input)
 {

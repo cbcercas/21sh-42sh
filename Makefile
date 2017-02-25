@@ -6,14 +6,15 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/02/19 18:04:43 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/02/24 21:49:05 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= minishell
 
 SRC_SUBDIR		= core
-SRCS			+= main.c prompt.c init.c input.c command.c parsing_command.c
+SRCS			+= main.c prompt.c init.c input.c command.c parsing_command.c \
+check_path.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c
