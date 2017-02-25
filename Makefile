@@ -111,5 +111,8 @@ fclean: clean
 	@$(RM) $(NAME)
 	@make fclean -C $(LIBFT_DIR)
 
+dev:
+	@make -C ./ SAN="yes" DEV="yes"
+
 .PHONY: re clean fclean all lib
 .SUFFIXES: .c .h .o .d
