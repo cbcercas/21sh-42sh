@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:16 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 11:00:58 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/26 14:06:16 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <builtins/builtins_utils.h>
@@ -22,6 +22,7 @@ static t_builtin_e	*ms_new_builtin(char *name, t_builtin fn)
 	}
 	(void)name;
 	e->name = strdup(name);
+	e->len = ft_strlen(name);
 	e->fn = fn;
 	e->next = NULL;
 	return (e);
@@ -62,15 +63,15 @@ t_builtin_e			*ms_builtins_init(void)
 	return (head);
 }
 
-t_builtin ms_is_builtin(t_builtin_e *head, char *name)
+t_builtin_e *ms_is_builtin(t_builtin_e *head, char *name)
 {
 	t_builtin_e	*e;
 
 	e = head;
 	while (e)
 	{
-		if (!ft_strcmp(name, e->name))
-			return (e->fn);
+		if (!ft_strncmp(name, e->name, e->len))
+			return (e);
 		e = e->next;
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 11:01:33 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/26 16:02:38 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <builtins/echo.h>
@@ -26,12 +26,13 @@ char	*ms_echo_first_quote(char *str)
 
 void ms_echo_cmd(t_ms_data *data, char *arg)
 {
-	t_command *com;
+	char **cmd;
 
-	com = ms_parse_command(arg);
-	ms_command(data, com);
-	// TODO free t_command
-	ft_printf("command: %s", arg);
+	ft_printf("arg: >%s<", arg);
+	if ((cmd = ft_strsplit(arg, ';')))
+		if (ms_command(data, cmd))
+			return;
+	ft_freetab(cmd, ft_tablen(cmd));
 }
 
 int ms_echo_parsing(t_ms_data *data, char *arg, int protect)

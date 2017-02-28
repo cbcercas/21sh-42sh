@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 13:26:58 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/02/26 14:15:56 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <core/init.h>
 # include <core/prompt.h>
 # include <core/input.h>
+# include <libft.h>
 
 # define PROG_NAME "minishell"
 
