@@ -1,23 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   automaton.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/04 08:32:30 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/02/28 17:50:20 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/03/05 09:25:37 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <core/init.h>
-# include <core/prompt.h>
-# include <core/input.h>
-# include <libft.h>
-# include <lexer/lexer.h>
+#ifndef AUTOMATON_H
+#define AUTOMATON_H
 
-# define PROG_NAME "minishell"
+#include <types/stack.h>
+
+enum	e_stack_state
+{
+	E_STATE_ERROR,
+	E_STATE_START,
+	E_STATE_WORD,
+	E_STATE_SQUOTE,
+	E_STATE_BQUOTE,
+	E_STATE_DQUOTE,
+	E_STATE_SEMI
+};
+
+typedef enum e_stack_state	t_stack_state;
+
+struct	s_automaton
+{
+	t_stack	*stack;
+	t_stack_state	cur_state;
+};
+
+typedef struct s_automaton	t_automaton;
+
+t_automaton *automaton_init(void);
 
 #endif

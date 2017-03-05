@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 04:03:46 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/04 07:36:24 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/03/05 13:07:33 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <lexer/lexer.h>
@@ -22,7 +22,7 @@ static const int g_char_type[129] = {
 [7] = E_CHAR_TYPE_LETTER,
 [8] = E_CHAR_TYPE_LETTER,
 ['\t'] = E_CHAR_TYPE_BLANK,
-['\n'] = E_CHAR_TYPE_NEWLINE,
+['\n'] = E_CHAR_TYPE_BLANK,
 [11] = E_CHAR_TYPE_LETTER,
 [12] = E_CHAR_TYPE_LETTER,
 [13] = E_CHAR_TYPE_LETTER,
@@ -141,28 +141,73 @@ static const int g_char_type[129] = {
 ['~'] = E_CHAR_TYPE_LETTER,
 [127] = E_CHAR_TYPE_LETTER,
 };
+#include <ft_printf/libftprintf.h>
 
-void	lexer_tokenise_one(char const **input, t_array	*tokens)
+void	lexer_tokenise_one(char const **input, t_array	*tokens, t_automaton *automaton)
 {
-	t_token	tok;
+	t_token			tok;
+	//t_stack_state	state;
 
 	tok.str = *input;
 	tok.type = g_char_type[(int)**input];
-	while (**input && g_char_type[(int)**input] == tok.type)
-		(*input)++;
+	//state = automaton_type_to_state(tok.type);
+	if (automaton->cur_state > E_STATE_WORD)
+	{
+		while (**input && g_char_type[(int)**input] <= E_CHAR_TYPE_LETTER)
+		{
+			ft_putstr("1\n");
+			(*input)++;
+		}
+	}
+	else
+		while (**input && g_char_type[(int)**input] == E_CHAR_TYPE_LETTER)
+		{
+			ft_printf("2, >%c< _%p_ \n", *input, *input);
+			(*input)++;
+		}
 	tok.len = *input - tok.str;
+	//ft_putstr("\ntok :");
+	//ft_putnstr(tok.str, tok.len);
 	array_push(tokens, &tok);
+}
+
+void	lexer_tokenise(char const **input, t_array	*tokens, t_automaton *automaton)
+{
+	while (**input)
+	{
+		if (g_char_type[(int)**input] > E_CHAR_TYPE_LETTER)
+		{
+			if (automaton->cur_state == g_char_type[(int)**input])
+			{
+				stack_pop(automaton->stack);
+				automaton->cur_state = (t_stack_state)get_top_stack(automaton->stack);
+			}
+			else
+			{
+				stack_push(automaton->stack, &g_char_type[(int)**input]);
+				automaton->cur_state = g_char_type[(int)**input];
+			}
+		}
+			lexer_tokenise_one(input, tokens, automaton);
+	}
 }
 
 
 t_array	*lexer_lex(char const *input)
 {
-	t_array	*tokens;
+	t_array		*tokens;
+	t_automaton	*automaton;
 
-	if (!(tokens = array_create(sizeof(t_token))))
+	if (!(tokens = array_create(sizeof(t_token))) || !(automaton = automaton_init()))
 		return (NULL);
-	while (*input)
-		lexer_tokenise_one(&input, tokens);
+	int i;
+
+	i = 0;
+	while (*input && i++ < 10)
+	{
+		ft_printf("%d, >%c< _%p_", i, *input, *input);
+		lexer_tokenise(&input, tokens, automaton);
+	}
 	return (tokens);
 }
 
@@ -172,7 +217,6 @@ void	lexer_print_tokens(t_array *tokens)
 	t_token	*tok;
 
 	cnt = -1;
-	ft_putchar('\n');
 	while (++cnt < tokens->used)
 	{
 		tok = (t_token *)array_get_at(tokens, cnt);
@@ -180,19 +224,19 @@ void	lexer_print_tokens(t_array *tokens)
 		ft_putnstr(tok->str, tok->len);
 		ft_putstr("> = ");
 		if (tok->type == E_CHAR_TYPE_LETTER)
-			ft_putstr("E_CHAR_TYPE_LETTER");
+			ft_putstr("TOKEN_TYPE_WORD");
 		else if (tok->type == E_CHAR_TYPE_BLANK)
-			ft_putstr("E_CHAR_TYPE_BLANK");
+			ft_putstr("TOKEN_TYPE_BLANK");
 		else if (tok->type == E_CHAR_TYPE_SQUOTE)
-			ft_putstr("E_CHAR_TYPE_SQUOTE");
+			ft_putstr("TOKEN_TYPE_SQUOTE");
 		else if (tok->type == E_CHAR_TYPE_BQUOTE)
-			ft_putstr("E_CHAR_TYPE_BQUOTE");
+			ft_putstr("TOKEN_TYPE_BQUOTE");
 		else if (tok->type == E_CHAR_TYPE_DQUOTE)
-			ft_putstr("E_CHAR_TYPE_DQUOTE");
+			ft_putstr("TOKEN_TYPE_DQUOTE");
 		else if (tok->type == E_CHAR_TYPE_SEMI)
-			ft_putstr("E_CHAR_TYPE_SEMI");
-		else if (tok->type == E_CHAR_TYPE_NEWLINE)
-			ft_putstr("E_CHAR_TYPE_NEWLINE");
+			ft_putstr("TOKEN_TYPE_SEMI");
+		//else if (tok->type == E_CHAR_TYPE_NEWLINE)
+		//	ft_putstr("TOKEN_TYPE_NEWLINE");
 		ft_putchar('\n');
 	}
 }

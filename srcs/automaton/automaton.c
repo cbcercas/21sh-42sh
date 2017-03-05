@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   automaton.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/04 08:32:30 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/02/28 17:50:56 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/03/05 10:02:58 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <automaton/automaton.h>
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <core/init.h>
-# include <core/prompt.h>
-# include <core/input.h>
-# include <libft.h>
-# include <lexer/lexer.h>
+t_automaton *automaton_init(void)
+{
+	t_automaton		*automaton;
+	t_stack_state	state;
 
-# define PROG_NAME "minishell"
-
-#endif
+	state = E_STATE_START;
+	if(!(automaton = ft_memalloc(sizeof(*automaton))))
+		return (NULL);
+	if (!(automaton->stack = stack_create(sizeof(int))))
+		return (NULL);
+	stack_push(automaton->stack, &state);
+	return (automaton);
+}

@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/03/04 07:05:39 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/03/04 08:34:01 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,9 @@ SRCS			+= builtins_utils.c exit.c echo.c chdir.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer.c
+
+SRC_SUBDIR		+= automaton
+SRCS			+= automaton.c
 ###############################################################################
 #																			  #
 #									CONFIG									  #
