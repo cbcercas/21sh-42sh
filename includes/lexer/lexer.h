@@ -14,11 +14,13 @@
 # define LEXER_H
 
 # include <stdlib.h>
+
 # include <array/array.h>
 # include <types/stack.h>
 # include <automaton/automaton.h>
 
-typedef struct s_token t_token;
+typedef struct s_token	t_token;
+typedef uint32_t		t_token_type;
 
 enum e_token_type
 {
@@ -35,7 +37,7 @@ struct s_token
 {
 	char const			*str;
 	size_t				len;
-	int					type;
+	t_token_type		type;
 };
 
 enum e_char_type
