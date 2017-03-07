@@ -141,9 +141,8 @@ static const uint32_t g_char_type[129] = {
 ['~'] = E_CHAR_TYPE_LETTER,
 [127] = E_CHAR_TYPE_LETTER,
 };
-#include <ft_printf/libftprintf.h>
 
-void	lexer_tokenise_one(char const **input, t_array	*tokens, t_automaton *automaton)
+static void	lexer_tokenize_one(char const **input, t_array	*tokens, t_automaton *automaton)
 {
 	t_token			tok;
 
@@ -166,7 +165,7 @@ void	lexer_tokenise_one(char const **input, t_array	*tokens, t_automaton *automa
 	array_push(tokens, &tok);
 }
 
-void	lexer_tokenise(char const **input, t_array	*tokens, t_automaton *automaton)
+static void	lexer_tokenize(char const **input, t_array	*tokens, t_automaton *automaton)
 {
 
 	while (**input)
@@ -186,7 +185,7 @@ void	lexer_tokenise(char const **input, t_array	*tokens, t_automaton *automaton)
 				automaton->cur_state = (t_stack_state)g_char_type[(int)**input];
 			}
 		}
-			lexer_tokenise_one(input, tokens, automaton);
+			lexer_tokenize_one(input, tokens, automaton);
 	}
 }
 
@@ -202,7 +201,7 @@ t_array	*lexer_lex(char const *input)
 
 	i = 0;
 	while (*input && i++ < 10)
-		lexer_tokenise(&input, tokens, automaton);
+		lexer_tokenize(&input, tokens, automaton);
 	if (automaton->cur_state > E_STATE_START)
 	{
 		ft_printf("Minishell: Lexing error: Incomplete command.\n");
