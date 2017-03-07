@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <lexer/lexer.h>
 
-static const int g_char_type[129] = {
+static const uint32_t g_char_type[129] = {
 [0] = E_CHAR_TYPE_LETTER,
 [1] = E_CHAR_TYPE_LETTER,
 [2] = E_CHAR_TYPE_LETTER,
@@ -146,46 +146,44 @@ static const int g_char_type[129] = {
 void	lexer_tokenise_one(char const **input, t_array	*tokens, t_automaton *automaton)
 {
 	t_token			tok;
-	//t_stack_state	state;
 
 	tok.str = *input;
 	tok.type = g_char_type[(int)**input];
-	//state = automaton_type_to_state(tok.type);
 	if (automaton->cur_state > E_STATE_WORD)
 	{
-		while (**input && g_char_type[(int)**input] <= E_CHAR_TYPE_LETTER)
-		{
-			ft_putstr("1\n");
+		if (g_char_type[(int)**input] > E_CHAR_TYPE_LETTER)
 			(*input)++;
-		}
+		else
+			while (**input && g_char_type[(int)**input] <= E_CHAR_TYPE_LETTER)
+				(*input)++;
 	}
 	else
-		while (**input && g_char_type[(int)**input] == E_CHAR_TYPE_LETTER)
+		while (**input && g_char_type[(int)**input] == tok.type)
 		{
-			ft_printf("2, >%c< _%p_ \n", *input, *input);
 			(*input)++;
 		}
 	tok.len = *input - tok.str;
-	//ft_putstr("\ntok :");
-	//ft_putnstr(tok.str, tok.len);
 	array_push(tokens, &tok);
 }
 
 void	lexer_tokenise(char const **input, t_array	*tokens, t_automaton *automaton)
 {
+
 	while (**input)
 	{
 		if (g_char_type[(int)**input] > E_CHAR_TYPE_LETTER)
 		{
-			if (automaton->cur_state == g_char_type[(int)**input])
+			if (automaton->cur_state == (t_stack_state)g_char_type[(int)**input])
 			{
 				stack_pop(automaton->stack);
-				automaton->cur_state = (t_stack_state)get_top_stack(automaton->stack);
+
+				automaton->cur_state = *(t_stack_state *)get_top_stack(automaton->stack);
+
 			}
 			else
 			{
 				stack_push(automaton->stack, &g_char_type[(int)**input]);
-				automaton->cur_state = g_char_type[(int)**input];
+				automaton->cur_state = (t_stack_state)g_char_type[(int)**input];
 			}
 		}
 			lexer_tokenise_one(input, tokens, automaton);
@@ -204,9 +202,12 @@ t_array	*lexer_lex(char const *input)
 
 	i = 0;
 	while (*input && i++ < 10)
-	{
-		ft_printf("%d, >%c< _%p_", i, *input, *input);
 		lexer_tokenise(&input, tokens, automaton);
+	if (automaton->cur_state > E_STATE_START)
+	{
+		ft_printf("Minishell: Lexing error: Incomplete command.\n");
+		//ls TODO free automate and tokens;
+		return (NULL);
 	}
 	return (tokens);
 }
@@ -216,8 +217,8 @@ void	lexer_print_tokens(t_array *tokens)
 	size_t	cnt;
 	t_token	*tok;
 
-	cnt = -1;
-	while (++cnt < tokens->used)
+	cnt = 0;
+	while (cnt < tokens->used)
 	{
 		tok = (t_token *)array_get_at(tokens, cnt);
 		ft_putchar('<');
@@ -235,8 +236,7 @@ void	lexer_print_tokens(t_array *tokens)
 			ft_putstr("TOKEN_TYPE_DQUOTE");
 		else if (tok->type == E_CHAR_TYPE_SEMI)
 			ft_putstr("TOKEN_TYPE_SEMI");
-		//else if (tok->type == E_CHAR_TYPE_NEWLINE)
-		//	ft_putstr("TOKEN_TYPE_NEWLINE");
 		ft_putchar('\n');
+		cnt++;
 	}
 }

@@ -43,7 +43,8 @@ int main(int ac, char const *av[])
 		ms_print_prompt();
 		input = ms_get_line();
 		tokens = lexer_lex(input);
-		lexer_print_tokens(tokens);
+		if (tokens)
+			lexer_print_tokens(tokens);
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (ms_command(data, command))
 		// 		stop = true;

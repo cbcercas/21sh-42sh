@@ -26,11 +26,11 @@ enum	e_stack_state
 	E_STATE_SEMI
 };
 
-typedef enum e_stack_state	t_stack_state;
+typedef uint32_t	t_stack_state;
 
 struct	s_automaton
 {
-	t_stack	*stack;
+	t_stack			*stack;
 	t_stack_state	cur_state;
 };
 

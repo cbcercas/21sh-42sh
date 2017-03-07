@@ -22,5 +22,6 @@ t_automaton *automaton_init(void)
 	if (!(automaton->stack = stack_create(sizeof(int))))
 		return (NULL);
 	stack_push(automaton->stack, &state);
+	automaton->cur_state = state;
 	return (automaton);
 }
