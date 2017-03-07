@@ -17,6 +17,7 @@
 # include <core/init.h>
 # include <core/data.h>
 # include <core/check_path.h>
+# include <sys/wait.h>
 
 int	ms_command(t_ms_data *data, char **command);
 char **ms_get_command(char *input);
