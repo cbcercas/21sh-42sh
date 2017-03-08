@@ -197,16 +197,12 @@ t_array	*lexer_lex(char const *input)
 
 	if (!(tokens = array_create(sizeof(t_token))) || !(automaton = automaton_init()))
 		return (NULL);
-	int i;
-
-	i = 0;
-	while (*input && i++ < 10)
+	while (input)
 		lexer_tokenize(&input, tokens, automaton);
 	if (automaton->cur_state > E_STATE_START)
 	{
 		ft_printf("Minishell: Lexing error: Incomplete command.\n");
 		array_destroy(tokens);
-		return (NULL);
 	}
 	automaton_destroy(automaton);
 	return (tokens);
