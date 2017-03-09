@@ -222,17 +222,17 @@ void	lexer_print_tokens(t_array *tokens)
 		ft_putchar('<');
 		ft_putnstr(tok->str, tok->len);
 		ft_putstr("> = ");
-		if (tok->type == E_CHAR_TYPE_LETTER)
+		if (tok->type == E_TOKEN_WORD)
 			ft_putstr("TOKEN_TYPE_WORD");
-		else if (tok->type == E_CHAR_TYPE_BLANK)
+		else if (tok->type == E_TOKEN_BLANK)
 			ft_putstr("TOKEN_TYPE_BLANK");
-		else if (tok->type == E_CHAR_TYPE_SQUOTE)
+		else if (tok->type == E_TOKEN_SQUOTE)
 			ft_putstr("TOKEN_TYPE_SQUOTE");
 		else if (tok->type == E_CHAR_TYPE_BQUOTE)
 			ft_putstr("TOKEN_TYPE_BQUOTE");
-		else if (tok->type == E_CHAR_TYPE_DQUOTE)
+		else if (tok->type == E_TOKEN_DQUOTE)
 			ft_putstr("TOKEN_TYPE_DQUOTE");
-		else if (tok->type == E_CHAR_TYPE_SEMI)
+		else if (tok->type == E_TOKEN_SEMI)
 			ft_putstr("TOKEN_TYPE_SEMI");
 		ft_putchar('\n');
 		cnt++;
