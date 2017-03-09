@@ -153,8 +153,11 @@ static void	lexer_tokenize_one(char const **input, t_array	*tokens, t_automaton 
 		if (g_char_type[(int)**input] > E_CHAR_TYPE_LETTER)
 			(*input)++;
 		else
-			while (**input && g_char_type[(int)**input] <= E_CHAR_TYPE_LETTER)
+		{
+			tok.type = E_TOKEN_WORD;
+			while (**input && g_char_type[(int) **input] <= E_CHAR_TYPE_LETTER)
 				(*input)++;
+		}
 	}
 	else
 		while (**input && g_char_type[(int)**input] == tok.type)
