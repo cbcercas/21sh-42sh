@@ -23,7 +23,7 @@ void	lexer_clean_tokens(t_array *tokens)
 	while (cnt < tokens->used)
 	{
 		tok = (t_token *)array_get_at(tokens, cnt);
-		if (tok->type == E_CHAR_TYPE_BLANK)
+		if (tok->type == E_TOKEN_BLANK)
 			array_remove_at(tokens, cnt, NULL);
 		else
 			cnt += 1;
