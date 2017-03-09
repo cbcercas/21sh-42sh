@@ -205,9 +205,9 @@ t_array	*lexer_lex(char const *input)
 	if (automaton->cur_state > E_STATE_START)
 	{
 		ft_printf("Minishell: Lexing error: Incomplete command.\n");
-		array_destroy(tokens);
+		array_destroy(&tokens);
 	}
-	automaton_destroy(automaton);
+	automaton_destroy(&automaton);
 	lexer_clean_tokens(tokens);
 	return (tokens);
 }
