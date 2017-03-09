@@ -175,9 +175,7 @@ static void	lexer_tokenize(char const **input, t_array	*tokens, t_automaton *aut
 			if (automaton->cur_state == (t_stack_state)g_char_type[(int)**input])
 			{
 				stack_pop(automaton->stack);
-
 				automaton->cur_state = *(t_stack_state *)get_top_stack(automaton->stack);
-
 			}
 			else
 			{
@@ -185,7 +183,7 @@ static void	lexer_tokenize(char const **input, t_array	*tokens, t_automaton *aut
 				automaton->cur_state = (t_stack_state)g_char_type[(int)**input];
 			}
 		}
-			lexer_tokenize_one(input, tokens, automaton);
+		lexer_tokenize_one(input, tokens, automaton);
 	}
 }
 
