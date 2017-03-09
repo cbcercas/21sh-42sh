@@ -198,7 +198,7 @@ t_array	*lexer_lex(char const *input)
 
 	if (!(tokens = array_create(sizeof(t_token))) || !(automaton = automaton_init()))
 		return (NULL);
-	while (*input)
+	while (input && *input)
 		lexer_tokenize(&input, tokens, automaton);
 	if (automaton->cur_state > E_STATE_START)
 	{
