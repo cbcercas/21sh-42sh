@@ -160,10 +160,10 @@ static void	lexer_tokenize_one(char const **input, t_array	*tokens, t_automaton 
 		}
 	}
 	else
-		while (**input && g_char_type[(int)**input] == tok.type)
-		{
+	{
+		while (**input && g_char_type[(int) **input] == tok.type)
 			(*input)++;
-		}
+	}
 	tok.len = *input - tok.str;
 	array_push(tokens, &tok);
 }
