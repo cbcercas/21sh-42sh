@@ -37,6 +37,6 @@ struct	s_automaton
 typedef struct s_automaton	t_automaton;
 
 t_automaton *automaton_init(void);
-void automaton_destroy(t_automaton *automaton);
+void automaton_destroy(t_automaton **automaton);
 
 #endif

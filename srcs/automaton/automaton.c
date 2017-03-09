@@ -26,12 +26,12 @@ t_automaton *automaton_init(void)
 	return (automaton);
 }
 
-void automaton_destroy(t_automaton *automaton)
+void automaton_destroy(t_automaton **automaton)
 {
-	if (automaton)
+	if (*automaton)
 	{
-		if (automaton->stack)
-			stack_destroy(automaton->stack);
-		ft_memdel((void**)&automaton);
+		if ((*automaton)->stack)
+			stack_destroy(&(*automaton)->stack);
+		ft_memdel((void**)automaton);
 	}
 }
