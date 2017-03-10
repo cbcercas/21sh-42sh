@@ -14,15 +14,12 @@
 t_automaton *automaton_init(void)
 {
 	t_automaton		*automaton;
-	t_stack_state	state;
 
-	state = E_STATE_START;
 	if(!(automaton = ft_memalloc(sizeof(*automaton))))
 		return (NULL);
 	if (!(automaton->stack = stack_create(sizeof(int))))
 		return (NULL);
-	stack_push(automaton->stack, &state);
-	automaton->cur_state = state;
+	automaton->cur_state = E_STATE_START;
 	return (automaton);
 }
 
