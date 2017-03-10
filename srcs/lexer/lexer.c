@@ -209,14 +209,14 @@ t_array	*lexer_lex(char const *in)
 		return (NULL);
 	while ((*in != 0) && (a->cur_state != E_STATE_ERROR))
 		lexer_tokenize(&in, toks, a);
-	if (!is_empty_stack(a->stack))
-	{
-		ft_printf("Minishell: Lexing error: Incomplete command.\n");
-		array_destroy(&toks);
-	}
-	else if (a->cur_state == E_STATE_ERROR)
+	if (a->cur_state == E_STATE_ERROR)
 	{
 		ft_printf("Minishell: Lexing error.\n");
+		array_destroy(&toks);
+	}
+	else if (!is_empty_stack(a->stack))
+	{
+		ft_printf("Minishell: Lexing error: Incomplete command.\n");
 		array_destroy(&toks);
 	}
 	automaton_destroy(&a);
