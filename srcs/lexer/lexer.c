@@ -50,7 +50,7 @@ static const uint32_t g_char_type[129] = {
 ['#'] = E_CHAR_TYPE_LETTER,
 ['$'] = E_CHAR_TYPE_LETTER,
 ['%'] = E_CHAR_TYPE_LETTER,
-['&'] = E_CHAR_TYPE_LETTER,
+['&'] = E_CHAR_TYPE_NONE,
 ['\''] = E_CHAR_TYPE_SQUOTE,
 ['('] = E_CHAR_TYPE_LETTER,
 [')'] = E_CHAR_TYPE_LETTER,
@@ -72,9 +72,9 @@ static const uint32_t g_char_type[129] = {
 ['9'] = E_CHAR_TYPE_LETTER,
 [':'] = E_CHAR_TYPE_LETTER,
 [';'] = E_CHAR_TYPE_SEMI,
-['<'] = E_CHAR_TYPE_LETTER,
+['<'] = E_CHAR_TYPE_NONE,
 ['='] = E_CHAR_TYPE_LETTER,
-['>'] = E_CHAR_TYPE_LETTER,
+['>'] = E_CHAR_TYPE_NONE,
 ['?'] = E_CHAR_TYPE_LETTER,
 ['@'] = E_CHAR_TYPE_LETTER,
 ['A'] = E_CHAR_TYPE_LETTER,
@@ -136,7 +136,7 @@ static const uint32_t g_char_type[129] = {
 ['y'] = E_CHAR_TYPE_LETTER,
 ['z'] = E_CHAR_TYPE_LETTER,
 ['{'] = E_CHAR_TYPE_LETTER,
-['|'] = E_CHAR_TYPE_LETTER,
+['|'] = E_CHAR_TYPE_NONE,
 ['}'] = E_CHAR_TYPE_LETTER,
 ['~'] = E_CHAR_TYPE_LETTER,
 [127] = E_CHAR_TYPE_LETTER,
@@ -177,7 +177,10 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 			if (a->cur_state == (t_stack_state)g_char_type[(int)**in])
 			{
 				stack_pop(a->stack);
-				a->cur_state = *(t_stack_state *)get_top_stack(a->stack);
+				if (is_empty_stack(a->stack))
+					a->cur_state = E_STATE_START;
+				else
+					a->cur_state = *(t_stack_state *)get_top_stack(a->stack);
 			}
 			else
 			{
@@ -185,7 +188,12 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 				a->cur_state = (t_stack_state)g_char_type[(int)**in];
 			}
 		}
-		lexer_tokenize_one(in, toks, a);
+		else if (g_char_type[(int)**in] == E_CHAR_TYPE_NONE)
+		{
+			stack_push(a->stack, &g_char_type[(int)**in]);
+			a->cur_state = *(t_stack_state *)get_top_stack(a->stack);
+		}
+			lexer_tokenize_one(in, toks, a);
 	}
 }
 
@@ -199,11 +207,16 @@ t_array	*lexer_lex(char const *in)
 		return (NULL);
 	if (!(toks = array_create(sizeof(t_token))) || !(a = automaton_init()))
 		return (NULL);
-	while (*in != 0)
+	while ((*in != 0) && (a->cur_state != E_STATE_ERROR))
 		lexer_tokenize(&in, toks, a);
-	if (a->cur_state > E_STATE_START)
+	if (!is_empty_stack(a->stack))
 	{
 		ft_printf("Minishell: Lexing error: Incomplete command.\n");
+		array_destroy(&toks);
+	}
+	else if (a->cur_state == E_STATE_ERROR)
+	{
+		ft_printf("Minishell: Lexing error.\n");
 		array_destroy(&toks);
 	}
 	automaton_destroy(&a);
