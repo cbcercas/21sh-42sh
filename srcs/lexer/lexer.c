@@ -22,7 +22,7 @@ static const uint32_t g_char_type[129] = {
 [7] = E_CHAR_TYPE_LETTER,
 [8] = E_CHAR_TYPE_LETTER,
 ['\t'] = E_CHAR_TYPE_BLANK,
-['\n'] = E_CHAR_TYPE_BLANK,
+['\n'] = E_CHAR_TYPE_NEWLINE,
 [11] = E_CHAR_TYPE_LETTER,
 [12] = E_CHAR_TYPE_LETTER,
 [13] = E_CHAR_TYPE_LETTER,
@@ -71,7 +71,7 @@ static const uint32_t g_char_type[129] = {
 ['8'] = E_CHAR_TYPE_LETTER,
 ['9'] = E_CHAR_TYPE_LETTER,
 [':'] = E_CHAR_TYPE_LETTER,
-[';'] = E_CHAR_TYPE_SEMI,
+[';'] = E_CHAR_TYPE_NEWLINE,
 ['<'] = E_CHAR_TYPE_NONE,
 ['='] = E_CHAR_TYPE_LETTER,
 ['>'] = E_CHAR_TYPE_NONE,
@@ -148,22 +148,25 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 
 	tok.str = *in;
 	tok.type = g_char_type[(int)**in];
+	(*in)++;
 	if (a->cur_state > E_STATE_WORD)
 	{
-		if (g_char_type[(int)**in] > E_CHAR_TYPE_LETTER)
+		tok.type = E_TOKEN_WORD;
+		while (**in && g_char_type[(int) **in] != a->cur_state)
 			(*in)++;
-		else
+		if (g_char_type[(int) **in] == a->cur_state)
 		{
-			tok.type = E_TOKEN_WORD;
-			while (**in && g_char_type[(int) **in] <= E_CHAR_TYPE_LETTER)
-				(*in)++;
+			stack_pop(a->stack);
+			if (is_empty_stack(a->stack))
+				a->cur_state = E_STATE_START;
+			else
+				a->cur_state = *(t_stack_state *) get_top_stack(a->stack);
+			(*in)++;
 		}
 	}
-	else
-	{
+	else if (tok.type == E_TOKEN_WORD)
 		while (**in && g_char_type[(int) **in] == tok.type)
 			(*in)++;
-	}
 	tok.len = *in - tok.str;
 	array_push(toks, &tok);
 }
@@ -174,26 +177,16 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 	{
 		if (g_char_type[(int)**in] > E_CHAR_TYPE_LETTER)
 		{
-			if (a->cur_state == (t_stack_state)g_char_type[(int)**in])
-			{
-				stack_pop(a->stack);
-				if (is_empty_stack(a->stack))
-					a->cur_state = E_STATE_START;
-				else
-					a->cur_state = *(t_stack_state *)get_top_stack(a->stack);
-			}
-			else
-			{
-				stack_push(a->stack, &g_char_type[(int)**in]);
-				a->cur_state = (t_stack_state)g_char_type[(int)**in];
-			}
+			stack_push(a->stack, &g_char_type[(int)**in]);
+			a->cur_state = (t_stack_state)g_char_type[(int)**in];
 		}
 		else if (g_char_type[(int)**in] == E_CHAR_TYPE_NONE)
 		{
 			stack_push(a->stack, &g_char_type[(int)**in]);
 			a->cur_state = *(t_stack_state *)get_top_stack(a->stack);
+			return;
 		}
-			lexer_tokenize_one(in, toks, a);
+		lexer_tokenize_one(in, toks, a);
 	}
 }
 
@@ -220,8 +213,6 @@ t_array	*lexer_lex(char const *in)
 		array_destroy(&toks);
 	}
 	automaton_destroy(&a);
-	if (toks)
-		lexer_clean_tokens(toks);
 	return (toks);
 }
 
@@ -247,8 +238,8 @@ void	lexer_print_tokens(t_array *toks)
 			ft_putstr("TOKEN_TYPE_BQUOTE");
 		else if (tok->type == E_TOKEN_DQUOTE)
 			ft_putstr("TOKEN_TYPE_DQUOTE");
-		else if (tok->type == E_TOKEN_SEMI)
-			ft_putstr("TOKEN_TYPE_SEMI");
+		else if (tok->type == E_TOKEN_NEWLINE)
+			ft_putstr("TOKEN_TYPE_NEWLINE");
 		ft_putchar('\n');
 		cnt++;
 	}
