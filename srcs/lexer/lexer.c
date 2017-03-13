@@ -213,6 +213,8 @@ t_array	*lexer_lex(char const *in)
 		array_destroy(&toks);
 	}
 	automaton_destroy(&a);
+	if (toks)
+		lexer_clean_tokens(toks);
 	return (toks);
 }
 
