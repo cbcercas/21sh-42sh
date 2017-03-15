@@ -168,13 +168,15 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 		}
 	}
 	else if (tok.type == E_TOKEN_WORD)
-		while (**in && g_char_type[(int) **in] >= E_CHAR_TYPE_LETTER)
+		while (**in && (g_char_type[(int) **in] >= E_CHAR_TYPE_LETTER || a->cur_state != E_STATE_WORD))
 		{
 			if (g_char_type[(int) **in] > E_CHAR_TYPE_LETTER
-											&& !is_escaped_char(tok.str, *in))
+				&& !is_escaped_char(tok.str, *in))
 				automaton_step(a, g_char_type[(int) **in], E_UNKNOWN);
 			(*in)++;
 		}
+	if (a->cur_state == E_STATE_WORD)
+		automaton_step(a, 0, E_POP);
 	tok.len = *in - tok.str;
 	array_push(toks, &tok);
 }
@@ -183,7 +185,7 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 {
 	while (**in)
 	{
-		if (g_char_type[(int)**in] > E_CHAR_TYPE_LETTER)
+		if (g_char_type[(int)**in] >= E_CHAR_TYPE_LETTER)
 			automaton_step(a, g_char_type[(int) **in], E_PUSH);
 		else if (g_char_type[(int)**in] == E_CHAR_TYPE_NONE)
 		{
