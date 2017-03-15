@@ -17,6 +17,7 @@
 
 enum	e_stack_state
 {
+	E_STATE_NONE,
 	E_STATE_ERROR,
 	E_STATE_START,
 	E_STATE_WORD,

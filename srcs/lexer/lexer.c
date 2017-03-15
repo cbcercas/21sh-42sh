@@ -142,6 +142,13 @@ static const uint32_t g_char_type[129] = {
 [127] = E_CHAR_TYPE_LETTER,
 };
 
+static BOOL	is_escaped_char(char const *str, char const *c)
+{
+	if (c > str && *(c - 1) == '\\')
+		return (true);
+	return (false);
+}
+
 static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 {
 	t_token	tok;
@@ -161,8 +168,13 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 		}
 	}
 	else if (tok.type == E_TOKEN_WORD)
-		while (**in && g_char_type[(int) **in] == tok.type)
+		while (**in && g_char_type[(int) **in] >= E_CHAR_TYPE_LETTER)
+		{
+			if (g_char_type[(int) **in] > E_CHAR_TYPE_LETTER
+											&& !is_escaped_char(tok.str, *in))
+				automaton_step(a, g_char_type[(int) **in], E_UNKNOWN);
 			(*in)++;
+		}
 	tok.len = *in - tok.str;
 	array_push(toks, &tok);
 }
