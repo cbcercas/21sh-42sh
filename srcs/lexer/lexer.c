@@ -156,11 +156,7 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 			(*in)++;
 		if (g_char_type[(int) **in] == a->cur_state)
 		{
-			stack_pop(a->stack);
-			if (is_empty_stack(a->stack))
-				a->cur_state = E_STATE_START;
-			else
-				a->cur_state = *(t_stack_state *) get_top_stack(a->stack);
+			automaton_step(a, 0, E_POP);
 			(*in)++;
 		}
 	}
@@ -176,14 +172,10 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 	while (**in)
 	{
 		if (g_char_type[(int)**in] > E_CHAR_TYPE_LETTER)
-		{
-			stack_push(a->stack, &g_char_type[(int)**in]);
-			a->cur_state = (t_stack_state)g_char_type[(int)**in];
-		}
+			automaton_step(a, g_char_type[(int) **in], E_PUSH);
 		else if (g_char_type[(int)**in] == E_CHAR_TYPE_NONE)
 		{
-			stack_push(a->stack, &g_char_type[(int)**in]);
-			a->cur_state = *(t_stack_state *)get_top_stack(a->stack);
+			automaton_step(a, g_char_type[(int) **in], E_PUSH);
 			return;
 		}
 		lexer_tokenize_one(in, toks, a);

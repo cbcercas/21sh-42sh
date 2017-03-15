@@ -27,6 +27,14 @@ enum	e_stack_state
 };
 
 typedef uint32_t	t_stack_state;
+typedef uint32_t	t_automaton_step;
+
+enum 	e_automaton_step
+{
+	E_UNKNOWN,
+	E_POP,
+	E_PUSH
+};
 
 struct	s_automaton
 {
@@ -38,5 +46,6 @@ typedef struct s_automaton	t_automaton;
 
 t_automaton *automaton_init(void);
 void automaton_destroy(t_automaton **automaton);
+void automaton_step(t_automaton	*a, t_stack_state state,t_automaton_step step);
 
 #endif
