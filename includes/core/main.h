@@ -17,6 +17,7 @@
 # include <core/input.h>
 # include <libft.h>
 # include <lexer/lexer.h>
+# include <parser/parser.h>
 
 # define PROG_NAME "minishell"
 

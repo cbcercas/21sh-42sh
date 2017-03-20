@@ -20,6 +20,7 @@ set(SOURCE_FILES
         includes/environ/env_list_utils.h
         includes/environ/environ.h
         includes/lexer/lexer.h
+        includes/parser/parser.h
         lib/libft/includes/array/array.h
         lib/libft/includes/ft_printf/ft_get.h
         lib/libft/includes/ft_printf/libftprintf.h
@@ -165,6 +166,7 @@ set(SOURCE_FILES
         srcs/environ/environ.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
+        srcs/parser/parser.c
         )
 
 include_directories(includes)

@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Minishell"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/jlasne/CLion/21-42sh/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/jlasne/CLion/21-42sh/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/jlasne/CLion/21-42sh/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Minishell">
+				<Option output="/Users/jlasne/CLion/21-42sh/cmake-build-debug/Minishell" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jlasne/CLion/21-42sh/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/jlasne/CLion/21-42sh/includes"/>
+					<Add directory="/Users/jlasne/CLion/21-42sh/lib/libft/includes"/>
+					<Add directory="."/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 Minishell"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Minishell/fast">
+				<Option output="/Users/jlasne/CLion/21-42sh/cmake-build-debug/Minishell" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jlasne/CLion/21-42sh/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/Users/jlasne/CLion/21-42sh/includes"/>
+					<Add directory="/Users/jlasne/CLion/21-42sh/lib/libft/includes"/>
+					<Add directory="."/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 Minishell/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/CLion/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/automaton/automaton.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/builtins/builtins_utils.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/builtins/chdir.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/builtins/echo.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/builtins/exit.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/core/check_path.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/core/command.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/core/data.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/core/init.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/core/input.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/core/main.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/core/prompt.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/environ/env_list_utils.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/environ/environ.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/lexer/lexer.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/includes/parser/parser.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/Makefile">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/array/array.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/ft_printf/ft_get.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/ft_printf/libftprintf.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/ft_printf/printer.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/ft_printf/printf_type.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/ft_printf/printf_utils.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/gnl/get_next_line.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/libft.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/logger/logger.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/logger/logger_intern.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/string/ft_string.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/types/bool.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/includes/types/stack.h">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_copy.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_destroy.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_growth.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_insert.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_pushpop.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_remove.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_setget.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_shrink.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/array/array_swap.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_atoi.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_bzero.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_countchiffres.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_ctostr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_freetab.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_imtoa.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_isalnum.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_isalpha.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_isascii.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_isdigit.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_isprint.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_iswhitespace.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_itoa.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_lstadd.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_lstdel.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_lstdelone.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_lstiter.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_lstmap.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_lstnew.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_lstpush.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_memalloc.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_memccpy.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_memchr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_memcmp.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_memcpy.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_memdel.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_memmove.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_memset.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_nbword.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putchar.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putchar_fd.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putendl.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putendl_fd.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putnbr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putnbr_fd.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putnstr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putstr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putstr_fd.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putwchar.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_putwstr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strcat.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strchr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strclean.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strclr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strcmp.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strcpy.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strdel.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strdup.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strequ.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_striter.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_striteri.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strjoin.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strjoincl.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strlcat.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strlen.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strmap.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strmapi.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strncat.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strncmp.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strncpy.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strnequ.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strnew.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strnstr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strrchr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strrev.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strsplit.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strstr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strsub.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strtabdup.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_strtrim.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_tablen.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_tolower.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_toupper.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_uitobase.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_uitohex.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_uitooctal.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_wcslen.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_wctostr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_wordlen.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/core/ft_wstostr.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/ft_parse_args.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/ft_parse_args2.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/ft_printf.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_c.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_d.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_def.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_o.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_p.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_per.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_s.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_u.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/printer_x.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/ft_printf/utils.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/gnl/get_next_line.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/logger/logger.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/logger/logger_utils.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_clean.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_clone.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_dup.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_growth.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_insert.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_join.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_remove.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_replace.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/lib/libft/srcs/string/string_shrink.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/automaton/automaton.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/builtins/builtins_utils.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/builtins/chdir.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/builtins/echo.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/builtins/exit.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/core/check_path.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/core/command.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/core/init.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/core/input.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/core/main.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/core/prompt.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/environ/env_list_utils.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/environ/environ.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/lexer/lexer.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/lexer/lexer_clean.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/srcs/parser/parser.c">
+			<Option target="Minishell"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/CLion/21-42sh/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,107 @@
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:31:39] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:31:54] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:32:11] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:32:29] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:32:30] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:11] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:11] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:12] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:12] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:12] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:12] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:12] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:49] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:35:50] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:37:15] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:37:22] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:37:23] minishell: Info: Parser: initializing
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:43:57] minishell: Info: Parser: initializing
+[2017-03-20 10:43:57] minishell: Info: Parser: user input is ls
+[2017-03-20 10:43:57] minishell: Info: Parser: input is ##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:44:18] minishell: Info: Parser: initializing
+[2017-03-20 10:44:18] minishell: Info: Parser: user input is ls
+[2017-03-20 10:44:18] minishell: Info: Parser: input is ##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:45:00] minishell: Info: Parser: initializing
+[2017-03-20 10:45:00] minishell: Info: Parser: user input is ls
+[2017-03-20 10:45:00] minishell: Info: Parser: input is ##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:46:22] minishell: Info: Parser: initializing
+[2017-03-20 10:46:22] minishell: Info: Parser: user input is ls
+[2017-03-20 10:46:22] minishell: Info: Parser: input is ##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:51:15] minishell: Info: Parser: initializing
+[2017-03-20 10:51:16] minishell: Info: Parser: user input is ls
+[2017-03-20 10:51:17] minishell: Info: Parser: input is ##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:52:16] minishell: Info: Parser: initializing
+[2017-03-20 10:52:16] minishell: Info: Parser: user input is ls
+[2017-03-20 10:52:16] minishell: Info: Parser: input is 2 long.
+[2017-03-20 10:52:16] minishell: Info: Parser: lexer returned 1 tokens to be parsed
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-20 10:52:48] minishell: Info: Parser: initializing
+[2017-03-20 10:52:48] minishell: Info: Parser: user input is ls -l; coucou
+[2017-03-20 10:52:48] minishell: Info: Parser: input is 13 long.
+[2017-03-20 10:52:48] minishell: Info: Parser: lexer returned 6 tokens to be parsed
