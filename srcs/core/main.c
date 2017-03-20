@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/main.h>
+#include <logger/logger.h>
 
 // int main(int argc, char const *argv[])
 // {
@@ -33,6 +34,7 @@ int main(int ac, char const *av[])
 	BOOL		stop;
 	t_array		*tokens;
 
+	logger_init(7, PROG_NAME, "log.log");
 	if (!ac || !av)
 		return (1);
 	if (!(data = ms_init()))

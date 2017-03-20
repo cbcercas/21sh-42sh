@@ -12,7 +12,6 @@
 
 #include <parser/parser.h>
 #include <logger/logger.h>
-#include <core/main.h>
 
 /*
 ** @brief Initializes the parser for the program
@@ -20,7 +19,7 @@
 ** @param tokens  The tokens sent by the lexer
 ** @param input   The input the user sent
 ** @return Returns nothing for now
-**/
+*/
 
 void	parser_init(t_array *tokens, char *input)
 {
@@ -34,11 +33,10 @@ void	parser_init(t_array *tokens, char *input)
 	nb_word = 0;
 	nb_newline = 0;
 	i = 0;
-	logger_init(7, PROG_NAME, "log.log");
 	log_info("Parser: initializing");
-	log_info("Parser: user input is %s", input);
-	log_info("Parser: input is %zu long.", ft_strlen(input));
-	log_info("Parser: lexer returned %zu tokens to be parsed", tokens->used);
+	log_dbg3("Parser: user input is \n\n%s\n", input);
+	log_dbg3("Parser: input is %zu long.", ft_strlen(input));
+	log_dbg3("Parser: lexer returned %zu tokens to be parsed", tokens->used);
 	while (i < tokens->used)
 	{
 		tok = (t_token *)array_get_at(tokens, i);
@@ -50,7 +48,7 @@ void	parser_init(t_array *tokens, char *input)
 			nb_newline++;
 		i++;
 	}
-	log_info("Found %zu words", nb_word);
-	log_info("Found %zu blank spaces", nb_blank);
-	log_info("Found %zu newlines", nb_newline);
+	log_dbg3("Found %zu words", nb_word);
+	log_dbg3("Found %zu blank spaces", nb_blank);
+	log_dbg3("Found %zu newlines", nb_newline);
 }
