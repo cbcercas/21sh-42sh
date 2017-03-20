@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/03/04 08:34:01 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/03/20 09:43:03 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,9 @@ SRCS			+= lexer.c lexer_clean.c
 
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
+
+SRC_SUBDIR		+= parser
+SRCS			+= parser.c
 ###############################################################################
 #																			  #
 #									CONFIG									  #
