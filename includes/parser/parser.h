@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/20 09:43:16 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/20 10:07:39 by jlasne           ###   ########.fr       */
+/*   Created: 2017/03/20 10:02:17 by jlasne            #+#    #+#             */
+/*   Updated: 2017/03/20 10:03:57 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*
-** HERE WILL BE A PARSER
-*/
+#ifndef PARSER_H
+# define PARSER_H
 
-#include <parser/parser.h>
+# include <lexer/lexer.h>
 
-void	parser_init(t_array *tokens, char *input)
-{
-	ft_printf("User input: %s\n", input);
-}
+void	parser_init(t_array *tokens, char *input);
+
+#endif
