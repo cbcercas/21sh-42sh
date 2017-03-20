@@ -1,0 +1,1285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="21_42sh"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/jlasne/21-42sh/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/jlasne/21-42sh/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/jlasne/21-42sh/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="21_42sh">
+				<Option output="/Users/jlasne/21-42sh/cmake-build-debug/21_42sh" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jlasne/21-42sh/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="."/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 21_42sh"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="21_42sh/fast">
+				<Option output="/Users/jlasne/21-42sh/cmake-build-debug/21_42sh" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/jlasne/21-42sh/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="."/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.0.0/include"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
+					<Add directory="/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 21_42sh/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/Users/jlasne/21-42sh/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/jlasne/21-42sh/Makefile">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/README.md">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/auteur">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/21_42sh.cbp">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeCache.txt">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/C.includecache">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/DependInfo.cmake">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/build.make">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/cmake_clean.cmake">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/depend.internal">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/depend.make">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/flags.make">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_copy.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_destroy.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_growth.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_insert.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_pushpop.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_remove.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_setget.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_shrink.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/array/array_swap.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_atoi.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_bzero.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_countchiffres.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_ctostr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_freetab.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_imtoa.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_isalnum.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_isalpha.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_isascii.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_isdigit.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_isprint.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_iswhitespace.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_itoa.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_lstadd.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_lstdel.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_lstdelone.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_lstiter.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_lstmap.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_lstnew.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_lstpush.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_memalloc.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_memccpy.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_memchr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_memcmp.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_memcpy.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_memdel.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_memmove.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_memset.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_nbword.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putchar.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putchar_fd.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putendl.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putendl_fd.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putnbr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putnbr_fd.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putnstr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putstr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putstr_fd.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putwchar.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_putwstr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strcat.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strchr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strclean.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strclr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strcmp.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strcpy.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strdel.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strdup.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strequ.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_striter.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_striteri.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strjoin.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strjoincl.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strlcat.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strlen.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strmap.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strmapi.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strncat.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strncmp.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strncpy.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strnequ.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strnew.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strnstr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strrchr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strrev.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strsplit.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strstr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strsub.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strtabdup.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_strtrim.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_tablen.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_tolower.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_toupper.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_uitobase.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_uitohex.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_uitooctal.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_wcslen.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_wctostr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_wordlen.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/core/ft_wstostr.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/ft_parse_args.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/ft_parse_args2.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/ft_printf.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_c.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_d.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_def.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_o.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_p.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_per.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_s.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_u.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/printer_x.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/ft_printf/utils.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/gnl/get_next_line.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/logger/logger.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/logger/logger_utils.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_clean.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_clone.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_dup.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_growth.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_insert.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_join.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_remove.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_replace.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/lib/libft/srcs/string/string_shrink.c.o">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/link.txt">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/21_42sh.dir/progress.make">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CMakeCCompiler.cmake">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CMakeCXXCompiler.cmake">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CMakeDetermineCompilerABI_C.bin">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CMakeDetermineCompilerABI_CXX.bin">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CMakeSystem.cmake">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CompilerIdC/CMakeCCompilerId.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CompilerIdC/a.out">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CompilerIdCXX/CMakeCXXCompilerId.cpp">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/3.6.2/CompilerIdCXX/a.out">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/CMakeOutput.log">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Makefile.cmake">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Makefile2">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/1">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/10">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/11">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/12">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/13">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/14">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/15">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/16">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/17">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/18">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/19">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/2">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/20">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/21">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/22">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/23">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/24">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/25">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/26">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/27">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/28">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/29">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/3">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/30">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/31">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/32">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/33">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/34">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/35">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/36">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/37">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/38">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/39">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/4">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/40">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/41">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/42">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/43">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/44">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/45">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/46">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/47">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/48">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/49">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/5">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/50">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/51">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/52">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/53">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/54">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/55">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/56">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/57">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/58">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/59">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/6">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/60">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/61">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/62">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/63">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/64">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/65">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/66">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/67">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/68">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/69">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/7">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/70">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/71">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/72">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/73">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/74">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/75">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/76">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/77">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/78">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/79">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/8">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/80">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/81">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/82">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/9">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/Progress/count.txt">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/TargetDirectories.txt">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/clion-environment.txt">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/clion-log.txt">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/cmake.check_cache">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/feature_tests.bin">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/feature_tests.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/feature_tests.cxx">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/CMakeFiles/progress.marks">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/Makefile">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/cmake-build-debug/cmake_install.cmake">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/automaton/automaton.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/builtins/builtins_utils.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/builtins/chdir.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/builtins/echo.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/builtins/exit.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/core/check_path.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/core/command.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/core/data.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/core/init.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/core/input.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/core/main.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/core/prompt.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/environ/env_list_utils.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/environ/environ.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/lexer/lexer.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/includes/parser/parser.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/Makefile">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/array/array.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/ft_printf/ft_get.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/ft_printf/libftprintf.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/ft_printf/printer.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/ft_printf/printf_type.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/ft_printf/printf_utils.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/gnl/get_next_line.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/libft.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/logger/logger.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/logger/logger_intern.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/string/ft_string.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/types/bool.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/includes/types/stack.h">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_copy.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_destroy.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_growth.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_insert.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_pushpop.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_remove.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_setget.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_shrink.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/array/array_swap.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_atoi.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_bzero.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_countchiffres.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_ctostr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_freetab.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_imtoa.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_isalnum.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_isalpha.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_isascii.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_isdigit.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_isprint.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_iswhitespace.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_itoa.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_lstadd.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_lstdel.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_lstdelone.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_lstiter.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_lstmap.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_lstnew.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_lstpush.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_memalloc.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_memccpy.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_memchr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_memcmp.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_memcpy.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_memdel.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_memmove.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_memset.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_nbword.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putchar.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putchar_fd.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putendl.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putendl_fd.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putnbr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putnbr_fd.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putnstr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putstr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putstr_fd.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putwchar.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_putwstr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strcat.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strchr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strclean.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strclr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strcmp.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strcpy.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strdel.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strdup.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strequ.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_striter.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_striteri.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strjoin.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strjoincl.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strlcat.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strlen.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strmap.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strmapi.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strncat.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strncmp.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strncpy.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strnequ.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strnew.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strnstr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strrchr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strrev.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strsplit.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strstr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strsub.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strtabdup.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_strtrim.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_tablen.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_tolower.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_toupper.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_uitobase.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_uitohex.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_uitooctal.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_wcslen.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_wctostr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_wordlen.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/core/ft_wstostr.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/ft_parse_args.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/ft_parse_args2.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/ft_printf.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_c.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_d.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_def.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_o.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_p.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_per.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_s.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_u.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/printer_x.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/ft_printf/utils.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/gnl/get_next_line.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/logger/logger.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/logger/logger_utils.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_clean.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_clone.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_dup.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_growth.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_insert.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_join.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_remove.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_replace.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/lib/libft/srcs/string/string_shrink.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/automaton/automaton.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/builtins/builtins_utils.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/builtins/chdir.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/builtins/echo.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/builtins/exit.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/core/check_path.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/core/command.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/core/init.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/core/input.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/core/main.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/core/prompt.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/environ/env_list_utils.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/environ/environ.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/lexer/lexer.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/lexer/lexer_clean.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/srcs/parser/parser.c">
+			<Option target="21_42sh"/>
+		</Unit>
+		<Unit filename="/Users/jlasne/21-42sh/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
