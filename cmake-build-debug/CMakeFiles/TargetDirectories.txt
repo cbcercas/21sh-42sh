@@ -1,3 +1,0 @@
-/Users/jlasne/CLion/21-42sh/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/jlasne/CLion/21-42sh/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/jlasne/CLion/21-42sh/cmake-build-debug/CMakeFiles/Minishell.dir

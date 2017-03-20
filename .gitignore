@@ -36,3 +36,5 @@ debug/
 
 # Auto deps
 .deps
+
+cmake-build-debug
