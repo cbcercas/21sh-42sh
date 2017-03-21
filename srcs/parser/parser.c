@@ -14,82 +14,88 @@
 #include <logger/logger.h>
 
 /*
-** @brief Initializes the parser for the program
-**
-** @param tokens  The tokens sent by the lexer
-** @param input   The input the user sent
-** @return Returns nothing for now
-*/
+ ** @brief Initializes the parser for the program
+ **
+ ** @param tokens  The tokens sent by the lexer
+ ** @param input   The input the user sent
+ ** @return Returns nothing for now
+ */
 
 static const uint32_t grammar[][][] =
 {
-//complete_command
+	//complete_command
 	{
 		{
 			list,
-					separator
+			separator
 		},
 		{
 			list
 		}
 	},
-// list
+	// list
 	{
 		{
 			list,
-					separator_op,
-					and_or
+			separator_op,
+			and_or
 		},
 		{
 			and_or
 		}
 	},
-// and_or
+	// and_or
 	{
 		{
 			pipeline
 		},
 		{
 			and_or,
-					AND_IF,
-					linebreak,
-					pipeline,
+			AND_IF,
+			linebreak,
+			pipeline,
 		},
 		{
 			and_or,
-					OR_IF,
-					linebreak,
-					pipeline
+			OR_IF,
+			linebreak,
+			pipeline
 		}
 	},
-// pipeline
+	// pipeline
 	{
 		{
 			pipe_sequence
 		}
 	},
-// newline_list
+	// newline_list
 	{
 		{
 			NEWLINE
 		},
 		{
 			newline_list,
-					NEWLINE
+			NEWLINE
 		}
 	},
-// separator_op
+	// separator_op
 	{
 		{
 			'&',
-					';'
+			';'
 		}
 	},
-// separator
+	// separator
 	{
 		{
 			separator_op,
-					linebreak
+			linebreak
+		}
+	},
+	//linebreak
+	{
+		{
+			newline_list
 		}
 	}
 };
