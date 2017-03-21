@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include <lexer/lexer.h>
+# include <logger/logger.h>
 
 /*
 ** @file parser.c
@@ -42,7 +43,7 @@ enum e_grammar_sym
 	io_file, //done
 	io_here, //done
 	filename, //done
-	here_end
+	here_end //done
 
 };
 
