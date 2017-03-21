@@ -38,3 +38,4 @@ debug/
 .deps
 
 cmake-build-debug
+*.log
