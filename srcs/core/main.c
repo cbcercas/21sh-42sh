@@ -48,7 +48,7 @@ int main(int ac, char const *av[])
 		if (tokens)
 		{
 			lexer_print_tokens(tokens);
-			parser_init(tokens, input);
+			//parser_init(tokens, input);
 		}
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (ms_command(data, command))

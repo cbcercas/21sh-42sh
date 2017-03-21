@@ -259,32 +259,32 @@ static const uint32_t grammar[][][] =
 
 void	parser_init(t_array *tokens, char *input)
 {
-size_t		i;
-size_t nb_word;
-size_t nb_blank;
-size_t nb_newline;
-t_token *tok;
+	size_t		i;
+	size_t nb_word;
+	size_t nb_blank;
+	size_t nb_newline;
+	t_token *tok;
 
-nb_blank = 0;
-nb_word = 0;
-nb_newline = 0;
-i = 0;
-log_info("Parser: initializing");
-log_dbg3("Parser: user input is \n\n%s\n", input);
-log_dbg3("Parser: input is %zu long.", ft_strlen(input));
-log_dbg3("Parser: lexer returned %zu tokens to be parsed", tokens->used);
-while (i < tokens->used)
-{
-	tok = (t_token *)array_get_at(tokens, i);
-	if (tok->type == E_TOKEN_WORD)
-		nb_word++;
-	else if (tok->type == E_TOKEN_BLANK)
-		nb_blank++;
-	else if (tok->type == E_TOKEN_NEWLINE)
-		nb_newline++;
-	i++;
-}
-log_dbg3("Found %zu words", nb_word);
-log_dbg3("Found %zu blank spaces", nb_blank);
-log_dbg3("Found %zu newlines", nb_newline);
+	nb_blank = 0;
+	nb_word = 0;
+	nb_newline = 0;
+	i = 0;
+	log_info("Parser: initializing");
+	log_dbg3("Parser: user input is \n\n%s\n", input);
+	log_dbg3("Parser: input is %zu long.", ft_strlen(input));
+	log_dbg3("Parser: lexer returned %zu tokens to be parsed", tokens->used);
+	while (i < tokens->used)
+	{
+		tok = (t_token *)array_get_at(tokens, i);
+		if (tok->type == E_TOKEN_WORD)
+			nb_word++;
+		else if (tok->type == E_TOKEN_BLANK)
+			nb_blank++;
+		else if (tok->type == E_TOKEN_NEWLINE)
+			nb_newline++;
+		i++;
+	}
+	log_dbg3("Found %zu words", nb_word);
+	log_dbg3("Found %zu blank spaces", nb_blank);
+	log_dbg3("Found %zu newlines", nb_newline);
 }

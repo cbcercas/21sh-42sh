@@ -33,15 +33,16 @@ char	*ms_get_line(void)
 {
 	char	*line;
 	char	*input;
-	int		ret;
+	char 	cwd[1024];
 
 	input = NULL;
-	ret = get_next_line(0, &line);
+	get_next_line(0, &line);
 	input = ft_strjoincl(input, line, 3);
 	while (remove_escaped_newline(&input))
 	{
-		ft_printf(">");
-		ret = get_next_line(0, &line);
+		getcwd(cwd, sizeof(cwd));
+		ft_printf("\033[0;92mUSER\033[0;35m@\033[0;93m%s \033[0;92m$>\033[0m", cwd);
+		get_next_line(0, &line);
 		input = ft_strjoincl(input, line, 3);
 	}
 	if (*input != '\0')

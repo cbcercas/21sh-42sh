@@ -27,8 +27,8 @@ SRCS			+= lexer.c lexer_clean.c
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
 
-SRC_SUBDIR		+= parser
-SRCS			+= parser.c
+#SRC_SUBDIR		+= parser
+#SRCS			+= parser.c
 ###############################################################################
 #																			  #
 #									CONFIG									  #
