@@ -1,0 +1,13 @@
+##########################################
+       new intance of minishell
+##########################################
+[2017-03-21 08:50:37] minishell: Info: Parser: initializing
+[36m[2017-03-21 08:50:37] minishell: Debug lv3:[0m Parser: user input is 
+
+ls
+
+[36m[2017-03-21 08:50:37] minishell: Debug lv3:[0m Parser: input is 2 long.
+[36m[2017-03-21 08:50:37] minishell: Debug lv3:[0m Parser: lexer returned 1 tokens to be parsed
+[36m[2017-03-21 08:50:37] minishell: Debug lv3:[0m Found 1 words
+[36m[2017-03-21 08:50:37] minishell: Debug lv3:[0m Found 0 blank spaces
+[36m[2017-03-21 08:50:37] minishell: Debug lv3:[0m Found 0 newlines

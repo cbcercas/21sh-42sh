@@ -21,6 +21,79 @@
 ** @return Returns nothing for now
 */
 
+static const uint32_t grammar[][][] =
+{
+//complete_command
+	{
+		{
+			list,
+					separator
+		},
+		{
+			list
+		}
+	},
+// list
+	{
+		{
+			list,
+					separator_op,
+					and_or
+		},
+		{
+			and_or
+		}
+	},
+// and_or
+	{
+		{
+			pipeline
+		},
+		{
+			and_or,
+					AND_IF,
+					linebreak,
+					pipeline,
+		},
+		{
+			and_or,
+					OR_IF,
+					linebreak,
+					pipeline
+		}
+	},
+// pipeline
+	{
+		{
+			pipe_sequence
+		}
+	},
+// newline_list
+	{
+		{
+			NEWLINE
+		},
+		{
+			newline_list,
+					NEWLINE
+		}
+	},
+// separator_op
+	{
+		{
+			'&',
+					';'
+		}
+	},
+// separator
+	{
+		{
+			separator_op,
+					linebreak
+		}
+	}
+};
+
 void	parser_init(t_array *tokens, char *input)
 {
 	size_t		i;

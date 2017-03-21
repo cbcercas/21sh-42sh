@@ -21,6 +21,19 @@
 ** @brief initialize the parser
 */
 
+enum e_grammar_sym
+{
+	complete_command = 100,
+	list,
+	separator_op,
+	separator,
+	and_or,
+	pipeline,
+	linebreak,
+	pipe_sequence,
+	newline_list
+}
+
 void	parser_init(t_array *tokens, char *input);
 
 #endif
