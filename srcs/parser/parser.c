@@ -16,82 +16,82 @@
 static const uint32_t grammar[][][] =
 {
 //complete_command
-{
 	{
-		list,
-		separator
+		{
+			list,
+			separator
+		},
+		{
+			list
+		}
 	},
-	{
-		list
-	}
-},
 // list
-{
 	{
-		list,
-		separator_op,
-		and_or
+		{
+			list,
+			separator_op,
+			and_or
+		},
+		{
+			and_or
+		}
 	},
-	{
-		and_or
-	}
-},
 // and_or
-{
 	{
-		pipeline
+		{
+			pipeline
+		},
+		{
+			and_or,
+			AND_IF,
+			linebreak,
+			pipeline
+		},
+		{
+			and_or,
+			OR_IF,
+			linebreak,
+			pipeline
+		}
 	},
-	{
-		and_or,
-		AND_IF,
-		linebreak,
-		pipeline
-	},
-	{
-		and_or,
-		OR_IF,
-		linebreak,
-		pipeline
-	}
-},
 // pipeline
-{
 	{
-		pipe_sequence
-	}
-},
-// newline_list
-{
-	{
-		NEWLINE
+		{
+			pipe_sequence
+		}
 	},
+// newline_list
 	{
-		newline_list,
-		NEWLINE
-	}
-},
+		{
+			NEWLINE
+		},
+		{
+			newline_list,
+			NEWLINE
+		}
+	},
 // separator_op
-{
 	{
-		'&',
-		';'
-	}
-},
+		{
+			'&',
+			';'
+		}
+	},
 // separator
-{
 	{
-		separator_op,
-		linebreak
-	}
-},
+		{
+			separator_op,
+			linebreak
+		}
+	},
 //linebreak
-{
 	{
-		newline_list
-	}
-},
+		{
+			newline_list
+		}
+	},
 //pipe_sequence
-{
+	{
 		{
 			command
 		},
@@ -101,15 +101,15 @@ static const uint32_t grammar[][][] =
 			linebreak,
 			command
 		}
-},
+	},
 //command
-{
+	{
 		{
 			simple_command
 		}
-},
+	},
 //simple_command
-{
+	{
 		{
 			cmd_prefix,
 			cmd_word,
@@ -129,9 +129,9 @@ static const uint32_t grammar[][][] =
 		{
 			cmd_name
 		}
-},
+	},
 //cmd_prefix
-{
+	{
 		{
 			io_redirect
 		},
@@ -146,21 +146,21 @@ static const uint32_t grammar[][][] =
 			cmd_prefix,
 			ASSIGNMENT_WORD
 		}
-},
+	},
 //cmd_word
-{
+	{
 		{
 			WORD
 		}
-},
+	},
 //cmd_name
-{
+	{
 		{
 			WORD
 		}
-},
+	},
 //cmd_suffix
-{
+	{
 		{
 			io_redirect
 		},
@@ -175,9 +175,9 @@ static const uint32_t grammar[][][] =
 			cmd_suffix,
 			WORD
 		}
-},
+	},
 //io_redirect
-{
+	{
 		{
 			io_file
 		},
@@ -192,9 +192,9 @@ static const uint32_t grammar[][][] =
 			IO_NUMBER,
 			io_here
 		}
-},
+	},
 //io_file
-{
+	{
 		{
 			'<',
 			filename
@@ -223,9 +223,9 @@ static const uint32_t grammar[][][] =
 			CLOBBER,
 			filename
 		}
-		},
-		//io_here
-		{
+	},
+//io_here
+	{
 		{
 			DLESS,
 			here_end
@@ -234,20 +234,20 @@ static const uint32_t grammar[][][] =
 			DLESSDASH,
 			here_end
 		}
-		},
-		//filename
-		{
-		{
-			WORD
-		}
-		},
-		//here_end
-		{
+	},
+//filename
+	{
 		{
 			WORD
 		}
+	},
+//here_end
+	{
+		{
+			WORD
 		}
-		};
+	}
+};
 
 /*
 ** @brief Initializes the parser for the program
