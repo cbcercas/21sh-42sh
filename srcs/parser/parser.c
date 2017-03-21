@@ -6,20 +6,12 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/20 09:43:16 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/20 10:41:34 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/21 10:25:12 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parser/parser.h>
 #include <logger/logger.h>
-
-/*
- ** @brief Initializes the parser for the program
- **
- ** @param tokens  The tokens sent by the lexer
- ** @param input   The input the user sent
- ** @return Returns nothing for now
- */
 
 static const uint32_t grammar[][][] =
 {
@@ -53,7 +45,7 @@ static const uint32_t grammar[][][] =
 			and_or,
 			AND_IF,
 			linebreak,
-			pipeline,
+			pipeline
 		},
 		{
 			and_or,
@@ -99,6 +91,14 @@ static const uint32_t grammar[][][] =
 		}
 	}
 };
+
+/*
+** @brief Initializes the parser for the program
+**
+** @param tokens  The tokens sent by the lexer
+** @param input   The input the user sent
+** @return Returns nothing for now
+*/
 
 void	parser_init(t_array *tokens, char *input)
 {
