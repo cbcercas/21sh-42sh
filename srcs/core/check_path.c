@@ -32,7 +32,7 @@ char		*makefilepath(char const *path, char const *filename)
 
 int	ms_test_access(char const *filename)
 {
-	struct stat *restrict buf;
+	struct stat *buf;
 	int		ret;
 
 	if (!(buf = ft_memalloc(sizeof(*buf))))
