@@ -20,8 +20,6 @@ int main(int ac, char *const *av)
 	BOOL		stop;
 	t_array		*tokens;
 
-	if (!ac || !av)
-		return (1);
 	if (!ms_init(&data, ac, av))
 		exit(1);
 	stop = true;
