@@ -33,15 +33,14 @@ char	*ms_get_line(void)
 {
 	char	*line;
 	char	*input;
-	int		ret;
 
 	input = NULL;
-	ret = get_next_line(0, &line);
+	(void)get_next_line(0, &line);
 	input = ft_strjoincl(input, line, 3);
 	while (remove_escaped_newline(&input))
 	{
 		ft_printf(">");
-		ret = get_next_line(0, &line);
+		(void)get_next_line(0, &line);
 		input = ft_strjoincl(input, line, 3);
 	}
 	if (*input != '\0')

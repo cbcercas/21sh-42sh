@@ -1,36 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data.h                                             :+:      :+:    :+:   */
+/*   help.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/17 21:17:26 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/13 23:53:14 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/03/23 13:59:00 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/03/23 13:59:00 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef DATA_H
-# define DATA_H
-# include <sys/param.h>
-# include <environ/env_list_utils.h>
-# include <logger/logger.h>
 
-typedef struct s_sh_opt		t_sh_opt;
-typedef struct s_ms_data	t_ms_data;
+#ifndef HELP_H
+# define HELP_H
 
-struct						s_sh_opt
-{
-	unsigned		verbose:1;
-	unsigned		dbg:1;
-	enum e_d_lvl	dbg_lvl;
-};
+# include <stdlib.h>
+# include <core/main.h>
+# include <ft_printf/libftprintf.h>
 
-struct						s_ms_data
-{
-	t_env				*env;
-	t_sh_opt			opts;
-	char				*cwd;
-	struct s_builtin_e	*builtins;
-};
+void sh_help(void);
+void sh_help_exit(void);
 
 #endif

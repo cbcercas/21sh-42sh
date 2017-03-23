@@ -52,14 +52,12 @@ int	ms_test_access(char const *filename)
 char	*ms_check_path(char const *cmd_name, t_env const *env)
 {
 	char	**env_path;
-	char	**save;
 	char	*file;
 	int		ret;
 	int		tmp;
 
 	if (!(env_path = ft_strsplit(ms_getenv(env, "PATH"), ':')))
 		return (NULL);
-	save = env_path;
 	ret = 0;
 	while (*env_path != NULL)
 	{
