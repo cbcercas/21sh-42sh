@@ -13,7 +13,7 @@
 NAME			= minishell
 
 SRC_SUBDIR		= core
-SRCS			+= main.c prompt.c init.c input.c command.c check_path.c
+SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c

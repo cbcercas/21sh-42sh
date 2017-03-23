@@ -9,33 +9,23 @@
 /*   Updated: 2017/03/04 07:14:37 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <core/main.h>
 
+#include <core/help.h>
 
-int main(int ac, char *const *av)
+void sh_help(void)
 {
-	t_ms_data	data;
-	char		*input;
-	// char		**command;
-	BOOL		stop;
-	t_array		*tokens;
+	ft_printf("Usage:\t./%s [option] ...\n", PROG_NAME);
+	ft_printf("Shell options:\n");
+	ft_printf("\t-v\t\tverbose\n");
+	ft_printf("\t-d [0-7]\tdebug mode (need debug level):\n");
+	ft_printf("\t\t\t\t0: no log\n\t\t\t\t1: fatal\n\t\t\t\t2: error\n");
+	ft_printf("\t\t\t\t3: warning\n\t\t\t\t4: info\n");
+	ft_printf("\t\t\t\t5: debug level 1\n\t\t\t\t6: debug level 2");
+	ft_printf("\n\t\t\t\t7: debug level 3\n");
+}
 
-	if (!ac || !av)
-		return (1);
-	if (!ms_init(&data, ac, av))
-		exit(1);
-	stop = true;
-	while (stop == true)
-	{
-		ms_print_prompt();
-		input = ms_get_line();
-		tokens = lexer_lex(input);
-		if (tokens)
-			lexer_print_tokens(tokens);
-		// if ((command = ft_strsplit(input, ';')))
-		// 	if (ms_command(data, command))
-		// 		stop = true;
-	}
-	ms_deinit(&data);
-	return (0);
+void sh_help_exit(void)
+{
+	sh_help();
+	exit (1);
 }

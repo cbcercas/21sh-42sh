@@ -18,8 +18,10 @@
 # include <environ/environ.h>
 # include <builtins/builtins_utils.h>
 # include <core/main.h>
+# include <unistd/ft_unistd.h>
+# include <core/help.h>
 
-t_ms_data		*ms_init(void);
-void		ms_deinit(t_ms_data **data);
+t_ms_data		*ms_init(t_ms_data *data, int ac, char *const *av);
+void		ms_deinit(t_ms_data *data);
 
 #endif
