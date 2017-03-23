@@ -16,7 +16,6 @@ int main(int ac, char *const *av)
 {
 	t_ms_data	data;
 	char		*input;
-	// char		**command;
 	BOOL		stop;
 	t_array		*tokens;
 
