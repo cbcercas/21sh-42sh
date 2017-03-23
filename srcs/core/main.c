@@ -11,20 +11,7 @@
 /* ************************************************************************** */
 #include <core/main.h>
 
-// int main(int argc, char const *argv[])
-// {
-// 	(void)argv;
-// 	(void)argc;
-// //	char *test = ft_strclean("		abc    ms		_d   f");
-// //	ft_printf("%s", test);
-// 	// ft_printf("test");
-// 	if ((BOOL)5)
-// 		ft_printf("true\n");
-// 	else
-// 		ft_printf("false\n");
 
-// 	return 0;
-// }
 int main(int ac, char const *av[])
 {
 	t_ms_data	*data;
