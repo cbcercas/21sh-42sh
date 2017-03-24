@@ -45,7 +45,7 @@ struct	s_automaton
 
 typedef struct s_automaton	t_automaton;
 
-t_automaton *automaton_init(void);
+t_automaton *automaton_init(t_automaton *automaton);
 void automaton_destroy(t_automaton **automaton);
 void automaton_step(t_automaton	*a, t_stack_state state,t_automaton_step step);
 

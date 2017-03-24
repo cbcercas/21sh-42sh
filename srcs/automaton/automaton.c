@@ -11,13 +11,9 @@
 /* ************************************************************************** */
 #include <automaton/automaton.h>
 
-t_automaton *automaton_init(void)
+t_automaton *automaton_init(t_automaton *automaton)
 {
-	t_automaton		*automaton;
-
-	if(!(automaton = ft_memalloc(sizeof(*automaton))))
-		return (NULL);
-	if (!(automaton->stack = stack_create(sizeof(int))))
+	if (!(stack_init(&automaton->stack, sizeof(int))))
 		return (NULL);
 	automaton->cur_state = E_STATE_START;
 	return (automaton);
