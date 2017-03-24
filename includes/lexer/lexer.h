@@ -54,7 +54,7 @@ enum e_char_type
 };
 
 t_array	*lexer_init(t_array *toks);
-t_array	*lexer_lex(t_array *toks, t_automaton *a, char const *input);
+t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *input);
 void	lexer_print_tokens(t_array *tokens);
 void	lexer_clean_tokens(t_array *tokens);
 
