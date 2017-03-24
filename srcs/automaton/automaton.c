@@ -19,6 +19,14 @@ t_automaton *automaton_init(t_automaton *automaton)
 	return (automaton);
 }
 
+t_automaton *automaton_reset(t_automaton *automaton)
+{
+	if ((stack_reset(&automaton->stack) == NULL))
+		return (NULL);
+	automaton->cur_state = E_STATE_START;
+	return (automaton);
+}
+
 void automaton_destroy(t_automaton **automaton)
 {
 	if (*automaton)
