@@ -14,6 +14,7 @@
 #define AUTOMATON_H
 
 #include <types/stack.h>
+#include <logger/logger.h>
 
 enum	e_stack_state
 {
