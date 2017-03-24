@@ -36,6 +36,8 @@ int main(int ac, char *const *av)
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
 		// 		stop = true;
+		if (ft_strequ(input, "exit"))
+			stop = false;
 		array_reset(&tokens);
 		automaton_reset(&automaton);
 	}
