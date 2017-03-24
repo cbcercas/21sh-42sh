@@ -16,7 +16,7 @@
 # include <logger/logger.h>
 
 typedef struct s_sh_opt		t_sh_opt;
-typedef struct s_ms_data	t_ms_data;
+typedef struct s_sh_data	t_sh_data;
 
 struct						s_sh_opt
 {
@@ -25,7 +25,7 @@ struct						s_sh_opt
 	enum e_d_lvl	dbg_lvl;
 };
 
-struct						s_ms_data
+struct						s_sh_data
 {
 	t_env				*env;
 	t_sh_opt			opts;

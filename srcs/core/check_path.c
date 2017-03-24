@@ -30,7 +30,7 @@ char		*makefilepath(char const *path, char const *filename)
 	return (filepath);
 }
 
-int	ms_test_access(char const *filename)
+static int	sh_test_access(char const *filename)
 {
 	struct stat *buf;
 	int		ret;
@@ -49,21 +49,21 @@ int	ms_test_access(char const *filename)
 	return (ret);
 }
 
-char	*ms_check_path(char const *cmd_name, t_env const *env)
+char	*sh_check_path(char const *cmd_name, t_env const *env)
 {
 	char	**env_path;
 	char	*file;
 	int		ret;
 	int		tmp;
 
-	if (!(env_path = ft_strsplit(ms_getenv(env, "PATH"), ':')))
+	if (!(env_path = ft_strsplit(sh_getenv(env, "PATH"), ':')))
 		return (NULL);
 	ret = 0;
 	while (*env_path != NULL)
 	{
 		if (!(file = makefilepath(*env_path, cmd_name)))
 			break;
-		if ((tmp = ms_test_access(file)) == 1)
+		if ((tmp = sh_test_access(file)) == 1)
 			return (file);
 		else if (tmp == -1)
 			ret = -1;

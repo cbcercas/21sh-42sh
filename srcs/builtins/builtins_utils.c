@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <builtins/builtins_utils.h>
 
-static t_builtin_e	*ms_new_builtin(char *name, t_builtin fn)
+static t_builtin_e	*sh_new_builtin(char *name, t_builtin fn)
 {
 	t_builtin_e	*e;
 
@@ -37,33 +37,33 @@ static t_builtin_e	*ms_add_builtin(t_builtin_e	**head, char *name, t_builtin fn)
 		e = *head;
 		while (e->next)
 			e = e->next;
-		if (!(e->next = ms_new_builtin(name, fn)))
+		if (!(e->next = sh_new_builtin(name, fn)))
 			// TODO free head
 			*head = NULL;
 	}
 	else
-		*head = ms_new_builtin(name, fn);
+		*head = sh_new_builtin(name, fn);
 	return (*head);
 }
 
 
-t_builtin_e			*ms_builtins_init(void)
+t_builtin_e			*sh_builtins_init(void)
 {
 	t_builtin_e	*head;
 
 	head = NULL;
-	if (!(head = ms_add_builtin(&head, "exit", ms_exit)))
+	if (!(head = ms_add_builtin(&head, "exit", sh_exit)))
 		return (head);
-	if (!(head = ms_add_builtin(&head, "echo", ms_echo)))
+	if (!(head = ms_add_builtin(&head, "echo", sh_echo)))
 		return (head);
-	if (!(head = ms_add_builtin(&head, "cd", ms_chdir)))
+	if (!(head = ms_add_builtin(&head, "cd", sh_chdir)))
 		return (head);
-	if (!(head = ms_add_builtin(&head, "chdir", ms_chdir)))
+	if (!(head = ms_add_builtin(&head, "chdir", sh_chdir)))
 		return (head);
 	return (head);
 }
 
-t_builtin_e *ms_is_builtin(t_builtin_e *head, char *name)
+t_builtin_e *sh_is_builtin(t_builtin_e *head, char *name)
 {
 	t_builtin_e	*e;
 
@@ -77,7 +77,7 @@ t_builtin_e *ms_is_builtin(t_builtin_e *head, char *name)
 	return (NULL);
 }
 
-static char	*ms_find_quote_end(char *arg)
+static char	*sh_find_quote_end(char *arg)
 {
 	int	lvl;
 	char cur_q;
@@ -105,12 +105,12 @@ static char	*ms_find_quote_end(char *arg)
 	return ((*arg) ? arg : NULL);
 }
 
-char	*ms_extract_str(char *arg)
+char	*sh_extract_str(char *arg)
 {
 	char	*str;
 	char	*q_end;
 
-	q_end = ms_find_quote_end(arg);
+	q_end = sh_find_quote_end(arg);
 	str = ft_strsub(arg, 1, q_end - arg - 1);
 	return (str);
 }

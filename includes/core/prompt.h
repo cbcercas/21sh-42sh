@@ -14,6 +14,6 @@
 # define PROMPT_H
 # include <ft_printf/libftprintf.h>
 
-void	ms_print_prompt(void);
+void	sh_print_prompt(void);
 
 #endif

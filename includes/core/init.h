@@ -21,7 +21,7 @@
 # include <unistd/ft_unistd.h>
 # include <core/help.h>
 
-t_ms_data		*ms_init(t_ms_data *data, int ac, char *const *av);
-void		ms_deinit(t_ms_data *data);
+t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av);
+void			sh_deinit(t_sh_data *data);
 
 #endif

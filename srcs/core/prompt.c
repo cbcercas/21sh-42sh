@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <core/prompt.h>
 
-void	ms_print_prompt(void)
+void	sh_print_prompt(void)
 {
 	ft_printf("$> ");
 }

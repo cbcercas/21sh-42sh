@@ -13,10 +13,10 @@
 
 extern char const	*g_optarg;
 
-static void		ms_data_free(t_ms_data	*data)
+static void		sh_data_free(t_sh_data *data)
 {
 	if (data->env)
-		ms_lst_env_del(&(data)->env);
+		sh_lst_env_del(&(data)->env);
 	return;
 }
 
@@ -43,26 +43,26 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 	}
 }
 
-t_ms_data		*ms_init(t_ms_data *data, int ac, char *const *av)
+t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 {
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av);
-	data->env = ms_copy_environ();
-	data->builtins = ms_builtins_init();
+	data->env = sh_copy_environ();
+	data->builtins = sh_builtins_init();
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
-		if (!(ms_getenv(data->env, "TERM"))
-						|| ft_strequ(ms_getenv(data->env, "TERM"), ""))
-			ms_setenv(data->env, "TERM", "dumb");
+		if (!(sh_getenv(data->env, "TERM"))
+						|| ft_strequ(sh_getenv(data->env, "TERM"), ""))
+			sh_setenv(data->env, "TERM", "dumb");
 	if (!data->env || !data->cwd)
 	{
 		ft_printf("minishell: error when initialising main data\n");
-		ms_data_free(data);
+		sh_data_free(data);
 		return (NULL);
 	}
 	return (data);
 }
 
-void			ms_deinit(t_ms_data *data)
+void			sh_deinit(t_sh_data *data)
 {
-	ms_data_free(data);
+	sh_data_free(data);
 }

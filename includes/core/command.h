@@ -19,8 +19,8 @@
 # include <core/check_path.h>
 # include <sys/wait.h>
 
-int	ms_command(t_ms_data *data, char **command);
-char **ms_get_command(char *input);
-int	ms_exec_command(char **command, const t_env *env);
+int	sh_command(t_sh_data *data, char **command);
+char **sh_get_command(char *input);
+int	sh_exec_command(char **command, const t_env *env);
 
 #endif

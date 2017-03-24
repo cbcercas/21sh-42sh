@@ -29,7 +29,7 @@ BOOL remove_escaped_newline(char **input)
 **
 ** @return     A pointer to the input string
 */
-char	*ms_get_line(void)
+char	*sh_get_line(void)
 {
 	char	*line;
 	char	*input;

@@ -16,7 +16,7 @@
 # include <builtins/echo.h>
 # include <builtins/chdir.h>
 
-typedef 	int (*t_builtin)(t_ms_data *data, char *arg);
+typedef 	int (*t_builtin)(t_sh_data *data, char *arg);
 
 typedef struct			s_builtin_e
 {
@@ -26,8 +26,8 @@ typedef struct			s_builtin_e
 	size_t				len;
 }						t_builtin_e;
 
-t_builtin_e				*ms_builtins_init(void);
-t_builtin_e				*ms_is_builtin(t_builtin_e *head, char *name);
-char					*ms_extract_str(char *arg);
+t_builtin_e				*sh_builtins_init(void);
+t_builtin_e				*sh_is_builtin(t_builtin_e *head, char *name);
+char					*sh_extract_str(char *arg);
 
 #endif

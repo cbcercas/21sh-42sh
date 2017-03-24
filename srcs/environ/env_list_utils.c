@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <environ/env_list_utils.h>
 
-char	*ms_getenv_name(char const*env)
+char	*sh_getenv_name(char const *env)
 {
 	char	*sep;
 	char	*name;
@@ -21,7 +21,7 @@ char	*ms_getenv_name(char const*env)
 	return (name);
 }
 
-char	*ms_getenv_value(char const *env)
+char	*sh_getenv_value(char const *env)
 {
 	char	*sep;
 	char	*value;
@@ -31,7 +31,7 @@ char	*ms_getenv_value(char const *env)
 	return (value);
 }
 
-t_env	*ms_new_env(char *name, char *value)
+t_env	*sh_new_env(char *name, char *value)
 {
 	t_env	*e;
 
@@ -49,7 +49,7 @@ t_env	*ms_new_env(char *name, char *value)
 	return (e);
 }
 
-void	ms_env_del(t_env **e)
+void	sh_env_del(t_env **e)
 {
 	ft_strdel(&(*e)->name);
 	ft_strdel(&(*e)->value);
@@ -57,9 +57,9 @@ void	ms_env_del(t_env **e)
 
 }
 
-void	ms_lst_env_del(t_env **head)
+void	sh_lst_env_del(t_env **head)
 {
 	while ((*head)->next)
-		ms_lst_env_del(&(*head)->next);
-	ms_env_del(head);
+		sh_lst_env_del(&(*head)->next);
+	sh_env_del(head);
 }

@@ -14,9 +14,9 @@
 # define ENVIRON_H
 # include <environ/env_list_utils.h>
 
-t_env	*ms_copy_environ(void);
-char	*ms_getenv(t_env const *env, char const *name);
-t_env	*ms_setenv(t_env *env, char const *name, char const *value);
-char	**ms_tenv_to_tab(t_env const *env);
+t_env	*sh_copy_environ(void);
+char	*sh_getenv(t_env const *env, char const *name);
+t_env	*sh_setenv(t_env *env, char const *name, char const *value);
+char	**sh_tenv_to_tab(t_env const *env);
 
 #endif

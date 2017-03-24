@@ -23,6 +23,6 @@ typedef struct s_echo
 	int				lvl;
 }				t_echo;
 
-int	ms_echo(t_ms_data *data, char *arg);
+int	sh_echo(t_sh_data *data, char *arg);
 
 #endif
