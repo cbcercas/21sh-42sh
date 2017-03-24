@@ -15,23 +15,29 @@
 int main(int ac, char *const *av)
 {
 	t_sh_data	data;
+	t_automaton	automaton;
+	t_array		tokens;
 	char		*input;
 	BOOL		stop;
-	t_array		*tokens;
 
 	if (!sh_init(&data, ac, av))
 		exit(1);
+	if (lexer_init(&tokens) == NULL)
+		exit (1);
+	if (automaton_init(&automaton) == NULL)
+		exit (1);
 	stop = true;
 	while (stop == true)
 	{
 		sh_print_prompt();
 		input = sh_get_line();
-		tokens = lexer_lex(input);
-		if (tokens)
-			lexer_print_tokens(tokens);
+		if (lexer_lex(&tokens, &automaton, input))
+			lexer_print_tokens(&tokens);
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
 		// 		stop = true;
+		array_reset(&tokens);
+		automaton_reset(&automaton);
 	}
 	sh_deinit(&data);
 	return (0);

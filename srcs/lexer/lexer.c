@@ -197,28 +197,22 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 }
 
 
-t_array	*lexer_lex(char const *in)
+t_array	*lexer_lex(t_array *toks, t_automaton *a, char const *in)
 {
-	t_array		*toks;
-	t_automaton	*a;
-
 	if (in == NULL)
-		return (NULL);
-	if (!(toks = array_create(sizeof(t_token))) || !(a = automaton_init()))
 		return (NULL);
 	while ((*in != 0) && (a->cur_state != E_STATE_ERROR))
 		lexer_tokenize(&in, toks, a);
 	if (a->cur_state == E_STATE_ERROR)
 	{
 		ft_printf("Minishell: Lexing error.\n");
-		array_destroy(&toks);
+		array_reset(toks);
 	}
-	else if (!is_empty_stack(a->stack))
+	else if (!is_empty_stack((&a->stack)))
 	{
 		ft_printf("Minishell: Lexing error: Incomplete command.\n");
-		array_destroy(&toks);
+		array_reset(toks);
 	}
-	automaton_destroy(&a);
 	if (toks)
 		lexer_clean_tokens(toks);
 	return (toks);
