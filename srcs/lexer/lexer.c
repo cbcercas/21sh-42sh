@@ -189,7 +189,7 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 			automaton_step(a, g_char_type[(int) **in], E_PUSH);
 		else if (g_char_type[(int)**in] == E_CHAR_TYPE_NONE)
 		{
-			automaton_step(a, g_char_type[(int) **in], E_PUSH);
+			automaton_step(a, E_STATE_ERROR, E_PUSH);
 			return;
 		}
 		lexer_tokenize_one(in, toks, a);
