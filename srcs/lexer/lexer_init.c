@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.h                                          :+:      :+:    :+:   */
+/*   lexer_init.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/17 14:26:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/28 04:54:45 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/03/24 09:44:00 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/03/24 09:44:00 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_H
-# define COMMAND_H
+#include <lexer/lexer.h>
 
-# include <unistd.h>
-# include <core/init.h>
-# include <core/data.h>
-# include <core/check_path.h>
-# include <sys/wait.h>
-
-int	sh_command(t_sh_data *data, char **command);
-char **sh_get_command(char *input);
-int	sh_exec_command(char **command, const t_env *env);
-
-#endif
+t_array	*lexer_init(t_array *tokens)
+{
+	tokens = array_init(tokens, sizeof(t_token));
+	if (tokens)
+	{
+		log_info("Lexer: Initialization done");
+		return (tokens);
+	}
+	log_fatal("Lexer: Initialization failed");
+	return (NULL);
+}

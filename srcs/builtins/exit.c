@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <builtins/exit.h>
 
-int	ms_exit(t_ms_data *data, char *arg)
+int	sh_exit(t_sh_data *data, char *arg)
 {
 	(void)arg;
 	(void)data;

@@ -19,6 +19,7 @@
 # include <types/stack.h>
 # include <automaton/automaton.h>
 # include <ft_printf/libftprintf.h>
+# include <logger/logger.h>
 
 typedef struct s_token	t_token;
 typedef uint32_t		t_token_type;
@@ -52,7 +53,8 @@ enum e_char_type
 	E_CHAR_TYPE_DQUOTE
 };
 
-t_array	*lexer_lex(char const *input);
+t_array	*lexer_init(t_array *toks);
+t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *input);
 void	lexer_print_tokens(t_array *tokens);
 void	lexer_clean_tokens(t_array *tokens);
 

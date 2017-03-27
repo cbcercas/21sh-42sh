@@ -14,6 +14,7 @@
 #define AUTOMATON_H
 
 #include <types/stack.h>
+#include <logger/logger.h>
 
 enum	e_stack_state
 {
@@ -39,13 +40,14 @@ enum 	e_automaton_step
 
 struct	s_automaton
 {
-	t_stack			*stack;
+	t_stack stack;
 	t_stack_state	cur_state;
 };
 
 typedef struct s_automaton	t_automaton;
 
-t_automaton *automaton_init(void);
+t_automaton *automaton_init(t_automaton *automaton);
+t_automaton *automaton_reset(t_automaton *automaton);
 void automaton_destroy(t_automaton **automaton);
 void automaton_step(t_automaton	*a, t_stack_state state,t_automaton_step step);
 

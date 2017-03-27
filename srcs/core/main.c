@@ -14,25 +14,33 @@
 
 int main(int ac, char *const *av)
 {
-	t_ms_data	data;
+	t_sh_data	data;
+	t_automaton	automaton;
+	t_array		tokens;
 	char		*input;
 	BOOL		stop;
-	t_array		*tokens;
 
-	if (!ms_init(&data, ac, av))
+	if (!sh_init(&data, ac, av))
 		exit(1);
+	if (lexer_init(&tokens) == NULL)
+		exit (1);
+	if (automaton_init(&automaton) == NULL)
+		exit (1);
 	stop = true;
 	while (stop == true)
 	{
-		ms_print_prompt();
-		input = ms_get_line();
-		tokens = lexer_lex(input);
-		if (tokens)
-			lexer_print_tokens(tokens);
+		sh_print_prompt();
+		input = sh_get_line();
+		if (lexer_lex(&tokens, &automaton, input))
+			lexer_print_tokens(&tokens);
 		// if ((command = ft_strsplit(input, ';')))
-		// 	if (ms_command(data, command))
+		// 	if (sh_command(data, command))
 		// 		stop = true;
+		if (ft_strequ(input, "exit"))
+			stop = false;
+		array_reset(&tokens);
+		automaton_reset(&automaton);
 	}
-	ms_deinit(&data);
+	sh_deinit(&data);
 	return (0);
 }

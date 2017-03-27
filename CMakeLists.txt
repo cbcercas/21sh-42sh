@@ -167,6 +167,7 @@ set(SOURCE_FILES
         srcs/core/prompt.c
         srcs/environ/env_list_utils.c
         srcs/environ/environ.c
+        srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         )
