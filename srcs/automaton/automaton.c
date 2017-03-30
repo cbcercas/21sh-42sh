@@ -61,7 +61,7 @@ void automaton_step(t_automaton	*a, t_stack_state state, t_automaton_step step)
 	{
 		stack_pop(&a->stack);
 		if (is_empty_stack(&a->stack))
-			a->cur_state = E_STATE_START;
+			a->cur_state = E_STATE_END;
 		else
 			a->cur_state = *(t_stack_state *) get_top_stack(&a->stack);
 	}
