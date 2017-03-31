@@ -232,7 +232,7 @@ static const uint32_t g_stepper[13][10][2] =
 			[E_CHAR_TYPE_SQUOTE] = {0, 1},
 			[E_CHAR_TYPE_BQUOTE] = {0, 1},
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
-			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 0},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
