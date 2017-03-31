@@ -43,13 +43,13 @@ static const uint32_t grammar[][][] =
 		},
 		{
 			and_or,
-			AND_IF,
+				E_TOKEN_AND_IF,
 			linebreak,
 			pipeline
 		},
 		{
 			and_or,
-			OR_IF,
+				E_TOKEN_OR_IF,
 			linebreak,
 			pipeline
 		}
@@ -63,11 +63,11 @@ static const uint32_t grammar[][][] =
 // newline_list
 	{
 		{
-			NEWLINE
+			E_TOKEN_NEWLINE
 		},
 		{
 			newline_list,
-			NEWLINE
+				E_TOKEN_NEWLINE
 		}
 	},
 // separator_op
@@ -138,25 +138,18 @@ static const uint32_t grammar[][][] =
 		{
 			cmd_prefix,
 			io_redirect
-		},
-		{
-			ASSIGNMENT_WORD
-		},
-		{
-			cmd_prefix,
-			ASSIGNMENT_WORD
 		}
 	},
 //cmd_word
 	{
 		{
-			WORD
+				E_TOKEN_WORD
 		}
 	},
 //cmd_name
 	{
 		{
-			WORD
+				E_TOKEN_WORD
 		}
 	},
 //cmd_suffix
@@ -169,11 +162,11 @@ static const uint32_t grammar[][][] =
 			io_redirect
 		},
 		{
-			WORD
+				E_TOKEN_WORD
 		},
 		{
 			cmd_suffix,
-			WORD
+				E_TOKEN_WORD
 		}
 	},
 //io_redirect
@@ -182,14 +175,14 @@ static const uint32_t grammar[][][] =
 			io_file
 		},
 		{
-			IO_NUMBER,
+				E_TOKEN_IO_NUMBER,
 			io_file
 		},
 		{
 			io_here
 		},
 		{
-			IO_NUMBER,
+				E_TOKEN_IO_NUMBER,
 			io_here
 		}
 	},
@@ -200,7 +193,7 @@ static const uint32_t grammar[][][] =
 			filename
 		},
 		{
-			LESSAND,
+				E_TOKEN_LESSAND,
 			filename
 		},
 		{
@@ -208,43 +201,35 @@ static const uint32_t grammar[][][] =
 			filename
 		},
 		{
-			GREATAND,
+				E_TOKEN_GREATAND,
 			filename
 		},
 		{
-			DGREAT,
+				E_TOKEN_DGREAT,
 			filename
 		},
 		{
-			LESSGREAT,
-			filename
-		},
-		{
-			CLOBBER,
+				E_TOKEN_LESSGREAT,
 			filename
 		}
 	},
 //io_here
 	{
 		{
-			DLESS,
-			here_end
-		},
-		{
-			DLESSDASH,
+				E_TOKEN_DLESS,
 			here_end
 		}
 	},
 //filename
 	{
 		{
-			WORD
+				E_TOKEN_WORD
 		}
 	},
 //here_end
 	{
 		{
-			WORD
+				E_TOKEN_WORD
 		}
 	}
 };
