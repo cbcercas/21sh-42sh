@@ -142,7 +142,7 @@ static const uint32_t g_char_type[129] = {
 [127] = E_CHAR_TYPE_LETTER,
 };
 
-static const uint32_t g_stepper[13][10][2] =
+static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 {
 	[E_STATE_NONE] = {},
 	[E_STATE_BLANK] =

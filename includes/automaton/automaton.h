@@ -31,6 +31,7 @@ enum	e_stack_state
 	E_STATE_START,
 	E_STATE_END,
 	E_STATE_ERROR,
+	E_STATE_MAX
 };
 
 typedef uint32_t	t_stack_state;

@@ -34,7 +34,8 @@ enum e_token_type
 	E_TOKEN_BQUOTE,
 	E_TOKEN_DQUOTE,
 	E_TOKEN_PIPE,
-	E_TOKEN_LESSGREAT
+	E_TOKEN_LESSGREAT,
+	E_TOKEN_MAX
 };
 
 struct s_token
@@ -55,7 +56,8 @@ enum e_char_type
 	E_CHAR_TYPE_DQUOTE,
 	E_CHAR_TYPE_PIPE,
 	E_CHAR_TYPE_LESSGREAT,
-	E_CHAR_TYPE_ERROR
+	E_CHAR_TYPE_ERROR,
+	E_CHAR_TYPE_MAX
 };
 
 t_array	*lexer_init(t_array *toks);
