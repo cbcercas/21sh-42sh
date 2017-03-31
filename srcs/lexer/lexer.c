@@ -50,7 +50,7 @@ static const uint32_t g_char_type[129] = {
 ['#'] = E_CHAR_TYPE_LETTER,
 ['$'] = E_CHAR_TYPE_LETTER,
 ['%'] = E_CHAR_TYPE_LETTER,
-['&'] = E_CHAR_TYPE_ERROR,
+['&'] = E_CHAR_TYPE_AND,
 ['\''] = E_CHAR_TYPE_SQUOTE,
 ['('] = E_CHAR_TYPE_LETTER,
 [')'] = E_CHAR_TYPE_LETTER,
@@ -156,6 +156,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 1},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_NEWLINE] =
@@ -169,6 +170,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 1},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_WORD] =
@@ -182,6 +184,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 1},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_SQUOTE] =
@@ -195,6 +198,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = { 0, 0},
 			[E_CHAR_TYPE_PIPE] = {0, 0},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_BQUOTE] =
@@ -208,6 +212,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = { 0, 0},
 			[E_CHAR_TYPE_PIPE] = {0, 0},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_DQUOTE] =
@@ -221,6 +226,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = { 0, 2},
 			[E_CHAR_TYPE_PIPE] = {0, 0},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_PIPE] =
@@ -234,6 +240,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 0},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_LESSGREAT] =
@@ -247,6 +254,21 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 1},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_AND] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_SEMI] = {},
@@ -261,6 +283,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {1, 0},
 			[E_CHAR_TYPE_PIPE] = { 1, 0 },
 			[E_CHAR_TYPE_LESSGREAT] = {1, 0},
+			[E_CHAR_TYPE_AND] = {1, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_END] =
@@ -274,6 +297,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {1, 0},
 			[E_CHAR_TYPE_PIPE] = { 1, 0 },
 			[E_CHAR_TYPE_LESSGREAT] = {1, 0},
+			[E_CHAR_TYPE_AND] = {1, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_ERROR] = {}
@@ -366,6 +390,8 @@ void	lexer_print_tokens(t_array *toks)
 			ft_putstr("TOKEN_TYPE_DQUOTE");
 		else if (tok->type == E_TOKEN_NEWLINE)
 			ft_putstr("TOKEN_TYPE_NEWLINE");
+		else if (tok->type == E_TOKEN_AND)
+			ft_putstr("TOKEN_TYPE_AND");
 		ft_putchar('\n');
 		cnt++;
 	}
