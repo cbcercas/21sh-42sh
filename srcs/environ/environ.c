@@ -12,7 +12,7 @@
 extern char **environ;
 #include <environ/environ.h>
 
-t_env	*ms_copy_environ(void)
+t_env	*sh_copy_environ(void)
 {
 	t_env	*head;
 	t_env	*e;
@@ -22,12 +22,14 @@ t_env	*ms_copy_environ(void)
 	{
 		if (!head)
 		{
-			if (!(head = ms_new_env(ms_getenv_name(*environ), ms_getenv_value(*environ))))
+			if (!(head = sh_new_env(sh_getenv_name(*environ),
+									sh_getenv_value(*environ))))
 				// TODO add error function malloc
 				return (NULL);
 			e = head;
 		}
-		else if (e && !(e->next = ms_new_env(ms_getenv_name(*environ), ms_getenv_value(*environ))))
+		else if (e && !(e->next = sh_new_env(sh_getenv_name(*environ),
+											 sh_getenv_value(*environ))))
 			// TODO add error function malloc
 			return (NULL);
 		else
@@ -37,7 +39,7 @@ t_env	*ms_copy_environ(void)
 	return (head);
 }
 
-char	*ms_getenv(t_env const *env, const char *name)
+char	*sh_getenv(t_env const *env, const char *name)
 {
 	t_env const	*e;
 
@@ -51,7 +53,7 @@ char	*ms_getenv(t_env const *env, const char *name)
 	return (NULL);
 }
 
-t_env	*ms_setenv(t_env *env, char const *name, char const *value)
+t_env	*sh_setenv(t_env *env, char const *name, char const *value)
 {
 	t_env	*e;
 
@@ -66,7 +68,7 @@ t_env	*ms_setenv(t_env *env, char const *name, char const *value)
 		}
 		else if (!e->next)
 		{
-			e->next = ms_new_env(ft_strdup(name), ft_strdup(value));
+			e->next = sh_new_env(ft_strdup(name), ft_strdup(value));
 			return (e->next);
 		}
 		else
@@ -76,7 +78,7 @@ t_env	*ms_setenv(t_env *env, char const *name, char const *value)
 }
 
 #include <ft_printf/libftprintf.h>
-char	**ms_tenv_to_tab(t_env const *env)
+char	**sh_tenv_to_tab(t_env const *env)
 {
 	t_env	const *e;
 	int		cnt;

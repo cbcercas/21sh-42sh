@@ -13,7 +13,7 @@
 NAME			= minishell
 
 SRC_SUBDIR		= core
-SRCS			+= main.c prompt.c init.c input.c command.c check_path.c
+SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c
@@ -22,7 +22,7 @@ SRC_SUBDIR		+= builtins
 SRCS			+= builtins_utils.c exit.c echo.c chdir.c
 
 SRC_SUBDIR		+= lexer
-SRCS			+= lexer.c lexer_clean.c
+SRCS			+= lexer_init.c lexer.c lexer_clean.c
 
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c

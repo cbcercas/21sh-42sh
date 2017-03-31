@@ -13,12 +13,24 @@
 # define DATA_H
 # include <sys/param.h>
 # include <environ/env_list_utils.h>
+# include <logger/logger.h>
 
-typedef struct	s_ms_data
+typedef struct s_sh_opt		t_sh_opt;
+typedef struct s_sh_data	t_sh_data;
+
+struct						s_sh_opt
+{
+	unsigned		verbose:1;
+	unsigned		dbg:1;
+	enum e_d_lvl	dbg_lvl;
+};
+
+struct						s_sh_data
 {
 	t_env				*env;
+	t_sh_opt			opts;
 	char				*cwd;
 	struct s_builtin_e	*builtins;
-}				t_ms_data;
+};
 
 #endif

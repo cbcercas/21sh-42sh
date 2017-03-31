@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/25 20:15:46 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/03/31 14:55:07 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/input.h>
@@ -25,24 +25,21 @@ BOOL remove_escaped_newline(char **input)
 }
 
 /**
-** @brief      Read the input on standard entry
-**
-** @return     A pointer to the input string
-*/
-char	*ms_get_line(void)
+ ** @brief      Read the input on standard entry
+ **
+ ** @return     A pointer to the input string
+ */
+char	*sh_get_line(void)
 {
 	char	*line;
 	char	*input;
-	char 	cwd[1024];
-
 	input = NULL;
-	get_next_line(0, &line);
+	(void)get_next_line(0, &line);
 	input = ft_strjoincl(input, line, 3);
 	while (remove_escaped_newline(&input))
 	{
-		getcwd(cwd, sizeof(cwd));
-		ft_printf("\033[0;92mUSER\033[0;35m@\033[0;93m%s \033[0;92m$>\033[0m", cwd);
-		get_next_line(0, &line);
+		ft_printf(">");
+		(void)get_next_line(0, &line);
 		input = ft_strjoincl(input, line, 3);
 	}
 	if (*input != '\0')

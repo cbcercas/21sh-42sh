@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include <core/prompt.h>
 
-void	ms_print_prompt(void)
+void	sh_print_prompt(void)
 {
 	char 	cwd[1024];
 	getcwd(cwd, sizeof(cwd));

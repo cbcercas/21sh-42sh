@@ -6,38 +6,26 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/31 14:54:22 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/03/04 07:14:37 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <core/main.h>
-int main(int ac, char *const *av)
+
+#include <core/help.h>
+
+void sh_help(void)
 {
-	t_sh_data	data;
-	t_automaton	automaton;
-	t_array		tokens;
-	char		*input;
-	BOOL		stop;
-	if (!sh_init(&data, ac, av))
-		exit(1);
-	if (lexer_init(&tokens) == NULL)
-		exit (1);
-	if (automaton_init(&automaton) == NULL)
-		exit (1);
-	stop = true;
-	while (stop == true)
-	{
-		sh_print_prompt();
-		input = sh_get_line();
-		if (lexer_lex(&tokens, &automaton, input))
-			lexer_print_tokens(&tokens);
-		// if ((command = ft_strsplit(input, ';')))
-		// 		// 	if (sh_command(data, command))
-		// 				// 		stop = true;
-		if (ft_strequ(input, "exit"))
-			stop = false;
-		array_reset(&tokens);
-		automaton_reset(&automaton);
-	}
-	sh_deinit(&data);
-	return (0);
+	ft_printf("Usage:\t./%s [option] ...\n", PROG_NAME);
+	ft_printf("Shell options:\n");
+	ft_printf("\t-v\t\tverbose\n");
+	ft_printf("\t-d [0-7]\tdebug mode (need debug level):\n");
+	ft_printf("\t\t\t\t0: no log\n\t\t\t\t1: fatal\n\t\t\t\t2: error\n");
+	ft_printf("\t\t\t\t3: warning\n\t\t\t\t4: info\n");
+	ft_printf("\t\t\t\t5: debug level 1\n\t\t\t\t6: debug level 2");
+	ft_printf("\n\t\t\t\t7: debug level 3\n");
+}
+
+void sh_help_exit(void)
+{
+	sh_help();
+	exit (1);
 }

@@ -16,13 +16,13 @@
 # include <core/init.h>
 # include <core/command.h>
 
-//int		ms_get_command(t_ms_data	*data);
+//int		sh_get_command(t_ms_data	*data);
 
 /**
 ** @file       input.c
 **
 ** @brief      Functions to read the input
 */
-char	*ms_get_line(void);
+char	*sh_get_line(void);
 
 #endif

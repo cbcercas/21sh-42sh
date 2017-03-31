@@ -39,3 +39,6 @@ debug/
 
 cmake-build-debug
 *.log
+# Clion Files
+.idea/
+cmake-build-debug/

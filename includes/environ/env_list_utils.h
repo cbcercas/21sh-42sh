@@ -20,10 +20,10 @@ typedef struct	s_env
 	char			*value;
 }				t_env;
 
-char	*ms_getenv_name(char const *env);
-char	*ms_getenv_value(char const *env);
-t_env	*ms_new_env(char *name, char *value);
-void	ms_env_del(t_env **e);
-void	ms_lst_env_del(t_env **head);
+char	*sh_getenv_name(char const *env);
+char	*sh_getenv_value(char const *env);
+t_env	*sh_new_env(char *name, char *value);
+void	sh_env_del(t_env **e);
+void	sh_lst_env_del(t_env **head);
 
 #endif

@@ -11,49 +11,58 @@
 /* ************************************************************************** */
 #include <core/init.h>
 
-static void		*ms_data_free(t_ms_data	**data)
+extern char const	*g_optarg;
+
+static void		sh_data_free(t_sh_data *data)
 {
-	if ((*data)->env)
-		ms_lst_env_del(&(*data)->env);
-	if (*data)
-		ft_memdel((void**)data);
-	return (NULL);
+	if (data->env)
+		sh_lst_env_del(&(data)->env);
+	return;
 }
 
-void			ms_print_env(t_env *env)
+static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 {
-	ft_printf("\n-------------- DEBUG --------------\n");
-	while (env)
+	int opt;
+
+	while ((opt = ft_getopt(ac, av, "hvd:")) >= 0)
 	{
-		ft_printf("%s=%s\n",env->name, env->value);
-		env = env->next;
+		if (opt == 'v')
+			opts->verbose = 1;
+		else if (opt == 'd')
+			if (ft_atoi(g_optarg) >= 0 && ft_atoi(g_optarg) <= 7)
+				logger_init(ft_atoi(g_optarg), PROG_NAME, "sh.log");
+			else
+			{
+				ft_printf("%s: Invalid debug level.\n", PROG_NAME);
+				sh_help_exit();
+			}
+		else if (opt == 'h')
+			sh_help_exit();
+		else if (opt == '?')
+			sh_help_exit();
 	}
-	ft_printf("-----------------------------------\n");
 }
 
-
-t_ms_data		*ms_init(void)
+t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 {
-	t_ms_data	*data;
-
-	if ((data = ft_memalloc(sizeof(*data))))
-	{
-		data->env = ms_copy_environ();
-		data->builtins = ms_builtins_init();
-		if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
-			if (!(ms_getenv(data->env, "TERM"))
-							|| ft_strequ(ms_getenv(data->env, "TERM"), ""))
-				ms_setenv(data->env, "TERM", "dumb");
-	}
-	if (!data || !data->env || !data->cwd)
+	ft_bzero(data, sizeof(*data));
+	sh_options(&data->opts, ac, av);
+	data->env = sh_copy_environ();
+	data->builtins = sh_builtins_init();
+	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
+		if (!(sh_getenv(data->env, "TERM"))
+						|| ft_strequ(sh_getenv(data->env, "TERM"), ""))
+			sh_setenv(data->env, "TERM", "dumb");
+	if (!data->env || !data->cwd)
 	{
 		ft_printf("minishell: error when initialising main data\n");
-		return(ms_data_free(&data));
+		sh_data_free(data);
+		return (NULL);
 	}
 	return (data);
 }
 
-void			ms_deinit(t_ms_data **data)
+void			sh_deinit(t_sh_data *data)
 {
-	ms_data_free(data);
+	sh_data_free(data);
 }

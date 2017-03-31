@@ -12,7 +12,7 @@
 #include <lexer/lexer.h>
 
 static const uint32_t g_char_type[129] = {
-[0] = E_CHAR_TYPE_LETTER,
+[0] = E_CHAR_TYPE_NONE,
 [1] = E_CHAR_TYPE_LETTER,
 [2] = E_CHAR_TYPE_LETTER,
 [3] = E_CHAR_TYPE_LETTER,
@@ -50,7 +50,7 @@ static const uint32_t g_char_type[129] = {
 ['#'] = E_CHAR_TYPE_LETTER,
 ['$'] = E_CHAR_TYPE_LETTER,
 ['%'] = E_CHAR_TYPE_LETTER,
-['&'] = E_CHAR_TYPE_NONE,
+['&'] = E_CHAR_TYPE_AND,
 ['\''] = E_CHAR_TYPE_SQUOTE,
 ['('] = E_CHAR_TYPE_LETTER,
 [')'] = E_CHAR_TYPE_LETTER,
@@ -72,9 +72,9 @@ static const uint32_t g_char_type[129] = {
 ['9'] = E_CHAR_TYPE_LETTER,
 [':'] = E_CHAR_TYPE_LETTER,
 [';'] = E_CHAR_TYPE_NEWLINE,
-['<'] = E_CHAR_TYPE_NONE,
+['<'] = E_CHAR_TYPE_LESSGREAT,
 ['='] = E_CHAR_TYPE_LETTER,
-['>'] = E_CHAR_TYPE_NONE,
+['>'] = E_CHAR_TYPE_LESSGREAT,
 ['?'] = E_CHAR_TYPE_LETTER,
 ['@'] = E_CHAR_TYPE_LETTER,
 ['A'] = E_CHAR_TYPE_LETTER,
@@ -136,18 +136,172 @@ static const uint32_t g_char_type[129] = {
 ['y'] = E_CHAR_TYPE_LETTER,
 ['z'] = E_CHAR_TYPE_LETTER,
 ['{'] = E_CHAR_TYPE_LETTER,
-['|'] = E_CHAR_TYPE_NONE,
+['|'] = E_CHAR_TYPE_PIPE,
 ['}'] = E_CHAR_TYPE_LETTER,
 ['~'] = E_CHAR_TYPE_LETTER,
 [127] = E_CHAR_TYPE_LETTER,
 };
 
-static BOOL	is_escaped_char(char const *str, char const *c)
+static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 {
-	if (c > str && *(c - 1) == '\\')
-		return (true);
-	return (false);
-}
+	[E_STATE_NONE] = {},
+	[E_STATE_BLANK] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_NEWLINE] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_WORD] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 0},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_SQUOTE] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 0},
+			[E_CHAR_TYPE_BLANK] = {0, 0},
+			[E_CHAR_TYPE_NEWLINE] = {0, 0},
+			[E_CHAR_TYPE_LETTER] = {0, 0},
+			[E_CHAR_TYPE_SQUOTE] = {0, 2},
+			[E_CHAR_TYPE_BQUOTE] = {0, 0},
+			[E_CHAR_TYPE_DQUOTE] = { 0, 0},
+			[E_CHAR_TYPE_PIPE] = {0, 0},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_BQUOTE] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 0},
+			[E_CHAR_TYPE_BLANK] = {0, 0},
+			[E_CHAR_TYPE_NEWLINE] = {0, 0},
+			[E_CHAR_TYPE_LETTER] = {0, 0},
+			[E_CHAR_TYPE_SQUOTE] = {0, 0},
+			[E_CHAR_TYPE_BQUOTE] = {0, 2},
+			[E_CHAR_TYPE_DQUOTE] = { 0, 0},
+			[E_CHAR_TYPE_PIPE] = {0, 0},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_DQUOTE] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 0},
+			[E_CHAR_TYPE_BLANK] = {0, 0},
+			[E_CHAR_TYPE_NEWLINE] = {0, 0},
+			[E_CHAR_TYPE_LETTER] = {0, 0},
+			[E_CHAR_TYPE_SQUOTE] = {0, 0},
+			[E_CHAR_TYPE_BQUOTE] = {0, 0},
+			[E_CHAR_TYPE_DQUOTE] = { 0, 2},
+			[E_CHAR_TYPE_PIPE] = {0, 0},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_PIPE] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 0},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_LESSGREAT] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_AND] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_SEMI] = {},
+	[E_STATE_START] =
+		{
+			[E_CHAR_TYPE_NONE] = { 0, 0},
+			[E_CHAR_TYPE_BLANK] = { 1, 0},
+			[E_CHAR_TYPE_NEWLINE] = { 1, 0},
+			[E_CHAR_TYPE_LETTER] = { 1, 0},
+			[E_CHAR_TYPE_SQUOTE] = { 1, 0},
+			[E_CHAR_TYPE_BQUOTE] = { 1, 0},
+			[E_CHAR_TYPE_DQUOTE] = {1, 0},
+			[E_CHAR_TYPE_PIPE] = { 1, 0 },
+			[E_CHAR_TYPE_LESSGREAT] = {1, 0},
+			[E_CHAR_TYPE_AND] = {1, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_END] =
+		{
+			[E_CHAR_TYPE_NONE] = { 0, 0},
+			[E_CHAR_TYPE_BLANK] = { 1, 0},
+			[E_CHAR_TYPE_NEWLINE] = { 1, 0},
+			[E_CHAR_TYPE_LETTER] = { 1, 0},
+			[E_CHAR_TYPE_SQUOTE] = { 1, 0},
+			[E_CHAR_TYPE_BQUOTE] = { 1, 0},
+			[E_CHAR_TYPE_DQUOTE] = {1, 0},
+			[E_CHAR_TYPE_PIPE] = { 1, 0 },
+			[E_CHAR_TYPE_LESSGREAT] = {1, 0},
+			[E_CHAR_TYPE_AND] = {1, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_ERROR] = {}
+};
 
 static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 {
@@ -155,29 +309,26 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 
 	tok.str = *in;
 	tok.type = g_char_type[(int)**in];
-	(*in)++;
-	if (a->cur_state > E_STATE_WORD)
+	while (**in && a->cur_state < E_STATE_END)
 	{
-		tok.type = E_TOKEN_WORD;
-		while (**in && g_char_type[(int) **in] != a->cur_state)
-			(*in)++;
-		if (g_char_type[(int) **in] == a->cur_state)
+		if (**in == '\\')
+			(*in) += 2;
+		else
+			(*in) += 1;
+		if (g_stepper[a->cur_state][g_char_type[(int)*(*in)]][0])
 		{
-			automaton_step(a, 0, E_POP);
-			(*in)++;
+			if (g_char_type[(int) **in] != a->cur_state)
+				automaton_step(a, g_char_type[(int) **in], E_PUSH);
+		}
+		else if (g_stepper[a->cur_state][g_char_type[(int)*(*in)]][1])
+		{
+			if (g_stepper[a->cur_state][g_char_type[(int)*(*in)]][1] == 2)
+				(*in)++;
+			automaton_step(a, E_STATE_NONE, E_POP);
+
 		}
 	}
-	else if (tok.type == E_TOKEN_WORD)
-		while (**in && (g_char_type[(int) **in] >= E_CHAR_TYPE_LETTER || a->cur_state != E_STATE_WORD))
-		{
-			if (g_char_type[(int) **in] > E_CHAR_TYPE_LETTER
-				&& !is_escaped_char(tok.str, *in))
-				automaton_step(a, g_char_type[(int) **in], E_UNKNOWN);
-			(*in)++;
-		}
-	if (a->cur_state == E_STATE_WORD)
-		automaton_step(a, 0, E_POP);
-	tok.len = *in - tok.str;
+	tok.len = (*in) - tok.str;
 	array_push(toks, &tok);
 }
 
@@ -185,43 +336,34 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 {
 	while (**in)
 	{
-		if (g_char_type[(int)**in] >= E_CHAR_TYPE_LETTER)
+		if (g_stepper[a->cur_state][g_char_type[(int)**in]][0])
 			automaton_step(a, g_char_type[(int) **in], E_PUSH);
-		else if (g_char_type[(int)**in] == E_CHAR_TYPE_NONE)
-		{
-			automaton_step(a, g_char_type[(int) **in], E_PUSH);
+		if (a->cur_state == E_STATE_ERROR)
 			return;
-		}
 		lexer_tokenize_one(in, toks, a);
 	}
 }
 
 
-t_array	*lexer_lex(char const *in)
+t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *in)
 {
-	t_array		*toks;
-	t_automaton	*a;
-
 	if (in == NULL)
 		return (NULL);
-	if (!(toks = array_create(sizeof(t_token))) || !(a = automaton_init()))
-		return (NULL);
-	while ((*in != 0) && (a->cur_state != E_STATE_ERROR))
-		lexer_tokenize(&in, toks, a);
-	if (a->cur_state == E_STATE_ERROR)
+	while ((*in != 0) && (automaton->cur_state < E_STATE_ERROR))
+		lexer_tokenize(&in, tokens, automaton);
+	if (automaton->cur_state == E_STATE_ERROR)
 	{
 		ft_printf("Minishell: Lexing error.\n");
-		array_destroy(&toks);
+		array_reset(tokens);
 	}
-	else if (!is_empty_stack(a->stack))
+	else if (!is_empty_stack((&automaton->stack)))
 	{
 		ft_printf("Minishell: Lexing error: Incomplete command.\n");
-		array_destroy(&toks);
+		array_reset(tokens);
 	}
-	automaton_destroy(&a);
-	if (toks)
-		lexer_clean_tokens(toks);
-	return (toks);
+	if (tokens)
+		lexer_clean_tokens(tokens);
+	return (tokens);
 }
 
 void	lexer_print_tokens(t_array *toks)
@@ -236,18 +378,24 @@ void	lexer_print_tokens(t_array *toks)
 		ft_putchar('<');
 		ft_putnstr(tok->str, tok->len);
 		ft_putstr("> = ");
-		if (tok->type == E_TOKEN_WORD)
-			ft_putstr("TOKEN_TYPE_WORD");
-		else if (tok->type == E_TOKEN_BLANK)
+		if (tok->type == E_TOKEN_BLANK)
 			ft_putstr("TOKEN_TYPE_BLANK");
+		else if (tok->type == E_TOKEN_NEWLINE)
+			ft_putstr("TOKEN_TYPE_NEWLINE");
+		else if (tok->type == E_TOKEN_WORD)
+			ft_putstr("TOKEN_TYPE_WORD");
 		else if (tok->type == E_TOKEN_SQUOTE)
 			ft_putstr("TOKEN_TYPE_SQUOTE");
 		else if (tok->type == E_CHAR_TYPE_BQUOTE)
 			ft_putstr("TOKEN_TYPE_BQUOTE");
 		else if (tok->type == E_TOKEN_DQUOTE)
 			ft_putstr("TOKEN_TYPE_DQUOTE");
-		else if (tok->type == E_TOKEN_NEWLINE)
-			ft_putstr("TOKEN_TYPE_NEWLINE");
+		else if (tok->type == E_TOKEN_PIPE)
+			ft_putstr("TOKEN_TYPE_PIPE");
+		else if (tok->type == E_TOKEN_LESSGREAT)
+			ft_putstr("TOKEN_TYPE_LESSGREAT");
+		else if (tok->type == E_TOKEN_AND)
+			ft_putstr("TOKEN_TYPE_AND");
 		ft_putchar('\n');
 		cnt++;
 	}

@@ -14,6 +14,6 @@
 # include <ft_printf/libftprintf.h>
 # include <core/data.h>
 
-int	ms_exit(t_ms_data *data, char *arg);
+int	sh_exit(t_sh_data *data, char *arg);
 
 #endif

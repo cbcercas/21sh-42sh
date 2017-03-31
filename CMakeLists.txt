@@ -16,6 +16,7 @@ set(SOURCE_FILES
         includes/core/init.h
         includes/core/input.h
         includes/core/main.h
+        includes/core/help.h
         includes/core/prompt.h
         includes/environ/env_list_utils.h
         includes/environ/environ.h
@@ -34,6 +35,7 @@ set(SOURCE_FILES
         lib/libft/includes/types/bool.h
         lib/libft/includes/types/stack.h
         lib/libft/includes/libft.h
+        lib/libft/includes/unistd/ft_unistd.h
         lib/libft/srcs/array/array.c
         lib/libft/srcs/array/array_copy.c
         lib/libft/srcs/array/array_destroy.c
@@ -150,6 +152,7 @@ set(SOURCE_FILES
         lib/libft/srcs/string/string_remove.c
         lib/libft/srcs/string/string_replace.c
         lib/libft/srcs/string/string_shrink.c
+        lib/libft/srcs/unistd/ft_getopt.c
         lib/libft/Makefile
         srcs/automaton/automaton.c
         srcs/builtins/builtins_utils.c
@@ -161,9 +164,11 @@ set(SOURCE_FILES
         srcs/core/init.c
         srcs/core/input.c
         srcs/core/main.c
+        srcs/core/help.c
         srcs/core/prompt.c
         srcs/environ/env_list_utils.c
         srcs/environ/environ.c
+        srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         #srcs/parser/parser.c
