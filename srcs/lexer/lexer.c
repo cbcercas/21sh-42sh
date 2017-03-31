@@ -72,9 +72,9 @@ static const uint32_t g_char_type[129] = {
 ['9'] = E_CHAR_TYPE_LETTER,
 [':'] = E_CHAR_TYPE_LETTER,
 [';'] = E_CHAR_TYPE_NEWLINE,
-['<'] = E_CHAR_TYPE_ERROR,
+['<'] = E_CHAR_TYPE_LESSGREAT,
 ['='] = E_CHAR_TYPE_LETTER,
-['>'] = E_CHAR_TYPE_ERROR,
+['>'] = E_CHAR_TYPE_LESSGREAT,
 ['?'] = E_CHAR_TYPE_LETTER,
 ['@'] = E_CHAR_TYPE_LETTER,
 ['A'] = E_CHAR_TYPE_LETTER,
@@ -142,7 +142,7 @@ static const uint32_t g_char_type[129] = {
 [127] = E_CHAR_TYPE_LETTER,
 };
 
-static const uint32_t g_stepper[12][9][2] =
+static const uint32_t g_stepper[13][10][2] =
 {
 	[E_STATE_NONE] = {},
 	[E_STATE_BLANK] =
@@ -155,9 +155,22 @@ static const uint32_t g_stepper[12][9][2] =
 			[E_CHAR_TYPE_BQUOTE] = {0, 1},
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
-	[E_STATE_NEWLINE] = {},
+	[E_STATE_NEWLINE] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
 	[E_STATE_WORD] =
 		{
 			[E_CHAR_TYPE_NONE] = {0, 1},
@@ -168,6 +181,7 @@ static const uint32_t g_stepper[12][9][2] =
 			[E_CHAR_TYPE_BQUOTE] = {0, 1},
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_SQUOTE] =
@@ -180,6 +194,7 @@ static const uint32_t g_stepper[12][9][2] =
 			[E_CHAR_TYPE_BQUOTE] = {0, 0},
 			[E_CHAR_TYPE_DQUOTE] = { 0, 0},
 			[E_CHAR_TYPE_PIPE] = {0, 0},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_BQUOTE] =
@@ -192,6 +207,7 @@ static const uint32_t g_stepper[12][9][2] =
 			[E_CHAR_TYPE_BQUOTE] = {0, 2},
 			[E_CHAR_TYPE_DQUOTE] = { 0, 0},
 			[E_CHAR_TYPE_PIPE] = {0, 0},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_DQUOTE] =
@@ -204,6 +220,33 @@ static const uint32_t g_stepper[12][9][2] =
 			[E_CHAR_TYPE_BQUOTE] = {0, 0},
 			[E_CHAR_TYPE_DQUOTE] = { 0, 2},
 			[E_CHAR_TYPE_PIPE] = {0, 0},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_PIPE] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_LESSGREAT] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_SEMI] = {},
@@ -216,30 +259,22 @@ static const uint32_t g_stepper[12][9][2] =
 			[E_CHAR_TYPE_SQUOTE] = { 1, 0},
 			[E_CHAR_TYPE_BQUOTE] = { 1, 0},
 			[E_CHAR_TYPE_DQUOTE] = {1, 0},
-			[E_CHAR_TYPE_PIPE] = { 1, 0 }
-		},
-	[E_STATE_PIPE] =
-		{
-			[E_CHAR_TYPE_NONE] = {0, 1},
-			[E_CHAR_TYPE_BLANK] = {0, 1},
-			[E_CHAR_TYPE_NEWLINE] = {0, 1},
-			[E_CHAR_TYPE_LETTER] = {0, 1},
-			[E_CHAR_TYPE_SQUOTE] = {0, 1},
-			[E_CHAR_TYPE_BQUOTE] = {0, 1},
-			[E_CHAR_TYPE_DQUOTE] = {0, 1},
-			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = { 1, 0 },
+			[E_CHAR_TYPE_LESSGREAT] = {1, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_END] =
 		{
 			[E_CHAR_TYPE_NONE] = { 0, 0},
 			[E_CHAR_TYPE_BLANK] = { 1, 0},
-			[E_CHAR_TYPE_NEWLINE] = { 0, 0},
+			[E_CHAR_TYPE_NEWLINE] = { 1, 0},
 			[E_CHAR_TYPE_LETTER] = { 1, 0},
 			[E_CHAR_TYPE_SQUOTE] = { 1, 0},
 			[E_CHAR_TYPE_BQUOTE] = { 1, 0},
 			[E_CHAR_TYPE_DQUOTE] = {1, 0},
-			[E_CHAR_TYPE_PIPE] = { 1, 0 }
+			[E_CHAR_TYPE_PIPE] = { 1, 0 },
+			[E_CHAR_TYPE_LESSGREAT] = {1, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_ERROR] = {}
 };
