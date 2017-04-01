@@ -39,6 +39,7 @@ enum e_token_type
 	E_TOKEN_DLESS,
 	E_TOKEN_DGREAT,
 	E_TOKEN_AND,
+	E_TOKEN_AND_IF,
 	E_TOKEN_MAX
 };
 

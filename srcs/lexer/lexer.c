@@ -313,6 +313,20 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_AND] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
+	[E_STATE_AND_IF] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
 	[E_STATE_SEMI] = {},
 	[E_STATE_START] =
 		{
@@ -358,7 +372,11 @@ static const uint32_t g_tok_redir[129][129] =
 	['|'] =
 		{
 			['|'] = E_TOKEN_OR_IF
-		}
+		},
+	['&'] =
+	{
+		['&'] = E_TOKEN_AND_IF
+	}
 };
 
 static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
@@ -467,6 +485,8 @@ void	lexer_print_tokens(t_array *toks)
 			ft_putstr("TOKEN_TYPE_LESSGREAT");
 		else if (tok->type == E_TOKEN_AND)
 			ft_putstr("TOKEN_TYPE_AND");
+		else if (tok->type == E_TOKEN_AND_IF)
+			ft_putstr("TOKEN_TYPE_AND_IF");
 		ft_putchar('\n');
 		cnt++;
 	}
