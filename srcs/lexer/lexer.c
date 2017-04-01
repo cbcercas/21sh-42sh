@@ -483,6 +483,10 @@ void	lexer_print_tokens(t_array *toks)
 			ft_putstr("TOKEN_TYPE_OR_IF");
 		else if (tok->type == E_TOKEN_LESSGREAT)
 			ft_putstr("TOKEN_TYPE_LESSGREAT");
+		else if (tok->type == E_TOKEN_DGREAT)
+			ft_putstr("TOKEN_TYPE_DGREAT");
+		else if (tok->type == E_TOKEN_DLESS)
+			ft_putstr("TOKEN_TYPE_DLESS");
 		else if (tok->type == E_TOKEN_AND)
 			ft_putstr("TOKEN_TYPE_AND");
 		else if (tok->type == E_TOKEN_AND_IF)
