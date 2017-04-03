@@ -13,7 +13,7 @@
 #include <parser/parser.h>
 
 
-static const uint32_t grammar[99][99][99] =
+static const uint32_t grammar[SYM_MAX][SYM_MAX][4] =
 {
 //complete_command
 	{
@@ -268,8 +268,46 @@ void	parser_init(t_array *tokens, char *input)
 		else if (tok->type == E_TOKEN_NEWLINE)
 			nb_newline++;
 		i++;
+		ft_printf("\nSTR = %s\n", tok->str);
 	}
 	log_dbg3("Found %zu words", nb_word);
 	log_dbg3("Found %zu blank spaces", nb_blank);
 	log_dbg3("Found %zu newlines", nb_newline);
+	if (gr_complete_cmd(&tokens, input) == false)
+		ft_printf("PARSING ERROR\n");
+	else
+		ft_printf("PARSING DONE\n");
+}
+
+t_bool gr_complete_cmd(t_array *tokens, char *input)
+{
+	if ((gr_list(&tokens, input) == true) || (gr_list(&tokens, input) == true && gr_separator(&tokens, input) == true))
+		return  true;
+	else
+		return false;
+}
+
+//(gr_list(&tokens, input) == true) &&
+
+t_bool gr_list(t_array *tokens, char *input)
+{
+	if (((gr_list(&tokens, input) == true) && (gr_separator_op(&tokens, input) == true) && (gr_and_or(&tokens, input) == true)) || (gr_and_or(&tokens, input) == true))
+		return true;
+	else
+		return false;
+}
+
+t_bool gr_separator_op(t_array *tokens, char *input)
+{
+	return true;
+}
+
+t_bool gr_and_or(t_array *tokens, char *input)
+{
+	return true;
+}
+
+t_bool gr_separator(t_array *tokens, char *input)
+{
+	return true;
 }

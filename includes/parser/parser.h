@@ -15,6 +15,7 @@
 
 # include <lexer/lexer.h>
 # include <logger/logger.h>
+# include <parser/grammar.h>
 
 /*
 ** @file parser.c
@@ -43,7 +44,8 @@ enum e_grammar_sym
 	io_file, //done
 	io_here, //done
 	filename, //done
-	here_end //done
+	here_end, //done
+	SYM_MAX
 
 };
 

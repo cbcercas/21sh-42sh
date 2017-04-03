@@ -172,7 +172,7 @@ set(SOURCE_FILES
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/parser/parser.c
-        )
+        includes/parser/grammar.h)
 
 include_directories(includes)
 include_directories(lib/libft/includes)
