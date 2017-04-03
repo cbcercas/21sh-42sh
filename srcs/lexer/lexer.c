@@ -453,6 +453,36 @@ t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *in)
 	return (tokens);
 }
 
+void	lexer_print_token(t_token *tok)
+{
+	if (tok->type == E_TOKEN_BLANK)
+		ft_putstr("TOKEN_TYPE_BLANK");
+	else if (tok->type == E_TOKEN_NEWLINE)
+		ft_putstr("TOKEN_TYPE_NEWLINE");
+	else if (tok->type == E_TOKEN_WORD)
+		ft_putstr("TOKEN_TYPE_WORD");
+	else if (tok->type == E_TOKEN_SQUOTE)
+		ft_putstr("TOKEN_TYPE_SQUOTE");
+	else if (tok->type == E_CHAR_TYPE_BQUOTE)
+		ft_putstr("TOKEN_TYPE_BQUOTE");
+	else if (tok->type == E_TOKEN_DQUOTE)
+		ft_putstr("TOKEN_TYPE_DQUOTE");
+	else if (tok->type == E_TOKEN_PIPE)
+		ft_putstr("TOKEN_TYPE_PIPE");
+	else if (tok->type == E_TOKEN_OR_IF)
+		ft_putstr("TOKEN_TYPE_OR_IF");
+	else if (tok->type == E_TOKEN_LESSGREAT)
+		ft_putstr("TOKEN_TYPE_LESSGREAT");
+	else if (tok->type == E_TOKEN_DGREAT)
+		ft_putstr("TOKEN_TYPE_DGREAT");
+	else if (tok->type == E_TOKEN_DLESS)
+		ft_putstr("TOKEN_TYPE_DLESS");
+	else if (tok->type == E_TOKEN_AND)
+		ft_putstr("TOKEN_TYPE_AND");
+	else if (tok->type == E_TOKEN_AND_IF)
+		ft_putstr("TOKEN_TYPE_AND_IF");
+}
+
 void	lexer_print_tokens(t_array *toks)
 {
 	size_t	cnt;
@@ -465,32 +495,7 @@ void	lexer_print_tokens(t_array *toks)
 		ft_putchar('<');
 		ft_putnstr(tok->str, tok->len);
 		ft_putstr("> = ");
-		if (tok->type == E_TOKEN_BLANK)
-			ft_putstr("TOKEN_TYPE_BLANK");
-		else if (tok->type == E_TOKEN_NEWLINE)
-			ft_putstr("TOKEN_TYPE_NEWLINE");
-		else if (tok->type == E_TOKEN_WORD)
-			ft_putstr("TOKEN_TYPE_WORD");
-		else if (tok->type == E_TOKEN_SQUOTE)
-			ft_putstr("TOKEN_TYPE_SQUOTE");
-		else if (tok->type == E_CHAR_TYPE_BQUOTE)
-			ft_putstr("TOKEN_TYPE_BQUOTE");
-		else if (tok->type == E_TOKEN_DQUOTE)
-			ft_putstr("TOKEN_TYPE_DQUOTE");
-		else if (tok->type == E_TOKEN_PIPE)
-			ft_putstr("TOKEN_TYPE_PIPE");
-		else if (tok->type == E_TOKEN_OR_IF)
-			ft_putstr("TOKEN_TYPE_OR_IF");
-		else if (tok->type == E_TOKEN_LESSGREAT)
-			ft_putstr("TOKEN_TYPE_LESSGREAT");
-		else if (tok->type == E_TOKEN_DGREAT)
-			ft_putstr("TOKEN_TYPE_DGREAT");
-		else if (tok->type == E_TOKEN_DLESS)
-			ft_putstr("TOKEN_TYPE_DLESS");
-		else if (tok->type == E_TOKEN_AND)
-			ft_putstr("TOKEN_TYPE_AND");
-		else if (tok->type == E_TOKEN_AND_IF)
-			ft_putstr("TOKEN_TYPE_AND_IF");
+		lexer_print_token(tok);
 		ft_putchar('\n');
 		cnt++;
 	}
