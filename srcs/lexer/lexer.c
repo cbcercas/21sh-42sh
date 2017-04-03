@@ -271,6 +271,21 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
+	[E_STATE_AND] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_SEMI] = {},
 	[E_STATE_DLESS] =
 		{
 			[E_CHAR_TYPE_NONE] = {0, 1},
@@ -299,20 +314,6 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
-	[E_STATE_AND] =
-		{
-			[E_CHAR_TYPE_NONE] = {0, 1},
-			[E_CHAR_TYPE_BLANK] = {0, 1},
-			[E_CHAR_TYPE_NEWLINE] = {0, 1},
-			[E_CHAR_TYPE_LETTER] = {0, 1},
-			[E_CHAR_TYPE_SQUOTE] = {0, 1},
-			[E_CHAR_TYPE_BQUOTE] = {0, 1},
-			[E_CHAR_TYPE_DQUOTE] = {0, 1},
-			[E_CHAR_TYPE_PIPE] = {0, 1},
-			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
-			[E_CHAR_TYPE_AND] = {0, 0},
-			[E_CHAR_TYPE_ERROR] = {1, 0}
-		},
 	[E_STATE_AND_IF] =
 		{
 			[E_CHAR_TYPE_NONE] = {0, 1},
@@ -327,7 +328,6 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
-	[E_STATE_SEMI] = {},
 	[E_STATE_START] =
 		{
 			[E_CHAR_TYPE_NONE] = { 0, 0},
