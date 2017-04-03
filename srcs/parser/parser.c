@@ -273,15 +273,28 @@ void	parser_init(t_array *tokens, char *input)
 	log_dbg3("Found %zu words", nb_word);
 	log_dbg3("Found %zu blank spaces", nb_blank);
 	log_dbg3("Found %zu newlines", nb_newline);
-	if (gr_complete_cmd(&tokens, input) == false)
-		ft_printf("PARSING ERROR\n");
-	else
-		ft_printf("PARSING DONE\n");
+	i = 0;
+	while (i < tokens->used)
+	{
+		tok = (t_token *)array_get_at(tokens, i);
+		if (gr_complete_cmd(tokens, i) == false)
+		{
+			ft_printf("%s", tok->str);
+			ft_printf("PARSING ERROR\n");
+		}
+		else
+		{
+			ft_printf("%s", tok->str);
+			ft_printf("PARSING DONE\n");
+		}
+		i++;
+	}
 }
 
-t_bool gr_complete_cmd(t_array *tokens, char *input)
+t_bool gr_complete_cmd(t_array *tokens, size_t where)
 {
-	if ((gr_list(&tokens, input) == true) || (gr_list(&tokens, input) == true && gr_separator(&tokens, input) == true))
+	(void)tokens;
+	if ((gr_list(tokens, where) == true) || (gr_list(tokens, where) == true && gr_separator(tokens, where) == true))
 		return  true;
 	else
 		return false;
@@ -289,25 +302,36 @@ t_bool gr_complete_cmd(t_array *tokens, char *input)
 
 //(gr_list(&tokens, input) == true) &&
 
-t_bool gr_list(t_array *tokens, char *input)
+t_bool gr_list(t_array *tokens, size_t where)
 {
-	if (((gr_list(&tokens, input) == true) && (gr_separator_op(&tokens, input) == true) && (gr_and_or(&tokens, input) == true)) || (gr_and_or(&tokens, input) == true))
+
+	if (((gr_separator_op(tokens, where) == true) && (gr_and_or(tokens, where) == true)) || (gr_and_or(tokens, where) == true))
 		return true;
 	else
 		return false;
 }
 
-t_bool gr_separator_op(t_array *tokens, char *input)
+t_bool gr_separator_op(t_array *tokens, size_t where)
 {
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if ((tok->type == E_TOKEN_AND))
+		if (tokens->used > where + 1)
+			gr_complete_cmd(tokens, where + 1);
+		else
+			return true;
+	return false;
+}
+
+t_bool gr_and_or(t_array *tokens, size_t where)
+{
+	(void)tokens;
 	return true;
 }
 
-t_bool gr_and_or(t_array *tokens, char *input)
+t_bool gr_separator(t_array *tokens, size_t where)
 {
-	return true;
-}
-
-t_bool gr_separator(t_array *tokens, char *input)
-{
+	(void)tokens;
 	return true;
 }
