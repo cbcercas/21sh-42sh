@@ -243,6 +243,20 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
+	[E_STATE_OR_IF] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
 	[E_STATE_LESSGREAT] =
 		{
 			[E_CHAR_TYPE_NONE] = {0, 1},
@@ -254,6 +268,34 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 1},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_DLESS] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_DGREAT] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
 			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
@@ -269,6 +311,20 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_PIPE] = {0, 1},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
 			[E_CHAR_TYPE_AND] = {0, 0},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_AND_IF] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_SEMI] = {},
@@ -303,12 +359,38 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 	[E_STATE_ERROR] = {}
 };
 
+static const uint32_t g_tok_redir[129][129] =
+{
+	['<'] =
+		{
+			['<'] = E_TOKEN_DLESS
+		},
+	['>'] =
+		{
+			['>'] = E_TOKEN_DGREAT
+		},
+	['|'] =
+		{
+			['|'] = E_TOKEN_OR_IF
+		},
+	['&'] =
+	{
+		['&'] = E_TOKEN_AND_IF
+	}
+};
+
 static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 {
 	t_token	tok;
 
 	tok.str = *in;
-	tok.type = g_char_type[(int)**in];
+	if (g_tok_redir[(int)**in][(int)*(*in + 1)] > E_TOKEN_NONE)
+	{
+		tok.type = g_tok_redir[(int) **in][(int) *(*in)];
+		(*in) += 1;
+	}
+	else
+		tok.type = g_char_type[(int)**in];
 	while (**in && a->cur_state < E_STATE_END)
 	{
 		if (**in == '\\')
@@ -325,7 +407,6 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 			if (g_stepper[a->cur_state][g_char_type[(int)*(*in)]][1] == 2)
 				(*in)++;
 			automaton_step(a, E_STATE_NONE, E_POP);
-
 		}
 	}
 	tok.len = (*in) - tok.str;
@@ -337,7 +418,13 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 	while (**in)
 	{
 		if (g_stepper[a->cur_state][g_char_type[(int)**in]][0])
-			automaton_step(a, g_char_type[(int) **in], E_PUSH);
+		{
+			if (g_tok_redir[(int) **in][(int) *(*in + 1)] > E_TOKEN_NONE)
+				automaton_step(a, g_tok_redir[(int) **in][(int) *(*in + 1)],
+							   E_PUSH);
+			else
+				automaton_step(a, g_char_type[(int) **in], E_PUSH);
+		}
 		if (a->cur_state == E_STATE_ERROR)
 			return;
 		lexer_tokenize_one(in, toks, a);
@@ -392,10 +479,18 @@ void	lexer_print_tokens(t_array *toks)
 			ft_putstr("TOKEN_TYPE_DQUOTE");
 		else if (tok->type == E_TOKEN_PIPE)
 			ft_putstr("TOKEN_TYPE_PIPE");
+		else if (tok->type == E_TOKEN_OR_IF)
+			ft_putstr("TOKEN_TYPE_OR_IF");
 		else if (tok->type == E_TOKEN_LESSGREAT)
 			ft_putstr("TOKEN_TYPE_LESSGREAT");
+		else if (tok->type == E_TOKEN_DGREAT)
+			ft_putstr("TOKEN_TYPE_DGREAT");
+		else if (tok->type == E_TOKEN_DLESS)
+			ft_putstr("TOKEN_TYPE_DLESS");
 		else if (tok->type == E_TOKEN_AND)
 			ft_putstr("TOKEN_TYPE_AND");
+		else if (tok->type == E_TOKEN_AND_IF)
+			ft_putstr("TOKEN_TYPE_AND_IF");
 		ft_putchar('\n');
 		cnt++;
 	}
