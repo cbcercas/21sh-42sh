@@ -39,19 +39,19 @@ static const uint32_t grammar[SYM_MAX][SYM_MAX][4] =
 // and_or
 	{
 		{
-			pipeline
+				pipeline
 		},
-		{
-			and_or,
-				E_TOKEN_AND_IF,
-			linebreak,
-			pipeline
-		},
-		{
-			and_or,
-				E_TOKEN_OR_IF,
-			linebreak,
-			pipeline
+			{
+					and_or,
+					E_TOKEN_AND_IF,
+					linebreak,
+					pipeline
+			},
+			{
+					and_or,
+					E_TOKEN_OR_IF,
+					linebreak,
+					pipeline
 		}
 	},
 // pipeline
@@ -293,7 +293,6 @@ void	parser_init(t_array *tokens, char *input)
 
 t_bool gr_complete_cmd(t_array *tokens, size_t where)
 {
-	(void)tokens;
 	if ((gr_list(tokens, where) == true) || (gr_list(tokens, where) == true && gr_separator(tokens, where) == true))
 		return  true;
 	else
@@ -320,18 +319,68 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 		if (tokens->used > where + 1)
 			gr_complete_cmd(tokens, where + 1);
 		else
-			return true;
+			return false;
+	return false;
+}
+
+t_bool gr_separator(t_array *tokens, size_t where)
+{
+	if ((gr_separator_op(tokens, where) == true) && (gr_linebreak(tokens, where) == true))
+		return true;
+	return false;
+}
+
+t_bool gr_linebreak(t_array *tokens, size_t where)
+{
+	if (gr_newline_list(tokens, where) == true)
+		return true;
+	return false;
+}
+
+t_bool gr_newline_list(t_array *tokens, size_t where)
+{
+	t_token *tok;
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_NEWLINE)
+		return true;
 	return false;
 }
 
 t_bool gr_and_or(t_array *tokens, size_t where)
 {
-	(void)tokens;
-	return true;
+	t_token *tok;
+	tok = (t_token *)array_get_at(tokens, where);
+	if ((gr_pipeline(tokens, where) == true) || ((gr_check_and_if(tokens, where) == true) && (gr_linebreak(tokens, where)) && (gr_pipeline(tokens, where))) || (gr_check_or_if(tokens, where) == true) && (gr_linebreak(tokens, where)) && (gr_pipeline(tokens, where)))
+		return true; //TODO : Check for something after to && or || or else parsing error (check_and_if() check_or_if)
+	else
+		return false;
 }
 
-t_bool gr_separator(t_array *tokens, size_t where)
+t_bool gr_check_or_if(t_array *tokens, size_t where)
 {
-	(void)tokens;
+	t_token *tok;
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_OR_IF)
+		if (tokens->used > where + 1)
+			gr_complete_cmd(tokens, where + 1);
+		else
+			return false;
+	return false;
+}
+
+t_bool gr_check_and_if(t_array *tokens, size_t where)
+{
+	t_token *tok;
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_AND_IF)
+		if (tokens->used > where + 1)
+			gr_complete_cmd(tokens, where + 1);
+		else
+			return false;
+	return false;
+}
+
+t_bool gr_pipeline(t_array *tokens, size_t where)
+{
 	return true;
 }
