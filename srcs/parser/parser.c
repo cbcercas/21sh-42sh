@@ -13,7 +13,7 @@
 #include <parser/parser.h>
 
 
-static const uint32_t grammar[][][] =
+static const uint32_t grammar[99][99][99] =
 {
 //complete_command
 	{
