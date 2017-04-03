@@ -316,7 +316,7 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
-	if ((tok->type == E_TOKEN_AND))
+	if ((tok->type == E_TOKEN_AND) ||  (tok->type == E_TOKEN_NEWLINE))
 		if (tokens->used > where + 1)
 			gr_complete_cmd(tokens, where + 1);
 		else
