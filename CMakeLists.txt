@@ -175,4 +175,10 @@ set(SOURCE_FILES
 include_directories(includes)
 include_directories(lib/libft/includes)
 
+#Libtcaps
+add_subdirectory(lib/libtcaps)
+include_directories(lib/libtcaps/includes)
+
 add_executable(Minishell ${SOURCE_FILES})
+
+target_link_libraries(Minishell libtcaps)
