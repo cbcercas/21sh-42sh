@@ -35,7 +35,7 @@ t_bool gr_complete_cmd(t_array *tokens, size_t where)
 	log_info("Parser is at gr_complete_cmd.");
 	if ((gr_list(tokens, where) == true) || (gr_list(tokens, where) == true && gr_separator(tokens, where) == true))
 	{
-		log_dbg3("Parser returned true at gr_complete_cmd.");
+		log_dbg2("Parser returned true at gr_complete_cmd.");
 		return true;
 	}
 	else
