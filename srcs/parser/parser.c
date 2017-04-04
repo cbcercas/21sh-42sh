@@ -269,6 +269,11 @@ t_bool	parser_parse(t_array *tokens)
 			ok = false;
 		i++;
 	}
+	if (ok == false)
+	{
+		ft_printf("\nParser error\n");
+		log_fatal("\nParser error\n");
+	}
 	return ok; //TODO, make the grammar functions print the errors !
 }
 
@@ -283,7 +288,10 @@ t_bool gr_complete_cmd(t_array *tokens, size_t where)
 t_bool gr_list(t_array *tokens, size_t where)
 {
 
-	if (((gr_separator_op(tokens, where) == true) && (gr_and_or(tokens, where) == true)) || (gr_and_or(tokens, where) == true))
+	if (((gr_separator_op(tokens, where) == true) && \
+	(gr_and_or(tokens, where) == true)) || \
+	(gr_and_or(tokens, where) == true) || \
+	(gr_separator_op(tokens, where) == true))
 		return true;
 	else
 		return false;
@@ -294,7 +302,7 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
-	if ((tok->type == E_TOKEN_AND) ||  (tok->type == E_TOKEN_NEWLINE))
+	if (tok->type == E_TOKEN_AND)
 		if (tokens->used > where + 1)
 			if (gr_complete_cmd(tokens, where + 1) == true)
 				return true;
@@ -302,21 +310,32 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 				return false;
 		else
 			return false;
-	return false;
+	else if (tok->type == E_TOKEN_SEMI)
+			if (tokens->used > where + 1)
+				if (gr_complete_cmd(tokens, where + 1) == true)
+					return true;
+				else
+					return false;
+			else
+				return true;
+	else
+		return false;
 }
 
 t_bool gr_separator(t_array *tokens, size_t where)
 {
 	if ((gr_separator_op(tokens, where) == true) && (gr_linebreak(tokens, where) == true))
 		return true;
-	return false;
+	else
+		return false;
 }
 
 t_bool gr_linebreak(t_array *tokens, size_t where)
 {
 	if (gr_newline_list(tokens, where) == true)
 		return true;
-	return false;
+	else
+		return false;
 }
 
 t_bool gr_newline_list(t_array *tokens, size_t where)
@@ -325,12 +344,19 @@ t_bool gr_newline_list(t_array *tokens, size_t where)
 	tok = (t_token *)array_get_at(tokens, where);
 	if (tok->type == E_TOKEN_SEMI)
 		return true;
-	return false;
+	else
+		return false;
 }
 
 t_bool gr_and_or(t_array *tokens, size_t where)
 {
-	if ((gr_pipeline(tokens, where) == true) || ((gr_check_and_if(tokens, where) == true) && (gr_linebreak(tokens, where)) && (gr_pipeline(tokens, where))) || (gr_check_or_if(tokens, where) == true) && (gr_linebreak(tokens, where)) && (gr_pipeline(tokens, where)))
+	if ((gr_pipeline(tokens, where) == true) || \
+	((gr_check_and_if(tokens, where) == true) && \
+	(gr_linebreak(tokens, where) == true) && \
+	(gr_pipeline(tokens, where) == true)) || \
+	(gr_check_or_if(tokens, where) == true) && \
+	(gr_linebreak(tokens, where) == true) && \
+	(gr_pipeline(tokens, where) == true))
 		return true; //TODO : Check for something after to && or || or else parsing error (check_and_if() check_or_if)
 	else
 		return false;
@@ -348,7 +374,8 @@ t_bool gr_check_or_if(t_array *tokens, size_t where)
 				return false;
 		else
 			return false;
-	return false;
+	else
+		return false;
 }
 
 t_bool gr_check_and_if(t_array *tokens, size_t where)
@@ -363,7 +390,8 @@ t_bool gr_check_and_if(t_array *tokens, size_t where)
 				return false;
 		else
 			return false;
-	return false;
+	else
+		return false;
 }
 
 t_bool gr_pipeline(t_array *tokens, size_t where)
@@ -461,7 +489,9 @@ t_bool gr_io_redirect(t_array *tokens, size_t where)
 	(gr_io_here(tokens, where) == true) || \
 	((tok->type == E_TOKEN_IO_NUMBER) && \
 	gr_io_here(tokens, where) == true))
-	return true;
+		return true;
+	else
+		return false;
 	//TODO, add check for pipe and stuff as for the rest
 }
 
