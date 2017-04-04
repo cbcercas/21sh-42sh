@@ -260,6 +260,7 @@ t_bool	parser_parse(t_array *tokens)
 	t_bool ok;
 
 	i = 0;
+	ok = false;
 	while (i < tokens->used)
 	{
 		dbg_printtok_str(tokens, i);
@@ -279,22 +280,35 @@ t_bool	parser_parse(t_array *tokens)
 
 t_bool gr_complete_cmd(t_array *tokens, size_t where)
 {
+	log_info("Parser is at gr_complete_cmd.");
 	if ((gr_list(tokens, where) == true) || (gr_list(tokens, where) == true && gr_separator(tokens, where) == true))
-		return  true;
+	{
+		log_dbg3("Parser returned true at gr_complete_cmd.");
+		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_complete_cmd.");
 		return false;
+	}
 }
 
 t_bool gr_list(t_array *tokens, size_t where)
 {
-
+	log_info("Parser is at gr_list.");
 	if (((gr_separator_op(tokens, where) == true) && \
 	(gr_and_or(tokens, where) == true)) || \
 	(gr_and_or(tokens, where) == true) || \
 	(gr_separator_op(tokens, where) == true))
+	{
+		log_dbg3("Parser returned true at gr_list.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_list.");
 		return false;
+	}
 }
 
 t_bool gr_separator_op(t_array *tokens, size_t where)
@@ -302,54 +316,99 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_separator_op.");
 	if (tok->type == E_TOKEN_AND)
 		if (tokens->used > where + 1)
 			if (gr_complete_cmd(tokens, where + 1) == true)
+			{
+				log_dbg3("Parser returned true at gr_separator_op.");
 				return true;
+			}
 			else
+			{
+				log_dbg3("Parser returned false at gr_separator_op.");
 				return false;
+			}
 		else
+		{
+			log_dbg3("Parser returned false at gr_separator_op.");
 			return false;
+		}
 	else if (tok->type == E_TOKEN_SEMI)
 			if (tokens->used > where + 1)
 				if (gr_complete_cmd(tokens, where + 1) == true)
+				{
+					log_dbg3("Parser returned true at gr_separator_op.");
 					return true;
+				}
 				else
+				{
+					log_dbg3("Parser returned false at gr_separator_op.");
 					return false;
+				}
 			else
+			{
+				log_dbg3("Parser returned true at gr_separator_op.");
 				return true;
+			}
 	else
+	{
+		log_dbg3("Parser returned false at gr_separator_op.");
 		return false;
+	}
 }
 
 t_bool gr_separator(t_array *tokens, size_t where)
 {
+	log_info("Parser is at gr_separator.");
 	if ((gr_separator_op(tokens, where) == true) && (gr_linebreak(tokens, where) == true))
+	{
+		log_dbg3("Parser returned true at gr_separator.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_separator.");
 		return false;
+	}
 }
 
 t_bool gr_linebreak(t_array *tokens, size_t where)
 {
+	log_info("Parser is at gr_linebreak.");
 	if (gr_newline_list(tokens, where) == true)
+	{
+		log_dbg3("Parser returned true at gr_linebreak.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_linebreak.");
 		return false;
+	}
 }
 
 t_bool gr_newline_list(t_array *tokens, size_t where)
 {
 	t_token *tok;
+
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_newline_list.");
 	if (tok->type == E_TOKEN_SEMI)
+	{
+		log_dbg3("Parser returned true at gr_newline_list.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_newline_list.");
 		return false;
+	}
 }
 
 t_bool gr_and_or(t_array *tokens, size_t where)
 {
+	log_info("Parser is at gr_and_or.");
 	if ((gr_pipeline(tokens, where) == true) || \
 	((gr_check_and_if(tokens, where) == true) && \
 	(gr_linebreak(tokens, where) == true) && \
@@ -357,49 +416,87 @@ t_bool gr_and_or(t_array *tokens, size_t where)
 	(gr_check_or_if(tokens, where) == true) && \
 	(gr_linebreak(tokens, where) == true) && \
 	(gr_pipeline(tokens, where) == true))
-		return true; //TODO : Check for something after to && or || or else parsing error (check_and_if() check_or_if)
+	{
+		log_dbg3("Parser returned true at gr_and_or.");
+		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_and_or.");
 		return false;
-}
+	}
+}//TODO : Check for something after to && or || or else parsing error (check_and_if() check_or_if)
 
 t_bool gr_check_or_if(t_array *tokens, size_t where)
 {
 	t_token *tok;
+
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_check_or_if.");
 	if (tok->type == E_TOKEN_OR_IF)
 		if (tokens->used > where + 1)
 			if (gr_complete_cmd(tokens, where + 1) == true)
+			{
+				log_dbg3("Parser returned true at gr_check_or_if.");
 				return true;
+			}
 			else
+			{
+				log_dbg3("Parser returned false at gr_check_or_if.");
 				return false;
+			}
 		else
+		{
+			log_dbg3("Parser returned false at gr_check_or_if.");
 			return false;
+		}
 	else
+	{
+		log_dbg3("Parser returned false at gr_check_or_if.");
 		return false;
+	}
 }
 
 t_bool gr_check_and_if(t_array *tokens, size_t where)
 {
 	t_token *tok;
+
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_pipe_sequence.");
 	if (tok->type == E_TOKEN_AND_IF)
 		if (tokens->used > where + 1)
 			if (gr_complete_cmd(tokens, where + 1) == true)
 				return true;
 			else
+			{
+				log_dbg3("Parser returned false at gr_pipe_sequence.");
 				return false;
+			}
 		else
+		{
+			log_dbg3("Parser returned false at gr_pipe_sequence.");
 			return false;
+		}
 	else
+	{
+		log_dbg3("Parser returned false at gr_pipe_sequence.");
 		return false;
+	}
 }
 
 t_bool gr_pipeline(t_array *tokens, size_t where)
 {
+	log_info("Parser is at gr_pipe_sequence.");
 	if (gr_pipe_sequence(tokens, where) == true)
+	{
+		log_dbg3("Parser returned true at gr_pipe_sequence.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_pipe_sequence.");
 		return false;
+	}
 }
 
 t_bool gr_pipe_sequence(t_array *tokens, size_t where)
@@ -407,22 +504,40 @@ t_bool gr_pipe_sequence(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
-	if ((gr_command(tokens, where) == true) || ((tok->type == E_TOKEN_PIPE) && (gr_linebreak(tokens, where) == true) && (gr_command(tokens, where) == true)))
-		return true; //TODO, add check for pipe and stuff as for the rest
+	log_info("Parser is at gr_pipe_sequence.");
+	if ((gr_command(tokens, where) == true) || \
+	((tok->type == E_TOKEN_PIPE) && \
+	(gr_linebreak(tokens, where) == true) && \
+	(gr_command(tokens, where) == true)))
+	{
+		log_dbg3("Parser returned true at gr_pipe_sequence.");
+		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_pipe_sequence.");
 		return false;
+	} //TODO Check stuff after pipe
 }
 
 t_bool	gr_command(t_array *tokens, size_t where)
 {
+	log_info("Parser is at gr_command.");
 	if (gr_simple_command(tokens, where) == true)
+	{
+		log_dbg3("Parser returned true at gr_command.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_command.");
 		return false;
+	}
 }
 
 t_bool gr_simple_command(t_array *tokens, size_t where)
 {
+	log_info("Parser is at gr_simple_command.");
 	if (((gr_cmd_prefix(tokens, where) == true) && \
 	(gr_cmd_word(tokens, where) == true) && \
 	(gr_cmd_suffix(tokens, where) == true)) || \
@@ -430,18 +545,32 @@ t_bool gr_simple_command(t_array *tokens, size_t where)
 	(gr_cmd_word(tokens, where) == true)) || \
 	((gr_cmd_prefix(tokens, where) == true)) || \
 	(((gr_cmd_name(tokens, where) == true) && \
-	(gr_cmd_suffix(tokens, where) == true))) || (gr_cmd_name(tokens, where) == true))
+	(gr_cmd_suffix(tokens, where) == true))) || \
+	(gr_cmd_name(tokens, where) == true))
+	{
+		log_dbg3("Parser returned true at gr_simple_command.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_simple_command.");
 		return false;
+	}
 }
 
 t_bool gr_cmd_prefix(t_array *tokens, size_t where)
 {
+	log_info("Parser is at gr_cmd_prefix.");
 	if (gr_io_redirect(tokens, where) == true)
- 		return true;
+	{
+		log_dbg3("Parser returned true at gr_cmd_prefix.");
+		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_cmd_prefix.");
 		return false;
+	}
 }
 
 t_bool gr_cmd_word(t_array *tokens, size_t where)
@@ -449,10 +578,17 @@ t_bool gr_cmd_word(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_cmd_word.");
 	if (tok->type == E_TOKEN_WORD) //TODO, add check for pipe and stuff as for the rest
+	{
+		log_dbg3("Parser returned true at gr_cmd_word.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_cmd_word.");
 		return false;
+	}
 }
 
 t_bool gr_cmd_name(t_array *tokens, size_t where)
@@ -460,10 +596,17 @@ t_bool gr_cmd_name(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_cmd_name.");
 	if (tok->type == E_TOKEN_WORD) //TODO, add check for pipe and stuff as for the rest
+	{
+		log_dbg3("Parser returned true at gr_cmd_name.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_cmd_name.");
 		return false;
+	}
 }
 
 t_bool gr_cmd_suffix(t_array *tokens, size_t where)
@@ -471,11 +614,18 @@ t_bool gr_cmd_suffix(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_cmd_suffix.");
 	if ((gr_io_redirect(tokens, where) == true) || \
 	(tok->type == E_TOKEN_WORD))//TODO, add check for pipe and stuff as for the rest
+	{
+		log_dbg3("Parser returned true at gr_cmd_suffix.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_cmd_suffix.");
 		return false;
+	}
 }
 
 t_bool gr_io_redirect(t_array *tokens, size_t where)
@@ -483,15 +633,22 @@ t_bool gr_io_redirect(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_io_redirect.");
 	if ((gr_io_file(tokens, where) == true) || \
 	((tok->type == E_TOKEN_IO_NUMBER) && \
 	gr_io_file(tokens, where) == true) || \
 	(gr_io_here(tokens, where) == true) || \
 	((tok->type == E_TOKEN_IO_NUMBER) && \
 	gr_io_here(tokens, where) == true))
+	{
+		log_dbg3("Parser returned true at gr_io_redirect.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_io_redirect.");
 		return false;
+	}
 	//TODO, add check for pipe and stuff as for the rest
 }
 
@@ -500,28 +657,38 @@ t_bool gr_io_file(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_io_file.");
 	if (((tok->str[0] == '<') && gr_filename(tokens, where) == true) || \
 	((tok->type == E_TOKEN_LESSAND) && (gr_filename(tokens, where) == true)) || \
 	(((tok->str[0] == '>') && gr_filename(tokens, where) == true)) || \
 	((tok->type == E_TOKEN_GREATAND) && (gr_filename(tokens, where) == true)) || \
 	((tok->type == E_TOKEN_DGREAT) && (gr_filename(tokens, where) == true)) || \
 	((tok->type == E_TOKEN_LESSGREAT) && (gr_filename(tokens, where) == true)))
+	{
+		log_dbg3("Parser returned true at gr_io_file.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_io_file.");
 		return false;
+	}
 	//TODO, add check for pipe and stuff as for the rest
 }
 
 
-t_bool gr_io_here(t_array *tokens, size_t where)
-{
+t_bool gr_io_here(t_array *tokens, size_t where) {
 	t_token *tok;
 
-	tok = (t_token *)array_get_at(tokens, where);
-	if ((tok->type == E_TOKEN_DLESS) && (gr_here_end(tokens, where) == true))
+	tok = (t_token *) array_get_at(tokens, where);
+	log_info("Parser is at gr_io_here.");
+	if ((tok->type == E_TOKEN_DLESS) && (gr_here_end(tokens, where) == true)) {
+		log_dbg3("Parser returned true at gr_io_here.");
 		return true;
-	else
+	} else {
+		log_dbg3("Parser returned false at gr_io_here.");
 		return false;
+	}
 }
 
 t_bool gr_filename(t_array *tokens, size_t where)
@@ -529,10 +696,17 @@ t_bool gr_filename(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_filename.");
 	if (tok->type == E_TOKEN_WORD) //TODO, add check for pipe and stuff as for the rest
+	{
+		log_dbg3("Parser returned true at gr_filename.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_filename.");
 		return false;
+	}
 }
 
 t_bool gr_here_end(t_array *tokens, size_t where)
@@ -540,12 +714,18 @@ t_bool gr_here_end(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_info("Parser is at gr_here_end.");
 	if (tok->type == E_TOKEN_WORD) //TODO, add check for pipe and stuff as for the rest
+	{
+		log_dbg3("Parser returned true at gr_here_end.");
 		return true;
+	}
 	else
+	{
+		log_dbg3("Parser returned false at gr_here_end.");
 		return false;
+	}
 }
-
 
 /*
  *
