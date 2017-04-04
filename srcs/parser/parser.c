@@ -240,7 +240,7 @@ static const uint32_t grammar[SYM_MAX][SYM_MAX][4] =
 ** @brief Initializes the parser for the program
 **
 ** @param tokens  The tokens sent by the lexer
-** @return Returns nothing for now
+** @return Returns true if parsing ok and false if error + printf error in stdout and log fatal
 */
 
 void dbg_printtok_str(t_array *tokens, size_t i)
@@ -254,7 +254,7 @@ void dbg_printtok_str(t_array *tokens, size_t i)
 	ft_putchar('\n');
 }
 
-void	parser_init(t_array *tokens)
+t_bool	parser_parse(t_array *tokens)
 {
 	size_t i;
 	t_bool ok;
@@ -269,10 +269,7 @@ void	parser_init(t_array *tokens)
 			ok = false;
 		i++;
 	}
-	if (ok == true)
-		ft_printf("Parsing done and ok, let's roll !\n");
-	else
-		ft_printf("Parsing error\n");
+	return ok; //TODO, make the grammar functions print the errors !
 }
 
 t_bool gr_complete_cmd(t_array *tokens, size_t where)
