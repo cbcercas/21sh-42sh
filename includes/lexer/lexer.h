@@ -36,10 +36,14 @@ enum e_token_type
 	E_TOKEN_PIPE,
 	E_TOKEN_LESSGREAT,
 	E_TOKEN_AND,
+	E_TOKEN_SEMI,
+	E_TOKEN_IO_NUMBER,
 	E_TOKEN_DLESS,
 	E_TOKEN_DGREAT,
 	E_TOKEN_OR_IF,
 	E_TOKEN_AND_IF,
+	E_TOKEN_LESSAND,
+	E_TOKEN_GREATAND,
 	E_TOKEN_MAX
 };
 
@@ -62,12 +66,15 @@ enum e_char_type
 	E_CHAR_TYPE_PIPE,
 	E_CHAR_TYPE_LESSGREAT,
 	E_CHAR_TYPE_AND,
+	E_CHAR_TYPE_SEMI,
+	E_CHAR_TYPE_DIGIT,
 	E_CHAR_TYPE_ERROR,
 	E_CHAR_TYPE_MAX
 };
 
 t_array	*lexer_init(t_array *toks);
 t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *input);
+void	lexer_print_token(t_token *tok);
 void	lexer_print_tokens(t_array *tokens);
 void	lexer_clean_tokens(t_array *tokens);
 
