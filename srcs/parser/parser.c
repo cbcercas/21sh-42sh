@@ -333,8 +333,6 @@ t_bool gr_newline_list(t_array *tokens, size_t where)
 
 t_bool gr_and_or(t_array *tokens, size_t where)
 {
-	t_token *tok;
-	tok = (t_token *)array_get_at(tokens, where);
 	if ((gr_pipeline(tokens, where) == true) || ((gr_check_and_if(tokens, where) == true) && (gr_linebreak(tokens, where)) && (gr_pipeline(tokens, where))) || (gr_check_or_if(tokens, where) == true) && (gr_linebreak(tokens, where)) && (gr_pipeline(tokens, where)))
 		return true; //TODO : Check for something after to && or || or else parsing error (check_and_if() check_or_if)
 	else
@@ -373,5 +371,186 @@ t_bool gr_check_and_if(t_array *tokens, size_t where)
 
 t_bool gr_pipeline(t_array *tokens, size_t where)
 {
-	return true;
+	if (gr_pipe_sequence(tokens, where) == true)
+		return true;
+	else
+		return false;
 }
+
+t_bool gr_pipe_sequence(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if ((gr_command(tokens, where) == true) || ((tok->type == E_TOKEN_PIPE) && (gr_linebreak(tokens, where) == true) && (gr_command(tokens, where) == true)))
+		return true; //TODO, add check for pipe and stuff as for the rest
+	else
+		return false;
+}
+
+t_bool	gr_command(t_array *tokens, size_t where)
+{
+	if (gr_simple_command(tokens, where) == true)
+		return true;
+	else
+		return false;
+}
+
+t_bool gr_simple_command(t_array *tokens, size_t where)
+{
+	if (((gr_cmd_prefix(tokens, where) == true) && \
+	(gr_cmd_word(tokens, where) == true) && \
+	(gr_cmd_suffix(tokens, where) == true)) || \
+	((gr_cmd_prefix(tokens, where) == true) && \
+	(gr_cmd_word(tokens, where) == true)) || \
+	((gr_cmd_prefix(tokens, where) == true)) || \
+	(((gr_cmd_name(tokens, where) == true) && \
+	(gr_cmd_suffix(tokens, where) == true))) || (gr_cmd_name(tokens, where) == true))
+		return true;
+	else
+		return false;
+}
+
+t_bool gr_cmd_prefix(t_array *tokens, size_t where)
+{
+	if (gr_io_redirect(tokens, where) == true)
+ 		return true;
+	else
+		return false;
+}
+
+t_bool gr_cmd_word(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_WORD) //TODO, add check for pipe and stuff as for the rest
+		return true;
+	else
+		return false;
+}
+
+t_bool gr_cmd_name(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_WORD) //TODO, add check for pipe and stuff as for the rest
+		return true;
+	else
+		return false;
+}
+
+t_bool gr_cmd_suffix(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if ((gr_io_redirect(tokens, where) == true) || \
+	(tok->type == E_TOKEN_WORD))//TODO, add check for pipe and stuff as for the rest
+		return true;
+	else
+		return false;
+}
+
+t_bool gr_io_redirect(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if ((gr_io_file(tokens, where) == true) || \
+	((tok->type == E_TOKEN_IO_NUMBER) && \
+	gr_io_file(tokens, where) == true) || \
+	(gr_io_here(tokens, where) == true) || \
+	((tok->type == E_TOKEN_IO_NUMBER) && \
+	gr_io_here(tokens, where) == true))
+	return true;
+	//TODO, add check for pipe and stuff as for the rest
+}
+
+t_bool gr_io_file(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if (((tok->str[0] == '<') && gr_filename(tokens, where) == true) || \
+	((tok->type == E_TOKEN_LESSAND) && (gr_filename(tokens, where) == true)) || \
+	(((tok->str[0] == '>') && gr_filename(tokens, where) == true)) || \
+	((tok->type == E_TOKEN_GREATAND) && (gr_filename(tokens, where) == true)) || \
+	((tok->type == E_TOKEN_DGREAT) && (gr_filename(tokens, where) == true)) || \
+	((tok->type == E_TOKEN_LESSGREAT) && (gr_filename(tokens, where) == true)))
+		return true;
+	else
+		return false;
+	//TODO, add check for pipe and stuff as for the rest
+}
+
+
+t_bool gr_io_here(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if ((tok->type == E_TOKEN_DLESS) && (gr_here_end(tokens, where) == true))
+		return true;
+	else
+		return false;
+}
+
+t_bool gr_filename(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_WORD) //TODO, add check for pipe and stuff as for the rest
+		return true;
+	else
+		return false;
+}
+
+t_bool gr_here_end(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_WORD) //TODO, add check for pipe and stuff as for the rest
+		return true;
+	else
+		return false;
+}
+
+
+/*
+ *
+ * TODO for later, as debug lvl3
+ *
+ *
+  	size_t		i;
+	size_t nb_word;
+	size_t nb_blank;
+	size_t nb_newline;
+	t_token *tok;
+
+	nb_blank = 0;
+	nb_word = 0;
+	nb_newline = 0;
+	i = 0;
+	log_info("Parser: initializing");
+	log_dbg3("Parser: user input is \n\n%s\n", input);
+	log_dbg3("Parser: input is %zu long.", ft_strlen(input));
+	log_dbg3("Parser: lexer returned %zu tokens to be parsed", tokens->used);
+	while (i < tokens->used)
+	{
+		tok = (t_token *)array_get_at(tokens, i);
+		if (tok->type == E_TOKEN_WORD)
+			nb_word++;
+		else if (tok->type == E_TOKEN_BLANK)
+			nb_blank++;
+		else if (tok->type == E_TOKEN_NEWLINE)
+			nb_newline++;
+		i++;
+	}
+	log_dbg3("Found %zu words", nb_word);
+	log_dbg3("Found %zu blank spaces", nb_blank);
+	log_dbg3("Found %zu newlines", nb_newline);
+ */

@@ -39,6 +39,15 @@ t_bool gr_cmd_word(t_array *tokens, size_t where);
 
 t_bool gr_cmd_name(t_array *tokens, size_t where);
 
+t_bool gr_io_redirect(t_array *tokens, size_t where);
+
+t_bool gr_io_file(t_array *tokens, size_t where);
+
+t_bool gr_io_here(t_array *tokens, size_t where);
+
+t_bool gr_filename(t_array *tokens, size_t where);
+
+t_bool gr_here_end(t_array *tokens, size_t where);
 //t_bool gr_(t_array *tokens, size_t where);
 
 
