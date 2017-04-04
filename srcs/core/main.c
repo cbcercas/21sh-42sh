@@ -29,8 +29,8 @@ int main(int ac, char *const *av)
 		sh_print_prompt();
 		input = sh_get_line();
 		if (lexer_lex(&tokens, &automaton, input))
-			lexer_print_tokens(&tokens);
-		parser_init(&tokens, input);
+			parser_init(&tokens);
+		//lexer_print_tokens(&tokens);
 		// if ((command = ft_strsplit(input, ';')))
 		// 		// 	if (sh_command(data, command))
 		// 				// 		stop = true;

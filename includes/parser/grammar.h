@@ -25,6 +25,20 @@ t_bool gr_check_or_if(t_array *tokens, size_t where);
 
 t_bool gr_check_and_if(t_array *tokens, size_t where);
 
+t_bool gr_pipe_sequence(t_array *tokens, size_t where);
+
+t_bool gr_simple_command(t_array *tokens, size_t where);
+
+t_bool	gr_command(t_array *tokens, size_t where);
+
+t_bool gr_cmd_suffix(t_array *tokens, size_t where);
+
+t_bool gr_cmd_prefix(t_array *tokens, size_t where);
+
+t_bool gr_cmd_word(t_array *tokens, size_t where);
+
+t_bool gr_cmd_name(t_array *tokens, size_t where);
+
 //t_bool gr_(t_array *tokens, size_t where);
 
 

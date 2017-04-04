@@ -234,61 +234,45 @@ static const uint32_t grammar[SYM_MAX][SYM_MAX][4] =
 	}
 };
 
+
+
 /*
 ** @brief Initializes the parser for the program
 **
 ** @param tokens  The tokens sent by the lexer
-** @param input   The input the user sent
 ** @return Returns nothing for now
 */
 
-void	parser_init(t_array *tokens, char *input)
+void dbg_printtok_str(t_array *tokens, size_t i)
 {
-	size_t		i;
-	size_t nb_word;
-	size_t nb_blank;
-	size_t nb_newline;
 	t_token *tok;
 
-	nb_blank = 0;
-	nb_word = 0;
-	nb_newline = 0;
-	i = 0;
-	log_info("Parser: initializing");
-	log_dbg3("Parser: user input is \n\n%s\n", input);
-	log_dbg3("Parser: input is %zu long.", ft_strlen(input));
-	log_dbg3("Parser: lexer returned %zu tokens to be parsed", tokens->used);
-	while (i < tokens->used)
-	{
-		tok = (t_token *)array_get_at(tokens, i);
-		if (tok->type == E_TOKEN_WORD)
-			nb_word++;
-		else if (tok->type == E_TOKEN_BLANK)
-			nb_blank++;
-		else if (tok->type == E_TOKEN_NEWLINE)
-			nb_newline++;
-		i++;
-		ft_printf("\nSTR = %s\n", tok->str);
-	}
-	log_dbg3("Found %zu words", nb_word);
-	log_dbg3("Found %zu blank spaces", nb_blank);
-	log_dbg3("Found %zu newlines", nb_newline);
+	tok = (t_token *)array_get_at(tokens, i);
+	lexer_print_token(tok);
+	ft_putstr(": ");
+	ft_putnstr(tok->str, tok->len);
+	ft_putchar('\n');
+}
+
+void	parser_init(t_array *tokens)
+{
+	size_t i;
+	t_bool ok;
+
 	i = 0;
 	while (i < tokens->used)
 	{
-		tok = (t_token *)array_get_at(tokens, i);
-		if (gr_complete_cmd(tokens, i) == false)
-		{
-			ft_printf("%s", tok->str);
-			ft_printf("PARSING ERROR\n");
-		}
+		dbg_printtok_str(tokens, i);
+		if (gr_complete_cmd(tokens, i) == true)
+			ok = true;
 		else
-		{
-			ft_printf("%s", tok->str);
-			ft_printf("PARSING DONE\n");
-		}
+			ok = false;
 		i++;
 	}
+	if (ok == true)
+		ft_printf("Parsing done and ok, let's roll !\n");
+	else
+		ft_printf("Parsing error\n");
 }
 
 t_bool gr_complete_cmd(t_array *tokens, size_t where)
@@ -298,8 +282,6 @@ t_bool gr_complete_cmd(t_array *tokens, size_t where)
 	else
 		return false;
 }
-
-//(gr_list(&tokens, input) == true) &&
 
 t_bool gr_list(t_array *tokens, size_t where)
 {
@@ -317,7 +299,10 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 	tok = (t_token *)array_get_at(tokens, where);
 	if ((tok->type == E_TOKEN_AND) ||  (tok->type == E_TOKEN_NEWLINE))
 		if (tokens->used > where + 1)
-			gr_complete_cmd(tokens, where + 1);
+			if (gr_complete_cmd(tokens, where + 1) == true)
+				return true;
+			else
+				return false;
 		else
 			return false;
 	return false;
@@ -341,7 +326,7 @@ t_bool gr_newline_list(t_array *tokens, size_t where)
 {
 	t_token *tok;
 	tok = (t_token *)array_get_at(tokens, where);
-	if (tok->type == E_TOKEN_NEWLINE)
+	if (tok->type == E_TOKEN_SEMI)
 		return true;
 	return false;
 }
@@ -362,7 +347,10 @@ t_bool gr_check_or_if(t_array *tokens, size_t where)
 	tok = (t_token *)array_get_at(tokens, where);
 	if (tok->type == E_TOKEN_OR_IF)
 		if (tokens->used > where + 1)
-			gr_complete_cmd(tokens, where + 1);
+			if (gr_complete_cmd(tokens, where + 1) == true)
+				return true;
+			else
+				return false;
 		else
 			return false;
 	return false;
@@ -374,7 +362,10 @@ t_bool gr_check_and_if(t_array *tokens, size_t where)
 	tok = (t_token *)array_get_at(tokens, where);
 	if (tok->type == E_TOKEN_AND_IF)
 		if (tokens->used > where + 1)
-			gr_complete_cmd(tokens, where + 1);
+			if (gr_complete_cmd(tokens, where + 1) == true)
+				return true;
+			else
+				return false;
 		else
 			return false;
 	return false;
