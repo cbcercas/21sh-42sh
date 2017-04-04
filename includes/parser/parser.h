@@ -51,6 +51,6 @@ enum e_grammar_sym
 
 // TODO : Reorganiser l'enum parce que il n'est pas dans l'ordre du tableau !!
 
-void parser_init(t_array *tokens);
+t_bool parser_parse(t_array *tokens);
 
 #endif
