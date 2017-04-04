@@ -2,3 +2,6 @@
 	path = lib/libft
 	url = https://mongit.mesamis.org/cbcercas/Libft_corrige.git
 	branch = fusion_printf_gnl
+[submodule "lib/libtcaps"]
+	path = lib/libtcaps
+	url = https://mongit.mesamis.org/cbcercas/Lib_tcaps.git
