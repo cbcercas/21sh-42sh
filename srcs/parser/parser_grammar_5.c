@@ -22,7 +22,7 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 		if (tokens->used > where + 1)
 			if (gr_complete_cmd(tokens, where + 1) == true)
 			{
-				log_dbg3("Parser returned true at gr_separator_op.");
+				log_dbg2("Parser returned true at gr_separator_op.");
 				return true;
 			}
 			else
@@ -39,7 +39,7 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 		if (tokens->used > where + 1)
 			if (gr_complete_cmd(tokens, where + 1) == true)
 			{
-				log_dbg3("Parser returned true at gr_separator_op.");
+				log_dbg2("Parser returned true at gr_separator_op.");
 				return true;
 			}
 			else
@@ -49,7 +49,7 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 			}
 		else
 		{
-			log_dbg3("Parser returned true at gr_separator_op.");
+			log_dbg2("Parser returned true at gr_separator_op.");
 			return true;
 		}
 	else
@@ -69,7 +69,7 @@ t_bool gr_check_or_if(t_array *tokens, size_t where)
 		if (tokens->used > where + 1)
 			if (gr_complete_cmd(tokens, where + 1) == true)
 			{
-				log_dbg3("Parser returned true at gr_check_or_if.");
+				log_dbg2("Parser returned true at gr_check_or_if.");
 				return true;
 			}
 			else

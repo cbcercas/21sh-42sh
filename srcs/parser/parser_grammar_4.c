@@ -44,7 +44,7 @@ t_bool gr_pipeline(t_array *tokens, size_t where)
 	log_info("Parser is at gr_pipe_sequence.");
 	if (gr_pipe_sequence(tokens, where) == true)
 	{
-		log_dbg3("Parser returned true at gr_pipe_sequence.");
+		log_dbg2("Parser returned true at gr_pipe_sequence.");
 		return true;
 	}
 	else
@@ -65,7 +65,7 @@ t_bool gr_pipe_sequence(t_array *tokens, size_t where)
 	(gr_linebreak(tokens, where) == true) && \
 	(gr_command(tokens, where) == true)))
 	{
-		log_dbg3("Parser returned true at gr_pipe_sequence.");
+		log_dbg2("Parser returned true at gr_pipe_sequence.");
 		return true;
 	}
 	else
@@ -80,7 +80,7 @@ t_bool	gr_command(t_array *tokens, size_t where)
 	log_info("Parser is at gr_command.");
 	if (gr_simple_command(tokens, where) == true)
 	{
-		log_dbg3("Parser returned true at gr_command.");
+		log_dbg2("Parser returned true at gr_command.");
 		return true;
 	}
 	else
