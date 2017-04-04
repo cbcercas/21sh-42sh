@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 project(Minishell)
 
 set(CMAKE_CXX_STANDARD 11)
-set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
+#set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
 
 set(SOURCE_FILES
         includes/automaton/automaton.h
@@ -22,6 +22,7 @@ set(SOURCE_FILES
         includes/environ/environ.h
         includes/lexer/lexer.h
         includes/parser/parser.h
+        includes/parser/grammar.h
         lib/libft/includes/array/array.h
         lib/libft/includes/ft_printf/ft_get.h
         lib/libft/includes/ft_printf/libftprintf.h
@@ -172,7 +173,12 @@ set(SOURCE_FILES
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/parser/parser.c
-        includes/parser/grammar.h)
+        includes/parser/grammar.h
+        srcs/parser/parser_grammar.c
+        srcs/parser/parser_grammar_2.c
+        srcs/parser/parser_grammar_3.c
+        srcs/parser/parser_grammar_4.c
+        srcs/parser/parser_grammar_5.c)
 
 include_directories(includes)
 include_directories(lib/libft/includes)
