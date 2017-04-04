@@ -415,7 +415,7 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 	tok.str = *in;
 	if (g_tok_redir[(int)**in][(int)*(*in + 1)] > E_TOKEN_NONE)
 	{
-		tok.type = g_tok_redir[(int) **in][(int) *(*in)];
+		tok.type = g_tok_redir[(int) **in][(int)*(*in + 1)];
 		(*in) += 1;
 	}
 	else
