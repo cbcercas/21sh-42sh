@@ -16,10 +16,11 @@
 ** @brief Initializes the parser for the program
 **
 ** @param tokens  The tokens sent by the lexer
-** @return Returns true if parsing ok and false if error + printf error in stdout and log fatal
+** @return Returns true if parsing ok and false if error + printf error
+** in stdout and log fatal
 */
 
-void dbg_printtok_str(t_array *tokens, size_t i)
+static void	dbg_printtok_str(t_array *tokens, size_t i)
 {
 	t_token *tok;
 
@@ -30,22 +31,24 @@ void dbg_printtok_str(t_array *tokens, size_t i)
 	ft_putchar('\n');
 }
 
-t_bool gr_complete_cmd(t_array *tokens, size_t where)
+t_bool		gr_complete_cmd(t_array *tokens, size_t where)
 {
 	log_info("Parser is at gr_complete_cmd.");
-	if ((gr_list(tokens, where) == true) || (gr_list(tokens, where) == true && gr_separator(tokens, where) == true))
+	if ((gr_list(tokens, where) == true) || \
+	(gr_list(tokens, where) == true && \
+	gr_separator(tokens, where) == true))
 	{
 		log_dbg2("Parser returned true at gr_complete_cmd.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_complete_cmd.");
-		return false;
+		return (false);
 	}
 }
 
-t_bool	parser_parse(t_array *tokens)
+t_bool		parser_parse(t_array *tokens)
 {
 	size_t i;
 	t_bool ok;
@@ -66,5 +69,9 @@ t_bool	parser_parse(t_array *tokens)
 		ft_printf("\nParser error\n");
 		log_fatal("\nParser error\n");
 	}
-	return ok; //TODO, make the grammar functions print the errors !
+	return (ok);
 }
+
+/*
+** TODO, make the grammar functions print the errors !
+*/

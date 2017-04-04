@@ -12,7 +12,36 @@
 
 #include <parser/parser.h>
 
-t_bool gr_separator_op(t_array *tokens, size_t where)
+static t_bool	gr_separator_op_helper(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_SEMI)
+		if (tokens->used > where + 1)
+			if (gr_complete_cmd(tokens, where + 1) == true)
+			{
+				log_dbg2("Parser returned true at gr_separator_op.");
+				return (true);
+			}
+			else
+			{
+				log_dbg3("Parser returned false at gr_separator_op.");
+				return (false);
+			}
+		else
+		{
+			log_dbg2("Parser returned true at gr_separator_op.");
+			return (true);
+		}
+	else
+	{
+		log_dbg3("Parser returned false at gr_separator_op.");
+		return (false);
+	}
+}
+
+t_bool			gr_separator_op(t_array *tokens, size_t where)
 {
 	t_token *tok;
 
@@ -23,43 +52,29 @@ t_bool gr_separator_op(t_array *tokens, size_t where)
 			if (gr_complete_cmd(tokens, where + 1) == true)
 			{
 				log_dbg2("Parser returned true at gr_separator_op.");
-				return true;
+				return (true);
 			}
 			else
 			{
 				log_dbg3("Parser returned false at gr_separator_op.");
-				return false;
+				return (false);
 			}
 		else
 		{
 			log_dbg3("Parser returned false at gr_separator_op.");
-			return false;
-		}
-	else if (tok->type == E_TOKEN_SEMI)
-		if (tokens->used > where + 1)
-			if (gr_complete_cmd(tokens, where + 1) == true)
-			{
-				log_dbg2("Parser returned true at gr_separator_op.");
-				return true;
-			}
-			else
-			{
-				log_dbg3("Parser returned false at gr_separator_op.");
-				return false;
-			}
-		else
-		{
-			log_dbg2("Parser returned true at gr_separator_op.");
-			return true;
+			return (false);
 		}
 	else
-	{
-		log_dbg3("Parser returned false at gr_separator_op.");
-		return false;
-	}
+		return (gr_separator_op_helper(tokens, where));
 }
 
-t_bool gr_check_or_if(t_array *tokens, size_t where)
+static t_bool	gr_check_or_if_log_helper(void)
+{
+	log_dbg3("Parser returned false at gr_check_or_if.");
+	return (false);
+}
+
+t_bool			gr_check_or_if(t_array *tokens, size_t where)
 {
 	t_token *tok;
 
@@ -70,21 +85,12 @@ t_bool gr_check_or_if(t_array *tokens, size_t where)
 			if (gr_complete_cmd(tokens, where + 1) == true)
 			{
 				log_dbg2("Parser returned true at gr_check_or_if.");
-				return true;
+				return (true);
 			}
 			else
-			{
-				log_dbg3("Parser returned false at gr_check_or_if.");
-				return false;
-			}
+				return (gr_check_or_if_log_helper());
 		else
-		{
-			log_dbg3("Parser returned false at gr_check_or_if.");
-			return false;
-		}
+			return (gr_check_or_if_log_helper());
 	else
-	{
-		log_dbg3("Parser returned false at gr_check_or_if.");
-		return false;
-	}
+		return (gr_check_or_if_log_helper());
 }

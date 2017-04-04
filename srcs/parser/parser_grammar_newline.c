@@ -12,7 +12,7 @@
 
 #include <parser/parser.h>
 
-t_bool gr_list(t_array *tokens, size_t where)
+t_bool	gr_list(t_array *tokens, size_t where)
 {
 	log_info("Parser is at gr_list.");
 	if (((gr_separator_op(tokens, where) == true) && \
@@ -21,46 +21,47 @@ t_bool gr_list(t_array *tokens, size_t where)
 	(gr_separator_op(tokens, where) == true))
 	{
 		log_dbg2("Parser returned true at gr_list.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_list.");
-		return false;
+		return (false);
 	}
 }
 
-t_bool gr_separator(t_array *tokens, size_t where)
+t_bool	gr_separator(t_array *tokens, size_t where)
 {
 	log_info("Parser is at gr_separator.");
-	if ((gr_separator_op(tokens, where) == true) && (gr_linebreak(tokens, where) == true))
+	if ((gr_separator_op(tokens, where) == true) && \
+	(gr_linebreak(tokens, where) == true))
 	{
 		log_dbg2("Parser returned true at gr_separator.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_separator.");
-		return false;
+		return (false);
 	}
 }
 
-t_bool gr_linebreak(t_array *tokens, size_t where)
+t_bool	gr_linebreak(t_array *tokens, size_t where)
 {
 	log_info("Parser is at gr_linebreak.");
 	if (gr_newline_list(tokens, where) == true)
 	{
 		log_dbg2("Parser returned true at gr_linebreak.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_linebreak.");
-		return false;
+		return (false);
 	}
 }
 
-t_bool gr_newline_list(t_array *tokens, size_t where)
+t_bool	gr_newline_list(t_array *tokens, size_t where)
 {
 	t_token *tok;
 
@@ -69,16 +70,16 @@ t_bool gr_newline_list(t_array *tokens, size_t where)
 	if (tok->type == E_TOKEN_SEMI)
 	{
 		log_dbg2("Parser returned true at gr_newline_list.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_newline_list.");
-		return false;
+		return (false);
 	}
 }
 
-t_bool gr_and_or(t_array *tokens, size_t where)
+t_bool	gr_and_or(t_array *tokens, size_t where)
 {
 	log_info("Parser is at gr_and_or.");
 	if ((gr_pipeline(tokens, where) == true) || \
@@ -90,11 +91,11 @@ t_bool gr_and_or(t_array *tokens, size_t where)
 	(gr_pipeline(tokens, where) == true))
 	{
 		log_dbg2("Parser returned true at gr_and_or.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_and_or.");
-		return false;
+		return (false);
 	}
 }

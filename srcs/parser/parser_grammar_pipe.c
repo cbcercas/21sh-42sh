@@ -12,7 +12,7 @@
 
 #include <parser/parser.h>
 
-t_bool gr_check_and_if(t_array *tokens, size_t where)
+t_bool	gr_check_and_if(t_array *tokens, size_t where)
 {
 	t_token *tok;
 
@@ -21,40 +21,40 @@ t_bool gr_check_and_if(t_array *tokens, size_t where)
 	if (tok->type == E_TOKEN_AND_IF)
 		if (tokens->used > where + 1)
 			if (gr_complete_cmd(tokens, where + 1) == true)
-				return true;
+				return (true);
 			else
 			{
 				log_dbg3("Parser returned false at gr_pipe_sequence.");
-				return false;
+				return (false);
 			}
 		else
 		{
 			log_dbg3("Parser returned false at gr_pipe_sequence.");
-			return false;
+			return (false);
 		}
 	else
 	{
 		log_dbg3("Parser returned false at gr_pipe_sequence.");
-		return false;
+		return (false);
 	}
 }
 
-t_bool gr_pipeline(t_array *tokens, size_t where)
+t_bool	gr_pipeline(t_array *tokens, size_t where)
 {
 	log_info("Parser is at gr_pipe_sequence.");
 	if (gr_pipe_sequence(tokens, where) == true)
 	{
 		log_dbg2("Parser returned true at gr_pipe_sequence.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_pipe_sequence.");
-		return false;
+		return (false);
 	}
 }
 
-t_bool gr_pipe_sequence(t_array *tokens, size_t where)
+t_bool	gr_pipe_sequence(t_array *tokens, size_t where)
 {
 	t_token *tok;
 
@@ -66,14 +66,18 @@ t_bool gr_pipe_sequence(t_array *tokens, size_t where)
 	(gr_command(tokens, where) == true)))
 	{
 		log_dbg2("Parser returned true at gr_pipe_sequence.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_pipe_sequence.");
-		return false;
-	} //TODO Check stuff after pipe
+		return (false);
+	}
 }
+
+/*
+**TODO: Check stuff after pipe
+*/
 
 t_bool	gr_command(t_array *tokens, size_t where)
 {
@@ -81,11 +85,11 @@ t_bool	gr_command(t_array *tokens, size_t where)
 	if (gr_simple_command(tokens, where) == true)
 	{
 		log_dbg2("Parser returned true at gr_command.");
-		return true;
+		return (true);
 	}
 	else
 	{
 		log_dbg3("Parser returned false at gr_command.");
-		return false;
+		return (false);
 	}
 }

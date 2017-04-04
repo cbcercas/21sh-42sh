@@ -174,11 +174,11 @@ set(SOURCE_FILES
         srcs/lexer/lexer_clean.c
         srcs/parser/parser.c
         includes/parser/grammar.h
-        srcs/parser/parser_grammar.c
-        srcs/parser/parser_grammar_2.c
-        srcs/parser/parser_grammar_3.c
-        srcs/parser/parser_grammar_4.c
-        srcs/parser/parser_grammar_5.c)
+        srcs/parser/parser_grammar_newline.c
+        srcs/parser/parser_grammar_io.c
+        srcs/parser/parser_grammar_cmd.c
+        srcs/parser/parser_grammar_pipe.c
+        srcs/parser/parser_grammar_sep_if.c)
 
 include_directories(includes)
 include_directories(lib/libft/includes)
