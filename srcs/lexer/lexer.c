@@ -276,7 +276,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
 			[E_CHAR_TYPE_PIPE] = {0, 1},
 			[E_CHAR_TYPE_LESSGREAT] = {0, 0},
-			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 0},
 			[E_CHAR_TYPE_SEMI] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
@@ -355,6 +355,36 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_SEMI] = {0, 1},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
+	[E_STATE_LESSAND] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_SEMI] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
+	[E_STATE_GREATAND] =
+		{
+			[E_CHAR_TYPE_NONE] = {0, 1},
+			[E_CHAR_TYPE_BLANK] = {0, 1},
+			[E_CHAR_TYPE_NEWLINE] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_SQUOTE] = {0, 1},
+			[E_CHAR_TYPE_BQUOTE] = {0, 1},
+			[E_CHAR_TYPE_DQUOTE] = {0, 1},
+			[E_CHAR_TYPE_PIPE] = {0, 1},
+			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
+			[E_CHAR_TYPE_AND] = {0, 1},
+			[E_CHAR_TYPE_SEMI] = {0, 1},
+			[E_CHAR_TYPE_ERROR] = {1, 0}
+		},
 	[E_STATE_START] =
 		{
 			[E_CHAR_TYPE_NONE] = { 0, 0},
@@ -392,11 +422,13 @@ static const uint32_t g_tok_redir[129][129] =
 {
 	['<'] =
 		{
-			['<'] = E_TOKEN_DLESS
+			['<'] = E_TOKEN_DLESS,
+			['&'] = E_TOKEN_LESSAND
 		},
 	['>'] =
 		{
-			['>'] = E_TOKEN_DGREAT
+			['>'] = E_TOKEN_DGREAT,
+			['&'] = E_TOKEN_GREATAND
 		},
 	['|'] =
 		{
@@ -512,6 +544,10 @@ void	lexer_print_token(t_token *tok)
 		ft_putstr("TOKEN_TYPE_AND_IF");
 	else if (tok->type == E_TOKEN_SEMI)
 		ft_putstr("TOKEN_TYPE_SEMI");
+	else if (tok->type == E_TOKEN_LESSAND)
+		ft_putstr("TOKEN_TYPE_LESSAND");
+	else if (tok->type == E_TOKEN_GREATAND)
+		ft_putstr("TOKEN_TYPE_GREATAND");
 }
 
 void	lexer_print_tokens(t_array *toks)
