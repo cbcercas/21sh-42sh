@@ -59,10 +59,12 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 		sh_data_free(data);
 		return (NULL);
 	}
+	raw_terminal_mode();
 	return (data);
 }
 
 void			sh_deinit(t_sh_data *data)
 {
 	sh_data_free(data);
+	default_terminal_mode();
 }

@@ -64,6 +64,12 @@ LIBS_FOLDER	= lib
 LIBFT_DIR	= $(LIBS_FOLDER)/libft
 LIBFT_FILE	= $(LIBFT_DIR)/libft.a
 INC			+= -I $(LIBFT_DIR)/includes
+## Libtcaps
+LIBTCAPS_DIR    = $(LIBS_FOLDER)/libtcaps
+INC                             += -I $(LIBTCAPS_DIR)/includes
+LIBS                            += -L$(LIBTCAPS_DIR) -ltcaps
+## Curses
+LIBS                            += -lcurses
 
 #Utils
 RM					= rm -rf
@@ -101,7 +107,7 @@ $(BUILD_DIR):
 
 lib:
 	@make -C $(LIBFT_DIR)
-
+	@make -C $(LIBTCAPS_DIR)
 re: clean fclean all
 
 clean:

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   tcaps_exec_ctrl_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/04 08:32:30 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/03/30 14:30:38 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <tcaps_test.h>
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <core/init.h>
-# include <core/prompt.h>
-# include <core/input.h>
-# include <libft.h>
-# include <lexer/lexer.h>
-# include <core/tcaps.h>
-
-# define PROG_NAME "minishell"
-
-#endif
+BOOL	exec_ctrl_j(const t_key *key)
+{
+	(void)key;
+	write(1, "User pressed CTRL+J\n", 20);
+	exec_ctrl_c(key);
+	return (false);
+}
