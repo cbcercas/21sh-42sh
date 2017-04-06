@@ -38,6 +38,7 @@ set(SOURCE_FILES
         srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
+        srcs/term/term_modes.c
         )
 
 include_directories(includes)
@@ -52,4 +53,4 @@ include_directories(lib/libtcaps/includes)
 
 add_executable(Minishell ${SOURCE_FILES})
 
-target_link_libraries(Minishell libft libtcaps)
+target_link_libraries(Minishell ft tcaps curses)
