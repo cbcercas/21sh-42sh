@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   tcaps_exec_arrow.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/04 08:32:30 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/02/17 15:57:33 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/02/17 18:50:10 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include <tcaps_test.h>
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <core/init.h>
-# include <core/prompt.h>
-# include <core/input.h>
-# include <libft.h>
-# include <lexer/lexer.h>
-# include <core/tcaps.h>
-
-# define PROG_NAME "minishell"
-
-#endif
+BOOL	exec_arrow(const t_key *key)
+{
+	tputs(tgetstr(key->key_code, NULL), 0, &ft_putchar2);
+	return (false);
+}

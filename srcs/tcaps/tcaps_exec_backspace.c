@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   tcaps_exec_backspace.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/04 08:32:30 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/03/30 13:04:39 by jlasne            #+#    #+#             */
+/*   Updated: 2017/03/30 13:41:30 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <core/init.h>
-# include <core/prompt.h>
-# include <core/input.h>
-# include <libft.h>
-# include <lexer/lexer.h>
-# include <core/tcaps.h>
+#include <tcaps_test.h>
 
-# define PROG_NAME "minishell"
-
-#endif
+BOOL	exec_backspace(const t_key *key)
+{
+	(void)key;
+	write(1, "User pressed backspace\n", 22);
+	exec_ctrl_c(key);
+	return (false);
+}
