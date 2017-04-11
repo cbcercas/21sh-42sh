@@ -56,7 +56,7 @@ t_bool	gr_cmd_word(t_array *tokens, size_t where)
 
 	tok = (t_token *)array_get_at(tokens, where);
 	log_info("Parser is at gr_cmd_word.");
-	if (tok->type == E_TOKEN_WORD)
+	if (tok->type == E_TOKEN_WORD || (tok->type == E_TOKEN_DQUOTE) || (tok->type == E_TOKEN_BQUOTE) || (tok->type == E_TOKEN_SQUOTE))
 	{
 		log_dbg2("Parser returned true at gr_cmd_word.");
 		return (true);
@@ -74,7 +74,8 @@ t_bool	gr_cmd_name(t_array *tokens, size_t where)
 
 	tok = (t_token *)array_get_at(tokens, where);
 	log_info("Parser is at gr_cmd_name.");
-	if (tok->type == E_TOKEN_WORD)
+	if (tok->type == E_TOKEN_WORD || (tok->type == E_TOKEN_DQUOTE) || \
+	(tok->type == E_TOKEN_BQUOTE) || (tok->type == E_TOKEN_SQUOTE))
 	{
 		log_dbg2("Parser returned true at gr_cmd_name.");
 		return (true);
@@ -93,7 +94,8 @@ t_bool	gr_cmd_suffix(t_array *tokens, size_t where)
 	tok = (t_token *)array_get_at(tokens, where);
 	log_info("Parser is at gr_cmd_suffix.");
 	if ((gr_io_redirect(tokens, where) == true) || \
-	(tok->type == E_TOKEN_WORD))
+	(tok->type == E_TOKEN_WORD) || (tok->type == E_TOKEN_DQUOTE) || \
+	(tok->type == E_TOKEN_BQUOTE) || (tok->type == E_TOKEN_SQUOTE))
 	{
 		log_dbg2("Parser returned true at gr_cmd_suffix.");
 		return (true);

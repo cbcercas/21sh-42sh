@@ -75,7 +75,8 @@ t_bool	gr_filename(t_array *tokens, size_t where)
 
 	tok = (t_token *)array_get_at(tokens, where);
 	log_info("Parser is at gr_filename.");
-	if (tok->type == E_TOKEN_WORD)
+	if (tok->type == E_TOKEN_WORD || (tok->type == E_TOKEN_DQUOTE) || \
+	(tok->type == E_TOKEN_BQUOTE) || (tok->type == E_TOKEN_SQUOTE))
 	{
 		log_dbg2("Parser returned true at gr_filename.");
 		return (true);
@@ -90,7 +91,8 @@ t_bool	gr_here_end(t_array *tokens, size_t where)
 
 	tok = (t_token *)array_get_at(tokens, where);
 	log_info("Parser is at gr_here_end.");
-	if (tok->type == E_TOKEN_WORD)
+	if (tok->type == E_TOKEN_WORD || (tok->type == E_TOKEN_DQUOTE) || \
+	(tok->type == E_TOKEN_BQUOTE) || (tok->type == E_TOKEN_SQUOTE))
 	{
 		log_dbg2("Parser returned true at gr_here_end.");
 		return (true);
