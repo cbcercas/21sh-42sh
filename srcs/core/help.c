@@ -22,6 +22,8 @@ void sh_help(void)
 	ft_printf("\t\t\t\t3: warning\n\t\t\t\t4: info\n");
 	ft_printf("\t\t\t\t5: debug level 1\n\t\t\t\t6: debug level 2");
 	ft_printf("\n\t\t\t\t7: debug level 3\n");
+	ft_printf("\t-t\t\ttesting mode:\n");
+	ft_printf("\t\t\t\tenv: test env module\n");
 }
 
 void sh_help_exit(void)

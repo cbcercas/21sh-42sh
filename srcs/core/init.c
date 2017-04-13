@@ -20,11 +20,22 @@ static void		sh_data_free(t_sh_data *data)
 	return;
 }
 
+void	sh_testing(char *arg)
+{
+	if (ft_strequ(arg, "env"))
+		sh_testing_env();
+	else
+	{
+		ft_dprintf(STDERR_FILENO, "Unknown testing arg.");
+		sh_help_exit();
+	}
+}
+
 static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 {
 	int opt;
 
-	while ((opt = ft_getopt(ac, av, "hvd:")) >= 0)
+	while ((opt = ft_getopt(ac, av, "hvd:t:")) >= 0)
 	{
 		if (opt == 'v')
 			opts->verbose = 1;
@@ -38,6 +49,8 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 			}
 		else if (opt == 'h')
 			sh_help_exit();
+		else if (opt == 't')
+			sh_testing(g_optarg);
 		else if (opt == '?')
 			sh_help_exit();
 	}

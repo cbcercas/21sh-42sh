@@ -26,6 +26,10 @@ SRCS			+= lexer_init.c lexer.c lexer_clean.c
 
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
+
+SRC_SUBDIR      += tests
+SRCS            += env.c
+
 ###############################################################################
 #																			  #
 #									CONFIG									  #
