@@ -77,7 +77,6 @@ t_env	*sh_setenv(t_env *env, char const *name, char const *value)
 	return (NULL);
 }
 
-#include <ft_printf/libftprintf.h>
 char	**sh_tenv_to_tab(t_env const *env)
 {
 	t_env	const *e;
