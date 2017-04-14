@@ -26,7 +26,7 @@ void	sh_testing(const char *arg)
 		sh_testing_env();
 	else
 	{
-		ft_dprintf(STDERR_FILENO, "Unknown testing arg.");
+		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
 		sh_help_exit();
 	}
 }
