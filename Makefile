@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/03/20 09:43:03 by jlasne           ###   ########.fr        #
+#    Updated: 2017/04/14 10:57:10 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,10 @@ SRCS			+= automaton.c
 
 #SRC_SUBDIR		+= parser
 #SRCS			+= parser.c
+
+SRC_SUBDIR      += tests
+SRCS            += env.c
+
 ###############################################################################
 #																			  #
 #									CONFIG									  #
@@ -67,6 +71,12 @@ LIBS_FOLDER	= lib
 LIBFT_DIR	= $(LIBS_FOLDER)/libft
 LIBFT_FILE	= $(LIBFT_DIR)/libft.a
 INC			+= -I $(LIBFT_DIR)/includes
+## Libtcaps
+LIBTCAPS_DIR    = $(LIBS_FOLDER)/libtcaps
+INC                             += -I $(LIBTCAPS_DIR)/includes
+LIBS                            += -L$(LIBTCAPS_DIR) -ltcaps
+## Curses
+LIBS                            += -lcurses
 
 #Utils
 RM					= rm -rf
@@ -104,7 +114,7 @@ $(BUILD_DIR):
 
 lib:
 	@make -C $(LIBFT_DIR)
-
+	@make -C $(LIBTCAPS_DIR)
 re: clean fclean all
 
 clean:

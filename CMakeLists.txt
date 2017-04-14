@@ -21,140 +21,6 @@ set(SOURCE_FILES
         includes/environ/env_list_utils.h
         includes/environ/environ.h
         includes/lexer/lexer.h
-        includes/parser/parser.h
-        includes/parser/grammar.h
-        lib/libft/includes/array/array.h
-        lib/libft/includes/ft_printf/ft_get.h
-        lib/libft/includes/ft_printf/libftprintf.h
-        lib/libft/includes/ft_printf/printer.h
-        lib/libft/includes/ft_printf/printf_type.h
-        lib/libft/includes/ft_printf/printf_utils.h
-        lib/libft/includes/gnl/get_next_line.h
-        lib/libft/includes/logger/logger.h
-        lib/libft/includes/logger/logger_intern.h
-        lib/libft/includes/string/ft_string.h
-        lib/libft/includes/types/bool.h
-        lib/libft/includes/types/stack.h
-        lib/libft/includes/libft.h
-        lib/libft/includes/unistd/ft_unistd.h
-        lib/libft/srcs/array/array.c
-        lib/libft/srcs/array/array_copy.c
-        lib/libft/srcs/array/array_destroy.c
-        lib/libft/srcs/array/array_growth.c
-        lib/libft/srcs/array/array_insert.c
-        lib/libft/srcs/array/array_pushpop.c
-        lib/libft/srcs/array/array_remove.c
-        lib/libft/srcs/array/array_setget.c
-        lib/libft/srcs/array/array_shrink.c
-        lib/libft/srcs/array/array_swap.c
-        lib/libft/srcs/core/ft_atoi.c
-        lib/libft/srcs/core/ft_bzero.c
-        lib/libft/srcs/core/ft_countchiffres.c
-        lib/libft/srcs/core/ft_ctostr.c
-        lib/libft/srcs/core/ft_freetab.c
-        lib/libft/srcs/core/ft_imtoa.c
-        lib/libft/srcs/core/ft_isalnum.c
-        lib/libft/srcs/core/ft_isalpha.c
-        lib/libft/srcs/core/ft_isascii.c
-        lib/libft/srcs/core/ft_isdigit.c
-        lib/libft/srcs/core/ft_isprint.c
-        lib/libft/srcs/core/ft_iswhitespace.c
-        lib/libft/srcs/core/ft_itoa.c
-        lib/libft/srcs/core/ft_lstadd.c
-        lib/libft/srcs/core/ft_lstdel.c
-        lib/libft/srcs/core/ft_lstdelone.c
-        lib/libft/srcs/core/ft_lstiter.c
-        lib/libft/srcs/core/ft_lstmap.c
-        lib/libft/srcs/core/ft_lstnew.c
-        lib/libft/srcs/core/ft_lstpush.c
-        lib/libft/srcs/core/ft_memalloc.c
-        lib/libft/srcs/core/ft_memccpy.c
-        lib/libft/srcs/core/ft_memchr.c
-        lib/libft/srcs/core/ft_memcmp.c
-        lib/libft/srcs/core/ft_memcpy.c
-        lib/libft/srcs/core/ft_memdel.c
-        lib/libft/srcs/core/ft_memmove.c
-        lib/libft/srcs/core/ft_memset.c
-        lib/libft/srcs/core/ft_nbword.c
-        lib/libft/srcs/core/ft_putchar.c
-        lib/libft/srcs/core/ft_putchar_fd.c
-        lib/libft/srcs/core/ft_putendl.c
-        lib/libft/srcs/core/ft_putendl_fd.c
-        lib/libft/srcs/core/ft_putnbr.c
-        lib/libft/srcs/core/ft_putnbr_fd.c
-        lib/libft/srcs/core/ft_putnstr.c
-        lib/libft/srcs/core/ft_putstr.c
-        lib/libft/srcs/core/ft_putstr_fd.c
-        lib/libft/srcs/core/ft_putwchar.c
-        lib/libft/srcs/core/ft_putwstr.c
-        lib/libft/srcs/core/ft_strcat.c
-        lib/libft/srcs/core/ft_strchr.c
-        lib/libft/srcs/core/ft_strclean.c
-        lib/libft/srcs/core/ft_strclr.c
-        lib/libft/srcs/core/ft_strcmp.c
-        lib/libft/srcs/core/ft_strcpy.c
-        lib/libft/srcs/core/ft_strdel.c
-        lib/libft/srcs/core/ft_strdup.c
-        lib/libft/srcs/core/ft_strequ.c
-        lib/libft/srcs/core/ft_striter.c
-        lib/libft/srcs/core/ft_striteri.c
-        lib/libft/srcs/core/ft_strjoin.c
-        lib/libft/srcs/core/ft_strjoincl.c
-        lib/libft/srcs/core/ft_strlcat.c
-        lib/libft/srcs/core/ft_strlen.c
-        lib/libft/srcs/core/ft_strmap.c
-        lib/libft/srcs/core/ft_strmapi.c
-        lib/libft/srcs/core/ft_strncat.c
-        lib/libft/srcs/core/ft_strncmp.c
-        lib/libft/srcs/core/ft_strncpy.c
-        lib/libft/srcs/core/ft_strnequ.c
-        lib/libft/srcs/core/ft_strnew.c
-        lib/libft/srcs/core/ft_strnstr.c
-        lib/libft/srcs/core/ft_strrchr.c
-        lib/libft/srcs/core/ft_strrev.c
-        lib/libft/srcs/core/ft_strsplit.c
-        lib/libft/srcs/core/ft_strstr.c
-        lib/libft/srcs/core/ft_strsub.c
-        lib/libft/srcs/core/ft_strtabdup.c
-        lib/libft/srcs/core/ft_strtrim.c
-        lib/libft/srcs/core/ft_tablen.c
-        lib/libft/srcs/core/ft_tolower.c
-        lib/libft/srcs/core/ft_toupper.c
-        lib/libft/srcs/core/ft_uitobase.c
-        lib/libft/srcs/core/ft_uitohex.c
-        lib/libft/srcs/core/ft_uitooctal.c
-        lib/libft/srcs/core/ft_wcslen.c
-        lib/libft/srcs/core/ft_wctostr.c
-        lib/libft/srcs/core/ft_wordlen.c
-        lib/libft/srcs/core/ft_wstostr.c
-        lib/libft/srcs/ft_printf/ft_parse_args.c
-        lib/libft/srcs/ft_printf/ft_parse_args2.c
-        lib/libft/srcs/ft_printf/ft_printf.c
-        lib/libft/srcs/ft_printf/printer_c.c
-        lib/libft/srcs/ft_printf/printer_d.c
-        lib/libft/srcs/ft_printf/printer_def.c
-        lib/libft/srcs/ft_printf/printer_o.c
-        lib/libft/srcs/ft_printf/printer_p.c
-        lib/libft/srcs/ft_printf/printer_per.c
-        lib/libft/srcs/ft_printf/printer_s.c
-        lib/libft/srcs/ft_printf/printer_u.c
-        lib/libft/srcs/ft_printf/printer_x.c
-        lib/libft/srcs/ft_printf/utils.c
-        lib/libft/srcs/gnl/get_next_line.c
-        lib/libft/srcs/logger/logger.c
-        lib/libft/srcs/logger/logger_utils.c
-        lib/libft/srcs/string/string.c
-        lib/libft/srcs/string/string_clean.c
-        lib/libft/srcs/string/string_clone.c
-        lib/libft/srcs/string/string_dup.c
-        lib/libft/srcs/string/string_growth.c
-        lib/libft/srcs/string/string_insert.c
-        lib/libft/srcs/string/string_join.c
-        lib/libft/srcs/string/string_remove.c
-        lib/libft/srcs/string/string_replace.c
-        lib/libft/srcs/string/string_shrink.c
-        lib/libft/srcs/unistd/ft_getopt.c
-        lib/libft/Makefile
         srcs/automaton/automaton.c
         srcs/builtins/builtins_utils.c
         srcs/builtins/chdir.c
@@ -178,9 +44,20 @@ set(SOURCE_FILES
         srcs/parser/parser_grammar_io.c
         srcs/parser/parser_grammar_cmd.c
         srcs/parser/parser_grammar_pipe.c
-        srcs/parser/parser_grammar_sep_if.c)
+        srcs/parser/parser_grammar_sep_if.c
+        srcs/term/term_modes.c
+        )
 
 include_directories(includes)
+
+#Libft
+add_subdirectory(lib/libft)
 include_directories(lib/libft/includes)
 
+#Libtcaps
+add_subdirectory(lib/libtcaps)
+include_directories(lib/libtcaps/includes)
+
 add_executable(Minishell ${SOURCE_FILES})
+
+target_link_libraries(Minishell ft tcaps curses)
