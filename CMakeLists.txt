@@ -39,7 +39,7 @@ set(SOURCE_FILES
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/term/term_modes.c
-        )
+        srcs/environ/getter_env.c)
 
 include_directories(includes)
 

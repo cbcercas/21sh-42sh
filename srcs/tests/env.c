@@ -9,10 +9,23 @@
 /*   Updated: 2017/04/13 16:39:51 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <ft_printf/libftprintf.h>
+#include <test.h>
 
 void sh_testing_env(void)
 {
-	ft_printf("Env Testing\n");
+	t_array	*envs;
+	t_env	*e;
+	size_t	i;
+
+	ft_printf("----Env Testing-----\n");
+	sh_init_environ();
+	envs = sh_get_envs();
+	i = 0;
+	while (i < envs->used)
+	{
+		e = (t_env *)array_get_at(envs, i);
+		ft_printf("%s=%s\n", e->name, e->value);
+		i++;
+	}
 	exit(0);
 }

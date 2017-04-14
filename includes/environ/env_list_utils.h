@@ -12,6 +12,8 @@
 #ifndef ENV_LIST_UTILS_H
 # define ENV_LIST_UTILS_H
 # include <libft.h>
+# include <logger/logger.h>
+# include <ft_printf/libftprintf.h>
 
 typedef struct	s_env
 {
@@ -20,10 +22,10 @@ typedef struct	s_env
 	char			*value;
 }				t_env;
 
-char	*sh_getenv_name(char const *env);
-char	*sh_getenv_value(char const *env);
-t_env	*sh_new_env(char *name, char *value);
-void	sh_env_del(t_env **e);
+char	*split_env_name(char const *env);
+char	*split_env_value(char const *env);
+t_env	*env_new(char *name, char *value);
+void	del_env(t_env **e);
 void	sh_lst_env_del(t_env **head);
 
 #endif

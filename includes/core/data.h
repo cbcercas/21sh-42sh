@@ -27,7 +27,6 @@ struct						s_sh_opt
 
 struct						s_sh_data
 {
-	t_env				*env;
 	t_sh_opt			opts;
 	char				*cwd;
 	struct s_builtin_e	*builtins;

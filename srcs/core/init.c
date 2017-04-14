@@ -15,8 +15,7 @@ extern char const	*g_optarg;
 
 static void		sh_data_free(t_sh_data *data)
 {
-	if (data->env)
-		sh_lst_env_del(&(data)->env);
+	//TODO free envs
 	return;
 }
 
@@ -60,24 +59,24 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 {
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av);
-	data->env = sh_copy_environ();
+	sh_init_environ();
 	data->builtins = sh_builtins_init();
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
-		if (!(sh_getenv(data->env, "TERM"))
-						|| ft_strequ(sh_getenv(data->env, "TERM"), ""))
-			sh_setenv(data->env, "TERM", "dumb");
-	if (!data->env || !data->cwd)
+		if (!(sh_getenv("TERM"))
+						|| ft_strequ(sh_getenv("TERM")->value, ""))
+			sh_setenv("TERM", "dumb");
+	if (!data->cwd)
 	{
 		ft_printf("minishell: error when initialising main data\n");
 		sh_data_free(data);
 		return (NULL);
 	}
-	raw_terminal_mode();
+	//raw_terminal_mode();
 	return (data);
 }
 
 void			sh_deinit(t_sh_data *data)
 {
 	sh_data_free(data);
-	default_terminal_mode();
+	//default_terminal_mode();
 }

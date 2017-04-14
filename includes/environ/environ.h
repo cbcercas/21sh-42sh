@@ -14,9 +14,11 @@
 # define ENVIRON_H
 # include <environ/env_list_utils.h>
 
-t_env	*sh_copy_environ(void);
-char	*sh_getenv(t_env const *env, char const *name);
-t_env	*sh_setenv(t_env *env, char const *name, char const *value);
-char	**sh_tenv_to_tab(t_env const *env);
+t_array	*sh_init_environ(void);
+t_array	*sh_get_envs(void);
+t_env	*sh_getenv(char const *name);
+t_env	*sh_setenv(char const *name, char const *value);
+char	**sh_tenv_to_tab(void);
+char	*sh_getenv_value(const char *name);
 
 #endif

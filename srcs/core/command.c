@@ -26,7 +26,7 @@ int	sh_command(t_sh_data *data, char **command)
 		else
 		{
 			if ((cmd = sh_get_command(*command)))
-				sh_exec_command(cmd, data->env);
+				sh_exec_command(cmd);
 		}
 		command++;
 	}
@@ -38,7 +38,7 @@ char **sh_get_command(char *input)
 	return (ft_strsplit(input, ' '));
 }
 
-int	sh_exec_command(char **command, const t_env *env)
+int	sh_exec_command(char **command)
 {
 	char	*cmd;
 	char	**envtab;
@@ -46,8 +46,8 @@ int	sh_exec_command(char **command, const t_env *env)
 	int		status;
 
 	status = 0;
-	envtab = sh_tenv_to_tab(env);
-	if ((cmd = sh_check_path(command[0], env)))
+	envtab = sh_tenv_to_tab();
+	if ((cmd = sh_check_path(command[0])))
 	{
 		if ((pid = fork()) == -1)
 			ft_printf("fork error");

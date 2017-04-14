@@ -20,6 +20,10 @@ int main(int ac, char *const *av)
 	char		*input;
 	BOOL		stop;
 
+
+	/*sh_init_environ();
+	char *tmp = sh_getenv_value("LSCOLORS");
+	ft_printf("%s",tmp);*/
 	if (!sh_init(&data, ac, av))
 		exit(1);
 	if (lexer_init(&tokens) == NULL)
