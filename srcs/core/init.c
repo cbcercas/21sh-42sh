@@ -20,7 +20,7 @@ static void		sh_data_free(t_sh_data *data)
 	return;
 }
 
-void	sh_testing(char *arg)
+void	sh_testing(const char *arg)
 {
 	if (ft_strequ(arg, "env"))
 		sh_testing_env();
