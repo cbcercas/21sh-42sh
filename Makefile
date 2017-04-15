@@ -27,8 +27,10 @@ SRCS			+= lexer_init.c lexer.c lexer_clean.c
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
 
-#SRC_SUBDIR		+= parser
-#SRCS			+= parser.c
+SRC_SUBDIR		+= parser
+SRCS			+= parser.c parser_grammar_io.c parser_grammar_cmd.c \
+				   parser_grammar_newline.c parser_grammar_pipe.c \
+				   parser_grammar_sep_if.c
 
 SRC_SUBDIR      += tests
 SRCS            += env.c
