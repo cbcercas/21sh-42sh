@@ -37,7 +37,7 @@ SRCS            += env.c
 ###############################################################################
 #  Compiler
 CC			= clang
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror
 
 ifeq ($(DEV),yes)
 	CFLAGS		+= -std=c11 -pedantic -pedantic-errors
