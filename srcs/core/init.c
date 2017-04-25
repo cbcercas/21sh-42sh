@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 11:00:06 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/04/25 10:22:02 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/init.h>
@@ -15,18 +15,17 @@ extern char const	*g_optarg;
 
 static void		sh_data_free(t_sh_data *data)
 {
-	if (data->env)
-		sh_lst_env_del(&(data)->env);
+	//TODO free envs
 	return;
 }
 
-void	sh_testing(char *arg)
+void	sh_testing(const char *arg)
 {
 	if (ft_strequ(arg, "env"))
 		sh_testing_env();
 	else
 	{
-		ft_dprintf(STDERR_FILENO, "Unknown testing arg.");
+		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
 		sh_help_exit();
 	}
 }
@@ -60,13 +59,13 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 {
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av);
-	data->env = sh_copy_environ();
+	sh_init_environ();
 	data->builtins = sh_builtins_init();
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
-		if (!(sh_getenv(data->env, "TERM"))
-						|| ft_strequ(sh_getenv(data->env, "TERM"), ""))
-			sh_setenv(data->env, "TERM", "dumb");
-	if (!data->env || !data->cwd)
+		if (!(sh_getenv("TERM"))
+						|| ft_strequ(sh_getenv("TERM")->value, ""))
+			sh_setenv("TERM", "dumb");
+	if (!data->cwd)
 	{
 		ft_printf("minishell: error when initialising main data\n");
 		sh_data_free(data);

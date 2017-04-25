@@ -19,6 +19,6 @@
 
 #include <sys/stat.h>
 
-char	*sh_check_path(char const *cmd_name, t_env const *env);
+char	*sh_check_path(char const *cmd_name);
 
 #endif

@@ -21,6 +21,6 @@
 
 int	sh_command(t_sh_data *data, char **command);
 char **sh_get_command(char *input);
-int	sh_exec_command(char **command, const t_env *env);
+int	sh_exec_command(char **command);
 
 #endif

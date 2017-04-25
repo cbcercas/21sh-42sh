@@ -49,14 +49,14 @@ static int	sh_test_access(char const *filename)
 	return (ret);
 }
 
-char	*sh_check_path(char const *cmd_name, t_env const *env)
+char	*sh_check_path(char const *cmd_name)
 {
 	char	**env_path;
 	char	*file;
 	int		ret;
 	int		tmp;
 
-	if (!(env_path = ft_strsplit(sh_getenv(env, "PATH"), ':')))
+	if (!(env_path = ft_strsplit(sh_getenv_value("PATH"), ':')))
 		return (NULL);
 	ret = 0;
 	while (*env_path != NULL)

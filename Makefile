@@ -16,7 +16,7 @@ SRC_SUBDIR		= core
 SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c
 
 SRC_SUBDIR		+= environ
-SRCS			+= environ.c env_list_utils.c
+SRCS			+= environ.c env_list_utils.c getter_env.c
 
 SRC_SUBDIR		+= builtins
 SRCS			+= builtins_utils.c exit.c echo.c chdir.c
@@ -42,7 +42,7 @@ SRCS            += env.c
 ###############################################################################
 #  Compiler
 CC			= clang
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror
 
 ifeq ($(DEV),yes)
 	CFLAGS		+= -std=c11 -pedantic -pedantic-errors
