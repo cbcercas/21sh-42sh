@@ -60,7 +60,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av);
 	sh_init_environ();
-	data->builtins = sh_builtins_init();
+	sh_builtins_init();
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
 		if (!(sh_getenv("TERM"))
 						|| ft_strequ(sh_getenv("TERM")->value, ""))

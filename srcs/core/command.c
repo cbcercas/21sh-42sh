@@ -13,12 +13,12 @@
 
 int	sh_command(t_sh_data *data, char **command)
 {
-	t_builtin_e	*e;
+	t_builtin	*e;
 	char		**cmd;
 
 	while (*command)
 	{
-		if ((e = sh_is_builtin(data->builtins, *command)))
+		if ((e = get_builtin(*command)))
 		{
 			if (e->fn(data, *command + e->len + 1))
 				return (1);
