@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tcaps_test.h>
+#include <core/tcaps.h>
 
 BOOL	exec_backspace(const t_key *key)
 {

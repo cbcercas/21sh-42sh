@@ -9,7 +9,7 @@
 /*   Updated: 2017/03/30 14:30:38 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <tcaps_test.h>
+#include <core/tcaps.h>
 
 BOOL	exec_ctrl_j(const t_key *key)
 {

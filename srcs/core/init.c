@@ -40,10 +40,10 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 			opts->verbose = 1;
 		else if (opt == 'd')
 			if (ft_atoi(g_optarg) >= 0 && ft_atoi(g_optarg) <= 7)
-				logger_init(ft_atoi(g_optarg), PROG_NAME, "sh.log");
+				logger_init(ft_atoi(g_optarg), PROGNAME, "sh.log");
 			else
 			{
-				ft_printf("%s: Invalid debug level.\n", PROG_NAME);
+				ft_printf("%s: Invalid debug level.\n", PROGNAME);
 				sh_help_exit();
 			}
 		else if (opt == 'h')

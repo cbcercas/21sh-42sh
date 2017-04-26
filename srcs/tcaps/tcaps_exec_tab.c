@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tcaps_test.h>
+#include <core/tcaps.h>
 BOOL	exec_tab(const t_key *key)
 {
 	(void)key;

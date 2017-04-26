@@ -30,6 +30,14 @@ SRCS			+= automaton.c
 SRC_SUBDIR      += tests
 SRCS            += env.c
 
+SRC_SUBDIR      += term
+SRCS            += term_modes.c
+
+SRC_SUBDIR      += tcaps
+SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
+                    tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
+                    tcaps_key_exec.c
+
 ###############################################################################
 #																			  #
 #									CONFIG									  #
@@ -64,16 +72,19 @@ BUILD_DIR	= $(OBJS_DIR) $(DEPS_DIR)
 
 # Libraries
 LIBS_FOLDER	= lib
-## libft
-LIBFT_DIR	= $(LIBS_FOLDER)/libft
-LIBFT_FILE	= $(LIBFT_DIR)/libft.a
-INC			+= -I $(LIBFT_DIR)/includes
+
 ## Libtcaps
 LIBTCAPS_DIR    = $(LIBS_FOLDER)/libtcaps
-INC                             += -I $(LIBTCAPS_DIR)/includes
-LIBS                            += -L$(LIBTCAPS_DIR) -ltcaps
+INC            += -I $(LIBTCAPS_DIR)/includes
+LIBS           += -L$(LIBTCAPS_DIR) -ltcaps
+
 ## Curses
 LIBS                            += -lcurses
+
+## libft
+LIBFT_DIR	= $(LIBS_FOLDER)/libft
+INC			+= -I $(LIBFT_DIR)/includes
+LIBS				+= -L $(LIBFT_DIR) -lft
 
 #Utils
 RM					= rm -rf
@@ -94,8 +105,8 @@ all: $(DEPS) $(NAME)
 # Add dependency as prerequisites
 -include $(DEPS)
 
-$(NAME): $(OBJS) lib
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L $(LIBFT_DIR) -lft $(INC)
+$(NAME): $(OBJS) libs
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INC)
 	@echo "[\033[35m---------------------------------\033[0m]"
 	@echo "[\033[36m-------- Minishell Done ! -------\033[0m]"
 	@echo "[\033[35m---------------------------------\033[0m]"
@@ -109,9 +120,10 @@ $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 $(BUILD_DIR):
 	@$(MKDIR) -p $@
 
-lib:
+libs:
 	@make -C $(LIBFT_DIR)
 	@make -C $(LIBTCAPS_DIR)
+
 re: clean fclean all
 
 clean:

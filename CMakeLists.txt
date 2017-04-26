@@ -39,7 +39,14 @@ set(SOURCE_FILES
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/term/term_modes.c
-        srcs/environ/getter_env.c)
+        srcs/environ/getter_env.c
+        srcs/tcaps/tcaps_exec_arrow.c
+        srcs/tcaps/tcaps_exec_backspace.c
+        srcs/tcaps/tcaps_exec_ctrl_1.c
+        srcs/tcaps/tcaps_exec_ctrl_2.c
+        srcs/tcaps/tcaps_exec_tab.c
+        srcs/tcaps/tcaps_key_exec.c
+        )
 
 include_directories(includes)
 

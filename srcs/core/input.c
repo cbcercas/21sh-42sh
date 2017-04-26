@@ -48,3 +48,37 @@ char	*sh_get_line(void)
 	ft_strdel(&input);
 	return (NULL);
 }
+
+char	*sh_get_line2(void)
+{
+	char		buff[MAX_KEY_STRING_LEN];
+	ssize_t		res;
+	t_key		key;
+	BOOL		stop;
+	t_string	*input;
+	char 		*ret;
+
+	input = string_create();
+	stop = false;
+	while (stop == false)
+	{
+		raw_terminal_mode();
+		(void) ft_bzero((void *) buff, MAX_KEY_STRING_LEN);
+		res = read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN);
+		buff[res] = '\0';
+		key = key_get(buff);
+		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
+			stop = key_exec(&key);
+		else if (ft_isprint(key.key[0]))
+		{
+			string_insert_back(input, key.key);
+			ft_printf("%c", key.key[0]);
+		}
+		key_del(&key);
+		default_terminal_mode();
+	}
+	ret = ft_strdup(input->s);
+	//ft_printf("\n\nret =\"%s\"", ret);
+	string_del(&input);
+	return (ret);
+}

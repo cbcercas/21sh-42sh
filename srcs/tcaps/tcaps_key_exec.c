@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tcaps_test.h>
+#include <core/tcaps.h>
 
 BOOL	key_exec(t_key *key)
 {

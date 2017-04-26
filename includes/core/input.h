@@ -15,6 +15,8 @@
 # include <gnl/get_next_line.h>
 # include <core/init.h>
 # include <core/command.h>
+# include <string/ft_string.h>
+# include <core/tcaps.h>
 
 //int		sh_get_command(t_ms_data	*data);
 
@@ -24,5 +26,6 @@
 ** @brief      Functions to read the input
 */
 char	*sh_get_line(void);
+char	*sh_get_line2(void);
 
 #endif

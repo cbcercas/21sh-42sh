@@ -13,9 +13,9 @@
 #ifndef TCAPS_H
 # define TCAPS_H
 
-#include <libft.h>
-#include <libtcaps.h>
-#include <types/bool.h>
+# include <libft.h>
+# include <libtcaps.h>
+# include <types/bool.h>
 
 typedef struct	s_key_exec
 {
