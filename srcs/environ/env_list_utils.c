@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 #include <environ/env_list_utils.h>
 
-char	*sh_getenv_name(char const *env)
+
+char	*split_env_name(char const *env)
 {
 	char	*sep;
 	char	*name;
@@ -21,7 +22,7 @@ char	*sh_getenv_name(char const *env)
 	return (name);
 }
 
-char	*sh_getenv_value(char const *env)
+char	*split_env_value(char const *env)
 {
 	char	*sep;
 	char	*value;
@@ -31,25 +32,27 @@ char	*sh_getenv_value(char const *env)
 	return (value);
 }
 
-t_env	*sh_new_env(char *name, char *value)
+t_env	*env_new(char *name, char *value)
 {
 	t_env	*e;
 
-	e = ft_memalloc(sizeof(*e));
-	if (!e)
-		return (NULL);
-	e->next = NULL;
-	if (!(e->name = name))
-		ft_memdel((void **)&e);
-	else if (!(e->value = value))
+	if ((e = ft_memalloc(sizeof(*e))) == NULL)
 	{
-		ft_strdel(&e->name);
-		ft_memdel((void **)&e);
+		log_fatal("Environ: can't create new environment varibles");
+		ft_dprintf(STDERR_FILENO,"Environ: can't create new environment varibles");
 	}
+	else if ((e->name = name) == NULL)
+	{
+		log_fatal("Environ: can't create new environment varibles");
+		ft_dprintf(STDERR_FILENO,"Environ: can't create new environment varibles");
+		ft_memdel((void**)&e);
+	}
+	else
+		e->value = value;
 	return (e);
 }
 
-void	sh_env_del(t_env **e)
+void	del_env(t_env **e)
 {
 	ft_strdel(&(*e)->name);
 	ft_strdel(&(*e)->value);
@@ -61,5 +64,5 @@ void	sh_lst_env_del(t_env **head)
 {
 	while ((*head)->next)
 		sh_lst_env_del(&(*head)->next);
-	sh_env_del(head);
+	del_env(head);
 }

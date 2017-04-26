@@ -16,7 +16,7 @@ SRC_SUBDIR		= core
 SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c
 
 SRC_SUBDIR		+= environ
-SRCS			+= environ.c env_list_utils.c
+SRCS			+= environ.c env_list_utils.c getter_env.c
 
 SRC_SUBDIR		+= builtins
 SRCS			+= builtins_utils.c exit.c echo.c chdir.c
@@ -26,6 +26,10 @@ SRCS			+= lexer_init.c lexer.c lexer_clean.c
 
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
+
+SRC_SUBDIR      += tests
+SRCS            += env.c
+
 ###############################################################################
 #																			  #
 #									CONFIG									  #

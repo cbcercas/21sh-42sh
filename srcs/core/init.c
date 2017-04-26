@@ -15,16 +15,26 @@ extern char const	*g_optarg;
 
 static void		sh_data_free(t_sh_data *data)
 {
-	if (data->env)
-		sh_lst_env_del(&(data)->env);
+	//TODO free envs
 	return;
+}
+
+void	sh_testing(const char *arg)
+{
+	if (ft_strequ(arg, "env"))
+		sh_testing_env();
+	else
+	{
+		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
+		sh_help_exit();
+	}
 }
 
 static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 {
 	int opt;
 
-	while ((opt = ft_getopt(ac, av, "hvd:")) >= 0)
+	while ((opt = ft_getopt(ac, av, "hvd:t:")) >= 0)
 	{
 		if (opt == 'v')
 			opts->verbose = 1;
@@ -38,6 +48,8 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 			}
 		else if (opt == 'h')
 			sh_help_exit();
+		else if (opt == 't')
+			sh_testing(g_optarg);
 		else if (opt == '?')
 			sh_help_exit();
 	}
@@ -47,24 +59,24 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 {
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av);
-	data->env = sh_copy_environ();
-	data->builtins = sh_builtins_init();
+	sh_init_environ();
+	sh_builtins_init();
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
-		if (!(sh_getenv(data->env, "TERM"))
-						|| ft_strequ(sh_getenv(data->env, "TERM"), ""))
-			sh_setenv(data->env, "TERM", "dumb");
-	if (!data->env || !data->cwd)
+		if (!(sh_getenv("TERM"))
+						|| ft_strequ(sh_getenv("TERM")->value, ""))
+			sh_setenv("TERM", "dumb");
+	if (!data->cwd)
 	{
 		ft_printf("minishell: error when initialising main data\n");
 		sh_data_free(data);
 		return (NULL);
 	}
-	raw_terminal_mode();
+	//raw_terminal_mode();
 	return (data);
 }
 
 void			sh_deinit(t_sh_data *data)
 {
 	sh_data_free(data);
-	default_terminal_mode();
+	//default_terminal_mode();
 }

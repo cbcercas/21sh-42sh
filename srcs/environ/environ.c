@@ -12,95 +12,58 @@
 extern char **environ;
 #include <environ/environ.h>
 
-t_env	*sh_copy_environ(void)
+t_array	*sh_get_envs(void)
 {
-	t_env	*head;
-	t_env	*e;
+	static t_array	*e = NULL;
 
-	head = NULL;
-	while(*environ)
+	if (e == NULL)
 	{
-		if (!head)
+		if ((e = array_create(sizeof(t_env))) == NULL)
 		{
-			if (!(head = sh_new_env(sh_getenv_name(*environ),
-									sh_getenv_value(*environ))))
-				// TODO add error function malloc
-				return (NULL);
-			e = head;
+			log_fatal("Environ: can't initialise environment array");
+			ft_dprintf(STDERR_FILENO, "Environ: can't initialise environment variables");
+			exit(1);
 		}
-		else if (e && !(e->next = sh_new_env(sh_getenv_name(*environ),
-											 sh_getenv_value(*environ))))
-			// TODO add error function malloc
-			return (NULL);
-		else
-			e = e->next;
-		environ++;
 	}
-	return (head);
+	return (e);
 }
 
-char	*sh_getenv(t_env const *env, const char *name)
+t_array	*sh_init_environ(void)
 {
-	t_env const	*e;
+	t_array	*envs;
+	t_env	*env;
 
-	e = env;
-	while (e && ft_strcmp(e->name, name))
+	if ((envs = sh_get_envs()) != NULL)
 	{
-		e = e->next;
+		while (*environ) {
+			if ((env = env_new(split_env_name(*environ),
+							   split_env_value(*environ))) != NULL) {
+				array_push(envs, (void *) env);
+				ft_memdel((void **) &env);
+			}
+			environ++;
+		}
 	}
-	if (e)
-		return (e->value);
-	return (NULL);
+	return (envs);
 }
 
-t_env	*sh_setenv(t_env *env, char const *name, char const *value)
+char	**sh_tenv_to_tab(void)
 {
-	t_env	*e;
-
-	e = env;
-	while (e)
-	{
-		if (ft_strequ(e->name, name))
-		{
-			ft_strdel(&e->value);
-			e->value = ft_strdup(value);
-			return (e);
-		}
-		else if (!e->next)
-		{
-			e->next = sh_new_env(ft_strdup(name), ft_strdup(value));
-			return (e->next);
-		}
-		else
-			e = e->next;
-	}
-	return (NULL);
-}
-
-#include <ft_printf/libftprintf.h>
-char	**sh_tenv_to_tab(t_env const *env)
-{
-	t_env	const *e;
+	t_array	*envs;
+	t_env	*env;
 	int		cnt;
 	char	**env_tab;
+	size_t	i;
 
-	e = env;
-	cnt = 0;
-	while (e)
+	envs = sh_get_envs();
+	env_tab = ft_memalloc(sizeof(*env_tab) * envs->used);
+	i = 0;
+	while ((env = (t_env *)array_get_at(envs, i)) != NULL)
 	{
-		cnt += 1;
-		e = e->next;
+		env_tab[i] = ft_strjoin(env->name, "=");
+		env_tab[i] = ft_strjoincl(env_tab[cnt], env->value, 1);
+		i++;
 	}
-	e = env;
-	env_tab = ft_memalloc(sizeof(*env_tab) * (cnt + 1));
-	cnt = 0;
-	while (e)
-	{
-		env_tab[cnt] = ft_strjoin(e->name, "=");
-		env_tab[cnt] = ft_strjoincl(env_tab[cnt], e->value, 1);
-		e = e->next;
-		cnt += 1;
-	}
-	env_tab[cnt] = NULL;
+	env_tab[i] = NULL;
 	return (env_tab);
 }
