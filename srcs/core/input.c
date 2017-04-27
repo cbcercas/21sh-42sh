@@ -29,7 +29,7 @@ BOOL remove_escaped_newline(char **input)
 **
 ** @return     A pointer to the input string
 */
-char	*sh_get_line(void)
+char	*sh_get_line_old(void)
 {
 	char	*line;
 	char	*input;
@@ -49,7 +49,7 @@ char	*sh_get_line(void)
 	return (NULL);
 }
 
-char	*sh_get_line2(void)
+char	*sh_get_line(void)
 {
 	char		buff[MAX_KEY_STRING_LEN];
 	ssize_t		res;
@@ -63,7 +63,7 @@ char	*sh_get_line2(void)
 	while (stop == false)
 	{
 		raw_terminal_mode();
-		(void) ft_bzero((void *) buff, MAX_KEY_STRING_LEN);
+		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
 		res = read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN);
 		buff[res] = '\0';
 		key = key_get(buff);
@@ -78,7 +78,6 @@ char	*sh_get_line2(void)
 		default_terminal_mode();
 	}
 	ret = ft_strdup(input->s);
-	//ft_printf("\n\nret =\"%s\"", ret);
 	string_del(&input);
 	return (ret);
 }
