@@ -61,15 +61,19 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 	sh_options(&data->opts, ac, av);
 	sh_init_environ();
 	sh_builtins_init();
-	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
-		if (!(sh_getenv("TERM"))
-						|| ft_strequ(sh_getenv("TERM")->value, ""))
-			sh_setenv("TERM", "dumb");
-	if (!data->cwd)
+	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
-		ft_printf("minishell: error when initialising main data\n");
+		ft_printf("minishell: Error when getting current working directory\n");
 		sh_data_free(data);
-		return (NULL);
+		exit (1);;
+	}
+	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
+			sh_setenv("TERM", "dumb");
+	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
+	{
+		ft_printf("minishell: Error on tgetent\n");
+		sh_data_free(data);
+		exit (1);
 	}
 	//raw_terminal_mode();
 	return (data);
