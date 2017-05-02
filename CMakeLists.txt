@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.6)
 project(Minishell)
 
 set(CMAKE_CXX_STANDARD 11)
-set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
+#set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
 
 set(SOURCE_FILES
         includes/automaton/automaton.h
@@ -21,6 +21,7 @@ set(SOURCE_FILES
         includes/environ/env_list_utils.h
         includes/environ/environ.h
         includes/lexer/lexer.h
+        includes/tests/lexer_tests.h
         srcs/automaton/automaton.c
         srcs/builtins/builtins_utils.c
         srcs/builtins/chdir.c
@@ -39,7 +40,9 @@ set(SOURCE_FILES
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/term/term_modes.c
-        srcs/environ/getter_env.c)
+        srcs/environ/getter_env.c
+        srcs/tests/lexer_tests.c
+        srcs/tests/env.c)
 
 include_directories(includes)
 

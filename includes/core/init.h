@@ -21,7 +21,8 @@
 # include <unistd/ft_unistd.h>
 # include <core/help.h>
 # include <core/data.h>
-# include <test.h>
+# include <tests/test.h>
+# include <tests/lexer_tests.h>
 
 t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av);
 void			sh_deinit(t_sh_data *data);

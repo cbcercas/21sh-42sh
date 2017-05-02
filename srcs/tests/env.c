@@ -9,7 +9,7 @@
 /*   Updated: 2017/04/13 16:39:51 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <test.h>
+#include <tests/test.h>
 
 void sh_testing_env(void)
 {

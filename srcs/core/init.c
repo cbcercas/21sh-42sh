@@ -23,6 +23,8 @@ void	sh_testing(const char *arg)
 {
 	if (ft_strequ(arg, "env"))
 		sh_testing_env();
+	if (ft_strequ(arg, "lexer"))
+		sh_testing_lexer();
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
