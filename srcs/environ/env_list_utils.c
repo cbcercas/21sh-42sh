@@ -36,7 +36,7 @@ t_env	*env_new(char *name, char *value)
 {
 	t_env	*e;
 
-	if ((e = ft_memalloc(sizeof(e))) == NULL)
+	if ((e = ft_memalloc(sizeof(*e))) == NULL)
 	{
 		log_fatal("Environ: can't create new environment varibles");
 		ft_dprintf(STDERR_FILENO,"Environ: can't create new environment varibles");

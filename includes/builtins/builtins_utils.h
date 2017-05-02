@@ -16,18 +16,18 @@
 # include <builtins/echo.h>
 # include <builtins/chdir.h>
 
-typedef 	int (*t_builtin)(t_sh_data *data, char *arg);
+typedef 	int (*t_builtin_fn)(t_sh_data *data, char *arg);
 
-typedef struct			s_builtin_e
+typedef struct			s_builtin
 {
-	struct s_builtin_e	*next;
-	t_builtin			fn;
+	t_builtin_fn		fn;
 	char				*name;
 	size_t				len;
-}						t_builtin_e;
+}						t_builtin;
 
-t_builtin_e				*sh_builtins_init(void);
-t_builtin_e				*sh_is_builtin(t_builtin_e *head, char *name);
+t_array					*sh_builtins_init(void);
+t_builtin				*get_builtin(char *name);
+t_bool					sh_is_builtin(char *name);
 char					*sh_extract_str(char *arg);
 
 #endif
