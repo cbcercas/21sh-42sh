@@ -19,12 +19,12 @@ static void		sh_data_free(t_sh_data *data)
 	return;
 }
 
-void	sh_testing(const char *arg)
+void sh_testing(const char *arg, char *const *av)
 {
 	if (ft_strequ(arg, "env"))
 		sh_testing_env();
 	if (ft_strequ(arg, "lexer"))
-		sh_testing_lexer();
+		sh_testing_lexer(av);
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
@@ -51,7 +51,7 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 		else if (opt == 'h')
 			sh_help_exit();
 		else if (opt == 't')
-			sh_testing(g_optarg);
+			sh_testing(g_optarg, av);
 		else if (opt == '?')
 			sh_help_exit();
 	}
