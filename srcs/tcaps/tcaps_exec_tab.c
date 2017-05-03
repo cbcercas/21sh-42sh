@@ -11,11 +11,11 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-BOOL	exec_tab(const t_key *key)
+BOOL	exec_tab(const t_key *key, t_input *input)
 {
 	(void)key;
 	write(1, "User pressed tab\n", 16);
-	exec_ctrl_c(key);
+	exec_ctrl_c(key, input);
 	return (false);
 }
 

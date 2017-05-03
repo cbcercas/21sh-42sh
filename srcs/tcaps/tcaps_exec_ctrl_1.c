@@ -11,49 +11,55 @@
 /* ************************************************************************** */
 #include <core/tcaps.h>
 
-BOOL	exec_ctrl_c(const t_key *key)
+BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 {
 	(void)key;
+	(void)input;
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
 	return (false);
 }
 
-BOOL	exec_ctrl_d(const t_key *key)
+BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 {
 	(void)key;
+	(void)input;
 	return (true);
 }
 
-BOOL	exec_ctrl_z(const t_key *key)
+BOOL	exec_ctrl_z(const t_key *key, t_input *input)
 {
 	(void)key;
+	(void)input;
 	write(1, "User pressed CTRL+Z\n", 20);
-	exec_ctrl_c(key);
+	exec_ctrl_c(key, input);
 	return (false);
 }
 
-BOOL	exec_ctrl_a(const t_key *key)
+BOOL	exec_ctrl_a(const t_key *key, t_input *input)
 {
 	(void)key;
+	(void)input;
 	write(1, "User pressed CTRL+A\n", 20);
-	exec_ctrl_c(key);
+	exec_ctrl_c(key, input);
 	return (false);
 }
 
-BOOL	exec_ctrl_e(const t_key *key)
+BOOL	exec_ctrl_e(const t_key *key, t_input *input)
 {
 	(void)key;
+	(void)input;
 	write(1, "User pressed CTRL+E\n", 20);
-	exec_ctrl_c(key);
+	exec_ctrl_c(key, input);
 	return (false);
 }
 
-BOOL	exec_ctrl_l(const t_key *key)
+BOOL	exec_ctrl_l(const t_key *key, t_input *input)
 {
 	(void)key;
+	(void)input;
 	write(1, "User pressed CTRL+L\n", 20);
-	exec_ctrl_c(key);
+	exec_ctrl_c(key, input);
 	return (false);
 }

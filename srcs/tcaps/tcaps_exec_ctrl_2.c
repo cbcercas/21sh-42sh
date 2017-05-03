@@ -11,10 +11,9 @@
 /* ************************************************************************** */
 #include <core/tcaps.h>
 
-BOOL	exec_ctrl_j(const t_key *key)
+BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {
 	(void)key;
 	write(1, "User pressed CTRL+J\n", 20);
-	exec_ctrl_c(key);
-	return (false);
+	exec_ctrl_c(key, input);
 }
