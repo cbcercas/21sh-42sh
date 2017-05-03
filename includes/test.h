@@ -12,8 +12,6 @@
 
 #ifndef TEST_H
 # define TEST_H
-# include <ft_printf/libftprintf.h>
-#include <environ/environ.h>
 
 void sh_testing_env(void);
 
