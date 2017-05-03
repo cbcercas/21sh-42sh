@@ -21,6 +21,7 @@ extern char const	*g_optarg;
 static void		sh_data_free(t_sh_data *data)
 {
 	//TODO free envs
+	(void)data;
 	return;
 }
 
