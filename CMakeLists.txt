@@ -30,6 +30,7 @@ set(SOURCE_FILES
         srcs/tcaps/tcaps_exec_ctrl_2.c
         srcs/tcaps/tcaps_exec_tab.c
         srcs/tcaps/tcaps_key_exec.c
+        srcs/tests/env.c
         )
 
 include_directories(includes)
