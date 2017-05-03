@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <test.h>
-
+#include <ft_printf/libftprintf.h>
+#include <environ/environ.h>
 void sh_testing_env(void)
 {
 	t_array	*envs;
