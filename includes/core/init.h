@@ -11,17 +11,7 @@
 /* ************************************************************************** */
 #ifndef INIT_H
 # define INIT_H
-# include <unistd.h>
-# include <libft.h>
-# include <ft_printf/libftprintf.h>
-# include <environ/env_list_utils.h>
-# include <environ/environ.h>
-# include <builtins/builtins_utils.h>
-# include <core/main.h>
-# include <unistd/ft_unistd.h>
-# include <core/help.h>
 # include <core/data.h>
-# include <test.h>
 
 t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av);
 void			sh_deinit(t_sh_data *data);

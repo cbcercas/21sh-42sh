@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/input.h>
+#include <core/tcaps.h>
 
 BOOL remove_escaped_newline(char **input)
 {

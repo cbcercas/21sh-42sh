@@ -16,6 +16,7 @@
 # include <libft.h>
 # include <libtcaps.h>
 # include <types/bool.h>
+# include <core/input.h>
 
 typedef struct	s_key_exec
 {

@@ -11,12 +11,8 @@
 /* ************************************************************************** */
 #ifndef INPUT_H
 # define INPUT_H
-# include <libft.h>
-# include <gnl/get_next_line.h>
-# include <core/init.h>
-# include <core/command.h>
 # include <string/ft_string.h>
-# include <core/tcaps.h>
+# include <libtcaps.h>
 
 //int		sh_get_command(t_ms_data	*data);
 

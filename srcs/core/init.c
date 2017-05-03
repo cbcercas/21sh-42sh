@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/init.h>
+#include <test.h>
+#include <core/help.h>
+#include <unistd/ft_unistd.h>
+#include <environ/environ.h>
+#include <builtins/builtins_utils.h>
 
 extern char const	*g_optarg;
 
