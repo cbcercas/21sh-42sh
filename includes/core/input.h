@@ -16,6 +16,14 @@
 
 //int		sh_get_command(t_ms_data	*data);
 
+typedef struct s_input	t_input;
+struct	s_input
+{
+	t_string	*str;
+	size_t		offset;
+	t_cpos		cpos;
+};
+
 /**
 ** @file       input.c
 **

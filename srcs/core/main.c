@@ -40,6 +40,7 @@ int main(int ac, char *const *av)
 		// 		stop = true;
 		if (ft_strequ(input, "exit"))
 			stop = false;
+		ft_strdel(&input);
 		array_reset(&tokens);
 		automaton_reset(&automaton);
 	}
