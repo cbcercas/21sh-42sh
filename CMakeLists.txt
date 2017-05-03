@@ -5,22 +5,6 @@ set(CMAKE_CXX_STANDARD 11)
 set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
 
 set(SOURCE_FILES
-        includes/automaton/automaton.h
-        includes/builtins/builtins_utils.h
-        includes/builtins/chdir.h
-        includes/builtins/echo.h
-        includes/builtins/exit.h
-        includes/core/check_path.h
-        includes/core/command.h
-        includes/core/data.h
-        includes/core/init.h
-        includes/core/input.h
-        includes/core/main.h
-        includes/core/help.h
-        includes/core/prompt.h
-        includes/environ/env_list_utils.h
-        includes/environ/environ.h
-        includes/lexer/lexer.h
         srcs/automaton/automaton.c
         srcs/builtins/builtins_utils.c
         srcs/builtins/chdir.c
