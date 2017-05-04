@@ -22,6 +22,7 @@ int main(int ac, char *const *av)
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
 	ft_printf("%s",tmp);*/
+	ft_putstr("\033[?1049h\033[H");
 	if (!sh_init(&data, ac, av))
 		exit(1);
 	if (lexer_init(&tokens) == NULL)
@@ -45,5 +46,6 @@ int main(int ac, char *const *av)
 		automaton_reset(&automaton);
 	}
 	sh_deinit(&data);
+	ft_putstr("\033[?1049l");
 	return (0);
 }
