@@ -15,10 +15,10 @@
 BOOL	key_exec(t_key *key, t_input *input)
 {
 	static t_key_exec	fn_exec[] = {
-		{KEY_CODE_RARROW, &exec_arrow},
-		{KEY_CODE_LARROW, &exec_arrow},
-		{KEY_CODE_DARROW, &exec_arrow},
-		{KEY_CODE_UARROW, &exec_arrow},
+		{KEY_CODE_RARROW, &exec_arrow_right},
+		{KEY_CODE_LARROW, &exec_arrow_left},
+		{KEY_CODE_DARROW, &exec_arrow_down},
+		{KEY_CODE_UARROW, &exec_arrow_up},
 		{KEY_CODE_CTRL_C, &exec_ctrl_c},
 		{KEY_CODE_CTRL_D, &exec_ctrl_d},
 		{KEY_CODE_CTRL_Z, &exec_ctrl_z},

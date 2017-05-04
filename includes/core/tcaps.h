@@ -41,6 +41,9 @@ BOOL	exec_backspace(const t_key *key, t_input *input);
 
 BOOL	exec_tab(const t_key *key, t_input *input);
 
-BOOL	exec_arrow(const t_key *key, t_input *input);
+BOOL	exec_arrow_right(const t_key *key, t_input *input);
+BOOL	exec_arrow_left(const t_key *key, t_input *input);
+BOOL	exec_arrow_up(const t_key *key, t_input *input);
+BOOL	exec_arrow_down(const t_key *key, t_input *input);
 
 #endif
