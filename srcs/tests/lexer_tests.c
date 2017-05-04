@@ -8,21 +8,21 @@ void sh_testing_lexer(char *const *av)
     if (lexer_init(&tokens) == NULL)
     {
         ft_printf("Error initialising tokens");
-        return ;
+        exit (1);
     }
     else if (automaton_init(&automaton) == NULL)
     {
         ft_printf("Error Initialising automaton");
-        return ;
+        exit (1);
     }
     else if (lexer_lex(&tokens, &automaton, av[3]))
     {
         lexer_print_tokens(&tokens);
-        return ;
+        exit (1);
     }
     else
     {
         ft_printf("Fatal testing error : Couldn't Catch the error.");
-	    return ;
+        exit (1);
     }
 }
