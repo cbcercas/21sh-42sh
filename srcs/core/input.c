@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/25 20:15:46 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/07 11:48:08 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/input.h>
@@ -89,7 +89,7 @@ char	*sh_get_line(void)
 			tputs(tgetstr("im", NULL), 0, &ft_putchar2);
 			ft_putchar(key.key[0]);
 			tputs(tgetstr("ie", NULL), 0, &ft_putchar2);
-			input.cpos = get_cursor_pos();
+			input.cpos.cp_col += 1;
 		}
 		key_del(&key);
 	}
