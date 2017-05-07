@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 #include <core/main.h>
 
+t_array	*parser_parse(t_array *tokens);
 
 int main(int ac, char *const *av)
 {
@@ -36,7 +37,9 @@ int main(int ac, char *const *av)
 		sh_print_prompt();
 		input = sh_get_line();
 		if (lexer_lex(&tokens, &automaton, input))
-			lexer_print_tokens(&tokens);
+			if (parser_parse(&tokens))
+				ft_printf("exec\n");
+
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
 		// 		stop = true;
