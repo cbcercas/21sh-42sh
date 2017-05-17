@@ -86,22 +86,8 @@ INC += -I $(LIB_CBC_DIR)/lib_tcaps/includes
 
 LIBS += -L $(LIB_CBC_DIR) -lcbc
 
-## libft
-#LIBFT_DIR	= $(LIBS_FOLDER)/libft
-#LIBFT_FILE	= $(LIBFT_DIR)/libft.a
-#INC			+= -I $(LIBFT_DIR)/includes
-## Libtcaps
-#LIBTCAPS_DIR    = $(LIBS_FOLDER)/libtcaps
-#INC                             += -I $(LIBTCAPS_DIR)/includes
-#LIBS                            += -L$(LIBTCAPS_DIR) -ltcaps
-
 ## Curses
 LIBS                            += -lcurses
-
-## libft
-LIBFT_DIR	= $(LIBS_FOLDER)/libft
-INC			+= -I $(LIBFT_DIR)/includes
-LIBS				+= -L $(LIBFT_DIR) -lft
 
 #Utils
 RM					= rm -rf
