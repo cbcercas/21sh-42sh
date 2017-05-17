@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 22:25:26 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 23:04:31 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/input.h>
@@ -83,6 +83,6 @@ char	*sh_get_line(void)
 		key_del(&key);
 	}
 	default_terminal_mode();
-	ret = ft_strdup(input.str->s);
+	ret = input.str->len > 0 ? ft_strdup(input.str->s) : NULL;
 	return (ret);
 }
