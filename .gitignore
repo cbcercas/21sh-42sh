@@ -33,6 +33,7 @@ minishell
 # Debug files
 *.dSYM/
 debug/
+*.log
 
 # Auto deps
 .deps
