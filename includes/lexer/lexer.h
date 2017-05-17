@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 05:59:37 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/05 10:03:01 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 16:49:30 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <array/array.h>
 # include <types/stack.h>
 # include <automaton/automaton.h>
-# include <ft_printf/libftprintf.h>
-# include <logger/logger.h>
+# include <ftprintf.h>
+# include <logger.h>
 
 typedef struct s_token	t_token;
 typedef uint32_t		t_token_type;

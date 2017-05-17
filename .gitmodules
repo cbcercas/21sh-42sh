@@ -1,6 +1,3 @@
-[submodule "libft"]
-	path = lib/libft
-	url = https://mongit.mesamis.org/cbcercas/Libft_corrige.git
-[submodule "lib/libtcaps"]
-	path = lib/libtcaps
-	url = https://mongit.mesamis.org/cbcercas/Lib_tcaps.git
+[submodule "libcbc"]
+	path = libcbc
+	url = https://mongit.mesamis.org/cbcercas/libcbc.git
