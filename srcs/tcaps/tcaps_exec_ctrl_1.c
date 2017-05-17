@@ -6,11 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 22:17:01 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 22:47:18 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/tcaps.h>
-void reset_input(t_input *input);
 
 BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 {
@@ -27,9 +26,12 @@ BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
-	default_terminal_mode();
-	exit(EXIT_SUCCESS);
-	return (true);
+	if (input->str->len == 0)
+	{
+		default_terminal_mode();
+		exit(EXIT_SUCCESS);
+	}
+	return (false);
 }
 
 BOOL	exec_ctrl_z(const t_key *key, t_input *input)
