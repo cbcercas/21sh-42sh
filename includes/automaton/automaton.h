@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 17:50:20 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/05 09:25:37 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 16:46:50 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #define AUTOMATON_H
 
 #include <types/stack.h>
-#include <logger/logger.h>
+#include <logger.h>
 
 enum	e_stack_state
 {

@@ -6,13 +6,13 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:25 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/28 04:55:27 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 16:47:21 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef ECHO_H
 # define ECHO_H
 # include <libft.h>
-# include <ft_printf/libftprintf.h>
+# include <ftprintf.h>
 # include <core/data.h>
 # include <core/command.h>
 # include <builtins/builtins_utils.h>

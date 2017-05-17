@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/03/04 08:34:01 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/05/17 16:55:19 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,12 +71,29 @@ DEPS		= $(SRCS:%.c=$(DEPS_DIR)/%.d)
 BUILD_DIR	= $(OBJS_DIR) $(DEPS_DIR)
 
 # Libraries
-LIBS_FOLDER	= lib
+#LIBS_FOLDER	= lib
+## libcbc
+LIB_CBC_DIR := libcbc
 
+# libft:
+INC += -I $(LIB_CBC_DIR)/libft_cbc/includes
+# ftprintf:
+INC += -I $(LIB_CBC_DIR)/libftprintfcbc/includes
+# logger:
+INC += -I $(LIB_CBC_DIR)/lib_logger_cbc/includes
+# tcaps:
+INC += -I $(LIB_CBC_DIR)/lib_tcaps/includes
+
+LIBS += -L $(LIB_CBC_DIR) -lcbc
+
+## libft
+#LIBFT_DIR	= $(LIBS_FOLDER)/libft
+#LIBFT_FILE	= $(LIBFT_DIR)/libft.a
+#INC			+= -I $(LIBFT_DIR)/includes
 ## Libtcaps
-LIBTCAPS_DIR    = $(LIBS_FOLDER)/libtcaps
-INC            += -I $(LIBTCAPS_DIR)/includes
-LIBS           += -L$(LIBTCAPS_DIR) -ltcaps
+#LIBTCAPS_DIR    = $(LIBS_FOLDER)/libtcaps
+#INC                             += -I $(LIBTCAPS_DIR)/includes
+#LIBS                            += -L$(LIBTCAPS_DIR) -ltcaps
 
 ## Curses
 LIBS                            += -lcurses
@@ -105,7 +122,7 @@ all: $(DEPS) $(NAME)
 # Add dependency as prerequisites
 -include $(DEPS)
 
-$(NAME): $(OBJS) libs
+$(NAME): $(OBJS) lib
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INC)
 	@echo "[\033[35m---------------------------------\033[0m]"
 	@echo "[\033[36m-------- Minishell Done ! -------\033[0m]"
@@ -120,10 +137,10 @@ $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 $(BUILD_DIR):
 	@$(MKDIR) -p $@
 
-libs:
-	@make -C $(LIBFT_DIR)
-	@make -C $(LIBTCAPS_DIR)
-
+lib:
+	make -C $(LIB_CBC_DIR) WITH_LIBFT=yes WITH_FTPRINTF=yes WITH_LOGGER=yes WITH_LIBTCAPS=yes
+#	@make -C $(LIBFT_DIR)
+#	@make -C $(LIBTCAPS_DIR)
 re: clean fclean all
 
 clean:
@@ -131,12 +148,12 @@ clean:
 	@$(RM) $(OBJS_DIR)
 	@echo "\033[35mMinishell  :\033[0m [\033[31mSuppression des .d\033[0m]"
 	@$(RM) $(DEPS_DIR)
-	@make clean -C $(LIBFT_DIR)
+	@make clean -C $(LIB_CBC_DIR)
 
 fclean: clean
 	@echo "\033[35mMinishell  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
 	@$(RM) $(NAME)
-	@make fclean -C $(LIBFT_DIR)
+	@make fclean -C $(LIB_CBC_DIR)
 
 dev:
 	@make -C ./ SAN="yes" DEV="yes"
