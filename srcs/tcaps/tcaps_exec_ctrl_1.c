@@ -6,25 +6,29 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/30 14:30:38 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/05/17 22:17:01 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/tcaps.h>
+void reset_input(t_input *input);
 
 BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
+	reset_input(input);
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-	return (false);
+	return (true);
 }
 
 BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
+	default_terminal_mode();
+	exit(EXIT_SUCCESS);
 	return (true);
 }
 
