@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/07 11:48:08 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 22:25:26 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/input.h>
@@ -49,17 +49,6 @@ char	*sh_get_line_old(void)
 	ft_strdel(&input);
 	return (NULL);
 }
-
-static void reset_input(t_input *input)
-{
-	if (input->str)
-		string_reset(input->str);
-	else
-		input->str = string_create();
-	//TODO add prompt len
-	input->offset = 3;
-	input->cpos = get_cursor_pos();
-};
 
 char	*sh_get_line(void)
 {
