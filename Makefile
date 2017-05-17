@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/05/17 16:55:19 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/05/17 18:57:14 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -124,7 +124,7 @@ $(BUILD_DIR):
 	@$(MKDIR) -p $@
 
 lib:
-	make -C $(LIB_CBC_DIR) WITH_LIBFT=yes WITH_FTPRINTF=yes WITH_LOGGER=yes WITH_LIBTCAPS=yes
+	make -C $(LIB_CBC_DIR) WITH_LIBFT=yes WITH_FTPRINTF=yes WITH_LOGGER=yes WITH_TCAPS=yes
 #	@make -C $(LIBFT_DIR)
 #	@make -C $(LIBTCAPS_DIR)
 re: clean fclean all
