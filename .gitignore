@@ -29,6 +29,7 @@
 *.x86_64
 *.hex
 minishell
+Minishell
 
 # Debug files
 *.dSYM/
@@ -41,3 +42,9 @@ debug/
 # Clion Files
 .idea/
 cmake-build-debug/
+
+# Cmake
+CMakeCache.txt
+CMakeFiles/
+*.cbp
+cmake_install.cmake

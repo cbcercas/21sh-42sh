@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.0)
 project(Minishell)
 
 set(CMAKE_CXX_STANDARD 11)
-set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
+set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
 
 set(SOURCE_FILES
         srcs/automaton/automaton.c
@@ -14,6 +14,7 @@ set(SOURCE_FILES
         srcs/core/command.c
         srcs/core/init.c
         srcs/core/input.c
+        srcs/core/input_utils.c
         srcs/core/main.c
         srcs/core/help.c
         srcs/core/prompt.c
@@ -35,14 +36,10 @@ set(SOURCE_FILES
 
 include_directories(includes)
 
-#Libft
-add_subdirectory(lib/libft)
-include_directories(lib/libft/includes)
-
-#Libtcaps
-add_subdirectory(lib/libtcaps)
-include_directories(lib/libtcaps/includes)
+#Libcbc
+add_subdirectory(libcbc)
+include_directories(libcbc/libft_cbc/includes libcbc/libftprintfcbc/includes libcbc/lib_logger_cbc/includes libcbc/lib_tcaps/includes)
 
 add_executable(Minishell ${SOURCE_FILES})
 
-target_link_libraries(Minishell ft tcaps curses)
+target_link_libraries(Minishell cbc curses)
