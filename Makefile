@@ -37,7 +37,7 @@ SRCS            += term_modes.c
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
                     tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
-                    tcaps_key_exec.c
+                    tcaps_key_exec.c tcaps_exec_delete.c
 
 ###############################################################################
 #																			  #
