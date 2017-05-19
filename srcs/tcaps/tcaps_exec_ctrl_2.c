@@ -14,6 +14,8 @@
 BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {
 	//exec_ctrl_c(key, input);
+	(void)key;
+	(void)input;
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
