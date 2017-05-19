@@ -41,7 +41,7 @@ int main(int ac, char *const *av)
 		if (input && ft_strequ(input, "exit"))
 			stop = false;
 		input ? ft_strdel(&input) : 0;
-		input ? array_reset(&tokens) : 0;
+		array_reset(&tokens);
 		automaton_reset(&automaton);
 	}
 	sh_deinit(&data);
