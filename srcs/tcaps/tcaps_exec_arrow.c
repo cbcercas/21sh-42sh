@@ -14,11 +14,15 @@
 BOOL	exec_arrow_right(const t_key *key, t_input *input)
 {
 	(void)input;
+	(void)key;
+
 	log_dbg1("exec arrow right.");
-	if (input->cpos.cp_col < input->offset + input->str->len + 1)
+	input->cpos = get_cursor_pos();
+	if (((input->cpos.cp_col + ((input->offset_line ) * input->ts.ts_cols) - input->offset_col) - 1) < input->str->len)
 	{
-		tputs(tgetstr(key->key_code, NULL), 0, &ft_putchar2);
-		input->cpos = get_cursor_pos();
+		if (input->cpos.cp_col == input->ts.ts_cols)
+			input->offset_line += 1;
+		move_cursor_right(&input->cpos, &input->ts);
 	}
 	else
 		write(1, "\a", 1);
@@ -27,10 +31,14 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 
 BOOL	exec_arrow_left(const t_key *key, t_input *input)
 {
-	log_dbg1("exec arrow right.");
-	if (input->cpos.cp_col > input->offset + 1)
+	(void)key;
+	log_dbg1("exec arrow left.");
+	input->cpos = get_cursor_pos();
+	if (((input->cpos.cp_col + ((input->offset_line ) * input->ts.ts_cols) - input->offset_col) - 1) > 0)
 	{
-		tputs(tgetstr(key->key_code, NULL), 0, &ft_putchar2);
+		if (input->cpos.cp_col == 1)
+			input->offset_line -= 1;
+		move_cursor_left(&input->cpos, &input->ts);
 		input->cpos = get_cursor_pos();
 	}
 	else

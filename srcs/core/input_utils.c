@@ -19,6 +19,8 @@ void reset_input(t_input *input)
 	else
 		input->str = string_create();
 	//TODO add prompt len
-	input->offset = 3;
+	input->offset_col = 3;
+	input->offset_line = 0;
 	input->cpos = get_cursor_pos();
+	input->ts = get_term_size();
 };

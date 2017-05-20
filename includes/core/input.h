@@ -20,7 +20,9 @@ typedef struct s_input	t_input;
 struct	s_input
 {
 	t_string	*str;
-	size_t		offset;
+	size_t		offset_col;
+	size_t		offset_line;
+	t_ts		ts;
 	t_cpos		cpos;
 };
 
