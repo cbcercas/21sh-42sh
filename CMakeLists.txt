@@ -46,7 +46,7 @@ set(SOURCE_FILES
         srcs/parser/parser_grammar_pipe.c
         srcs/parser/parser_grammar_sep_if.c
         srcs/term/term_modes.c
-        srcs/environ/getter_env.c)
+        srcs/environ/getter_env.c srcs/parser/parser_new.c)
 
 include_directories(includes)
 

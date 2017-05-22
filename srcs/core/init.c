@@ -22,7 +22,8 @@ static void		sh_data_free(t_sh_data *data)
 void	sh_testing(const char *arg)
 {
 	if (ft_strequ(arg, "env"))
-		sh_testing_env();
+		;
+		//sh_testing_env();
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
@@ -59,7 +60,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 {
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av);
-	sh_init_environ();
+	//sh_init_environ();
 	data->builtins = sh_builtins_init();
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
 		if (!(sh_getenv("TERM"))

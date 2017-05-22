@@ -1,0 +1,42 @@
+ls = ok
+ls -l = ok
+ls -l | cat -e = ok
+ls -l | cat -e | lol | maman = ok
+|ls = Nope
+ls| = Nope
+&ls = nope
+ls& = nope
+&&ls = nope
+ls&& = nope
+<ls = nope
+ls> = nope
+[1]
+<<ls = nope
+ls>> = nope
+||ls = nope
+ls|| = nope
+;ls = nope
+ls; = ok
+;;ls = nope
+ls;; = nope
+cat -e < ls = ok
+dsfsdfsdf;;sfdsfsdf = nope
+sdfdsf; sfdsdf; ; sdfsdffd|| sdffd;sdfsdf = nope
+asdasdasd&&&&&&&&&&&& = nope
+ls |&| = nope
+ls ||&;ls = nope
+to <to = ok
+cat -e < ls = ok
+ls -l | cat -e; cat -e < lol; ls > toto.txt; rm toto; = ok
+ls -l | cat -e = ok
+
+
+
+
+
+[1]
+bash-3.2$ <ls
+bash: ls: No such file or directory
+bash-3.2$ ls>
+bash: syntax error near unexpected token `newline'
+bash-3.2$

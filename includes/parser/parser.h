@@ -50,6 +50,10 @@
 **};
 */
 
+#define LOG(str) dbg_logger(str, __LINE__, __FILE__, __FUNCTION__)
+
+void    dbg_logger(char *str, int line, char *file, char *func);
 t_bool	parser_parse(t_array *tokens);
+t_bool	parser_parse_new(t_array *tokens);
 
 #endif
