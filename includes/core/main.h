@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/04/14 10:56:52 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/05/23 16:01:05 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <lexer/lexer.h>
 # include <parser/parser.h>
 # include <core/tcaps.h>
+# include <signals/signals.h>
 
 # define PROG_NAME "minishell"
 
