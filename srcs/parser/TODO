@@ -26,7 +26,6 @@ asdasdasd&&&&&&&&&&&& = nope
 ls |&| = nope
 ls ||&;ls = nope
 to <to = ok
-cat -e < ls = ok
 ls -l | cat -e; cat -e < lol; ls > toto.txt; rm toto; = ok
 ls -l | cat -e = ok
 
@@ -40,3 +39,32 @@ bash: ls: No such file or directory
 bash-3.2$ ls>
 bash: syntax error near unexpected token `newline'
 bash-3.2$
+
+
+
+All operator cases :
+
+|
+ls >
+< ls
+ls ls <
+< ls ls
+ls > ls
+ls ls > ls ls
+ls>
+ls<
+ls>ls
+ls |& ls
+ls|&ls
+ls|&
+|&ls
+
+
+#define LOG(str) dbg_logger(str, __LINE__, __FILE__, __FUNCTION__)
+
+void    dbg_logger(char *str, int line, char *file, char *func);
+
+void    dbg_logger(char *str, int line, char *file, char *func)
+{
+	ft_printf("%s at %s, function %s:%d\n", str, file, func, line);
+}
