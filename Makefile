@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/05/23 15:44:16 by jlasne           ###   ########.fr        #
+#    Updated: 2017/05/23 19:45:18 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
 
 SRC_SUBDIR		+= signals
-SRCS			+= signals.c
+SRCS			+= signals.c signals_handler.c
 
 SRC_SUBDIR		+= parser
 SRCS			+= parser.c parser_grammar.c

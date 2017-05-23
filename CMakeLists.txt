@@ -41,7 +41,9 @@ set(SOURCE_FILES
         srcs/term/term_modes.c
         srcs/environ/getter_env.c
         srcs/parser/parser.c
-        srcs/parser/parser_grammar.c)
+        srcs/parser/parser_grammar.c
+        srcs/signals/signals.c
+        srcs/signals/signals_handler.c)
 
 include_directories(includes)
 

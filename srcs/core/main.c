@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/23 15:59:44 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/05/23 20:25:04 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int main(int ac, char *const *av)
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
 	ft_printf("%s",tmp);*/
-	init_signals(signals_handler);
 	if (!sh_init(&data, ac, av))
 		exit(1);
 	if (lexer_init(&tokens) == NULL)
 		exit (1);
 	if (automaton_init(&automaton) == NULL)
 		exit (1);
+	init_signals(signals_handler);
 	stop = true;
 	while (stop == true)
 	{

@@ -3,38 +3,15 @@
 
 void    init_signals(void *handler)
 {
+	int		i;
+
+	i = 1;
 	if (!handler)
 		return ;
-	if(signal(SIGINT, handler) == SIG_ERR)
-		log_warn("SIGINT no catch");
-	if(signal(SIGSEGV, handler) == SIG_ERR)
-		log_warn("SIGSEGV no catch");
-	if(signal(SIGBUS, handler) == SIG_ERR)
-		log_warn("SIGBUS no catch");
+	while (i++ < 31)
+		if(signal(i, handler) == SIG_ERR)
+			log_warn("Signal:%d no catch", i);
 	log_info("Signal: Init success");
-}
-
-void    signals_handler(int sig)
-{
-	if(sig == SIGINT)
-	{
-		log_info("Signal: User pressed Ctrl+C.");
-		ft_putstr("\n");
-		sh_print_prompt();
-		return;
-	}
-	if(sig == SIGSEGV)
-	{
-		log_info("Signal: Segfault.");
-		ft_putstr("\nOups... Segfault du shell :(\n");
-		exit(42);
-	}
-	if(sig == SIGBUS)
-	{
-		log_info("Signal: Bus error.");
-		ft_putstr("\nOups... Bus Error su shell :(\n");
-		exit(42);
-	}
 }
 
 int		wait_sh()
