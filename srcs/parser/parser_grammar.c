@@ -10,6 +10,47 @@
 **
 */
 
+static char *get_token(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_BLANK)
+		return (" ");
+	else if (tok->type == E_TOKEN_NEWLINE)
+		return ("\n");
+	else if (tok->type == E_TOKEN_WORD)
+		return ("TOKEN_WORD");
+	else if (tok->type == E_TOKEN_SQUOTE)
+		return ("'");
+	else if (tok->type == E_CHAR_TYPE_BQUOTE)
+		return ("`");
+	else if (tok->type == E_TOKEN_DQUOTE)
+		return ("\"");
+	else if (tok->type == E_TOKEN_PIPE)
+		return ("|");
+	else if (tok->type == E_TOKEN_OR_IF)
+		return ("||");
+	else if (tok->type == E_TOKEN_LESSGREAT)
+		return ("< or >");
+	else if (tok->type == E_TOKEN_DGREAT)
+		return (">>");
+	else if (tok->type == E_TOKEN_DLESS)
+		return ("<<");
+	else if (tok->type == E_TOKEN_AND)
+		return ("&");
+	else if (tok->type == E_TOKEN_AND_IF)
+		return ("&&");
+	else if (tok->type == E_TOKEN_SEMI)
+		return (";");
+	else if (tok->type == E_TOKEN_LESSAND)
+		return ("<&");
+	else if (tok->type == E_TOKEN_GREATAND)
+		return (">&");
+	else if (tok->type == E_TOKEN_IO_NUMBER)
+		return ("IO_NUMBER");
+}
+
 static t_bool check_operators(t_array *tokens, size_t where)
 {
 	t_token *tok;
@@ -110,9 +151,15 @@ t_bool check_first(t_array *tokens, size_t where)
 	if (where == 0)
 	{
 		if (check_operators(tokens, where) == true)
+		{
+			ft_printf("Parser: Syntax error near '%s'\n", get_token(tokens, where));
 			return (false);
+		}
 		if (check_semi(tokens, where) == true)
+		{
+			ft_printf("Parser: Syntax error near ';'\n");
 			return (false);
+		}
 	}
 	else
 		return (true);
@@ -133,7 +180,10 @@ t_bool check_last(t_array *tokens, size_t where)
 		if (where < tokens->used - 1)
 			return (true);
 		else
+		{
+			ft_printf("Parser: Syntax error near '%s'\n", get_token(tokens, where));
 			return (false);
+		}
 	}
 	else
 		return (true);
@@ -155,11 +205,17 @@ t_bool check_double_semi(t_array *tokens, size_t where)
 			if (check_blank(tokens, where + 1) == true)
 			{
 				if (check_semi(tokens, where + 2) == true)
+				{
+					ft_printf("Parser: Syntax error near ';'\n");
 					return (false);
+				}
 				else
 				{
 					if (check_operators(tokens, where + 2) == true)
+					{
+						ft_printf("Parser: Syntax error near ';'\n");
 						return (false);
+					}
 					else
 						return (true);
 				}
@@ -171,7 +227,10 @@ t_bool check_double_semi(t_array *tokens, size_t where)
 				else
 				{
 					if (check_semi(tokens, where + 1) == true)
+					{
+						ft_printf("Parser: Syntax error near ';'\n");
 						return (false);
+					}
 					else
 						return (true);
 				}
@@ -202,14 +261,20 @@ t_bool check_double(t_array *tokens, size_t where)
 				if (check_word_blank(tokens, where + 2) == true)
 					return (true);
 				else
+				{
+					ft_printf("Parser: Syntax error near '%s'\n", get_token(tokens, where));
 					return (false);
+				}
 			}
 			else
 			{
 				if (check_word(tokens, where + 1) == true)
 					return (true);
 				else
+				{
+					ft_printf("Parser: Syntax error near '%s'\n", get_token(tokens, where));
 					return (false);
+				}
 			}
 		}
 		else
