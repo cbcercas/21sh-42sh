@@ -15,6 +15,7 @@ static t_bool check_operators(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (tok->type == E_TOKEN_PIPE || tok->type == E_TOKEN_AND || \
 	tok->type == E_TOKEN_AND_IF || tok->type == E_TOKEN_DGREAT || \
 	tok->type == E_TOKEN_DLESS || tok->type == E_TOKEN_GREATAND || \
@@ -36,6 +37,7 @@ static t_bool check_word_blank(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (tok->type == E_TOKEN_BLANK || tok->type == E_TOKEN_WORD)
 		return (true);
 	else
@@ -53,6 +55,7 @@ static t_bool check_blank(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (tok->type == E_TOKEN_BLANK)
 		return (true);
 	else
@@ -70,6 +73,7 @@ static t_bool check_word(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (tok->type == E_TOKEN_WORD)
 		return (true);
 	else
@@ -87,6 +91,7 @@ static t_bool check_semi(t_array *tokens, size_t where)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, where);
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (tok->type == E_TOKEN_SEMI)
 		return (true);
 	else
@@ -101,6 +106,7 @@ static t_bool check_semi(t_array *tokens, size_t where)
 
 t_bool check_first(t_array *tokens, size_t where)
 {
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (where == 0)
 	{
 		if (check_operators(tokens, where) == true)
@@ -121,6 +127,7 @@ t_bool check_first(t_array *tokens, size_t where)
 
 t_bool check_last(t_array *tokens, size_t where)
 {
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (check_operators(tokens, where) == true)
 	{
 		if (where < tokens->used - 1)
@@ -140,6 +147,7 @@ t_bool check_last(t_array *tokens, size_t where)
 
 t_bool check_double_semi(t_array *tokens, size_t where)
 {
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (where <= tokens->used - 2)
 	{
 		if (check_semi(tokens, where) == true)
@@ -184,6 +192,7 @@ t_bool check_double_semi(t_array *tokens, size_t where)
 
 t_bool check_double(t_array *tokens, size_t where)
 {
+	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
 	if (where <= tokens->used - 2)
 	{
 		if (check_operators(tokens, where) == true)

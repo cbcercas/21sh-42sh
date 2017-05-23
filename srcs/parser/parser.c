@@ -53,7 +53,7 @@ t_bool parser_parse(t_array *tokens)
 
 	where = 0;
 	ok = false;
-	log_info("Parser: in %s:%d is initialized.", __FILE__, __LINE__);
+	log_info("Parser: in %s:%d is initialized.", __FILENAME__, __LINE__);
 	log_dbg1("Parser: Cycling through tokens.");
 	while (where <= tokens->used)
 	{
