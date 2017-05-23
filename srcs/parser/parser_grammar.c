@@ -25,3 +25,14 @@ t_bool check_last(t_array *tokens, size_t where)
 	else
 		return (true);
 }
+
+t_bool check_word_blank(t_array *tokens, size_t where)
+{
+	t_token *tok;
+
+	tok = (t_token *)array_get_at(tokens, where);
+	if (tok->type == E_TOKEN_BLANK || tok->type == E_TOKEN_WORD)
+		return (true);
+	else
+		return (false);
+}
