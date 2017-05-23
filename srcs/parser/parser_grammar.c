@@ -110,6 +110,7 @@ t_bool check_first(t_array *tokens, size_t where)
 	}
 	else
 		return (true);
+	return (true);
 }
 
 /*

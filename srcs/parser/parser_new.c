@@ -59,7 +59,7 @@ t_bool parser_parse(t_array *tokens)
 	}
 	if (ok == false)
 	{
-		ft_printf("Parsing error\n");
+		ft_printf("Parser Error\n");
 		return (false);
 	}
 	else
