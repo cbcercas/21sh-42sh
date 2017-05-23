@@ -41,6 +41,7 @@ t_bool gr_checkcmd(t_array *tokens, size_t where)
 	log_dbg2("Parser: Now checking if token %d is a semicolon and if it is surrounded correctly", where);
 	if (check_double_semi(tokens, where) == false)
 		return (false);
+	return (true);
 }
 
 /*
