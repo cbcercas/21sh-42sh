@@ -38,15 +38,10 @@ set(SOURCE_FILES
         srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
-        srcs/parser/parser.c
-        includes/parser/grammar.h
-        srcs/parser/parser_grammar_newline.c
-        srcs/parser/parser_grammar_io.c
-        srcs/parser/parser_grammar_cmd.c
-        srcs/parser/parser_grammar_pipe.c
-        srcs/parser/parser_grammar_sep_if.c
         srcs/term/term_modes.c
-        srcs/environ/getter_env.c srcs/parser/parser_new.c)
+        srcs/environ/getter_env.c
+        srcs/parser/parser_new.c
+        srcs/parser/parser_grammar.c)
 
 include_directories(includes)
 
