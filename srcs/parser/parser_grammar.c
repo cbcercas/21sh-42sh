@@ -2,7 +2,7 @@
 // Created by Jules LASNE on 5/23/17.
 //
 
-#include <parser/parser_grammar.h>#include <parser/parser_grammar.h>
+#include <parser/parser_grammar.h>
 
 t_bool check_first(t_array *tokens, size_t where)
 {
