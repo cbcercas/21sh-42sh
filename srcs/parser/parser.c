@@ -62,7 +62,7 @@ t_bool parser_parse(t_array *tokens)
 	while (where <= tokens->used)
 	{
 		log_dbg2("Parser: Cycling through tokens: Now at token %d.", where);
-		dbg_printtok_str(tokens, where);
+		//dbg_printtok_str(tokens, where);
 		ok = gr_checkcmd(tokens, where);
 		if (ok == false)
 			break ;
@@ -71,7 +71,7 @@ t_bool parser_parse(t_array *tokens)
 	if (ok == false)
 	{
 		log_fatal("Parser: returned false at token %d.\n\nPARSER ERROR\n", where);
-		ft_printf("Parser Error\n");
+		//ft_printf("Parser Error\n");
 		return (false);
 	}
 	else

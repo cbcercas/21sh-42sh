@@ -49,6 +49,7 @@ static char *get_token(t_array *tokens, size_t where)
 		return (">&");
 	else if (tok->type == E_TOKEN_IO_NUMBER)
 		return ("IO_NUMBER");
+	return ("Unexpected error at __FILENAME__:__LINE__");
 }
 
 static t_bool check_operators(t_array *tokens, size_t where)
