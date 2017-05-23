@@ -11,10 +11,13 @@ static void	dbg_printtok_str(t_array *tokens, size_t i)
 	t_token *tok;
 
 	tok = (t_token *)array_get_at(tokens, i);
-	lexer_print_token(tok);
-	ft_putstr(": ");
-	ft_putnstr(tok->str, tok->len);
-	ft_putchar('\n');
+	if (i < tokens->used)
+	{
+		lexer_print_token(tok);
+		ft_putstr(": ");
+		ft_putnstr(tok->str, tok->len);
+		ft_putchar('\n');
+	}
 }
 
 /*
