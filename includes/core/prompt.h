@@ -13,6 +13,7 @@
 #ifndef PROMPT_H
 # define PROMPT_H
 # include <ft_printf/libftprintf.h>
+#include <unistd.h>
 
 void	sh_print_prompt(void);
 

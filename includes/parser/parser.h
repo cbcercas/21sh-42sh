@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/04/14 10:56:52 by jlasne           ###   ########.fr       */
+/*   Created: 2017/03/20 10:02:17 by jlasne            #+#    #+#             */
+/*   Updated: 2017/03/21 10:22:54 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <core/init.h>
-# include <core/prompt.h>
-# include <core/input.h>
-# include <libft.h>
-# include <lexer/lexer.h>
-# include <parser/parser.h>
-# include <core/tcaps.h>
+#ifndef PARSER_H
+# define PARSER_H
 
-# define PROG_NAME "minishell"
+# include <lexer/lexer.h>
+# include <logger/logger.h>
+# include <parser/parser_grammar.h>
+
+t_bool	parser_parse(t_array *tokens);
 
 #endif

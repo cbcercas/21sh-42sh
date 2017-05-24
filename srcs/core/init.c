@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 11:00:06 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/04/25 10:22:02 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/init.h>
@@ -62,7 +62,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av);
 	sh_init_environ();
-	sh_builtins_init();
+	data->builtins = sh_builtins_init();
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
 		if (!(sh_getenv("TERM"))
 						|| ft_strequ(sh_getenv("TERM")->value, ""))

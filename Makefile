@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/03/04 08:34:01 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/05/24 10:32:36 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,8 +27,11 @@ SRCS			+= lexer_init.c lexer.c lexer_clean.c
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
 
+SRC_SUBDIR		+= parser
+SRCS			+= parser.c parser_grammar.c
+
 SRC_SUBDIR      += tests
-SRCS            += env.c
+SRCS            += env.c lexer_tests.c
 
 ###############################################################################
 #																			  #

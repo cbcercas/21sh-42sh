@@ -37,6 +37,8 @@ debug/
 # Auto deps
 .deps
 
+cmake-build-debug
+*.log
 # Clion Files
 .idea/
 cmake-build-debug/

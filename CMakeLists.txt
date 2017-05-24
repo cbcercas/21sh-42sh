@@ -40,9 +40,10 @@ set(SOURCE_FILES
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/term/term_modes.c
-        srcs/environ/getter_env.c
         srcs/tests/lexer_tests.c
-        srcs/tests/env.c)
+        srcs/tests/env.c
+        srcs/parser/parser.c
+        srcs/parser/parser_grammar.c)
 
 include_directories(includes)
 

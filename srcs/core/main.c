@@ -6,12 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/04 07:14:37 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/04/25 10:21:45 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/main.h>
-
-
 int main(int ac, char *const *av)
 {
 	t_sh_data	data;
@@ -19,7 +17,6 @@ int main(int ac, char *const *av)
 	t_array		tokens;
 	char		*input;
 	BOOL		stop;
-
 
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
@@ -36,10 +33,11 @@ int main(int ac, char *const *av)
 		sh_print_prompt();
 		input = sh_get_line();
 		if (lexer_lex(&tokens, &automaton, input))
-			lexer_print_tokens(&tokens);
+			parser_parse(&tokens);
+		//lexer_print_tokens(&tokens);
 		// if ((command = ft_strsplit(input, ';')))
-		// 	if (sh_command(data, command))
-		// 		stop = true;
+		// 		// 	if (sh_command(data, command))
+		// 				// 		stop = true;
 		if (ft_strequ(input, "exit"))
 			stop = false;
 		array_reset(&tokens);
