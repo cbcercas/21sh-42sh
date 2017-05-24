@@ -1,3 +1,5 @@
+#!bin/sh
+
 help()
 {
 	echo "Usage:  ./tests.sh [module]\n\n"
