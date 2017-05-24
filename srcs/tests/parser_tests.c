@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/24 11:31:14 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/05/24 11:40:49 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/05/24 16:53:50 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	sh_testing_parser(char *const *av)
 	else if (lexer_lex(&tokens, &automaton, av[3]))
 	{
 			if(parser_parse(&tokens))
-				ft_printf("Parser say OK");
+				ft_printf("Parser say OK\n");
 			exit (1);
 	}
 	else
