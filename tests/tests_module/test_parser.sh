@@ -42,7 +42,7 @@ testing_parser()
 		i=$(($i + 1))
 	done
 
-	echo "\n  \033[1;33mRESULTAT: "$result'/'$1"\033[0m\n"
+	echo "\n  \033[1;33mRESULT: "$result'/'$1"\033[0m\n"
 	echo "#################################"
 }
 
