@@ -6,11 +6,11 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/05/24 11:51:26 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/05/24 12:14:09 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= minishell
+NAME			= Minishell
 
 SRC_SUBDIR		= core
 SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c
