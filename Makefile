@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/05/24 10:32:36 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/05/24 11:51:26 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC_SUBDIR		+= parser
 SRCS			+= parser.c parser_grammar.c
 
 SRC_SUBDIR      += tests
-SRCS            += env.c lexer_tests.c
+SRCS            += env.c lexer_tests.c parser_tests.c
 
 ###############################################################################
 #																			  #

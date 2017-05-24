@@ -6,9 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/04/25 10:22:02 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/05/24 11:44:25 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <core/init.h>
 
 extern char const	*g_optarg;
@@ -25,6 +26,8 @@ void sh_testing(const char *arg, char *const *av)
 		sh_testing_env();
 	if (ft_strequ(arg, "lexer"))
 		sh_testing_lexer(av);
+	if (ft_strequ(arg, "parser"))
+		sh_testing_parser(av);
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");

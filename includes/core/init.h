@@ -6,10 +6,12 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 13:30:01 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/24 11:46:14 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef INIT_H
+
+# ifndef INIT_H
+
 # define INIT_H
 # include <unistd.h>
 # include <libft.h>
@@ -23,6 +25,7 @@
 # include <core/data.h>
 # include <tests/test.h>
 # include <tests/lexer_tests.h>
+# include <tests/parser_tests.h>
 
 t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av);
 void			sh_deinit(t_sh_data *data);

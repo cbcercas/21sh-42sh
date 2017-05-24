@@ -43,6 +43,7 @@ set(SOURCE_FILES
         srcs/term/term_modes.c
         srcs/tests/lexer_tests.c
         srcs/tests/env.c
+        srcs/tests/parser_tests.c
         srcs/parser/parser.c
         srcs/parser/parser_grammar.c)
 
