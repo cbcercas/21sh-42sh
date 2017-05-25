@@ -173,7 +173,7 @@ do
 			exit 1;
 			;;
 		:)
-			echo "the option $OPTARG requiert a argument"
+			echo "the option $OPTARG requiert an argument"
 			exit 1
 			;;
 		\?)
