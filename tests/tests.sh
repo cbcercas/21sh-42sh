@@ -13,13 +13,13 @@ help()
 		echo "\t\t -h  \033[4mmodule\033[0m  display this message"
 		echo
 		echo "\t\033[1;m MODULE:\033[0m"
-		echo "\t\tparser or 'p'"
-		echo "\t\tlexer or 'l'"
-		echo "\t\tall or 'A' \033[3mAll module [In bats tests: + compile test]\033[0m"
+		echo "\t\t'parser' or 'p'"
+		echo "\t\t'lexer' or 'l'"
+		echo "\t\t'all' or 'A' \033[3mAll module [In bats tests: + compile test]\033[0m"
 		echo
-		echo "\t\033[1;m UTILISATION:\033[0m"
-		echo "\t\tYou should be in good directory: ../tests/"
+		echo "\t\033[1;m REQUIRED:\033[0m"
 		echo "\t\tyou should have all command: 'diff bash cd echo [bats]'"
+		echo "\t\texemple : .../test.sh -s parser"
 }
 
 check_path()
@@ -80,15 +80,21 @@ test_sh()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		sh tests_module/test_lexer.sh
+		sh "$path_of_file/"tests_module/test_lexer.sh
+		ret=`expr $ret + $?`
+		echo "###### END TESTING-LEXER ########"
 		echo "\n"
-		sh tests_module/test_parser.sh
+		sh "$path_of_file"/tests_module/test_parser.sh
+		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
-		sh tests_module/test_parser.sh
+		sh "$path_of_file/"tests_module/test_parser.sh
+		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "lexer" ] || [ $1 = "l" ]; then
-		sh tests_module/test_lexer.sh
+		sh "$path_of_file/"tests_module/test_lexer.sh
+		ret=`expr $ret + $?`
+		echo "###### END TESTING-LEXER ########"
 		return 0;
 	else
 		help
@@ -98,7 +104,7 @@ test_sh()
 
 test_sh_verif()
 {
-	if [ -f "../Minishell" ]
+	if [ -f "$path_of_file/../Minishell" ]
 		then
 		echo "\033[1;32m info: bin: Minishell find\033[0m"
 		else
@@ -124,14 +130,17 @@ test_bats()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats tests_bats/compile_test.bats
+		bats $path_of_file"/tests_bats/compile_test.bats"
+		ret=`expr $ret + $?`
 		echo "\n"
 		echo "lexer testing bats doesn't exist"
 		echo "\n"
-		bats tests_bats/parser.bats
+		bats $path_of_file"tests_bats/parser.bats"
+		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
-		bats tests_bats/parser.bats
+		bats $path_of_file"/tests_bats/parser.bats"
+		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "lexer" ] || [ $1 = "l" ]; then
 		echo "lexer testing bats doesn't exist"
@@ -145,7 +154,9 @@ test_bats()
 ################################################################################
 ################################################################################
 
-
+path_of_file=`dirname $0`
+ret=0
+#echo $path_of_file
 if [ $# = 0 ]; then
 	help
 	exit
@@ -158,14 +169,14 @@ do
 			echo "\n##################################"
 			echo "######## Tests mode: sh ##########"
 			echo "##################################"
-			check_path
+			#check_path
 			var_ret= test_sh $OPTARG
 			;;
 		b)
 			echo "\n##################################"
 			echo "######## Tests mode: bats ########"
 			echo "##################################"
-			check_path
+			#check_path
 			test_bats $OPTARG
 			;;
 		h)
@@ -182,4 +193,4 @@ do
 		;;
 	esac
 done
-exit 0
+exit $ret

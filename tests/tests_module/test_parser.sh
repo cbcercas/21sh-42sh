@@ -1,8 +1,11 @@
 #!/bin/sh
 
+path_of_file=`dirname $0`"/.."
+ret_parser=0
+
 testing_parser_file()
 {
-	local path="resources/parser/"
+	local path="$path_of_file/resources/parser/"
 	local file="test"$1
 	local output=$path'output/'$file".output"
 	local filetest=$path'tests/'$file".sh"
@@ -18,6 +21,7 @@ testing_parser_file()
 	if [ $? != 0 ]; then
 		echo "\n\033[1;4;41m  Test: "$1" ERROR              \033[0m \033[1;40m \n"
 		diff -U3 $output $expected
+		ret_parser=`expr $ret_parser + $?`
 		echo "\n\033[4;41m                              \033[0m"
 	else
 		echo "  \033[4;32mTest: "$1" Success\033[0m"
@@ -47,3 +51,4 @@ testing_parser()
 }
 
 testing_parser 19
+return $ret_parser
