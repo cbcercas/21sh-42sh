@@ -22,7 +22,7 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 		  (input->ts.ts_cols * input->offset_line);
 	if (input->str->len >= pos)
 	{
-		string_remove_char(input->str, pos);
+		string_remove_char(input->str, pos + 1);
 		tputs(tgetstr("dm", NULL), 0, &ft_putchar2);
 		tputs(tgetstr("dc", NULL), 0, &ft_putchar2);
 		tputs(tgetstr("de", NULL), 0, &ft_putchar2);
