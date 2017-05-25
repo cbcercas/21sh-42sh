@@ -13,7 +13,7 @@ help()
 		echo "\t\t -h  \033[4mmodule\033[0m  display this message"
 		echo
 		echo "\t\033[1;m MODULE:\033[0m"
-		echo "\t\tparser or 't'"
+		echo "\t\tparser or 'p'"
 		echo "\t\tlexer or 'l'"
 		echo "\t\tall or 'A' \033[3mAll module [In bats tests: + compile test]\033[0m"
 		echo
