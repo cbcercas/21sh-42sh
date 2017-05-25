@@ -48,4 +48,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input);
 BOOL	exec_arrow_up(const t_key *key, t_input *input);
 BOOL	exec_arrow_down(const t_key *key, t_input *input);
 
+void	redraw_line(t_input *input);
+void	tcaps_down(t_input *input);
+
 #endif

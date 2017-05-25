@@ -21,6 +21,7 @@ void reset_input(t_input *input)
 	//TODO add prompt len
 	input->offset_col = 3;
 	input->offset_line = 0;
-	input->cpos = get_cursor_pos();
+	input->cpos.cp_line = 0;
+	input->cpos.cp_col = (unsigned short)input->offset_col ;
 	input->ts = get_term_size();
 };
