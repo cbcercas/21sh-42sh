@@ -76,13 +76,13 @@ BUILD_DIR	= $(OBJS_DIR) $(DEPS_DIR)
 LIB_CBC_DIR := libcbc
 
 # libft:
-INC += -I $(LIB_CBC_DIR)/libft_cbc/includes
+INC += -I $(LIB_CBC_DIR)/libft/includes
 # ftprintf:
-INC += -I $(LIB_CBC_DIR)/libftprintfcbc/includes
+INC += -I $(LIB_CBC_DIR)/libftprintf/includes
 # logger:
-INC += -I $(LIB_CBC_DIR)/lib_logger_cbc/includes
+INC += -I $(LIB_CBC_DIR)/liblogger/includes
 # tcaps:
-INC += -I $(LIB_CBC_DIR)/lib_tcaps/includes
+INC += -I $(LIB_CBC_DIR)/libtcaps/includes
 
 LIBS += -L $(LIB_CBC_DIR) -lcbc
 
