@@ -2,9 +2,16 @@ language: c
 
 sudo: false # only for faster builds
 
+git:
+    submodules: false
+
 compiler:
   - clang
   - gcc
+
+before_install:
+    - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+    - git submodule update --init --recursive
 
 script:
   - make
