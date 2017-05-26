@@ -10,7 +10,7 @@ compiler:
   - gcc
 
 before_install:
-    - sed -i 's/https:\/\/github.com\//git@github.com:/'.gitmodules
+    - sed -i 's/https:\/\/github.com\//git@github.com:/' .gitmodules
     - git submodule update --init
     - cd libcbc && sed -i 's/https:\/\/github.com\//git@github.com:/' .gitmodules && git submodule update --init && cd ..
 
