@@ -10,8 +10,9 @@ compiler:
   - gcc
 
 before_install:
-    - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-    - git submodule update --init --recursive
+    - sed -i 's/https:\/\/github.com\//git@github.com:/'.gitmodules
+    - git submodule update --init
+    - cd libcbc && sed -i 's/https:\/\/github.com\//git@github.com:/' .gitmodules && git submodule update --init && cd ..
 
 script:
   - make
