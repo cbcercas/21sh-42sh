@@ -15,7 +15,7 @@
 # define INIT_H
 # include <unistd.h>
 # include <libft.h>
-# include <ft_printf/libftprintf.h>
+# include <ftprintf.h>
 # include <environ/env_list_utils.h>
 # include <environ/environ.h>
 # include <builtins/builtins_utils.h>

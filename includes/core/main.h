@@ -20,6 +20,6 @@
 # include <parser/parser.h>
 # include <core/tcaps.h>
 
-# define PROG_NAME "minishell"
+# define PROGNAME "minishell"
 
 #endif

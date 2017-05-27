@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/command.h>
+#include <builtins/builtins_utils.h>
 
 int	sh_command(t_sh_data *data, char **command)
 {
