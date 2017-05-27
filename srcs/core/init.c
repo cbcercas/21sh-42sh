@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/init.h>
-#include <test.h>
+#include <tests/test.h>
 #include <core/help.h>
 #include <unistd/ft_unistd.h>
 #include <environ/environ.h>

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <test.h>
+#include <tests/test.h>
 #include <ftprintf.h>
 #include <environ/environ.h>
 
