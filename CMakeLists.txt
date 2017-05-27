@@ -20,12 +20,18 @@ set(SOURCE_FILES
         srcs/core/prompt.c
         srcs/environ/env_list_utils.c
         srcs/environ/environ.c
+        srcs/environ/getter_env.c
         srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/term/term_modes.c
-        srcs/environ/getter_env.c
+        srcs/tests/lexer_tests.c
+        srcs/tests/env.c
+        srcs/tests/parser_tests.c
         srcs/parser/parser.c
+        srcs/parser/parser_grammar.c
+        srcs/signals/signals.c
+        srcs/signals/signals_handler.c
         srcs/tcaps/tcaps_exec_arrow.c
         srcs/tcaps/tcaps_exec_backspace.c
         srcs/tcaps/tcaps_exec_delete.c

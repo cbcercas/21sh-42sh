@@ -6,11 +6,12 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 11:00:06 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/24 11:44:25 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <core/init.h>
-#include <test.h>
+#include <tests/test.h>
 #include <core/help.h>
 #include <unistd/ft_unistd.h>
 #include <environ/environ.h>
@@ -25,10 +26,14 @@ static void		sh_data_free(t_sh_data *data)
 	return;
 }
 
-void	sh_testing(const char *arg)
+void sh_testing(const char *arg, char *const *av)
 {
 	if (ft_strequ(arg, "env"))
 		sh_testing_env();
+	if (ft_strequ(arg, "lexer"))
+		sh_testing_lexer(av);
+	if (ft_strequ(arg, "parser"))
+		sh_testing_parser(av);
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
@@ -55,7 +60,7 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 		else if (opt == 'h')
 			sh_help_exit();
 		else if (opt == 't')
-			sh_testing(g_optarg);
+			sh_testing(g_optarg, av);
 		else if (opt == '?')
 			sh_help_exit();
 	}

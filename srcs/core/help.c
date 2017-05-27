@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   help.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/04 07:14:37 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/24 11:59:09 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void sh_help(void)
 	ft_printf("\n\t\t\t\t7: debug level 3\n");
 	ft_printf("\t-t\t\ttesting mode:\n");
 	ft_printf("\t\t\t\tenv: test env module\n");
+	ft_printf("\t\t\t      lexer: test lexer module\n");
+	ft_printf("\t\t\t     parser: test lexer module\n");
 }
 
 void sh_help_exit(void)

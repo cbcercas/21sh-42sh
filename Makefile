@@ -10,10 +10,11 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= minishell
+NAME			= Minishell
 
 SRC_SUBDIR		= core
-SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c
+SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c \
+					input_utils.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c
@@ -30,8 +31,14 @@ SRCS            += parser.c
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
 
+SRC_SUBDIR		+= signals
+SRCS			+= signals.c signals_handler.c
+
+SRC_SUBDIR		+= parser
+SRCS			+= parser.c parser_grammar.c
+
 SRC_SUBDIR      += tests
-SRCS            += env.c
+SRCS            += env.c lexer_tests.c parser_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c
@@ -39,7 +46,7 @@ SRCS            += term_modes.c
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
                     tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
-                    tcaps_key_exec.c
+                    tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c
 
 ###############################################################################
 #																			  #
@@ -48,7 +55,7 @@ SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
 ###############################################################################
 #  Compiler
 CC			= clang
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -g -Wall -Wextra -Werror
 
 ifeq ($(DEV),yes)
 	CFLAGS		+= -std=c11 -pedantic -pedantic-errors

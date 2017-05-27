@@ -9,9 +9,11 @@
 /*   Updated: 2017/05/17 18:44:57 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <test.h>
+
+#include <tests/test.h>
 #include <ftprintf.h>
 #include <environ/environ.h>
+
 void sh_testing_env(void)
 {
 	t_array	*envs;

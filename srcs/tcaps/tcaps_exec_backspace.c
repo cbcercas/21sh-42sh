@@ -15,7 +15,15 @@
 BOOL	exec_backspace(const t_key *key, t_input *input)
 {
 	(void)key;
-	write(1, "User pressed backspace\n", 22);
-	exec_ctrl_c(key, input);
+
+	log_dbg3("User pressed backspace");
+	if (input->offset_line || input->cpos.cp_col > (unsigned short)input->offset_col)
+	{
+		exec_arrow_left(key, input);
+		exec_delete(key, input);
+	}
+	else
+		write(1, "\a", 1);
+	//TODO change to termcaps
 	return (false);
 }

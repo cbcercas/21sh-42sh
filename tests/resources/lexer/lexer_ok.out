@@ -1,0 +1,392 @@
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for NULL ******]
+
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for ' ' *******]
+
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'l' *******]
+
+<l> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls' ******]
+
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[** Testing for '    ls    ' **]
+
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[** Testing for '        ls' **]
+
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[** Testing for 'ls        ' **]
+
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls -l' ***]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-l> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[**** Testing for '    ls -l' *]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-l> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[**** Testing for 'ls -l    ' *]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-l> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls-l' *******]
+
+<ls-l> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls - l' **]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<l> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[ Testing for 'ls -l | cat -e' ]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-l> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<|> = TOKEN_TYPE_PIPE
+< > = TOKEN_TYPE_BLANK
+<cat> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-e> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[* Testing for 'ls -l|cat -e' *]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-l> = TOKEN_TYPE_WORD
+<|> = TOKEN_TYPE_PIPE
+<cat> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-e> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[* Testing for 'ls -l| cat -e' ]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-l> = TOKEN_TYPE_WORD
+<|> = TOKEN_TYPE_PIPE
+< > = TOKEN_TYPE_BLANK
+<cat> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-e> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[* Testing for 'ls -l |cat -e' ]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-l> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<|> = TOKEN_TYPE_PIPE
+<cat> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<-e> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls ; ls' *]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<;> = TOKEN_TYPE_SEMI
+< > = TOKEN_TYPE_BLANK
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls;ls' ***]
+
+<ls> = TOKEN_TYPE_WORD
+<;> = TOKEN_TYPE_SEMI
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls ;ls' **]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<;> = TOKEN_TYPE_SEMI
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls; ls' **]
+
+<ls> = TOKEN_TYPE_WORD
+<;> = TOKEN_TYPE_SEMI
+< > = TOKEN_TYPE_BLANK
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[***** Testing for 'ls || ls' *]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<||> = TOKEN_TYPE_OR_IF
+< > = TOKEN_TYPE_BLANK
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls||ls' **]
+
+<ls> = TOKEN_TYPE_WORD
+<||> = TOKEN_TYPE_OR_IF
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls ||ls' *]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<||> = TOKEN_TYPE_OR_IF
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls|| ls' *]
+
+<ls> = TOKEN_TYPE_WORD
+<||> = TOKEN_TYPE_OR_IF
+< > = TOKEN_TYPE_BLANK
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[*** Testing for 'ls && ls' ***]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<&&> = TOKEN_TYPE_AND_IF
+< > = TOKEN_TYPE_BLANK
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls&&ls' **]
+
+<ls> = TOKEN_TYPE_WORD
+<&&> = TOKEN_TYPE_AND_IF
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls &&ls' *]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<&&> = TOKEN_TYPE_AND_IF
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls&& ls' *]
+
+<ls> = TOKEN_TYPE_WORD
+<&&> = TOKEN_TYPE_AND_IF
+< > = TOKEN_TYPE_BLANK
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls & ls' *]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<&> = TOKEN_TYPE_AND
+< > = TOKEN_TYPE_BLANK
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls&ls' ***]
+
+<ls> = TOKEN_TYPE_WORD
+<&> = TOKEN_TYPE_AND
+< > = TOKEN_TYPE_BLANK
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+
+[******************************]
+[**** Testing lexer module ****]
+[****** Testing for 'ls &ls' **]
+
+<ls> = TOKEN_TYPE_WORD
+< > = TOKEN_TYPE_BLANK
+<&> = TOKEN_TYPE_AND
+<ls> = TOKEN_TYPE_WORD
+
+[******* End of testing *******]
+
+
+

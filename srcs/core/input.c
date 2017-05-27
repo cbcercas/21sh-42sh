@@ -6,11 +6,12 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/07 11:48:08 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 23:04:31 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/input.h>
 #include <core/tcaps.h>
+#include <sys/ioctl.h>
 
 BOOL remove_escaped_newline(char **input)
 {
@@ -34,7 +35,6 @@ char	*sh_get_line_old(void)
 {
 	char	*line;
 	char	*input;
-
 	input = NULL;
 	(void)get_next_line(0, &line);
 	input = ft_strjoincl(input, line, 3);
@@ -50,16 +50,39 @@ char	*sh_get_line_old(void)
 	return (NULL);
 }
 
-static void reset_input(t_input *input)
+void	tcaps_down(t_input *input)
 {
-	if (input->str)
-		string_reset(input->str);
+	// Descend une ligne
+	tputs(tgetstr("do", NULL), 1, ft_putchar2);
+	input->offset_line += 1;
+	input->cpos.cp_line += 1;
+	// goto debut ligne
+	tputs(tgetstr("cr", NULL), 1, ft_putchar2);
+	input->cpos.cp_col = 0;
+}
+
+static void	tcaps_insert_char(char *c)
+{
+	tputs(tgetstr("im", NULL), 0, &ft_putchar2);
+	tputs(c, 1, &ft_putchar2);
+	tputs(tgetstr("ie", NULL), 0, &ft_putchar2);
+}
+
+static void	draw_char(t_input *input, char *c)
+{
+	// si je suis au milieu de la string j'insert le char sinon je le write
+	if (input->str->len > (((((input->ts.ts_cols * input->offset_line) - input->offset_col)
+		+ (input->cpos.cp_col - 1 + input->offset_line )))))
+		tcaps_insert_char(c);
 	else
-		input->str = string_create();
-	//TODO add prompt len
-	input->offset = 3;
-	input->cpos = get_cursor_pos();
-};
+		tputs(c, 1, &ft_putchar2);
+	input->cpos.cp_col += 1;
+	if (input->cpos.cp_col >= input->ts.ts_cols)
+		tcaps_down(input);
+	// si je suis au milieu de la string je la redraw
+	if (input->str->len > ((((input->ts.ts_cols * input->offset_line) + input->cpos.cp_col) - input->offset_col)))
+		redraw_line(input);
+}
 
 char	*sh_get_line(void)
 {
@@ -67,8 +90,7 @@ char	*sh_get_line(void)
 	ssize_t		res;
 	t_key		key;
 	BOOL		stop;
-	static t_input		input;
-	char *ret;
+	static t_input	input;
 
 	ft_bzero(&input, sizeof(input));
 	stop = false;
@@ -82,18 +104,16 @@ char	*sh_get_line(void)
 		key = key_get(buff);
 		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
 			stop = key_exec(&key, &input);
-		else if (ft_isprint(key.key[0]))
+		else
 		{
-			string_insert(input.str, key.key, input.cpos.cp_col - input.offset - 1);
-			// insert mode
-			tputs(tgetstr("im", NULL), 0, &ft_putchar2);
-			ft_putchar(key.key[0]);
-			tputs(tgetstr("ie", NULL), 0, &ft_putchar2);
-			input.cpos.cp_col += 1;
+			if (!string_insert(input.str, key.key,
+		(((((input.ts.ts_cols * input.offset_line - (input.offset_line ? 1 : 0)) - input.offset_col )
+				+ (input.cpos.cp_col + input.offset_line))))))
+				return (NULL);
+			draw_char(&input, key.key);
 		}
 		key_del(&key);
 	}
 	default_terminal_mode();
-	ret = ft_strdup(input.str->s);
-	return (ret);
+	return (input.str->len > 0 ? ft_strdup(input.str->s) : NULL);
 }
