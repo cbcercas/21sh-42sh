@@ -135,7 +135,7 @@ test_bats()
 		echo "\n"
 		echo "lexer testing bats doesn't exist"
 		echo "\n"
-		bats $path_of_file"tests_bats/parser.bats"
+		bats $path_of_file"/tests_bats/parser.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
