@@ -17,6 +17,7 @@
 # include <libtcaps.h>
 # include <types/bool.h>
 # include <core/input.h>
+# include <logger.h>
 
 typedef struct	s_key_exec
 {
@@ -38,6 +39,7 @@ BOOL	exec_ctrl_l(const t_key *key, t_input *input);
 BOOL	exec_ctrl_j(const t_key *key, t_input *input);
 
 BOOL	exec_backspace(const t_key *key, t_input *input);
+BOOL	exec_delete(const t_key *key, t_input *input);
 
 BOOL	exec_tab(const t_key *key, t_input *input);
 
@@ -45,5 +47,8 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input);
 BOOL	exec_arrow_left(const t_key *key, t_input *input);
 BOOL	exec_arrow_up(const t_key *key, t_input *input);
 BOOL	exec_arrow_down(const t_key *key, t_input *input);
+
+void	redraw_line(t_input *input);
+void	tcaps_down(t_input *input);
 
 #endif

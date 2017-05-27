@@ -13,7 +13,8 @@
 NAME			= Minishell
 
 SRC_SUBDIR		= core
-SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c
+SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c \
+					input_utils.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c
@@ -42,7 +43,7 @@ SRCS            += term_modes.c
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
                     tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
-                    tcaps_key_exec.c
+                    tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c
 
 ###############################################################################
 #																			  #

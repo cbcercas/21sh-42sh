@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/28 04:55:45 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 22:24:22 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef INPUT_H
@@ -20,7 +20,9 @@ typedef struct s_input	t_input;
 struct	s_input
 {
 	t_string	*str;
-	size_t		offset;
+	size_t		offset_col;
+	size_t		offset_line;
+	t_ts		ts;
 	t_cpos		cpos;
 };
 
@@ -31,5 +33,6 @@ struct	s_input
 */
 char	*sh_get_line(void);
 char	*sh_get_line2(void);
+void	reset_input(t_input *input);
 
 #endif

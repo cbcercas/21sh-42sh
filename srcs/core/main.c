@@ -23,7 +23,6 @@ int main(int ac, char *const *av)
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
 	ft_printf("%s",tmp);*/
-	ft_putstr("\033[?1049h\033[H");
 	if (!sh_init(&data, ac, av))
 		exit(1);
 	if (lexer_init(&tokens) == NULL)
@@ -41,9 +40,9 @@ int main(int ac, char *const *av)
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
 		// 		stop = true;
-		if (ft_strequ(input, "exit"))
+		if (input && ft_strequ(input, "exit"))
 			stop = false;
-		ft_strdel(&input);
+		input ? ft_strdel(&input) : 0;
 		array_reset(&tokens);
 		automaton_reset(&automaton);
 	}
