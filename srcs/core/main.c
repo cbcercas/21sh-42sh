@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 #include <core/main.h>
 
-t_array	*parser_parse(t_array *tokens);
-
 int main(int ac, char *const *av)
 {
 
