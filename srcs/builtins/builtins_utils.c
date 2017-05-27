@@ -11,70 +11,92 @@
 /* ************************************************************************** */
 #include <builtins/builtins_utils.h>
 
-static t_builtin_e	*sh_new_builtin(char *name, t_builtin fn)
+t_array				*get_builtins(void)
 {
-	t_builtin_e	*e;
+	static t_array	*e = NULL;
+
+	if (e == NULL)
+	{
+		if ((e = array_create(sizeof(t_env))) == NULL)
+		{
+			log_fatal("Builtins: Can't initialise builtins array");
+			ft_dprintf(STDERR_FILENO, "Builtins: Can't initialize Builtins");
+			exit(1);
+		}
+	}
+	return (e);
+}
+
+static t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
+{
+	t_builtin	*e;
 
 	if (!(e = ft_memalloc(sizeof(*e))))
 	{
-		ft_printf("minishell: Builtin initialisation fail!\n");
+		ft_dprintf(2, "minishell: Builtin creation fail!\n");
 		return (NULL);
 	}
 	(void)name;
 	e->name = strdup(name);
 	e->len = ft_strlen(name);
 	e->fn = fn;
-	e->next = NULL;
 	return (e);
 }
 
-static t_builtin_e	*ms_add_builtin(t_builtin_e	**head, char *name, t_builtin fn)
+static t_array	*ms_add_builtin(char *name, t_builtin_fn fn)
 {
-	t_builtin_e	*e;
+	t_array		*builtins;
+	t_builtin	*builtin;
 
-	if (*head)
-	{
-		e = *head;
-		while (e->next)
-			e = e->next;
-		if (!(e->next = sh_new_builtin(name, fn)))
-			// TODO free head
-			*head = NULL;
-	}
-	else
-		*head = sh_new_builtin(name, fn);
-	return (*head);
+	builtins = get_builtins();
+	builtin = sh_new_builtin(name, fn);
+	array_push(builtins, (void *) builtin);
+	ft_memdel((void **) &builtin);
+	return (builtins);
 }
 
 
-t_builtin_e			*sh_builtins_init(void)
+t_array			*sh_builtins_init(void)
 {
-	t_builtin_e	*head;
+	t_array	*builtins;
 
-	head = NULL;
-	if (!(head = ms_add_builtin(&head, "exit", sh_exit)))
-		return (head);
-	if (!(head = ms_add_builtin(&head, "echo", sh_echo)))
-		return (head);
-	if (!(head = ms_add_builtin(&head, "cd", sh_chdir)))
-		return (head);
-	if (!(head = ms_add_builtin(&head, "chdir", sh_chdir)))
-		return (head);
-	return (head);
+	builtins = get_builtins();
+	if (!ms_add_builtin("exit", sh_exit))
+		return (NULL);
+	if (!ms_add_builtin("echo", sh_echo))
+		return (NULL);
+	if (!ms_add_builtin("cd", sh_chdir))
+		return (NULL);
+	if (!ms_add_builtin("chdir", sh_chdir))
+		return (NULL);
+	return (builtins);
 }
 
-t_builtin_e *sh_is_builtin(t_builtin_e *head, char *name)
-{
-	t_builtin_e	*e;
 
-	e = head;
-	while (e)
+t_builtin	*get_builtin(char *name)
+{
+	t_array		*builtins;
+	t_builtin	*builtin;
+	size_t		cnt;
+
+	cnt = 0;
+	builtins = get_builtins();
+
+	while (cnt < builtins->used)
 	{
-		if (!ft_strncmp(name, e->name, e->len))
-			return (e);
-		e = e->next;
+		builtin = array_get_at(builtins, cnt);
+		if (builtin && ft_strequ(name, builtin->name))
+			return (builtin);
+		cnt += 1;
 	}
 	return (NULL);
+}
+
+t_bool sh_is_builtin(char *name)
+{
+	if (get_builtin(name))
+		return (true);
+	return (false);
 }
 
 static char	*sh_find_quote_end(char *arg)

@@ -6,10 +6,11 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/31 14:55:07 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/05/07 11:48:08 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/input.h>
+#include <core/tcaps.h>
 
 BOOL remove_escaped_newline(char **input)
 {
@@ -25,11 +26,11 @@ BOOL remove_escaped_newline(char **input)
 }
 
 /**
- ** @brief      Read the input on standard entry
- **
- ** @return     A pointer to the input string
- */
-char	*sh_get_line(void)
+** @brief      Read the input on standard entry
+**
+** @return     A pointer to the input string
+*/
+char	*sh_get_line_old(void)
 {
 	char	*line;
 	char	*input;
@@ -46,4 +47,52 @@ char	*sh_get_line(void)
 		return (input);
 	ft_strdel(&input);
 	return (NULL);
+}
+
+static void reset_input(t_input *input)
+{
+	if (input->str)
+		string_reset(input->str);
+	else
+		input->str = string_create();
+	//TODO add prompt len
+	input->offset = 3;
+	input->cpos = get_cursor_pos();
+};
+
+char	*sh_get_line(void)
+{
+	char		buff[MAX_KEY_STRING_LEN];
+	ssize_t		res;
+	t_key		key;
+	BOOL		stop;
+	static t_input		input;
+	char *ret;
+
+	ft_bzero(&input, sizeof(input));
+	stop = false;
+	raw_terminal_mode();
+	reset_input(&input);
+	while (stop == false)
+	{
+		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
+		res = read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN);
+		buff[res] = '\0';
+		key = key_get(buff);
+		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
+			stop = key_exec(&key, &input);
+		else if (ft_isprint(key.key[0]))
+		{
+			string_insert(input.str, key.key, input.cpos.cp_col - input.offset - 1);
+			// insert mode
+			tputs(tgetstr("im", NULL), 0, &ft_putchar2);
+			ft_putchar(key.key[0]);
+			tputs(tgetstr("ie", NULL), 0, &ft_putchar2);
+			input.cpos.cp_col += 1;
+		}
+		key_del(&key);
+	}
+	default_terminal_mode();
+	ret = ft_strdup(input.str->s);
+	return (ret);
 }

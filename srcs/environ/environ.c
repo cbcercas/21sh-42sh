@@ -51,7 +51,6 @@ char	**sh_tenv_to_tab(void)
 {
 	t_array	*envs;
 	t_env	*env;
-	int		cnt;
 	char	**env_tab;
 	size_t	i;
 
@@ -61,7 +60,7 @@ char	**sh_tenv_to_tab(void)
 	while ((env = (t_env *)array_get_at(envs, i)) != NULL)
 	{
 		env_tab[i] = ft_strjoin(env->name, "=");
-		env_tab[i] = ft_strjoincl(env_tab[cnt], env->value, 1);
+		env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1);
 		i++;
 	}
 	env_tab[i] = NULL;

@@ -21,6 +21,6 @@
 # include <core/tcaps.h>
 # include <signals/signals.h>
 
-# define PROG_NAME "minishell"
+# define PROGNAME "minishell"
 
 #endif

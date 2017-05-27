@@ -10,12 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/init.h>
+#include <test.h>
+#include <core/help.h>
+#include <unistd/ft_unistd.h>
+#include <environ/environ.h>
+#include <builtins/builtins_utils.h>
 
 extern char const	*g_optarg;
 
 static void		sh_data_free(t_sh_data *data)
 {
 	//TODO free envs
+	(void)data;
 	return;
 }
 
@@ -41,10 +47,10 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 			opts->verbose = 1;
 		else if (opt == 'd')
 			if (ft_atoi(g_optarg) >= 0 && ft_atoi(g_optarg) <= 7)
-				logger_init(ft_atoi(g_optarg), PROG_NAME, "sh.log");
+				logger_init(ft_atoi(g_optarg), PROGNAME, "sh.log");
 			else
 			{
-				ft_printf("%s: Invalid debug level.\n", PROG_NAME);
+				ft_printf("%s: Invalid debug level.\n", PROGNAME);
 				sh_help_exit();
 			}
 		else if (opt == 'h')
@@ -60,17 +66,21 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 {
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av);
-	//sh_init_environ();
-	data->builtins = sh_builtins_init();
-	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)))
-		if (!(sh_getenv("TERM"))
-						|| ft_strequ(sh_getenv("TERM")->value, ""))
-			sh_setenv("TERM", "dumb");
-	if (!data->cwd)
+	sh_init_environ();
+	sh_builtins_init();
+	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
-		ft_printf("minishell: error when initialising main data\n");
+		ft_printf("minishell: Error when getting current working directory\n");
 		sh_data_free(data);
-		return (NULL);
+		exit (1);;
+	}
+	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
+			sh_setenv("TERM", "dumb");
+	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
+	{
+		ft_printf("minishell: Error on tgetent\n");
+		sh_data_free(data);
+		exit (1);
 	}
 	//raw_terminal_mode();
 	return (data);
