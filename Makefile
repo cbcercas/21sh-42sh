@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/05/17 22:25:48 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/05/24 16:26:26 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,13 +77,13 @@ BUILD_DIR	= $(OBJS_DIR) $(DEPS_DIR)
 LIB_CBC_DIR := libcbc
 
 # libft:
-INC += -I $(LIB_CBC_DIR)/libft_cbc/includes
+INC += -I $(LIB_CBC_DIR)/libft/includes
 # ftprintf:
-INC += -I $(LIB_CBC_DIR)/libftprintfcbc/includes
+INC += -I $(LIB_CBC_DIR)/libftprintf/includes
 # logger:
-INC += -I $(LIB_CBC_DIR)/lib_logger_cbc/includes
+INC += -I $(LIB_CBC_DIR)/liblogger/includes
 # tcaps:
-INC += -I $(LIB_CBC_DIR)/lib_tcaps/includes
+INC += -I $(LIB_CBC_DIR)/libtcaps/includes
 
 LIBS += -L $(LIB_CBC_DIR) -lcbc
 
@@ -125,7 +125,7 @@ $(BUILD_DIR):
 	@$(MKDIR) -p $@
 
 lib:
-	make -C $(LIB_CBC_DIR) WITH_LIBFT=yes WITH_FTPRINTF=yes WITH_LOGGER=yes WITH_TCAPS=yes
+	make -C $(LIB_CBC_DIR)
 #	@make -C $(LIBFT_DIR)
 #	@make -C $(LIBTCAPS_DIR)
 re: clean fclean all
