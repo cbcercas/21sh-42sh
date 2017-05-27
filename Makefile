@@ -27,6 +27,9 @@ SRCS			+= lexer_init.c lexer.c lexer_clean.c
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
 
+SRC_SUBDIR		+= signals
+SRCS			+= signals.c signals_handler.c
+
 SRC_SUBDIR		+= parser
 SRCS			+= parser.c parser_grammar.c
 

@@ -6,7 +6,7 @@
 #define MINISHELL_PARSER_GRAMMAR_H
 
 # include <lexer/lexer.h>
-# include <logger/logger.h>
+# include <logger.h>
 
 #define __FILENAME__ (ft_strrchr(__FILE__, '/') ? ft_strrchr(__FILE__, '/') + 1 : __FILE__)
 

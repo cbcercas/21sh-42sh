@@ -14,7 +14,7 @@
 # define PARSER_H
 
 # include <lexer/lexer.h>
-# include <logger/logger.h>
+# include <logger.h>
 # include <parser/parser_grammar.h>
 
 t_bool	parser_parse(t_array *tokens);

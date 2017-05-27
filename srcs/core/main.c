@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/04/25 10:21:45 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/05/23 20:25:04 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/main.h>
@@ -36,11 +36,11 @@ int main(int ac, char *const *av)
 		sh_print_prompt();
 		input = sh_get_line();
 		if (lexer_lex(&tokens, &automaton, input))
-			parser_parse(&tokens);
-		//lexer_print_tokens(&tokens);
+			if (parser_parse(&tokens))
+				ft_printf("exec\n");
 		// if ((command = ft_strsplit(input, ';')))
-		// 		// 	if (sh_command(data, command))
-		// 				// 		stop = true;
+		// 	if (sh_command(data, command))
+		// 		stop = true;
 		if (ft_strequ(input, "exit"))
 			stop = false;
 		ft_strdel(&input);

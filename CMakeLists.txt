@@ -29,8 +29,9 @@ set(SOURCE_FILES
         srcs/tests/env.c
         srcs/tests/parser_tests.c
         srcs/parser/parser.c
-        srcs/parser/parser_grammar.c)
-        srcs/environ/getter_env.c
+        srcs/parser/parser_grammar.c
+        srcs/signals/signals.c
+        srcs/signals/signals_handler.c
         srcs/tcaps/tcaps_exec_arrow.c
         srcs/tcaps/tcaps_exec_backspace.c
         srcs/tcaps/tcaps_exec_delete.c

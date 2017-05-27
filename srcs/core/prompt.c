@@ -13,7 +13,5 @@
 
 void	sh_print_prompt(void)
 {
-	char 	cwd[1024];
-	getcwd(cwd, sizeof(cwd));
-	ft_printf("\033[0;92mUSER\033[0;35m@\033[0;93m%s \033[0;92m$>\033[0m", cwd);
+	ft_printf("$> ");
 }
