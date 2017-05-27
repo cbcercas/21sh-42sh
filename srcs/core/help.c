@@ -14,7 +14,7 @@
 
 void sh_help(void)
 {
-	ft_printf("Usage:\t./%s [option] ...\n", PROG_NAME);
+	ft_printf("Usage:\t./%s [option] ...\n", PROGNAME);
 	ft_printf("Shell options:\n");
 	ft_printf("\t-v\t\tverbose\n");
 	ft_printf("\t-d [0-7]\tdebug mode (need debug level):\n");

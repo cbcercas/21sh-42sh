@@ -1,26 +1,10 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.0)
 project(Minishell)
 
 set(CMAKE_CXX_STANDARD 11)
-set (CMAKE_C_FLAGS "-Wall -Werror -Wextra")
+set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
 
 set(SOURCE_FILES
-        includes/automaton/automaton.h
-        includes/builtins/builtins_utils.h
-        includes/builtins/chdir.h
-        includes/builtins/echo.h
-        includes/builtins/exit.h
-        includes/core/check_path.h
-        includes/core/command.h
-        includes/core/data.h
-        includes/core/init.h
-        includes/core/input.h
-        includes/core/main.h
-        includes/core/help.h
-        includes/core/prompt.h
-        includes/environ/env_list_utils.h
-        includes/environ/environ.h
-        includes/lexer/lexer.h
         srcs/automaton/automaton.c
         srcs/builtins/builtins_utils.c
         srcs/builtins/chdir.c
@@ -30,6 +14,7 @@ set(SOURCE_FILES
         srcs/core/command.c
         srcs/core/init.c
         srcs/core/input.c
+        srcs/core/input_utils.c
         srcs/core/main.c
         srcs/core/help.c
         srcs/core/prompt.c
@@ -41,18 +26,23 @@ set(SOURCE_FILES
         srcs/term/term_modes.c
         srcs/environ/getter_env.c
         srcs/parser/parser.c
+        srcs/tcaps/tcaps_exec_arrow.c
+        srcs/tcaps/tcaps_exec_backspace.c
+        srcs/tcaps/tcaps_exec_delete.c
+        srcs/tcaps/tcaps_exec_ctrl_1.c
+        srcs/tcaps/tcaps_exec_ctrl_2.c
+        srcs/tcaps/tcaps_exec_tab.c
+        srcs/tcaps/tcaps_key_exec.c
+        srcs/tcaps/tcaps_redraw_line.c
+        srcs/tests/env.c
         )
 
 include_directories(includes)
 
-#Libft
-add_subdirectory(lib/libft)
-include_directories(lib/libft/includes)
-
-#Libtcaps
-add_subdirectory(lib/libtcaps)
-include_directories(lib/libtcaps/includes)
+#Libcbc
+add_subdirectory(libcbc)
+include_directories(libcbc/libft_cbc/includes libcbc/libftprintfcbc/includes libcbc/lib_logger_cbc/includes libcbc/lib_tcaps/includes)
 
 add_executable(Minishell ${SOURCE_FILES})
 
-target_link_libraries(Minishell ft tcaps curses)
+target_link_libraries(Minishell cbc curses)

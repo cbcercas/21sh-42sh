@@ -6,14 +6,14 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:27:49 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/24 16:39:51 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/17 16:49:24 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef ENV_LIST_UTILS_H
 # define ENV_LIST_UTILS_H
 # include <libft.h>
-# include <logger/logger.h>
-# include <ft_printf/libftprintf.h>
+# include <logger.h>
+# include <ftprintf.h>
 
 typedef struct	s_env
 {
