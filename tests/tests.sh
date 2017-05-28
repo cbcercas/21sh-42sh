@@ -167,12 +167,40 @@ test_bats()
 ################################################################################
 ################################################################################
 
+
+################################################################################
+#                              TRAVIS FUNCTION                                 #
+################################################################################
+
+tests_travis()
+{
+	if [ -z ${TRAVIS_BRANCH} ]; then
+		echo "\n[var \$TRAVIS_BRANCH not found]\n"
+		echo "../test.sh -h : for display help\n"
+		exit 1;
+	fi
+	if [ ${TRAVIS_BRANCH} = "lexer" ]; then
+		test_bats 'lexer'
+	elif [ ${TRAVIS_BRANCH} = "parser" ]; then
+		test_bats 'parser'
+	elif [ ${TRAVIS_BRANCH} = "master" ]; then
+		test_bats 'A'
+	else
+		echo "Tests doesn't exist for branch: ${TRAVIS_BRANCH}"
+		echo "Create an issue to ask new tests for this branch"
+		exit 1;
+	fi
+}
+
+################################################################################
+################################################################################
+
+
 path_of_file=`dirname $0`
 ret=0
-#echo $path_of_file
+
 if [ $# = 0 ]; then
-	help
-	exit
+	tests_travis
 fi
 
 while getopts ":s:b:h" option
