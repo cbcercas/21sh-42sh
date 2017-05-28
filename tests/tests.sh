@@ -143,12 +143,7 @@ test_bats()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/compile_test.bats"
-		ret=`expr $ret + $?`
-		echo "\n"
-		echo "lexer testing bats doesn't exist"
-		echo "\n"
-		bats $path_of_file"/tests_bats/parser.bats"
+		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -156,7 +151,7 @@ test_bats()
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "lexer" ] || [ $1 = "l" ]; then
-		echo "lexer testing bats doesn't exist"
+		bats $path_of_file"/tests_bats/lexer.bats"
 		return 0;
 	else
 		help
