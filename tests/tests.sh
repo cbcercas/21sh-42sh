@@ -123,9 +123,22 @@ test_sh_verif()
 ################################################################################
 #                              BATS FUNCTION                                   #
 ################################################################################
+test_bats_verif()
+{
+	if [ -f "$path_of_file/../Minishell" ]
+		then
+		echo "\033[1;32m info: bin: Minishell find\033[0m"
+		else
+		echo "\033[1;31m bin: Minishell doesn't exist \033[0m"
+		echo "don't forget command 'make'"
+		exit 1;
+	fi
+	test_verif_command "bats echo sh bash"
+}
+
 test_bats()
 {
-	test_verif_command "bats echo sh bash"
+	test_bats_verif
 	if [ $# != 1 ]; then
 		help
 		exit 2;
