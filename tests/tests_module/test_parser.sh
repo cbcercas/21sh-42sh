@@ -60,4 +60,4 @@ testing_parser()
 }
 
 testing_parser 19
-return $ret_parser
+#return $ret_parser
