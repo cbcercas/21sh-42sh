@@ -1,7 +1,16 @@
 #!/bin/sh
 
+################################################################################
+#                              VARIABLES DECLARATION                           #
+################################################################################
+
 path_of_file=`dirname $0`"/.."
 ret_parser=0
+name_of_exec=$1
+
+################################################################################
+################################################################################
+
 
 testing_parser_file()
 {
@@ -15,7 +24,7 @@ testing_parser_file()
 	else
 		local expected=$path'expected/'$file".expected"
 	fi
-	sh $filetest > $output
+	sh $filetest $name_of_exec > $output
 	diff -U3 $output $expected > /dev/null 2>&1
 
 	if [ $? != 0 ]; then

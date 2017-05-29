@@ -84,11 +84,11 @@ test_sh()
 		ret=`expr $ret + $?`
 		echo "###### END TESTING-LEXER ########"
 		echo "\n"
-		sh "$path_of_file"/tests_module/test_parser.sh
+		sh "$path_of_file"/tests_module/test_parser.sh $name_of_exec
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
-		sh "$path_of_file/"tests_module/test_parser.sh
+		sh "$path_of_file/"tests_module/test_parser.sh $name_of_exec
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "lexer" ] || [ $1 = "l" ]; then
@@ -193,6 +193,7 @@ tests_travis()
 
 path_of_file=`dirname $0`
 ret=0
+name_of_exec="21sh"
 
 if [ $# = 0 ]; then
 	tests_travis
