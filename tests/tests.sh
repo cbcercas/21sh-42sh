@@ -80,7 +80,7 @@ test_sh()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		sh "$path_of_file/"tests_module/test_lexer.sh
+		sh "$path_of_file/"tests_module/test_lexer.sh $name_of_exec
 		ret=`expr $ret + $?`
 		echo "###### END TESTING-LEXER ########"
 		echo "\n"
@@ -92,7 +92,7 @@ test_sh()
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "lexer" ] || [ $1 = "l" ]; then
-		sh "$path_of_file/"tests_module/test_lexer.sh
+		sh "$path_of_file/"tests_module/test_lexer.sh $name_of_exec
 		ret=`expr $ret + $?`
 		echo "###### END TESTING-LEXER ########"
 		return 0;
