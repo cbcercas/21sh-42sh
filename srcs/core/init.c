@@ -74,7 +74,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 	sh_builtins_init();
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
-		ft_printf("minishell: Error when getting current working directory\n");
+		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
 		sh_data_free(data);
 		exit (1);;
 	}
@@ -82,7 +82,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 			sh_setenv("TERM", "dumb");
 	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
 	{
-		ft_printf("minishell: Error on tgetent\n");
+		ft_printf("%s: Error on tgetent\n", PROGNAME);
 		sh_data_free(data);
 		exit (1);
 	}

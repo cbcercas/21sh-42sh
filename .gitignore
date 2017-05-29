@@ -28,8 +28,7 @@
 *.i*86
 *.x86_64
 *.hex
-minishell
-Minishell
+21sh
 
 # Debug files
 *.dSYM/

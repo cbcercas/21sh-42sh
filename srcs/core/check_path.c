@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include <core/check_path.h>
+#include <core/main.h>
 
 char		*makefilepath(char const *path, char const *filename)
 {
@@ -71,8 +72,8 @@ char	*sh_check_path(char const *cmd_name)
 		env_path++;
 	}
 	if (ret == -1)
-		ft_printf("minishell: permission denied: %s\n", cmd_name);
+		ft_printf("%s: permission denied: %s\n", PROGNAME, cmd_name);
 	else if (ret == 0)
-		ft_printf("minishell: command not found: %s\n", cmd_name);
+		ft_printf("%s: command not found: %s\n", PROGNAME, cmd_name);
 	return (NULL);
 }

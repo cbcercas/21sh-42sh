@@ -33,7 +33,7 @@ static t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 
 	if (!(e = ft_memalloc(sizeof(*e))))
 	{
-		ft_dprintf(2, "minishell: Builtin creation fail!\n");
+		ft_dprintf(2, "%s: Builtin creation fail!\n", PROGNAME);
 		return (NULL);
 	}
 	(void)name;
