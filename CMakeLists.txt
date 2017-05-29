@@ -47,7 +47,7 @@ include_directories(includes)
 
 #Libcbc
 add_subdirectory(libcbc)
-include_directories(libcbc/libft_cbc/includes libcbc/libftprintfcbc/includes libcbc/lib_logger_cbc/includes libcbc/lib_tcaps/includes)
+include_directories(libcbc/libft/includes libcbc/libftprintf/includes libcbc/liblogger/includes libcbc/libtcaps/includes)
 
 add_executable(Minishell ${SOURCE_FILES})
 
