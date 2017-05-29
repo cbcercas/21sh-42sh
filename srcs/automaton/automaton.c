@@ -39,7 +39,7 @@ void automaton_destroy(t_automaton **automaton)
 {
 	if (*automaton)
 	{
-		if (&(*automaton)->stack)
+		if ((*automaton)->stack)
 			stack_destroy(&(*automaton)->stack);
 		ft_memdel((void**)automaton);
 	}
