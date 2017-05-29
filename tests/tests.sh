@@ -123,19 +123,27 @@ test_sh_verif()
 ################################################################################
 #                              BATS FUNCTION                                   #
 ################################################################################
+test_bats_verif()
+{
+	if [ -f "$path_of_file/../Minishell" ]
+		then
+		echo "\033[1;32m info: bin: Minishell find\033[0m"
+		else
+		echo "\033[1;31m bin: Minishell doesn't exist \033[0m"
+		echo "don't forget command 'make'"
+		exit 1;
+	fi
+	test_verif_command "bats echo sh bash"
+}
+
 test_bats()
 {
-	test_verif_command "bats echo sh bash"
+	test_bats_verif
 	if [ $# != 1 ]; then
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/compile_test.bats"
-		ret=`expr $ret + $?`
-		echo "\n"
-		echo "lexer testing bats doesn't exist"
-		echo "\n"
-		bats $path_of_file"/tests_bats/parser.bats"
+		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -143,7 +151,7 @@ test_bats()
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "lexer" ] || [ $1 = "l" ]; then
-		echo "lexer testing bats doesn't exist"
+		bats $path_of_file"/tests_bats/lexer.bats"
 		return 0;
 	else
 		help
@@ -154,12 +162,40 @@ test_bats()
 ################################################################################
 ################################################################################
 
+
+################################################################################
+#                              TRAVIS FUNCTION                                 #
+################################################################################
+
+tests_travis()
+{
+	if [ -z ${TRAVIS_BRANCH} ]; then
+		echo "\n[var \$TRAVIS_BRANCH not found]\n"
+		echo "../test.sh -h : for display help\n"
+		exit 1;
+	fi
+	if [ ${TRAVIS_BRANCH} = "lexer" ]; then
+		test_bats 'lexer'
+	elif [ ${TRAVIS_BRANCH} = "parser" ]; then
+		test_bats 'parser'
+	elif [ ${TRAVIS_BRANCH} = "master" ]; then
+		test_bats 'A'
+	else
+		echo "Tests doesn't exist for branch: ${TRAVIS_BRANCH}"
+		echo "Create an issue to ask new tests for this branch"
+		exit 1;
+	fi
+}
+
+################################################################################
+################################################################################
+
+
 path_of_file=`dirname $0`
 ret=0
-#echo $path_of_file
+
 if [ $# = 0 ]; then
-	help
-	exit
+	tests_travis
 fi
 
 while getopts ":s:b:h" option
