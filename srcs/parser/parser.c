@@ -1,12 +1,12 @@
 #include <parser/parser.h>
-
+#include <core/macro_compil.h>
 /*
 **
 ** This function prints token one by one on every iteration
 **
 */
 
-static void	dbg_printtok_str(t_array *tokens, size_t i)
+UNUSED static void	dbg_printtok_str(t_array *tokens, size_t i)
 {
 	t_token *tok;
 

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= Minishell
+NAME			= 21sh
 
 SRC_SUBDIR		= core
 SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c \
@@ -121,7 +121,7 @@ all: $(DEPS) $(NAME)
 $(NAME): $(OBJS) lib
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INC)
 	@echo "[\033[35m---------------------------------\033[0m]"
-	@echo "[\033[36m-------- Minishell Done ! -------\033[0m]"
+	@echo "[\033[36m---------- 21sh Done ! ----------\033[0m]"
 	@echo "[\033[35m---------------------------------\033[0m]"
 
 $(OBJS): $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
@@ -140,14 +140,14 @@ lib:
 re: clean fclean all
 
 clean:
-	@echo "\033[35mMinishell  :\033[0m [\033[31mSuppression des .o\033[0m]"
+	@echo "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]"
 	@$(RM) $(OBJS_DIR)
-	@echo "\033[35mMinishell  :\033[0m [\033[31mSuppression des .d\033[0m]"
+	@echo "\033[35m21sh  :\033[0m [\033[31mSuppression des .d\033[0m]"
 	@$(RM) $(DEPS_DIR)
 	@make clean -C $(LIB_CBC_DIR)
 
 fclean: clean
-	@echo "\033[35mMinishell  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
+	@echo "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
 	@$(RM) $(NAME)
 	@make fclean -C $(LIB_CBC_DIR)
 
