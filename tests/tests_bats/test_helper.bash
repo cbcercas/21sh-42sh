@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name_exec="Minishell"
+name_exec="21sh"
 
 display_line_output()
 {
