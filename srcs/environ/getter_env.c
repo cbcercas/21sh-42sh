@@ -19,9 +19,10 @@ t_env	*sh_getenv(const char *name)
 
 	size_t i = 0;
 	envs = sh_get_envs();
-	while ((e = (t_env *)array_get_at(envs, i)) != NULL)
+	while (i < envs->used)
 	{
-		if (ft_strequ(e->name, name))
+		e = (t_env *)array_get_at(envs, i);
+		if (ft_strequ(e->name, name) && e->name)
 			return (e);
 		i++;
 	}
