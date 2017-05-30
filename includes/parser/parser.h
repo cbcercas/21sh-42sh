@@ -49,5 +49,6 @@ enum e_grammar_type
 };
 
 t_bool	parser_parse(t_array *tokens);
+t_bool	is_grammar_type(t_grammar_type g);
 
 #endif
