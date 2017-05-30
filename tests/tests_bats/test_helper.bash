@@ -5,10 +5,10 @@ name_exec="21sh"
 display_line_output()
 {
 	local i=1
-	echo "$name_exec OUTPUT   -> ${lines[0]}"
+	echo "$name_exec OUTPUT   ->${lines[0]}"
 	while test "${lines[$i]}" != ""
 	do
-		echo "                      ${lines[$i]}"
+		echo "                ${lines[$i]}"
 		i=`expr $i + 1`
 	done
 }
