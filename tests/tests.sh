@@ -182,7 +182,7 @@ tests_travis()
 	fi
 	if [ ${TRAVIS_BRANCH} = "lexer" ]; then
 		test_bats 'lexer'
-	elif [ ${TRAVIS_BRANCH} = "parser" ]; then
+	elif [ ${TRAVIS_BRANCH} = "parser" ] || [ ${TRAVIS_BRANCH} = "parser2" ]; then
 		test_bats 'parser'
 	elif [ ${TRAVIS_BRANCH} = "master" ]; then
 		test_bats 'A'
@@ -207,7 +207,6 @@ ret=0
 name_of_exec="21sh"
 ################################################################################
 ################################################################################
-
 
 if [ $# = 0 ]; then
 	tests_travis
