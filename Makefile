@@ -23,7 +23,7 @@ SRC_SUBDIR		+= builtins
 SRCS			+= builtins_utils.c exit.c echo.c chdir.c
 
 SRC_SUBDIR		+= lexer
-SRCS			+= lexer_init.c lexer.c lexer_clean.c
+SRCS			+= lexer_init.c lexer.c lexer_clean.c lexer_utils.c
 
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
