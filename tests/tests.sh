@@ -15,6 +15,7 @@ help()
 		echo -e "\t\033[1;m MODULE:\033[0m"
 		echo -e "\t\t'parser' or 'p'"
 		echo -e "\t\t'lexer' or 'l'"
+		echo -e "\t\t'env' or 'e'"
 		echo -e "\t\t'all' or 'A' \033[3mAll module [In bats tests: + compile test]\033[0m"
 		echo -e
 		echo -e "\t\033[1;m REQUIRED:\033[0m"
@@ -133,7 +134,7 @@ test_bats_verif()
 		echo -e "don't forget command 'make'"
 		exit 1;
 	fi
-	test_verif_command "bats echo sh bash"
+	test_verif_command "bats echo sh bash env"
 }
 
 test_bats()
@@ -143,7 +144,7 @@ test_bats()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats"
+		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -152,6 +153,11 @@ test_bats()
 		return 0;
 	elif [ $1 = "lexer" ] || [ $1 = "l" ]; then
 		bats $path_of_file"/tests_bats/lexer.bats"
+		ret=`expr $ret + $?`
+		return 0;
+	elif [ $1 = "env" ] || [ $1 = "e" ]; then
+		bats $path_of_file"/tests_bats/env.bats"
+		ret=`expr $ret + $?`
 		return 0;
 	else
 		help
@@ -177,9 +183,11 @@ tests_travis()
 	if [ ${TRAVIS_BRANCH} = "lexer" ]; then
 		test_bats 'lexer'
 	elif [ ${TRAVIS_BRANCH} = "parser" ]; then
-		test_bats 'parser' 
+		test_bats 'parser'
 	elif [ ${TRAVIS_BRANCH} = "master" ]; then
 		test_bats 'A'
+	elif [ ${TRAVIS_BRANCH} = "env" ] || [ ${TRAVIS_BRANCH} = "environ" ]; then
+		test_bats 'env'
 	else
 		echo -e "Tests doesn't exist for branch: ${TRAVIS_BRANCH}"
 		echo -e "Create an issue to ask new tests for this branch"
