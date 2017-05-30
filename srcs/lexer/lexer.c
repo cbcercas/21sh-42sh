@@ -539,7 +539,7 @@ t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *in)
 		ft_printf("%s: Lexing error.\n", PROGNAME);
 		array_reset(tokens);
 	}
-	else if (!is_empty_stack((&automaton->stack)))
+	else if (!is_empty_stack(automaton->stack))
 	{
 		ft_printf("%s: Lexing error: Incomplete command.\n", PROGNAME);
 		array_reset(tokens);

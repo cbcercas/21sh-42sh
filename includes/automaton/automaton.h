@@ -54,7 +54,7 @@ enum 	e_automaton_step
 
 struct	s_automaton
 {
-	t_stack stack;
+	t_stack *stack;
 	t_stack_state	cur_state;
 };
 
