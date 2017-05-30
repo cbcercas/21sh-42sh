@@ -17,7 +17,10 @@ In shell:
 __*(This option is no longer updated. By default, use the -b option)*__
 
   2. __-b [module]:__  
-  It is option for tests with frameworks: bats.  
+      -*lexer*  
+      -*parser*  
+      -*env* (it doesn't test the builtin env)  
+  "-b" is option for tests with frameworks: bats.  
   __(You should install bats before)__ [Github-bats](https://github.com/sstephenson/bats)
 
   3. __-h :__  
@@ -52,12 +55,12 @@ For more information about bats : [Github-bats](https://github.com/sstephenson/b
   [...] = skip
   ```
   ```bash
-  ./tests/tests.sh -b A                                             # <= run script
+  ./tests/tests.sh -b A                                               # <= run script
 
 ##################################   
 ######## Tests mode: bats ########                                  # <= with option -b it is bats tests
 ##################################
- info: bin: Minishell find                                          #First check if exec exist
+ info: bin: Minishell find                                           #First check if exec exist
 
 Checking command:                                                   #Second: check dependency
 checking for "bats" ... ok                                          #         "
@@ -74,16 +77,16 @@ Done.
 
   [...]
 
- ✗ Parser: Testing for '<ls'                                       #Test fail
-   (in test file tests/tests_bats/parser.bats, line 190)           #line,fle
-     `[ "${lines[0]}" = "${okparser}" ]` failed                    #fail condition
-   ERROR:                                                          #output error
-   Minishell OUTPUT   ->Parser: Syntax error near '< or >'         #shell output
-   Minishell EXPECTED ->Parser say OK                              #test expected
+ ✗ Parser: Testing for '<ls'                                          #Test fail
+   (in test file tests/tests_bats/parser.bats, line 190)               #line,fle
+     `[ "${lines[0]}" = "${okparser}" ]` failed                        #fail condition
+   ERROR:                                                              #output error
+   Minishell OUTPUT   ->Parser: Syntax error near '< or >'             #shell output
+   Minishell EXPECTED ->Parser say OK                                  #test expected
 
   [...]
 
- - Parser: Testing TASKMASTER 'ls&' (skipped)                     #  skip test
+ - Parser: Testing TASKMASTER 'ls&' (skipped)                         #  skip test
 
 75 tests, 8 failures, 6 skipped
 ```
