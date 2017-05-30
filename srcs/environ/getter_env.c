@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getter_env.c                                        :+:      :+:    :+:   */
+/*   getter_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/15 13:30:01 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/05/30 13:34:00 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,27 @@ char	*sh_getenv_value(const char *name)
 	t_env	*e;
 	if ((e = sh_getenv(name)) != NULL)
 		return (e->value);
+	return (NULL);
+}
+
+t_env    *sh_delenv(char const *name)
+{
+	t_array		*envs;
+	t_env			*e;
+	size_t		i;
+
+	i = 0;
+	envs = sh_get_envs();
+	while (i < envs->used)
+	{
+		e = (t_env *)array_get_at(envs, i);
+		if (ft_strequ(e->name, name) && e->name)
+			break;
+		i++;
+	}
+	if (i >= envs->used)
+		log_warn("Environ: can't find \"%s\" variables ", name);
+	else
+		envs = array_remove_at(envs, i, NULL);
 	return (NULL);
 }
