@@ -1,7 +1,6 @@
 #include <parser/parser.h>
-#include <stdint.h>
 
-uint32_t	grammar[230][6][4]=
+t_grammar_type	grammar[230][6][4]=
 {
 	[PROGRAM] =
 		{
