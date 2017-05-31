@@ -44,16 +44,16 @@ load test_helper
 }
 
 @test "ENV: Testing [get/display] with vars complex and short" {
-  run env -i 1VAR======1 2VAR=2=two=deux:,%= 3VAR='3=3=3===hl0=?\(\)#' 4VAR= ${BATS_TEST_DIRNAME}/../../$name_exec -t env
+  run env -i 1VAR=1=1=1=1======1 2VAR=2=two=deux:,%= 3VAR='3=3=3===hl0=?\(\)#' 4VAR= ${BATS_TEST_DIRNAME}/../../$name_exec -t env
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->1VAR======1"
+  echo "$name_exec EXPECTED ->1VAR=1=1=1=1======1"
   echo "                2VAR=2=two=deux:,%="
   echo "                3VAR=3=3=3===hl0=?\(\)#"
   echo "                4VAR="
 	echo
-  [ "${lines[0]}" = "1VAR======1" ]
+  [ "${lines[0]}" = "1VAR=1=1=1=1======1" ]
 	[ "${lines[1]}" = "2VAR=2=two=deux:,%=" ]
   [ "${lines[2]}" = "3VAR=3=3=3===hl0=?\(\)#" ]
   [ "${lines[3]}" = "4VAR=" ]
@@ -70,7 +70,7 @@ load test_helper
     i=`expr $i + 1`
   done
   run env -i $vars ${BATS_TEST_DIRNAME}/../../$name_exec -t env $vars
-  vars=$(echo "$vars" | sed "s/ /\n/g")
+  vars=$(echo "$vars" | sed -e 's/ /\'$'\n/g')
   echo "ERROR:"
 	display_line_output
 	echo
@@ -194,7 +194,7 @@ load test_helper
     i=`expr $i + 1`
   done
   run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" $vars
-  vars=$(echo "$vars" | sed "s/ /\n/g")
+  vars=$(echo "$vars" | sed -e 's/ /\'$'\n/g')
   echo "ERROR:"
 	display_line_output
 	echo
