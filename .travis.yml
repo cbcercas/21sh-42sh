@@ -21,6 +21,7 @@ before_install:
 
 script:
   - make
+  - ./tests/tests.sh
 
 after_success:
   - make fclean
