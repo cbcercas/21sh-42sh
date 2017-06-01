@@ -191,7 +191,7 @@ tests_travis()
 	else
 		echo -e "Tests doesn't exist for branch: ${TRAVIS_BRANCH}"
 		echo -e "Create an issue to ask new tests for this branch"
-		exit 1;
+		exit 0;
 	fi
 }
 
