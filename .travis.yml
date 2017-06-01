@@ -18,6 +18,7 @@ before_install:
     - rm .gitmodules.bak
     - git submodule update --init
     - cd libcbc && sed -i.bak 's/https:\/\/github.com\//git@github.com:/' .gitmodules && rm .gitmodules.bak && git submodule update --init && cd ..
+    - cd .. && git clone https://github.com/sstephenson/bats.git && cd bats && export PATH=$PATH:$PWD/bin/ && cd ../21-42sh
 
 script:
   - make
