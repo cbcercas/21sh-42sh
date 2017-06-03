@@ -37,3 +37,6 @@ notifications:
       - epillot@student.42.fr
     on_success: always
     on_failure: always
+  slack:
+    rooms:
+      - mrchapeau:2e9nZEItuNS5mFwMM0CBYYEF#general
