@@ -43,6 +43,8 @@ set(SOURCE_FILES
         srcs/tests/env.c
         srcs/history/history.c
         srcs/history/history_list_utils.c
+        srcs/history/history_getter.c
+        srcs/history/history_print.c
         )
 
 include_directories(includes)

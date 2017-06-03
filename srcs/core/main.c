@@ -6,9 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/23 20:25:04 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/03 18:23:12 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <core/main.h>
 
 int main(int ac, char *const *av)
@@ -37,6 +38,7 @@ int main(int ac, char *const *av)
 		if (lexer_lex(&tokens, &automaton, input))
 			if (parser_parse(&tokens))
 				ft_printf("exec\n");
+		sh_history_set_new(input);
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
 		// 		stop = true;
@@ -46,6 +48,7 @@ int main(int ac, char *const *av)
 		array_reset(&tokens);
 		automaton_reset(&automaton);
 	}
+	sh_history_save();
 	sh_deinit(&data);
 	ft_putstr("\033[?1049l");
 	return (0);

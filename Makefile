@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/06/03 16:33:55 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/06/03 18:24:47 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRC_SUBDIR      += term
 SRCS            += term_modes.c
 
 SRC_SUBDIR      += history
-SRCS            += history.c history_list_utils.c
+SRCS            += history.c history_list_utils.c history_getter.c\
+										history_print.c
 
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
