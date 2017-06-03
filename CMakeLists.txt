@@ -41,6 +41,8 @@ set(SOURCE_FILES
         srcs/tcaps/tcaps_key_exec.c
         srcs/tcaps/tcaps_redraw_line.c
         srcs/tests/env.c
+        srcs/history/history.c
+        srcs/history/history_list_utils.c
         )
 
 include_directories(includes)

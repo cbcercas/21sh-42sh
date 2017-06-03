@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/05/24 16:26:26 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/06/03 16:33:55 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,9 @@ SRCS            += env.c lexer_tests.c parser_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c
+
+SRC_SUBDIR      += history
+SRCS            += history.c history_list_utils.c
 
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
