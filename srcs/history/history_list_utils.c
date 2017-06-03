@@ -6,11 +6,11 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 16:00:49 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/03 16:42:29 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/03 18:11:41 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <history/history_list_utils.h>
+#include <history/history.h>
 
 t_hist	*sh_history_new(char *cmd)
 {

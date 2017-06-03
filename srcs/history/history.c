@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 15:40:23 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/03 16:50:58 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/03 18:22:12 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,31 @@ t_array		*sh_history_init(void)
 		}
 	}
 	close(fd);
-	//sh_history_print();
 	return (hists);
 }
 
-
-void sh_history_print()
+void	sh_history_save()
 {
 	t_array	*hists;
 	t_hist	*h;
+	int			fd;
 	size_t	i;
 
-	hists = sh_history_get();
 	i = 0;
-	while (i < hists->used)
+	if ((fd = sh_history_open_fd()) == -1)
 	{
-		h = (t_hist *)array_get_at(hists, i);
-		ft_printf("%zu %s\n", i, h->cmd);
-		i++;
+		log_warn("History: History is not save no open");
+		ft_putstr_fd("History is not save", 2);
+		return ;
 	}
+	if ((hists = sh_history_get()) == NULL)
+		return ;
+		while (i < hists->used)
+		{
+			h = (t_hist *)array_get_at(hists, i);
+			ft_dprintf(fd, "%s\n", h->cmd);
+			i++;
+		}
+		//TODO: free hist
+		close(fd);
 }
