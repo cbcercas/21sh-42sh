@@ -34,7 +34,6 @@ notifications:
       - jlasne@student.42.fr
       - gpouyat@student.42.fr
       - mleroy@student.42.fr
-      - epillot@student.42.fr
     on_success: always
     on_failure: always
   slack:
