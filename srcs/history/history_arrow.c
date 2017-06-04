@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 21:25:24 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/04 13:08:36 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 15:42:34 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,10 @@ void	sh_history_up(t_input *input)
 			log_dbg3("History: buf=%s", first->buf);
 								log_dbg3("History: use=%d", hists->used);
 				if (!first->cur && !ft_strequ(first->cmd, input->str->s))
+				{
 					sh_history_insert_buf(input->str->s);
-				if(!first->cur && !ft_strequ(first->cmd, input->str->s))
 					first->cur = hists->used - 1;
+				}
 				else if(first->cur)
 					first->cur--;
 				log_dbg3("History: cur=%zu", first->cur);
