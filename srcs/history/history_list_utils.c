@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 16:00:49 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/04 15:36:07 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 16:26:40 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_hist	*sh_history_new(char *cmd)
 		ft_memdel((void**)&h);
 	}
 	h->buf = NULL;
-	h->cur = 0;
+	h->cur = -1;
 	return (h);
 }
 

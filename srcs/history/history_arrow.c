@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 21:25:24 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/04 15:42:34 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 16:32:20 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void sh_history_insert_buf(char *str)
 			if (h->buf)
 				ft_strdel(&(h->buf));
 				h->buf = ft_strdup(str);
-			h->cur = 0;
+			h->cur = -1;
 		}
 }
 
@@ -36,7 +36,7 @@ void	sh_history_reset_cur(void)
 
 	hists = sh_history_get();
 	if ((h = (t_hist *)array_get_at(hists, 0)))
-		h->cur = 0;
+		h->cur = -1;
 }
 
 void	sh_history_up(t_input *input)
@@ -52,11 +52,8 @@ void	sh_history_up(t_input *input)
 		{
 			log_dbg3("History: buf=%s", first->buf);
 								log_dbg3("History: use=%d", hists->used);
-				if (!first->cur && !ft_strequ(first->cmd, input->str->s))
-				{
-					sh_history_insert_buf(input->str->s);
+				if (first->cur < 0)
 					first->cur = hists->used - 1;
-				}
 				else if(first->cur)
 					first->cur--;
 				log_dbg3("History: cur=%zu", first->cur);
@@ -98,7 +95,7 @@ void	sh_history_down(t_input *input)
 						string_replace(input->str, (char *const)first->buf);
 						redraw_line(input);
 					}
-					first->cur = 0;
+					first->cur = -1;
 					return ;
 				}
 				if ((h = (t_hist *)array_get_at(hists, first->cur)))

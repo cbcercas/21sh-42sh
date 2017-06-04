@@ -32,7 +32,7 @@ typedef	struct	s_hist
 {
 	char					*cmd;
 	char					*buf;
-	size_t				cur;
+	int						cur;
 	struct s_hist	*next;
 }								t_hist;
 
@@ -49,5 +49,6 @@ void						sh_history_up(t_input *input);
 void						sh_history_down(t_input *input);
 void						sh_history_reset_cur(void);
 void 						sh_history_del(void *h);
+void 						sh_history_insert_buf(char *str);
 
 #endif

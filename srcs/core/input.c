@@ -106,11 +106,11 @@ char	*sh_get_line(void)
 			stop = key_exec(&key, &input);
 		else
 		{
-			sh_history_reset_cur();
 			if (!string_insert(input.str, key.key,
 		(((((input.ts.ts_cols * input.offset_line - (input.offset_line ? 1 : 0)) - input.offset_col )
 				+ (input.cpos.cp_col + input.offset_line))))))
 				return (NULL);
+			sh_history_insert_buf(input.str->s);
 			draw_char(&input, key.key);
 		}
 		key_del(&key);
