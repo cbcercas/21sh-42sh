@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/04 13:05:53 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 21:45:04 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-	sh_history_reset_cur();
+	sh_history_insert_buf(input->str->s);
 	return (true);
 }
 

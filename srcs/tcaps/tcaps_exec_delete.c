@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:04:39 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/04 13:06:09 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 21:45:14 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
-	sh_history_reset_cur();
+	sh_history_insert_buf(input->str->s);;
 	return (false);
 }

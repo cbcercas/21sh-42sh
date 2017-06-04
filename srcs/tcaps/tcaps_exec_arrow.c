@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:57:33 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/04 13:17:00 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 21:44:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
-	sh_history_reset_cur();
+	sh_history_insert_buf(input->str->s);
 	return (false);
 }
 
@@ -42,7 +42,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
-	sh_history_reset_cur();
+	sh_history_insert_buf(input->str->s);
 	return (false);
 }
 
