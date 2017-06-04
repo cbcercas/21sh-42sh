@@ -6,9 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 22:47:18 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/04 13:05:53 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <core/tcaps.h>
 
 BOOL	exec_ctrl_c(const t_key *key, t_input *input)
@@ -29,6 +30,7 @@ BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 	(void)input;
 	if (input->str->len == 0)
 	{
+		sh_history_save();
 		default_terminal_mode();
 		exit(EXIT_SUCCESS);
 	}
