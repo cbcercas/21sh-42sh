@@ -18,6 +18,7 @@
 # include <types/bool.h>
 # include <core/input.h>
 # include <logger.h>
+# include <history/history.h>
 
 typedef struct	s_key_exec
 {
