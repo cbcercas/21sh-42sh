@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/04 12:57:04 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 15:30:03 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,6 @@ int							sh_history_is_space_plus(char const *line);
 void						sh_history_up(t_input *input);
 void						sh_history_down(t_input *input);
 void						sh_history_reset_cur(void);
+void 						sh_history_del(void *h);
 
 #endif
