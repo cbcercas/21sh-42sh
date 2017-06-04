@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/03 18:16:01 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 12:57:04 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <libft.h>
 # include <gnl/get_next_line.h>
 # include <ftprintf.h>
+# include <core/input.h>
+# include <core/tcaps.h>
 
 # define ISBLANC(x) (x == '\t' || x== '\v' || x == ' ')
 
@@ -30,7 +32,7 @@ typedef	struct	s_hist
 {
 	char					*cmd;
 	char					*buf;
-	size_t				*cur;
+	size_t				cur;
 	struct s_hist	*next;
 }								t_hist;
 
@@ -41,8 +43,10 @@ t_array					*sh_history_init(void);
 void 						sh_history_print();
 void 						sh_history_print_in_log(void);
 void						sh_history_save(void);
-t_hist	*sh_history_set_new(char const *cmd);
-int			sh_history_is_space_plus(char const *line);
-
+t_hist					*sh_history_set_new(char const *cmd);
+int							sh_history_is_space_plus(char const *line);
+void						sh_history_up(t_input *input);
+void						sh_history_down(t_input *input);
+void						sh_history_reset_cur(void);
 
 #endif

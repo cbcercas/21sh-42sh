@@ -45,6 +45,7 @@ set(SOURCE_FILES
         srcs/history/history_list_utils.c
         srcs/history/history_getter.c
         srcs/history/history_print.c
+        srcs/history/history_arrow.c
         )
 
 include_directories(includes)
