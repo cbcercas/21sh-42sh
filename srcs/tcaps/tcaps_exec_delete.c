@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tcaps_exec_delete.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:04:39 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/30 13:41:30 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/04 13:06:09 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
+	sh_history_reset_cur();
 	return (false);
 }

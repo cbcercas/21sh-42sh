@@ -19,6 +19,7 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	sh_history_reset_cur();
 	return (true);
 }
 

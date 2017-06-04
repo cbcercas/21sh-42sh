@@ -25,6 +25,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
+	sh_history_reset_cur();
 	return (false);
 }
 
@@ -40,6 +41,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
+	sh_history_reset_cur();
 	return (false);
 }
 
