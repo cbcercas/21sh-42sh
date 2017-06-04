@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/04 13:05:13 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 20:19:24 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ char	*sh_get_line(void)
 		key_del(&key);
 	}
 	default_terminal_mode();
+	sh_history_insert_buf(NULL);
 	return (input.str->len > 0 ? ft_strdup(input.str->s) : NULL);
 }

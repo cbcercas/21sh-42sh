@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 21:25:24 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/04 16:32:20 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/04 20:18:45 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void sh_history_insert_buf(char *str)
 	t_hist	*h;
 
 	hists = sh_history_get();
-	if (!str)
-		return ;
 		if ((h = (t_hist *)array_get_at(hists, 0)))
 		{
 			if (h->buf)
