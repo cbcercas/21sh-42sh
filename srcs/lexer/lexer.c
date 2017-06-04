@@ -537,12 +537,12 @@ t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *in)
 	if (automaton->cur_state == E_STATE_ERROR)
 	{
 		ft_printf("%s: Lexing error.\n", PROGNAME);
-		array_reset(tokens);
+		array_reset(tokens, NULL);
 	}
 	else if (!is_empty_stack(automaton->stack))
 	{
 		ft_printf("%s: Lexing error: Incomplete command.\n", PROGNAME);
-		array_reset(tokens);
+		array_reset(tokens, NULL);
 	}
 	if (tokens)
 		lexer_clean_tokens(tokens);
