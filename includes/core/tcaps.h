@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:02:09 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/04 09:25:42 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/05 15:31:02 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ BOOL	exec_ctrl_a(const t_key *key, t_input *input);
 BOOL	exec_ctrl_e(const t_key *key, t_input *input);
 BOOL	exec_ctrl_l(const t_key *key, t_input *input);
 BOOL	exec_ctrl_j(const t_key *key, t_input *input);
+BOOL	exec_ctrl_r(const t_key *key, t_input *input);
 
 BOOL	exec_backspace(const t_key *key, t_input *input);
 BOOL	exec_delete(const t_key *key, t_input *input);
