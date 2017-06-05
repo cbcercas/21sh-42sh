@@ -27,14 +27,7 @@ void sh_history_insert_buf(char *str)
 		}
 }
 
-void	sh_history_reset_cur(void)
 {
-	t_array	*hists;
-	t_hist	*h;
-
-	hists = sh_history_get();
-	if ((h = (t_hist *)array_get_at(hists, 0)))
-		h->cur = -1;
 }
 
 void	sh_history_up(t_input *input)
