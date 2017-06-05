@@ -27,6 +27,7 @@ BOOL	key_exec(t_key *key, t_input *input)
 		{KEY_CODE_CTRL_L, &exec_ctrl_l},
 		{KEY_CODE_CTRL_R, &exec_ctrl_r},
 		{KEY_CODE_ENTER, &exec_ctrl_j},
+		{KEY_CODE_CTRL_R, &exec_ctrl_r},
 		{KEY_CODE_BACKSPACE, &exec_backspace},
 		{KEY_CODE_DELETE, &exec_delete},
 		{KEY_CODE_TAB, &exec_tab},
