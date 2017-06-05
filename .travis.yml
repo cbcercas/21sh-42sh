@@ -38,4 +38,4 @@ notifications:
     on_failure: always
   slack:
     rooms:
-      - mrchapeau:2e9nZEItuNS5mFwMM0CBYYEF#general
+      - mrchapeau:2e9nZEItuNS5mFwMM0CBYYEF#github-travis
