@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 16:00:49 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/04 16:26:40 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/05 14:19:02 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_hist	*sh_history_new(char *cmd)
 {
 	t_hist	*h;
 
+	if(sh_history_is_space_plus(cmd))
+		return (NULL);
 	if ((h = ft_memalloc(sizeof(*h))) == NULL)
 	{
 		log_fatal("History: can't create new history command");

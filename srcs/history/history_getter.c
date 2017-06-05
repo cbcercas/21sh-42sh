@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 17:16:17 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/04 16:27:04 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/05 14:18:27 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int			sh_history_is_space_plus(char const *line)
 	int		i;
 
 	i = 0;
+	if (ft_strequ(line, "\n") || ft_strequ(line, ""))
+		return (1);
 	while (line && line[i])
 	{
 		if (!ISBLANC(line[i]))
@@ -38,7 +40,6 @@ t_hist	*sh_history_set_new(char const *cmd)
 		{
 			ft_strdel(&(h->buf));
 			h->cur = -1;
-			//array_set_at(hists, 0, h);
 		}
 		if ((h = sh_history_new(ft_strdup(cmd))) != NULL)
 		{
