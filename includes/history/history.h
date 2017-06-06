@@ -25,8 +25,15 @@
 # include <ftprintf.h>
 # include <core/input.h>
 # include <core/tcaps.h>
+# include <core/prompt.h>
+# include <types/bool.h>
+# include <signals/signals.h>
 
 # define ISBLANC(x) (x == '\t' || x== '\v' || x == ' ')
+# define ISIMPRC(x) (x[0] > 31 && x[0] < 127 && x[1] == 0)
+# define ISCTRL(x) ((x[0] >= 1 && x[0] <= 26) && x[1] == 0)
+# define ISCTRLR(x) (x[0] == 18 && x[1] == 0)
+# define ISARR(x) (x[0] == 27 && x[1] == 91 && x[4] == 0)
 
 typedef	struct	s_hist
 {
@@ -50,5 +57,11 @@ void						sh_history_down(t_input *input);
 void 						sh_history_del(void *h);
 void 						sh_history_insert_buf(char *str);
 void						sh_history_draw_line(t_input *input, const char *line);
+void					history_research_prompt(char *buff, char *result, BOOL fail);
+void					history_research_exit(char *line, t_input *input);
+void					history_mess_quit(int sig);
+void					sh_history_clear_line();
+void					history_research(t_input *input);
+void					history_research_start(char **line, char **result, BOOL *fail);
 
 #endif

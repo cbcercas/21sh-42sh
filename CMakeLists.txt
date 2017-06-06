@@ -46,6 +46,8 @@ set(SOURCE_FILES
         srcs/history/history_getter.c
         srcs/history/history_print.c
         srcs/history/history_arrow.c
+        srcs/history/history_research.c
+        srcs/history/history_research_start_end.c
         )
 
 include_directories(includes)

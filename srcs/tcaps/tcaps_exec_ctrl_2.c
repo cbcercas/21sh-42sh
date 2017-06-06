@@ -27,7 +27,6 @@ BOOL	exec_ctrl_r(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
-	write(1, "User pressed CTRL+R\n", 20);
-	exec_ctrl_c(key, input);
+	history_research(input);
 	return (false);
 }
