@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 16:00:49 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/05 14:19:02 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/07 15:21:23 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,19 @@ void sh_history_del(void *i)
 		ft_strdel(&(h->cmd));
 	if (h->buf)
 		ft_strdel(&(h->buf));
+}
+
+void sh_history_insert_buf(char *str)
+{
+	t_array	*hists;
+	t_hist	*h;
+
+	hists = sh_history_get();
+		if ((h = (t_hist *)array_get_at(hists, 0)))
+		{
+			if (h->buf)
+				ft_strdel(&(h->buf));
+				h->buf = ft_strdup(str);
+			h->cur = -1;
+		}
 }
