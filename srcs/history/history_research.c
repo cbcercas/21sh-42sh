@@ -6,10 +6,9 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:18:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/06 11:18:15 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/07 15:33:43 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <history/history.h>
 
@@ -64,13 +63,12 @@ void	history_research(t_input *input)
 	BOOL		fail;
 	char		*line;
 	char		*result;
-	ssize_t		res;
 
 	history_research_start(&line, &result, &fail);
 	ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
-	while ((res = read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN)) && ft_strcmp(buff, "\n") && !ISCTRL(buff))
+	while (read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN) && ft_strcmp(buff, "\n")
+	 && !ISCTRL(buff))
 	{
-		buff[res] = 0;
 		if (ISCTRLR(buff) || ISARR(buff))
 			break ;
 		//else if (buff[0] == 127 && line)
@@ -87,7 +85,5 @@ void	history_research(t_input *input)
 		history_research_prompt(line, result, fail);
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
 	}
-	if (line)
-		ft_strdel(&line);
-	history_research_exit(result, input);
+	history_research_exit(result, line, fail, input);
 }
