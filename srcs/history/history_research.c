@@ -13,14 +13,8 @@
 
 #include <history/history.h>
 
-void	sh_history_clear_line(void)
 {
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-}
-
 char	*history_del(char *line)
-{
 	if (line && ft_strlen(line))
 		line[ft_strlen(line) - 1] = 0;
 	return (line);

@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/05 14:23:25 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/07 15:32:14 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,9 @@ void						sh_history_draw_line(t_input *input, const char *line);
 void					history_research_prompt(char *buff, char *result, BOOL fail);
 void					history_research_exit(char *result, char *line, BOOL fail, t_input *input);
 void					history_mess_quit(int sig);
-void					sh_history_clear_line();
+void					sh_history_clear_line(unsigned int nb_of_car);
 void					history_research(t_input *input);
 void					history_research_start(char **line, char **result, BOOL *fail);
+void					sh_history_clear_len(char *buff, char *result, BOOL fail);
 
 #endif
