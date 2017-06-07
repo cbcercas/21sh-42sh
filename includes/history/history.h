@@ -58,7 +58,7 @@ void 						sh_history_del(void *h);
 void 						sh_history_insert_buf(char *str);
 void						sh_history_draw_line(t_input *input, const char *line);
 void					history_research_prompt(char *buff, char *result, BOOL fail);
-void					history_research_exit(char *line, t_input *input);
+void					history_research_exit(char *result, char *line, BOOL fail, t_input *input);
 void					history_mess_quit(int sig);
 void					sh_history_clear_line();
 void					history_research(t_input *input);

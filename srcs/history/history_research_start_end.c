@@ -12,17 +12,17 @@
 
 #include <history/history.h>
 
+void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 {
 
-void	history_research_exit(char *line, t_input *input)
-{
-	sh_history_clear_line();
+	if (line)
+		ft_strdel(&line);
 	reset_input(input);
 	sh_print_prompt();
-	if(line)
+	if(result)
 	{
-		string_replace(input->str, line);
-		ft_strdel(&line);
+		string_replace(input->str, result);
+		ft_strdel(&result);
 	}
 	redraw_line(input);
 }
