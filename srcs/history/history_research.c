@@ -29,7 +29,6 @@ char	*history_del(char *line)
 void		history_research_prompt(char *buff, char *result, BOOL fail)
 {
 	sh_history_clear_line();
-	//TODO: printf_line
 	if (fail)
 		ft_putstr("failing ");
 	ft_putstr("bck-i-search:");
