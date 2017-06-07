@@ -13,17 +13,16 @@
 
 #include <history/history.h>
 
+/*char	*history_research_delete(char *line, char *result, BOOL fail)
 {
-char	*history_del(char *line)
 	sh_history_clear_len(line, result, fail);
 	if (line && ft_strlen(line))
 		line[ft_strlen(line) - 1] = 0;
 	return (line);
-}
+}*/
 
 void		history_research_prompt(char *buff, char *result, BOOL fail)
 {
-	sh_history_clear_line();
 	if (fail)
 		ft_putstr("failing ");
 	ft_putstr("bck-i-search:");
@@ -74,8 +73,8 @@ void	history_research(t_input *input)
 		buff[res] = 0;
 		if (ISCTRLR(buff) || ISARR(buff))
 			break ;
-		else if (buff[0] == 127 && line)
-			line = history_del(line);
+		//else if (buff[0] == 127 && line)
+			//line = history_research_delete(line, result, fail);
 		else if (ISIMPRC(buff))
 		{
 			if (line)
