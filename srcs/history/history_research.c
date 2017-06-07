@@ -15,6 +15,7 @@
 
 {
 char	*history_del(char *line)
+	sh_history_clear_len(line, result, fail);
 	if (line && ft_strlen(line))
 		line[ft_strlen(line) - 1] = 0;
 	return (line);
@@ -82,6 +83,7 @@ void	history_research(t_input *input)
 			else
 				line = ft_strdup(buff);
 		}
+		sh_history_clear_len(line, result, fail);
 		fail = history_research_search((const char *)line, &result);
 		history_research_prompt(line, result, fail);
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
