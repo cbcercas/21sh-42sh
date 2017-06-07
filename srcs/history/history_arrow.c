@@ -6,25 +6,40 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 21:25:24 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/05 14:16:51 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/07 15:23:01 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <history/history.h>
 
+BOOL	history_exec_arrow_right(t_input *input)
 {
+	(void)input;
+	if (((input->cpos.cp_col + (input->offset_line  * input->ts.ts_cols) - input->offset_col)) < input->str->len)
+	{
+		if (input->cpos.cp_col + 1 == input->ts.ts_cols)
+			input->offset_line += 1;
+		move_cursor_right(&input->cpos, &input->ts);
+	}
+	else
+		write(1, "\a", 1);
+	return (false);
 }
 
 void	sh_history_draw_line(t_input *input, const char *line)
 {
+	unsigned int len;
+
 	log_dbg3("History: draw=\"%s\" ", line);
+	sh_history_clear_line(input->str->len + 3);
 	reset_input(input);
-	redraw_line(input);
+	sh_print_prompt();
 	if(line)
-	{
 		string_replace(input->str, line);
-		redraw_line(input);
-	}
+	len = input->str->len;
+	redraw_line(input);
+	while(len--)
+		history_exec_arrow_right(input);
 }
 
 void	sh_history_up(t_input *input)
