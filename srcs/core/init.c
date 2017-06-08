@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/24 11:44:25 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 08:18:13 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 	sh_options(&data->opts, ac, av);
 	sh_init_environ();
 	sh_builtins_init();
+	init_signals(signals_handler);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
