@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/06/04 09:27:29 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/06/08 13:03:36 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c
 
 SRC_SUBDIR		+= builtins
-SRCS			+= builtins_utils.c exit.c echo.c chdir.c
+SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
+							builtin_history_a.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c

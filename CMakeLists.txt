@@ -48,6 +48,8 @@ set(SOURCE_FILES
         srcs/history/history_arrow.c
         srcs/history/history_research.c
         srcs/history/history_research_start_end.c
+        srcs/builtin/builtin_history.c
+        srcs/builtin/builtin_history_a.c
         )
 
 include_directories(includes)

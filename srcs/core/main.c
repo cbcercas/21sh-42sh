@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/03 18:23:12 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 18:17:28 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,11 @@ int main(int ac, char *const *av)
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
 		// 		stop = true;
+		/***********/
+		//char **test = ft_strsplit("history u", ' ');
+			//sh_history(NULL, test);
+		/***********/
+
 		if (input && ft_strequ(input, "exit"))
 			stop = false;
 		input ? ft_strdel(&input) : 0;

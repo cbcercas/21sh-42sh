@@ -6,15 +6,17 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/26 14:10:22 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/08 11:02:43 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef BUILTINS_UTILS_H
 # define BUILTINS_UTILS_H
 # include <core/data.h>
 # include <builtins/exit.h>
 # include <builtins/echo.h>
 # include <builtins/chdir.h>
+# include <builtins/builtin_history.h>
 
 typedef 	int (*t_builtin_fn)(t_sh_data *data, char *arg);
 
