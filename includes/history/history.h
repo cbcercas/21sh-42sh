@@ -66,6 +66,7 @@ void					sh_history_clear_line(unsigned int nb_of_car);
 void					history_research(t_input *input);
 void					history_research_start(char **line, char **result, BOOL *fail);
 void					sh_history_clear_len(char *buff, char *result, BOOL fail);
+void 					sh_history_destroy(void);
 void					sh_history_var_session(void);
 
 #endif

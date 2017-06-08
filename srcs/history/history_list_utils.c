@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 16:00:49 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/07 15:21:23 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 16:25:36 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ void sh_history_insert_buf(char *str)
 			h->cur = -1;
 		}
 }
+
+void sh_history_destroy(void)
+{
+	t_array	*hists;
+
+	if ((hists = sh_history_get()) != NULL)
+		array_destroy(&hists, sh_history_del);
+}
+
 void	sh_history_var_session(void)
 {
 	t_array	*hists;
