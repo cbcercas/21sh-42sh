@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/07 15:32:14 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 12:19:38 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # define ISCTRL(x) ((x[0] >= 1 && x[0] <= 26) && x[1] == 0)
 # define ISCTRLR(x) (x[0] == 18 && x[1] == 0)
 # define ISARR(x) (x[0] == 27 && x[1] == 91 && x[4] == 0)
+# define HISTORY_FILE "/tmp/.21sh_history"
 
 typedef	struct	s_hist
 {

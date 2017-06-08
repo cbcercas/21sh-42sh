@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 15:40:23 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/04 15:31:12 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 12:23:19 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int sh_history_open_fd(void)
 		log_warn("History: stat \"tmp\" fail");
 		return (-1);
 	}
-	if ((fd = open("/tmp/.21sh_history", O_RDWR | O_CREAT, 0644)) == -1)
+	if ((fd = open(HISTORY_FILE, O_RDWR | O_CREAT, 0644)) == -1)
 	{
-		log_warn("History: open \"/tmp/.21sh_history\" fail");
+		log_warn("History: open \"%s\" fail", HISTORY_FILE);
 		return (-1);
 	}
 	return (fd);
