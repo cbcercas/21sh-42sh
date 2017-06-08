@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 15:40:23 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/08 12:23:19 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 17:21:19 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,24 @@ t_array	*sh_history_get(void)
 	return (e);
 }
 
-int sh_history_open_fd(void)
+int sh_history_open_fd(char *path, int flag)
 {
 	struct stat			type;
 	int							fd;
 
 	fd = -1;
+	if(!flag)
+		return (-1);
+	if(!path)
+		path = HISTORY_FILE;
 	if (stat("/tmp", &type) == -1 || !S_ISDIR(type.st_mode))
 	{
 		log_warn("History: stat \"tmp\" fail");
 		return (-1);
 	}
-	if ((fd = open(HISTORY_FILE, O_RDWR | O_CREAT, 0644)) == -1)
+	if ((fd = open(path, flag, 0644)) == -1)
 	{
-		log_warn("History: open \"%s\" fail", HISTORY_FILE);
+		log_warn("History: open \"%s\" fail", path);
 		return (-1);
 	}
 	return (fd);
@@ -56,7 +60,7 @@ t_array		*sh_history_init(void)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd()) == -1)
+	if ((fd = sh_history_open_fd(NULL, O_RDWR | O_CREAT)) == -1)
 		return (NULL);
 	if ((hists = sh_history_get()) != NULL)
 	{
@@ -82,7 +86,7 @@ void	sh_history_save()
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd()) == -1)
+	if ((fd = sh_history_open_fd(NULL, O_RDWR | O_CREAT | O_APPEND)) == -1)
 	{
 		log_warn("History: History is not save no open");
 		ft_putstr_fd("History is not save", 2);
@@ -98,7 +102,6 @@ void	sh_history_save()
 			i++;
 		}
 		sh_history_print_in_log();
-		//TODO: free hist
 		array_destroy(&hists, sh_history_del);
 		close(fd);
 }

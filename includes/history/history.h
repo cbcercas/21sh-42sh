@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/08 12:19:38 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 17:13:15 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef	struct	s_hist
 
 t_hist					*sh_history_new(char *cmd);
 t_array					*sh_history_get(void);
-int 						sh_history_open_fd(void);
+int 						sh_history_open_fd(char *path, int flag);
 t_array					*sh_history_init(void);
 void 						sh_history_print();
 void 						sh_history_print_in_log(void);
