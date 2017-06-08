@@ -64,6 +64,7 @@ t_array		*sh_history_init(void)
 		{
 				if ((h = sh_history_new(line)))
 				{
+					h->session = false;
 					array_push(hists, (void *)h);
 					ft_memdel((void **) &h);
 				}
@@ -92,7 +93,8 @@ void	sh_history_save()
 		while (i < hists->used)
 		{
 			h = (t_hist *)array_get_at(hists, i);
-			ft_dprintf(fd, "%s\n", h->cmd);
+			if(h->session == true)
+				ft_dprintf(fd, "%s\n", h->cmd);
 			i++;
 		}
 		sh_history_print_in_log();

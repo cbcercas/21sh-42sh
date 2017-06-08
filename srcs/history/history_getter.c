@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 17:16:17 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/05 14:18:27 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 16:05:38 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_hist	*sh_history_set_new(char const *cmd)
 		}
 		if ((h = sh_history_new(ft_strdup(cmd))) != NULL)
 		{
+			h->session = true;
 			array_push(hists, (void *)h);
 			ft_memdel((void**)&h);
 		}

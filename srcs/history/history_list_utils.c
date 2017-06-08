@@ -59,3 +59,19 @@ void sh_history_insert_buf(char *str)
 			h->cur = -1;
 		}
 }
+void	sh_history_var_session(void)
+{
+	t_array	*hists;
+	t_hist	*h;
+	int			fd;
+	size_t	i;
+
+	i = 0;
+	if ((hists = sh_history_get()) == NULL)
+		return ;
+		while (i < hists->used && (h = (t_hist *)array_get_at(hists, i)))
+		{
+			h->session = false;
+			i++;
+		}
+}
