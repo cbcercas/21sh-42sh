@@ -6,21 +6,27 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 18:22:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/08 16:54:45 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 18:15:20 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <history/history.h>
 
-void sh_history_print(void)
+void sh_history_print(char *number)
 {
 	t_array	*hists;
 	t_hist	*h;
 	size_t	i;
+	int		nb;
 
+	if(!number || ((nb = ft_atoi(number)) < 0))
+		nb = 2000;
+	else if (nb == 0)
+		nb = 1;
+	printf("%d\n", nb);
 	hists = sh_history_get();
 	i = 0;
-	while (i < hists->used)
+	while (i < hists->used && nb--)
 	{
 		h = (t_hist *)array_get_at(hists, i);
 		ft_printf("%zu %s\n", i, h->cmd);

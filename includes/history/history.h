@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/08 17:46:26 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 18:02:12 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_hist					*sh_history_new(char *cmd);
 t_array					*sh_history_get(void);
 int 						sh_history_open_fd(char *path, int flag);
 t_array					*sh_history_init(void);
-void 						sh_history_print();
+void 						sh_history_print(char *number);
 void 						sh_history_print_in_log(void);
 void						sh_history_save(void);
 t_hist					*sh_history_set_new(char const *cmd);
