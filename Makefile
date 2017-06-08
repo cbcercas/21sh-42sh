@@ -131,7 +131,7 @@ $(BUILD_DIR):
 	@$(MKDIR) -p $@
 
 sgg:
-	@bash SGG/ShellGrammarGenerator.sh --input SGG/parser_grammar.yacc --output parser_grammar.c
+	@bash SGG/ShellGrammarGenerator.sh --input srcs/parser/parser_grammar.yacc --output parser_grammar.c
 	@mv parser_grammar.c srcs/parser/parser_grammar.c
 	@mv enum.h includes/parser/enum.h
 
