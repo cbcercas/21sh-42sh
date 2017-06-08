@@ -25,7 +25,7 @@ t_automaton *automaton_init(t_automaton *automaton)
 
 t_automaton *automaton_reset(t_automaton *automaton)
 {
-	if ((stack_reset(automaton->stack) == NULL))
+	if ((stack_reset(automaton->stack, NULL) == NULL))
 	{
 		log_fatal("Automaton: Reset failed");
 		return (NULL);
@@ -40,7 +40,7 @@ void automaton_destroy(t_automaton **automaton)
 	if (*automaton)
 	{
 		if ((*automaton)->stack)
-			stack_destroy(&(*automaton)->stack);
+			stack_destroy(&(*automaton)->stack, NULL);
 		ft_memdel((void**)automaton);
 	}
 	log_info("Automaton: Destroy done");

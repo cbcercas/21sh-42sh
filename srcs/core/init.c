@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/24 11:44:25 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/05/30 13:49:46 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		sh_data_free(t_sh_data *data)
 void sh_testing(const char *arg, char *const *av)
 {
 	if (ft_strequ(arg, "env"))
-		sh_testing_env();
+		sh_testing_env(av);
 	if (ft_strequ(arg, "lexer"))
 		sh_testing_lexer(av);
 	if (ft_strequ(arg, "parser"))

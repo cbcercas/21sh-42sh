@@ -37,6 +37,7 @@ BOOL	exec_ctrl_a(const t_key *key, t_input *input);
 BOOL	exec_ctrl_e(const t_key *key, t_input *input);
 BOOL	exec_ctrl_l(const t_key *key, t_input *input);
 BOOL	exec_ctrl_j(const t_key *key, t_input *input);
+BOOL	exec_ctrl_r(const t_key *key, t_input *input);
 
 BOOL	exec_backspace(const t_key *key, t_input *input);
 BOOL	exec_delete(const t_key *key, t_input *input);
