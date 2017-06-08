@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/08 17:13:15 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/08 17:46:26 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,6 @@ void					history_research(t_input *input);
 void					history_research_start(char **line, char **result, BOOL *fail);
 void					sh_history_clear_len(char *buff, char *result, BOOL fail);
 void 					sh_history_destroy(void);
-void					sh_history_var_session(void);
+void					sh_history_var_session_reset(void);
 
 #endif
