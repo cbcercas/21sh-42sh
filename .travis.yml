@@ -18,9 +18,24 @@ before_install:
     - rm .gitmodules.bak
     - git submodule update --init
     - cd libcbc && sed -i.bak 's/https:\/\/github.com\//git@github.com:/' .gitmodules && rm .gitmodules.bak && git submodule update --init && cd ..
+    - cd .. && git clone https://github.com/sstephenson/bats.git && cd bats && export PATH=$PATH:$PWD/bin/ && cd ../21-42sh
 
 script:
   - make
+  - ./tests/tests.sh
 
 after_success:
   - make fclean
+
+notifications:
+  email:
+    recipients:
+      - christopher@cercas.fr
+      - jlasne@student.42.fr
+      - gpouyat@student.42.fr
+      - mleroy@student.42.fr
+    on_success: always
+    on_failure: always
+  slack:
+    rooms:
+      - mrchapeau:2e9nZEItuNS5mFwMM0CBYYEF#github-travis

@@ -21,3 +21,12 @@ BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
 	return (true);
 }
+
+BOOL	exec_ctrl_r(const t_key *key, t_input *input)
+{
+	(void)key;
+	(void)input;
+	ft_printf("History research!!!\n");
+	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+	return (true);
+}

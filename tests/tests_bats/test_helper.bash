@@ -1,6 +1,17 @@
 #!/bin/bash
 
-name_exec="Minishell"
+name_exec="21sh"
+
+display_line_output()
+{
+	local i=1
+	echo "$name_exec OUTPUT   ->${lines[0]}"
+	while test "${lines[$i]}" != ""
+	do
+		echo "                ${lines[$i]}"
+		i=`expr $i + 1`
+	done
+}
 
 ####message parser#########
 okparser="Parser say OK"

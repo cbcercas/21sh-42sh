@@ -29,7 +29,7 @@ static void		sh_data_free(t_sh_data *data)
 void sh_testing(const char *arg, char *const *av)
 {
 	if (ft_strequ(arg, "env"))
-		sh_testing_env();
+		sh_testing_env(av);
 	if (ft_strequ(arg, "lexer"))
 		sh_testing_lexer(av);
 	if (ft_strequ(arg, "parser"))
