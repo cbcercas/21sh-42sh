@@ -19,4 +19,11 @@
 
 int		sh_history(t_sh_data *data, char **arg);
 void	sh_history_builtin_a(char *str);
+void	sh_history_builtin_print(const char *arg);
+void	sh_history_builtin_print2(int nb);
+void	sh_history_builtin_c(void);
+void	sh_history_builtin_d(char *arg);
+void	sh_history_builtin_w(char *path);
+void	sh_history_builtin_s(char **argv, int index);
+
 #endif
