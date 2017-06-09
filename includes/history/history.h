@@ -68,5 +68,6 @@ void					history_research_start(char **line, char **result, BOOL *fail);
 void					sh_history_clear_len(char *buff, char *result, BOOL fail);
 void 					sh_history_destroy(void);
 void					sh_history_var_session_reset(void);
+int						sh_history_is_print(char const *line);
 
 #endif

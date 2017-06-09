@@ -28,12 +28,26 @@ int			sh_history_is_space_plus(char const *line)
 	return (1);
 }
 
+int			sh_history_is_print(char const *line)
+{
+	int		i;
+
+	i = 0;
+	while (line && line[i])
+	{
+		if (!ft_isprint(line[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 t_hist	*sh_history_set_new(char const *cmd)
 {
 	t_array	*hists;
 	t_hist	*h;
 
-		if (sh_history_is_space_plus(cmd))
+		if (sh_history_is_space_plus(cmd) || !sh_history_is_print(cmd))
 			return (NULL);
 		hists = sh_history_get();
 		if ((h = (t_hist *)array_get_at(hists, 0)))
