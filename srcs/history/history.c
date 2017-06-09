@@ -97,7 +97,7 @@ void	sh_history_save()
 		while (i < hists->used)
 		{
 			h = (t_hist *)array_get_at(hists, i);
-			if(h->session == true)
+			if(h && h->session == true)
 				ft_dprintf(fd, "%s\n", h->cmd);
 			i++;
 		}
