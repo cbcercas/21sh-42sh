@@ -51,7 +51,7 @@ int sh_history_open_fd(char *path, int flag)
 	return (fd);
 }
 
-t_array		*sh_history_init(void)
+t_array		*sh_history_init(char *path)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -60,7 +60,7 @@ t_array		*sh_history_init(void)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(NULL, O_RDWR | O_CREAT)) == -1)
+	if ((fd = sh_history_open_fd(path, O_RDWR | O_CREAT)) == -1)
 		return (NULL);
 	if ((hists = sh_history_get()) != NULL)
 	{
