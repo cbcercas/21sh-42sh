@@ -49,7 +49,7 @@ t_hist					*sh_history_new(char *cmd);
 t_array					*sh_history_get(void);
 int 						sh_history_open_fd(char *path, int flag);
 t_array					*sh_history_init(void);
-void 						sh_history_print(char *number);
+void 						sh_history_print(void);
 void 						sh_history_print_in_log(void);
 void						sh_history_save(void);
 t_hist					*sh_history_set_new(char const *cmd);

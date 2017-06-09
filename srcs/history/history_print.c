@@ -12,21 +12,15 @@
 
 #include <history/history.h>
 
-void sh_history_print(char *number)
+void sh_history_print()
 {
 	t_array	*hists;
 	t_hist	*h;
 	size_t	i;
-	int		nb;
 
-	if(!number || ((nb = ft_atoi(number)) < 0))
-		nb = 2000;
-	else if (nb == 0)
-		nb = 1;
-	printf("%d\n", nb);
 	hists = sh_history_get();
 	i = 0;
-	while (i < hists->used && nb--)
+	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
 		ft_printf("%zu %s\n", i, h->cmd);

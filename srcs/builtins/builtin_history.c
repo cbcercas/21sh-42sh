@@ -51,7 +51,7 @@ int sh_history(t_sh_data *data, char **argv)
 	else if(opt == 'a')
 		sh_history_builtin_a(argv[optind]);
 	else if (opt == -1)
-	 sh_history_print(argv[optind]);
+	 sh_history_print();
 
 		//TODO : reset get_opt
 		get_opt_reset();
