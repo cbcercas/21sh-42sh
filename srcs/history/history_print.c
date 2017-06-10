@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 18:22:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/08 18:15:20 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/10 08:49:53 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void sh_history_print()
 	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
-		ft_printf("%zu %s\n", i, h->cmd);
+		ft_printf("%zu %s\n", i + 1 , h->cmd);
 		i++;
 	}
 }
