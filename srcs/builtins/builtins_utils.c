@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:16 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/08 11:36:24 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/12 20:07:09 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ t_array			*sh_builtins_init(void)
 	builtins = get_builtins();
 	if (!ms_add_builtin("exit", sh_exit))
 		return (NULL);
-	/* if (!ms_add_builtin("echo", sh_echo))
+	if (!ms_add_builtin("echo", sh_echo))
 		return (NULL);
-	if (!ms_add_builtin("cd", sh_chdir))
+	/*if (!ms_add_builtin("cd", sh_chdir))
 		return (NULL);
 	if (!ms_add_builtin("chdir", sh_chdir))
 		return (NULL);*/
