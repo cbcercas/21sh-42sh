@@ -43,8 +43,8 @@ int main(int ac, char *const *av)
 		// 	if (sh_command(data, command))
 		// 		stop = true;
 		/***********/
-		//char **test = ft_strsplit("history u", ' ');
-			//sh_history(NULL, test);
+		char **test = ft_strsplit("echo -E toto\n \ntata", ' ');
+			sh_echo(NULL, test);
 		/***********/
 
 		if (input && ft_strequ(input, "exit"))
