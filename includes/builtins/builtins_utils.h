@@ -18,7 +18,7 @@
 # include <builtins/chdir.h>
 # include <builtins/builtin_history.h>
 
-typedef 	int (*t_builtin_fn)(t_sh_data *data, char *arg);
+typedef 	int (*t_builtin_fn)(t_sh_data *data, char **arg);
 
 typedef struct			s_builtin
 {

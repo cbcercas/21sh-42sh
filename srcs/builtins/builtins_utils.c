@@ -64,14 +64,14 @@ t_array			*sh_builtins_init(void)
 	builtins = get_builtins();
 	if (!ms_add_builtin("exit", sh_exit))
 		return (NULL);
-	if (!ms_add_builtin("echo", sh_echo))
+	/* if (!ms_add_builtin("echo", sh_echo))
 		return (NULL);
 	if (!ms_add_builtin("cd", sh_chdir))
 		return (NULL);
 	if (!ms_add_builtin("chdir", sh_chdir))
+		return (NULL);*/
+	if (!ms_add_builtin("history", sh_history))
 		return (NULL);
-	//if (!ms_add_builtin("history", sh_history))
-		//return (NULL); // TODO change bultin proto for char **
 	return (builtins);
 }
 
