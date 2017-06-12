@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tcaps_test.h                                       :+:      :+:    :+:   */
+/*   tcaps.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:02:09 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/30 14:29:32 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/06/05 15:31:02 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <types/bool.h>
 # include <core/input.h>
 # include <logger.h>
+# include <history/history.h>
 
 typedef struct	s_key_exec
 {

@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/05/24 16:26:26 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/06/10 10:56:01 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,9 @@ SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c
 
 SRC_SUBDIR		+= builtins
-SRCS			+= builtins_utils.c exit.c echo.c chdir.c
+SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
+							builtin_history_acdws.c builtin_history_print.c\
+							builtin_history_npr.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c
@@ -39,6 +41,11 @@ SRCS            += env.c lexer_tests.c parser_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c
+
+SRC_SUBDIR      += history
+SRCS            += history.c history_list_utils.c history_getter.c\
+					history_print.c history_arrow.c history_research.c\
+					history_research_start_end.c
 
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \

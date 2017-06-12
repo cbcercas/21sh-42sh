@@ -6,9 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:16 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/26 14:06:16 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/08 11:36:24 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <builtins/builtins_utils.h>
 
 t_array				*get_builtins(void)
@@ -69,6 +70,8 @@ t_array			*sh_builtins_init(void)
 		return (NULL);
 	if (!ms_add_builtin("chdir", sh_chdir))
 		return (NULL);
+	//if (!ms_add_builtin("history", sh_history))
+		//return (NULL); // TODO change bultin proto for char **
 	return (builtins);
 }
 

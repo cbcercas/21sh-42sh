@@ -6,10 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 23:04:31 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/04 20:19:24 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <core/input.h>
+
 #include <core/tcaps.h>
 #include <sys/ioctl.h>
 
@@ -110,10 +110,12 @@ char	*sh_get_line(void)
 		(((((input.ts.ts_cols * input.offset_line - (input.offset_line ? 1 : 0)) - input.offset_col )
 				+ (input.cpos.cp_col + input.offset_line))))))
 				return (NULL);
+			sh_history_insert_buf(input.str->s);
 			draw_char(&input, key.key);
 		}
 		key_del(&key);
 	}
 	default_terminal_mode();
+	sh_history_insert_buf(NULL);
 	return (input.str->len > 0 ? ft_strdup(input.str->s) : NULL);
 }
