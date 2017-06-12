@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/06/06 14:46:28 by jlasne           ###   ########.fr        #
+#    Updated: 2017/06/12 13:49:46 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -131,10 +131,11 @@ $(BUILD_DIR):
 	@$(MKDIR) -p $@
 
 sgg:
-	@bash SGG/ShellGrammarGenerator.sh --input srcs/parser/parser_grammar.yacc --output parser_grammar.c
+	@bash SGG/ShellGrammarGenerator.sh --input srcs/parser/parser_grammar.yacc --output parser_grammar.c -H enum.h
 	@mv parser_grammar.c srcs/parser/parser_grammar.c
 	@mv enum.h includes/parser/enum.h
-
+	@sed -i.bak 's/'"enum.h"'/'"parser\/enum.h"'/g' srcs/parser/parser_grammar.c
+	@rm srcs/parser/parser_grammar.c.bak
 lib:
 	make -C $(LIB_CBC_DIR)
 	#	@make -C $(LIBFT_DIR)
