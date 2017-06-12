@@ -42,6 +42,17 @@ set(SOURCE_FILES
         srcs/tcaps/tcaps_key_exec.c
         srcs/tcaps/tcaps_redraw_line.c
         srcs/tests/env.c
+        srcs/history/history.c
+        srcs/history/history_list_utils.c
+        srcs/history/history_getter.c
+        srcs/history/history_print.c
+        srcs/history/history_arrow.c
+        srcs/history/history_research.c
+        srcs/history/history_research_start_end.c
+        srcs/builtins/builtin_history.c
+        srcs/builtins/builtin_history_acdws.c
+        srcs/builtins/builtin_history_print.c
+        srcs/builtins/builtin_history_npr.c
         )
 
 include_directories(includes)

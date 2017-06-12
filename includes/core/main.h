@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/23 16:01:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/03 18:12:05 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <parser/parser.h>
 # include <core/tcaps.h>
 # include <signals/signals.h>
+# include <history/history.h>
 
 # define PROGNAME "21sh"
 

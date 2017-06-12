@@ -6,9 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:57:33 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/17 18:50:10 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/04 21:44:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <core/tcaps.h>
 
 BOOL	exec_arrow_right(const t_key *key, t_input *input)
@@ -25,6 +26,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
+	sh_history_insert_buf(input->str->s);
 	return (false);
 }
 
@@ -40,6 +42,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
+	sh_history_insert_buf(input->str->s);
 	return (false);
 }
 
@@ -50,6 +53,8 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	log_dbg1("exec arrow up.");
 	//TODO add history
 	//tputs(tgetstr(key->key_code, NULL), 0, &ft_putchar2);
+	sh_history_up(input);
+	//redraw_line(input);
 	return (false);
 }
 
@@ -60,5 +65,7 @@ BOOL	exec_arrow_down(const t_key *key, t_input *input)
 	log_dbg1("exec arrow down.");
 	//TODO add history
 	//tputs(tgetstr(key->key_code, NULL), 0, &ft_putchar2);
+	sh_history_down(input);
+	//redraw_line(input);
 	return (false);
 }

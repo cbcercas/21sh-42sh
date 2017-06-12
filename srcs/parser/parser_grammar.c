@@ -5,13 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: SSG <SSG@42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/06 14:46:38 by SSG               #+#    #+#             */
-/*   Updated: 2017/06/06 14:46:38 by SSG              ###   ########.fr       */
+/*   Created: 2017/06/12 15:15:33 by SSG               #+#    #+#             */
+/*   Updated: 2017/06/12 15:15:33 by SSG              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <enum.h>
+#include <parser/enum.h>
 #include <parser/parser.h>
+#include <stdint.h>
 
 uint32_t    grammar[224][6][4]=
 {
