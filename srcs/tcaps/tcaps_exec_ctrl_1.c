@@ -6,9 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 22:47:18 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/04 21:45:04 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <core/tcaps.h>
 
 BOOL	exec_ctrl_c(const t_key *key, t_input *input)
@@ -19,6 +20,7 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	sh_history_insert_buf(input->str->s);
 	return (true);
 }
 
@@ -28,6 +30,7 @@ BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 	(void)input;
 	if (input->str->len == 0)
 	{
+		sh_history_save();
 		default_terminal_mode();
 		exit(EXIT_SUCCESS);
 	}
@@ -65,7 +68,6 @@ BOOL	exec_ctrl_l(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
-	write(1, "User pressed CTRL+L\n", 20);
-	exec_ctrl_c(key, input);
-	return (false);
+	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
+	return (true);
 }
