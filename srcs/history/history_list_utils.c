@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 16:00:49 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/08 17:46:57 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/13 14:11:03 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	sh_history_var_session_reset(void)
 {
 	t_array	*hists;
 	t_hist	*h;
-	int			fd;
 	size_t	i;
 
 	i = 0;
