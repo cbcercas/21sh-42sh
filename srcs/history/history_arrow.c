@@ -79,7 +79,7 @@ void	sh_history_down(t_input *input)
 				log_dbg3("History: buf=%s", first->buf);
 				log_dbg3("History: use=%d", hists->used);
 				log_dbg3("History: cur=%d", first->cur);
-				if(hists->used && first->cur <= (int)(hists->used - 1))
+				if(hists->used && (size_t)first->cur <= (hists->used - 1))
 					first->cur++;
 				if(first->cur == (int)hists->used)
 				{
