@@ -264,9 +264,9 @@ echo
   echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->hello blowblowblow!"
+  echo "$name_exec EXPECTED ->hello jobjobjob!"
 	echo
-  [ "${lines[0]}" = "hello blowblowblow!" ]
+  [ "${lines[0]}" = "hello jobjobjob!" ]
 	[ "${lines[1]}" = "" ]
 }
 
