@@ -615,7 +615,7 @@ echo
 #######################################################################
 #######################################################################
 
-@test "EXPAND: Testing [hard]" {
+@test "EXPAND: Testing [hard] 1" {
   echo -e "blow\njob\n!2\n!3\n!!" > /tmp/.21sh_history
   run env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'!2'!4\$VAR"
   echo
@@ -626,6 +626,48 @@ echo
   echo "$name_exec EXPECTED ->!2!3\$VAR2"
 	echo
   [ "${lines[0]}" = "!2!3" ]
+	[ "${lines[1]}" = "" ]
+}
+
+@test "EXPAND: Testing [hard] 2" {
+  echo -e "blow\njob\n!2\n!3\n!!" > /tmp/.21sh_history
+  run env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'\$VAR2\'\\\"'\$VAR'\\\""
+  echo
+  echo "ERROR: \"\'\$VAR2'\\\"'\$VAR'\\\"\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->'tata'\"\$VAR\""
+	echo
+  [ "${lines[0]}" = "'tata'\"\$VAR\"" ]
+	[ "${lines[1]}" = "" ]
+}
+
+@test "EXPAND: Testing [hard] 3" {
+  echo -e "blow\njob\n!2\n!3\n!!" > /tmp/.21sh_history
+  run env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\'\$VAR2\'\"\\\"'\$VAR'\\\""
+  echo
+  echo "ERROR: \"\"\'\$VAR2'\"\\\"'\$VAR'\\\"\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->'tata'\"\$VAR\""
+	echo
+  [ "${lines[0]}" = "\'tata\'\"\$VAR\"" ]
+	[ "${lines[1]}" = "" ]
+}
+
+@test "EXPAND: Testing [MEGA hard] HARD" {
+  echo -e "blow\njob\n!2\n!3\n!!" > /tmp/.21sh_history
+  run env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\'\$VAR2\'\" '\\\"'\$VAR2'\\\"'"
+  echo
+  echo "ERROR: \"\"\'\$VAR2\'\" '\\\"'\$VAR2'\\\"'\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->\'tata\' \\\"tata\\\""
+	echo
+  [ "${lines[0]}" = "\'tata\' \\\"tata\\\"" ]
 	[ "${lines[1]}" = "" ]
 }
 
