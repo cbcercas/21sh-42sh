@@ -6,11 +6,30 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/08 18:17:28 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/14 12:30:51 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/main.h>
+
+void	test(t_array *toks)
+{
+    size_t	cnt;
+    t_token	*tok;
+
+    cnt = 0;
+    while (cnt < toks->used)
+    {
+        tok = (t_token *)array_get_at(toks, cnt);
+//        ft_printf("tok->str: {%s}\n", tok->str);
+//        ft_printf("tok->len: %d\n", tok->len);
+        lexer_print_token(tok);
+//        ft_putchar('\n');
+        ft_putchar('\n');
+        cnt++;
+    }
+}
+
 
 int main(int ac, char *const *av)
 {
@@ -37,7 +56,14 @@ int main(int ac, char *const *av)
 		input = sh_get_line();
 		if (lexer_lex(&tokens, &automaton, input))
 			if (parser_parse(&tokens))
-				ft_printf("exec\n");
+			{
+                ft_printf("tokens.used : %d\n", tokens.used);
+//                ft_printf("tokens.elem_size : %d\n", tokens.elem_size);
+//                ft_printf("tokens.capacity : %d\n", tokens.capacity);
+//                ft_printf("exec\n");
+                test(&tokens);
+
+			}
 		sh_history_set_new(input);
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
