@@ -42,13 +42,14 @@ int		ft_index_strstr(const char *big, const char *little)
 	{
 		j = 0;
 		temp = i;
-		while (big[temp] == little[j] && big[temp] && little[j])
-		{
-			temp++;
-			j++;
-			if (little[j] == '\0')
-				return (i);
-		}
+		if (!i || (big[i - 1] != '\\'))
+			while (big[temp] == little[j] && big[temp] && little[j])
+			{
+				temp++;
+				j++;
+				if (little[j] == '\0')
+					return (i);
+			}
 		i++;
 	}
 	return (-1);
