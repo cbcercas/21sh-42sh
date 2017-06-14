@@ -426,9 +426,9 @@ echo
 
 @test "EXPAND: Testing [quote] with 'simple'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'tata\'"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'tata'"
   echo
-  echo "ERROR: \"\'tata\'\""
+  echo "ERROR: \"'tata'\""
   echo
 	display_line_output
 	echo
@@ -440,9 +440,9 @@ echo
 
 @test "EXPAND: Testing [quote] with 'double 1'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'tata\' \'toto\'"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'tata' 'toto'"
   echo
-  echo "ERROR: \"\'tata\' \'toto\'\""
+  echo "ERROR: \"'tata' 'toto'\""
   echo
 	display_line_output
 	echo
@@ -454,9 +454,9 @@ echo
 
 @test "EXPAND: Testing [quote] with 'double 2'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'tata\'\'toto\'"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'tata''toto'"
   echo
-  echo "ERROR: \"\'tata\'\'toto\'\""
+  echo "ERROR: \"'tata''toto'\""
   echo
 	display_line_output
 	echo
@@ -468,9 +468,9 @@ echo
 
 @test "EXPAND: Testing [quote] with 'double 3'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'tata\'toto"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'tata'toto"
   echo
-  echo "ERROR: \"\'tata\'toto\""
+  echo "ERROR: \"'tata'toto\""
   echo
 	display_line_output
 	echo
@@ -482,9 +482,9 @@ echo
 
 @test "EXPAND: Testing [quote] with 'double 4'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'\$VAR2\'toto"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto"
   echo
-  echo "ERROR: \"\'\$VAR2\'toto\""
+  echo "ERROR: \"'\$VAR2'toto\""
   echo
 	display_line_output
 	echo
@@ -496,9 +496,9 @@ echo
 
 @test "EXPAND: Testing [quote] with 'double 4'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'\$VAR2\'toto\'!2\'"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto'!2'"
   echo
-  echo "ERROR: \"\'\$VAR2\'toto\'!2\'\""
+  echo "ERROR: \"'\$VAR2'toto'!2'\""
   echo
 	display_line_output
 	echo
@@ -510,9 +510,9 @@ echo
 
 @test "EXPAND: Testing [quote] with 'double 5'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'\$VAR2\'toto\'!2\'"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto'!2'"
   echo
-echo "ERROR: \"\'\$VAR2\'toto\'!2\'\""
+echo "ERROR: \"'\$VAR2'toto'!2'\""
 echo
 	display_line_output
 	echo
@@ -522,11 +522,11 @@ echo
 	[ "${lines[1]}" = "" ]
 }
 
-@test "EXPAND: Testing [quote] with 'double \'\'a\'\''" {
+@test "EXPAND: Testing [quote] with 'double ''a'''" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'\'\'a\'\'\'"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'''a'''"
   echo
-  echo "ERROR: \"\'\'\'a\'\'\'\""
+  echo "ERROR: \"'''a'''\""
   echo
 	display_line_output
 	echo
@@ -536,11 +536,11 @@ echo
 	[ "${lines[1]}" = "" ]
 }
 
-@test "EXPAND: Testing [quote] with 'double \'a\'\'a\'\'\' \'au\''" {
+@test "EXPAND: Testing [quote] with 'double 'a''a''' 'au''" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'a\'\'a\'\'\'"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'a''a'''"
   echo
-  echo "ERROR: \"\'a\'\'a\'\'\'\""
+  echo "ERROR: \"'a''a'''\""
   echo
 	display_line_output
 	echo
@@ -558,9 +558,9 @@ echo
 
 @test "EXPAND: Testing [mix] 1" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'\$VAR2\'toto "\$VAR1" !2"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto "\$VAR1" !2"
   echo
-  echo "ERROR: \"\'\$VAR2\'toto "\$VAR1" !2\""
+  echo "ERROR: \"'\$VAR2'toto "\$VAR1" !2\""
   echo
 	display_line_output
 	echo
@@ -572,9 +572,9 @@ echo
 
 @test "EXPAND: Testing [mix] 2" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'!10\'\"\$VAR1\"\'\'\'a\'\'\'\"b\"\$VAR1"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'!10'\"\$VAR1\"'''a'''\"b\"\$VAR1"
   echo
-  echo "ERROR: \"\'!10\'\"\$VAR1\"\'\'\'a\'\'\'\"b\"\$VAR1\""
+  echo "ERROR: \"'!10'\"\$VAR1\"'''a'''\"b\"\$VAR1\""
   echo
 	display_line_output
 	echo
@@ -586,23 +586,23 @@ echo
 
 @test "EXPAND: Testing [mix] 3" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\'\'\" \'\"\"\'"
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"''\" '\"\"'"
   echo
-echo "ERROR: \"\"\'\'\" \'\"\"\'\""
+echo "ERROR: \"\"''\" '\"\"'\""
 echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->\'\' \"\""
+  echo "$name_exec EXPECTED ->'' \"\""
 	echo
-  [ "${lines[0]}" = "\'\' \"\"" ]
+  [ "${lines[0]}" = "'' \"\"" ]
 	[ "${lines[1]}" = "" ]
 }
 
 @test "EXPAND: Testing [mix] 4" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'\"\$VAR\"\' \"\'\$VAR\'\""
+  run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\"\$VAR\"' \"'\$VAR'\""
   echo
-  echo "ERROR: \"\'\"\$VAR\"\' \"\'\$VAR\'\"\""
+  echo "ERROR: \"'\"\$VAR\"' \"'\$VAR'\"\""
   echo
 	display_line_output
 	echo
@@ -617,9 +617,9 @@ echo
 
 @test "EXPAND: Testing [hard]" {
   echo -e "blow\njob\n!2\n!3\n!!" > /tmp/.21sh_history
-  run env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'!2\'!4\$VAR"
+  run env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'!2'!4\$VAR"
   echo
-  echo "ERROR: \"\'!2\'!4\$VAR\""
+  echo "ERROR: \"'!2'!4\$VAR\""
   echo
 	display_line_output
 	echo
@@ -675,8 +675,8 @@ echo
 ######################################################################
 #                            CAR                                     #
 ######################################################################
-
 @test "EXPAND: Testing [car] with '\\n'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\ntata"
   echo
   echo "ERROR: \"toto\\ntata\""
@@ -691,6 +691,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\a'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\atata"
   echo
   echo "ERROR: \"toto\\atata\""
@@ -705,6 +706,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\b'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\btata"
   echo
   echo "ERROR: \"toto\\btata\""
@@ -719,6 +721,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\t'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\ttata"
   echo
   echo "ERROR: \"toto\\ttata\""
@@ -733,6 +736,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\r'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\rtata"
   echo
   echo "ERROR: \"toto\\rtata\""
@@ -747,6 +751,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\f'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\ftata"
   echo
   echo "ERROR: \"toto\\ftata\""
@@ -761,6 +766,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\v'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\vtata"
   echo
   echo "ERROR: \"toto\\vtata\""
@@ -774,7 +780,8 @@ echo
 	[ "${lines[1]}" = "" ]
 }
 
-@test "EXPAND: Testing [car] with '\\'" {
+@test "EXPAND: Testing [car] with '\'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\ tata"
   echo
   echo "ERROR: \"toto\\\\tata\""
@@ -789,6 +796,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\\\n'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\ntata"
   echo
   echo "ERROR: \"toto\\\\ntata\""
@@ -802,6 +810,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\\\a'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\atata"
   echo
   echo "ERROR: \"toto\\\\atata\""
@@ -815,6 +824,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\\\b'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\btata"
   echo
   echo "ERROR: \"toto\\\\btata\""
@@ -828,6 +838,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\\\t'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\ttata"
   echo
   echo "ERROR: \"toto\\\\ttata\""
@@ -841,6 +852,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\\\r'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\rtata"
   echo
   echo "ERROR: \"toto\\\\rtata\""
@@ -854,6 +866,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\\\f'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\ftata"
   echo
   echo "ERROR: \"toto\\\\ftata\""
@@ -867,6 +880,7 @@ echo
 }
 
 @test "EXPAND: Testing [car] with '\\\\v'" {
+skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\vtata"
   echo
   echo "ERROR: \"toto\\\\vtata\""
@@ -879,7 +893,8 @@ echo
 	[ "${lines[1]}" = "" ]
 }
 
-@test "EXPAND: Testing [car] with '\\\\\\\\'" {
+@test "EXPAND: Testing [car] with '\\\\\\\'" {
+	skip "Tu dois pas gere"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\\\\\\\ tata"
   echo
   echo "ERROR: \"toto\\\\\\\\ tata\""
@@ -892,8 +907,9 @@ echo
 	[ "${lines[1]}" = "" ]
 }
 
-@test "EXPAND: Testing [hard] with '\\'" {
-  ent="helld\\n com\\act\\rt\\\\t \\fn\\m x\\\\\\\\t\\\\a\\r\\v"
+@test "EXPAND: Testing [hard] with '\'" {
+	skip "Tu dois pas gere"
+	ent="helld\\n com\\act\\rt\\\\t \\fn\\m x\\\\\\\\t\\\\a\\r\\v"
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "$ent"
   echo
   echo "ERROR: \"$ent\""
@@ -908,9 +924,10 @@ echo
 }
 
 @test "EXPAND: Testing [hard] with '\a'" {
-  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\'\\a\'tata"
+	skip "Tu dois pas gere"
+  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto'\\a'tata"
   echo
-  echo "ERROR: \"toto\'\\a\'tata\""
+  echo "ERROR: \"toto'\\a'tata\""
   echo
 	display_line_output
 	echo
