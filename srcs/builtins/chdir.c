@@ -11,13 +11,44 @@
 /* ************************************************************************** */
 #include <builtins/chdir.h>
 
-int	sh_chdir(t_sh_data *data, char *arg)
+int	sh_chdir(t_sh_data *data, char **arg)
 {
 	(void)data;
 	char cwd[1024];
 	char *tmp;
 
-	if (arg == NULL)
+	log_dbg3("ici");
+	//ft_printf("%s %s", arg[0], arg[1]);
+	log_dbg3("ici");
+	if ((arg[0] == "-P") || (arg[0] == "-L"))
+	{
+		log_dbg3("ici");
+		ft_printf("-P ou -L detecte");
+		log_dbg3("ici");
+		if (arg[1] == NULL)
+		{
+			log_dbg3("ici");
+			ft_dprintf(1, "cd: error, option requires an argument");
+			log_dbg3("ici");
+			return (1);
+		}
+		else
+		{
+			log_dbg3("ici");
+			//ft_printf("ARG 1: '%s'\nARG 2: '%s'\n", arg[0], arg[1]);
+			log_dbg3("ici");
+			return (0);
+		}
+	}
+	else
+	{
+		log_dbg3("ici");
+		ft_printf("normal\n");
+		log_dbg3("ici");
+		return (0);
+	}
+	log_dbg3("ici");
+	/*if (arg == NULL)
 	{
 		sh_setenv("OLDPWD", sh_getenv_value("PWD"));
 		if (chdir(sh_getenv_value("HOME")) == -1)
@@ -38,5 +69,5 @@ int	sh_chdir(t_sh_data *data, char *arg)
 	getcwd(cwd, sizeof(cwd));
 	sh_setenv("PWD", cwd);
 	ft_printf("Current directory: %s\n", cwd);
-	return (0);
+	return (0);*/
 }

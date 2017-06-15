@@ -15,6 +15,6 @@
 # include <ftprintf.h>
 # include <builtins/builtins_utils.h>
 
-int	sh_chdir(t_sh_data *data, char *arg);
+int	sh_chdir(t_sh_data *data, char **arg);
 
 #endif
