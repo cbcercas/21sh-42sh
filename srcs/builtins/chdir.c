@@ -36,13 +36,17 @@ int sh_classic_chdir(t_sh_data *data, char *arg)
 	}
 	getcwd(cwd, sizeof(cwd));
 	sh_setenv("PWD", cwd);
-	ft_printf("Current directory: %s\n", cwd);
 	return (0);
 }
 
 int	sh_chdir(t_sh_data *data, char **arg)
 {
 	(void)data;
+	struct stat sb;
+	int buffer = 1024;
+	ssize_t len;
+	char buf[buffer];
+
 	if ((ft_strequ(arg[0], "-P")) || (ft_strequ(arg[0], "-L")))
 	{
 		if (arg[1] == NULL)
@@ -52,12 +56,28 @@ int	sh_chdir(t_sh_data *data, char **arg)
 		}
 		else
 		{
-			ft_printf("ARG 1: '%s'\nARG 2: '%s'\n", arg[0], arg[1]);
+			if(lstat(arg[1], &sb) != -1)
+				if(S_ISLNK(sb.st_mode))
+				{
+					if (ft_strequ(arg[0], "-P"))
+					{
+						len = readlink(arg[1], buf, sizeof(buf)-1);
+						if (len != -1)
+						{
+							buf[len] = '\0';
+							sh_classic_chdir(data, buf);
+						}
+						else
+							ft_printf("ERROR");
+					}
+					else if (ft_strequ(arg[0], "-L"))
+						sh_classic_chdir(data, arg[1]);
+				}
+				else
+					sh_classic_chdir(data, arg[1]);
 			return (0);
 		}
 	}
 	else
-	{
 		return (sh_classic_chdir(data, arg[0]));
-	}
 }

@@ -20,6 +20,7 @@ int main(int ac, char *const *av)
 	t_array		tokens;
 	char		*input;
 	BOOL		stop;
+	char cwd[1024];
 
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
@@ -37,7 +38,7 @@ int main(int ac, char *const *av)
 		input = sh_get_line();
 		if (lexer_lex(&tokens, &automaton, input))
 			if (parser_parse(&tokens))
-				ft_printf("exec\n");
+				;
 		sh_history_set_new(input);
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
@@ -48,6 +49,8 @@ int main(int ac, char *const *av)
 		/***********/
 		if (input != NULL)
 			sh_chdir(NULL, ft_strsplit(input, ' '));
+		getcwd(cwd, sizeof(cwd));
+		ft_printf("%s", cwd);
 		if (input && ft_strequ(input, "exit"))
 			stop = false;
 		input ? ft_strdel(&input) : 0;
