@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 project(21sh)
 
 set(CMAKE_CXX_STANDARD 11)
-set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
+#set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
 
 set(SOURCE_FILES
         srcs/automaton/automaton.c
