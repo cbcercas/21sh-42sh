@@ -46,7 +46,8 @@ int main(int ac, char *const *av)
 		//char **test = ft_strsplit("echo -e toto\\\\n \\\\ntata", ' ');
 		//	sh_echo(NULL, test);
 		/***********/
-		sh_chdir(NULL, ft_strsplit(input, ' '));
+		if (input != NULL)
+			sh_chdir(NULL, ft_strsplit(input, ' '));
 		if (input && ft_strequ(input, "exit"))
 			stop = false;
 		input ? ft_strdel(&input) : 0;
