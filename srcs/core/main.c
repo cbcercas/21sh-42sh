@@ -47,10 +47,11 @@ int main(int ac, char *const *av)
 		//char **test = ft_strsplit("echo -e toto\\\\n \\\\ntata", ' ');
 		//	sh_echo(NULL, test);
 		/***********/
-		if (input != NULL)
+		/*if (input != NULL)
 			sh_chdir(NULL, ft_strsplit(input, ' '));
 		getcwd(cwd, sizeof(cwd));
-		ft_printf("%s", cwd);
+		ft_printf("%s", cwd);*/
+		sh_builtin_help(&data, ft_strsplit(input, ' '));
 		if (input && ft_strequ(input, "exit"))
 			stop = false;
 		input ? ft_strdel(&input) : 0;
