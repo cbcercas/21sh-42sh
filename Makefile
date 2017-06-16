@@ -27,9 +27,6 @@ SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c
 
-SRC_SUBDIR      += parser
-SRCS            += parser.c
-
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
 
