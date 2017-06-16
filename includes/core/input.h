@@ -35,4 +35,6 @@ char	*sh_get_line(void);
 char	*sh_get_line2(void);
 void	reset_input(t_input *input);
 
+extern	t_input	*g_input;
+
 #endif

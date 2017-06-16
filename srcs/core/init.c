@@ -73,6 +73,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
 	sh_init_environ();
 	sh_builtins_init();
 	sh_history_init(NULL);
+	init_signals(signals_handler);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
