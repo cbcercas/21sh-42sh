@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 21:25:24 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/07 15:23:01 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/13 14:19:20 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	sh_history_down(t_input *input)
 				log_dbg3("History: buf=%s", first->buf);
 				log_dbg3("History: use=%d", hists->used);
 				log_dbg3("History: cur=%d", first->cur);
-				if(hists->used && first->cur <= (hists->used - 1))
+				if(hists->used && (size_t)first->cur <= (hists->used - 1))
 					first->cur++;
-				if(first->cur == hists->used)
+				if(first->cur == (int)hists->used)
 				{
 					sh_history_draw_line(input, (char *const)first->buf);
 					first->cur = -1;
