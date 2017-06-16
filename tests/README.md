@@ -20,6 +20,7 @@ __*(This option is no longer updated. By default, use the -b option)*__
       -*lexer*  
       -*parser*  
       -*env* (it doesn't test the builtin env)  
+      -*expand*  
   "-b" is option for tests with frameworks: bats.  
   __(You should install bats before)__ [Github-bats](https://github.com/sstephenson/bats)
 
