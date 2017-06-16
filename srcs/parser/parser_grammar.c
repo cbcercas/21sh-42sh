@@ -1,286 +1,135 @@
-//
-// Created by Jules LASNE on 5/23/17.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_grammar.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: SSG <SSG@42.fr>                            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/12 15:15:33 by SSG               #+#    #+#             */
+/*   Updated: 2017/06/12 15:15:33 by SSG              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <parser/parser_grammar.h>
+#include <parser/enum.h>
+#include <parser/parser.h>
+#include <stdint.h>
 
-/*
-**
-** This function returns true if the token at 'where' is an operator
-**
-*/
-
-static char *get_token(t_array *tokens, size_t where)
+uint32_t    grammar[224][6][4]=
 {
-	t_token *tok;
-
-	tok = (t_token *)array_get_at(tokens, where);
-	if (tok->type == E_TOKEN_BLANK)
-		return (" ");
-	else if (tok->type == E_TOKEN_NEWLINE)
-		return ("\n");
-	else if (tok->type == E_TOKEN_WORD)
-		return ("TOKEN_WORD");
-	else if (tok->type == E_TOKEN_SQUOTE)
-		return ("'");
-	else if (tok->type == E_CHAR_TYPE_BQUOTE)
-		return ("`");
-	else if (tok->type == E_TOKEN_DQUOTE)
-		return ("\"");
-	else if (tok->type == E_TOKEN_PIPE)
-		return ("|");
-	else if (tok->type == E_TOKEN_OR_IF)
-		return ("||");
-	else if (tok->type == E_TOKEN_LESSGREAT)
-		return ("< or >");
-	else if (tok->type == E_TOKEN_DGREAT)
-		return (">>");
-	else if (tok->type == E_TOKEN_DLESS)
-		return ("<<");
-	else if (tok->type == E_TOKEN_AND)
-		return ("&");
-	else if (tok->type == E_TOKEN_AND_IF)
-		return ("&&");
-	else if (tok->type == E_TOKEN_SEMI)
-		return (";");
-	else if (tok->type == E_TOKEN_LESSAND)
-		return ("<&");
-	else if (tok->type == E_TOKEN_GREATAND)
-		return (">&");
-	else if (tok->type == E_TOKEN_IO_NUMBER)
-		return ("IO_NUMBER");
-	return ("Unexpected error at __FILENAME__:__LINE__");
-}
-
-static t_bool check_operators(t_array *tokens, size_t where)
-{
-	t_token *tok;
-
-	tok = (t_token *)array_get_at(tokens, where);
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (tok->type == E_TOKEN_PIPE || tok->type == E_TOKEN_AND || \
-	tok->type == E_TOKEN_AND_IF || tok->type == E_TOKEN_DGREAT || \
-	tok->type == E_TOKEN_DLESS || tok->type == E_TOKEN_GREATAND || \
- 	tok->type == E_TOKEN_LESSAND || tok->type == E_TOKEN_LESSGREAT || \
-	tok->type == E_TOKEN_OR_IF)
-		return (true);
-	else
-		return (false);
-}
-
-/*
-**
-** This function returns true if the token at 'where' is a word or a blank
-**
-*/
-
-static t_bool check_word_blank(t_array *tokens, size_t where)
-{
-	t_token *tok;
-
-	tok = (t_token *)array_get_at(tokens, where);
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (tok->type == E_TOKEN_BLANK || tok->type == E_TOKEN_WORD)
-		return (true);
-	else
-		return (false);
-}
-
-/*
-**
-** This function returns true if the token at 'where' is a blank
-**
-*/
-
-static t_bool check_blank(t_array *tokens, size_t where)
-{
-	t_token *tok;
-
-	tok = (t_token *)array_get_at(tokens, where);
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (tok->type == E_TOKEN_BLANK)
-		return (true);
-	else
-		return (false);
-}
-
-/*
-**
-** This function returns true if the token at 'where' is a word
-**
-*/
-
-static t_bool check_word(t_array *tokens, size_t where)
-{
-	t_token *tok;
-
-	tok = (t_token *)array_get_at(tokens, where);
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (tok->type == E_TOKEN_WORD)
-		return (true);
-	else
-		return (false);
-}
-
-/*
-**
-** This function returns true if the token at 'where' is a semicolon
-**
-*/
-
-static t_bool check_semi(t_array *tokens, size_t where)
-{
-	t_token *tok;
-
-	tok = (t_token *)array_get_at(tokens, where);
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (tok->type == E_TOKEN_SEMI)
-		return (true);
-	else
-		return (false);
-}
-
-/*
-**
-** This function returns false if the first token in the user input is an operator or a semicolon
-**
-*/
-
-t_bool check_first(t_array *tokens, size_t where)
-{
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (where == 0)
+	[E_PROGRAM] =
 	{
-		if (check_operators(tokens, where) == true)
-		{
-			ft_printf("Parser: Syntax error near '%s'\n", get_token(tokens, where));
-			return (false);
-		}
-		if (check_semi(tokens, where) == true)
-		{
-			ft_printf("Parser: Syntax error near ';'\n");
-			return (false);
-		}
-	}
-	else
-		return (true);
-	return (true);
-}
-
-/*
-**
-** This function returns false if the last token in the user input is an operator
-**
-*/
-
-t_bool check_last(t_array *tokens, size_t where)
-{
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (check_operators(tokens, where) == true)
+		{E_LINEBREAK, E_COMPLETE_COMMANDS, E_LINEBREAK},
+		{E_LINEBREAK}
+	},
+	[E_COMPLETE_COMMANDS] =
 	{
-		if (where < tokens->used - 1)
-			return (true);
-		else
-		{
-			ft_printf("Parser: Syntax error near '%s'\n", get_token(tokens, where));
-			return (false);
-		}
-	}
-	else
-		return (true);
-}
-
-/*
-**
-** This function returns false if a semicolon is followed by an operator or another semicolon (space or not in between)
-**
-*/
-
-t_bool check_double_semi(t_array *tokens, size_t where)
-{
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (where <= tokens->used - 2)
+		{E_COMPLETE_COMMANDS, E_NEWLINE_LIST, E_COMPLETE_COMMAND},
+		{E_COMPLETE_COMMAND}
+	},
+	[E_COMPLETE_COMMAND] =
 	{
-		if (check_semi(tokens, where) == true)
-		{
-			if (check_blank(tokens, where + 1) == true)
-			{
-				if (check_semi(tokens, where + 2) == true)
-				{
-					ft_printf("Parser: Syntax error near ';'\n");
-					return (false);
-				}
-				else
-				{
-					if (check_operators(tokens, where + 2) == true)
-					{
-						ft_printf("Parser: Syntax error near ';'\n");
-						return (false);
-					}
-					else
-						return (true);
-				}
-			}
-			else
-			{
-				if (check_word(tokens, where + 1) == true)
-					return (true);
-				else
-				{
-					if (check_semi(tokens, where + 1) == true)
-					{
-						ft_printf("Parser: Syntax error near ';'\n");
-						return (false);
-					}
-					else
-						return (true);
-				}
-			}
-		}
-		else
-			return (true);
-	}
-	else
-		return (true);
-}
-
-/*
-**
-** This function returns false if an operator is followed by another operator or a semicolon (space or not in between)
-**
-*/
-
-t_bool check_double(t_array *tokens, size_t where)
-{
-	log_dbg3("Parser: at %s:%d is doing %s", __FILENAME__, __LINE__, __FUNCTION__);
-	if (where <= tokens->used - 2)
+		{E_LIST, E_SEPARATOR_OP},
+		{E_LIST}
+	},
+	[E_LIST] =
 	{
-		if (check_operators(tokens, where) == true)
-		{
-			if (check_blank(tokens, where + 1) == true)
-			{
-				if (check_word_blank(tokens, where + 2) == true)
-					return (true);
-				else
-				{
-					ft_printf("Parser: Syntax error near '%s'\n", get_token(tokens, where));
-					return (false);
-				}
-			}
-			else
-			{
-				if (check_word(tokens, where + 1) == true)
-					return (true);
-				else
-				{
-					ft_printf("Parser: Syntax error near '%s'\n", get_token(tokens, where));
-					return (false);
-				}
-			}
-		}
-		else
-			return (true);
+		{E_LIST, E_SEPARATOR_OP, E_AND_OR},
+		{E_AND_OR}
+	},
+	[E_AND_OR] =
+	{
+		{E_PIPELINE}
+	},
+	[E_PIPELINE] =
+	{
+		{E_PIPE_SEQUENCE}
+	},
+	[E_PIPE_SEQUENCE] =
+	{
+		{E_COMMAND},
+		{E_PIPE_SEQUENCE, '|', E_LINEBREAK, E_COMMAND}
+	},
+	[E_COMMAND] =
+	{
+		{E_SIMPLE_COMMAND}
+	},
+	[E_SIMPLE_COMMAND] =
+	{
+		{E_CMD_PREFIX, E_CMD_WORD, E_CMD_SUFFIX},
+		{E_CMD_PREFIX, E_CMD_WORD},
+		{E_CMD_PREFIX},
+		{E_CMD_NAME, E_CMD_SUFFIX},
+		{E_CMD_NAME}
+	},
+	[E_CMD_NAME] =
+	{
+		{E_TOKEN_WORD}
+	},
+	[E_CMD_WORD] =
+	{
+		{E_TOKEN_WORD}
+	},
+	[E_CMD_PREFIX] =
+	{
+		{E_IO_REDIRECT},
+		{E_CMD_PREFIX, E_IO_REDIRECT}
+	},
+	[E_CMD_SUFFIX] =
+	{
+		{E_IO_REDIRECT},
+		{E_CMD_SUFFIX, E_IO_REDIRECT},
+		{E_TOKEN_WORD},
+		{E_CMD_SUFFIX, E_TOKEN_WORD}
+	},
+	[E_IO_REDIRECT] =
+	{
+		{E_IO_FILE},
+		{E_TOKEN_IO_NUMBER, E_IO_FILE},
+		{E_IO_HERE},
+		{E_TOKEN_IO_NUMBER, E_IO_HERE}
+	},
+	[E_IO_FILE] =
+	{
+		{'<', E_FILENAME},
+		{E_TOKEN_LESSAND, E_FILENAME},
+		{'>', E_FILENAME},
+		{E_TOKEN_GREATAND, E_FILENAME},
+		{E_TOKEN_DGREAT, E_FILENAME},
+		{E_TOKEN_LESSGREAT, E_FILENAME}
+	},
+	[E_FILENAME] =
+	{
+		{E_TOKEN_WORD}
+	},
+	[E_IO_HERE] =
+	{
+		{E_TOKEN_DLESS, E_HERE_END}
+	},
+	[E_HERE_END] =
+	{
+		{E_TOKEN_WORD}
+	},
+	[E_NEWLINE_LIST] =
+	{
+		{E_TOKEN_NEWLINE},
+		{E_NEWLINE_LIST, E_TOKEN_NEWLINE}
+	},
+	[E_LINEBREAK] =
+	{
+		{E_NEWLINE_LIST}
+	},
+	[E_SEPARATOR_OP] =
+	{
+		{';'}
+	},
+	[E_SEPARATOR] =
+	{
+		{E_SEPARATOR_OP, E_LINEBREAK},
+		{E_COMPLETE_COMMANDS}
+	},
+	[E_SEQUENTIAL_SEP] =
+	{
+		{';', E_LINEBREAK},
+		{E_COMPLETE_COMMANDS}
 	}
-	else
-		return (true);
-}
+};

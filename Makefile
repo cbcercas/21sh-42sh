@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/06/10 10:56:01 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/06/12 13:49:46 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= 21sh
 
 SRC_SUBDIR		= core
 SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c \
-					input_utils.c
+				   input_utils.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c
@@ -25,7 +25,7 @@ SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
 							builtin_history_npr.c
 
 SRC_SUBDIR		+= lexer
-SRCS			+= lexer_init.c lexer.c lexer_clean.c
+SRCS			+= lexer_init.c lexer.c lexer_clean.c lexer_utils.c
 
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
@@ -49,8 +49,8 @@ SRCS            += history.c history_list_utils.c history_getter.c\
 
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
-                    tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
-                    tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c
+				   tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
+				   tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c
 
 ###############################################################################
 #																			  #
@@ -82,7 +82,7 @@ OBJS		= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 # Dependencies
 DEPS_DIR	= .deps
 DEPS		= $(SRCS:%.c=$(DEPS_DIR)/%.d)
-BUILD_DIR	= $(OBJS_DIR) $(DEPS_DIR)
+	BUILD_DIR	= $(OBJS_DIR) $(DEPS_DIR)
 
 # Libraries
 #LIBS_FOLDER	= lib
@@ -112,9 +112,9 @@ MKDIR				= mkdir -p
 #								DOT NOT EDIT BELOW							  #
 #																			  #
 ###############################################################################
- #########
+#########
 ## RULES ##
- #########
+#########
 .SECONDARY: $(OBJS) lib
 
 all: $(DEPS) $(NAME)
@@ -137,11 +137,17 @@ $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 $(BUILD_DIR):
 	@$(MKDIR) -p $@
 
+sgg:
+	@bash SGG/ShellGrammarGenerator.sh --input srcs/parser/parser_grammar.yacc --output parser_grammar.c -H enum.h
+	@mv parser_grammar.c srcs/parser/parser_grammar.c
+	@mv enum.h includes/parser/enum.h
+	@sed -i.bak 's/'"enum.h"'/'"parser\/enum.h"'/g' srcs/parser/parser_grammar.c
+	@rm srcs/parser/parser_grammar.c.bak
 lib:
 	make -C $(LIB_CBC_DIR)
-#	@make -C $(LIBFT_DIR)
-#	@make -C $(LIBTCAPS_DIR)
-re: clean fclean all
+	#	@make -C $(LIBFT_DIR)
+	#	@make -C $(LIBTCAPS_DIR)
+	#re: clean fclean all
 
 clean:
 	@echo "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]"
@@ -158,5 +164,5 @@ fclean: clean
 dev:
 	@make -C ./ SAN="yes" DEV="yes"
 
-.PHONY: re clean fclean all lib
+.PHONY: re clean fclean all lib sgg
 .SUFFIXES: .c .h .o .d
