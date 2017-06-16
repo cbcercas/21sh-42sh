@@ -986,7 +986,7 @@ skip "Tu dois pas gere"
 #                            ~                                       #
 ######################################################################
 
-@test "EXPAND: Testing [~] with '~'" {
+@test "EXPAND: Testing [~] 1" {
   run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "~"
   echo
   echo "ERROR: \"~\""
@@ -999,16 +999,42 @@ skip "Tu dois pas gere"
 	[ "${lines[1]}" = "" ]
 }
 
-@test "EXPAND: Testing [~] with '~'" {
-  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "Hello'~'toto"~""
+@test "EXPAND: Testing [~] 2" {
+  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "Hello'~'toto\"~\""
   echo
-  echo "ERROR: \"~\""
+  echo "ERROR: \"Hello'~'toto\"~\"\""
   echo
 	display_line_output
 	echo
   echo "$name_exec EXPECTED ->HELLO~toto$HOME"
   echo
   [ "${lines[0]}" = "HELLO~toto$HOME" ]
+	[ "${lines[1]}" = "" ]
+}
+
+@test "EXPAND: Testing [~] 3" {
+  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\\~'"
+  echo
+  echo "ERROR: \"'\\~'\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->\\~"
+  echo
+  [ "${lines[0]}" = "\\~" ]
+	[ "${lines[1]}" = "" ]
+}
+
+@test "EXPAND: Testing [~] 4" {
+  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\\~"
+  echo
+  echo "ERROR: \"\\~\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->~"
+  echo
+  [ "${lines[0]}" = "~" ]
 	[ "${lines[1]}" = "" ]
 }
 
