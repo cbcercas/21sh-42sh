@@ -25,6 +25,22 @@ void	signals_quit(int sig)
 	exit(128 + (sig % 32));
 }
 
+void	signals_sigwinch(void)
+{
+	struct winsize w;
+
+	g_input->offset_col = 3;
+	g_input->offset_line = 0;
+	g_input->cpos.cp_line = 0;
+	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
+	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	g_input->ts.ts_lines = w.ws_row;
+	g_input->ts.ts_cols = w.ws_col;
+	sh_print_prompt();
+	redraw_line(g_input);
+}
+
 void    signals_handler(int sig)
 {
 	if(sig == SIGINT)
@@ -35,9 +51,7 @@ void    signals_handler(int sig)
 		return;
 	}
 	if(sig == SIGWINCH)
-	{
-		ft_putstr("\nMovement of the window in progress");
-	}
+		signals_sigwinch();
 	if(ISSIGQUIT(sig) && sig != 28)
 		signals_quit(sig);
 	log_info("Signals:Shell cath signal:%d", sig);

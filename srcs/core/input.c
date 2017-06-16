@@ -12,6 +12,9 @@
 
 #include <core/tcaps.h>
 #include <sys/ioctl.h>
+#include <core/input.h>
+
+t_input *g_input;
 
 BOOL remove_escaped_newline(char **input)
 {
@@ -96,6 +99,7 @@ char	*sh_get_line(void)
 	stop = false;
 	raw_terminal_mode();
 	reset_input(&input);
+	g_input = &input;
 	while (stop == false)
 	{
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
