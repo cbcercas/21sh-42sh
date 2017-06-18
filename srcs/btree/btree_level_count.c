@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_search_item.c                                :+:      :+:    :+:   */
+/*   btree_level_count.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/17 10:49:00 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/18 17:28:04 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/06/17 19:51:39 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/06/18 20:39:45 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <ft_btree.h>
+#include <btree/ft_btree.h>
 
-void	*btree_search_item(t_btree *root, void *data_ref,
-		int (*cmpf)(void *, void *))
+int	ft_max(int left, int right)
 {
-	if (root == NULL)
-		return (0);
-	if (cmpf(data_ref, root->item) < 0)
-		return (btree_search_item(root->left, data_ref, cmpf));
-	else if (cmpf(data_ref, root->item) == 0)
-		return (root);
-	else if (cmpf(data_ref, root->item) > 0)
-		return (btree_search_item(root->right, data_ref, cmpf));
+	if (left > right)
+		return (left);
 	else
+		return (right);
+}
+
+int	btree_level_count(t_btree *root)
+{
+	if (!root)
 		return (0);
+	return (ft_max(btree_level_count(root->left),
+	btree_level_count(root->right)) + 1);
 }

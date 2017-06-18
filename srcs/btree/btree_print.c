@@ -6,11 +6,11 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 19:51:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/18 17:35:31 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/18 20:39:41 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_btree.h"
+#include <btree/ft_btree.h>
 
 static int btree_strlen(char *s)
 {

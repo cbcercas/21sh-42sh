@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_destroy.c                                    :+:      :+:    :+:   */
+/*   btree_apply_infix.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:23:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/18 16:39:38 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/17 11:45:34 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_btree.h>
+#include <btree/ft_btree.h>
 
-void	btree_destroy(t_btree **root, void (*del)(void *))
+void	btree_apply_infix(t_btree *root, void (*applyf)(void *))
 {
-	if (!root || !(*root))
+	if (!root)
 		return ;
-	if ((*root)->item && del)
-		btree_apply_prefix(*root, del);
-	if ((*root)->left != NULL)
-		btree_destroy(&(*root)->left, NULL);
-	if ((*root)->right != NULL)
-		btree_destroy(&(*root)->right, NULL);
-	if ((*root)->left != NULL)
-		free((*root)->left);
-	if ((*root)->right != NULL)
-		free((*root)->right);
-	if ((*root))
-		free((*root));
-	(*root) = NULL;
+	if (root->left != NULL)
+		btree_apply_infix(root->left, applyf);
+	applyf(root->item);
+	if (root->right != NULL)
+		btree_apply_infix(root->right, applyf);
 }

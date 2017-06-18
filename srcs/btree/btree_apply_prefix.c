@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_level_count.c                                :+:      :+:    :+:   */
+/*   btree_apply_prefix.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/17 19:51:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/18 09:46:44 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/06/17 11:23:13 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/06/18 11:53:40 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_btree.h"
+#include <btree/ft_btree.h>
 
-int	ft_max(int left, int right)
-{
-	if (left > right)
-		return (left);
-	else
-		return (right);
-}
-
-int	btree_level_count(t_btree *root)
+void	btree_apply_prefix(t_btree *root, void (*applyf)(void *))
 {
 	if (!root)
-		return (0);
-	return (ft_max(btree_level_count(root->left),
-	btree_level_count(root->right)) + 1);
+		return ;
+	applyf(root->item);
+	if (root->left != NULL)
+		btree_apply_infix(root->left, applyf);
+	if (root->right != NULL)
+		btree_apply_infix(root->right, applyf);
 }

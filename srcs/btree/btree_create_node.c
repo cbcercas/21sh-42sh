@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_apply_infix.c                                :+:      :+:    :+:   */
+/*   btree_create_node.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/17 11:23:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/17 11:45:34 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/06/17 10:49:00 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/06/18 20:39:13 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_btree.h>
+#include <btree/ft_btree.h>
 
-void	btree_apply_infix(t_btree *root, void (*applyf)(void *))
+t_btree	*btree_create_node(void *item)
 {
-	if (!root)
-		return ;
-	if (root->left != NULL)
-		btree_apply_infix(root->left, applyf);
-	applyf(root->item);
-	if (root->right != NULL)
-		btree_apply_infix(root->right, applyf);
+	t_btree	*btree;
+
+	btree = NULL;
+	if (!(btree = (t_btree*)malloc(sizeof(t_btree))))
+		return (NULL);
+	btree->left = NULL;
+	btree->right = NULL;
+	btree->item = item;
+	return (btree);
 }
