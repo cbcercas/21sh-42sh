@@ -10,11 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-extern char **environ;
-
 # include <environ/environ.h>
 
-t_array	*sh_init_environ(void)
+t_array	*sh_init_environ(char **environ)
 {
 	t_array	*envs;
 	t_env	*env;

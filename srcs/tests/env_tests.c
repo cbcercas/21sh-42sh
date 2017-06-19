@@ -36,9 +36,9 @@ void	sh_testing_env_del(char *const *av)
 	}
 }
 
-void sh_testing_env(char *const *av)
+void sh_testing_env(char *const *av, char **environ)
 {
-	sh_init_environ();
+	sh_init_environ(environ);
 	if (av[3] && (ft_strequ(av[3], "set")))
 		sh_testing_env_set(av);
 	else if (av[3] && (ft_strequ(av[3], "del")))

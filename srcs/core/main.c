@@ -12,7 +12,7 @@
 
 #include <core/main.h>
 
-int main(int ac, char *const *av)
+int main(int ac, char *const *av, char **environ)
 {
 
 	t_sh_data	data;
@@ -25,7 +25,7 @@ int main(int ac, char *const *av)
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
 	ft_printf("%s",tmp);*/
-	if (!sh_init(&data, ac, av))
+	if (!sh_init(&data, ac, av, environ))
 		exit(1);
 	if (lexer_init(&tokens) == NULL)
 		exit (1);

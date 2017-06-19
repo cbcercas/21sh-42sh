@@ -19,7 +19,7 @@
 # include <environ/modif_env.h>
 # include <logger.h>
 
-t_array	*sh_init_environ(void);
+t_array	*sh_init_environ(char **environ);
 char	**sh_tenv_to_tab(void);
 
 
