@@ -52,7 +52,7 @@ set(SOURCE_FILES
         srcs/builtins/builtin_history_acdws.c
         srcs/builtins/builtin_history_print.c
         srcs/builtins/builtin_history_npr.c
-        srcs/builtins/help.c)
+        srcs/builtins/builtin_help.c)
 
 include_directories(includes)
 
