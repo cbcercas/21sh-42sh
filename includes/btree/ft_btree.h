@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 10:44:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/18 14:04:10 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/19 11:11:23 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void							btree_insert_data(t_btree **root, void *item,
 	 									int (*cmpf)(void *, void *));
 int								btree_level_count(t_btree *root);
 void 							*btree_search_item(t_btree *root, void *data_ref,
-																			int (*cmpf)(void *, void *));
+												int (*cmpf)(void *, void *));
 void  						btree_print(t_btree *this, char *(*applyf)(void *));
 
 #endif

@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/06/18 20:39:18 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/06/19 10:20:56 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRC_SUBDIR		+= parser
 SRCS			+= parser.c parser_grammar.c
 
 SRC_SUBDIR      += tests
-SRCS            += env.c lexer_tests.c parser_tests.c
+SRCS            += env.c lexer_tests.c parser_tests.c ast_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c
@@ -54,8 +54,11 @@ SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
 
 SRC_SUBDIR      += btree
 SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\
- 									btree_apply_suffix.c btree_create_node.c btree_insert_data.c\
-						  		btree_level_count.c  btree_search_item.c btree_print.c
+ 					btree_apply_suffix.c btree_create_node.c btree_insert_data.c\
+					btree_level_count.c  btree_search_item.c btree_print.c
+
+SRC_SUBDIR      += ast
+SRCS            += ast.c
 
 ###############################################################################
 #																			  #

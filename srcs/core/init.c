@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/08 08:18:13 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/19 11:07:52 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void sh_testing(const char *arg, char *const *av)
 		sh_testing_lexer(av);
 	if (ft_strequ(arg, "parser"))
 		sh_testing_parser(av);
+	if (ft_strequ(arg, "ast"))
+		sh_testing_ast(av);
+
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
