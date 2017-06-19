@@ -20,7 +20,7 @@ int main(int ac, char *const *av)
 	t_array		tokens;
 	char		*input;
 	BOOL		stop;
-	char cwd[1024];
+	//char cwd[1024];
 
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");

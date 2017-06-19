@@ -6,6 +6,8 @@
 # include <ftprintf.h>
 # include <core/data.h>
 # include <environ/getter_env.h>
+# include <environ/modif_env.h>
+
 int     sh_builtin_setenv(t_sh_data *data, char **args);
 int     sh_builtin_unsetenv(t_sh_data *data, char **args);
 

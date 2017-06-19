@@ -57,11 +57,12 @@ int	sh_chdir(t_sh_data *data, char **arg)
 		else
 		{
 			if(lstat(arg[1], &sb) != -1)
-				if(S_ISLNK(sb.st_mode))
+			{
+				if (S_ISLNK(sb.st_mode))
 				{
 					if (ft_strequ(arg[0], "-P"))
 					{
-						len = readlink(arg[1], buf, sizeof(buf)-1);
+						len = readlink(arg[1], buf, sizeof(buf) - 1);
 						if (len != -1)
 						{
 							buf[len] = '\0';
@@ -75,6 +76,7 @@ int	sh_chdir(t_sh_data *data, char **arg)
 				}
 				else
 					sh_classic_chdir(data, arg[1]);
+			}
 			return (0);
 		}
 	}
