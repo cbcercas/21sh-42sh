@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/30 13:34:00 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/19 14:24:31 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@ t_env	*sh_getenv(const char *name)
 {
 	t_array	*envs;
 	t_env	*e;
+	size_t	i;
 
-	size_t i = 0;
+	i = 0;
 	envs = sh_get_envs();
 	while (i < envs->used)
 	{
@@ -32,6 +33,7 @@ t_env	*sh_getenv(const char *name)
 char	*sh_getenv_value(const char *name)
 {
 	t_env	*e;
+
 	if ((e = sh_getenv(name)) != NULL)
 		return (e->value);
 	return (NULL);

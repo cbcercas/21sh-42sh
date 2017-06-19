@@ -6,11 +6,11 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 21:20:28 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/24 19:19:03 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/19 14:25:53 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <environ/environ.h>
+#include <environ/environ.h>
 
 t_array	*sh_init_environ(char **environ)
 {
@@ -19,11 +19,13 @@ t_array	*sh_init_environ(char **environ)
 
 	if ((envs = sh_get_envs()) != NULL)
 	{
-		while (*environ) {
-			if ((env = env_new(split_env_name(*environ),
-			                   split_env_value(*environ))) != NULL) {
-				array_push(envs, (void *) env);
-				ft_memdel((void **) &env);
+		while (*environ)
+		{
+			if ((env = env_new(split_env_name(*environ), \
+							split_env_value(*environ))) != NULL)
+			{
+				array_push(envs, (void *)env);
+				ft_memdel((void **)&env);
 			}
 			environ++;
 		}

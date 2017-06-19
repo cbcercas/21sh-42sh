@@ -1,6 +1,18 @@
-# include <environ/builtin_env_utils.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_env_utils.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/19 14:03:02 by jlasne            #+#    #+#             */
+/*   Updated: 2017/06/19 14:03:49 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	sh_print_env()
+#include <environ/builtin_env_utils.h>
+
+void	sh_print_env(void)
 {
 	t_array	*envs;
 	t_env	*e;
@@ -25,7 +37,8 @@ t_array	*sh_get_envs(void)
 		if ((e = array_create(sizeof(t_env))) == NULL)
 		{
 			log_fatal("Environ: can't initialise environment array");
-			ft_dprintf(STDERR_FILENO, "Environ: can't initialise environment variables");
+			ft_dprintf(STDERR_FILENO, "Environ: can't initialise environment\
+					variables");
 			exit(1);
 		}
 	}

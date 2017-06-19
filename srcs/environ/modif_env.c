@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   modif_env.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/06/19 14:26:04 by jlasne            #+#    #+#             */
+/*   Updated: 2017/06/19 14:26:46 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <environ/modif_env.h>
 
-t_env	*sh_setenv(char const *name, char const *value)
+t_env		*sh_setenv(char const *name, char const *value)
 {
 	t_array	*envs;
 	t_env	*env;
@@ -23,10 +34,10 @@ t_env	*sh_setenv(char const *name, char const *value)
 	return (NULL);
 }
 
-t_env    *sh_delenv(char const *name)
+t_env		*sh_delenv(char const *name)
 {
 	t_array		*envs;
-	t_env			*e;
+	t_env		*e;
 	size_t		i;
 
 	i = 0;
@@ -35,7 +46,7 @@ t_env    *sh_delenv(char const *name)
 	{
 		e = (t_env *)array_get_at(envs, i);
 		if (ft_strequ(e->name, name) && e->name)
-			break;
+			break ;
 		i++;
 	}
 	if (i >= envs->used)
