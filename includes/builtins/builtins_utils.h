@@ -12,6 +12,7 @@
 
 #ifndef BUILTINS_UTILS_H
 # define BUILTINS_UTILS_H
+
 # include <core/data.h>
 # include <builtins/exit.h>
 # include <builtins/echo.h>
@@ -27,9 +28,12 @@ typedef struct			s_builtin
 	size_t				len;
 }						t_builtin;
 
-t_array					*sh_builtins_init(void);
-t_builtin				*get_builtin(char *name);
-t_bool					sh_is_builtin(char *name);
-char					*sh_extract_str(char *arg);
-
+t_builtin	    *get_builtin(char *name);
+char	        *sh_find_quote_end(char *arg);
+char	        *sh_extract_str(char *arg);
+t_bool		    sh_is_builtin(char *name);
+t_array		    *get_builtins(void);
+t_builtin	    *sh_new_builtin(char *name, t_builtin_fn fn);
+t_array	        *ms_add_builtin(char *name, t_builtin_fn fn);
+t_array			*sh_builtins_init(void);
 #endif

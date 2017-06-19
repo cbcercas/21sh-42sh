@@ -23,7 +23,8 @@ SRCS			+= environ.c env_list_utils.c getter_env.c builtin_environ.c\
 SRC_SUBDIR		+= builtins
 SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
 							builtin_history_acdws.c builtin_history_print.c\
-							builtin_history_npr.c builtin_help.c
+							builtin_history_npr.c builtin_help.c\
+							builtins_utils2.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c

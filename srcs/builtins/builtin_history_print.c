@@ -6,11 +6,11 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/09 13:45:03 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/10 08:50:14 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/19 15:00:54 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <builtins/builtin_history.h>
+#include <builtins/builtin_history.h>
 
 void	sh_history_builtin_print2(int nb)
 {
@@ -40,7 +40,7 @@ void	sh_history_builtin_print(const char *arg)
 	}
 	else if (ft_isdigit(arg[0]) || (arg[0] == '+' && ft_isdigit(arg[1])))
 		nb = ft_atoi(arg);
- 	else
+	else
 	{
 		ft_printf("bash: history: %s: numeric argument required\n", arg);
 		return ;

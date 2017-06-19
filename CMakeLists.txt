@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(SOURCE_FILES
         srcs/automaton/automaton.c
         srcs/builtins/builtins_utils.c
+        srcs/builtins/builtins_utils2.c
         srcs/builtins/chdir.c
         srcs/builtins/echo.c
         srcs/builtins/exit.c
