@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 10:51:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/17 08:09:03 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/19 14:37:57 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	sh_history_help(char *arg)
 {
 	ft_printf("history: usage: history [-c] [-d offset] [n] or history");
- 	ft_printf("-awrn [filename] or history -ps arg [arg...]\n");
+	ft_printf("-awrn [filename] or history -ps arg [arg...]\n");
 }
 
 
@@ -25,7 +25,7 @@ int sh_history(t_sh_data *data, char **argv)
 	int		opt;
 
 	ft_getopt_reset();
-	opt = ft_getopt(ft_tablen(argv), argv, "cd:arwsnp");//TODO: mettre ft_getopt quand il y'aura un reset
+	opt = ft_getopt(ft_tablen(argv), argv, "cd:arwsnp");
 	if (opt == 'c')
 		sh_history_builtin_c();
 	else if (opt == 'd')
