@@ -6,23 +6,14 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 10:51:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/10 16:07:45 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/17 08:09:03 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins_utils.h>
 
-void	get_opt_reset(void)
-{
-	optarg = NULL;
-	optind = 1;
-	opterr = 0;
-	optopt = 0;
-}
-
 void	sh_history_help(char *arg)
 {
-	ft_printf("bash: history: %s: invalid option\n", arg);
 	ft_printf("history: usage: history [-c] [-d offset] [n] or history");
  	ft_printf("-awrn [filename] or history -ps arg [arg...]\n");
 }
@@ -33,10 +24,8 @@ int sh_history(t_sh_data *data, char **argv)
 	(void)data;
 	int		opt;
 
-	//TODO : reset get_opt
-	get_opt_reset();
-
-	opt = getopt(ft_tablen(argv), argv, "cd:arwsnp");//TODO: mettre ft_getopt quand il y'aura un reset
+	ft_getopt_reset();
+	opt = ft_getopt(ft_tablen(argv), argv, "cd:arwsnp");//TODO: mettre ft_getopt quand il y'aura un reset
 	if (opt == 'c')
 		sh_history_builtin_c();
 	else if (opt == 'd')
@@ -57,7 +46,6 @@ int sh_history(t_sh_data *data, char **argv)
 		sh_history_builtin_print(argv[optind]);
 	else if (opt == '?')
 		sh_history_help(argv[1]);
-		//TODO : reset get_opt
-		get_opt_reset();
+	ft_getopt_reset();
 	return (0);
 }
