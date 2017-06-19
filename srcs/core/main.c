@@ -60,9 +60,14 @@ int main(int ac, char *const *av)
 
 
 		/******HELP*****/
-		//sh_builtin_help(&data, ft_strsplit(input, ' '));
+		//if (input)
+			//sh_builtin_help(&data, ft_strsplit(input, ' '));
 		/***********/
 
+		/******SETENV*****/
+		if (input)
+			sh_builtin_unsetenv(&data, ft_strsplit(input, ' '));
+		/***********/
 
 		if (input && ft_strequ(input, "exit"))
 			stop = false;
