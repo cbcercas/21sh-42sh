@@ -40,18 +40,30 @@ int main(int ac, char *const *av)
 			if (parser_parse(&tokens))
 				;
 		sh_history_set_new(input);
+
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
 		// 		stop = true;
-		/***********/
+
+		/******ECHO*****/
 		//char **test = ft_strsplit("echo -e toto\\\\n \\\\ntata", ' ');
 		//	sh_echo(NULL, test);
 		/***********/
-		/*if (input != NULL)
-			sh_chdir(NULL, ft_strsplit(input, ' '));
-		getcwd(cwd, sizeof(cwd));
-		ft_printf("%s", cwd);*/
-		sh_builtin_help(&data, ft_strsplit(input, ' '));
+
+
+		/*****CD CHDIR******/
+		//if (input != NULL)
+		//	sh_chdir(NULL, ft_strsplit(input, ' '));
+		//getcwd(cwd, sizeof(cwd));
+		//ft_printf("%s", cwd);
+		/***********/
+
+
+		/******HELP*****/
+		//sh_builtin_help(&data, ft_strsplit(input, ' '));
+		/***********/
+
+
 		if (input && ft_strequ(input, "exit"))
 			stop = false;
 		input ? ft_strdel(&input) : 0;
