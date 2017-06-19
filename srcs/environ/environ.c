@@ -66,3 +66,15 @@ char	**sh_tenv_to_tab(void)
 	env_tab[i] = NULL;
 	return (env_tab);
 }
+
+int sh_builtin_setenv(t_sh_data *data, char **args)
+{
+	(void)data;
+	(void)args;
+}
+
+int sh_builtin_unsetenv(t_sh_data *data, char **args)
+{
+	(void)data;
+	(void)args;
+}

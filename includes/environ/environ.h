@@ -21,6 +21,8 @@ t_env	*sh_getenv(char const *name);
 t_env	*sh_setenv(char const *name, char const *value);
 t_env    *sh_delenv(char const *name);
 char	**sh_tenv_to_tab(void);
+int     sh_builtin_setenv(t_sh_data *data, char **args);
+int     sh_builtin_unsetenv(t_sh_data *data, char **args);
 char	*sh_getenv_value(const char *name);
 
 #endif
