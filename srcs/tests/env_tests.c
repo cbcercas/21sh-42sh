@@ -11,24 +11,6 @@
 /* ************************************************************************** */
 
 #include <tests/test.h>
-#include <ftprintf.h>
-#include <environ/environ.h>
-
-void	sh_print_env()
-{
-	t_array	*envs;
-	t_env	*e;
-	size_t	i;
-
-	envs = sh_get_envs();
-	i = 0;
-	while (i < envs->used)
-	{
-		e = (t_env *)array_get_at(envs, i);
-		ft_printf("%s=%s\n", e->name, e->value);
-		i++;
-	}
-}
 
 void	sh_testing_env_set(char *const *av)
 {

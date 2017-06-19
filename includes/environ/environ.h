@@ -13,16 +13,14 @@
 #ifndef ENVIRON_H
 # define ENVIRON_H
 # include <environ/env_list_utils.h>
+# include <environ/builtin_env.h>
+# include <environ/builtin_env_utils.h>
+# include <environ/getter_env.h>
+# include <environ/modif_env.h>
 # include <logger.h>
 
 t_array	*sh_init_environ(void);
-t_array	*sh_get_envs(void);
-t_env	*sh_getenv(char const *name);
-t_env	*sh_setenv(char const *name, char const *value);
-t_env    *sh_delenv(char const *name);
 char	**sh_tenv_to_tab(void);
-int     sh_builtin_setenv(t_sh_data *data, char **args);
-int     sh_builtin_unsetenv(t_sh_data *data, char **args);
-char	*sh_getenv_value(const char *name);
+
 
 #endif

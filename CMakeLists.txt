@@ -21,12 +21,15 @@ set(SOURCE_FILES
         srcs/environ/env_list_utils.c
         srcs/environ/environ.c
         srcs/environ/getter_env.c
+        srcs/environ/builtin_env_utils.c
+        srcs/environ/builtin_environ.c
+        srcs/environ/modif_env.c
         srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/term/term_modes.c
         srcs/tests/lexer_tests.c
-        srcs/tests/env.c
+        srcs/tests/env_tests.c
         srcs/tests/parser_tests.c
         srcs/parser/parser.c
         srcs/parser/parser_grammar.c
@@ -40,7 +43,7 @@ set(SOURCE_FILES
         srcs/tcaps/tcaps_exec_tab.c
         srcs/tcaps/tcaps_key_exec.c
         srcs/tcaps/tcaps_redraw_line.c
-        srcs/tests/env.c
+        srcs/tests/env_tests.c
         srcs/history/history.c
         srcs/history/history_list_utils.c
         srcs/history/history_getter.c

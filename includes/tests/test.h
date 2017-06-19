@@ -16,7 +16,6 @@
 # include <environ/environ.h>
 
 void sh_testing_env(char *const *av);
-void	sh_print_env();
 void	sh_testing_env_set(char *const *av);
 void	sh_testing_env_del(char *const *av);
 

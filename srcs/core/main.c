@@ -65,8 +65,8 @@ int main(int ac, char *const *av)
 		/***********/
 
 		/******SETENV*****/
-		if (input)
-			sh_builtin_unsetenv(&data, ft_strsplit(input, ' '));
+		//if (input)
+			//sh_builtin_unsetenv(&data, ft_strsplit(input, ' '));
 		/***********/
 
 		if (input && ft_strequ(input, "exit"))

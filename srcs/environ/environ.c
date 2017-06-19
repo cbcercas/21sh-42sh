@@ -9,24 +9,10 @@
 /*   Updated: 2017/02/24 19:19:03 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 extern char **environ;
-#include <environ/environ.h>
 
-t_array	*sh_get_envs(void)
-{
-	static t_array	*e = NULL;
-
-	if (e == NULL)
-	{
-		if ((e = array_create(sizeof(t_env))) == NULL)
-		{
-			log_fatal("Environ: can't initialise environment array");
-			ft_dprintf(STDERR_FILENO, "Environ: can't initialise environment variables");
-			exit(1);
-		}
-	}
-	return (e);
-}
+# include <environ/environ.h>
 
 t_array	*sh_init_environ(void)
 {
@@ -37,7 +23,7 @@ t_array	*sh_init_environ(void)
 	{
 		while (*environ) {
 			if ((env = env_new(split_env_name(*environ),
-							   split_env_value(*environ))) != NULL) {
+			                   split_env_value(*environ))) != NULL) {
 				array_push(envs, (void *) env);
 				ft_memdel((void **) &env);
 			}
@@ -65,32 +51,4 @@ char	**sh_tenv_to_tab(void)
 	}
 	env_tab[i] = NULL;
 	return (env_tab);
-}
-
-int sh_builtin_setenv(t_sh_data *data, char **args)
-{
-	(void)data;
-	int i;
-
-	i = 1;
-	while(args[i] && ft_strchr(args[i], '='))
-	{
-		sh_setenv(split_env_name(args[i]), split_env_value(args[i]));
-		i++;
-	}
-	return (0);
-}
-
-int sh_builtin_unsetenv(t_sh_data *data, char **args)
-{
-	(void)data;
-	int		i;
-
-	i = 1;
-	while(args[i])
-	{
-		sh_delenv(args[i]);
-		i++;
-	}
-	return (0);
 }

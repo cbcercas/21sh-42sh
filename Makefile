@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/06/19 10:42:18 by jlasne           ###   ########.fr        #
+#    Updated: 2017/06/19 12:59:58 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRCS			+= main.c prompt.c init.c input.c command.c check_path.c help.c \
 					input_utils.c
 
 SRC_SUBDIR		+= environ
-SRCS			+= environ.c env_list_utils.c getter_env.c
+SRCS			+= environ.c env_list_utils.c getter_env.c builtin_environ.c\
+				   builtin_env_utils.c modif_env.c
 
 SRC_SUBDIR		+= builtins
 SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
@@ -37,7 +38,7 @@ SRC_SUBDIR		+= parser
 SRCS			+= parser.c parser_grammar.c
 
 SRC_SUBDIR      += tests
-SRCS            += env.c lexer_tests.c parser_tests.c
+SRCS            += env_tests.c lexer_tests.c parser_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c
