@@ -12,7 +12,7 @@
 
 #include <core/help.h>
 
-void sh_help(void)
+void sh_usage_help(void)
 {
 	ft_printf("Usage:\t./%s [option] ...\n", PROGNAME);
 	ft_printf("Shell options:\n");
@@ -30,8 +30,8 @@ void sh_help(void)
 	ft_printf("\t\t\t     parser: test lexer module\n");
 }
 
-void sh_help_exit(void)
+void sh_usage_help_exit(void)
 {
-	sh_help();
+	sh_usage_help();
 	exit (1);
 }
