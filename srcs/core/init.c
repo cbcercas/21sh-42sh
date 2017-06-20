@@ -37,7 +37,7 @@ void sh_testing(const char *arg, char *const *av, char **environ)
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
-		sh_help_exit();
+        sh_usage_help_exit();
 	}
 }
 
@@ -55,14 +55,14 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 			else
 			{
 				ft_printf("%s: Invalid debug level.\n", PROGNAME);
-				sh_help_exit();
+                sh_usage_help_exit();
 			}
 		else if (opt == 'h')
-			sh_help_exit();
+            sh_usage_help_exit();
 		else if (opt == 't')
 			sh_testing(g_optarg, av, environ);
 		else if (opt == '?')
-			sh_help_exit();
+            sh_usage_help_exit();
 	}
 }
 
