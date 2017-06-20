@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/20 17:30:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/20 22:03:19 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void sh_testing_ast(char *const *av)
 	t_btree	*ast;
 	t_automaton	automaton;
 	t_array		tokens;
+	char *input;
 
+	input = ft_strclean(av[3]);//TODO à faire pour le main ;)
 	ast = NULL;
 	if (lexer_init(&tokens) == NULL)
 	{
@@ -29,8 +31,7 @@ void sh_testing_ast(char *const *av)
 			ft_printf("Error Initialising automaton");
 			exit (1);
 	}
-
-	else if (lexer_lex(&tokens, &automaton, av[3]))
+	else if (lexer_lex(&tokens, &automaton, input))
 	{
 			if(parser_parse(&tokens))
 			{
@@ -39,6 +40,7 @@ void sh_testing_ast(char *const *av)
 				else
 					btree_print(ast, (char * (*)(void*))&ast_aff);
 				btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
+				free(input);
 				exit (0);
 			}
 			exit (1);
