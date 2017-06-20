@@ -17,7 +17,7 @@ set(SOURCE_FILES
         srcs/core/input.c
         srcs/core/input_utils.c
         srcs/core/main.c
-        srcs/core/help.c
+        srcs/core/usage_help.c
         srcs/core/prompt.c
         srcs/environ/env_list_utils.c
         srcs/environ/environ.c
