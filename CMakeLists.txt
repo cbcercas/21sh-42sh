@@ -52,6 +52,19 @@ set(SOURCE_FILES
         srcs/builtins/builtin_history_acdws.c
         srcs/builtins/builtin_history_print.c
         srcs/builtins/builtin_history_npr.c
+        srcs/btree/btree_apply_infix.c
+        srcs/btree/btree_apply_suffix.c
+        srcs/btree/btree_apply_prefix.c
+        srcs/btree/btree_destroy.c
+        srcs/btree/btree_insert_data.c
+        srcs/btree/btree_create_node.c
+        srcs/btree/btree_print.c
+        srcs/btree/btree_level_count.c
+        srcs/btree/btree_search_item.c
+        srcs/ast/ast_utils.c
+        srcs/ast/ast_built.c
+        srcs/ast/ast.c
+        srcs/tests/ast_tests.c
         )
 
 include_directories(includes)

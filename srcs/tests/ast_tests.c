@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/19 14:39:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/20 17:30:05 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ void sh_testing_ast(char *const *av)
 	{
 			if(parser_parse(&tokens))
 			{
-				if (!(ast = ast_built(ast, &tokens, 0, 1000000)))
+				if (!(ast = ast_create(&tokens)))
 					ft_printf("AST NULL\n");
 				else
 					btree_print(ast, (char * (*)(void*))&ast_aff);
+				btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 				exit (0);
 			}
 			exit (1);
