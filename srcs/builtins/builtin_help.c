@@ -52,6 +52,13 @@ void sh_help_help(void)
 	ft_printf(" pattern,\notherwise a list of the builtins is printed.\n");
 }
 
+void sh_help_exit(void)
+{
+	ft_printf("\texit [n]\nCause the shell to exit with a status of n.\n");
+	ft_printf("If n is omitted, the exit status is that of the last command executed.\n");
+	ft_printf("A trap on EXIT is executed before the shell terminates.\n");
+}
+
 int sh_builtin_help(t_sh_data *data, char **args)
 {
 	(void) data;
@@ -70,6 +77,10 @@ int sh_builtin_help(t_sh_data *data, char **args)
 		sh_help_help();
 		return (0);
 	}
-
+	else if (ft_strequ(args[1], "exit"))
+	{
+		sh_help_exit();
+		return (0);
+	}
 	return (0);
 }
