@@ -22,6 +22,7 @@ void sh_help_default(t_sh_data *data)
 	ft_printf("\n\nA star (*) next to a name means that the command is disabled.\n");
 	ft_printf("\necho [-neE] [arg …]\n");
 	ft_printf("help [pattern]\n");
+	ft_printf("exit [n]\n");
 }
 
 void sh_help_echo(void)
