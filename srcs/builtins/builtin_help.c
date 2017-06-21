@@ -17,10 +17,11 @@ void sh_help_default(t_sh_data *data)
 	(void)data;
 	ft_printf("#-- %s Version 42 --#\n", PROGNAME);
 	ft_printf("These shell commands are defined internally.  Type `help' to");
-	ft_printf("see this list.\n");
+	ft_printf(" see this list.\n");
 	ft_printf("Type `help name' to find out more about the function `name'.\n");
 	ft_printf("\n\nA star (*) next to a name means that the command is disabled.\n");
 	ft_printf("\necho [-neE] [arg …]\n");
+	ft_printf("help [pattern]\n");
 }
 
 void sh_help_echo(void)
@@ -44,6 +45,13 @@ void sh_help_echo(void)
 
 } //TODO: ADD COLORS
 
+void sh_help_help(void)
+{
+	ft_printf("\thelp [pattern]\nDisplay helpful information about builtin commands.\n");
+	ft_printf("If pattern is specified, help gives detailed help on command matching");
+	ft_printf(" pattern,\notherwise a list of the builtins is printed.\n");
+}
+
 int sh_builtin_help(t_sh_data *data, char **args)
 {
 	(void) data;
@@ -55,6 +63,11 @@ int sh_builtin_help(t_sh_data *data, char **args)
 	if (ft_strequ(args[1], "echo"))
 	{
 		sh_help_echo();
+		return (0);
+	}
+	else if (ft_strequ(args[1], "help"))
+	{
+		sh_help_help();
 		return (0);
 	}
 
