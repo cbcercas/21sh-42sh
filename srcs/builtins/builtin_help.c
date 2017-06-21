@@ -94,6 +94,38 @@ void sh_help_unsetenv(void)
 	ft_printf("\tunsetenv [name]\n");
 	ft_printf("Deletes the environment variable name from local env\n");
 	ft_printf("If name doesnt exists, nothing happens\n");
+	ft_printf("Optional arguments shall be passed to utility.\n");
+}
+
+void sh_help_env(void)
+{
+	ft_printf("\tenv [-i][name=value]...\t[utility [argument...]]\n");
+	ft_printf("Obtains the current environment, modify it according to its ");
+	ft_printf("arguments, \nthen invoke the utility operand with the");
+	ft_printf(" modified environment.\n");
+	ft_printf("If no utility operand is specified, the resulting environment");
+	ft_printf(" shall \nbe written to the standard output, with one ");
+	ft_printf("name=value pair per line.\n");
+	ft_printf("\n-i \tInvoke utility with exactly the environment specified");
+	ft_printf(" by the arguments;\n");
+	ft_printf("\tthe inherited environment shall be ignored completely.\n");
+	ft_printf("\nThe following operands shall be supported:\n");
+	ft_printf("\n");
+	ft_printf("\t   name=value\n");
+	ft_printf("\t\t  Arguments of the form name= value shall modify the ");
+	ft_printf("execution environment, and shall\n");
+	ft_printf("\t\t  be placed into the inherited environment before the ");
+	ft_printf("utility is invoked.\n");
+	ft_printf("\n");
+	ft_printf("\t   utility\n");
+	ft_printf("\t\t  The name of the utility to be invoked. If the utility");
+	ft_printf(" operand names any of the spe-\n");
+	ft_printf("\t\t  cial built-in utilities in Special Built-In Utilities,");
+	ft_printf(" the results are undefined.\n");
+	ft_printf("\n");
+	ft_printf("\t   argument\n");
+	ft_printf("\t\t  A string to pass as an argument for the invoked");
+	ft_printf(" utility.\n");
 }
 
 int sh_builtin_help(t_sh_data *data, char **args)
@@ -132,6 +164,11 @@ int sh_builtin_help(t_sh_data *data, char **args)
 	else if (ft_strequ(args[1], "unsetenv"))
 	{
 		sh_help_unsetenv();
+		return (0);
+	}
+	else if (ft_strequ(args[1], "env"))
+	{
+		sh_help_env();
 		return (0);
 	}
 	return (0);
