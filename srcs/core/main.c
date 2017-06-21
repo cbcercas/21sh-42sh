@@ -69,6 +69,11 @@ int main(int ac, char *const *av, char **environ)
 			//sh_builtin_unsetenv(&data, ft_strsplit(input, ' '));
 		/***********/
 
+		/******ENV*****/
+		if (input)
+			sh_builtin_env(&data, ft_strsplit(input, ' '));
+		/***********/
+
 		if (input && ft_strequ(input, "exit"))
 			stop = false;
 		input ? ft_strdel(&input) : 0;
