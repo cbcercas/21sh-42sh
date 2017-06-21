@@ -24,6 +24,8 @@ void sh_help_default(t_sh_data *data)
 	ft_printf("help [pattern]\n");
 	ft_printf("exit [n]\n");
 	ft_printf("cd [-L|-P] [directory]\n");
+	ft_printf("setenv [name]=[value]\n");
+	ft_printf("unsetenv [name]\n");
 }
 
 void sh_help_echo(void)
@@ -80,6 +82,20 @@ void sh_help_cd(void)
 	ft_printf("changed, non-zero otherwise.\n");
 }
 
+void sh_help_setenv(void)
+{
+	ft_printf("\tsetenv [name]=[value]\n");
+	ft_printf("Sets the environment variable name with value value\n");
+	ft_printf("If name already has a value, then it is replaced with the new one\n");
+}
+
+void sh_help_unsetenv(void)
+{
+	ft_printf("\tunsetenv [name]\n");
+	ft_printf("Deletes the environment variable name from local env\n");
+	ft_printf("If name doesnt exists, nothing happens\n");
+}
+
 int sh_builtin_help(t_sh_data *data, char **args)
 {
 	(void) data;
@@ -106,6 +122,16 @@ int sh_builtin_help(t_sh_data *data, char **args)
 	else if (ft_strequ(args[1], "cd"))
 	{
 		sh_help_cd();
+		return (0);
+	}
+	else if (ft_strequ(args[1], "setenv"))
+	{
+		sh_help_setenv();
+		return (0);
+	}
+	else if (ft_strequ(args[1], "unsetenv"))
+	{
+		sh_help_unsetenv();
 		return (0);
 	}
 	return (0);
