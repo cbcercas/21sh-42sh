@@ -23,6 +23,7 @@ void sh_help_default(t_sh_data *data)
 	ft_printf("\necho [-neE] [arg …]\n");
 	ft_printf("help [pattern]\n");
 	ft_printf("exit [n]\n");
+	ft_printf("cd [-L|-P] [directory]\n");
 }
 
 void sh_help_echo(void)
@@ -60,6 +61,25 @@ void sh_help_exit(void)
 	ft_printf("A trap on EXIT is executed before the shell terminates.\n");
 }
 
+void sh_help_cd(void)
+{
+	ft_printf("\tcd [-L|-P] [directory]\n");
+	ft_printf("Change the current working directory to directory.\n");
+	ft_printf("If directory is not supplied, the value of the HOME shell ");
+	ft_printf("variable is used.\n");
+	ft_printf("Any additional arguments following directory are ignored.\n");
+	ft_printf("The -P option means to not follow symbolic links: symbolic");
+	ft_printf(" links are resolved while cd is traversing directory and");
+	ft_printf(" before processing an instance of ‘..’ in directory.\n");
+	ft_printf("By default, or when the -L option is supplied, symbolic links");
+	ft_printf(" in directory are resolved after cd processes an instance of");
+	ft_printf(" ‘..’ in directory.\n");
+	ft_printf("If directory is ‘-’, it is converted to $OLDPWD before the");
+	ft_printf("directory change is attempted.\n");
+	ft_printf("The return status is zero if the directory is successfully");
+	ft_printf("changed, non-zero otherwise.\n");
+}
+
 int sh_builtin_help(t_sh_data *data, char **args)
 {
 	(void) data;
@@ -81,6 +101,11 @@ int sh_builtin_help(t_sh_data *data, char **args)
 	else if (ft_strequ(args[1], "exit"))
 	{
 		sh_help_exit();
+		return (0);
+	}
+	else if (ft_strequ(args[1], "cd"))
+	{
+		sh_help_cd();
 		return (0);
 	}
 	return (0);
