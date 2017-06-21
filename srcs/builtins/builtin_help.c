@@ -26,6 +26,8 @@ void sh_help_default(t_sh_data *data)
 	ft_printf("cd [-L|-P] [directory]\n");
 	ft_printf("setenv [name]=[value]\n");
 	ft_printf("unsetenv [name]\n");
+	ft_printf("env [-i][name=value]...\t[utility [argument...]]\n");
+	ft_printf("bonus [Displays the bonuses for this project]\n");
 }
 
 void sh_help_echo(void)
@@ -128,6 +130,13 @@ void sh_help_env(void)
 	ft_printf(" utility.\n");
 }
 
+void sh_help_bonus(void)
+{
+	ft_printf("\tbonus - Bonuses for %s\n", PROGNAME);
+	ft_printf("\t\tBuiltin help\n");
+	ft_printf("\t\tSGG | ShellGrammarGenerator\n");
+}
+
 int sh_builtin_help(t_sh_data *data, char **args)
 {
 	(void) data;
@@ -169,6 +178,11 @@ int sh_builtin_help(t_sh_data *data, char **args)
 	else if (ft_strequ(args[1], "env"))
 	{
 		sh_help_env();
+		return (0);
+	}
+	else if (ft_strequ(args[1], "bonus"))
+	{
+		sh_help_bonus();
 		return (0);
 	}
 	return (0);
