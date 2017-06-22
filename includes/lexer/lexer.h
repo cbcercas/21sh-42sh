@@ -18,34 +18,11 @@
 # include <array/array.h>
 # include <types/stack.h>
 # include <automaton/automaton.h>
+# include <parser/enum.h>
 # include <ftprintf.h>
 # include <logger.h>
 
 typedef struct s_token	t_token;
-typedef uint32_t		t_token_type;
-
-enum e_token_type
-{
-	E_TOKEN_NONE,
-	E_TOKEN_BLANK,
-	E_TOKEN_NEWLINE,
-	E_TOKEN_WORD,
-	E_TOKEN_SQUOTE,
-	E_TOKEN_BQUOTE,
-	E_TOKEN_DQUOTE,
-	E_TOKEN_PIPE,
-	E_TOKEN_LESSGREAT,
-	E_TOKEN_AND,
-	E_TOKEN_SEMI,
-	E_TOKEN_IO_NUMBER,
-	E_TOKEN_DLESS,
-	E_TOKEN_DGREAT,
-	E_TOKEN_OR_IF,
-	E_TOKEN_AND_IF,
-	E_TOKEN_LESSAND,
-	E_TOKEN_GREATAND,
-	E_TOKEN_MAX
-};
 
 struct s_token
 {

@@ -16,7 +16,7 @@
 # include <lexer/lexer.h>
 # include <parser/parser_grammar.h>
 # include <stdint.h>
-
+/*
 typedef	uint32_t t_grammar_type;
 
 enum e_grammar_type
@@ -47,7 +47,7 @@ enum e_grammar_type
 	E_SEQUENTIAL_SEP = 223,
 	E_GM_END = 224
 };
-
+*/
 t_bool	parser_parse(t_array *tokens);
 t_bool	is_grammar_type(t_grammar_type g);
 
