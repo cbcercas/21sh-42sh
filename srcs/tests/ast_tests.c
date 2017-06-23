@@ -12,6 +12,12 @@
 
 #include <tests/ast_tests.h>
 
+void test_aff(t_cmd *cmd)
+{
+	static int i = 0;
+	ft_printf("[%d]{%s} ", i, cmd->str);
+	i++;
+}
 
 t_array init_tests_ast(char *input)
 {
@@ -50,6 +56,8 @@ void sh_testing_ast(char *const *av)
 		ft_printf("AST NULL\n");
 	else if (!av[4] || ft_strequ(av[4], "tree"))
 		btree_print(ast, (char * (*)(void*))&ast_aff);
+	else if (ft_strequ(av[4], "ligne"))
+		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
 	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	free(input);
 	exit (0);
