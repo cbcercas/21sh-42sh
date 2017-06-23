@@ -37,3 +37,19 @@ t_array *expand_init(t_array *tokens_expended)
   log_fatal("Expand: Initialization failed");
   return (NULL);
 }
+
+
+t_array *expand_exp(t_array *tokens, t_array *tokens_expended)
+{
+    size_t  cnt;
+    t_token *tok;
+
+    cnt = 0;
+    while (cnt < tokens->used)
+    {
+        tok = (t_token *)array_get_at(tokens, cnt);
+        array_push(tokens_expended, (t_token *)tok);
+        cnt++;
+    }
+    return (tokens_expended);
+}
