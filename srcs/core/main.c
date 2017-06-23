@@ -12,7 +12,7 @@
 
 #include <core/main.h>
 
-int main(int ac, char *const *av)
+int main(int ac, char *const *av, char **environ)
 {
 
 	t_sh_data	data;
@@ -21,11 +21,12 @@ int main(int ac, char *const *av)
 	t_array		tokens_expended;
 	char		*input;
 	BOOL		stop;
+	//char cwd[1024];
 
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
 	ft_printf("%s",tmp);*/
-	if (!sh_init(&data, ac, av))
+	if (!sh_init(&data, ac, av, environ))
 		exit(1);
 	if (lexer_init(&tokens) == NULL)
 		exit (1);
@@ -48,12 +49,33 @@ int main(int ac, char *const *av)
                 }
 			}
 		sh_history_set_new(input);
+
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
 		// 		stop = true;
+
+		/******ECHO*****/
+		//char **test = ft_strsplit("echo -e toto\\\\n \\\\ntata", ' ');
+		//	sh_echo(NULL, test);
 		/***********/
-		//char **test = ft_strsplit("history u", ' ');
-			//sh_history(NULL, test);
+
+
+		/*****CD CHDIR******/
+		//if (input != NULL)
+		//	sh_chdir(NULL, ft_strsplit(input, ' '));
+		//getcwd(cwd, sizeof(cwd));
+		//ft_printf("%s", cwd);
+		/***********/
+
+
+		/******HELP*****/
+		//if (input)
+			//sh_builtin_help(&data, ft_strsplit(input, ' '));
+		/***********/
+
+		/******SETENV*****/
+		//if (input)
+			//sh_builtin_unsetenv(&data, ft_strsplit(input, ' '));
 		/***********/
 
 		if (input && ft_strequ(input, "exit"))

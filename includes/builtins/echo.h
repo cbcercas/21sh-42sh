@@ -17,12 +17,12 @@
 # include <core/command.h>
 # include <builtins/builtins_utils.h>
 
-typedef struct s_echo
+/*typedef struct s_echo
 {
 	char			cur_q;
 	int				lvl;
-}				t_echo;
+}				t_echo;*/
 
-int	sh_echo(t_sh_data *data, char *arg);
+int	sh_echo(t_sh_data *data, char **arg);
 
 #endif

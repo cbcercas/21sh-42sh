@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.h                                             :+:      :+:    :+:   */
+/*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/16 13:49:31 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/12 11:21:31 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/06/19 09:47:39 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/06/20 17:29:29 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXIT_H
-# define EXIT_H
-# include <ftprintf.h>
-# include <core/data.h>
-# include <builtins/builtin_history.h>
-# include <core/tcaps.h>
-# include <core/init.h>
+# include <ast/ast.h>
 
-int	sh_exit(t_sh_data *data, char **arg);
+t_btree	*ast_create(t_array *tokens)
+{
+	t_lim			lim;
+	t_btree		*ast;
 
-#endif
+	ast = NULL;
+	lim.cnt = 0;
+	lim.lim = 10000;
+	ast = ast_built1(ast, tokens, lim);
+	return (ast);
+}

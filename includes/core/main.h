@@ -22,6 +22,8 @@
 # include <core/tcaps.h>
 # include <signals/signals.h>
 # include <history/history.h>
+# include <builtins/help.h>
+
 
 # define PROGNAME "21sh"
 

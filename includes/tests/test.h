@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/30 14:13:48 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/19 11:08:44 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 # include <ftprintf.h>
 # include <environ/environ.h>
 
-void sh_testing_env(char *const *av);
-void	sh_print_env();
+void sh_testing_env(char *const *av, char **environ);
 void	sh_testing_env_set(char *const *av);
 void	sh_testing_env_del(char *const *av);
+void	sh_testing_ast(char *const *av);
 
 #endif //MINISHELL_TEST_H
