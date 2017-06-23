@@ -18,6 +18,7 @@
 # include <libft.h>
 # include <lexer/lexer.h>
 # include <parser/parser.h>
+# include <expand/expand.h>
 # include <core/tcaps.h>
 # include <signals/signals.h>
 # include <history/history.h>
