@@ -222,7 +222,7 @@ echo
 	[ "${lines[1]}" = "" ]
 }
 
-@test "EXPAND: Testing [hist] with '! blow2'" {
+@test "EXPAND: Testing [hist] with 'he!llo !1 i cs !2 ls'" {
   echo -e "blow\njob" > /tmp/.21sh_history
   run env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "he!llo !1 i cs !2 ls"
   echo
@@ -264,9 +264,9 @@ echo
   echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->hello blowblowblow!"
+  echo "$name_exec EXPECTED ->hello jobjobjob!"
 	echo
-  [ "${lines[0]}" = "hello blowblowblow!" ]
+  [ "${lines[0]}" = "hello jobjobjob!" ]
 	[ "${lines[1]}" = "" ]
 }
 
@@ -976,6 +976,65 @@ skip "Tu dois pas gere"
   echo "$name_exec EXPECTED ->tototata"
   echo
   [ "${lines[0]}" = "tototata" ]
+	[ "${lines[1]}" = "" ]
+}
+
+######################################################################
+######################################################################
+
+######################################################################
+#                            ~                                       #
+######################################################################
+
+@test "EXPAND: Testing [~] 1" {
+  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "~"
+  echo
+  echo "ERROR: \"~\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->$HOME"
+  echo
+  [ "${lines[0]}" = "$HOME" ]
+	[ "${lines[1]}" = "" ]
+}
+
+@test "EXPAND: Testing [~] 2" {
+  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "Hello'~'toto\"~\""
+  echo
+  echo "ERROR: \"Hello'~'toto\"~\"\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->HELLO~toto$HOME"
+  echo
+  [ "${lines[0]}" = "HELLO~toto$HOME" ]
+	[ "${lines[1]}" = "" ]
+}
+
+@test "EXPAND: Testing [~] 3" {
+  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\\~'"
+  echo
+  echo "ERROR: \"'\\~'\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->\\~"
+  echo
+  [ "${lines[0]}" = "\\~" ]
+	[ "${lines[1]}" = "" ]
+}
+
+@test "EXPAND: Testing [~] 4" {
+  run ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\\~"
+  echo
+  echo "ERROR: \"\\~\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->~"
+  echo
+  [ "${lines[0]}" = "~" ]
 	[ "${lines[1]}" = "" ]
 }
 
