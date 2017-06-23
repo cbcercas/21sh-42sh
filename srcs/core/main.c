@@ -12,31 +12,13 @@
 
 #include <core/main.h>
 
-void	test(t_array *toks)
-{
-    size_t	cnt;
-    t_token	*tok;
-
-    cnt = 0;
-    while (cnt < toks->used)
-    {
-        tok = (t_token *)array_get_at(toks, cnt);
-//        ft_printf("tok->str: {%s}\n", tok->str);
-//        ft_printf("tok->len: %d\n", tok->len);
-        lexer_print_token(tok);
-//        ft_putchar('\n');
-        ft_putchar('\n');
-        cnt++;
-    }
-}
-
-
 int main(int ac, char *const *av)
 {
 
 	t_sh_data	data;
 	t_automaton	automaton;
 	t_array		tokens;
+	t_array		tokens_expended;
 	char		*input;
 	BOOL		stop;
 
@@ -49,6 +31,8 @@ int main(int ac, char *const *av)
 		exit (1);
 	if (automaton_init(&automaton) == NULL)
 		exit (1);
+	if (expand_init(&tokens_expended) == NULL)
+		exit (1);
 	stop = true;
 	while (stop == true)
 	{
@@ -57,12 +41,11 @@ int main(int ac, char *const *av)
 		if (lexer_lex(&tokens, &automaton, input))
 			if (parser_parse(&tokens))
 			{
-                ft_printf("tokens.used : %d\n", tokens.used);
-//                ft_printf("tokens.elem_size : %d\n", tokens.elem_size);
-//                ft_printf("tokens.capacity : %d\n", tokens.capacity);
-//                ft_printf("exec\n");
-                test(&tokens);
-
+				if (expand_exp(&tokens, &tokens_expended))
+				{
+                	test(&tokens_expended);
+                	array_reset(&tokens_expended, NULL);
+                }
 			}
 		sh_history_set_new(input);
 		// if ((command = ft_strsplit(input, ';')))
