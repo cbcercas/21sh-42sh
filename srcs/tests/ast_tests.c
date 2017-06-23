@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/23 12:58:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/23 13:03:53 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void sh_testing_ast(char *const *av)
 		ft_printf("AST NULL\n");
 	else if (!av[4] || ft_strequ(av[4], "tree"))
 		btree_print(ast, (char * (*)(void*))&ast_aff);
-	else if (ft_strequ(av[4], "ligne"))
+	else if (ft_strequ(av[4], "line"))
 		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
 	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	free(input);
