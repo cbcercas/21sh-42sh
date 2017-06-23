@@ -194,7 +194,7 @@ tests_travis()
 	elif [ ${TRAVIS_BRANCH} = "env" ] || [ ${TRAVIS_BRANCH} = "environ" ]; then
 		test_bats 'env'
 	elif [ ${TRAVIS_BRANCH} = "exp" ] || [ ${TRAVIS_BRANCH} = "expand" ]; then
-		test_bats 'env'
+		test_bats 'expand'
 	else
 		echo -e "Tests doesn't exist for branch: ${TRAVIS_BRANCH}"
 		echo -e "Create an issue to ask new tests for this branch"
