@@ -36,6 +36,9 @@ SRCS			+= signals.c signals_handler.c
 SRC_SUBDIR		+= parser
 SRCS			+= parser.c parser_grammar.c
 
+SRC_SUBDIR		+= expand
+SRCS			+= expand.c
+
 SRC_SUBDIR      += tests
 SRCS            += env.c lexer_tests.c parser_tests.c
 
