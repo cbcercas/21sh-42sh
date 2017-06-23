@@ -18,7 +18,7 @@ int main(int ac, char *const *av)
 	t_sh_data	data;
 	t_automaton	automaton;
 	t_array		tokens;
-	t_array		tokens_expended;
+	t_array		*tokens_expended;
 	char		*input;
 	BOOL		stop;
 
@@ -43,8 +43,11 @@ int main(int ac, char *const *av)
 			{
 				if (expand_exp(&tokens, &tokens_expended))
 				{
-                	test(&tokens_expended);
-                	array_reset(&tokens_expended, NULL);
+					test(&tokens);
+        			printf("------------------------\n");
+                	array_reset(tokens_expended, NULL);
+                	test(tokens_expended);
+        			printf("------------------------\n");
                 }
 			}
 		sh_history_set_new(input);
