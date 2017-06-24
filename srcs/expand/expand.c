@@ -26,7 +26,7 @@ void	test(t_array *toks)
 
 t_array *expand_create(void)
 {
-  t_array  *e = NULL;
+  static t_array  *e = NULL;
 
   if (e == NULL)
   {
@@ -61,8 +61,10 @@ t_array *expand_exp(t_array *tokens, t_array **tokens_expended)
     cnt = 0;
     while (cnt < tokens->used)
     {
+        // tok = ft_memalloc(sizeof(t_token));
         tok = (t_token *)array_get_at(tokens, cnt);
         array_push(*tokens_expended, (void *)tok);
+
         cnt++;
     }
     return (*tokens_expended);

@@ -45,9 +45,9 @@ int main(int ac, char *const *av)
 				{
 					test(&tokens);
         			printf("------------------------\n");
-                	array_reset(tokens_expended, NULL);
                 	test(tokens_expended);
         			printf("------------------------\n");
+                	array_reset(tokens_expended, NULL);
                 }
 			}
 		sh_history_set_new(input);
