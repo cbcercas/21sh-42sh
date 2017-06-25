@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/23 13:03:53 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/25 18:35:08 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void sh_testing_ast(char *const *av)
 		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
 	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	free(input);
+	array_reset(&tokens, NULL);
 	exit (0);
 }
