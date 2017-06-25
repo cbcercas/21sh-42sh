@@ -257,3 +257,6 @@ do
 	esac
 done
 exit $ret
+
+#TODO: valgrind --trace-children=yes --log-file=toto.log --leak-check=full --track-origins=yes ./21sh
+#ajout check leaks comme option
