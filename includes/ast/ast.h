@@ -19,11 +19,21 @@
 # include <libft.h>
 # include <lexer/lexer.h>
 
+typedef struct s_info	t_info;
+
+struct	s_info
+{
+	int redir_fd_in;
+	int redir_fd_out;
+	int ret;
+};
+
 typedef struct s_cmd	t_cmd;
 
 struct s_cmd
 {
 	char const			*str;
+	t_info					info;
 	t_token_type		type;
 };
 

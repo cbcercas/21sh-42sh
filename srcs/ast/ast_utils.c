@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/20 21:16:41 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/23 16:22:20 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ t_cmd	*ast_new_cmd(const char *str, size_t len, t_token_type type)
 		return (NULL);
 	cmd->type = type;
 	cmd->str = ft_strsub(str, 0, len);
+	ft_bzero((void *)&cmd->info, sizeof(t_info));
 	return (cmd);
 }
