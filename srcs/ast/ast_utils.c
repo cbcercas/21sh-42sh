@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/23 16:22:20 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/25 18:56:57 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,15 @@ void	ast_del_cmd(t_cmd *cmd)
 	cmd = NULL;
 }
 
-int	ast_val_cmp(t_token_type type)
+void ast_built2_swap(t_btree *ast)
 {
-	if ((type == E_TOKEN_SEMI) ||\
-			(type == E_TOKEN_AND_IF) || (type == E_TOKEN_OR_IF))
-		return (1);
-	if (type == E_TOKEN_LESSGREAT)
-		return (2);
-	if (type == E_TOKEN_DLESS)
-		return (3);
-	if (type == E_TOKEN_DGREAT)
-		return (4);
-	if ((type == E_TOKEN_PIPE) || (type == E_TOKEN_AND))
-		return (5);
-	if (type == E_TOKEN_WORD)
-		return (6);
-	return (7);
-}
+		t_btree		*tmp;
 
-int	ast_cmp(t_cmd *s1, t_cmd *s2)
-{
-	if (ast_val_cmp(s1->type) <= ast_val_cmp(s2->type))
-		return (0);
-	return (1);
+		if (!ast)
+			return ;
+		tmp = ast->left;
+		ast->left = ast->right;
+		ast->right = tmp;
 }
 
 char *ast_aff(t_cmd *cmd)

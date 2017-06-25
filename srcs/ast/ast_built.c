@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/25 18:24:53 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/25 18:55:34 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ t_btree	*ast_built2(t_btree *ast, t_array *tokens, t_lim lim)
 {
 	t_token	*tok;
 	t_lim lim_left;
-	t_btree		*tmp;
 
 	lim_left = lim;
 	tok = NULL;
@@ -132,11 +131,7 @@ t_btree	*ast_built2(t_btree *ast, t_array *tokens, t_lim lim)
 			ast->left = ast_built3(ast->left, tokens, lim_left);
 			ast->right = ast_built2(ast->right, tokens, lim);
 		if (ft_strnequ(tok->str, "<", tok->len))
-		{
-			tmp = ast->left;
-			ast->left = ast->right;
-			ast->right = tmp;
-		}
+			ast_built2_swap(ast);
 	}
 	else
 		ast = ast_built3(ast, tokens, lim_left);

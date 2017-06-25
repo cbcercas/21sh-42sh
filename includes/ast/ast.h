@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:44:50 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/25 18:42:37 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/25 18:56:13 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ t_btree	*ast_built6(t_btree *ast, t_array *tokens, t_lim lim);
 
 BOOL	ast_is_redir(t_array *tokens, size_t cnt, t_token *cur);
 t_btree	*ast_built_greatand(t_btree *ast, t_array *tokens, t_lim lim);
+
+void	ast_built2_swap(t_btree *ast);
 
 void	ast_del_cmd(t_cmd *cmd); //TODO: refactor quand expand sera fini
 char	*ast_aff(t_cmd *cmd);//TODO: refactor quand expand sera fini
