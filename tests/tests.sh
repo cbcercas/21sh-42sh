@@ -8,9 +8,9 @@ help()
 {
 	echo -e "\nUsage:  ./tests.sh [tests][module]"
 		echo -e "\t\033[1;m TESTS:\033[0m"
-		echo -e "\t\t -s  \033[4mmodule\033[0m  It is option for \033[3m\"normal\"\033[0m tests with shell script, based on diff command"
-		echo -e "\t\t -b  \033[4mmodule\033[0m  It is option for bats tests. You should install bats before."
-		echo -e "\t\t -h  \033[4mmodule\033[0m  display this message"
+		echo -e "\t\t -s or --sh  \033[4mmodule\033[0m  It is option for \033[3m\"normal\"\033[0m tests with shell script, based on diff command"
+		echo -e "\t\t -b or --bats \033[4mmodule\033[0m  It is option for bats tests. You should install bats before."
+		echo -e "\t\t -h  or --help \033[4mmodule\033[0m  display this message"
 		echo -e
 		echo -e "\t\033[1;m MODULE:\033[0m"
 		echo -e "\t\t'parser' or 'p'"
