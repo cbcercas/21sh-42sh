@@ -42,7 +42,7 @@ check_path()
 
 test_verif_command()
 {
-	echo -e "\n\033[1;4mChecking command:\033[0m"
+	echo -e "\n[--\033[1;4mChecking command:\033[0m--]"
 	_needed_commands=$1;
 
 	command -v command >/dev/null 2>&1 || {
@@ -60,10 +60,10 @@ test_verif_command()
 					}
 		done
 	[ -z "${_return}" ] || {
-			echo -e "ERR > Requirement missing." >&2 ;
+			echo -e "\033[1;31ERR > Requirement missing.\033[0m" >&2 ;
 			exit 1 ;
 		}
-	echo -e "Done.\n"
+	echo -e "\033[1;32mDone.\033[0m\n"
 }
 
 ################################################################################
@@ -169,7 +169,8 @@ test_bats()
 		ret=`expr $ret + $?`
 		return 0;
 	else
-		help
+		#help
+		echo -e "../test.sh -h : for display help\n"
 		exit 1;
 	fi;
 }
@@ -218,44 +219,63 @@ tests_travis()
 path_of_file=`dirname $0`
 ret=0
 name_of_exec="21sh"
+
+var_test_bats=""
+var_tests_sh="1"
+var_test_valgrind=0
 ################################################################################
 ################################################################################
 
 if [ $# = 0 ]; then
 	tests_travis
 fi
-
 while getopts ":s:b:h" option
 do
 	case $option in
 		s)
-			echo -e "\n##################################"
-			echo -e "######## Tests mode: sh ##########"
-			echo -e "##################################"
+		echo -e "\033[1;33m \n================================================================\n"
+		echo -e "\033[1;33m███████╗██╗  ██╗    ████████╗███████╗███████╗████████╗███████╗
+██╔════╝██║  ██║    ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝
+███████╗███████║       ██║   █████╗  ███████╗   ██║   ███████╗
+╚════██║██╔══██║       ██║   ██╔══╝  ╚════██║   ██║   ╚════██║
+███████║██║  ██║       ██║   ███████╗███████║   ██║   ███████║
+╚══════╝╚═╝  ╚═╝       ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝\033[0m"
+		echo -e "\033[1;33m \n=================================================================\n\033[0m"
 			#check_path
+			#var_tests_sh="$OPTARG"
 			var_ret= test_sh $OPTARG
 			;;
 		b)
-			echo -e "\n##################################"
-			echo -e "######## Tests mode: bats ########"
-			echo -e "##################################"
-			#check_path
-			test_bats $OPTARG
+			var_test_bats="$OPTARG"
 			;;
 		h)
 			help
 			exit 1;
 			;;
 		:)
-			echo -e "the option $OPTARG requiert an argument"
+			echo -e "the option $OPTARG requiert an argument\n"
+			echo -e "../test.sh -h : for display help\n"
 			exit 1
 			;;
 		\?)
-			echo -e "\"$OPTARG\" : invalid option"
+			echo -e "\"$OPTARG\" : invalid option\n"
+			echo -e "../test.sh -h : for display help\n"
 			exit 1
 		;;
 	esac
 done
+if [[ "$var_test_bats" != "" ]]; then
+	echo -e "\033[1;33m \n=================================================================================\n"
+	echo -e "\033[1;33m
+██████╗  █████╗ ████████╗███████╗    ████████╗███████╗███████╗████████╗███████╗
+██╔══██╗██╔══██╗╚══██╔══╝██╔════╝    ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝
+██████╔╝███████║   ██║   ███████╗       ██║   █████╗  ███████╗   ██║   ███████╗
+██╔══██╗██╔══██║   ██║   ╚════██║       ██║   ██╔══╝  ╚════██║   ██║   ╚════██║
+██████╔╝██║  ██║   ██║   ███████║       ██║   ███████╗███████║   ██║   ███████║
+╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝       ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝\033[0m"
+	echo -e "\033[1;33m \n==================================================================================\n\033[0m"
+	test_bats $var_test_bats
+fi
 exit $ret
 
 #TODO: valgrind --trace-children=yes --log-file=toto.log --leak-check=full --track-origins=yes ./21sh
