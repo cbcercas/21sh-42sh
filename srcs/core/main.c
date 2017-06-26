@@ -60,8 +60,8 @@ int main(int ac, char *const *av, char **environ)
 
 
 		/******HELP*****/
-		if (input)
-			sh_builtin_help(&data, ft_strsplit(input, ' '));
+		//if (input)
+		//	sh_builtin_help(&data, ft_strsplit(input, ' '));
 		/***********/
 
 		/******SETENV*****/
@@ -72,6 +72,11 @@ int main(int ac, char *const *av, char **environ)
 		/******ENV*****/
 		//if (input)
 		//	sh_builtin_env(&data, ft_strsplit(input, ' '));
+		/***********/
+
+		/******PWD*****/
+		if (input)
+			sh_builtin_pwd(&data, ft_strsplit(input, ' '));
 		/***********/
 
 		if (input && ft_strequ(input, "exit"))

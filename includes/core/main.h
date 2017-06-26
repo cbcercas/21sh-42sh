@@ -22,6 +22,8 @@
 # include <signals/signals.h>
 # include <history/history.h>
 # include <builtins/help.h>
+# include <builtins/pwd.h>
+
 
 
 # define PROGNAME "21sh"
