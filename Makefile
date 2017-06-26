@@ -24,7 +24,7 @@ SRC_SUBDIR		+= builtins
 SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
 							builtin_history_acdws.c builtin_history_print.c\
 							builtin_history_npr.c builtin_help.c\
-							builtins_utils2.c
+							builtins_utils2.c pwd.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c
