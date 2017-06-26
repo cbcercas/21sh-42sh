@@ -127,13 +127,16 @@ test_sh_verif()
 ################################################################################
 test_bats_verif()
 {
-	if [ -f "$path_of_file/../$name_of_exec" ]
+	if [ "$var_test_bats" != "A" ] && [ "$var_test_bats" != "all" ]
+	then
+		if [ -f "$path_of_file/../$name_of_exec" ]
 		then
-		echo -e "\033[1;32m info: bin: $name_of_exec find\033[0m"
+				echo -e "\033[1;32m info: bin: $name_of_exec find\033[0m"
 		else
-		echo -e "\033[1;31m bin: $name_of_exec doesn't exist \033[0m"
-		echo -e "don't forget command 'make'"
-		exit 1;
+				echo -e "\033[1;31m bin: $name_of_exec doesn't exist \033[0m"
+				echo -e "don't forget command 'make'"
+				exit 1;
+		fi
 	fi
 	test_verif_command "bats echo sh bash env"
 }
@@ -229,6 +232,18 @@ var_test_valgrind=0
 if [ $# = 0 ]; then
 	tests_travis
 fi
+
+#-- This module converts the long arguments into shorter ones for getopt --#
+for arg in "$@"; do
+  shift
+  case "$arg" in
+    "--help") set -- "$@" "-h" ;;
+    "--bats") set -- "$@" "-b" ;;
+    "--sh")   set -- "$@" "-s" ;;
+    *)        set -- "$@" "$arg" ;;
+  esac
+done
+
 while getopts ":s:b:h" option
 do
 	case $option in
