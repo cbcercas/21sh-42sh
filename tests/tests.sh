@@ -11,6 +11,7 @@ help()
 		echo -e "\t\t -s or --sh  \033[4mmodule\033[0m  It is option for \033[3m\"normal\"\033[0m tests with shell script, based on diff command"
 		echo -e "\t\t -b or --bats \033[4mmodule\033[0m  It is option for bats tests. You should install bats before."
 		echo -e "\t\t -h  or --help \033[4mmodule\033[0m  display this message"
+		echo -e "\t\t -v  or --valgrind \033[4mmodule\033[0m  check leaks with valgrind"
 		echo -e
 		echo -e "\t\033[1;m MODULE:\033[0m"
 		echo -e "\t\t'parser' or 'p'"
@@ -138,7 +139,11 @@ test_bats_verif()
 				exit 1;
 		fi
 	fi
-	test_verif_command "bats echo sh bash env"
+	if [[ $TESTS_CHECK_LEAKS -eq 0 ]]; then
+		test_verif_command "bats echo sh bash env"
+	else
+		test_verif_command "bats echo sh bash env valgrind"
+	fi
 }
 
 test_bats()
@@ -226,6 +231,7 @@ name_of_exec="21sh"
 var_test_bats=""
 var_tests_sh="1"
 var_test_valgrind=0
+export TESTS_CHECK_LEAKS=0
 ################################################################################
 ################################################################################
 
@@ -240,11 +246,12 @@ for arg in "$@"; do
     "--help") set -- "$@" "-h" ;;
     "--bats") set -- "$@" "-b" ;;
     "--sh")   set -- "$@" "-s" ;;
+		"--valgrind")   set -- "$@" "-v" ;;
     *)        set -- "$@" "$arg" ;;
   esac
 done
 
-while getopts ":s:b:h" option
+while getopts ":s:b:hv" option
 do
 	case $option in
 		s)
@@ -266,6 +273,10 @@ do
 		h)
 			help
 			exit 1;
+			;;
+		v)
+			echo "VALDRIND ENCLENCHé"
+			export TESTS_CHECK_LEAKS=1
 			;;
 		:)
 			echo -e "the option $OPTARG requiert an argument\n"
@@ -289,7 +300,11 @@ if [[ "$var_test_bats" != "" ]]; then
 ██████╔╝██║  ██║   ██║   ███████║       ██║   ███████╗███████║   ██║   ███████║
 ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝       ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝\033[0m"
 	echo -e "\033[1;33m \n==================================================================================\n\033[0m"
+	if [[ $TESTS_CHECK_LEAKS -eq 1 ]]; then
+		echo -e "\033[32;1;3m+++ [[-- VALGRIND TESTS: (It can take a long time.) --]]\033[0m"
+	fi
 	test_bats $var_test_bats
+	rm -rf check_leaks_tmp.log
 fi
 exit $ret
 
