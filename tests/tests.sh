@@ -275,7 +275,6 @@ do
 			exit 1;
 			;;
 		v)
-			echo "VALDRIND ENCLENCHé"
 			export TESTS_CHECK_LEAKS=1
 			;;
 		:)
