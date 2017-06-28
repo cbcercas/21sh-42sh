@@ -10,8 +10,11 @@ help()
 		echo -e "\t\033[1;m TESTS:\033[0m"
 		echo -e "\t\t -s or --sh  \033[4mmodule\033[0m  It is option for \033[3m\"normal\"\033[0m tests with shell script, based on diff command"
 		echo -e "\t\t -b or --bats \033[4mmodule\033[0m  It is option for bats tests. You should install bats before."
-		echo -e "\t\t -h  or --help \033[4mmodule\033[0m  display this message"
-		echo -e "\t\t -v  or --valgrind \033[4mmodule\033[0m  check leaks with valgrind"
+		echo -e "\t\t -h  or --help \033[4mmodule\033[0m  display this message\n"
+		echo -e "\t\t -v  or --valgrind check leaks with valgrind"
+		echo -e "\t\t -v=full  or --valgrind=full check all leaks with valgrind"
+		echo -e "\t\t -v=default  or --valgrind=no check all leaks with valgrind"
+		echo -e "\t\t -v=no  or --valgrind=no check all leaks with valgrind"
 		echo -e
 		echo -e "\t\033[1;m MODULE:\033[0m"
 		echo -e "\t\t'parser' or 'p'"
@@ -251,7 +254,22 @@ for arg in "$@"; do
   esac
 done
 
-while getopts ":s:b:hv" option
+for args in "$@"; do
+  shift
+  case "$args" in
+		"-v")   set -- "$@" "-v 1" ;;
+		"-v=full")   set -- "$@" "-v 2" ;;
+		"-v=default")   set -- "$@" "-v 1" ;;
+		"-v=no")   set -- "$@" "-v 0" ;;
+		"--valgrind")   set -- "$@" "-v 1" ;;
+		"--valgrind=full")   set -- "$@" "-v 2" ;;
+		"--valgrind=default")   set -- "$@" "-v 1" ;;
+		"--valgrind=no")   set -- "$@" "-v 0" ;;
+    *)        set -- "$@" "$args" ;;
+  esac
+done
+
+while getopts ":s:b:hv:" option
 do
 	case $option in
 		s)
@@ -275,7 +293,8 @@ do
 			exit 1;
 			;;
 		v)
-			export TESTS_CHECK_LEAKS=1
+			echo "arg=$OPTARG"
+			export TESTS_CHECK_LEAKS=$OPTARG
 			;;
 		:)
 			echo -e "the option $OPTARG requiert an argument\n"
