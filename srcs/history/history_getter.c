@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 17:16:17 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/29 16:18:07 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/29 16:32:10 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			sh_history_is_print(char const *line)
 	return (1);
 }
 
-char	*sh_history_get_search(const char *line)
+const char	*sh_history_get_search(const char *line)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -59,19 +59,19 @@ char	*sh_history_get_search(const char *line)
 			while (search != -1 && (h = (t_hist *)array_get_at(hists, search)) && !ft_strnequ(line, h->cmd, ft_strlen(line)))
 				search--;
 			if (ft_strnequ(line, h->cmd, ft_strlen(line)))
-				return (h->cmd);
+				return ((const char *)h->cmd);
 		}
 	return (NULL);
 }
 
-char	*sh_history_get_at(size_t nb)
+const char	*sh_history_get_at(size_t nb)
 {
 	t_array	*hists;
 	t_hist	*h;
 
 		hists = sh_history_get();
 		if ((h = (t_hist *)array_get_at(hists, nb)))
-			return (h->cmd);
+			return ((const char *)h->cmd);
 	return (NULL);
 }
 
