@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/08 08:18:13 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/19 11:07:52 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,25 @@ static void		sh_data_free(t_sh_data *data)
 	return;
 }
 
-void sh_testing(const char *arg, char *const *av)
+void sh_testing(const char *arg, char *const *av, char **environ)
 {
 	if (ft_strequ(arg, "env"))
-		sh_testing_env(av);
+		sh_testing_env(av, environ);
 	if (ft_strequ(arg, "lexer"))
 		sh_testing_lexer(av);
 	if (ft_strequ(arg, "parser"))
 		sh_testing_parser(av);
+	if (ft_strequ(arg, "ast"))
+		sh_testing_ast(av);
+
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
-		sh_help_exit();
+        sh_usage_help_exit();
 	}
 }
 
-static void sh_options(t_sh_opt *opts, int ac, char *const *av)
+static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 {
 	int opt;
 
@@ -55,22 +58,22 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av)
 			else
 			{
 				ft_printf("%s: Invalid debug level.\n", PROGNAME);
-				sh_help_exit();
+                sh_usage_help_exit();
 			}
 		else if (opt == 'h')
-			sh_help_exit();
+            sh_usage_help_exit();
 		else if (opt == 't')
-			sh_testing(g_optarg, av);
+			sh_testing(g_optarg, av, environ);
 		else if (opt == '?')
-			sh_help_exit();
+            sh_usage_help_exit();
 	}
 }
 
-t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av)
+t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 {
 	ft_bzero(data, sizeof(*data));
-	sh_options(&data->opts, ac, av);
-	sh_init_environ();
+	sh_options(&data->opts, ac, av, environ);
+	sh_init_environ(environ);
 	sh_builtins_init();
 	sh_history_init(NULL);
 	init_signals(signals_handler);

@@ -2,11 +2,12 @@ cmake_minimum_required(VERSION 3.0)
 project(21sh)
 
 set(CMAKE_CXX_STANDARD 11)
-set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
+#set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
 
 set(SOURCE_FILES
         srcs/automaton/automaton.c
         srcs/builtins/builtins_utils.c
+        srcs/builtins/builtins_utils2.c
         srcs/builtins/chdir.c
         srcs/builtins/echo.c
         srcs/builtins/exit.c
@@ -16,17 +17,20 @@ set(SOURCE_FILES
         srcs/core/input.c
         srcs/core/input_utils.c
         srcs/core/main.c
-        srcs/core/help.c
+        srcs/core/usage_help.c
         srcs/core/prompt.c
         srcs/environ/env_list_utils.c
         srcs/environ/environ.c
         srcs/environ/getter_env.c
+        srcs/environ/builtin_env_utils.c
+        srcs/environ/builtin_environ.c
+        srcs/environ/modif_env.c
         srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
         srcs/term/term_modes.c
         srcs/tests/lexer_tests.c
-        srcs/tests/env.c
+        srcs/tests/env_tests.c
         srcs/tests/parser_tests.c
         srcs/parser/parser.c
         srcs/parser/parser_grammar.c
@@ -40,7 +44,7 @@ set(SOURCE_FILES
         srcs/tcaps/tcaps_exec_tab.c
         srcs/tcaps/tcaps_key_exec.c
         srcs/tcaps/tcaps_redraw_line.c
-        srcs/tests/env.c
+        srcs/tests/env_tests.c
         srcs/history/history.c
         srcs/history/history_list_utils.c
         srcs/history/history_getter.c
@@ -52,6 +56,21 @@ set(SOURCE_FILES
         srcs/builtins/builtin_history_acdws.c
         srcs/builtins/builtin_history_print.c
         srcs/builtins/builtin_history_npr.c
+        srcs/builtins/builtin_help.c
+        srcs/btree/btree_apply_infix.c
+        srcs/btree/btree_apply_suffix.c
+        srcs/btree/btree_apply_prefix.c
+        srcs/btree/btree_destroy.c
+        srcs/btree/btree_insert_data.c
+        srcs/btree/btree_create_node.c
+        srcs/btree/btree_print.c
+        srcs/btree/btree_level_count.c
+        srcs/btree/btree_search_item.c
+        srcs/ast/ast_utils.c
+        srcs/ast/ast_built.c
+        srcs/ast/ast_built_greatand.c
+        srcs/ast/ast.c
+        srcs/tests/ast_tests.c
         )
 
 include_directories(includes)

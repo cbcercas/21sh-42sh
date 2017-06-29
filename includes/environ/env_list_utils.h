@@ -14,6 +14,7 @@
 # include <libft.h>
 # include <logger.h>
 # include <ftprintf.h>
+# include <core/data.h>
 
 typedef struct	s_env
 {
