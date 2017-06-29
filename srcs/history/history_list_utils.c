@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 16:00:49 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/13 14:11:03 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/29 16:42:25 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_hist	*sh_history_new(char *cmd)
 		log_fatal("History: can't create new history command");
 		ft_dprintf(STDERR_FILENO,"History: can't create new history command");
 	}
-	else if ((h->cmd = cmd) == NULL)
+	else if ((h->cmd = (const char *)cmd) == NULL)
 	{
 		log_fatal("History: can't create new history command");
 		ft_dprintf(STDERR_FILENO,"History: can't create new history command");
@@ -40,7 +40,7 @@ void sh_history_del(void *i)
 
 	h = (t_hist *)i;
 	if (h->cmd)
-		ft_strdel(&(h->cmd));
+		ft_strdel((char **)&(h->cmd));
 	if (h->buf)
 		ft_strdel(&(h->buf));
 }

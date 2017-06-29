@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/29 16:32:07 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/29 16:39:18 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 
 typedef	struct	s_hist
 {
-	char					*cmd;
+	const char		*cmd;
 	char					*buf;
 	int						cur;
 	BOOL					session;
