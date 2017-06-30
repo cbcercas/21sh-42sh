@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/29 12:41:45 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/30 15:17:43 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,7 @@ char	*sh_get_line(void)
 			stop = key_exec(&key, &input);
 		else if (sh_history_is_print(buff))
 		{
-			if (!string_insert(input.str, key.key,
-		(((((input.ts.ts_cols * input.offset_line - (input.offset_line ? 1 : 0)) - input.offset_col )
-				+ (input.cpos.cp_col + input.offset_line))))))
+			if (!string_insert(input.str, key.key, sh_pos_of_insert(input)))
 				return (NULL);
 			sh_history_insert_buf(input.str->s);
 			draw_char(&input, key.key);

@@ -6,9 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 22:24:22 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/30 15:16:37 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef INPUT_H
 # define INPUT_H
 # include <string/ft_string.h>
@@ -34,6 +35,7 @@ struct	s_input
 char	*sh_get_line(void);
 char	*sh_get_line2(void);
 void	reset_input(t_input *input);
+size_t	sh_pos_of_insert(t_input input);
 
 extern	t_input	*g_input;
 
