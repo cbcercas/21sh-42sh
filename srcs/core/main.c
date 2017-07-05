@@ -25,6 +25,7 @@ int main(int ac, char *const *av, char **environ)
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
 	ft_printf("%s",tmp);*/
+	struct termios *tattr = init_term();
 	if (!sh_init(&data, ac, av, environ))
 		exit(1);
 	if (lexer_init(&tokens) == NULL)
@@ -77,6 +78,9 @@ int main(int ac, char *const *av, char **environ)
 	}
 	sh_history_save();
 	sh_deinit(&data);
+	ft_printf("lol?\n");
+	reset_term(tattr);
+	ft_printf("lol?\n");
 	ft_putstr("\033[?1049l");
 	return (0);
 }

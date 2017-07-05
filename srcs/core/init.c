@@ -100,3 +100,40 @@ void			sh_deinit(t_sh_data *data)
 	sh_data_free(data);
 	//default_terminal_mode();
 }
+
+struct termios    *init_term(void)//a faire au debut
+{
+	int ttyDevice;
+	struct termios termAttributes;
+
+	ttyDevice = STDOUT_FILENO;
+	if ( !isatty(ttyDevice) )
+		return(1);
+	else
+		if (tcgetattr(ttyDevice, &termAttributes) != 0)
+			perror("tcgetattr error");
+
+	/*static struct termios    *tattr;
+	tattr = NULL;
+	ft_printf("lol?\n");
+
+	if (!tattr)
+	{
+		ft_printf("lol?\n");
+		tcgetattr(STDIN_FILENO, tattr); //tu chope le term
+		ft_printf("lol?\n");
+	}
+	ft_printf("lol?\n");
+
+	return (tattr);*/
+}
+
+void reset_term(struct termios *tattr)//a faire à la fin
+{
+	if (tcsetattr(STDIN_FILENO, TCSANOW, tattr) < 0)
+	{
+		perror("stdin");
+		return;
+	}
+	return;
+}

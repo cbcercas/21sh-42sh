@@ -30,5 +30,8 @@
 
 t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ);
 void			sh_deinit(t_sh_data *data);
+struct termios    *init_term(void);
+void reset_term(struct termios *tattr);
+
 
 #endif
