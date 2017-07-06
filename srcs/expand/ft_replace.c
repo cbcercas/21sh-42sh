@@ -6,7 +6,7 @@
 /*   By: guiforge <guiforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 17:17:21 by guiforge          #+#    #+#             */
-/*   Updated: 2017/07/06 17:18:23 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/06 17:24:33 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_replace_init(char *src1, char *src2, int index, int size)
 	return (0);
 }
 
-char	*ft_replace(char *src1, char *src2, int index, int size)
+char	*ft_replace_exp(char *src1, char *src2, int index, int size)
 {
 	char	*begin;
 	char	*end;
