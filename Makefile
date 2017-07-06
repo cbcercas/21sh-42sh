@@ -42,7 +42,8 @@ SRC_SUBDIR		+= expand
 SRCS			+= expand.c expand_utils.c ft_replace.c
 
 SRC_SUBDIR      += tests
-SRCS            += env_tests.c lexer_tests.c parser_tests.c ast_tests.c
+SRCS            += env_tests.c lexer_tests.c parser_tests.c ast_tests.c\
+										expand_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c
