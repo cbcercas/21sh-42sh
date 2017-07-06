@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/23 13:03:53 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/27 18:08:05 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ t_array init_tests_ast(char *input)
 		exit (1);
 	}
 	else if (lexer_lex(&tokens, &automaton, input))
+	{
+		if (automaton.stack)
+			stack_destroy(&(automaton.stack), NULL);
 		return (tokens);
+	}
 	else
 	{
 		ft_printf("Fatal testing error : Couldn't Catch the error.");
@@ -60,5 +64,6 @@ void sh_testing_ast(char *const *av)
 		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
 	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	free(input);
+	array_reset(&tokens, NULL);
 	exit (0);
 }

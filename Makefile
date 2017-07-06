@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/06/20 17:57:00 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/06/25 18:25:28 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\
 					btree_level_count.c  btree_search_item.c btree_print.c
 
 SRC_SUBDIR      += ast
-SRCS            += ast.c ast_utils.c ast_built.c
+SRCS            += ast.c ast_utils.c ast_built.c ast_built_greatand.c
 
 ###############################################################################
 #																			  #
