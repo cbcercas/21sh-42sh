@@ -26,7 +26,7 @@ void	test(t_array *toks)
 
 t_array *expand_init(t_array *tokens_expended)
 {
-  tokens_expended = array_init(tokens_expended, sizeof(t_token));
+  tokens_expended = array_create(sizeof(t_token));
   if (tokens_expended != NULL)
   {
     log_info("Expand: Initialization done");
