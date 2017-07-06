@@ -1,7 +1,43 @@
 #include <expand/expand.h>
 
+void expand_print(t_array *array_exp)
+{
+  t_exp   *exp;
+  size_t  i;
 
-void	test(t_array *toks)
+  i = 0;
+  if (!array_exp || i >= array_exp->used)
+    return ;
+  ft_printf("-----Expand------\n");
+  while (i < array_exp->used)
+  {
+    exp = (t_exp *)array_get_at(array_exp, i);
+    if (exp)
+      ft_printf("Exp[%zu] = {%s}\n", i, exp->str);
+    i++;
+  }
+}
+
+
+t_array *expand(t_array *tokens, t_array *array_exp)
+{
+  t_exp   *exp;
+  size_t  i;
+
+  i = 0;
+  if (!tokens || !array_exp || i >= tokens->used)
+    return (NULL);
+  while (tokens && i < tokens->used)// dans tous les tokens
+  {
+    exp = exp_create_new((t_token *)array_get_at(tokens, i));// etape 1
+    array_push(array_exp, (void *)exp);// push dans notre t_array
+    i++;
+  }
+  return (array_exp);
+}
+
+
+/*void	test(t_array *toks)
 {
     size_t	cnt;
     t_token	*tok;
@@ -16,7 +52,7 @@ void	test(t_array *toks)
        	ft_putstr("\n\n");
         cnt++;
     }
-}
+}*/
 
 /**
 ** @brief      Initialize the t_array for expended tokens
@@ -24,7 +60,7 @@ void	test(t_array *toks)
 ** @return     t_array*   the structure initialized
 */
 
-t_array *expand_create(void)
+/*t_array *expand_create(void)
 {
   static t_array  *e = NULL;
 
@@ -68,4 +104,4 @@ t_array *expand_exp(t_array *tokens, t_array **tokens_expended)
         cnt++;
     }
     return (*tokens_expended);
-}
+}*/

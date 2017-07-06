@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/14 12:30:51 by mleroy           ###   ########.fr       */
+/*   Updated: 2017/07/06 15:40:44 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(int ac, char *const *av, char **environ)
 	t_sh_data	data;
 	t_automaton	automaton;
 	t_array		tokens;
-	t_array		*tokens_expended;
+	t_array		expand_array;
 	char		*input;
 	BOOL		stop;
 	//char cwd[1024];
@@ -32,7 +32,7 @@ int main(int ac, char *const *av, char **environ)
 		exit (1);
 	if (automaton_init(&automaton) == NULL)
 		exit (1);
-	if (expand_init(&tokens_expended) == NULL)
+	if (expand_init(&expand_array) == NULL)
 		exit (1);
 	stop = true;
 	while (stop == true)
@@ -42,14 +42,16 @@ int main(int ac, char *const *av, char **environ)
 		if (lexer_lex(&tokens, &automaton, input))
 			if (parser_parse(&tokens))
 			{
-				if (expand_exp(&tokens, &tokens_expended))
+				if (expand(&tokens, &expand_array))
+					expand_print(&expand_array);
+				/*if (expand_exp(&tokens, &tokens_expended))
 				{
 					test(&tokens);
         			printf("------------------------\n");
                 	test(tokens_expended);
         			printf("------------------------\n");
                 	array_reset(tokens_expended, NULL);
-                }
+                }*/
 			}
 		sh_history_set_new(input);
 
@@ -85,9 +87,11 @@ int main(int ac, char *const *av, char **environ)
 			stop = false;
 		input ? ft_strdel(&input) : 0;
 		array_reset(&tokens, NULL);
+		array_reset(&expand_array, sh_exp_del);
 		automaton_reset(&automaton);
 	}
 	sh_history_save();
+	//sh_expand_destroy(&expand_array);
 	sh_deinit(&data);
 	ft_putstr("\033[?1049l");
 	return (0);

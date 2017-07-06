@@ -39,7 +39,7 @@ SRC_SUBDIR		+= parser
 SRCS			+= parser.c parser_grammar.c
 
 SRC_SUBDIR		+= expand
-SRCS			+= expand.c
+SRCS			+= expand.c expand_utils.c
 
 SRC_SUBDIR      += tests
 SRCS            += env_tests.c lexer_tests.c parser_tests.c ast_tests.c
