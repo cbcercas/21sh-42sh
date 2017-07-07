@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 18:26:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/06 18:43:44 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/07 22:17:24 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,14 @@ t_array init_tests_exp(char *input)
 	}
 }
 
-void sh_testing_expand(char *const *av)
+void sh_testing_expand(char *const *av, char **environ)
 {
 	t_array expand_array;
 	t_array		tokens;
 	//char *input;
 
 	//input = ft_strclean(av[3]);//TODO à faire pour le main ;)
+  sh_init_environ(environ);
 	tokens = init_tests_exp(av[3]);
   if (expand_init(&expand_array) == NULL)
 		exit (1);

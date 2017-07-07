@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 10:00:29 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/06 18:36:36 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/07 22:18:37 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@
 # include <libft.h>
 # include <expand/expand.h>
 
-void sh_testing_expand(char *const *av);
+void sh_testing_expand(char *const *av, char **environ);
 
 #endif

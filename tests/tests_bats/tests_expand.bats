@@ -90,9 +90,12 @@ check_leaks_function parser
   do
     vars+="VAR$i=$i "
     rets+="$i=$i "
-    ent+="$"VAR$i"=$i "
+    ent+=VAR$i"=$i "
     i=`expr $i + 1`
   done
+  vars+="VAR$i=$i"
+  rets+="$i=$i"
+  ent+=VAR$i"=$i"
   run $val_cmd env -i $vars ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "$vars"
   echo
   echo "ERROR: \"VAR0=0…\""
@@ -100,14 +103,13 @@ check_leaks_function parser
 	display_line_output
 	echo
   echo "$name_exec EXPECTED ->0=0 1=1 …"
-  [ "${output}" = "${rets}" ]
+  [ "${output}" = "${ent}" ]
 check_leaks_function parser
 }
 
 #######################################################################
 #######################################################################
 
-run $val_cmd env -i VAR1=toto VAR2=tata sh -c "echo \"\""
 #######################################################################
 #                            $ ERROR                                  #
 #######################################################################
@@ -135,7 +137,7 @@ echo
 	echo
   echo "$name_exec EXPECTED ->"
   echo
-  [ "${lines[0]}" = "" ]
+  [ "${lines[0]}" = " " ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function parser
 }
@@ -430,9 +432,9 @@ check_leaks_function parser
 
 @test "EXPAND: Testing [dbquote] with 'double \"a\"\"a\"\"\" \"au\"'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"a\"\"a\"\"\""
+  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"a\"\"a\"\"\" \"au\""
   echo
-  echo "ERROR: \"\"a\"\"a\"\"\"\""
+  echo "ERROR: \"a\"\"a\"\"\" \"au\""
   echo
 	display_line_output
 	echo
@@ -573,9 +575,9 @@ check_leaks_function parser
 
 @test "EXPAND: Testing [quote] with 'double 'a''a''' 'au''" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'a''a'''"
+  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'a''a''' 'au''"
   echo
-  echo "ERROR: \"'a''a'''\""
+  echo "ERROR: 'a''a''' 'au''"
   echo
 	display_line_output
 	echo
@@ -609,7 +611,7 @@ check_leaks_function parser
 
 @test "EXPAND: Testing [mix] 2" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'!10'\"\$VAR1\"'''a'''\"b\"\$VAR1"
+  run $val_cmd env -i VAR1=blow VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'!10'\"\$VAR1\"'''a'''\"b\"\$VAR1"
   echo
   echo "ERROR: \"'!10'\"\$VAR1\"'''a'''\"b\"\$VAR1\""
   echo
@@ -762,8 +764,72 @@ check_leaks_function parser
 }
 
 ######################################################################
+#                            ~                                       #
+######################################################################
+
+@test "EXPAND: Testing [~] 1" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "~"
+  echo
+  echo "ERROR: \"~\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->$HOME"
+  echo
+  [ "${lines[0]}" = "$HOME" ]
+	[ "${lines[1]}" = "" ]
+check_leaks_function parser
+}
+
+@test "EXPAND: Testing [~] 2" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "HELLO'~'toto\"~\""
+  echo
+  echo "ERROR: \"HELLO'~'toto\"~\"\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->HELLO~toto$HOME"
+  echo
+  [ "${lines[0]}" = "HELLO~toto$HOME" ]
+	[ "${lines[1]}" = "" ]
+check_leaks_function parser
+}
+
+@test "EXPAND: Testing [~] 3" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\\~'"
+  echo
+  echo "ERROR: \"'\\~'\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->\\~"
+  echo
+  [ "${lines[0]}" = "\\~" ]
+	[ "${lines[1]}" = "" ]
+check_leaks_function parser
+}
+
+@test "EXPAND: Testing [~] 4" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\\~"
+  echo
+  echo "ERROR: \"\\~\""
+  echo
+	display_line_output
+	echo
+  echo "$name_exec EXPECTED ->~"
+  echo
+  [ "${lines[0]}" = "~" ]
+	[ "${lines[1]}" = "" ]
+check_leaks_function parser
+}
+
+######################################################################
+######################################################################
+
+######################################################################
 #                            CAR                                     #
 ######################################################################
+
 @test "EXPAND: Testing [car] with '\\n'" {
 skip "Tu dois pas gere"
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "toto\\ntata"
@@ -1040,69 +1106,6 @@ check_leaks_function parser
   echo "$name_exec EXPECTED ->tototata"
   echo
   [ "${lines[0]}" = "tototata" ]
-	[ "${lines[1]}" = "" ]
-check_leaks_function parser
-}
-
-######################################################################
-######################################################################
-
-######################################################################
-#                            ~                                       #
-######################################################################
-
-@test "EXPAND: Testing [~] 1" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "~"
-  echo
-  echo "ERROR: \"~\""
-  echo
-	display_line_output
-	echo
-  echo "$name_exec EXPECTED ->$HOME"
-  echo
-  [ "${lines[0]}" = "$HOME" ]
-	[ "${lines[1]}" = "" ]
-check_leaks_function parser
-}
-
-@test "EXPAND: Testing [~] 2" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "Hello'~'toto\"~\""
-  echo
-  echo "ERROR: \"Hello'~'toto\"~\"\""
-  echo
-	display_line_output
-	echo
-  echo "$name_exec EXPECTED ->HELLO~toto$HOME"
-  echo
-  [ "${lines[0]}" = "HELLO~toto$HOME" ]
-	[ "${lines[1]}" = "" ]
-check_leaks_function parser
-}
-
-@test "EXPAND: Testing [~] 3" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\\~'"
-  echo
-  echo "ERROR: \"'\\~'\""
-  echo
-	display_line_output
-	echo
-  echo "$name_exec EXPECTED ->\\~"
-  echo
-  [ "${lines[0]}" = "\\~" ]
-	[ "${lines[1]}" = "" ]
-check_leaks_function parser
-}
-
-@test "EXPAND: Testing [~] 4" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\\~"
-  echo
-  echo "ERROR: \"\\~\""
-  echo
-	display_line_output
-	echo
-  echo "$name_exec EXPECTED ->~"
-  echo
-  [ "${lines[0]}" = "~" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function parser
 }
