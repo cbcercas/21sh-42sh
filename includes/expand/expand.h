@@ -28,7 +28,7 @@ t_exp	*exp_create_new(t_token *tok);
 void	sh_expand_destroy(t_array *array_exp);
 void	expand_print(t_array *array_exp);
 void	sh_exp_del(void *i);
-
+void	ft_expand_print_token(t_token_type type);
 t_array *ft_expand_duplication(t_exp *exp, t_array *tokens, t_array *array_exp);
 t_array	*ft_expand_history(t_array *array_exp, size_t index);
 

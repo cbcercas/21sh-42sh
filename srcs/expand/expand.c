@@ -22,7 +22,7 @@ t_array    *ft_expand_history(t_array *array_exp, size_t index)
 
   if ((exp = (t_exp *)array_get_at(array_exp, index)) == NULL)
     return (NULL);
-  // exp->str = ft_replace_exp(exp->str, (char *)sh_history_get_at(2), 0, ft_strlen(exp->str));
+  exp->str = ft_replace_exp(exp->str, (char *)sh_history_get_at(2), 0, ft_strlen(exp->str));
   ft_printf("%s\n", exp->str);
   ft_expand_print_token(exp->type);
   return(array_exp);
