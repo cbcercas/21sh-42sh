@@ -1,4 +1,4 @@
-
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
@@ -6,9 +6,10 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 04:03:46 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/05 13:07:33 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/07/07 21:35:15 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <lexer/lexer.h>
 #include <core/main.h>
 
@@ -191,7 +192,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_LESSGREAT] = {0, 1},
 			[E_CHAR_TYPE_AND] = {0, 1},
 			[E_CHAR_TYPE_SEMI] = {0, 1},
-			[E_CHAR_TYPE_DIGIT] = {0, 1},
+			[E_CHAR_TYPE_DIGIT] = {0, 0},
 			[E_CHAR_TYPE_ERROR] = {1, 0}
 		},
 	[E_STATE_SQUOTE] =
