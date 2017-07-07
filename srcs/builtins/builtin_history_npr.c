@@ -6,18 +6,18 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 09:29:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/10 16:18:40 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/06/19 14:59:51 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <builtins/builtin_history.h>
+#include <builtins/builtin_history.h>
 
-void	sh_history_builtin_r(char *path)
+void		sh_history_builtin_r(char *path)
 {
 	t_array	*hists;
 	t_hist	*h;
-	char		*line;
-	int			fd;
+	char	*line;
+	int		fd;
 	size_t	i;
 
 	i = 0;
@@ -31,7 +31,7 @@ void	sh_history_builtin_r(char *path)
 			{
 				h->session = true;
 				array_push(hists, (void *)h);
-				ft_memdel((void **) &h);
+				ft_memdel((void **)&h);
 			}
 			i++;
 		}
@@ -40,12 +40,12 @@ void	sh_history_builtin_r(char *path)
 	return ;
 }
 
-void sh_history_builtin_n(char *path)
+void		sh_history_builtin_n(char *path)
 {
 	t_array	*hists;
 	t_hist	*h;
-	char		*line;
-	int			fd;
+	char	*line;
+	int		fd;
 	size_t	i;
 
 	i = 0;
@@ -59,7 +59,7 @@ void sh_history_builtin_n(char *path)
 			{
 				h->session = true;
 				array_push(hists, (void *)h);
-				ft_memdel((void **) &h);
+				ft_memdel((void **)&h);
 			}
 			i++;
 		}
@@ -68,7 +68,20 @@ void sh_history_builtin_n(char *path)
 	return ;
 }
 
-void	sh_history_builtin_p(char **arg)
+static void	sh_history_builtin_p_helper(char *result, int index, char **arg)
+{
+	if (result)
+		ft_printf("%s\n", result);
+	ft_strdel(&result);
+	index = 2;
+	while (arg && arg[index])
+	{
+		ft_printf("%s\n", arg[index]);
+		index++;
+	}
+}
+
+void		sh_history_builtin_p(char **arg)
 {
 	int		index;
 	char	*result;
@@ -84,19 +97,11 @@ void	sh_history_builtin_p(char **arg)
 			ft_printf("%s: event not found\n", arg[index]);
 			return ;
 		}
-			if (result)
-				result = ft_strjoincl(result, " ", 1);
-			result = ft_strjoincl(result, arg[index], 1);
+		if (result)
+			result = ft_strjoincl(result, " ", 1);
+		result = ft_strjoincl(result, arg[index], 1);
 		index++;
 	}
-	if (result)
-		ft_printf("%s\n", result);
-	ft_strdel(&result);
-	index = 2;
-	while (arg && arg[index])
-	{
-		ft_printf("%s\n", arg[index]);
-		index++;
-	}
+	sh_history_builtin_p_helper(result, index, arg);
 	return ;
 }

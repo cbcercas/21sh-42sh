@@ -6,86 +6,123 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/26 16:02:38 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/06/12 20:02:13 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <builtins/echo.h>
 
-char	*ms_echo_first_quote(char *str)
+char	*ft_replace(char *src1, char *src2, int index, int size)
 {
-	char	*q;
-	char	*dq;
+	char	*begin;
+	char	*end;
+	char	*ret;
 
-	q = ft_strchr(str, '`');
-	dq = ft_strchr(str, '"');
-	if (!dq || (q && q < dq))
-		return (q);
-	else
-		return (dq);
+	begin = ft_strnew(index);
+	begin = ft_strncpy(begin, src1, index);
+	end = ft_strjoin(src2, &src1[index + size]);
+	ret = ft_strjoin(begin, end);
+	free(begin);
+	free(end);
+	free(src1);
+	return (ret);
 }
 
-void ms_echo_cmd(t_sh_data *data, char *arg)
+int		ft_index_strstr(const char *big, const char *little)
 {
-	char **cmd;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	temp;
 
-	ft_printf("arg: >%s<", arg);
-	if ((cmd = ft_strsplit(arg, ';')))
-		if (sh_command(data, cmd))
-			return;
-	ft_freetab(cmd, ft_tablen(cmd));
+	i = 0;
+	j = 0;
+	if (little[0] == '\0')
+		return (0);
+	while (big[i])
+	{
+		j = 0;
+		temp = i;
+		if (!i || (big[i - 1] != '\\'))
+			while (big[temp] == little[j] && big[temp] && little[j])
+			{
+				temp++;
+				j++;
+				if (little[j] == '\0')
+					return (i);
+			}
+		i++;
+	}
+	return (-1);
 }
 
-static int sh_echo_parsing(t_sh_data *data, char *arg, int protect)
+char	*echo_parse(const char *src)
 {
-	char	*c;
-	char	*str;
+	char	*ret;
+	int		index;
+	int		i;
+	char	car[8][2] = {"\a", "\n", "\r", "\b", "\f", "\t", "\v", "\\"};
+	char	res[8][3] = {"\\a", "\\n", "\\r", "\\b", "\\f", "\\t", "\\v", "\\\\"};
+
+	ret = ft_strdup(src);
+	i = 0;
+	while (i <= 7)
+	{
+		while(((index = ft_index_strstr(ret, res[i])) != -1))
+			ret = ft_replace(ret, car[i], index, 2);
+		i++;
+	}
+	return (ret);
+}
+
+void	echo_print(char **arg, char flag[2])
+{
+	unsigned int		i;
 	char	*tmp;
 
-	if (arg && *arg && !(c = ms_echo_first_quote(arg)))
+	i = 0;
+	while(arg && arg[i])
 	{
-		ft_putstr(arg);
-		return (0);
-	}
-	else if (arg && *arg && c != arg)
-	{
-		tmp = ft_strsub(arg, 0, c - arg);
-		// TODO write ft_str whitespace cleanup with free
-		arg += c - arg;
-		str = (protect || !ft_strcmp(tmp, " ")) ? tmp : ft_strtrim(tmp);
-		sh_echo_parsing(data, str, protect);
-		(str != tmp) ? ft_strdel(&str) : 0;
-		(tmp) ? ft_strdel(&tmp) : 0;
-	}
-	else if (arg && *arg && c == arg)
-	{
-		str = sh_extract_str(arg);
-		if (*c == '"')
-			sh_echo_parsing(data, str, 1);
+		if (flag[1] != 1)
+		{
+			tmp = echo_parse(arg[i]);
+			ft_printf("%s", tmp);
+			ft_strdel(&tmp);
+		}
 		else
-			ms_echo_cmd(data, str);
-		arg += ft_strlen(str) + 2;
-		(str) ?ft_strdel(&str) : 0;
+			ft_printf("%s", arg[i]);
+		i++;
+		if(arg[i])
+			ft_printf("%s", " ");
 	}
-	if (arg && *arg != '\0')
-		sh_echo_parsing(data, arg, protect);
-	return (0);
 }
 
-int	sh_echo(t_sh_data *data, char *arg)
+int sh_echo(t_sh_data *data, char **argv)
 {
-	int		nl;
+	(void)data;
+	int		opt;
+	char	flag[2]; //0 => n,  1 => e
 
-	nl = 0;
-	if (!ft_strncmp(arg, "-n ", 3))
+	//TODO : reset get_opt
+	opterr = 1;
+	optind = 1;
+	optarg = NULL;
+
+	ft_bzero(flag, 2);
+	while ((opt = getopt(ft_tablen(argv), argv, "Een")) != -1) //TODO:change for ft_getopt
 	{
-		arg +=3;
-		nl = 1;
+		if(opt == 'n')
+			flag[0] = 1;
+		else if (opt == 'E' && !flag[1])
+			flag[1] = 1;
+		else if (opt == 'e' )
+			flag[1] = 2;
+		else if (opt == '?')
+			break ;
 	}
-	if (ft_strchr(arg, '`') || ft_strchr(arg, '"'))
-		sh_echo_parsing(data, arg, 0);
-	else
-		ft_printf("%s", arg);
-	if (!nl)
-		ft_putchar('\n');
+	if (opt != '?')
+		echo_print(&argv[optind], flag);
+	if (!flag[0] && opt != '?')
+		ft_putstr("\n");
+	//TODO : reset get_opt
 	return (0);
 }

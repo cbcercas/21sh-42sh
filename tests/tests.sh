@@ -8,9 +8,13 @@ help()
 {
 	echo -e "\nUsage:  ./tests.sh [tests][module]"
 		echo -e "\t\033[1;m TESTS:\033[0m"
-		echo -e "\t\t -s  \033[4mmodule\033[0m  It is option for \033[3m\"normal\"\033[0m tests with shell script, based on diff command"
-		echo -e "\t\t -b  \033[4mmodule\033[0m  It is option for bats tests. You should install bats before."
-		echo -e "\t\t -h  \033[4mmodule\033[0m  display this message"
+		echo -e "\t\t -s or --sh  \033[4mmodule\033[0m  It is option for \033[3m\"normal\"\033[0m tests with shell script, based on diff command"
+		echo -e "\t\t -b or --bats \033[4mmodule\033[0m  It is option for bats tests. You should install bats before."
+		echo -e "\t\t -h  or --help \033[4mmodule\033[0m  display this message\n"
+		echo -e "\t\t -v  or --valgrind check leaks with valgrind"
+		echo -e "\t\t -v=full  or --valgrind=full check all leaks with valgrind"
+		echo -e "\t\t -v=default  or --valgrind=no check all leaks with valgrind"
+		echo -e "\t\t -v=no  or --valgrind=no check all leaks with valgrind"
 		echo -e
 		echo -e "\t\033[1;m MODULE:\033[0m"
 		echo -e "\t\t'parser' or 'p'"
@@ -42,7 +46,7 @@ check_path()
 
 test_verif_command()
 {
-	echo -e "\n\033[1;4mChecking command:\033[0m"
+	echo -e "\n[--\033[1;4mChecking command:\033[0m--]"
 	_needed_commands=$1;
 
 	command -v command >/dev/null 2>&1 || {
@@ -60,10 +64,10 @@ test_verif_command()
 					}
 		done
 	[ -z "${_return}" ] || {
-			echo -e "ERR > Requirement missing." >&2 ;
+			echo -e "\033[1;31ERR > Requirement missing.\033[0m" >&2 ;
 			exit 1 ;
 		}
-	echo -e "Done.\n"
+	echo -e "\033[1;32mDone.\033[0m\n"
 }
 
 ################################################################################
@@ -127,15 +131,22 @@ test_sh_verif()
 ################################################################################
 test_bats_verif()
 {
-	if [ -f "$path_of_file/../$name_of_exec" ]
+	if [ "$var_test_bats" != "A" ] && [ "$var_test_bats" != "all" ]
+	then
+		if [ -f "$path_of_file/../$name_of_exec" ]
 		then
-		echo -e "\033[1;32m info: bin: $name_of_exec find\033[0m"
+				echo -e "\033[1;32m info: bin: $name_of_exec find\033[0m"
 		else
-		echo -e "\033[1;31m bin: $name_of_exec doesn't exist \033[0m"
-		echo -e "don't forget command 'make'"
-		exit 1;
+				echo -e "\033[1;31m bin: $name_of_exec doesn't exist \033[0m"
+				echo -e "don't forget command 'make'"
+				exit 1;
+		fi
 	fi
-	test_verif_command "bats echo sh bash env"
+	if [[ $TESTS_CHECK_LEAKS -eq 0 ]]; then
+		test_verif_command "bats echo sh bash env"
+	else
+		test_verif_command "bats echo sh bash env valgrind"
+	fi
 }
 
 test_bats()
@@ -145,7 +156,7 @@ test_bats()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/tests_expand.bats"
+		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/tests_expand.bats" $path_of_file"/tests_bats/ast.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -164,8 +175,13 @@ test_bats()
 		bats $path_of_file"/tests_bats/tests_expand.bats"
 		ret=`expr $ret + $?`
 		return 0;
+	elif [ $1 = "ast" ] || [ $1 = "a" ]; then
+		bats $path_of_file"/tests_bats/ast.bats"
+		ret=`expr $ret + $?`
+		return 0;
 	else
-		help
+		#help
+		echo -e "../test.sh -h : for display help\n"
 		exit 1;
 	fi;
 }
@@ -194,7 +210,9 @@ tests_travis()
 	elif [ ${TRAVIS_BRANCH} = "env" ] || [ ${TRAVIS_BRANCH} = "environ" ]; then
 		test_bats 'env'
 	elif [ ${TRAVIS_BRANCH} = "exp" ] || [ ${TRAVIS_BRANCH} = "expand" ]; then
-		test_bats 'env'
+		test_bats 'expand'
+	elif [ ${TRAVIS_BRANCH} = "ast" ] || [ ${TRAVIS_BRANCH} = "AST" ]; then
+		test_bats 'ast'
 	else
 		echo -e "Tests doesn't exist for branch: ${TRAVIS_BRANCH}"
 		echo -e "Create an issue to ask new tests for this branch"
@@ -212,6 +230,11 @@ tests_travis()
 path_of_file=`dirname $0`
 ret=0
 name_of_exec="21sh"
+
+var_test_bats=""
+var_tests_sh="1"
+var_test_valgrind=0
+export TESTS_CHECK_LEAKS=0
 ################################################################################
 ################################################################################
 
@@ -219,35 +242,89 @@ if [ $# = 0 ]; then
 	tests_travis
 fi
 
-while getopts ":s:b:h" option
+#-- This module converts the long arguments into shorter ones for getopt --#
+for arg in "$@"; do
+  shift
+  case "$arg" in
+    "--help") set -- "$@" "-h" ;;
+    "--bats") set -- "$@" "-b" ;;
+    "--sh")   set -- "$@" "-s" ;;
+		"--valgrind")   set -- "$@" "-v" ;;
+    *)        set -- "$@" "$arg" ;;
+  esac
+done
+
+for args in "$@"; do
+  shift
+  case "$args" in
+		"-v")   set -- "$@" "-v 1" ;;
+		"-v=full")   set -- "$@" "-v 2" ;;
+		"-v=default")   set -- "$@" "-v 1" ;;
+		"-v=no")   set -- "$@" "-v 0" ;;
+		"--valgrind")   set -- "$@" "-v 1" ;;
+		"--valgrind=full")   set -- "$@" "-v 2" ;;
+		"--valgrind=default")   set -- "$@" "-v 1" ;;
+		"--valgrind=no")   set -- "$@" "-v 0" ;;
+    *)        set -- "$@" "$args" ;;
+  esac
+done
+
+while getopts ":s:b:hv:" option
 do
 	case $option in
 		s)
-			echo -e "\n##################################"
-			echo -e "######## Tests mode: sh ##########"
-			echo -e "##################################"
+		echo -e "\033[1;33m \n================================================================\n"
+		echo -e "\033[1;33m███████╗██╗  ██╗    ████████╗███████╗███████╗████████╗███████╗
+██╔════╝██║  ██║    ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝
+███████╗███████║       ██║   █████╗  ███████╗   ██║   ███████╗
+╚════██║██╔══██║       ██║   ██╔══╝  ╚════██║   ██║   ╚════██║
+███████║██║  ██║       ██║   ███████╗███████║   ██║   ███████║
+╚══════╝╚═╝  ╚═╝       ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝\033[0m"
+		echo -e "\033[1;33m \n=================================================================\n\033[0m"
 			#check_path
+			#var_tests_sh="$OPTARG"
 			var_ret= test_sh $OPTARG
 			;;
 		b)
-			echo -e "\n##################################"
-			echo -e "######## Tests mode: bats ########"
-			echo -e "##################################"
-			#check_path
-			test_bats $OPTARG
+			var_test_bats="$OPTARG"
 			;;
 		h)
 			help
 			exit 1;
 			;;
+		v)
+			echo "arg=$OPTARG"
+			export TESTS_CHECK_LEAKS=$OPTARG
+			;;
 		:)
-			echo -e "the option $OPTARG requiert an argument"
+			echo -e "the option $OPTARG requiert an argument\n"
+			echo -e "../test.sh -h : for display help\n"
 			exit 1
 			;;
 		\?)
-			echo -e "\"$OPTARG\" : invalid option"
+			echo -e "\"$OPTARG\" : invalid option\n"
+			echo -e "../test.sh -h : for display help\n"
 			exit 1
 		;;
 	esac
 done
+if [[ "$var_test_bats" != "" ]]; then
+	echo -e "\033[1;33m \n=================================================================================\n"
+	echo -e "\033[1;33m
+██████╗  █████╗ ████████╗███████╗    ████████╗███████╗███████╗████████╗███████╗
+██╔══██╗██╔══██╗╚══██╔══╝██╔════╝    ╚══██╔══╝██╔════╝██╔════╝╚══██╔══╝██╔════╝
+██████╔╝███████║   ██║   ███████╗       ██║   █████╗  ███████╗   ██║   ███████╗
+██╔══██╗██╔══██║   ██║   ╚════██║       ██║   ██╔══╝  ╚════██║   ██║   ╚════██║
+██████╔╝██║  ██║   ██║   ███████║       ██║   ███████╗███████║   ██║   ███████║
+╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝       ╚═╝   ╚══════╝╚══════╝   ╚═╝   ╚══════╝\033[0m"
+	echo -e "\033[1;33m \n==================================================================================\n\033[0m"
+	if [[ $TESTS_CHECK_LEAKS -eq 1 ]]; then
+		echo -e "\033[32;1;3m+++ [[-- VALGRIND TESTS: (It can take a long time.) --]]\033[0m"
+	fi
+	test_bats $var_test_bats
+	rm -rf check_leaks_tmp.log
+fi
 exit $ret
+
+#TODO: valgrind --trace-children=yes --log-file=toto.log --leak-check=full --track-origins=yes ./21sh
+#ajout check leaks comme option
