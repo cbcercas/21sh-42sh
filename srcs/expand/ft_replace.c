@@ -35,6 +35,6 @@ char	*ft_replace_exp(char *src1, char *src2, int index, int size)
 	ret = ft_strjoin(begin, end);
 	ft_strdel(&begin);
 	ft_strdel(&end);
-	ft_strdel(&src1);
+	// ft_strdel(&src1);
 	return (ret);
 }
