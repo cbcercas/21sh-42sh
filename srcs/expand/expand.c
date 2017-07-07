@@ -30,6 +30,7 @@ t_array *expand(t_array *tokens, t_array *array_exp)
   while (tokens && i < tokens->used)// dans tous les tokens
   {
     exp = exp_create_new((t_token *)array_get_at(tokens, i));// etape 1
+    expand_dol(exp);
     array_push(array_exp, (void *)exp);// push dans notre t_array
     i++;
   }

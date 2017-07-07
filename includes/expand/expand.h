@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guiforge <guiforge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/06 14:57:29 by guiforge          #+#    #+#             */
-/*   Updated: 2017/07/06 17:24:39 by guiforge         ###   ########.fr       */
+/*   Created: 2017/07/06 14:57:29 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/07 22:18:11 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_exp
 }               t_exp;
 
 t_array *expand(t_array *tokens, t_array *array_exp);
+void expand_dol(t_exp *exp);
 t_array	*expand_init(t_array *expand_array);
 t_exp *exp_create_new(t_token *tok);
 void sh_expand_destroy(t_array *array_exp);
