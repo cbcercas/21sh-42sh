@@ -19,13 +19,6 @@
 
 extern char const	*g_optarg;
 
-static void		sh_data_free(t_sh_data *data)
-{
-	//TODO free envs
-	(void)data;
-	return;
-}
-
 void sh_testing(const char *arg, char *const *av, char **environ)
 {
 	if (ft_strequ(arg, "env"))
@@ -95,13 +88,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	return (data);
 }
 
-void			sh_deinit(t_sh_data *data)
-{
-	sh_data_free(data);
-	//default_terminal_mode();
-}
-
-struct termios    *init_term(void)//a faire au debut
+struct termios    *sh_store_tattr(void)
 {
 	int ttyDevice;
 	struct termios termAttributes;
@@ -112,28 +99,4 @@ struct termios    *init_term(void)//a faire au debut
 	else
 		if (tcgetattr(ttyDevice, &termAttributes) != 0)
 			perror("tcgetattr error");
-
-	/*static struct termios    *tattr;
-	tattr = NULL;
-	ft_printf("lol?\n");
-
-	if (!tattr)
-	{
-		ft_printf("lol?\n");
-		tcgetattr(STDIN_FILENO, tattr); //tu chope le term
-		ft_printf("lol?\n");
-	}
-	ft_printf("lol?\n");
-
-	return (tattr);*/
-}
-
-void reset_term(struct termios *tattr)//a faire à la fin
-{
-	if (tcsetattr(STDIN_FILENO, TCSANOW, tattr) < 0)
-	{
-		perror("stdin");
-		return;
-	}
-	return;
 }
