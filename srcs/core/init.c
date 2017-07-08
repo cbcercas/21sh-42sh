@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/19 11:07:52 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/08 21:14:47 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	sh_history_init(NULL);
 	init_signals(signals_handler);
 	data->tattr = NULL;
-	sh_store_tattr(&data);
-	ft_printf("%d", data->tattr->c_iflag);
+	sh_store_tattr(data);
+	//ft_printf("%d", data->tattr->c_iflag);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
@@ -88,10 +88,13 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 void sh_store_tattr(t_sh_data *data)
 {
 	int ttyDevice;
+	struct termios save_tattr;
 
 	ttyDevice = STDOUT_FILENO;
-	if (tcgetattr(ttyDevice, data->tattr) != 0)
+	if (tcgetattr(ttyDevice, &save_tattr) != 0)
 	{
 		perror("tcgetattr error"); //TODO NORME HERE
 	}
+	else if ((data->tattr = (struct termios*)malloc(sizeof(struct termios))))
+			ft_memcpy(data->tattr, &save_tattr, sizeof(struct termios));
 }
