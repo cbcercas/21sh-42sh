@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 19:10:43 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/08 00:10:51 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/08 14:05:49 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,32 @@ char	*sh_getenv_exp(const char *name)
 	return (NULL);
 }
 
+int ft_is_spec(int c)
+{
+	return (c == '$' || c == '?' || c == '0');
+}
+
+void expand_dol_spec_replace(t_exp *exp, int len, int *i)
+{
+	char	*tmp;
+	BOOL	fri;
+
+	fri = false;
+	tmp = NULL;
+	if (exp->str[*i + 1] == '?' && !(fri = false))
+		tmp = "0";// TODO: faire quand exec termine, avec global
+	else if (exp->str[*i + 1] == '0' && !(fri = false))
+		tmp = PROGNAME;
+	else if (exp->str[*i + 1] == '$' && (fri = true))
+		tmp = ft_itoa(getpid());
+	if (tmp)
+	{
+		exp->str = ft_replace_exp(exp->str, tmp, *i, 2);
+		*i += ft_strlen(tmp);
+	}
+	(fri && tmp) ? ft_strdel((char **)&tmp) : 0;
+}
+
 void expand_dol_replace(t_exp *exp, int len, int *i)
 {
 	char	car_tmp;
@@ -43,7 +69,7 @@ void expand_dol_replace(t_exp *exp, int len, int *i)
 		exp->str = ft_replace_exp(exp->str, tmp, *i, len + 1);
 	else
 		exp->str = ft_replace_exp(exp->str, "", *i, len + 1);
-	i += ft_strlen(tmp);
+	*i += ft_strlen(tmp);
 }
 
 void expand_dol(t_exp *exp)
@@ -58,13 +84,14 @@ void expand_dol(t_exp *exp)
     return ;
 	while (exp->str[i])
 	{
-		if (exp->str[i] == '$' && exp->str[i + 1] &&\
-		 		(i == 0 || exp->str[i - 1] != '\\'))
+		  len = 0;
+		if (exp->str[i] == '$' && (ft_isalnum(exp->str[i + 1]) ||\
+		 ft_is_spec(exp->str[i + 1])) && (i == 0 || exp->str[i - 1] != '\\'))
 		{
       while(exp->str[i + 1 + len] && ft_isalnum(exp->str[i + 1 + len]))
         len++;
-      if (len >= 1)
-				expand_dol_replace(exp, len, &i);
+			(ft_is_spec(exp->str[i + 1])) ? expand_dol_spec_replace(exp, len, &i) :\
+			 expand_dol_replace(exp, len, &i);
 		}
 		else if (exp->str[i] == '~' && (tmp = sh_getenv_value("HOME")) &&\
 		 				(i == 0 || exp->str[i - 1] != '\\') )

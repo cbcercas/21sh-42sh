@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 17:17:21 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/06 18:43:57 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/08 13:58:37 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ char	*ft_replace_exp(char *src1, char *src2, int index, int size)
 	ret = ft_strjoin(begin, end);
 	ft_strdel(&begin);
 	ft_strdel(&end);
-	// ft_strdel(&src1);
+	ft_strdel(&src1);
 	return (ret);
 }
