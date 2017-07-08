@@ -25,7 +25,6 @@ int main(int ac, char *const *av, char **environ)
 	/*sh_init_environ();
 	char *tmp = sh_getenv_value("LSCOLORS");
 	ft_printf("%s",tmp);*/
-	//struct termios *tattr = sh_store_tattr();
 	if (!sh_init(&data, ac, av, environ))
 		exit(1);
 	if (lexer_init(&tokens) == NULL)

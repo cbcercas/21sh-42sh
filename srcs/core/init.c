@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/init.h>
-#include <tests/test.h>
-#include <core/help.h>
-#include <unistd/ft_unistd.h>
-#include <environ/environ.h>
-#include <builtins/builtins_utils.h>
 
 extern char const	*g_optarg;
 
@@ -70,6 +65,9 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	sh_builtins_init();
 	sh_history_init(NULL);
 	init_signals(signals_handler);
+	data->tattr = NULL;
+	sh_store_tattr(&data);
+	ft_printf("%d", data->tattr->c_iflag);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
@@ -84,19 +82,16 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		sh_data_free(data);
 		exit (1);
 	}
-	//raw_terminal_mode();
 	return (data);
 }
 
-struct termios    *sh_store_tattr(void)
+void sh_store_tattr(t_sh_data *data)
 {
 	int ttyDevice;
-	struct termios termAttributes;
 
 	ttyDevice = STDOUT_FILENO;
-	if ( !isatty(ttyDevice) )
-		return(1);
-	else
-		if (tcgetattr(ttyDevice, &termAttributes) != 0)
-			perror("tcgetattr error");
+	if (tcgetattr(ttyDevice, data->tattr) != 0)
+	{
+		perror("tcgetattr error"); //TODO NORME HERE
+	}
 }

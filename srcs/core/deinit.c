@@ -19,7 +19,6 @@ void sh_restore_tattr(struct termios *tattr)
 
 void			sh_deinit(t_sh_data *data)
 {
-    //TODO: Store tattr dans data
+    //sh_restore_tattr(data->tattr);
     sh_data_free(data);
-    //default_terminal_mode();
 }

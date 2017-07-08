@@ -29,7 +29,8 @@
 # include <signals/signals.h>
 # include <core/deinit.h>
 
+# define NOTATTY 1
 t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ);
-struct termios    *sh_store_tattr(void);
+void sh_store_tattr(t_sh_data *data);
 
 #endif
