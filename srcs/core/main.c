@@ -44,14 +44,6 @@ int main(int ac, char *const *av, char **environ)
 			{
 				if (expand(&tokens, &expand_array))
 					expand_print(&expand_array);
-				/*if (expand_exp(&tokens, &tokens_expended))
-				{
-					test(&tokens);
-        			printf("------------------------\n");
-                	test(tokens_expended);
-        			printf("------------------------\n");
-                	array_reset(tokens_expended, NULL);
-                }*/
 			}
 		sh_history_set_new(input);
 
