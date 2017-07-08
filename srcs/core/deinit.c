@@ -11,9 +11,11 @@ void sh_restore_tattr(struct termios *tattr)
 {
     if (tcsetattr(STDIN_FILENO, TCSANOW, tattr) < 0)
     {
-        //TODO: perror("stdin");
+        //TODO: perror("stdin"); interdit de perror
         return;
     }
+      free(tattr);
+      tattr = NULL;
     return;
 }
 
