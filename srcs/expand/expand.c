@@ -16,8 +16,8 @@ t_array *expand(t_array *tokens, t_array *array_exp)
       log_fatal("Expand: expand_hist failed");
       return (NULL);
     }
-    // expand_dol(exp);//expand les dollard
-    // expand_quote(exp);//expand quote 
+    expand_dol(exp);//expand les dollard
+    // expand_quote(exp);//expand quote
     array_push(array_exp, (void *)exp);// push dans notre t_array
     i++;
   }
