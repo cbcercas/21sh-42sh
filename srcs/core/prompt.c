@@ -13,8 +13,9 @@
 
 void	sh_print_prompt(void)
 {
-	char cwd[1024];
+	//char cwd[1024];
 
-	getcwd(cwd, sizeof(cwd));
-	ft_printf("%s |$> ", cwd);
+	//getcwd(cwd, sizeof(cwd));
+	//ft_printf("%s |$> ", cwd);
+	ft_printf("$> ");
 }
