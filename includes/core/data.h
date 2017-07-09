@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DATA_H nb 
+#ifndef DATA_H
 # define DATA_H
 # include <sys/param.h>
 # include <environ/env_list_utils.h>

@@ -65,18 +65,13 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	sh_builtins_init();
 	sh_history_init(NULL);
 	init_signals(signals_handler);
-	data->tattr = NULL;
 	sh_store_tattr(data);
-	ft_printf("%d\n", data->tattr->c_iflag);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
 		sh_data_free(data);
 		exit (1);
 	}
-
-	ft_printf("%d\n", data->tattr->c_iflag);
-
 	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
 			sh_setenv("TERM", "dumb");
 	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
@@ -95,7 +90,12 @@ void sh_store_tattr(t_sh_data *data)
 
 	ttyDevice = STDOUT_FILENO;
 	if (tcgetattr(ttyDevice, &save_tattr) != 0)
-		perror("tcgetattr error"); //TODO NORME HERE interdi de mettre perror
+	{
+		ft_printf("%s: tcgetattr error when trying", PROGNAME);
+		ft_printf(" to save terminal attributes\n");
+		return ;
+	}
 	else if ((data->tattr = (struct termios*)malloc(sizeof(struct termios))))
 			ft_memcpy(data->tattr, &save_tattr, sizeof(struct termios));
+	return ;
 }

@@ -32,7 +32,6 @@ int main(int ac, char *const *av, char **environ)
 	if (automaton_init(&automaton) == NULL)
 		exit (1);
 	stop = true;
-	sh_deinit(&data);
 	while (stop == true)
 	{
 		sh_print_prompt();
