@@ -36,3 +36,10 @@ size_t	sh_pos_of_insert(t_input input)
 	ret = input.cpos.cp_col + (input.offset_line * input.ts.ts_cols) - len_prompt;
 	return (ret);
 }
+
+
+void sh_reset_line(t_automaton *automaton, t_array *tokens)
+{
+	array_reset(tokens, NULL);
+	automaton_reset(automaton);
+}

@@ -14,6 +14,7 @@
 # define INPUT_H
 # include <string/ft_string.h>
 # include <libtcaps.h>
+# include <automaton/automaton.h>
 
 //int		sh_get_command(t_ms_data	*data);
 
@@ -32,6 +33,8 @@ struct	s_input
 **
 ** @brief      Functions to read the input
 */
+
+void    sh_reset_line(t_automaton *automaton, t_array *tokens);
 char	*sh_get_line(void);
 char	*sh_get_line2(void);
 void	reset_input(t_input *input);
