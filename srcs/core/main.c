@@ -32,6 +32,7 @@ int main(int ac, char *const *av, char **environ)
 	if (automaton_init(&automaton) == NULL)
 		exit (1);
 	stop = true;
+	sh_deinit(&data);
 	while (stop == true)
 	{
 		sh_print_prompt();
@@ -77,7 +78,6 @@ int main(int ac, char *const *av, char **environ)
 	}
 	sh_history_save();
 	sh_deinit(&data);
-//	reset_term(tattr);
 	ft_putstr("\033[?1049l");
 	return (0);
 }

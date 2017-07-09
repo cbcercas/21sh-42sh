@@ -72,8 +72,11 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
 		sh_data_free(data);
-		exit (1);;
+		exit (1);
 	}
+
+	ft_printf("%d\n", data->tattr->c_iflag);
+
 	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
 			sh_setenv("TERM", "dumb");
 	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
