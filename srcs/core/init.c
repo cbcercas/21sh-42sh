@@ -67,7 +67,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	init_signals(signals_handler);
 	data->tattr = NULL;
 	sh_store_tattr(data);
-	ft_printf("%d", data->tattr->c_iflag);
+	ft_printf("%d\n", data->tattr->c_iflag);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
