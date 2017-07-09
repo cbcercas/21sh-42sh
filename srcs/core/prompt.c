@@ -13,5 +13,8 @@
 
 void	sh_print_prompt(void)
 {
-	ft_printf("$> ");
+	char cwd[1024];
+
+	getcwd(cwd, sizeof(cwd));
+	ft_printf("%s |$> ", cwd);
 }
