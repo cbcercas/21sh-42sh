@@ -69,7 +69,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
-		sh_data_free(data);
+		sh_deinit(data);
 		exit (1);
 	}
 	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
@@ -77,7 +77,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
 	{
 		ft_printf("%s: Error on tgetent\n", PROGNAME);
-		sh_data_free(data);
+		sh_deinit(data);
 		exit (1);
 	}
 	return (data);
