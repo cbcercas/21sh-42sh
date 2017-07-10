@@ -233,16 +233,16 @@ check_leaks_function expand
 	echo
   echo "$name_exec EXPECTED ->jab"
 	echo
-  [ "${lines[0]}" = "job" ]
+  [ "${lines[0]}" = "jab" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }
 
-@test "EXPAND: Testing [hist] with 'he!llo !1 i cs !2 ls'" {
+@test "EXPAND: Testing [hist] with 'hello !1 i cs !2 ls'" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "he!llo !1 i cs !2 ls"
+  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "hello !1 i cs !2 ls"
   echo
-  echo "ERROR: \"he!llo !1 i cs !2 ls\""
+  echo "ERROR: \"hello !1 i cs !2 ls\""
   echo
 	display_line_output
 	echo
