@@ -17,7 +17,7 @@ load test_helper
 	echo
   [ "${lines[0]}" = "" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [env null] with 'nothing to change'" {
@@ -31,7 +31,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "toto tout nue |;&&" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 #######################################################################
@@ -49,7 +49,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "toto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [simple replace] with 'toto 2'" {
@@ -63,7 +63,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "coucou toto, comment tu vas toto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [simple replace] with 'toto 3'" {
@@ -77,7 +77,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "coucou toto, comment tu vas tata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [simple replace] 100 vars" {
@@ -104,7 +104,7 @@ check_leaks_function parser
 	echo
   echo "$name_exec EXPECTED ->0=0 1=1 …"
   [ "${output}" = "${ent}" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 #######################################################################
@@ -125,7 +125,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [$ error] with '\$var12'" {
@@ -139,7 +139,7 @@ echo
   echo
   [ "${lines[0]}" = " " ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [$ error] with '\$var1\$var2'" {
@@ -153,7 +153,7 @@ check_leaks_function parser
   echo
   [ "${lines[0]}" = "tototata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 #######################################################################
@@ -175,7 +175,7 @@ check_leaks_function parser
   echo
   [ "${lines[0]}" = "ls" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with '! blow'" {
@@ -190,7 +190,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "blowjob" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with '!!'" {
@@ -205,7 +205,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "job" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with '!j'" {
@@ -220,7 +220,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "job" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with '!ja'" {
@@ -235,7 +235,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "job" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with 'he!llo !1 i cs !2 ls'" {
@@ -250,7 +250,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "hello blow i cs job ls" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 #######################################################################
 #######################################################################
@@ -271,7 +271,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "hello !" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist error] with '!!!!!!! '" {
@@ -286,7 +286,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "hello jobjobjob!" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist error] with '!'" {
@@ -301,7 +301,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "hello blo!2w" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist error] with '!3000'" {
@@ -316,7 +316,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "21sh: !30000: event not found" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist error] with 'tata !hello toto'" {
@@ -331,7 +331,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "21sh: !hello: event not found" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 #######################################################################
 #######################################################################
@@ -352,7 +352,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double 1'" {
@@ -367,7 +367,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tata toto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double 2'" {
@@ -382,7 +382,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tatatoto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double 3'" {
@@ -397,7 +397,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tatatoto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double 4'" {
@@ -412,7 +412,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tatatoto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double \"\"a\"\"'" {
@@ -427,7 +427,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "a" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double \"a\"\"a\"\"\" \"au\"'" {
@@ -442,7 +442,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "aa au" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 #######################################################################
@@ -465,7 +465,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 1'" {
@@ -480,7 +480,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tata toto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 2'" {
@@ -495,7 +495,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tatatoto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 3'" {
@@ -510,7 +510,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "tatatoto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 4'" {
@@ -525,7 +525,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "\$VAR2toto" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 4'" {
@@ -540,7 +540,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "\$VAR2toto!2" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 5'" {
@@ -555,7 +555,7 @@ echo
 	echo
   [ "${lines[0]}" = "\$VAR2toto!2" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double ''a'''" {
@@ -570,7 +570,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "a" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 'a''a''' 'au''" {
@@ -585,7 +585,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "aa au" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 #######################################################################
 #######################################################################
@@ -606,7 +606,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "\$VAR2toto blow job" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [mix] 2" {
@@ -621,7 +621,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "!10blowabblow" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [mix] 3" {
@@ -636,7 +636,7 @@ echo
 	echo
   [ "${lines[0]}" = "'' \"\"" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [mix] 4" {
@@ -651,7 +651,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "\"\$VAR\" 'toto'" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 #######################################################################
@@ -669,7 +669,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "!2!3" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hard] 2" {
@@ -684,7 +684,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "'tata'\"\$VAR\"" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hard] 3" {
@@ -699,7 +699,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "\'tata\'\"\$VAR\"" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [MEGA hard] HARD" {
@@ -714,7 +714,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "\'tata\' \\\"tata\\\"" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [spec] with '\$0'" {
@@ -728,7 +728,7 @@ echo
 	echo
   [ "${lines[0]}" = "${BATS_TEST_DIRNAME}/../../$name_exec" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [spec] with '\$?'" {
@@ -744,7 +744,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "0" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [spec] with '\$\$'" {
@@ -760,7 +760,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "$id" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 ######################################################################
@@ -778,7 +778,7 @@ check_leaks_function parser
   echo
   [ "${lines[0]}" = "$HOME" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [~] 2" {
@@ -792,7 +792,7 @@ check_leaks_function parser
   echo
   [ "${lines[0]}" = "HELLO~toto$HOME" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [~] 3" {
@@ -806,7 +806,7 @@ check_leaks_function parser
   echo
   [ "${lines[0]}" = "\\~" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [~] 4" {
@@ -820,7 +820,7 @@ check_leaks_function parser
   echo
   [ "${lines[0]}" = "~" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 ######################################################################
@@ -843,7 +843,7 @@ skip "Tu dois pas gere"
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\a'" {
@@ -859,7 +859,7 @@ skip "Tu dois pas gere"
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\b'" {
@@ -875,7 +875,7 @@ skip "Tu dois pas gere"
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\t'" {
@@ -891,7 +891,7 @@ skip "Tu dois pas gere"
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\r'" {
@@ -907,7 +907,7 @@ skip "Tu dois pas gere"
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\f'" {
@@ -923,7 +923,7 @@ skip "Tu dois pas gere"
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\v'" {
@@ -939,7 +939,7 @@ skip "Tu dois pas gere"
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\'" {
@@ -955,7 +955,7 @@ skip "Tu dois pas gere"
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\\\n'" {
@@ -970,7 +970,7 @@ skip "Tu dois pas gere"
 	echo
   [ "${lines[0]}" = "toto\\ntata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\\\a'" {
@@ -985,7 +985,7 @@ skip "Tu dois pas gere"
 	echo
   [ "${lines[0]}" = "toto\\atata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\\\b'" {
@@ -1000,7 +1000,7 @@ skip "Tu dois pas gere"
 	echo
   [ "${lines[0]}" = "toto\\btata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\\\t'" {
@@ -1015,7 +1015,7 @@ skip "Tu dois pas gere"
 	echo
   [ "${lines[0]}" = "toto\\ttata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\\\r'" {
@@ -1030,7 +1030,7 @@ skip "Tu dois pas gere"
 	echo
   [ "${lines[0]}" = "toto\\rtata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\\\f'" {
@@ -1045,7 +1045,7 @@ skip "Tu dois pas gere"
 	echo
   [ "${lines[0]}" = "toto\\ftata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\\\v'" {
@@ -1060,7 +1060,7 @@ skip "Tu dois pas gere"
 	echo
   [ "${lines[0]}" = "toto\\vtata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [car] with '\\\\\\\'" {
@@ -1075,7 +1075,7 @@ check_leaks_function parser
 	echo
   [ "${lines[0]}" = "toto\\\\ tata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hard] with '\'" {
@@ -1092,7 +1092,7 @@ check_leaks_function parser
   echo
   [ "${lines[0]}" = "$ret" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hard] with '\a'" {
@@ -1107,7 +1107,7 @@ check_leaks_function parser
   echo
   [ "${lines[0]}" = "tototata" ]
 	[ "${lines[1]}" = "" ]
-check_leaks_function parser
+check_leaks_function expand
 }
 
 ######################################################################
