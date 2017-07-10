@@ -25,7 +25,7 @@ typedef struct s_exp
 }               t_exp;
 
 t_array *expand(t_array *tokens, t_array *array_exp);
-void expand_dol(t_exp *exp);
+void 	expand_dol(t_exp *exp);
 t_array	*expand_init(t_array *expand_array);
 t_array	*expand(t_array *tokens, t_array *array_exp);
 t_exp	*exp_create_new(t_token *tok);
@@ -37,4 +37,11 @@ void	sh_expand_destroy(t_array *array_exp);
 
 void	expand_print(t_array *array_exp);
 void	ft_expand_print_token(t_token_type type);
+
+int     ft_strlen_before(const char *str);
+int     ft_numlen(const char *str);
+int     histisclear(const char *str);
+void    expand_hist_digit(t_exp *exp, int i, int len);
+void    expand_hist_alpha(t_exp *exp, int i, int len);
+
 #endif
