@@ -2,17 +2,17 @@
 
 t_exp    *expand_hist(t_exp *exp)
 {
-  //si jai un token ! et un token number ==> j'utilise sh_history_get_at
-  if (exp->str[0] == '!' ) // and if next token is a number
-  {
-    if ((exp->str = ft_replace_exp(exp->str, (char *)sh_history_get_at(5), 0, ft_strlen(exp->str))) == NULL)
+    size_t  nb;
+
+    nb = 0;
+    if (exp->str[0] == '!' && ft_isalnum(exp->str[1]))
     {
-      log_fatal("Expand: ft_replace_exp failed");
-      return (NULL);
+        if((nb = ft_atoi(&exp->str[1])) != 0)
+            exp->str = ft_replace_exp(exp->str, (char *)sh_history_get_at(nb), 0, ft_strlen(exp->str));
+        else
+            exp->str = ft_replace_exp(exp->str, (char *)sh_history_get_search(&exp->str[1]), 0, ft_strlen(exp->str));
     }
-  }
-  //si jai un token ! et un token word ==> j'utilise sh_history_get_search
-  ft_printf("%s\n", exp->str);
-  ft_expand_print_token(exp->type);
-  return(exp);
+    // ft_printf("%s\n", exp->str);
+    // ft_expand_print_token(exp->type);
+    return(exp);
 }
