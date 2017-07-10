@@ -2,7 +2,7 @@
 
 t_exp    *expand_hist(t_exp *exp)
 {
-    size_t  nb;
+    int  nb;
 
     nb = 0;
     if (exp->str[0] == '!' && ft_isalnum(exp->str[1]))
