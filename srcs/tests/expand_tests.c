@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 18:26:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/07 22:17:24 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/10 16:32:29 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,13 @@ void sh_testing_expand(char *const *av, char **environ)
 
 	//input = ft_strclean(av[3]);//TODO à faire pour le main ;)
   sh_init_environ(environ);
+  sh_history_init(NULL);
 	tokens = init_tests_exp(av[3]);
   if (expand_init(&expand_array) == NULL)
 		exit (1);
   if (expand(&tokens, &expand_array))
     expand_print_test(&expand_array);
 	array_reset(&tokens, NULL);
+  sh_history_save();
 	exit (0);
 }
