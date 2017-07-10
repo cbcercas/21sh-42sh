@@ -70,7 +70,7 @@ const char	*sh_history_get_at(size_t nb)
 	t_hist	*h;
 
 		hists = sh_history_get();
-		if ((h = (t_hist *)array_get_at(hists, nb)))
+		if ((h = (t_hist *)array_get_at(hists, nb - 1)))
 			return ((const char *)h->cmd);
 	return (NULL);
 }
