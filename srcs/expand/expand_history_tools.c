@@ -15,6 +15,8 @@ int     ft_numlen(const char *str)
     int     i;
 
     i = 0;
+    if (str[i] == '-')
+        i++;
     while(ft_isdigit(str[i]))
         i++;
     return (i);
@@ -43,10 +45,10 @@ void    expand_hist_digit(t_exp *exp, int i, int len)
     nb = 0;
     rep = NULL;
     size = ft_numlen(&exp->str[i + 1]);
-    if((nb = ft_atoi(&exp->str[i + 1])) > 0)
+    if((nb = ft_atoi(&exp->str[i + 1])) != 0)
     {
-        rep = (char *)sh_history_get_at(nb);
-        exp->str = ft_replace_exp(exp->str, rep, len, size + 1);
+        if((rep = (char *)sh_history_get_at(nb)) != NULL)
+            exp->str = ft_replace_exp(exp->str, rep, len, size + 1);
     }
 }
 
