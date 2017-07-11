@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 09:42:42 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/11 14:11:40 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/12 00:15:17 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ BOOL	exec_ctrl_up(const t_key *key, t_input *input)
 	(void)key;
   while (input->cpos.cp_col != x || input->offset_line != y)
     exec_arrow_left(NULL, input);
-	return (true);
+	return (false);
 }
 
 BOOL	exec_ctrl_down(const t_key *key, t_input *input)
@@ -46,5 +46,5 @@ BOOL	exec_ctrl_down(const t_key *key, t_input *input)
     exec_arrow_right(NULL, input);
     i++;
   }
-	return (true);
+	return (false);
 }
