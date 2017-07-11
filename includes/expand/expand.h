@@ -41,7 +41,7 @@ void	ft_expand_print_token(t_token_type type);
 int     ft_strlen_before(const char *str);
 int     ft_numlen(const char *str);
 int     histisclear(const char *str);
-void    expand_hist_digit(t_exp *exp, int i, int len);
+int 	expand_hist_digit(t_exp *exp, int i, int len);
 void    expand_hist_alpha(t_exp *exp, int i, int len);
 
 #endif

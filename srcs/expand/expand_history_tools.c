@@ -36,7 +36,7 @@ int     histisclear(const char *str)
     return (1);
 }
 
-void    expand_hist_digit(t_exp *exp, int i, int len)
+int    expand_hist_digit(t_exp *exp, int i, int len)
 {
     int     nb;
     int     size;
@@ -48,8 +48,12 @@ void    expand_hist_digit(t_exp *exp, int i, int len)
     if((nb = ft_atoi(&exp->str[i + 1])) != 0)
     {
         if((rep = (char *)sh_history_get_at(nb)) != NULL)
+        {
             exp->str = ft_replace_exp(exp->str, rep, len, size + 1);
+            return (1);
+        }
     }
+    return (0);
 }
 
 void    expand_hist_alpha(t_exp *exp, int i, int len)
