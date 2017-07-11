@@ -14,7 +14,8 @@ t_array *expand(t_array *tokens, t_array *array_exp)
     if (exp->type != E_TOKEN_SQUOTE)
     {
         expand_dol(exp);//expand les dollard
-        expand_hist(exp);//expand les !
+        if(expand_hist(exp) == NULL)//expand les !
+          return (NULL);
     }
     // expand_quote(exp);//expand quote
     array_push(array_exp, (void *)exp);// push dans notre t_array

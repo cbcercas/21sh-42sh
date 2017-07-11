@@ -43,9 +43,12 @@ int main(int ac, char *const *av, char **environ)
 			if (parser_parse(&tokens))
 			{
 				if (expand(&tokens, &expand_array))
+				{
 					expand_print(&expand_array);
+					/// if EXEC
+				}
 			}
-		sh_history_set_new(input);
+			sh_history_set_new(input);
 
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))

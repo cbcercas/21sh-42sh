@@ -20,7 +20,7 @@ t_exp   *expand_hist(t_exp *exp)
         else if (exp->str[i] == '!' && (ft_atoi(&exp->str[i + 1]) != 0))
         {
             if (expand_hist_digit(exp, &i, len) == 0)
-                break;
+                return (NULL);
         }
         else if (exp->str[i] == '!' && histisclear(&exp->str[i + 1]))
             expand_hist_alpha(exp, &i, len);
