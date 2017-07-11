@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/30 15:16:37 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/10 08:56:39 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_input	t_input;
 struct	s_input
 {
 	t_string	*str;
+	size_t		prompt_len;
 	size_t		offset_col;
 	size_t		offset_line;
 	t_ts		ts;
