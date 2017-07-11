@@ -33,11 +33,9 @@ int    expand_hist_digit(t_exp *exp, int *i, int len)
     size = ft_numlen(&exp->str[*i + 1]);
     if((nb = ft_atoi(&exp->str[*i + 1])) != 0)
     {
-        ft_printf("i= %d\n", *i);
         if((rep = (char *)sh_history_get_at(nb)) != NULL)
         {
             exp->str = ft_replace_exp(exp->str, rep, len, size + 1);
-            ft_printf("rep= %s\n", rep);
             *i += ft_strlen(rep);
             return (1);
         }
