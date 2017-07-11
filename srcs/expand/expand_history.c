@@ -1,5 +1,6 @@
 #include <expand/expand.h>
 
+
 t_exp   *expand_hist(t_exp *exp)
 {
     int i;
@@ -12,7 +13,9 @@ t_exp   *expand_hist(t_exp *exp)
     while (exp->str[i])
     {
         len = ft_strlen_before(exp->str);
-        if (exp->str[i] == '!' && exp->str[i + 1] == '!')
+        if (exp->str[i] == '\\')
+            i += 2;
+        else if (exp->str[i] == '!' && exp->str[i + 1] == '!')
         {
             if((rep = (char *)sh_history_get_at(-1)) != NULL)
                 exp->str = ft_replace_exp(exp->str, rep, len, 2);
@@ -23,10 +26,11 @@ t_exp   *expand_hist(t_exp *exp)
             if (expand_hist_digit(exp, &i, len) == 0)
                 return (NULL);
         }
-        else if (exp->str[i] == '!' && histisclear(&exp->str[i + 1]))
-            expand_hist_alpha(exp, &i, len);
-        else if (exp->str[i] == '!' && !(histisclear(&exp->str[i + 1])))
-            break;
+        else if (exp->str[i] == '!' && ft_isalpha(exp->str[i + 1]))
+        {
+            if (expand_hist_alpha(exp, &i, len) == 0)
+                return (NULL);
+        }
         else
             i++;
     }

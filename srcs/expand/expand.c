@@ -15,7 +15,10 @@ t_array *expand(t_array *tokens, t_array *array_exp)
     {
         expand_dol(exp);//expand les dollard
         if(expand_hist(exp) == NULL)//expand les !
-          return (NULL);
+        {
+            ft_printf("event not found\n");
+            return (NULL);
+        }
     }
     // expand_quote(exp);//expand quote
     array_push(array_exp, (void *)exp);// push dans notre t_array
