@@ -36,7 +36,7 @@ int     histisclear(const char *str)
     return (1);
 }
 
-int    expand_hist_digit(t_exp *exp, int i, int len)
+int    expand_hist_digit(t_exp *exp, int *i, int len)
 {
     int     nb;
     int     size;
@@ -44,25 +44,46 @@ int    expand_hist_digit(t_exp *exp, int i, int len)
 
     nb = 0;
     rep = NULL;
-    size = ft_numlen(&exp->str[i + 1]);
-    if((nb = ft_atoi(&exp->str[i + 1])) != 0)
+    size = ft_numlen(&exp->str[*i + 1]);
+    if((nb = ft_atoi(&exp->str[*i + 1])) != 0)
     {
         if((rep = (char *)sh_history_get_at(nb)) != NULL)
         {
             exp->str = ft_replace_exp(exp->str, rep, len, size + 1);
+            *i += ft_strlen(rep);
             return (1);
         }
     }
     return (0);
 }
 
-void    expand_hist_alpha(t_exp *exp, int i, int len)
+void    expand_hist_alpha(t_exp *exp, int *i, int len)
 {
     char *hist;
     int  nb;
 
-    nb = ft_strlen(&exp->str[i + 1]) + 1;
+    nb = ft_strlen(&exp->str[*i + 1]) + 1;
     hist = NULL;
-    if ((hist = (char *)sh_history_get_search(&exp->str[i + 1])) != NULL)
+    if ((hist = (char *)sh_history_get_search(&exp->str[*i + 1])) != NULL)
+    {
         exp->str = ft_replace_exp(exp->str, hist, len, nb);
+        *i += ft_strlen(hist);       
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
