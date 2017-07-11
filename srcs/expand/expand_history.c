@@ -16,6 +16,7 @@ t_exp   *expand_hist(t_exp *exp)
         {
             if((rep = (char *)sh_history_get_at(-1)) != NULL)
                 exp->str = ft_replace_exp(exp->str, rep, len, 2);
+            i += ft_strlen(rep);
         }
         else if (exp->str[i] == '!' && (ft_atoi(&exp->str[i + 1]) != 0))
         {
@@ -26,7 +27,8 @@ t_exp   *expand_hist(t_exp *exp)
             expand_hist_alpha(exp, &i, len);
         else if (exp->str[i] == '!' && !(histisclear(&exp->str[i + 1])))
             break;
-        i++;
+        else
+            i++;
     }
     return(exp);
 }
