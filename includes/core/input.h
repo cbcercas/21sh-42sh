@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/10 08:56:39 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/11 22:14:46 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define INPUT_H
 # include <string/ft_string.h>
 # include <libtcaps.h>
+# include <core/prompt.h>
 
 //int		sh_get_command(t_ms_data	*data);
 
