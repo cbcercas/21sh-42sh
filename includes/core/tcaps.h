@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:02:09 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/05 15:31:02 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/11 22:22:00 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input);
 BOOL	exec_arrow_left(const t_key *key, t_input *input);
 BOOL	exec_arrow_up(const t_key *key, t_input *input);
 BOOL	exec_arrow_down(const t_key *key, t_input *input);
+
+BOOL	exec_ctrl_up(const t_key *key, t_input *input);
+BOOL	exec_ctrl_down(const t_key *key, t_input *input);
+BOOL	exec_end(const t_key *key, t_input *input);
+BOOL	exec_start(const t_key *key, t_input *input);
 
 void	redraw_line(t_input *input);
 void	tcaps_down(t_input *input);

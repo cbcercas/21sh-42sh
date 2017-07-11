@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 12:37:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/05 15:30:27 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/11 22:19:17 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ BOOL	key_exec(t_key *key, t_input *input)
 		{KEY_CODE_BACKSPACE, &exec_backspace},
 		{KEY_CODE_DELETE, &exec_delete},
 		{KEY_CODE_TAB, &exec_tab},
+		{KEY_CODE_CTRL_UP, &exec_ctrl_up},
+		{KEY_CODE_CTRL_DOWN, &exec_ctrl_down},
+		{KEY_CODE_END, &exec_end},
+		{KEY_CODE_HOME, &exec_start},
 		{KEY_CODE_NONE, NULL}
 	};
 	int				i;
