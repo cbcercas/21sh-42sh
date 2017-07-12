@@ -20,7 +20,7 @@ t_array *expand(t_array *tokens, t_array *array_exp)
             return (NULL);
         }
     }
-    // expand_quote(exp);//expand quote
+    expand_remove_quote(exp);
     array_push(array_exp, (void *)exp);// push dans notre t_array
     i++;
   }

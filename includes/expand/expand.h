@@ -43,5 +43,6 @@ int     ft_numlen(const char *str);
 int     histisclear(const char *str);
 int 	expand_hist_digit(t_exp *exp, int *i, int len);
 int    	expand_hist_alpha(t_exp *exp, int *i, int len);
+t_exp   *expand_remove_quote(t_exp *exp);
 
 #endif
