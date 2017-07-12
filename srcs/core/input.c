@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/11 15:36:48 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/12 17:44:25 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ char	*sh_get_line(void)
 		key = key_get(buff);
 		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
 			stop = key_exec(&key, &input);
-		else if (sh_history_is_print(buff))
+		else if (sh_history_is_print(buff) && !input.select.is)
 		{
 			if (!string_insert(input.str, key.key, sh_pos_of_insert(input)))
 				return (NULL);
