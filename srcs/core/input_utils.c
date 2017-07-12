@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/17 22:24:50 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/10 10:06:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/12 17:09:28 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void reset_input(t_input *input)
 	input->cpos.cp_line = 0;
 	input->cpos.cp_col = (unsigned short)input->offset_col ;
 	input->ts = get_term_size();
+	ft_strdel(&input->select.str);
+	ft_bzero(&input->select, sizeof(t_select));
 };
 
 size_t	sh_pos_of_insert(t_input input)
