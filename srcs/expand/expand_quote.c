@@ -34,9 +34,12 @@ t_exp   *expand_remove_quote(t_exp *exp)
 	ft_strcpy(string.s, exp->str);
 	string.len = ft_strlen(string.s);
 
-	//remove '\'
-	while ((c = ft_strchr(string.s, '\\')))
-		string_remove_char(&string, c - string.s);
+	//remove '\' 
+	if (exp->type != E_TOKEN_SQUOTE && exp->type != E_TOKEN_DQUOTE)
+	{
+		while ((c = ft_strchr(string.s, '\\')))
+			string_remove_char(&string, c - string.s);
+	}
 	//remove the first of ' or "
 	if ((quote = find_first_quote(string.s)) != 0)
 		while ((c = ft_strchr(string.s, quote)))
