@@ -22,24 +22,20 @@ char 	find_first_quote(const char *str)
 	return (0);
 }
 
-int		expand_double_antislash(t_string *string)
+void	expand_antislash(t_string *string)
 {
 	int 	i;
-	int 	permut;
 
 	i = 0;
-	permut = 0;
 	while (string->s[i + 1])
 	{
 		if (string->s[i] == '\\' && string->s[i + 1] == '\\')
 		{
-			ft_printf("here\n");
-			string_remove_char(string, i);
-			permut = 1;
+			ft_printf("removed\n");
+			string_remove_char(string, i + 1);
 		}
 		i++;
 	}
-	return (permut);
 }
 
 t_exp   *expand_remove_quote(t_exp *exp)
@@ -55,9 +51,7 @@ t_exp   *expand_remove_quote(t_exp *exp)
 	string.len = ft_strlen(string.s);
 	//remove '\'
 	if (exp->type != E_TOKEN_SQUOTE)
-		if(!expand_double_antislash(&string))
-			while ((c = ft_strchr(string.s, '\\')))
-					string_remove_char(&string, c - string.s);
+	expand_antislash(&string);
 	//remove the first of ' or "
 	if ((quote = find_first_quote(string.s)) != 0)
 		while ((c = ft_strchr(string.s, quote)))
