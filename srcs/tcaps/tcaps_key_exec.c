@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 12:37:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/12 21:14:35 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/12 21:48:24 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ BOOL	key_exec(t_key *key, t_input *input)
 		{KEY_CODE_CTRL_DARROW, &exec_ctrl_down},
 		{KEY_CODE_CTRL_LARROW, &exec_ctrl_left},
 		{KEY_CODE_CTRL_RARROW, &exec_ctrl_right},
+		{KEY_CODE_INSERT, &exec_select},
 		{KEY_CODE_END, &exec_end},
 		{KEY_CODE_HOME, &exec_start},
 		{KEY_CODE_NONE, NULL}

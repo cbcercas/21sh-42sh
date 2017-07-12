@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 13:17:48 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/12 17:43:35 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/12 21:50:23 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ BOOL	exec_select(const t_key *key, t_input *input)
     input->select.is = false;
     input->select.cur_start = 0;
     input->select.cur_end = 0;
+    redraw_line(input);
   }
   return (false);
 }
