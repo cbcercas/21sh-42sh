@@ -46,5 +46,24 @@ BOOL	exec_ctrl_down(const t_key *key, t_input *input)
     exec_arrow_right(NULL, input);
     i++;
   }
+BOOL	exec_ctrl_left(const t_key *key, t_input *input)
+{
+	exec_arrow_left(key, input);
+	while ((sh_pos_of_insert(*input) != 0) &&\
+			(sh_pos_of_insert(*input) == input->str->len ||\
+			 !(input->str->s[sh_pos_of_insert(*input)] == ' ' &&\
+				 input->str->s[sh_pos_of_insert(*input) - 1] != ' ')))
+		exec_arrow_left(key, input);
+	return (false);
+}
+
+BOOL	exec_ctrl_right(const t_key *key, t_input *input)
+{
+	exec_arrow_right(key, input);
+	while ((sh_pos_of_insert(*input) != input->str->len) &&\
+			(sh_pos_of_insert(*input) == 0 ||\
+			 !(input->str->s[sh_pos_of_insert(*input)] != ' ' &&\
+				 input->str->s[sh_pos_of_insert(*input) - 1] == ' ')))
+		exec_arrow_right(key, input);
 	return (false);
 }
