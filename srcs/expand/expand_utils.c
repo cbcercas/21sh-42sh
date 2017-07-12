@@ -31,7 +31,7 @@ t_exp *exp_create_new(t_token *tok)//etape 1 on dublique
   if (!tok || !tok->str || !(exp = (t_exp*)malloc(sizeof(t_exp))))
     return (NULL);
   exp->type = tok->type;
-  exp->str = ft_strndup_free(tok->str, 0, tok->len, 0);//malloc à la bonne taille
+  exp->str = ft_strndup_free((char *)tok->str, 0, tok->len, 0);//malloc à la bonne taille
   return (exp);
 }
 
