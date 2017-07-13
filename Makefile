@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/06/10 10:56:01 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/07/13 10:38:13 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,6 @@ SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c
-
-SRC_SUBDIR      += parser
-SRCS            += parser.c
 
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c
