@@ -674,30 +674,15 @@ check_leaks_function expand
 
 @test "EXPAND: Testing [hard] 2" {
   echo -e "blow\njob\n!2\n!3\n!!" > /tmp/.21sh_history
-  run $val_cmd env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\'\$VAR2\'\\\"'\$VAR'\\\""
+  run $val_cmd env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\\\$VAR'\"toto!3\""
   echo
-  echo "ERROR: \"\'\$VAR2'\\\"'\$VAR'\\\"\""
-  echo
-	display_line_output
-	echo
-  echo "$name_exec EXPECTED ->'tata'\"\$VAR\""
-	echo
-  [ "${lines[0]}" = "'tata'\"\$VAR\"" ]
-	[ "${lines[1]}" = "" ]
-check_leaks_function expand
-}
-
-@test "EXPAND: Testing [hard] 3" {
-  echo -e "blow\njob\n!2\n!3\n!!" > /tmp/.21sh_history
-  run $val_cmd env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\'\$VAR2\'\"\\\"'\$VAR'\\\""
-  echo
-  echo "ERROR: \"\"\'\$VAR2'\"\\\"'\$VAR'\\\"\""
+  echo "ERROR: '\\\$VAR'\"toto!3\""
   echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->'tata'\"\$VAR\""
+  echo "$name_exec EXPECTED ->\\\$VARtoto!2"
 	echo
-  [ "${lines[0]}" = "\'tata\'\"\$VAR\"" ]
+  [ "${lines[0]}" = "\\\$VARtoto!2" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }
@@ -724,9 +709,9 @@ echo "ERROR: \"\$0\""
 echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->${BATS_TEST_DIRNAME}/../../$name_exec"
+  echo "$name_exec EXPECTED ->$name_exec"
 	echo
-  [ "${lines[0]}" = "${BATS_TEST_DIRNAME}/../../$name_exec" ]
+  [ "${lines[0]}" = "$name_exec" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }
