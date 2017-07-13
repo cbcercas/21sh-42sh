@@ -9,6 +9,7 @@
 /*   Updated: 2017/05/17 16:47:50 by chbravo-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef DATA_H
 # define DATA_H
 # include <sys/param.h>
@@ -30,6 +31,8 @@ struct						s_sh_data
 	t_sh_opt			opts;
 	char				*cwd;
 	struct s_builtin_e	*builtins;
+	struct termios      *tattr;
+
 };
 
 #endif

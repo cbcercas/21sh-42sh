@@ -11,20 +11,8 @@
 /* ************************************************************************** */
 
 #include <core/init.h>
-#include <tests/test.h>
-#include <core/help.h>
-#include <unistd/ft_unistd.h>
-#include <environ/environ.h>
-#include <builtins/builtins_utils.h>
 
 extern char const	*g_optarg;
-
-static void		sh_data_free(t_sh_data *data)
-{
-	//TODO free envs
-	(void)data;
-	return;
-}
 
 void sh_testing(const char *arg, char *const *av, char **environ)
 {
@@ -78,11 +66,12 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	sh_builtins_init();
 	sh_history_init(NULL);
 	init_signals(signals_handler);
+	sh_store_tattr(data);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_printf("%s: Error when getting current working directory\n", PROGNAME);
 		sh_data_free(data);
-		exit (1);;
+		exit (1);
 	}
 	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
 			sh_setenv("TERM", "dumb");
@@ -92,12 +81,22 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		sh_data_free(data);
 		exit (1);
 	}
-	//raw_terminal_mode();
 	return (data);
 }
 
-void			sh_deinit(t_sh_data *data)
+void sh_store_tattr(t_sh_data *data)
 {
-	sh_data_free(data);
-	//default_terminal_mode();
+	int ttyDevice;
+	struct termios save_tattr;
+
+	ttyDevice = STDOUT_FILENO;
+	if (tcgetattr(ttyDevice, &save_tattr) != 0)
+	{
+		ft_printf("%s: tcgetattr error when trying", PROGNAME);
+		ft_printf(" to save terminal attributes\n");
+		return ;
+	}
+	else if ((data->tattr = (struct termios*)malloc(sizeof(struct termios))))
+			ft_memcpy(data->tattr, &save_tattr, sizeof(struct termios));
+	return ;
 }

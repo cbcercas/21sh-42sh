@@ -14,6 +14,7 @@ set(SOURCE_FILES
         srcs/core/check_path.c
         srcs/core/command.c
         srcs/core/init.c
+        srcs/core/deinit.c
         srcs/core/input.c
         srcs/core/input_utils.c
         srcs/core/main.c
@@ -70,8 +71,7 @@ set(SOURCE_FILES
         srcs/ast/ast_built.c
         srcs/ast/ast_built_greatand.c
         srcs/ast/ast.c
-        srcs/tests/ast_tests.c
-        )
+        srcs/tests/ast_tests.c)
 
 include_directories(includes)
 

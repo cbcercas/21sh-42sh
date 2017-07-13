@@ -28,8 +28,10 @@
 # include <tests/parser_tests.h>
 #include <tests/expand_tests.h>
 # include <signals/signals.h>
+# include <core/deinit.h>
 
+# define NOTATTY 1
 t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ);
-void			sh_deinit(t_sh_data *data);
+void sh_store_tattr(t_sh_data *data);
 
 #endif

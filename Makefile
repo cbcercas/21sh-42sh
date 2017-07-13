@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/07/08 09:53:54 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/07/11 13:43:15 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME			= 21sh
 
 SRC_SUBDIR		= core
 SRCS			+= main.c prompt.c init.c input.c command.c check_path.c \
-                    usage_help.c input_utils.c
+                    usage_help.c input_utils.c deinit.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c builtin_environ.c\
@@ -58,7 +58,8 @@ SRCS            += history.c history_list_utils.c history_getter.c\
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
                     tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
-                    tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c
+                    tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c\
+										tcaps_exec_end_home.c tcaps_exec_ctrl_arrows.c
 
 SRC_SUBDIR      += btree
 SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\

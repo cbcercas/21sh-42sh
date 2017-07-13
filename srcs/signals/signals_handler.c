@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/05/23 20:39:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/10 09:59:13 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	signals_sigwinch(void)
 {
 	struct winsize w;
 
-	g_input->offset_col = 3;
+	g_input->offset_col = sh_len_prompt();
 	g_input->offset_line = 0;
 	g_input->cpos.cp_line = 0;
 	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
