@@ -312,9 +312,9 @@ check_leaks_function expand
   echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->21sh: !30000: event not found"
+  echo "$name_exec EXPECTED ->event not found"
 	echo
-  [ "${lines[0]}" = "21sh: !30000: event not found" ]
+  [ "${lines[0]}" = "event not found" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }
@@ -327,9 +327,9 @@ check_leaks_function expand
   echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->21sh: !hello: event not found"
+  echo "$name_exec EXPECTED ->event not found"
 	echo
-  [ "${lines[0]}" = "21sh: !hello: event not found" ]
+  [ "${lines[0]}" = "event not found" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }
@@ -575,9 +575,9 @@ check_leaks_function expand
 
 @test "EXPAND: Testing [quote] with 'double 'a''a''' 'au''" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'a''a''' 'au''"
+  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'a''a''' 'au'''"
   echo
-  echo "ERROR: 'a''a''' 'au''"
+  echo "ERROR: 'a''a''' 'au'''"
   echo
 	display_line_output
 	echo
@@ -596,7 +596,7 @@ check_leaks_function expand
 
 @test "EXPAND: Testing [mix] 1" {
   echo -e "blow\njob" > /tmp/.21sh_history
-  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto "\$VAR1" !2"
+  run $val_cmd env -i VAR1=blow VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto "\$VAR1" !2"
   echo
   echo "ERROR: \"'\$VAR2'toto "\$VAR1" !2\""
   echo
@@ -667,7 +667,7 @@ check_leaks_function expand
 	echo
   echo "$name_exec EXPECTED ->!2!3\$VAR2"
 	echo
-  [ "${lines[0]}" = "!2!3" ]
+  [ "${lines[0]}" = "!2!3\$VAR2" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }
