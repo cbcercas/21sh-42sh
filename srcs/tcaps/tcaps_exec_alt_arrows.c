@@ -6,13 +6,13 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/11 09:42:42 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/12 21:44:48 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/13 14:44:37 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
 
-BOOL	exec_ctrl_up(const t_key *key, t_input *input)
+BOOL	exec_alt_up(const t_key *key, t_input *input)
 {
 	size_t    x;
 	size_t    y;
@@ -27,7 +27,7 @@ BOOL	exec_ctrl_up(const t_key *key, t_input *input)
 	return (false);
 }
 
-BOOL	exec_ctrl_down(const t_key *key, t_input *input)
+BOOL	exec_alt_down(const t_key *key, t_input *input)
 {
 	size_t    x;
 	size_t    y;
@@ -49,7 +49,7 @@ BOOL	exec_ctrl_down(const t_key *key, t_input *input)
 	return (false);
 }
 
-BOOL	exec_ctrl_left(const t_key *key, t_input *input)
+BOOL	exec_alt_left(const t_key *key, t_input *input)
 {
 	exec_arrow_left(key, input);
 	while ((sh_pos_of_insert(*input) != 0) &&\
@@ -60,7 +60,7 @@ BOOL	exec_ctrl_left(const t_key *key, t_input *input)
 	return (false);
 }
 
-BOOL	exec_ctrl_right(const t_key *key, t_input *input)
+BOOL	exec_alt_right(const t_key *key, t_input *input)
 {
 	exec_arrow_right(key, input);
 	while ((sh_pos_of_insert(*input) != input->str->len) &&\

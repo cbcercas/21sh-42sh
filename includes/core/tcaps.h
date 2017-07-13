@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:02:09 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/12 21:13:45 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/13 14:46:54 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input);
 BOOL	exec_arrow_up(const t_key *key, t_input *input);
 BOOL	exec_arrow_down(const t_key *key, t_input *input);
 
-BOOL	exec_ctrl_up(const t_key *key, t_input *input);
-BOOL	exec_ctrl_down(const t_key *key, t_input *input);
-BOOL	exec_ctrl_left(const t_key *key, t_input *input);
-BOOL	exec_ctrl_right(const t_key *key, t_input *input);
+BOOL	exec_alt_up(const t_key *key, t_input *input);
+BOOL	exec_alt_down(const t_key *key, t_input *input);
+BOOL	exec_alt_left(const t_key *key, t_input *input);
+BOOL	exec_alt_right(const t_key *key, t_input *input);
 BOOL	exec_end(const t_key *key, t_input *input);
 BOOL	exec_start(const t_key *key, t_input *input);
 
