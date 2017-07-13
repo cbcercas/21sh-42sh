@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/04 21:45:04 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/12 16:54:49 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,13 @@ BOOL	exec_ctrl_z(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_a(const t_key *key, t_input *input)
 {
-	(void)key;
-	(void)input;
-	write(1, "User pressed CTRL+A\n", 20);
-	exec_ctrl_c(key, input);
+	exec_start(key, input);
 	return (false);
 }
 
 BOOL	exec_ctrl_e(const t_key *key, t_input *input)
 {
-	(void)key;
-	(void)input;
-	write(1, "User pressed CTRL+E\n", 20);
-	exec_ctrl_c(key, input);
+	exec_end(key, input);
 	return (false);
 }
 
