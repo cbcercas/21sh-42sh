@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/10 08:56:39 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/12 15:25:58 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,18 @@
 # define INPUT_H
 # include <string/ft_string.h>
 # include <libtcaps.h>
+# include <core/prompt.h>
 
 //int		sh_get_command(t_ms_data	*data);
+
+typedef struct s_select	t_select;
+struct	s_select
+{
+	BOOL		is;
+	size_t	cur_start;
+	size_t	cur_end;
+	char		*str;
+};
 
 typedef struct s_input	t_input;
 struct	s_input
@@ -24,8 +34,9 @@ struct	s_input
 	size_t		prompt_len;
 	size_t		offset_col;
 	size_t		offset_line;
-	t_ts		ts;
+	t_ts			ts;
 	t_cpos		cpos;
+	t_select	select;
 };
 
 /**

@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/03 18:12:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/14 16:01:18 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@
 # include <signals/signals.h>
 # include <history/history.h>
 # include <builtins/help.h>
-
-
-# define PROGNAME "21sh"
+# include <ast/ast.h>
+# include <core/progname.h>
 
 #endif
