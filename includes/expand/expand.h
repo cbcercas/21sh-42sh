@@ -6,17 +6,20 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 14:57:29 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/08 11:26:07 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/14 16:01:37 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __EXPAND_H__
 # define __EXPAND_H__
 
-#include <sys/types.h>
-#include <unistd.h>
-#include <lexer/lexer.h>
-#include <core/main.h>
+//#include <sys/types.h>
+//#include <unistd.h>
+# include <lexer/lexer.h>
+# include <string/ft_string.h>
+# include <history/history.h>
+# include <core/progname.h>
+//#include <core/main.h>
 
 typedef struct s_exp
 {
