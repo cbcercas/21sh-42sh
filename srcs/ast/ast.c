@@ -32,12 +32,12 @@ int	ast_val_cmp(t_token_type type)
 
 int	ast_cmp(t_cmd *s1, t_cmd *s2)
 {
-	if (ast_val_cmp(s1->type) <= ast_val_cmp(s2->type))
+	if (ast_val_cmp(s1->exp->type) <= ast_val_cmp(s2->exp->type))
 		return (0);
 	return (1);
 }
 
-t_btree	*ast_create(t_array *tokens)
+t_btree	*ast_create(t_array *expands)
 {
 	t_lim			lim;
 	t_btree		*ast;
@@ -45,6 +45,6 @@ t_btree	*ast_create(t_array *tokens)
 	ast = NULL;
 	lim.cnt = 0;
 	lim.lim = 10000;
-	ast = ast_built1(ast, tokens, lim);
+	ast = ast_built1(ast, expands, lim);
 	return (ast);
 }
