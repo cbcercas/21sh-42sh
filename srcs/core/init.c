@@ -23,7 +23,7 @@ void sh_testing(const char *arg, char *const *av, char **environ)
 	if (ft_strequ(arg, "parser"))
 		sh_testing_parser(av);
 	if (ft_strequ(arg, "ast"))
-		sh_testing_ast(av);
+		sh_testing_ast(av, environ);
 		if (ft_strequ(arg, "expand"))
 			sh_testing_expand(av, environ);
 	else

@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/27 18:08:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/14 17:47:30 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void test_aff(t_cmd *cmd)
 {
 	static int i = 0;
-	ft_printf("[%d]{%s} ", i, cmd->str);
+	ft_printf("[%d]{%s} ", i, cmd->exp->str);
 	i++;
 }
 
@@ -47,16 +47,22 @@ t_array init_tests_ast(char *input)
 	}
 }
 
-void sh_testing_ast(char *const *av)
+void sh_testing_ast(char *const *av, char **environ)
 {
 	t_btree	*ast;
+	t_array		expands;
 	t_array		tokens;
 	char *input;
 
 	input = ft_strclean(av[3]);//TODO à faire pour le main ;)
 	ast = NULL;
+	sh_init_environ(environ);
+	sh_history_init(NULL);
 	tokens = init_tests_ast(input);
-	if (!(ast = ast_create(&tokens)))
+	if (expand_init(&expands) == NULL)
+		exit (1);
+	expand(&tokens, &expands);
+	if (!(ast = ast_create(&expands)))
 		ft_printf("AST NULL\n");
 	else if (!av[4] || ft_strequ(av[4], "tree"))
 		btree_print(ast, (char * (*)(void*))&ast_aff);
@@ -64,6 +70,6 @@ void sh_testing_ast(char *const *av)
 		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
 	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	free(input);
-	array_reset(&tokens, NULL);
+	array_reset(&expands, NULL);
 	exit (0);
 }
