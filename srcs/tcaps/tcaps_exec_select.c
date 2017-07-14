@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 13:17:48 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/12 21:50:23 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/14 21:39:28 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ BOOL	exec_select(const t_key *key, t_input *input)
   {
     input->select.is = true;
     input->select.cur_start = sh_pos_of_insert(*input);
+    input->select.cur_end = input->select.cur_start;
   }
   else
   {
