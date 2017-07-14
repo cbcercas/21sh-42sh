@@ -51,6 +51,8 @@ t_exp   *expand_remove_quote(t_exp *exp)
 	if ((quote = find_first_quote(string.s)) != 0)
 		while ((c = ft_strchr(string.s, quote)))
 			string_remove_char(&string, c - string.s);
+	if (exp->type == E_TOKEN_SQUOTE || exp->type == E_TOKEN_DQUOTE)
+		exp->type = E_TOKEN_WORD;
 	exp->str = string.s;
 	return (exp);
 }
