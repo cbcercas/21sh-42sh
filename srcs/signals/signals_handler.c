@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/10 09:59:13 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/14 21:21:06 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	signals_sigwinch(void)
 	g_input->offset_col = sh_len_prompt();
 	g_input->offset_line = 0;
 	g_input->cpos.cp_line = 0;
+	g_input->select.is = false;
 	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
