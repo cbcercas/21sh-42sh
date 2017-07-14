@@ -13,7 +13,12 @@ void expand_print(t_array *array_exp)
   {
     exp = (t_exp *)array_get_at(array_exp, i);
     if (exp)
-      ft_printf("Exp[%zu] = {%s}\n", i, exp->str);
+    {
+      ft_printf("Exp[%zu] = {%s} ==>", i, exp->str);
+      ft_expand_print_token(exp->type);
+      ft_putchar('\n');
+    }
+
     i++;
   }
 }
