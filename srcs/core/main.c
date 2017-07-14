@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/13 14:30:25 by mleroy           ###   ########.fr       */
+/*   Updated: 2017/07/14 16:12:43 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main(int ac, char *const *av, char **environ)
 	t_array		expand_array;
 	char		*input;
 	BOOL		stop;
+	t_btree	*ast;
 	//char cwd[1024];
 
 	/*sh_init_environ();
@@ -44,7 +45,11 @@ int main(int ac, char *const *av, char **environ)
 			{
 				if (expand(&tokens, &expand_array))
 				{
-					expand_print(&expand_array);
+					if (!(ast = ast_create(&expand_array)))
+						ft_printf("AST NULL\n");
+					else
+						btree_print(ast, (char * (*)(void*))&ast_aff);
+					//expand_print(&expand_array);
 					/// if EXEC
 				}
 			}
