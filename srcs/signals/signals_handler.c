@@ -27,16 +27,12 @@ void	signals_quit(int sig)
 
 void	signals_sigwinch(void)
 {
-	struct winsize w;
-
 	g_input->offset_col = sh_len_prompt();
 	g_input->offset_line = 0;
 	g_input->cpos.cp_line = 0;
 	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	g_input->ts.ts_lines = w.ws_row;
-	g_input->ts.ts_cols = w.ws_col;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &g_input->ts);
 	sh_print_prompt();
 	redraw_line(g_input);
 }
