@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/10 09:59:13 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/15 15:40:44 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@ void	signals_quit(int sig)
 
 void	signals_sigwinch(void)
 {
-	struct winsize w;
+	size_t 	pos_in_str;
 
+	pos_in_str = sh_pos_of_insert(*g_input);
 	g_input->offset_col = sh_len_prompt();
 	g_input->offset_line = 0;
 	g_input->cpos.cp_line = 0;
+	g_input->select.is = false;
 	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	g_input->ts.ts_lines = w.ws_row;
-	g_input->ts.ts_cols = w.ws_col;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &g_input->ts);
 	sh_print_prompt();
 	redraw_line(g_input);
+	while (pos_in_str != sh_pos_of_insert(*g_input))
+		exec_arrow_right(NULL, g_input);
 }
 
 void    signals_handler(int sig)

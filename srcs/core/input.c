@@ -74,16 +74,16 @@ static void	tcaps_insert_char(char *c)
 static void	draw_char(t_input *input, char *c)
 {
 	// si je suis au milieu de la string j'insert le char sinon je le write
-	if (input->str->len > (((((input->ts.ts_cols * input->offset_line) - input->offset_col)
+	if (input->str->len > (((((input->ts.ws_col * input->offset_line) - input->offset_col)
 		+ (input->cpos.cp_col - 1 + input->offset_line )))))
 		tcaps_insert_char(c);
 	else
 		tputs(c, 1, &ft_putchar2);
 	input->cpos.cp_col += 1;
-	if (input->cpos.cp_col >= input->ts.ts_cols)
+	if (input->cpos.cp_col >= input->ts.ws_col)
 		tcaps_down(input);
 	// si je suis au milieu de la string je la redraw
-	if (input->str->len > ((((input->ts.ts_cols * input->offset_line) + input->cpos.cp_col) - input->offset_col)))
+	if (input->str->len > ((((input->ts.ws_col * input->offset_line) + input->cpos.cp_col) - input->offset_col)))
 		redraw_line(input);
 }
 

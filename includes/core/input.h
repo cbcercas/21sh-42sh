@@ -15,7 +15,7 @@
 # include <string/ft_string.h>
 # include <libtcaps.h>
 # include <core/prompt.h>
-
+# include <sys/ioctl.h>
 //int		sh_get_command(t_ms_data	*data);
 
 typedef struct s_select	t_select;
@@ -30,13 +30,13 @@ struct	s_select
 typedef struct s_input	t_input;
 struct	s_input
 {
-	t_string	*str;
-	size_t		prompt_len;
-	size_t		offset_col;
-	size_t		offset_line;
-	t_ts			ts;
-	t_cpos		cpos;
-	t_select	select;
+	t_string		*str;
+	size_t			prompt_len;
+	size_t			offset_col;
+	size_t			offset_line;
+	struct winsize	ts;
+	t_cpos			cpos;
+	t_select		select;
 };
 
 /**
