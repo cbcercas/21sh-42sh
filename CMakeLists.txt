@@ -37,11 +37,14 @@ set(SOURCE_FILES
         srcs/parser/parser_grammar.c
         srcs/signals/signals.c
         srcs/signals/signals_handler.c
+        srcs/tcaps/tcaps_exec_alt_arrows.c
         srcs/tcaps/tcaps_exec_arrow.c
         srcs/tcaps/tcaps_exec_backspace.c
-        srcs/tcaps/tcaps_exec_delete.c
         srcs/tcaps/tcaps_exec_ctrl_1.c
         srcs/tcaps/tcaps_exec_ctrl_2.c
+        srcs/tcaps/tcaps_exec_delete.c
+        srcs/tcaps/tcaps_exec_end_home.c
+        srcs/tcaps/tcaps_exec_select.c
         srcs/tcaps/tcaps_exec_tab.c
         srcs/tcaps/tcaps_key_exec.c
         srcs/tcaps/tcaps_redraw_line.c
