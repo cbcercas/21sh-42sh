@@ -23,7 +23,7 @@
 
 typedef struct 			s_exp
 {
-	t_string 			str;
+	t_string 			*str;
 	t_token_type		type;
 }               		t_exp;
 
@@ -48,5 +48,7 @@ int 	expand_hist_digit(t_exp *exp, int *i, int len);
 int    	expand_hist_alpha(t_exp *exp, int *i, int len);
 t_exp   *expand_remove_quote(t_exp *exp);
 void	expand_antislash(t_string *string, t_token_type type);
+void 	expand_merge_tokens_word(t_array *array_exp);
+
 
 #endif

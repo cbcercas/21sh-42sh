@@ -21,9 +21,9 @@ t_array *expand(t_array *tokens, t_array *array_exp)
         }
     }
     expand_remove_quote(exp);
-    // merge_token_word(exp);
     array_push(array_exp, (void *)exp);// push dans notre t_array
     i++;
   }
+  expand_merge_tokens_word(array_exp);
   return(array_exp);
 }

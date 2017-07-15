@@ -41,7 +41,7 @@ SRCS			+= parser.c parser_grammar.c
 SRC_SUBDIR		+= expand
 SRCS			+= expand.c expand_utils.c ft_replace.c expand_print.c\
 					expand_history.c expand_dol.c expand_quote.c\
-					expand_history_tools.c
+					expand_history_tools.c expand_merge.c
 
 SRC_SUBDIR      += tests
 SRCS            += env_tests.c lexer_tests.c parser_tests.c ast_tests.c\

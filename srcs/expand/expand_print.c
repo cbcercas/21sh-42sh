@@ -14,7 +14,7 @@ void expand_print(t_array *array_exp)
     exp = (t_exp *)array_get_at(array_exp, i);
     if (exp)
     {
-      ft_printf("Exp[%zu] = {%s} ==>", i, exp->str.s);
+      ft_printf("Exp[%zu] = {%s} ==>", i, exp->str->s);
       ft_expand_print_token(exp->type);
     }
     i++;
