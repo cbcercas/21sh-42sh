@@ -26,6 +26,15 @@ set(SOURCE_FILES
         srcs/environ/builtin_env_utils.c
         srcs/environ/builtin_environ.c
         srcs/environ/modif_env.c
+        srcs/expand/expand.c
+        srcs/expand/expand_dol.c
+        srcs/expand/expand_history.c
+        srcs/expand/expand_history_tools.c
+        srcs/expand/expand_merge.c
+        srcs/expand/expand_print.c
+        srcs/expand/expand_quote.c
+        srcs/expand/expand_utils.c
+        srcs/expand/ft_replace.c
         srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
@@ -49,6 +58,7 @@ set(SOURCE_FILES
         srcs/tcaps/tcaps_key_exec.c
         srcs/tcaps/tcaps_redraw_line.c
         srcs/tests/env_tests.c
+        srcs/tests/expand_tests.c
         srcs/history/history.c
         srcs/history/history_list_utils.c
         srcs/history/history_getter.c
