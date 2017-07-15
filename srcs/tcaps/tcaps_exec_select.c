@@ -17,7 +17,7 @@ BOOL	exec_select(const t_key *key, t_input *input)
   if (!input->select.is)
   {
     input->select.is = true;
-    input->select.cur_start = sh_pos_of_insert(*input);
+    input->select.cur_start = pos_in_str(*input);
     input->select.cur_end = input->select.cur_start;
   }
   else
@@ -37,7 +37,7 @@ BOOL	exec_select_arrows(const t_key *key, t_input *input, char *str)
 
   (void)key;
   if (input && input->select.is && input->str->s && input->str &&\
-     input->str->s[sh_pos_of_insert(*input)])
+     input->str->s[pos_in_str(*input)])
   {
     start = input->select.cur_start;
     end = input->select.cur_end;
@@ -47,7 +47,7 @@ BOOL	exec_select_arrows(const t_key *key, t_input *input, char *str)
     if (str && ((start <= end && ft_strequ("right", str)) ||\
      (start >= end && ft_strequ("left", str))))
     tputs(tgetstr("mr", NULL), 1, ft_putchar2);
-    ft_putchar(input->str->s[sh_pos_of_insert(*input)]);
+    ft_putchar(input->str->s[pos_in_str(*input)]);
     if (input->cpos.cp_col + 1 != input->ts.ws_col)
       tputs(tgetstr("le", NULL), 0, &ft_putchar2);
     tputs(tgetstr("me", NULL), 1, ft_putchar2);
@@ -81,7 +81,7 @@ BOOL	exec_alt_v(const t_key *key, t_input *input)
   (void)key;
     if (input->select.is)
       return (false);
-  input->str = string_insert(input->str, input->select.str, sh_pos_of_insert(*input));
+  input->str = string_insert(input->str, input->select.str, pos_in_str(*input));
   redraw_line(input);
   return (false);
 }

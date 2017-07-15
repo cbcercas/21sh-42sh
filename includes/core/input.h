@@ -47,7 +47,7 @@ struct	s_input
 char	*sh_get_line(void);
 char	*sh_get_line2(void);
 void	reset_input(t_input *input);
-size_t	sh_pos_of_insert(t_input input);
+size_t	pos_in_str(t_input input);
 
 extern	t_input	*g_input;
 

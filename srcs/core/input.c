@@ -110,7 +110,7 @@ char	*sh_get_line(void)
 			stop = key_exec(&key, &input);
 		else if (sh_history_is_print(buff) && !input.select.is)
 		{
-			if (!string_insert(input.str, key.key, sh_pos_of_insert(input)))
+			if (!string_insert(input.str, key.key, pos_in_str(input)))
 				return (NULL);
 			sh_history_insert_buf(input.str->s);
 			draw_char(&input, key.key);
