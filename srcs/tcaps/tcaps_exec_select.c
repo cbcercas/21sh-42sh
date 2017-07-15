@@ -48,7 +48,7 @@ BOOL	exec_select_arrows(const t_key *key, t_input *input, char *str)
      (start >= end && ft_strequ("left", str))))
     tputs(tgetstr("mr", NULL), 1, ft_putchar2);
     ft_putchar(input->str->s[sh_pos_of_insert(*input)]);
-    if (input->cpos.cp_col + 1 != input->ts.ts_cols)
+    if (input->cpos.cp_col + 1 != input->ts.ws_col)
       tputs(tgetstr("le", NULL), 0, &ft_putchar2);
     tputs(tgetstr("me", NULL), 1, ft_putchar2);
   }
