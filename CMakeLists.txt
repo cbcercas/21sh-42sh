@@ -26,6 +26,15 @@ set(SOURCE_FILES
         srcs/environ/builtin_env_utils.c
         srcs/environ/builtin_environ.c
         srcs/environ/modif_env.c
+        srcs/expand/expand.c
+        srcs/expand/expand_dol.c
+        srcs/expand/expand_history.c
+        srcs/expand/expand_history_tools.c
+        srcs/expand/expand_merge.c
+        srcs/expand/expand_print.c
+        srcs/expand/expand_quote.c
+        srcs/expand/expand_utils.c
+        srcs/expand/ft_replace.c
         srcs/lexer/lexer_init.c
         srcs/lexer/lexer.c
         srcs/lexer/lexer_clean.c
@@ -37,15 +46,19 @@ set(SOURCE_FILES
         srcs/parser/parser_grammar.c
         srcs/signals/signals.c
         srcs/signals/signals_handler.c
+        srcs/tcaps/tcaps_exec_alt_arrows.c
         srcs/tcaps/tcaps_exec_arrow.c
         srcs/tcaps/tcaps_exec_backspace.c
-        srcs/tcaps/tcaps_exec_delete.c
         srcs/tcaps/tcaps_exec_ctrl_1.c
         srcs/tcaps/tcaps_exec_ctrl_2.c
+        srcs/tcaps/tcaps_exec_delete.c
+        srcs/tcaps/tcaps_exec_end_home.c
+        srcs/tcaps/tcaps_exec_select.c
         srcs/tcaps/tcaps_exec_tab.c
         srcs/tcaps/tcaps_key_exec.c
         srcs/tcaps/tcaps_redraw_line.c
         srcs/tests/env_tests.c
+        srcs/tests/expand_tests.c
         srcs/history/history.c
         srcs/history/history_list_utils.c
         srcs/history/history_getter.c

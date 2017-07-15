@@ -43,6 +43,7 @@ int main(int ac, char *const *av, char **environ)
 		if (lexer_lex(&tokens, &automaton, input))
 			if (parser_parse(&tokens))
 			{
+				lexer_print_tokens(&tokens);
 				if (expand(&tokens, &expand_array))
 				{
 					if (!(ast = ast_create(&expand_array)))

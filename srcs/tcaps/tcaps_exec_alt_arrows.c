@@ -35,7 +35,7 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 	size_t    i;
 
 	i = 0;
-	nb_of_line = input->str->len / input->ts.ts_cols;
+	nb_of_line = input->str->len / input->ts.ws_col;
 	y = input->offset_line + 1;
 	x = input->cpos.cp_col;
 	if (nb_of_line == input->offset_line)

@@ -13,7 +13,7 @@ t_array *expand(t_array *tokens, t_array *array_exp)
     exp = exp_create_new((t_token *)array_get_at(tokens, i));// etape 1
     if (exp->type != E_TOKEN_SQUOTE)
     {
-        expand_dol(exp);//expand les dollard
+        expand_dol(exp);//expand les dollards
         if(expand_hist(exp) == NULL)//expand les !
         {
             ft_printf("event not found\n");
@@ -24,5 +24,6 @@ t_array *expand(t_array *tokens, t_array *array_exp)
     array_push(array_exp, (void *)exp);// push dans notre t_array
     i++;
   }
+  expand_merge_tokens_word(array_exp);
   return(array_exp);
 }

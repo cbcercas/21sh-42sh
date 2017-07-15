@@ -42,15 +42,15 @@ void expand_dol_spec_replace(t_exp *exp, int len, int *i)
 
 	fri = false;
 	tmp = NULL;
-	if (exp->str[*i + 1] == '?' && !(fri = false))
+	if (exp->str->s[*i + 1] == '?' && !(fri = false))
 		tmp = "0";// TODO: faire quand exec termine, avec global
-	else if (exp->str[*i + 1] == '0' && !(fri = false))
+	else if (exp->str->s[*i + 1] == '0' && !(fri = false))
 		tmp = PROGNAME;
-	else if (exp->str[*i + 1] == '$' && (fri = true))
+	else if (exp->str->s[*i + 1] == '$' && (fri = true))
 		tmp = ft_itoa(getpid());
 	if (tmp)
 	{
-		exp->str = ft_replace_exp(exp->str, tmp, *i, 2);
+		exp->str->s = ft_replace_exp(exp->str->s, tmp, *i, 2);
 		*i += ft_strlen(tmp);
 	}
 	(fri && tmp) ? ft_strdel((char **)&tmp) : 0;
@@ -61,14 +61,14 @@ void expand_dol_replace(t_exp *exp, int len, int *i)
 	char	car_tmp;
 	char	*tmp;
 
-	car_tmp = exp->str[*i + 1 + len];
-	exp->str[*i + 1 + len] = 0;
-	tmp = sh_getenv_exp(&exp->str[*i + 1]);
-	exp->str[*i + 1 + len] = car_tmp;
+	car_tmp = exp->str->s[*i + 1 + len];
+	exp->str->s[*i + 1 + len] = 0;
+	tmp = sh_getenv_exp(&exp->str->s[*i + 1]);
+	exp->str->s[*i + 1 + len] = car_tmp;
 	if (tmp)
-		exp->str = ft_replace_exp(exp->str, tmp, *i, len + 1);
+		exp->str->s = ft_replace_exp(exp->str->s, tmp, *i, len + 1);
 	else
-		exp->str = ft_replace_exp(exp->str, "", *i, len + 1);
+		exp->str->s = ft_replace_exp(exp->str->s, "", *i, len + 1);
 	*i += ft_strlen(tmp);
 }
 
@@ -82,20 +82,20 @@ void expand_dol(t_exp *exp)
   len = 0;
   if (exp->type != E_TOKEN_WORD && exp->type != E_TOKEN_DQUOTE)
     return ;
-	while (exp->str[i])
+	while (exp->str->s[i])
 	{
 		  len = 0;
-		if (exp->str[i] == '$' && (ft_isalnum(exp->str[i + 1]) ||\
-		 ft_is_spec(exp->str[i + 1])) && (i == 0 || exp->str[i - 1] != '\\'))
+		if (exp->str->s[i] == '$' && (ft_isalnum(exp->str->s[i + 1]) ||\
+		 ft_is_spec(exp->str->s[i + 1])) && (i == 0 || exp->str->s[i - 1] != '\\'))
 		{
-      while(exp->str[i + 1 + len] && ft_isalnum(exp->str[i + 1 + len]))
+      while(exp->str->s[i + 1 + len] && ft_isalnum(exp->str->s[i + 1 + len]))
         len++;
-			(ft_is_spec(exp->str[i + 1])) ? expand_dol_spec_replace(exp, len, &i) :\
+			(ft_is_spec(exp->str->s[i + 1])) ? expand_dol_spec_replace(exp, len, &i) :\
 			 expand_dol_replace(exp, len, &i);
 		}
-		else if (exp->str[i] == '~' && (tmp = sh_getenv_value("HOME")) &&\
-		 				(i == 0 || exp->str[i - 1] != '\\') )
-			exp->str = ft_replace_exp(exp->str, tmp, i, 1);
+		else if (exp->str->s[i] == '~' && (tmp = sh_getenv_value("HOME")) &&\
+		 				(i == 0 || exp->str->s[i - 1] != '\\') )
+			exp->str->s = ft_replace_exp(exp->str->s, tmp, i, 1);
 		else
 			i++;
 	}
