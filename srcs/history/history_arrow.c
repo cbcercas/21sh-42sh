@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 21:25:24 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/13 14:19:20 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/15 16:57:00 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sh_history_draw_line(t_input *input, const char *line)
 	unsigned int len;
 
 	log_dbg3("History: draw=\"%s\" ", line);
-	sh_history_clear_line(input->str->len + 3);
+	sh_history_clear_line(input->str->len + sh_len_prompt());
 	reset_input(input);
 	sh_print_prompt();
 	if(line)

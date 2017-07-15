@@ -25,7 +25,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 			input->offset_line += 1;
 		move_cursor_right(&input->cpos, &input->ts);
 		if (input->select.is)
-			input->select.cur_end = sh_pos_of_insert(*input);
+			input->select.cur_end = pos_in_str(*input);
 	}
 	else
 		write(1, "\a", 1);
@@ -44,7 +44,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 			input->offset_line -= 1;
 		move_cursor_left(&input->cpos, &input->ts);
 		if (input->select.is)
-			input->select.cur_end = sh_pos_of_insert(*input);
+			input->select.cur_end = pos_in_str(*input);
 	}
 	else
 		write(1, "\a", 1);
