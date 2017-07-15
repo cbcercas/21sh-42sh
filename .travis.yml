@@ -30,7 +30,6 @@ after_success:
 notifications:
   email:
     recipients:
-      - christopher@cercas.fr
       - jlasne@student.42.fr
       - gpouyat@student.42.fr
     on_success: change
