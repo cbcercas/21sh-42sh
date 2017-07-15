@@ -35,24 +35,15 @@ void	expand_antislash(t_string *string, t_token_type type)
 
 t_exp   *expand_remove_quote(t_exp *exp)
 {
-	t_string	string;
 	char		*c;
 	char 		quote;
 
-	string_init(&string);
-	if (!string_growth_cap(&string, ft_strlen(exp->str->s)))
-		exit(1); // Are you sure????
-	ft_strcpy(string.s, exp->str->s);
-	string.len = ft_strlen(string.s);
-	//remove '\'
 	if (exp->type != E_TOKEN_SQUOTE)
-		expand_antislash(&string, exp->type);
-	//remove the first of ' or "
-	if ((quote = find_first_quote(string.s)) != 0)
-		while ((c = ft_strchr(string.s, quote)))
-			string_remove_char(&string, c - string.s);
+		expand_antislash(exp->str, exp->type);
+	if ((quote = find_first_quote(exp->str->s)) != 0)
+		while ((c = ft_strchr(exp->str->s, quote)))
+			string_remove_char(exp->str, c - exp->str->s);
 	if (exp->type == E_TOKEN_SQUOTE || exp->type == E_TOKEN_DQUOTE)
 		exp->type = E_TOKEN_WORD;
-	exp->str->s = string.s;
 	return (exp);
 }
