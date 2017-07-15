@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/18 12:37:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/13 14:54:33 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/14 21:10:14 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ BOOL	key_exec(t_key *key, t_input *input)
 		{KEY_CODE_BACKSPACE, &exec_backspace},
 		{KEY_CODE_DELETE, &exec_delete},
 		{KEY_CODE_TAB, &exec_tab},
-		{KEY_CODE_CTRL_UARROW, &exec_alt_up},
-		{KEY_CODE_CTRL_DARROW, &exec_alt_down},
-		{KEY_CODE_CTRL_LARROW, &exec_alt_left},
-		{KEY_CODE_CTRL_RARROW, &exec_alt_right},
+		{KEY_CODE_ALT_UARROW, &exec_alt_up},
+		{KEY_CODE_ALT_DARROW, &exec_alt_down},
+		{KEY_CODE_ALT_LARROW, &exec_alt_left},
+		{KEY_CODE_ALT_RARROW, &exec_alt_right},
 		{KEY_CODE_INSERT, &exec_select},
 		{KEY_CODE_END, &exec_end},
 		{KEY_CODE_ALT_C, &exec_alt_c},
