@@ -31,7 +31,7 @@ t_exp *exp_create_new(t_token *tok)//etape 1 on dublique
   if (!tok || !tok->str || !(exp = (t_exp*)malloc(sizeof(t_exp))))
     return (NULL);
   exp->type = tok->type;
-  exp->str = ft_strndup_free((char *)tok->str, 0, tok->len, 0);//malloc à la bonne taille
+  exp->str.s = ft_strndup_free((char *)tok->str, 0, tok->len, 0);//malloc à la bonne taille
   return (exp);
 }
 
@@ -40,8 +40,8 @@ void sh_exp_del(void *i)
 	t_exp *exp;
 
 	exp = (t_exp *)i;
-	if (exp && exp->str)
-		ft_strdel(&(exp->str));
+	if (exp && exp->str.s)
+		ft_strdel(&(exp->str.s));
 }
 
 void sh_expand_destroy(t_array *array_exp)

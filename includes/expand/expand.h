@@ -21,11 +21,11 @@
 # include <core/progname.h>
 //#include <core/main.h>
 
-typedef struct s_exp
+typedef struct 			s_exp
 {
-	char 			*str;
-	t_token_type	type;
-}               t_exp;
+	t_string 			str;
+	t_token_type		type;
+}               		t_exp;
 
 t_array *expand(t_array *tokens, t_array *array_exp);
 void 	expand_dol(t_exp *exp);

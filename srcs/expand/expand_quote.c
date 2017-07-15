@@ -40,9 +40,9 @@ t_exp   *expand_remove_quote(t_exp *exp)
 	char 		quote;
 
 	string_init(&string);
-	if (!string_growth_cap(&string, ft_strlen(exp->str)))
+	if (!string_growth_cap(&string, ft_strlen(exp->str.s)))
 		exit(1); // Are you sure????
-	ft_strcpy(string.s, exp->str);
+	ft_strcpy(string.s, exp->str.s);
 	string.len = ft_strlen(string.s);
 	//remove '\'
 	if (exp->type != E_TOKEN_SQUOTE)
@@ -53,6 +53,6 @@ t_exp   *expand_remove_quote(t_exp *exp)
 			string_remove_char(&string, c - string.s);
 	if (exp->type == E_TOKEN_SQUOTE || exp->type == E_TOKEN_DQUOTE)
 		exp->type = E_TOKEN_WORD;
-	exp->str = string.s;
+	exp->str.s = string.s;
 	return (exp);
 }
