@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 13:17:48 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/14 21:39:28 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/15 11:20:26 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,15 @@ BOOL	exec_select(const t_key *key, t_input *input)
 
 BOOL	exec_select_arrows(const t_key *key, t_input *input, char *str)
 {
-  t_cpos  save;
   size_t  start;
   size_t  end;
 
   (void)key;
-  start = input->select.cur_start;
-  end = input->select.cur_end;
-  if (input->select.is && input->str->s &&\
+  if (input && input->select.is && input->str->s && input->str &&\
      input->str->s[sh_pos_of_insert(*input)])
   {
+    start = input->select.cur_start;
+    end = input->select.cur_end;
     tputs(tgetstr("dm", NULL), 0, &ft_putchar2);
     tputs(tgetstr("dc", NULL), 0, &ft_putchar2);
     tputs(tgetstr("de", NULL), 0, &ft_putchar2);
@@ -49,9 +48,8 @@ BOOL	exec_select_arrows(const t_key *key, t_input *input, char *str)
      (start >= end && ft_strequ("left", str))))
     tputs(tgetstr("mr", NULL), 1, ft_putchar2);
     ft_putchar(input->str->s[sh_pos_of_insert(*input)]);
-    save = input->cpos;
-    move_cursor_left(&input->cpos, &input->ts);
-    input->cpos = save;
+    if (input->cpos.cp_col + 1 != input->ts.ts_cols)
+      tputs(tgetstr("le", NULL), 0, &ft_putchar2);
     tputs(tgetstr("me", NULL), 1, ft_putchar2);
   }
   return (false);
