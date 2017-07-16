@@ -44,7 +44,7 @@ struct	s_input
 **
 ** @brief      Functions to read the input
 */
-char	*sh_get_line(void);
+char	*sh_get_line(t_sh_opt *opts);
 char	*sh_get_line2(void);
 void	reset_input(t_input *input);
 size_t	pos_in_str(t_input input);

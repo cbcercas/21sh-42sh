@@ -39,7 +39,7 @@ int main(int ac, char *const *av, char **environ)
 	while (stop == true)
 	{
 		sh_print_prompt();
-		input = sh_get_line();
+		input = sh_get_line(&data.opts);
 		if (lexer_lex(&tokens, &automaton, input))
 			if (parser_parse(&tokens))
 			{
