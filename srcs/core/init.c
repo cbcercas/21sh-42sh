@@ -36,7 +36,8 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 {
 	int opt;
 
-	while ((opt = ft_getopt(ac, av, "hvd:t:")) >= 0)
+	opts->tcaps = true;
+	while ((opt = ft_getopt(ac, av, "hvd:t:l")) >= 0)
 	{
 		if (opt == 'v')
 			opts->verbose = 1;
@@ -54,6 +55,8 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 			sh_testing(g_optarg, av, environ);
 		else if (opt == '?')
             sh_usage_help_exit();
+		else if (opt == 'l')
+			opts->tcaps = false;
 	}
 }
 
