@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:44:50 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/25 18:56:13 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/16 12:18:40 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ typedef struct s_cmd	t_cmd;
 
 struct s_cmd
 {
-	t_exp						*exp;
+	char						**av;
+	t_token_type		type;
 	t_info					info;
 };
 
@@ -45,21 +46,16 @@ struct s_lim
 	size_t	lim;
 };
 
-t_btree	*ast_create(t_array *tokens);
-t_btree	*ast_built1(t_btree *ast, t_array *expands, t_lim lim);
-t_btree	*ast_built2(t_btree *ast, t_array *tokens, t_lim lim);
-t_btree	*ast_built3(t_btree *ast, t_array *tokens, t_lim lim);
-t_btree	*ast_built4(t_btree *ast, t_array *tokens, t_lim lim);
-t_btree	*ast_built6(t_btree *ast, t_array *tokens, t_lim lim);
+BOOL	ast_is_greatand(t_array *expands, size_t cnt, t_token_type type);
+BOOL	ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands);
 
-BOOL	ast_is_redir(t_array *tokens, size_t cnt, t_token *cur);
-t_btree	*ast_built_greatand(t_btree *ast, t_array *tokens, t_lim lim);
+t_btree	*ast_create(t_array *tokens);
+t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio);
 
 void	ast_built2_swap(t_btree *ast);
-
-void	ast_del_cmd(t_cmd *cmd); //TODO: refactor quand expand sera fini
-char	*ast_aff(t_cmd *cmd);//TODO: refactor quand expand sera fini
-int	ast_cmp(t_cmd *s1, t_cmd *s2);//TODO: refactor quand expand sera fini
-t_cmd	*ast_new_cmd(t_exp *exp);//TODO: refactor quand expand sera fini
+void	ast_del_cmd(t_cmd *cmd);
+char	*ast_aff(t_cmd *cmd);
+int	ast_cmp(t_cmd *s1, t_cmd *s2);
+t_cmd	*ast_new_cmd(t_array *expands, int start, int end, t_token_type type);
 
 #endif
