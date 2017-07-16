@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/14 17:47:30 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/16 12:13:48 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,19 @@
 
 void test_aff(t_cmd *cmd)
 {
-	static int i = 0;
-	ft_printf("[%d]{%s} ", i, cmd->exp->str);
+	static int 	i = 0;
+	int					index;
+
+	index = 0;
+	ft_printf("[%d]{", i);
+	while(cmd->av[index] && cmd->av[index + 1])
+	{
+		ft_printf("%s ", cmd->av[index]);
+		index++;
+	}
+	if (cmd->av[index])
+		ft_printf("%s", cmd->av[index]);
+	ft_putstr("} ");
 	i++;
 }
 

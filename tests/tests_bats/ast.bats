@@ -56,7 +56,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls -l | cat -e'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l | cat -e"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    cat -e\n|\n    ls -l ")
+  expect=$(echo -e "[--- Display tree ---]\n    cat -e\n|\n    ls -l")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    cat -e"
@@ -317,7 +317,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls >&2 ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls >&2 ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n >&2\n    ls")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n>& 2\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -332,7 +332,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls 1>&2 ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls 1>&2 ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n1>&2\n    ls")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n1 >& 2\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -347,11 +347,11 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls 1>& 2 ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls 1>& 2 ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n1>& 2\n    ls")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n1 >& 2\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
-  echo "                1>& 2"
+  echo "                1 >& 2"
   echo "                    ls"
   echo
   [ "$output" = "$expect" ]
@@ -365,9 +365,9 @@ load test_helper
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                        c"
-  echo "                    1>& 2"
+  echo "                    1 >& 2"
   echo "                        b"
-  echo "                >&2"
+  echo "                >& 2"
   echo "                        .."
   echo "                    a"
   echo "                        .."
@@ -375,9 +375,9 @@ load test_helper
 
   [ "${lines[0]}" = "[--- Display tree ---]" ]
   [ "${lines[1]}" = "        c" ]
-  [ "${lines[2]}" = "    1>& 2" ]
+  [ "${lines[2]}" = "    1 >& 2" ]
   [ "${lines[3]}" = "        b" ]
-  [ "${lines[4]}" = " >&2" ]
+  [ "${lines[4]}" = ">& 2" ]
   [ "${lines[5]}" = "        .." ]
   [ "${lines[6]}" = "    a" ]
   [ "${lines[7]}" = "        .." ]
