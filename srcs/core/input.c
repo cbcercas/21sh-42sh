@@ -87,9 +87,9 @@ static void	draw_char(t_input *input, char *c)
 		redraw_line(input);
 }
 
-char	*sh_get_line(void)
+char	*sh_get_line(t_sh_opt *opts)
 {
-	char		buff[MAX_KEY_STRING_LEN];
+	char		buff[MAX_KEY_STRING_LEN + 1];
 	ssize_t		res;
 	t_key		key;
 	BOOL		stop;
@@ -103,9 +103,8 @@ char	*sh_get_line(void)
 	while (stop == false)
 	{
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
-		res = read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN);
-		buff[res] = '\0';
-		key = key_get(buff);
+		res = read(STDIN_FILENO, buff, 1);
+		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
 			stop = key_exec(&key, &input);
 		else if (sh_history_is_print(buff) && !input.select.is)
