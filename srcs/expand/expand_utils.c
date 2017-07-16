@@ -24,14 +24,14 @@ t_array	*expand_init(t_array *expand_array)
 	return (NULL);
 }
 
-t_exp *exp_create_new(t_token *tok)//etape 1 on dublique
+t_exp *exp_create_new(t_token *tok)
 {
   t_exp	*exp;
 
   if (!tok || !tok->str || !(exp = (t_exp*)malloc(sizeof(t_exp))))
     return (NULL);
   exp->type = tok->type;
-  exp->str = string_ndup(tok->str, tok->len);//malloc à la bonne taille
+  exp->str = string_ndup(tok->str, tok->len);
   return (exp);
 }
 
