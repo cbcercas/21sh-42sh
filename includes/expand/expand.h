@@ -28,6 +28,7 @@ typedef struct 			s_exp
 }               		t_exp;
 
 t_array *expand(t_array *tokens, t_array *array_exp);
+t_exp	*expand_exp(t_exp *exp);
 void 	expand_dol(t_exp *exp);
 t_array	*expand_init(t_array *expand_array);
 t_array	*expand(t_array *tokens, t_array *array_exp);
