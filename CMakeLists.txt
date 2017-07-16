@@ -82,7 +82,7 @@ set(SOURCE_FILES
         srcs/btree/btree_search_item.c
         srcs/ast/ast_utils.c
         srcs/ast/ast_built.c
-        srcs/ast/ast_built_greatand.c
+        srcs/ast/ast_is_greatand.c
         srcs/ast/ast.c
         srcs/tests/ast_tests.c)
 
