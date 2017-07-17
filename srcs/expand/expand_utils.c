@@ -40,8 +40,8 @@ void sh_exp_del(void *i)
 	t_exp *exp;
 
 	exp = (t_exp *)i;
-	if (exp && exp->str->s)
-		ft_strdel(&(exp->str->s));
+	if (exp && exp->str)
+		string_del(&(exp->str));
 }
 
 void sh_expand_destroy(t_array *array_exp)
