@@ -19,6 +19,8 @@
 # include <core/input.h>
 # include <logger.h>
 # include <history/history.h>
+# include <autocomplete/autocomplete.h>
+
 
 typedef struct	s_key_exec
 {
