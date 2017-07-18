@@ -6,17 +6,17 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 17:17:21 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/08 13:58:37 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/18 13:38:25 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <expand/expand.h>
 
-int		ft_replace_init(char *src1, char *src2, int index, int size)
+int		ft_replace_init(char *src1, int index, int size)
 {
-	if (!src1 || ft_strlen(src1) < (index + 1))
+	if (!src1 || ft_strlen(src1) < (size_t)(index + 1))
 		return (-1);
-	if ((ft_strlen(&src1[index]) < size))
+	if ((ft_strlen(&src1[index]) < (size_t)size))
 		return (-1);
 	return (0);
 }
@@ -27,7 +27,7 @@ char	*ft_replace_exp(char *src1, char *src2, int index, int size)
 	char	*end;
 	char	*ret;
 
-	if (ft_replace_init(src1, src2, index, size))
+	if (ft_replace_init(src1, index, size))
 		return (NULL);
 	begin = ft_strnew((index + 1));
 	begin = ft_strncpy(begin, src1, index);

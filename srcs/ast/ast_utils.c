@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/16 12:10:11 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/18 13:40:53 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_cmd	*ast_new_cmd(t_array *expands, int start, int end, t_token_type type)
 {
 	t_cmd						*cmd;
 	t_exp 					*exp;
-	unsigned int		i;
+	int		i;
 	size_t					cnt;
 
 	i = 0;
