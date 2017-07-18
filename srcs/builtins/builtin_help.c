@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_help.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:29:44 by jlasne            #+#    #+#             */
-/*   Updated: 2017/06/19 14:30:43 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/07/18 12:22:12 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void sh_help_default(t_sh_data *data)
 {
+	(void)data;
 	ft_printf("#-- %s V0.42 --#\n", PROGNAME);
 	ft_printf("These shell commands are defined internally.  Type `help' to");
 	ft_printf("see this list.\n");
