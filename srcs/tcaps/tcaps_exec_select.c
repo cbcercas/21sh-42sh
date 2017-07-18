@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 13:17:48 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/15 11:20:26 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/18 12:23:57 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 BOOL	exec_select(const t_key *key, t_input *input)
 {
+  (void)key;
   if (!input->select.is)
   {
     input->select.is = true;
