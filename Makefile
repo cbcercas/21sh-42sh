@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/07/18 12:43:02 by guiforge         ###   ########.fr        #
+#    Updated: 2017/07/18 16:39:43 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,9 @@ SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\
 
 SRC_SUBDIR      += ast
 SRCS            += ast.c ast_utils.c ast_built.c ast_is_greatand.c
+
+SRC_SUBDIR      += autocomplete
+SRCS            += autocomplete.c
 
 ###############################################################################
 #																			  #
