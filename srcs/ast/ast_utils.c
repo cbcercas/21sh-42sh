@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/25 18:56:57 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/18 12:24:28 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ char *ast_aff(t_cmd *cmd)
 t_cmd	*ast_new_cmd(const char *str, size_t len, t_token_type type)
 {
 	t_cmd	*cmd;
-	int		i;
 
 	if (!str || !(cmd = (t_cmd*)malloc(sizeof(t_cmd))))
 		return (NULL);
