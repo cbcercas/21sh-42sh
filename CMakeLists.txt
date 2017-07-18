@@ -84,7 +84,8 @@ set(SOURCE_FILES
         srcs/ast/ast_built.c
         srcs/ast/ast_is_greatand.c
         srcs/ast/ast.c
-        srcs/tests/ast_tests.c)
+        srcs/tests/ast_tests.c
+		srcs/autocomplete/autocomplete.c)
 
 include_directories(includes)
 
