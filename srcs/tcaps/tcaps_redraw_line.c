@@ -15,7 +15,7 @@ void	redraw_line(t_input *input)
 	col = 0;
 	// clear rest of line if needed
 	tputs(tgetstr("ce", NULL), 0, ft_putchar2);
-	if ( len + 1 > (size_t)(input->ts.ws_col - input->cpos.cp_col))
+	if ( len + 1 > (input->ts.ws_col - input->cpos.cp_col))
 	{
 		tputs(tgetstr("do", NULL), 0, ft_putchar2);
 		tputs(tgetstr("cr", NULL), 0, ft_putchar2);
@@ -30,7 +30,7 @@ void	redraw_line(t_input *input)
 	//affiche la ligne
 	tputs(tmp, (int) len, &ft_putchar2);
 	col = input->cpos.cp_col + len;
-	if (len > (size_t)(input->ts.ws_col - input->cpos.cp_col))
+	if (len > (input->ts.ws_col - input->cpos.cp_col))
 	{
 		line =(len - (input->ts.ws_col - input->cpos.cp_col)) / input->ts.ws_col + ((len - (input->ts.ws_col - input->cpos.cp_col)) % input->ts.ws_col? 1 : 0);
 		col  = (len - (input->ts.ws_col - input->cpos.cp_col)) % input->ts.ws_col;
