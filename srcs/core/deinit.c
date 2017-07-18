@@ -19,7 +19,7 @@ int sh_restore_tattr(struct termios *tattr)
 	term = *tattr;
 	free(tattr);
 	tattr = NULL;
-    if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &term) < 0)
+    if (isatty(0) && tcsetattr(STDIN_FILENO, TCSAFLUSH, &term) < 0)
     {
 	    ft_printf("%s: STDIO error while", PROGNAME);
 	    ft_printf(" restoring terminal attributes\n");
