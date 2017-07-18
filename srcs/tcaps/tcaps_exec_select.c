@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 13:17:48 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/18 12:23:57 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/18 17:22:56 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,9 @@ BOOL	exec_select_arrows(const t_key *key, t_input *input, char *str)
   {
     start = input->select.cur_start;
     end = input->select.cur_end;
-    tputs(tgetstr("dm", NULL), 0, &ft_putchar2);
-    tputs(tgetstr("dc", NULL), 0, &ft_putchar2);
-    tputs(tgetstr("de", NULL), 0, &ft_putchar2);
     if (str && ((start <= end && ft_strequ("right", str)) ||\
      (start >= end && ft_strequ("left", str))))
-    tputs(tgetstr("mr", NULL), 1, ft_putchar2);
+     tputs(tgetstr("mr", NULL), 1, ft_putchar2);
     ft_putchar(input->str->s[pos_in_str(*input)]);
     if (input->cpos.cp_col + 1 != input->ts.ws_col)
       tputs(tgetstr("le", NULL), 0, &ft_putchar2);
