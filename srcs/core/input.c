@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/17 12:22:00 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/18 12:41:15 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,12 @@ void	tcaps_down(t_input *input)
 	input->cpos.cp_col = 0;
 }
 
-static void	tcaps_insert_char(char *c)
+/*static void	tcaps_insert_char(char *c)
 {
 	tputs(tgetstr("im", NULL), 0, &ft_putchar2);
 	tputs(c, 1, &ft_putchar2);
 	tputs(tgetstr("ie", NULL), 0, &ft_putchar2);
-}
+}*/
 
 static void	draw_char(t_input *input, char *c)
 {
