@@ -6,14 +6,14 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:15 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/26 15:07:45 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/07/18 12:21:32 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/command.h>
 #include <builtins/builtins_utils.h>
 
-int	sh_command(t_sh_data *data, char **command)
+/*int	sh_command(t_sh_data *data, char **command)
 {
 	t_builtin	*e;
 	char		**cmd;
@@ -62,4 +62,4 @@ int	sh_exec_command(char **command)
 			wait(&status);
 	}
 	return (0);
-}
+}*/
