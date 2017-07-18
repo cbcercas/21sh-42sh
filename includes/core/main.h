@@ -23,6 +23,7 @@
 # include <signals/signals.h>
 # include <history/history.h>
 # include <builtins/help.h>
+# include <builtins/pwd.h>
 # include <ast/ast.h>
 # include <core/progname.h>
 

@@ -43,6 +43,16 @@ int		sh_builtin_unsetenv(t_sh_data *data, char **args)
 int		sh_builtin_env(t_sh_data *data, char **args)
 {
 	(void)data;
-	(void)args;
+	if (args[1] == NULL)
+		sh_print_env();
+	else if (ft_strequ(args[1], "-i"))
+    {
+        if (args[2] == NULL)
+            ft_printf("Argument required for option -- i\n");
+        else
+            ft_printf("-i called\n");
+    }
+	else
+		ft_printf("env: %s: invalid option\n", args[1]);
 	return (0);
 }
