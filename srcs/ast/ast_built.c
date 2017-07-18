@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/16 12:27:13 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/18 13:41:51 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_lim ast_built_word_plus(t_array *expands, t_lim lim)
 	return (lim);
 }
 
-t_exp		*ast_search(t_btree *ast, t_array *expands, t_lim *lim, int prio)
+t_exp		*ast_search(t_array *expands, t_lim *lim, int prio)
 {
 	t_exp		*exp;
 
@@ -69,7 +69,7 @@ t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
 	t_lim lim_left;
 
 	lim_left = lim;
-	exp = ast_search(ast, expands, &lim, prio);
+	exp = ast_search(expands, &lim, prio);
 	if (lim.cnt <= expands->used && exp && lim.cnt < lim.lim)
 	{
 		lim_left.lim = lim.cnt;

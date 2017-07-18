@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/25 18:20:34 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/16 12:13:29 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/18 13:42:14 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ BOOL	is_greatand_back(t_array *expands, size_t cnt)
 
 BOOL	ast_is_greatand(t_array *expands, size_t cnt, t_token_type type)
 {
-	t_exp *exp;
-
 	if (type == E_TOKEN_GREATAND)
 		return (true);
 	if ((type != E_TOKEN_IO_NUMBER && type != E_TOKEN_WORD &&\
