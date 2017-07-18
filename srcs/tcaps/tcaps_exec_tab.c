@@ -11,12 +11,17 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
+
 BOOL	exec_tab(const t_key *key, t_input *input)
 {
+	char * last_word;
+
 	(void)key;
-	write(1, "User pressed tab\n", 16);
-	exec_ctrl_c(key, input);
+	last_word = autoc_get_last(input->str->s);
+	
+
+
+
+	//exec_ctrl_c(key, input);
 	return (false);
 }
-
-

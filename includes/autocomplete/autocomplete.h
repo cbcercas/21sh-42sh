@@ -11,6 +11,12 @@
 /* ************************************************************************** */
 
 #ifndef AUTOCOMPLETE_H
-#define AUTOCOMPLETE_H
+# define AUTOCOMPLETE_H
+
+# include <stddef.h>
+# include <libft.h>
+# include <ftprintf.h>
+
+char *autoc_get_last(char *current_input);
 
 #endif
