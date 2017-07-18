@@ -56,7 +56,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls -l | cat -e'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l | cat -e"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    cat -e\n|\n    ls -l ")
+  expect=$(echo -e "[--- Display tree ---]\n    cat -e\n|\n    ls -l")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    cat -e"
@@ -85,10 +85,10 @@ load test_helper
   [ "${lines[0]}" = "[--- Display tree ---]" ]
   [ "${lines[1]}" = "        c" ]
   [ "${lines[2]}" = "    |" ]
-  [ "${lines[3]}" = "        b " ]
+  [ "${lines[3]}" = "        b" ]
   [ "${lines[4]}" = "|" ]
   [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    a " ]
+  [ "${lines[6]}" = "    a" ]
   [ "${lines[7]}" = "        .." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
@@ -97,7 +97,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls ; ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls ; ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n;\n    ls ")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n;\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -126,10 +126,10 @@ load test_helper
   [ "${lines[0]}" = "[--- Display tree ---]" ]
   [ "${lines[1]}" = "        c" ]
   [ "${lines[2]}" = "    ;" ]
-  [ "${lines[3]}" = "        b " ]
+  [ "${lines[3]}" = "        b" ]
   [ "${lines[4]}" = ";" ]
   [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    a " ]
+  [ "${lines[6]}" = "    a" ]
   [ "${lines[7]}" = "        .." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
@@ -138,7 +138,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls || ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls || ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n||\n    ls ")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n||\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -167,10 +167,10 @@ load test_helper
   [ "${lines[0]}" = "[--- Display tree ---]" ]
   [ "${lines[1]}" = "        c" ]
   [ "${lines[2]}" = "    ||" ]
-  [ "${lines[3]}" = "        b " ]
+  [ "${lines[3]}" = "        b" ]
   [ "${lines[4]}" = "||" ]
   [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    a " ]
+  [ "${lines[6]}" = "    a" ]
   [ "${lines[7]}" = "        .." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
@@ -179,7 +179,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls && ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls && ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n&&\n    ls ")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n&&\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -208,10 +208,10 @@ load test_helper
   [ "${lines[0]}" = "[--- Display tree ---]" ]
   [ "${lines[1]}" = "        c" ]
   [ "${lines[2]}" = "    &&" ]
-  [ "${lines[3]}" = "        b " ]
+  [ "${lines[3]}" = "        b" ]
   [ "${lines[4]}" = "&&" ]
   [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    a " ]
+  [ "${lines[6]}" = "    a" ]
   [ "${lines[7]}" = "        .." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
@@ -220,7 +220,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls & ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls & ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n&\n    ls ")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n&\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -249,10 +249,10 @@ load test_helper
   [ "${lines[0]}" = "[--- Display tree ---]" ]
   [ "${lines[1]}" = "        c" ]
   [ "${lines[2]}" = "    &" ]
-  [ "${lines[3]}" = "        b " ]
+  [ "${lines[3]}" = "        b" ]
   [ "${lines[4]}" = "&" ]
   [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    a " ]
+  [ "${lines[6]}" = "    a" ]
   [ "${lines[7]}" = "        .." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
@@ -261,7 +261,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls || ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls || ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n||\n    ls ")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n||\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -290,10 +290,10 @@ load test_helper
   [ "${lines[0]}" = "[--- Display tree ---]" ]
   [ "${lines[1]}" = "        c" ]
   [ "${lines[2]}" = "    ||" ]
-  [ "${lines[3]}" = "        b " ]
+  [ "${lines[3]}" = "        b" ]
   [ "${lines[4]}" = "||" ]
   [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    a " ]
+  [ "${lines[6]}" = "    a" ]
   [ "${lines[7]}" = "        .." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
@@ -317,7 +317,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls >&2 ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls >&2 ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n >&2\n    ls")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n>& 2\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -332,7 +332,7 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls 1>&2 ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls 1>&2 ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n1>&2\n    ls ")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n1 >& 2\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
@@ -347,11 +347,11 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls 1>& 2 ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls 1>& 2 ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n1>& 2\n    ls ")
+  expect=$(echo -e "[--- Display tree ---]\n    ls\n1 >& 2\n    ls")
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                    ls"
-  echo "                1>& 2"
+  echo "                1 >& 2"
   echo "                    ls"
   echo
   [ "$output" = "$expect" ]
@@ -365,9 +365,9 @@ load test_helper
   display_line_output
   echo "$name_exec EXPECTED ->[--- Display tree ---]"
   echo "                        c"
-  echo "                    1>& 2"
+  echo "                    1 >& 2"
   echo "                        b"
-  echo "                >&2"
+  echo "                >& 2"
   echo "                        .."
   echo "                    a"
   echo "                        .."
@@ -375,9 +375,9 @@ load test_helper
 
   [ "${lines[0]}" = "[--- Display tree ---]" ]
   [ "${lines[1]}" = "        c" ]
-  [ "${lines[2]}" = "    1>& 2" ]
-  [ "${lines[3]}" = "        b " ]
-  [ "${lines[4]}" = " >&2" ]
+  [ "${lines[2]}" = "    1 >& 2" ]
+  [ "${lines[3]}" = "        b" ]
+  [ "${lines[4]}" = ">& 2" ]
   [ "${lines[5]}" = "        .." ]
   [ "${lines[6]}" = "    a" ]
   [ "${lines[7]}" = "        .." ]
@@ -511,9 +511,9 @@ load test_helper
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi" line
   echo "ERROR:"
   display_line_output
-    echo "$name_exec EXPECTED ->[0]{;} [1]{mkdir test } [2]{;} [3]{cd test } [4]{;} [5]{ls -a } [6]{;} [7]{>} [8]{|} [9]{ls } [10]{|} [11]{cat } [12]{wc -c } [13]{fifi } [14]{cat fifi} "
+    echo "$name_exec EXPECTED ->[0]{;} [1]{mkdir test} [2]{;} [3]{cd test} [4]{;} [5]{ls -a} [6]{;} [7]{>} [8]{|} [9]{ls} [10]{|} [11]{cat} [12]{wc -c} [13]{fifi} [14]{cat fifi} "
   echo
-  [ "${lines[0]}" = "[0]{;} [1]{mkdir test } [2]{;} [3]{cd test } [4]{;} [5]{ls -a } [6]{;} [7]{>} [8]{|} [9]{ls } [10]{|} [11]{cat } [12]{wc -c } [13]{fifi } [14]{cat fifi} " ]
+  [ "${lines[0]}" = "[0]{;} [1]{mkdir test} [2]{;} [3]{cd test} [4]{;} [5]{ls -a} [6]{;} [7]{>} [8]{|} [9]{ls} [10]{|} [11]{cat} [12]{wc -c} [13]{fifi} [14]{cat fifi} " ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }

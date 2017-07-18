@@ -6,160 +6,84 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/25 18:55:34 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/16 12:27:13 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <ast/ast.h>
 
-t_lim ast_built6_plus(t_array *tokens, t_lim lim, size_t *len)
+t_token_type return_type(int prio, t_token_type type)
 {
-		t_token	*tok;
-
-		tok = NULL;
-		while (lim.cnt <= lim.lim && lim.cnt <= tokens->used &&\
-			!(ast_is_redir(tokens, lim.cnt - 1, tok)) &&
-			(!tok || (tok->type == E_TOKEN_WORD) || (tok->type == E_TOKEN_BLANK)\
-					 	|| (tok->type == E_TOKEN_DQUOTE) || (tok->type == E_TOKEN_SQUOTE)\
-						|| (tok->type == 	E_TOKEN_IO_NUMBER)))
-		{
-			if (tok)
-				*len = *len + tok->len;
-			tok = (t_token *)array_get_at(tokens, lim.cnt);
-			lim.cnt++;
-		}
-		lim.cnt--;
-		return (lim);
+	if ( prio != 6 )
+		return (type);
+	return (E_TOKEN_GREATAND);
 }
 
-t_btree	*ast_built6(t_btree *ast, t_array *tokens, t_lim lim)
+t_lim ast_built_greatand_plus(t_array *expands, t_lim lim)
 {
-	t_token	*tok;
-	t_lim lim_left;
-	size_t	len;
+	t_exp	*exp;
 
-	lim_left = lim;
-	tok = NULL;
-	while (lim.cnt <= lim.lim && lim.cnt <= tokens->used &&\
- 				(!tok || (!(tok->type == E_TOKEN_WORD) &&\
-				 !(tok->type == E_TOKEN_SQUOTE) && !(tok->type == E_TOKEN_DQUOTE)\
-				  && !(tok->type == E_TOKEN_IO_NUMBER /*&& (ast_is_redir(tokens, lim.cnt - 1, tok))*/ ))))
+	exp = NULL;
+	while (lim.cnt <= lim.lim && lim.cnt <= expands->used &&\
+			(!exp || ast_is_greatand(expands, lim.cnt - 1, exp->type)))
 	{
-		tok = (t_token *)array_get_at(tokens, lim.cnt);
+		exp = (t_exp *)array_get_at(expands, lim.cnt);
 		lim.cnt++;
 	}
-	if (lim.cnt <= tokens->used && tok && lim.cnt < lim.lim)
-	{
-		len = tok->len;
-		lim_left = ast_built6_plus(tokens, lim, &len);
-		lim_left.lim = lim.cnt;
-		btree_insert_data(&ast, ast_new_cmd(tok->str, len, tok->type), (int (*)(void*, void*))&ast_cmp);
-//		ft_printf("4 cnt=%ld lim=%ld, str=|%s| len=%ld\n", lim_left.cnt, lim_left.lim, tok->str, len);
-		ast->left = ast_built6(ast->left, tokens, lim_left);
-	}
-	return (ast);
+	lim.cnt--;
+	return (lim);
 }
 
-t_btree	*ast_built4(t_btree *ast, t_array *tokens, t_lim lim)
+t_lim ast_built_word_plus(t_array *expands, t_lim lim)
 {
-	t_token	*tok;
-	t_lim lim_left;
+	t_exp	*exp;
 
-	lim_left = lim;
-	tok = NULL;
-	while (lim.cnt < lim.lim && lim.cnt <= tokens->used &&\
- 				(!tok || (!(tok->type == E_TOKEN_PIPE) && !(tok->type == E_TOKEN_AND))))
+	exp = NULL;
+	while (lim.cnt <= lim.lim && lim.cnt <= expands->used &&\
+			(!exp || (exp->type == E_TOKEN_WORD) || (exp->type == E_TOKEN_BLANK)))
 	{
-		tok = (t_token *)array_get_at(tokens, lim.cnt);
+		exp = (t_exp *)array_get_at(expands, lim.cnt);
 		lim.cnt++;
 	}
-	if (lim.cnt <= tokens->used && tok && lim.cnt < lim.lim)
-	{
-		lim_left.lim = lim.cnt;
-		btree_insert_data(&ast, ast_new_cmd(tok->str, tok->len, tok->type), (int (*)(void*, void*))&ast_cmp);
-		ast->left = ast_built_greatand(ast->left, tokens, lim_left);
-		ast->right = ast_built4(ast->right, tokens, lim);
-	}
-	else
-		ast = ast_built_greatand(ast, tokens, lim_left);
-	return (ast);
+	lim.cnt--;
+	return (lim);
 }
 
-t_btree	*ast_built3(t_btree *ast, t_array *tokens, t_lim lim)
+t_exp		*ast_search(t_btree *ast, t_array *expands, t_lim *lim, int prio)
 {
-	t_token	*tok;
+	t_exp		*exp;
+
+	exp = NULL;
+	while (lim->cnt < lim->lim && lim->cnt <= expands->used &&\
+			(!exp || !(ast_prio(exp->type, prio, lim->cnt - 1, expands))))
+	{
+		exp = (t_exp *)array_get_at(expands, lim->cnt);
+		lim->cnt++;
+	}
+	return (exp);
+}
+
+t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
+{
+	t_exp	*exp;
 	t_lim lim_left;
 
 	lim_left = lim;
-	tok = NULL;
-	while (lim.cnt < lim.lim && lim.cnt <= tokens->used &&\
- 				(!tok || (!(tok->type == E_TOKEN_DLESS) &&\
-				 !(tok->type == E_TOKEN_DGREAT))))
-	{
-		tok = (t_token *)array_get_at(tokens, lim.cnt);
-		lim.cnt++;
-	}
-	if (lim.cnt <= tokens->used && tok && lim.cnt < lim.lim)
+	exp = ast_search(ast, expands, &lim, prio);
+	if (lim.cnt <= expands->used && exp && lim.cnt < lim.lim)
 	{
 		lim_left.lim = lim.cnt;
-		btree_insert_data(&ast, ast_new_cmd(tok->str, tok->len, tok->type), (int (*)(void*, void*))&ast_cmp);
-		ast->left = ast_built4(ast->left, tokens, lim_left);
-		ast->right = ast_built3(ast->right, tokens, lim);
-	}
-	else
-		ast = ast_built4(ast, tokens, lim_left);
-	return (ast);
-}
-
-t_btree	*ast_built2(t_btree *ast, t_array *tokens, t_lim lim)
-{
-	t_token	*tok;
-	t_lim lim_left;
-
-	lim_left = lim;
-	tok = NULL;
-	while (lim.cnt < lim.lim && lim.cnt <= tokens->used &&\
- 				(!tok || !(tok->type == E_TOKEN_LESSGREAT)))
-	{
-		tok = (t_token *)array_get_at(tokens, lim.cnt);
-		lim.cnt++;
-	}
-	if (lim.cnt <= tokens->used && tok && lim.cnt < lim.lim)
-	{
-		lim_left.lim = lim.cnt;
-		btree_insert_data(&ast, ast_new_cmd(tok->str, tok->len, tok->type), (int (*)(void*, void*))&ast_cmp);
-			ast->left = ast_built3(ast->left, tokens, lim_left);
-			ast->right = ast_built2(ast->right, tokens, lim);
-		if (ft_strnequ(tok->str, "<", tok->len))
+		lim = (prio == 6 ? ast_built_greatand_plus(expands, lim) : lim);
+		lim = (prio == 7 ? ast_built_word_plus(expands, lim) : lim);
+		btree_insert_data(&ast, ast_new_cmd(expands, lim_left.lim - 1, lim.cnt,\
+					return_type(prio, exp->type)), (int (*)(void*, void*))&ast_cmp);
+		if (prio != 7)
+			ast->left = ast_built(ast->left, expands, lim_left, prio + 1);
+		ast->right = ast_built(ast->right, expands, lim, prio);
+		if (prio == 2 && ft_strequ(exp->str->s, "<"))
 			ast_built2_swap(ast);
 	}
-	else
-		ast = ast_built3(ast, tokens, lim_left);
-	return (ast);
-}
-
-t_btree	*ast_built1(t_btree *ast, t_array *tokens, t_lim lim)
-{
-	t_token	*tok;
-	t_lim lim_left;
-
-	lim_left = lim;
-	tok = NULL;
-	while (lim.cnt < lim.lim && lim.cnt <= tokens->used &&\
- 				(!tok || !((tok->type == E_TOKEN_SEMI) ||\
- 				(tok->type == E_TOKEN_AND_IF) || (tok->type == E_TOKEN_OR_IF))))
-	{
-		tok = (t_token *)array_get_at(tokens, lim.cnt);
-		lim.cnt++;
-	}
-	if (lim.cnt <= tokens->used && tok && lim.cnt < lim.lim)
-	{
-		btree_insert_data(&ast, ast_new_cmd(tok->str, tok->len, tok->type), (int (*)(void*, void*))&ast_cmp);
-		lim_left.lim = lim.cnt;
-		ast->left = ast_built2(ast->left, tokens, lim_left);
-		ast->right = ast_built1(ast->right, tokens, lim);
-	}
-	else
-		ast = ast_built2(ast, tokens, lim_left);
+	else if (prio != 7)
+		ast = ast_built(ast, expands, lim_left, prio + 1);
 	return (ast);
 }

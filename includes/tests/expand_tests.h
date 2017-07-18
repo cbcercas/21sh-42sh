@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   expand_tests.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/14 16:01:18 by guiforge         ###   ########.fr       */
+/*   Created: 2017/06/19 10:00:29 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/10 16:33:27 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include <core/init.h>
-# include <core/prompt.h>
-# include <core/input.h>
-# include <libft.h>
+#ifndef AST_TESTS_H
+# define AST_TESTS_H
+
+# include <automaton/automaton.h>
 # include <lexer/lexer.h>
 # include <parser/parser.h>
+# include <libft.h>
 # include <expand/expand.h>
-# include <core/tcaps.h>
-# include <signals/signals.h>
 # include <history/history.h>
-# include <builtins/help.h>
-# include <ast/ast.h>
-# include <core/progname.h>
+
+void sh_testing_expand(char *const *av, char **environ);
 
 #endif

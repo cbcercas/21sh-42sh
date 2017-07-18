@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/08 18:17:28 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/14 16:12:43 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int main(int ac, char *const *av, char **environ)
 	t_sh_data	data;
 	t_automaton	automaton;
 	t_array		tokens;
+	t_array		expand_array;
 	char		*input;
 	BOOL		stop;
+	t_btree	*ast;
 	//char cwd[1024];
 
 	/*sh_init_environ();
@@ -31,6 +33,8 @@ int main(int ac, char *const *av, char **environ)
 		exit (1);
 	if (automaton_init(&automaton) == NULL)
 		exit (1);
+	if (expand_init(&expand_array) == NULL)
+		exit (1);
 	stop = true;
 	while (stop == true)
 	{
@@ -38,8 +42,19 @@ int main(int ac, char *const *av, char **environ)
 		input = sh_get_line(&data.opts);
 		if (lexer_lex(&tokens, &automaton, input))
 			if (parser_parse(&tokens))
-				;
-		sh_history_set_new(input);
+			{
+				lexer_print_tokens(&tokens);
+				if (expand(&tokens, &expand_array))
+				{
+					if (!(ast = ast_create(&expand_array)))
+						ft_printf("AST NULL\n");
+					else
+						btree_print(ast, (char * (*)(void*))&ast_aff);
+					//expand_print(&expand_array);
+					/// if EXEC
+				}
+			}
+			sh_history_set_new(input);
 
 		// if ((command = ft_strsplit(input, ';')))
 		// 	if (sh_command(data, command))
@@ -73,9 +88,11 @@ int main(int ac, char *const *av, char **environ)
 			stop = false;
 		input ? ft_strdel(&input) : 0;
 		array_reset(&tokens, NULL);
+		array_reset(&expand_array, sh_exp_del);
 		automaton_reset(&automaton);
 	}
 	sh_history_save();
+	//sh_expand_destroy(&expand_array);
 	sh_deinit(&data);
 	ft_putstr("\033[?1049l");
 	return (0);

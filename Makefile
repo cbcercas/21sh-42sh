@@ -38,8 +38,14 @@ SRCS			+= signals.c signals_handler.c
 SRC_SUBDIR		+= parser
 SRCS			+= parser.c parser_grammar.c
 
+SRC_SUBDIR		+= expand
+SRCS			+= expand.c expand_utils.c ft_replace.c expand_print.c\
+					expand_history.c expand_dol.c expand_quote.c\
+					expand_history_tools.c expand_merge.c
+
 SRC_SUBDIR      += tests
-SRCS            += env_tests.c lexer_tests.c parser_tests.c ast_tests.c
+SRCS            += env_tests.c lexer_tests.c parser_tests.c ast_tests.c\
+										expand_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c
@@ -62,7 +68,7 @@ SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\
 					btree_level_count.c  btree_search_item.c btree_print.c
 
 SRC_SUBDIR      += ast
-SRCS            += ast.c ast_utils.c ast_built.c ast_built_greatand.c
+SRCS            += ast.c ast_utils.c ast_built.c ast_is_greatand.c
 
 ###############################################################################
 #																			  #
