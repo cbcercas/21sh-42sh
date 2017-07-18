@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/07/13 14:45:40 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/07/18 12:43:02 by guiforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,6 +118,19 @@ LIBS                            += -lcurses
 #Utils
 RM					= rm -rf
 MKDIR				= mkdir -p
+COUNT_OBJ = 0
+COUNT_DEP = 0
+TOTAL = 0
+PERCENT = 0
+$(eval TOTAL=$(shell echo $$(printf "%s" "$(SRCS)" | wc -w)))
+
+#color
+C_NO = \033[0m
+C_G = \033[0;32m
+C_Y = \033[1;33m
+C_B = \033[1;34m
+C_C = \033[1;36m
+C_R = \033[1;31m
 
 ###############################################################################
 #																			  #
@@ -127,43 +140,51 @@ MKDIR				= mkdir -p
  #########
 ## RULES ##
  #########
-.SECONDARY: $(OBJS) lib
+#.SECONDARY: $(OBJS) lib
 
-all: $(DEPS) $(NAME)
+.NOTPARALLEL:
+all: $(DEPS) lib $(NAME)
 
 # Add dependency as prerequisites
--include $(DEPS)
+#-include $(DEPS)
 
-$(NAME): $(OBJS) lib
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INC)
-	@echo "[\033[35m---------------------------------\033[0m]"
-	@echo "[\033[36m---------- 21sh Done ! ----------\033[0m]"
-	@echo "[\033[35m---------------------------------\033[0m]"
+$(NAME): $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INC)
+	@echo -e "$(C_G)🎩🎩🎩$(C_NO) ALL LINKED $(C_G)🎩🎩🎩$(C_NO)"
+	@echo -e "INFO: Flags: $(CFLAGS)"
+	@echo -e "[\033[35m---------------------------------\033[0m]"
+	@echo -e "[\033[36m---------- 21sh Done ! ----------\033[0m]"
+	@echo -e "[\033[35m---------------------------------\033[0m]"
 
-$(OBJS): $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-	$(CC) $(LDFLAGS) $(INC) -o $@ -c $<
+$(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+	@$(CC) $(LDFLAGS) $(CFLAGS) $(INC) -o $@ -c $<
+	$(eval COUNT_OBJ=$(shell echo $$(($(COUNT_OBJ)+1))))
+	$(eval PERCENT=$(shell echo $$((($(COUNT_OBJ) * 100 )/$(TOTAL)))))
+	@printf "$(C_B)%-8s $(C_Y) $<$(C_NO)\n" "[$(PERCENT)%]"
 
 $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
-	$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
+	@$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
+	$(eval COUNT_DEP=$(shell echo $$(($(COUNT_DEP)+1))))
+	$(eval PERCENT=$(shell echo $$((($(COUNT_DEP) * 100 )/$(TOTAL)))))
+	@printf "$(C_B)%-8s $(C_C) $@$(C_NO)\n" "[$(PERCENT)%]"
 
 $(BUILD_DIR):
 	@$(MKDIR) -p $@
 
 lib:
-	make -C $(LIB_CBC_DIR)
-#	@make -C $(LIBFT_DIR)
-#	@make -C $(LIBTCAPS_DIR)
-re: clean fclean all
+	@make -C $(LIB_CBC_DIR)
+
+re: fclean $(DEPS) lib $(NAME)
 
 clean:
-	@echo "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]"
+	@echo -e "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]"
 	@$(RM) $(OBJS_DIR)
-	@echo "\033[35m21sh  :\033[0m [\033[31mSuppression des .d\033[0m]"
+	@echo -e "\033[35m21sh  :\033[0m [\033[31mSuppression des .d\033[0m]"
 	@$(RM) $(DEPS_DIR)
 	@make clean -C $(LIB_CBC_DIR)
 
 fclean: clean
-	@echo "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
+	@echo -e "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
 	@$(RM) $(NAME)
 	@make fclean -C $(LIB_CBC_DIR)
 
