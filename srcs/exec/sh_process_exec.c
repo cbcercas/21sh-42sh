@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:15 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 17:12:56 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 23:13:07 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,21 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast)
     return (sh_exec_simple(data, item));
   else if (item->type == E_TOKEN_PIPE)
   {
-    ft_printf("%s\n", "PIPE:");
-    sh_process_exec(data, ast->left);
-    ft_printf("%s\n", "*in");
-    sh_process_exec(data, ast->right);
+		sh_exec_pipe(data, ast);
+    //ft_printf("%s\n", "PIPE:");
+    //sh_process_exec(data, ast->left);
+    //ft_printf("%s\n", "*in");
+    //sh_process_exec(data, ast->right);
   }
   else if(item->type == E_TOKEN_AND_IF)
     return((sh_process_exec(data, ast->left) != -1) && (sh_process_exec(data, ast->right) != 1));
 	else if(item->type == E_TOKEN_OR_IF)
 	  return((sh_process_exec(data, ast->left) != -1) || (sh_process_exec(data, ast->right) != 1));
+	else if(item->type == E_TOKEN_SEMI)
+	{
+		sh_process_exec(data, ast->left);
+		return (sh_process_exec(data, ast->right));
+	}
   //btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	//lexer_print_type(item->type); // POUR DEBUG
   return (ft_printf("\nERROR\n"));
