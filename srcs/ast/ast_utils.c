@@ -66,7 +66,7 @@ BOOL	ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 		return (true);
 	if ( prio == 6 && (ast_is_greatand(expands, cnt, type)))
 		return (true);
-	if ( prio == 7 && (type == E_TOKEN_WORD))
+	if ( prio == 7 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
 		return (true);
 	return (false);
 }
