@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 21:06:31 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 21:24:17 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,10 @@ int sh_echo(t_sh_data *data, char **argv)
 			break ;
 	}
 	if (opt != '?')
-		echo_print(&argv[optind], flag);
-	if (!flag[0] && opt != '?')
-		ft_putstr("\n");
+		echo_print(&argv[g_optind], flag);
+	if (flag[0] && opt != '?')
+		ft_putstr("%");
+	ft_putstr("\n");
 	ft_getopt_reset();
 	return (((opt != '?') ? 0 : -1));
 }
