@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 16:46:09 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 17:55:09 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ BOOL sh_get_input(t_sh_data *data, char **input)
 void sh_arrays_reset(t_automaton *automat, t_array *tokens, t_array *expands,\
 	 										char *input)
 {
-	sh_history_set_new(input);
 	array_reset(tokens, NULL);
 	array_reset(expands, sh_exp_del);
 	automaton_reset(automat);
@@ -74,6 +73,7 @@ t_btree	*sh_process(t_automaton *automat, t_array *tokens, t_array *expands,\
 			//lexer_print_tokens(tokens);
 			if (expand(tokens, expands))
 			{
+					sh_history_set_new(input);
 				if (!(ast = ast_create(expands)))
 					;//ft_printf("AST NULL\n");
 				//else
