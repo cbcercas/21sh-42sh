@@ -157,6 +157,7 @@ all: $(DEPS) lib $(NAME)
 # Add dependency as prerequisites
 #-include $(DEPS)
 
+
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INC)
 	@echo -e "$(C_G)🎩🎩🎩$(C_NO) ALL LINKED $(C_G)🎩🎩🎩$(C_NO)"
