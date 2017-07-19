@@ -404,7 +404,7 @@ check_leaks_function expand
   echo -e "blow\njob" > /tmp/.21sh_history
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\$VAR2\"toto"
   echo
-  echo "ERROR: \"\"\$VAR2\"toto\""
+  echo "ERROR: \"\$VAR2\"toto\""
   echo
 	display_line_output
 	echo
@@ -769,7 +769,7 @@ check_leaks_function expand
 @test "EXPAND: Testing [~] 2" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "HELLO'~'toto\"~\""
   echo
-  echo "ERROR: \"HELLO'~'toto\"~\"\""
+  echo "ERROR: HELLO'~'toto\"~\""
   echo
 	display_line_output
 	echo
