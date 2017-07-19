@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 11:02:15 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 12:28:51 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 {
 	int opt;
 
-	opts->tcaps = true;
+	opts->tcaps = true; 
 	while ((opt = ft_getopt(ac, av, "hvd:t:l")) >= 0)
 	{
 		if (opt == 'v')
