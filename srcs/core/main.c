@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/18 17:27:44 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 16:46:09 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int main(int ac, char *const *av, char **environ)
 		sh_print_prompt();
 		if (!sh_get_input(&data, &input))
 			break;
-			/*sh_exec(*/sh_process(&automaton, &tokens, &expand_array, input);//); //TODO destroy ast
+		sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array, input)); //TODO destroy ast
 		if (input && ft_strequ(input, "exit"))
 			break;
 		sh_arrays_reset(&automaton, &tokens, &expand_array, input);
