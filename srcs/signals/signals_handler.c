@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/15 18:39:47 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 16:12:42 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void    signals_handler(int sig)
 	{
 		log_info("Signal: User pressed Ctrl+C.");
 		ft_putstr("\n");
-		sh_print_prompt();
+		//sh_print_prompt();
 		return;
 	}
 	if(sig == SIGWINCH)

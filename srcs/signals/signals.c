@@ -8,13 +8,13 @@ void    init_signals(void *handler)
 	i = 1;
 	if (!handler)
 		return ;
-	while (i++ < 31)
-		if(signal(i, handler) == SIG_ERR)
+	while (i++ < 32)
+		if(i != 17 && signal(i, handler) == SIG_ERR)
 			log_warn("Signal:%d no catch", i);
 	log_info("Signal: Init success");
 }
 
-int		wait_sh()
+int		wait_sh(void)
 {
 	int		status;
 	pid_t	pid_child;
@@ -26,6 +26,7 @@ int		wait_sh()
 			ft_printf("[[1]    %d segmentation fault\n", pid_child);//TODO add the last command with history
 		else if (WTERMSIG(status) == SIGBUS)
 			ft_printf("[1]    %d bus error\n", pid_child);//TODO add the last command with history
+		return (-1);
 	}
 	return (status);
 }
