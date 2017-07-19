@@ -6,15 +6,14 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/07/18 16:39:43 by jlasne           ###   ########.fr        #
+#    Updated: 2017/07/19 17:14:58 by guiforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME			= 21sh
 
 SRC_SUBDIR		= core
-SRCS			+= main.c prompt.c init.c input.c command.c check_path.c \
-                    usage_help.c input_utils.c deinit.c
+SRCS			+= main.c prompt.c init.c input.c usage_help.c input_utils.c deinit.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c builtin_environ.c\
@@ -25,6 +24,9 @@ SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
 							builtin_history_acdws.c builtin_history_print.c\
 							builtin_history_npr.c builtin_help.c\
 							builtins_utils2.c pwd.c
+
+SRC_SUBDIR		+= exec
+SRCS			+= sh_process_exec.c check_path.c sh_exec.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c

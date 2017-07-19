@@ -11,8 +11,9 @@ set(SOURCE_FILES
         srcs/builtins/chdir.c
         srcs/builtins/echo.c
         srcs/builtins/exit.c
-        srcs/core/check_path.c
-        srcs/core/command.c
+        srcs/exec/check_path.c
+        srcs/exec/sh_process_exec.c
+        srcs/exec/sh_exec.c
         srcs/core/init.c
         srcs/core/deinit.c
         srcs/core/input.c
