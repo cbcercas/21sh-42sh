@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 17:09:45 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 17:48:07 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,22 @@ char	*sh_check_path(char const *cmd_name)
 	else if (ret == 0)
 		ft_printf("%s: command not found: %s\n", PROGNAME, cmd_name);
 	return (NULL);
+}
+
+char *get_filename(char *av)
+{
+	int		tmp;
+	char	*ret;
+
+	tmp = 0;
+	ret = NULL;
+	if (ft_strchr(av, '/'))
+		{
+			if ((tmp = sh_test_access(av)) == 1)
+				return (ft_strdup(av));
+			ft_printf("%s: permission denied: %s\n", PROGNAME, av);
+		}
+	else
+		ret = sh_check_path(av);
+	return (ret);
 }

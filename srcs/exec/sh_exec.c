@@ -21,7 +21,8 @@ int sh_exec(t_sh_data *data, t_cmd *item)
   (void)data; // pourquoi je me le trimbal sans jamais, l'utiliser :D
   //envtab = sh_tenv_to_tab();
 	item->info.ret = -1;
-  if ((cmd = sh_check_path(item->av[0])))
+  cmd = NULL;
+  if ((cmd = get_filename(item->av[0])))
   {
     if ((pid = fork()) == -1)
       ft_printf("fork error\n");
