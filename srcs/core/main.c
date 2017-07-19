@@ -71,20 +71,20 @@ t_btree	*sh_process(t_automaton *automat, t_array *tokens, t_array *expands,\
 	if (lexer_lex(tokens, automat, input))
 		if (parser_parse(tokens))
 		{
-			lexer_print_tokens(tokens);
+			//lexer_print_tokens(tokens);
 			if (expand(tokens, expands))
 			{
 				if (!(ast = ast_create(expands)))
-					ft_printf("AST NULL\n");
-				else
-					btree_print(ast, (char * (*)(void*))&ast_aff);
+					;//ft_printf("AST NULL\n");
+				//else
+					//btree_print(ast, (char * (*)(void*))&ast_aff);
 				return (ast);
 			}
 		}
 		return (NULL);
 }
 
-//j'ai eu beaucoup de mal à diminuer le nombre de variables 
+//j'ai eu beaucoup de mal à diminuer le nombre de variables
 int main(int ac, char *const *av, char **environ)
 {
 	t_sh_data	data;
