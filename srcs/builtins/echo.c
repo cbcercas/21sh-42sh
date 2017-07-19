@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 17:18:12 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 21:06:31 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int sh_echo(t_sh_data *data, char **argv)
 
 	ft_getopt_reset();
 	ft_bzero(flag, 2);
-	while ((opt = getopt(ft_tablen(argv), argv, "Een")) != -1) //TODO:change for ft_getopt
+	while ((opt = ft_getopt(ft_tablen(argv), argv, "Een")) != -1) //TODO:change for ft_getopt
 	{
 		if(opt == 'n')
 			flag[0] = 1;
