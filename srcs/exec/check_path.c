@@ -6,10 +6,11 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/24 18:00:38 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/07/19 17:09:45 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <core/check_path.h>
+
+#include <exec/check_path.h>
 #include <core/main.h>
 
 char		*makefilepath(char const *path, char const *filename)
