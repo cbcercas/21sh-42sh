@@ -24,6 +24,7 @@
 # include <builtins/builtins_utils.h>
 # include <exec/check_path.h>
 # include <signals/signals.h>
+# include <tools/tools.h>
 
 /*int	sh_command(t_sh_data *data, char **command);
 char **sh_get_command(char *input);

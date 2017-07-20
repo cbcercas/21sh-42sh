@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/07/19 17:14:58 by guiforge         ###   ########.fr        #
+#    Updated: 2017/07/20 13:02:05 by guiforge         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,10 @@ SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
 							builtins_utils2.c pwd.c
 
 SRC_SUBDIR		+= exec
-SRCS			+= sh_process_exec.c check_path.c sh_exec.c
+SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c
+
+SRC_SUBDIR		+= tools
+SRCS			+= ft_strdblfree.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c
