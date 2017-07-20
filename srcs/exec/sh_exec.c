@@ -22,35 +22,6 @@ pid_t  sh_fork(void)
   return (pid);
 }
 
-int nb_of_pipe(t_btree *ast)
-{
-  int   i;
-  t_btree *tmp;
-  t_cmd *item;
-
-  tmp = ast;
-  i = 0;
-    item = (t_cmd *)ast->item;
-  while(tmp && item->type == E_TOKEN_PIPE)
-  {
-    i++;
-    tmp = tmp->right;
-    item = (t_cmd *)ast->item;
-  }
-  return (i);
-}
-
-int sh_exec_pipe(t_sh_data *data, t_btree *ast)
-{
-  /*pid_t	pid;
-  int		statut;
-  int		tube[2];*/
-  (void)data;
-  (void)ast;
-  ft_printf("PIPE IS PROGRESS\n");
-  return (0);
-}
-
 int sh_exec(t_sh_data *data, t_cmd *item)
 {
   char	*cmd;
