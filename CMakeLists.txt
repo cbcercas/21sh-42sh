@@ -90,7 +90,8 @@ set(SOURCE_FILES
 		    srcs/autocomplete/autocomplete.c
         srcs/builtins/builtin_help.c
         srcs/builtins/pwd.c
-        srcs/tools/ft_strdblfree.c)
+        srcs/tools/ft_strdblfree.c
+        srcs/tools/is_printstr.c)
 
 include_directories(includes)
 

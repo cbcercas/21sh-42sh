@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 17:16:17 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 10:19:33 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/20 16:11:37 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,6 @@ int			sh_history_is_space_plus(char const *line)
 	while (line && line[i])
 	{
 		if (!ISBLANC(line[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int			sh_history_is_print(char const *line)
-{
-	int		i;
-
-	i = 0;
-	while (line && line[i])
-	{
-		if (!ft_isprint(line[i]))
 			return (0);
 		i++;
 	}
@@ -87,7 +73,7 @@ t_hist	*sh_history_set_new(char const *cmd)
 	t_array	*hists;
 	t_hist	*h;
 
-		if (sh_history_is_space_plus(cmd) || !sh_history_is_print(cmd))
+		if (sh_history_is_space_plus(cmd) || !is_printstr(cmd))
 			return (NULL);
 		hists = sh_history_get();
 		if ((h = (t_hist *)array_get_at(hists, 0)))

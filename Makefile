@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/07/20 13:02:05 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/07/20 16:11:18 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC_SUBDIR		+= exec
 SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c
 
 SRC_SUBDIR		+= tools
-SRCS			+= ft_strdblfree.c
+SRCS			+= ft_strdblfree.c is_printstr.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c

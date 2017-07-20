@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.h                                            :+:      :+:    :+:   */
+/*   is_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/20 13:00:38 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 16:14:49 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/20 16:10:45 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/20 16:11:09 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TOOLS_H
-# define TOOLS_H
+# include <tools/tools.h>
 
-# include <libft.h>
 
-void	ft_strdblfree(char **strdb);
-BOOL  is_printstr(char const *line);
-
-#endif
+BOOL        is_printstr(char const *line)
+{
+    while (line && ft_isprint(*line))
+        line++;
+    return (*line != '\0') ? false :true;
+}

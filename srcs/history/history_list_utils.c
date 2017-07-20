@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 16:00:49 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/13 14:11:03 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/20 16:15:20 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_hist	*sh_history_new(char *cmd)
 {
 	t_hist	*h;
 
-	if(sh_history_is_space_plus(cmd) || !sh_history_is_print(cmd))
+	if(sh_history_is_space_plus(cmd) || !is_printstr(cmd))
 		return (NULL);
 	if ((h = ft_memalloc(sizeof(*h))) == NULL)
 	{
