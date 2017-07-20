@@ -6,7 +6,7 @@
 /*   By: guiforge <guiforge@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 17:12:03 by guiforge          #+#    #+#             */
-/*   Updated: 2017/07/19 23:22:34 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/20 13:33:46 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int sh_exec(t_sh_data *data, t_cmd *item)
   pid_t	pid;
 
   (void)data; // pourquoi je me le trimbal sans jamais, l'utiliser :D
-  //envtab = sh_tenv_to_tab();
+  envtab = sh_tenv_to_tab();
 	item->info.ret = -1;
   cmd = NULL;
   if ((cmd = get_filename(item->av[0])))
@@ -37,14 +37,14 @@ int sh_exec(t_sh_data *data, t_cmd *item)
     pid = sh_fork();
     if (pid == 0)
     {
-      execve(cmd, item->av, NULL);
+      execve(cmd, item->av, envtab);
       exit(0);
     }
     else
       item->info.ret = wait_sh();// status, revois int, et look si segfault et tout, et wait evidement
   }
   ft_strdel(&cmd);
-  //ft_strdblfree(envtab);
+  ft_strdblfree(envtab);
   envtab = NULL;
   return (item->info.ret);
 }
