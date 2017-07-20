@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/20 16:05:59 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/20 16:35:18 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ char	*sh_check_path(char const *cmd_name)
 		ft_printf("%s: permission denied: %s\n", PROGNAME, cmd_name);
 	else if (ret == 0)
 		ft_printf("%s: command not found: %s\n", PROGNAME, cmd_name);
-	ft_strdblfree(env_path);
-	env_path = NULL;
+	//ft_strdblfree(env_path);
+	//nv_path = NULL;
 	return (NULL);
 }
 
