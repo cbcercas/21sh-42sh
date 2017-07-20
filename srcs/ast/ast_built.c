@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 09:31:32 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/20 10:22:20 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_token_type return_type(int prio, t_token_type type)
 {
-	if ( prio != 6 )
+	if ( prio != 5 )
 		return (type);
 	return (E_TOKEN_GREATAND);
 }
