@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/20 13:40:06 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/20 17:10:01 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,14 @@ t_btree	*sh_process(t_automaton *automat, t_array *tokens, t_array *expands,\
 		return (NULL);
 }
 
-//j'ai eu beaucoup de mal à diminuer le nombre de variables
+//j'ai beaucoup de mal à diminuer le nombre de variables
 int main(int ac, char *const *av, char **environ)
 {
 	t_sh_data	data;
 	t_automaton	automaton;
 	t_array		tokens;
 	t_array		expand_array;
+	t_btree		*ast;
 	char		*input;
 
 	sh_arrays_init(&automaton, &tokens, &expand_array);
@@ -101,10 +102,12 @@ int main(int ac, char *const *av, char **environ)
 		sh_print_prompt();
 		if (!sh_get_input(&data, &input))
 			break;
-		sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array, input)); //TODO destroy ast
 		if (input && ft_strequ(input, "exit"))
 			break;
+		ast = sh_process(&automaton, &tokens, &expand_array, input);
+		sh_process_exec(&data, ast);
 		sh_arrays_reset(&automaton, &tokens, &expand_array, input);
+		btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	}
 	sh_arrays_reset(&automaton, &tokens, &expand_array, input);
 	sh_exit(&data, NULL);
