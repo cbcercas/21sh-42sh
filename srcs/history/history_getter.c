@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 17:16:17 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/19 19:01:23 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/20 10:14:18 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_hist	*sh_history_set_new(char const *cmd)
 			ft_strdel(&(h->buf));
 			h->cur = -1;
 		}
-		if ( ft_strcmp(cmd, sh_history_get_at(-1)) && ((h = sh_history_new(ft_strdup(cmd))) != NULL))
+		if (hists->used >= 1 && ft_strcmp(cmd, sh_history_get_at(-1)) && ((h = sh_history_new(ft_strdup(cmd))) != NULL))
 		{
 			h->session = true;
 			array_push(hists, (void *)h);
