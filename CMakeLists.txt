@@ -91,7 +91,11 @@ set(SOURCE_FILES
         srcs/builtins/builtin_help.c
         srcs/builtins/pwd.c
         srcs/tools/ft_strdblfree.c
-        srcs/tools/is_printstr.c)
+        srcs/tools/is_printstr.c
+        srcs/ft_secu_malloc/ft_secu_malloc.c
+        srcs/ft_secu_malloc/ft_secu_free.c
+        srcs/ft_secu_malloc/ft_secu_free_all.c
+        srcs/ft_secu_malloc/ft_secu_malloc_get.c)
 
 include_directories(includes)
 
