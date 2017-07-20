@@ -6,13 +6,13 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:15 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/20 13:40:06 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/20 17:04:40 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
 
-void	lexer_print_type(t_token_type type)
+/*void	lexer_print_type(t_token_type type)// inutile juste pour debug
 {
 	if (type == E_TOKEN_BLANK)
 		ft_putstr("TOKEN_TYPE_BLANK");
@@ -48,31 +48,36 @@ void	lexer_print_type(t_token_type type)
 		ft_putstr("TOKEN_TYPE_GREATAND");
 	else if (type == E_TOKEN_IO_NUMBER)
 		ft_putstr("TOKEN_TYPE_IO_NUMBER");
-}
-
-/*void	ft_strdblfree(char **strdbl)
-{
-	int		i;
-
-	i = 0;
-	if (!strdbl)
-		return ;
-	while (strdbl && strdbl[i])
-	{
-		if (strdbl[i])
-			free(strdbl[i]);
-		i++;
-	}
-	free(strdbl);
 }*/
+
+int sh_open(t_btree *ast)
+{
+	t_cmd *item;
+	t_cmd	*redir;
+	int		fd;
+
+	fd = -1;
+	if (!ast && ast->right)
+		return (-1);
+	item = (t_cmd *)ast->right->item;
+	redir = (t_cmd *)ast->item;
+
+	if (redir->type == E_TOKEN_LESSGREAT)
+		fd = open(item->av[0], O_RDWR | O_CREAT, 0644);
+	else if ((redir->type == E_TOKEN_DLESS )|| (redir->type == E_TOKEN_DGREAT))
+		fd = open(item->av[0], O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (fd == -1)
+		ft_printf("Error: to open file: %s\n", item->av[0]);
+	return (fd);
+}
 
 int   sh_process_exec(t_sh_data *data, t_btree *ast)
 {
   t_cmd *item;
+	int		fd;
 
-	log_info("EXEC");
   if (!ast)
-    return (1);
+    return (-1);
   item = (t_cmd *)ast->item;
   if (item->type == E_TOKEN_WORD)
     return (sh_exec_simple(data, item));
@@ -90,7 +95,19 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast)
 		sh_process_exec(data, ast->left);
 		return (sh_process_exec(data, ast->right));
 	}
-  //btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
+	else if((item->type == E_TOKEN_LESSGREAT) || (item->type == E_TOKEN_DLESS ) ||\
+	 			(item->type == E_TOKEN_DGREAT))
+	{
+		fd = sh_open(ast);
+		if (fd != -1)
+		{
+			dup2(fd, 1);
+			close(fd);
+			sh_process_exec(data, ast->left);
+		}
+		if (fd != -1)
+			close(fd);
+	}
 	//lexer_print_type(item->type); // POUR DEBUG
   return (ft_printf("\nERROR\n"));
 }
