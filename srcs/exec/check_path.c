@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 17:48:07 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/20 16:05:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,13 @@ static int	sh_test_access(char const *filename)
 		else
 			ret = -1;
 	}
+	free(buf);
 	return (ret);
 }
 
+/*
+** return string malloc filename with path
+*/
 char	*sh_check_path(char const *cmd_name)
 {
 	char	**env_path;
@@ -61,12 +65,16 @@ char	*sh_check_path(char const *cmd_name)
 	if (!(env_path = ft_strsplit(sh_getenv_value("PATH"), ':')))
 		return (NULL);
 	ret = 0;
-	while (*env_path != NULL)
+	while (env_path && *env_path != NULL)
 	{
 		if (!(file = makefilepath(*env_path, cmd_name)))
 			break;
 		if ((tmp = sh_test_access(file)) == 1)
+		{
+			//ft_strdblfree(env_path);
+			//env_path = NULL;
 			return (file);
+		}
 		else if (tmp == -1)
 			ret = -1;
 		ft_strdel(&file);
@@ -76,8 +84,14 @@ char	*sh_check_path(char const *cmd_name)
 		ft_printf("%s: permission denied: %s\n", PROGNAME, cmd_name);
 	else if (ret == 0)
 		ft_printf("%s: command not found: %s\n", PROGNAME, cmd_name);
+	ft_strdblfree(env_path);
+	env_path = NULL;
 	return (NULL);
 }
+
+/*
+** return string malloc filename
+*/
 
 char *get_filename(char *av)
 {
