@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/18 13:40:53 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/20 09:30:46 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,13 @@ BOOL	ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 		return (true);
 	if (prio == 2 && (type == E_TOKEN_LESSGREAT))
 		return (true);
-	if ( prio == 2 && (type == E_TOKEN_DLESS))
+	if ( prio == 3 && (type == E_TOKEN_DLESS || type == E_TOKEN_DGREAT))
 		return (true);
-	if ( prio == 4 && (type == E_TOKEN_DGREAT))
+	if ( prio == 4 && ((type == E_TOKEN_PIPE) || (type == E_TOKEN_AND)))
 		return (true);
-	if ( prio == 5 && ((type == E_TOKEN_PIPE) || (type == E_TOKEN_AND)))
+	if ( prio == 5 && (ast_is_greatand(expands, cnt, type)))
 		return (true);
-	if ( prio == 6 && (ast_is_greatand(expands, cnt, type)))
-		return (true);
-	if ( prio == 7 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
+	if ( prio == 6 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
 		return (true);
 	return (false);
 }
