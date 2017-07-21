@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 09:30:46 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 15:10:06 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	ast_del_cmd(t_cmd *cmd)
 		return ;
 	if (cmd->av)
 	{
-		free(cmd->av);
+		ft_secu_free(cmd->av);
 		cmd->av = NULL;
 	}
-	free(cmd);
+	ft_secu_free(cmd);
 	cmd = NULL;
 }
 
@@ -80,10 +80,10 @@ t_cmd	*ast_new_cmd(t_array *expands, int start, int end, t_token_type type)
 	cnt = 0;
 	if ((end - start) < 0)
 		return (NULL);
-	if (!expands || !(cmd = (t_cmd*)malloc(sizeof(t_cmd))))
+	if (!expands || !(cmd = (t_cmd*)ft_secu_malloc_lvl(sizeof(t_cmd), M_LVL_AST)))
 		return (NULL);
 	ft_bzero(cmd, sizeof(t_cmd));
-	if (!(cmd->av = (char **)malloc(sizeof(char **) * (end - start + 2))))
+	if (!(cmd->av = (char **)ft_secu_malloc(sizeof(char **) * (end - start + 2))))
 		return(NULL);
 	cmd->type = type;
 	while ( i < (end - start) && (exp = (t_exp*)array_get_at(expands, start + i)))// TODO: peut etre pas <= mais juste <

@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 19:56:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/21 13:05:00 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 15:10:10 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define ft_secu_malloc_H
 
 #include <libft.h>
+
+# define MALLOC_LVL_DEFAULT 0
+# define MALLOC_LVL_FUNCTION 1
+# define M_LVL_AST 3
 
 struct          s_secu_malloc
 {
@@ -39,10 +43,8 @@ void *ft_secu_malloc(size_t size);
 void ft_secu_free(void *ptr);
 void ft_secu_free_all(void);
 
-
 # define MALLOC(x) ft_secure_malloc(x)
 # define FREE(x) ft_secure_free(x)
-# define MALLOC_LVL_FUNCTION 1
-# define MALLOC_LVL_DEFAULT 0
+# define FREE_LVL(x) ft_secure_free_lvl(x)
 
 #endif

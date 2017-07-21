@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/20 17:10:01 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 15:17:55 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void sh_arrays_reset(t_automaton *automat, t_array *tokens, t_array *expands,\
 	array_reset(expands, sh_exp_del);
 	automaton_reset(automat);
 	input ? ft_strdel(&input) : 0;
+	ft_secu_free_lvl(M_LVL_AST);
 }
 
 //lex, pars, expand, et build ast, il retourn l'ast
@@ -91,7 +92,6 @@ int main(int ac, char *const *av, char **environ)
 	t_automaton	automaton;
 	t_array		tokens;
 	t_array		expand_array;
-	t_btree		*ast;
 	char		*input;
 
 	sh_arrays_init(&automaton, &tokens, &expand_array);
@@ -104,10 +104,8 @@ int main(int ac, char *const *av, char **environ)
 			break;
 		if (input && ft_strequ(input, "exit"))
 			break;
-		ast = sh_process(&automaton, &tokens, &expand_array, input);
-		sh_process_exec(&data, ast);
+		sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array, input));
 		sh_arrays_reset(&automaton, &tokens, &expand_array, input);
-		btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	}
 	sh_arrays_reset(&automaton, &tokens, &expand_array, input);
 	sh_exit(&data, NULL);
