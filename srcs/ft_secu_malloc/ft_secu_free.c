@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 20:09:31 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/21 00:54:12 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 13:21:45 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ void ft_secu_free(void *ptr)
 		mem->last = secu_malloc->prev;
 	else
 		secu_malloc->next->prev = secu_malloc->prev;
-	ft_memdel((void **)&secu_malloc->ptr);
-	ft_memdel((void **)&secu_malloc);
+	free(secu_malloc->ptr);
+	free(secu_malloc);
 }
