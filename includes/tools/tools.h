@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   progname.h                                         :+:      :+:    :+:   */
+/*   tools.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guiforge <guiforge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/14 15:59:41 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/14 16:02:11 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/20 13:00:38 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/20 16:14:49 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROGNAME_H
-# define PROGNAME_H
+#ifndef TOOLS_H
+# define TOOLS_H
 
-# define PROGNAME "21sh"
+# include <libft.h>
+
+void	ft_strdblfree(char **strdb);
+BOOL  is_printstr(char const *line);
 
 #endif

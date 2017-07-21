@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_path.h                                       :+:      :+:    :+:   */
+/*   ft_strdblfree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/02/23 21:06:22 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 16:47:39 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/03/06 18:54:40 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/20 13:40:06 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef CHECK_PATH_H
-#define CHECK_PATH_H
 
-# include <libft.h>
-# include <ftprintf.h>
-# include <environ/env_list_utils.h>
-# include <environ/environ.h>
+#include <tools/tools.h>
 
-#include <sys/stat.h>
+void	ft_strdblfree(char **strdb)
+{
+	int		i;
 
-char	*sh_check_path(char const *cmd_name);
-
-#endif
+	i = 0;
+	if (!strdb)
+		return ;
+	while (strdb && strdb[i])
+	{
+		if (strdb[i])
+			ft_strdel(&strdb[i]);
+		i++;
+	}
+	free(strdb);
+}

@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/12 15:25:58 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/20 16:14:17 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <libtcaps.h>
 # include <core/prompt.h>
 # include <sys/ioctl.h>
+# include <tools/tools.h>
 //int		sh_get_command(t_ms_data	*data);
 
 typedef struct s_select	t_select;

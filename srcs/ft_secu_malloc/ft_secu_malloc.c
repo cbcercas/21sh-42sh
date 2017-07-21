@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   progname.h                                         :+:      :+:    :+:   */
+/*   ft_secu_malloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guiforge <guiforge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/14 15:59:41 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/14 16:02:11 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/20 19:57:29 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/21 12:56:02 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROGNAME_H
-# define PROGNAME_H
+# include <ft_secu_malloc/ft_secu_malloc.h>
 
-# define PROGNAME "21sh"
-
-#endif
+void *ft_secu_malloc(size_t size)
+{
+	return (ft_secu_malloc_lvl(size, MALLOC_LVL_DEFAULT));
+}

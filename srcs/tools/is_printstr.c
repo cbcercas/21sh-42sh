@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   progname.h                                         :+:      :+:    :+:   */
+/*   is_printstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: guiforge <guiforge@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/14 15:59:41 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/14 16:02:11 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/20 16:10:45 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/20 16:11:09 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROGNAME_H
-# define PROGNAME_H
+# include <tools/tools.h>
 
-# define PROGNAME "21sh"
 
-#endif
+BOOL        is_printstr(char const *line)
+{
+    while (line && ft_isprint(*line))
+        line++;
+    return (*line != '\0') ? false :true;
+}

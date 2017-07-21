@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 11:23:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/18 16:39:38 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 14:37:47 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	btree_destroy(t_btree **root, void (*del)(void *))
 	if ((*root)->right != NULL)
 		btree_destroy(&(*root)->right, NULL);
 	if ((*root)->left != NULL)
-		free((*root)->left);
+		ft_secu_free((*root)->left);
 	if ((*root)->right != NULL)
-		free((*root)->right);
+		ft_secu_free((*root)->right);
 	if ((*root))
-		free((*root));
+		ft_secu_free((*root));
 	(*root) = NULL;
 }

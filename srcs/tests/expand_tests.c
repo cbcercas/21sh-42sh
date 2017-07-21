@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 18:26:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/10 16:32:29 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/19 10:22:18 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void expand_print_test(t_array *array_exp)
   {
     exp = (t_exp *)array_get_at(array_exp, i);
     if (exp)
-      ft_printf("%s", exp->str);
+      ft_printf("%s", exp->str->s);
     i++;
   }
 }

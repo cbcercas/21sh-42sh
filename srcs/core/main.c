@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/18 17:27:44 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/21 16:14:28 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ BOOL sh_get_input(t_sh_data *data, char **input)
 void sh_arrays_reset(t_automaton *automat, t_array *tokens, t_array *expands,\
 	 										char *input)
 {
-	sh_history_set_new(input);
 	array_reset(tokens, NULL);
 	array_reset(expands, sh_exp_del);
 	automaton_reset(automat);
 	input ? ft_strdel(&input) : 0;
+	ft_secu_free_lvl(2);
 }
 
 //lex, pars, expand, et build ast, il retourn l'ast
@@ -71,20 +71,21 @@ t_btree	*sh_process(t_automaton *automat, t_array *tokens, t_array *expands,\
 	if (lexer_lex(tokens, automat, input))
 		if (parser_parse(tokens))
 		{
-			lexer_print_tokens(tokens);
+			//lexer_print_tokens(tokens);
 			if (expand(tokens, expands))
 			{
+					sh_history_set_new(input);
 				if (!(ast = ast_create(expands)))
-					ft_printf("AST NULL\n");
-				else
-					btree_print(ast, (char * (*)(void*))&ast_aff);
+					;//ft_printf("AST NULL\n");
+				//else
+					//btree_print(ast, (char * (*)(void*))&ast_aff);
 				return (ast);
 			}
 		}
 		return (NULL);
 }
 
-//j'ai eu beaucoup de mal à diminuer le nombre de variables 
+//j'ai beaucoup de mal à diminuer le nombre de variables
 int main(int ac, char *const *av, char **environ)
 {
 	t_sh_data	data;
@@ -101,9 +102,9 @@ int main(int ac, char *const *av, char **environ)
 		sh_print_prompt();
 		if (!sh_get_input(&data, &input))
 			break;
-			/*sh_exec(*/sh_process(&automaton, &tokens, &expand_array, input);//); //TODO destroy ast
 		if (input && ft_strequ(input, "exit"))
 			break;
+		sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array, input));
 		sh_arrays_reset(&automaton, &tokens, &expand_array, input);
 	}
 	sh_arrays_reset(&automaton, &tokens, &expand_array, input);

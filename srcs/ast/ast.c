@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:47:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/16 12:26:33 by guiforge         ###   ########.fr       */
+/*   Updated: 2017/07/19 18:06:23 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ast_val_cmp(t_token_type type)
 		return (4);
 	if ((type == E_TOKEN_PIPE) || (type == E_TOKEN_AND))
 		return (5);
-	if (type == E_TOKEN_WORD)
+	if (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER)
 		return (6);
 	return (7);
 }

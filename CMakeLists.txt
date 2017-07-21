@@ -11,8 +11,10 @@ set(SOURCE_FILES
         srcs/builtins/chdir.c
         srcs/builtins/echo.c
         srcs/builtins/exit.c
-        srcs/core/check_path.c
-        srcs/core/command.c
+        srcs/exec/check_path.c
+        srcs/exec/sh_process_exec.c
+        srcs/exec/sh_exec.c
+        srcs/exec/sh_exec_pipe.c
         srcs/core/init.c
         srcs/core/deinit.c
         srcs/core/input.c
@@ -85,9 +87,17 @@ set(SOURCE_FILES
         srcs/ast/ast_is_greatand.c
         srcs/ast/ast.c
         srcs/tests/ast_tests.c
-		srcs/autocomplete/autocomplete.c)
+		    srcs/autocomplete/autocomplete.c
         srcs/builtins/builtin_help.c
-        srcs/builtins/pwd.c)
+        srcs/builtins/pwd.c
+        srcs/tools/ft_strdblfree.c
+        srcs/tools/is_printstr.c
+        srcs/ft_secu_malloc/ft_secu_malloc.c
+        srcs/ft_secu_malloc/ft_secu_free.c
+        srcs/ft_secu_malloc/ft_secu_malloc_lvl.c
+        srcs/ft_secu_malloc/ft_secu_free_lvl.c
+        srcs/ft_secu_malloc/ft_secu_free_all.c
+        srcs/ft_secu_malloc/ft_secu_malloc_get.c)
 
 include_directories(includes)
 

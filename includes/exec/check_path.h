@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.h                                          :+:      :+:    :+:   */
+/*   check_path.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/17 14:26:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/28 04:54:45 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/02/23 21:06:22 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/07/21 15:23:40 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_H
-# define COMMAND_H
+#ifndef CHECK_PATH_H
+#define CHECK_PATH_H
 
-# include <unistd.h>
-# include <core/init.h>
-# include <core/data.h>
-# include <core/check_path.h>
-# include <sys/wait.h>
+# include <libft.h>
+# include <ftprintf.h>
+# include <environ/env_list_utils.h>
+# include <environ/environ.h>
+# include <ft_secu_malloc/ft_secu_malloc.h>
 
-int	sh_command(t_sh_data *data, char **command);
-char **sh_get_command(char *input);
-int	sh_exec_command(char **command);
+#include <sys/stat.h>
+
+char	*sh_check_path(char const *cmd_name);
+char *get_filename(char *av);
 
 #endif

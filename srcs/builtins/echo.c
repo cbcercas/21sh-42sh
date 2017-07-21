@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/12 20:02:13 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/19 21:24:17 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,9 @@ int sh_echo(t_sh_data *data, char **argv)
 	int		opt;
 	char	flag[2]; //0 => n,  1 => e
 
-	//TODO : reset get_opt
-	opterr = 1;
-	optind = 1;
-	optarg = NULL;
-
+	ft_getopt_reset();
 	ft_bzero(flag, 2);
-	while ((opt = getopt(ft_tablen(argv), argv, "Een")) != -1) //TODO:change for ft_getopt
+	while ((opt = ft_getopt(ft_tablen(argv), argv, "Een")) != -1) //TODO:change for ft_getopt
 	{
 		if(opt == 'n')
 			flag[0] = 1;
@@ -120,9 +116,10 @@ int sh_echo(t_sh_data *data, char **argv)
 			break ;
 	}
 	if (opt != '?')
-		echo_print(&argv[optind], flag);
-	if (!flag[0] && opt != '?')
-		ft_putstr("\n");
-	//TODO : reset get_opt
-	return (0);
+		echo_print(&argv[g_optind], flag);
+	if (flag[0] && opt != '?')
+		ft_putstr("%");
+	ft_putstr("\n");
+	ft_getopt_reset();
+	return (((opt != '?') ? 0 : -1));
 }
