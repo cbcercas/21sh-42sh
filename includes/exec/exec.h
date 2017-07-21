@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/20 13:40:06 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 15:23:48 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <exec/check_path.h>
 # include <signals/signals.h>
 # include <tools/tools.h>
+# include <ft_secu_malloc/ft_secu_malloc.h>
 
 #define START 1
 #define END 0

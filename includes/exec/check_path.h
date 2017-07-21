@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:06:22 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 17:47:31 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 15:23:40 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <ftprintf.h>
 # include <environ/env_list_utils.h>
 # include <environ/environ.h>
+# include <ft_secu_malloc/ft_secu_malloc.h>
 
 #include <sys/stat.h>
 

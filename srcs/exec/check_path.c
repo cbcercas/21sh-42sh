@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/20 16:35:18 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 15:29:35 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	sh_test_access(char const *filename)
 	struct stat *buf;
 	int		ret;
 
-	if (!(buf = ft_memalloc(sizeof(*buf))))
+	if (!(buf = ft_secu_malloc(sizeof(*buf))))
 		return (-2);
 	ret = 0;
 	ft_bzero(buf, sizeof(*buf));
@@ -48,7 +48,7 @@ static int	sh_test_access(char const *filename)
 		else
 			ret = -1;
 	}
-	free(buf);
+	ft_secu_free(buf);
 	return (ret);
 }
 
