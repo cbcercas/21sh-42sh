@@ -37,8 +37,10 @@ char *autoc_get_last(char *current_input)
 	size_t i;
 	size_t j;
 
+	//TODO: Gerer les espaces avant les tab genre "ls     TAB" ou "     TAB"
 	j = 0;
-	input_len = ft_strlen(current_input);
+	if (current_input != NULL)
+		input_len = ft_strlen(current_input);
 	i = input_len - 1;
 	while (ft_isalnum(current_input[i]) == 1)
 	{
