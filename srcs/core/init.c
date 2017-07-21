@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/07 22:20:20 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/18 18:19:17 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 	int opt;
 
 	opts->tcaps = true;
+	if (av && av[1] && av[2] && av[3] && av[4])
+		{
+			ft_putendl_fd("ERROR: trop d'arguments", 2);
+			exit (EXIT_FAILURE);
+		}
 	while ((opt = ft_getopt(ac, av, "hvd:t:l")) >= 0)
 	{
 		if (opt == 'v')
@@ -77,7 +82,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		exit (1);
 	}
 	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
-			sh_setenv("TERM", "dumb");
+			sh_setenv("TERM", "xterm");
 	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
 	{
 		ft_printf("%s: Error on tgetent\n", PROGNAME);

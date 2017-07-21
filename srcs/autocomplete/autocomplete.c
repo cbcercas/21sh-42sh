@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:35 by jlasne            #+#    #+#             */
-/*   Updated: 2017/07/18 16:38:41 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/07/19 10:01:19 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <dirent.h>
 #include <logger.h>
 
-t_array	*autoc_create_array(void)
+/*t_array	*autoc_create_array(void)
 {
 	static t_array	*e = NULL;
 
@@ -72,4 +72,4 @@ char **autoc_get_possibilities(char *word)
 	else
 		ft_printf("Error autocomplete opening directory");
 	return (possibilities);
-}
+}*/

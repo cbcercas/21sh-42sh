@@ -86,6 +86,8 @@ set(SOURCE_FILES
         srcs/ast/ast.c
         srcs/tests/ast_tests.c
 		srcs/autocomplete/autocomplete.c)
+        srcs/builtins/builtin_help.c
+        srcs/builtins/pwd.c)
 
 include_directories(includes)
 

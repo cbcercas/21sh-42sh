@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   tcaps_exec_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:47:05 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/30 13:48:15 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/07/19 10:02:00 by guiforge         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
 
-static void	ft_print_array(char **arr)
+/*static void	ft_print_array(char **arr)
 {
 	int i;
 
@@ -22,18 +22,19 @@ static void	ft_print_array(char **arr)
 		ft_printf("%s\n", arr[i]);
 		i++;
 	}
-}
+}*/
 
 BOOL	exec_tab(const t_key *key, t_input *input)
 {
-	char *last_word;
-	char **possibilities;
+	//char *last_word;
+	//char **possibilities;
 
 	(void)key;
-	last_word = autoc_get_last(input->str->s);
-	possibilities = autoc_get_possibilities(last_word);
+	(void)input;
+	//last_word = autoc_get_last(input->str->s);
+	//possibilities = autoc_get_possibilities(last_word);
 	//TODO: Cas de "ls TAB" "caTAB" "cd /TAB"
-	ft_print_array(possibilities);
+	//ft_print_array(possibilities);
 	//exec_ctrl_c(key, input);
 	return (false);
 }

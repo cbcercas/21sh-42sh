@@ -10,5 +10,6 @@
 
 int     sh_builtin_setenv(t_sh_data *data, char **args);
 int     sh_builtin_unsetenv(t_sh_data *data, char **args);
+int		sh_builtin_env(t_sh_data *data, char **args);
 
 #endif
