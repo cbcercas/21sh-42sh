@@ -53,6 +53,8 @@ char **autoc_get_possibilities(char *word)
 {
 	char **possibilities;
 
+	(void)word;
+	possibilities = NULL;
 	char *path = getenv("PATH");
 	char **path_split = ft_strsplit(path, ':');
 
@@ -63,8 +65,8 @@ char **autoc_get_possibilities(char *word)
 	dp = opendir (path_split[0]);
 	if (dp != NULL)
 	{
-		while (ep = readdir (dp))
-			possibilities = ft_add_to_array(ep->d_name, possibilities);
+		while ((ep = readdir (dp)))
+			;//possibilities = ft_add_to_array(ep->d_name, possibilities);
 		(void) closedir (dp);
 	}
 	else
