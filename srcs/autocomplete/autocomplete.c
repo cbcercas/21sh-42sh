@@ -13,8 +13,8 @@
 #include <autocomplete/autocomplete.h>
 #include <dirent.h>
 #include <logger.h>
-
-/*t_array	*autoc_create_array(void)
+/*
+t_array	*autoc_create_array(void)
 {
 	static t_array	*e = NULL;
 
@@ -29,7 +29,7 @@
 	}
 	return (e);
 }
-
+*/
 char *autoc_get_last(char *current_input)
 {
 	char *last_word;
@@ -48,7 +48,7 @@ char *autoc_get_last(char *current_input)
 	last_word = ft_strsub(current_input, input_len - j, j);
 	return (last_word);
 }
-
+/*
 char **autoc_get_possibilities(char *word)
 {
 	char **possibilities;
@@ -72,4 +72,5 @@ char **autoc_get_possibilities(char *word)
 	else
 		ft_printf("Error autocomplete opening directory");
 	return (possibilities);
-}*/
+}
+*/
