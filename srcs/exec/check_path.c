@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/21 15:29:35 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 16:10:42 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	sh_test_access(char const *filename)
 	struct stat *buf;
 	int		ret;
 
-	if (!(buf = ft_secu_malloc(sizeof(*buf))))
+	if (!(buf = ft_secu_malloc_lvl(sizeof(*buf), 3)))
 		return (-2);
 	ret = 0;
 	ft_bzero(buf, sizeof(*buf));

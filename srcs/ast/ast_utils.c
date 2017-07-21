@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/21 15:10:06 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 16:14:18 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_cmd	*ast_new_cmd(t_array *expands, int start, int end, t_token_type type)
 	cnt = 0;
 	if ((end - start) < 0)
 		return (NULL);
-	if (!expands || !(cmd = (t_cmd*)ft_secu_malloc_lvl(sizeof(t_cmd), M_LVL_AST)))
+	if (!expands || !(cmd = (t_cmd*)ft_secu_malloc_lvl(sizeof(t_cmd), 2)))
 		return (NULL);
 	ft_bzero(cmd, sizeof(t_cmd));
 	if (!(cmd->av = (char **)ft_secu_malloc(sizeof(char **) * (end - start + 2))))

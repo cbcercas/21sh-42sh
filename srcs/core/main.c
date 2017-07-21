@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/21 15:17:55 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 16:14:28 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void sh_arrays_reset(t_automaton *automat, t_array *tokens, t_array *expands,\
 	array_reset(expands, sh_exp_del);
 	automaton_reset(automat);
 	input ? ft_strdel(&input) : 0;
-	ft_secu_free_lvl(M_LVL_AST);
+	ft_secu_free_lvl(2);
 }
 
 //lex, pars, expand, et build ast, il retourn l'ast
