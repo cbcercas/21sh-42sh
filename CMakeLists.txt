@@ -94,6 +94,8 @@ set(SOURCE_FILES
         srcs/tools/is_printstr.c
         srcs/ft_secu_malloc/ft_secu_malloc.c
         srcs/ft_secu_malloc/ft_secu_free.c
+        srcs/ft_secu_malloc/ft_secu_malloc_lvl.c
+        srcs/ft_secu_malloc/ft_secu_free_lvl.c
         srcs/ft_secu_malloc/ft_secu_free_all.c
         srcs/ft_secu_malloc/ft_secu_malloc_get.c)
 

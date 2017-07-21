@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/07/21 00:54:57 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/07/21 13:01:40 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,7 @@ SRCS            += autocomplete.c
 
 SRC_SUBDIR += ft_secu_malloc
 SRCS			+= ft_secu_free_all.c ft_secu_free.c ft_secu_malloc.c\
- 							ft_secu_malloc_get.c 
+ 							ft_secu_malloc_get.c ft_secu_malloc_lvl.c ft_secu_free_lvl.c
 
 ###############################################################################
 #																			  #
