@@ -12,7 +12,7 @@
 
 #include <autocomplete/autocomplete.h>
 
-char *autoc_get_last(char *current_input)
+char *autoc_get_last_word(char *current_input)
 {
 	char *last_word;
 	size_t len;

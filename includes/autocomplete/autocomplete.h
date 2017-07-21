@@ -17,7 +17,7 @@
 # include <libft.h>
 # include <ftprintf.h>
 
-char *autoc_get_last(char *current_input);
+char *autoc_get_last_word(char *current_input);
 char **autoc_get_possibilities(char *word);
 
 #endif
