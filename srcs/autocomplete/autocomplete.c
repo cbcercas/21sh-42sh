@@ -15,22 +15,27 @@
 char *autoc_get_last(char *current_input)
 {
 	char *last_word;
-	size_t input_len;
+	size_t len;
 	size_t i;
-	size_t j;
+	size_t last_word_len;
+	size_t nb_spaces;
 
-	//TODO: Gerer les espaces avant les tab genre "ls     TAB" ou "     TAB"
-	j = 0;
-	if (current_input != NULL)
-		input_len = ft_strlen(current_input);
-	else
+	last_word_len = 0;
+	nb_spaces = 0;
+	if (current_input == NULL || current_input[0] == '\0')
 		return (NULL);
-	i = input_len - 1;
+	len = ft_strlen(current_input);
+	i = len - 1;
+	while (current_input[i] == ' ' && i > 0)
+	{
+		i--;
+		nb_spaces++;
+	}
 	while (ft_isalnum(current_input[i]) == 1)
 	{
-		j++;
+		last_word_len++;
 		i--;
 	}
-	last_word = ft_strsub(current_input, input_len - j, j);
+	last_word = ft_strsub(current_input, len - last_word_len - nb_spaces, last_word_len);
 	return (last_word);
 }

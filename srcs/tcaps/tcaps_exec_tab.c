@@ -39,7 +39,7 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 		; //user pressed tab with a command started
 	if (is_input_after_first(input->str->s) == 1)
 		; //user pressed tab after writing the first command
+	ft_printf("\n|%s|\n", autoc_get_last(input->str->s));
 	//TODO: Savoir si c'est le premier mot, sans mot, ou deuxieme mot et + dans l'input
-	exec_ctrl_c(key, input);
 	return (false);
 }
