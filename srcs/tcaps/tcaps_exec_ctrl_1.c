@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/12 16:54:49 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/22 12:14:40 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,19 @@ BOOL	exec_ctrl_e(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_l(const t_key *key, t_input *input)
 {
+	size_t 	pos;
+
 	(void)key;
-	(void)input;
+	pos = pos_in_str(*input);
+	input->offset_col = sh_len_prompt();
+	input->offset_line = 0;
+	input->cpos.cp_line = 0;
+	input->select.is = false;
+	input->cpos.cp_col = (unsigned short)input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
-	return (true);
+	sh_print_prompt();
+	redraw_line(input);
+	while (pos != pos_in_str(*input))
+		exec_arrow_right(NULL, input);
+	return (false);
 }
