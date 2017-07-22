@@ -90,6 +90,7 @@ set(SOURCE_FILES
 		srcs/autocomplete/autocomplete.c
 		srcs/autocomplete/autocomplete_array_handler.c
 		srcs/autocomplete/autoc_get_dir_content.c
+		srcs/autocomplete/autoc_get_binaries.c
 		srcs/builtins/builtin_help.c
         srcs/builtins/pwd.c
         srcs/tools/ft_strdblfree.c

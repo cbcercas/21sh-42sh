@@ -23,5 +23,6 @@ void    autoc_add_to_array(char *to_add, t_array *array);
 char	*autoc_get_from_array_at(size_t pos, t_array *array);
 void autoc_array_print(t_array *array);
 t_array *autoc_get_dir_content(char *path);
+t_array *autoc_get_binaries(void);
 
 #endif

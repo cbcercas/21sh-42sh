@@ -76,7 +76,8 @@ SRC_SUBDIR      += ast
 SRCS            += ast.c ast_utils.c ast_built.c ast_is_greatand.c
 
 SRC_SUBDIR      += autocomplete
-SRCS            += autocomplete.c autocomplete_array_handler.c autoc_get_dir_content.c
+SRCS            += autocomplete.c autocomplete_array_handler.c \
+                   autoc_get_dir_content.c autoc_get_binaries.c
 
 SRC_SUBDIR += ft_secu_malloc
 SRCS			+= ft_secu_free_all.c ft_secu_free.c ft_secu_malloc.c\

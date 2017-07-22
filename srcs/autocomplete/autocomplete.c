@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <autocomplete/autocomplete.h>
+# include <autocomplete/autocomplete.h>
 
 char *autoc_get_last_word(char *current_input)
 {

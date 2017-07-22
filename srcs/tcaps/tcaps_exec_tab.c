@@ -82,29 +82,31 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	t_array *possibilities;
 
 	log_dbg1("Autocomplete: User pressed tab.");
+	log_dbg2("Autocomplete: User input when tab was pressed is |%s|", input->str->s);
 	(void) key;
 	possibilities = array_create(sizeof(char *));
 	last_word = autoc_get_last_word(input->str->s);
+	log_dbg3("Autocomplete: Last word from input is |%s|", last_word);
 	if (is_input_empty(input->str->s) == 1)
 	{
 		log_dbg2("Autocomplete: User pressed tab when input was empty."); //user pressed tab without anything before = ALL CMD
+		possibilities = autoc_get_binaries();
 	}
 	else if (is_input_at_first_word(input->str->s) == 1)
 	{
 		log_dbg2("Autocomplete: User pressed tab when input was at first word."); //user pressed tab with a command started = CMD
+		possibilities = autoc_get_binaries();
 	}
 	if (is_input_at_options(input->str->s) == 1)
 	{
-		log_dbg2("Autocomplete: User pressed tab when input was at options (-)."); //user pressed tab after writing a '-' (TODO go fetch the options)
+		log_dbg2("Autocomplete: User pressed tab when input was at options (-)."); //user pressed tab after writing a '-'
+		//TODO: go fetch the options
 	}
 	else if (is_input_after_first_word(input->str->s) == 1)
 	{
 		log_dbg2("Autocomplete: User pressed tab when input was after the first word."); //user pressed tab after writing the first command = DIR
 		possibilities = autoc_get_dir_content("./");
 	}
-
-
 	autoc_array_print(possibilities);
-	log_dbg3("Autocomplete: Last word from input is |%s|", last_word);
 	return (false);
 }

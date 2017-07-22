@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   autocomplete_array_handler.c                       :+:      :+:    :+:   */
+/*   autocomplete.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,32 +11,45 @@
 /* ************************************************************************** */
 
 # include <autocomplete/autocomplete.h>
+#include <dirent.h>
 
-void    autoc_add_to_array(char *to_add, t_array *array)
+size_t		ft_strarray_len(char **arr)
 {
-	if (!array)
-		array = array_create(sizeof(char *));
-	if (array)
-		array_push(array, (void *)to_add);
-}
+	size_t	i;
 
-char	*autoc_get_from_array_at(size_t pos, t_array *array)
-{
-	return ((char *)array_get_at(array, pos));
-}
-
-void autoc_array_print(t_array *array)
-{
-	size_t i;
-
-	log_dbg3("Autocomplete: Starting to display array content:");
-	log_dbg3("************************************************");
+	if (arr == NULL)
+		return (0);
 	i = 0;
-	while (i < array->used)
+	while (arr[i] != NULL)
+		i = i + 1;
+	return (i);
+}
+
+t_array *autoc_get_binaries(void)
+{
+	t_array *binaries;
+	char **paths;
+	size_t nb_paths;
+	size_t  i;
+	DIR *dp;
+	struct dirent *ep;
+
+	binaries = array_create(sizeof(char *));
+	paths = ft_strsplit(getenv("PATH"), ':');
+	nb_paths = ft_strarray_len(paths);
+	i = 0;
+	while (i < nb_paths)
 	{
-		log_dbg3("%s", autoc_get_from_array_at(i, array));
+		dp = opendir(paths[i]);
+		if (dp != NULL)
+		{
+			while ((ep = readdir(dp)))
+				autoc_add_to_array(ep->d_name, binaries);
+			(void)closedir(dp);
+		}
+		else
+			;//TODO ERROR HANDLInG HERE
 		i++;
 	}
-	log_dbg3("************************************************");
-	log_dbg3("Autocomplete: Finished displaying array content:");
+	return (binaries);
 }
