@@ -89,6 +89,7 @@ set(SOURCE_FILES
         srcs/tests/ast_tests.c
 		srcs/autocomplete/autocomplete.c
 		srcs/autocomplete/autocomplete_array_handler.c
+		srcs/autocomplete/autoc_get_dir_content.c
 		srcs/builtins/builtin_help.c
         srcs/builtins/pwd.c
         srcs/tools/ft_strdblfree.c

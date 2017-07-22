@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   autocomplete.c                                     :+:      :+:    :+:   */
+/*   autocomplete_get_dir_content.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,37 +11,24 @@
 /* ************************************************************************** */
 
 #include <autocomplete/autocomplete.h>
+#include <dirent.h>
 
-char *autoc_get_last_word(char *current_input)
+t_array *autoc_get_dir_content(char *path)
 {
-	char *last_word;
-	size_t len;
-	size_t i;
-	size_t last_word_len;
-	size_t nb_spaces;
+	t_array *content;
 
-	last_word_len = 0;
-	nb_spaces = 0;
-	if (current_input == NULL || current_input[0] == '\0')
-		return (NULL);
-	len = ft_strlen(current_input);
-	i = len - 1;
-	while (current_input[i] == ' ' && i > 0)
-	{
-		i--;
-		nb_spaces++;
-	}
-	if (i > 0)
-	{
+	content = array_create(sizeof(char *));
+	DIR *dp;
+	struct dirent *ep;
 
-		while (ft_isalnum(current_input[i]) == 1)
-		{
-			last_word_len++;
-			i--;
-		}
+	dp = opendir(path);
+	if (dp != NULL)
+	{
+		while ((ep = readdir(dp)))
+			ft_printf("%s\n", ep->d_name);
+		(void)closedir(dp);
 	}
 	else
-		last_word = NULL;
-	last_word = ft_strsub(current_input, len - last_word_len - nb_spaces, last_word_len);
-	return (last_word);
+		;//TODO ERROR HANDLInG HERE
+	return (content);
 }

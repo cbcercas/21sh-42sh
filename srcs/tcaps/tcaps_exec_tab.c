@@ -79,6 +79,7 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 
 	(void)key;
 
+	autoc_get_dir_content("./");
 
 	possibilities = array_create(sizeof(char *));
 
@@ -93,11 +94,11 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	else if (is_input_after_first_word(input->str->s) == 1)
 		ft_printf("INPUT IS AFTER FIRST WORD\n"); //user pressed tab after writing the first command = DIR
 	ft_printf("\n|%s|\n", last_word);
-	autoc_add_to_array(input->str->s, possibilities);
-	autoc_add_to_array(last_word, possibilities);
-
-	ft_printf("Input:%s\nLast Word:%s\n", autoc_get_at(0, possibilities), autoc_get_at(1, possibilities));
-
+	if (input && input->str && input->str->s)
+				autoc_add_to_array(input->str->s, possibilities);
+	if (last_word)
+		autoc_add_to_array(last_word, possibilities);
+	ft_printf("Input:%s\nLast Word:%s\n", autoc_get_from_array_at(0, possibilities), autoc_get_from_array_at(1, possibilities));
 	array_destroy(&possibilities, free);
 	return (false);
 }

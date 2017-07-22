@@ -20,7 +20,7 @@ void    autoc_add_to_array(char *to_add, t_array *array)
 		array_push(array, (void *)to_add);
 }
 
-char	*autoc_get_at(size_t pos, t_array *array)
+char	*autoc_get_from_array_at(size_t pos, t_array *array)
 {
 	return ((char *)array_get_at(array, pos));
 }
