@@ -87,8 +87,9 @@ set(SOURCE_FILES
         srcs/ast/ast_is_greatand.c
         srcs/ast/ast.c
         srcs/tests/ast_tests.c
-		    srcs/autocomplete/autocomplete.c
-        srcs/builtins/builtin_help.c
+		srcs/autocomplete/autocomplete.c
+		srcs/autocomplete/autocomplete_array_handler.c
+		srcs/builtins/builtin_help.c
         srcs/builtins/pwd.c
         srcs/tools/ft_strdblfree.c
         srcs/tools/is_printstr.c

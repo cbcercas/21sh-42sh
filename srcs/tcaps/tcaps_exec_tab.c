@@ -77,19 +77,12 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	char *last_word;
 	t_array *possibilities;
 
-	ft_printf("lol");
 	(void)key;
-	possibilities = autoc_create_array();
-	ft_printf("lol");
 
 
-	array_insert(possibilities, 0, "Bonjour !");
-	array_insert(possibilities, 1, " tu");
-	array_insert(possibilities, 2, " va");
-	array_insert(possibilities, 3, " bien ? :D");
-	ft_printf("lol");
-	ft_printf("%s%s%s%s", array_get_at(possibilities, 0), array_get_at(possibilities, 1), array_get_at(possibilities, 2), array_get_at(possibilities, 3));
-	ft_printf("lol");
+	possibilities = array_create(sizeof(char *));
+
+
 	last_word = autoc_get_last_word(input->str->s);
 	if (is_input_empty(input->str->s) == 1)
 		ft_printf("INPUT IS AT EMPTY\n"); //user pressed tab without anything before = ALL CMD
@@ -100,5 +93,11 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	else if (is_input_after_first_word(input->str->s) == 1)
 		ft_printf("INPUT IS AFTER FIRST WORD\n"); //user pressed tab after writing the first command = DIR
 	ft_printf("\n|%s|\n", last_word);
+	autoc_add_to_array(input->str->s, possibilities);
+	autoc_add_to_array(last_word, possibilities);
+
+	ft_printf("Input:%s\nLast Word:%s\n", autoc_get_at(0, possibilities), autoc_get_at(1, possibilities));
+
+	array_destroy(&possibilities, free);
 	return (false);
 }

@@ -19,6 +19,7 @@
 # include <logger.h>
 
 char *autoc_get_last_word(char *current_input);
-t_array	*autoc_create_array(void);
+void    autoc_add_to_array(char *to_add, t_array *array);
+char	*autoc_get_at(size_t pos, t_array *array);
 
 #endif
