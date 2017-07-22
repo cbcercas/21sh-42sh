@@ -76,37 +76,61 @@ int is_input_at_options(char *input)
 	return (0);
 }
 
+BOOL ft_str_starts_with(const char *a, const char *b)
+{
+	if(strncmp(a, b, strlen(b)) == 0) return 1;
+	return 0;
+}
+
 BOOL	exec_tab(const t_key *key, t_input *input)
 {
 	char *last_word;
 	t_array *possibilities;
+	t_array *match;
 
 	log_dbg1("Autocomplete: User pressed tab.");
 	log_dbg2("Autocomplete: User input when tab was pressed is |%s|", input->str->s);
+
+
+	//TODO Add in possibilities the builtins !!!!!!!!!!!!!!!!!
+
+
 	(void) key;
+	match = array_create(sizeof(char *));
 	possibilities = array_create(sizeof(char *));
 	last_word = autoc_get_last_word(input->str->s);
 	log_dbg3("Autocomplete: Last word from input is |%s|", last_word);
 	if (is_input_empty(input->str->s) == 1)
 	{
-		log_dbg2("Autocomplete: User pressed tab when input was empty."); //user pressed tab without anything before = ALL CMD
+		log_dbg2("Autocomplete: User pressed tab when input was empty.");
+		//user pressed tab without anything before = ALL CMD
 		possibilities = autoc_get_binaries();
 	}
 	else if (is_input_at_first_word(input->str->s) == 1)
 	{
-		log_dbg2("Autocomplete: User pressed tab when input was at first word."); //user pressed tab with a command started = CMD
+		log_dbg2("Autocomplete: User pressed tab when input was at first word.");
+		//user pressed tab with a command started = CMD
 		possibilities = autoc_get_binaries();
 	}
 	if (is_input_at_options(input->str->s) == 1)
 	{
-		log_dbg2("Autocomplete: User pressed tab when input was at options (-)."); //user pressed tab after writing a '-'
+		log_dbg2("Autocomplete: User pressed tab when input was at options (-).");
+		// /user pressed tab after writing a '-'
 		//TODO: go fetch the options
 	}
 	else if (is_input_after_first_word(input->str->s) == 1)
 	{
-		log_dbg2("Autocomplete: User pressed tab when input was after the first word."); //user pressed tab after writing the first command = DIR
+		log_dbg2("Autocomplete: User pressed tab when input was after the first word.");
+		//user pressed tab after writing the first command = DIR
 		possibilities = autoc_get_dir_content("./");
 	}
-	autoc_array_print(possibilities);
+	size_t  i = 0;
+	while (i < possibilities->used)
+	{
+		if (ft_str_starts_with(autoc_get_from_array_at(i, possibilities), last_word) == TRUE)
+			autoc_add_to_array(autoc_get_from_array_at(i, possibilities), match);
+		i++;
+	}
+	autoc_array_print(match);
 	return (false);
 }
