@@ -12,6 +12,21 @@
 
 #include <autocomplete/autocomplete.h>
 
+t_array	*autoc_create_array(void)
+{
+	static t_array	*e = NULL;
+	if (e == NULL)
+	{
+		if ((e = array_create(sizeof(char *))) == NULL)
+		{
+			log_fatal("Autocomplete: can't initialise autocomplete array");
+			ft_dprintf(STDERR_FILENO, "Autocomplete: can't initialise autocomplete");
+			exit(1);
+		}
+	}
+	return (e);
+}
+
 char *autoc_get_last_word(char *current_input)
 {
 	char *last_word;

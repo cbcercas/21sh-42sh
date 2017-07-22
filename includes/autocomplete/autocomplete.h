@@ -16,8 +16,9 @@
 # include <stddef.h>
 # include <libft.h>
 # include <ftprintf.h>
+# include <logger.h>
 
 char *autoc_get_last_word(char *current_input);
-char **autoc_get_possibilities(char *word);
+t_array	*autoc_create_array(void);
 
 #endif
