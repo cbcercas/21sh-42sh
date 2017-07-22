@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 18:22:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/10 08:49:53 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/22 17:26:24 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void sh_history_print_in_log(void)
 
 	hists = sh_history_get();
 	i = 0;
-	log_dbg1("***********HISTORY PRINT**************");
+	log_dbg3("***********HISTORY PRINT**************");
 	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
 		ses = (h->session == true ? 1 : 0);
-		log_dbg1("%zu %s | %d", i, h->cmd, ses);
+		log_dbg3("%zu %s | %d", i, h->cmd, ses);
 		i++;
 	}
-	log_dbg1("**************************************");
+	log_dbg3("**************************************");
 }
 
 void	sh_history_clear_line(unsigned int nb_of_car)
