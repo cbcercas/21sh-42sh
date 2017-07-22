@@ -32,7 +32,7 @@ void autoc_array_print(t_array *array)
 	i = 0;
 	while (i < array->used)
 	{
-		ft_printf("%s\n", autoc_get_from_array_at(i, array));
+		log_dbg3("%s", autoc_get_from_array_at(i, array));
 		i++;
 	}
 }
