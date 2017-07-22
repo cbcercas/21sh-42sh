@@ -122,6 +122,7 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	{
 		log_dbg2("Autocomplete: User pressed tab when input was after the first word.");
 		//user pressed tab after writing the first command = DIR
+		//TODO : Handle things like "ls /TAB"
 		possibilities = autoc_get_dir_content("./");
 	}
 	size_t  i = 0;

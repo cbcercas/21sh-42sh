@@ -17,6 +17,7 @@
 # include <libft.h>
 # include <ftprintf.h>
 # include <logger.h>
+# include <dirent.h>
 
 char *autoc_get_last_word(char *current_input);
 void    autoc_add_to_array(char *to_add, t_array *array);

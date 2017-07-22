@@ -10,24 +10,4 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <autocomplete/autocomplete.h>
-
-t_array *autoc_get_dir_content(char *path)
-{
-	t_array *content;
-
-	content = array_create(sizeof(char *));
-	DIR *dp;
-	struct dirent *ep;
-
-	dp = opendir(path);
-	if (dp != NULL)
-	{
-		while ((ep = readdir(dp)))
-			autoc_add_to_array(ep->d_name, content);
-		(void)closedir(dp);
-	}
-	else
-		;//TODO ERROR HANDLInG HERE
-	return (content);
-}
+# include <autocomplete/autocomplete.h>
