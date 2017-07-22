@@ -33,7 +33,6 @@ char *autoc_get_last_word(char *current_input)
 	}
 	if (i > 0)
 	{
-
 		while (ft_isalnum(current_input[i]) == 1)
 		{
 			last_word_len++;

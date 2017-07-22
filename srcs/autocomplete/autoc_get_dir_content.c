@@ -25,7 +25,7 @@ t_array *autoc_get_dir_content(char *path)
 	if (dp != NULL)
 	{
 		while ((ep = readdir(dp)))
-			ft_printf("%s\n", ep->d_name);
+			autoc_add_to_array(ep->d_name, content);
 		(void)closedir(dp);
 	}
 	else

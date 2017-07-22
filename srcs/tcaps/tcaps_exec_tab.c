@@ -66,7 +66,11 @@ int is_input_at_options(char *input)
 {
 	size_t len;
 
+	if (!input)
+		return (0);
 	len = ft_strlen(input);
+	if (len == 0)
+		return (0);
 	if (input[len - 1] == '-')
 		return (1);
 	return (0);
@@ -78,12 +82,9 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	t_array *possibilities;
 
 	(void)key;
-
-	autoc_get_dir_content("./");
-
 	possibilities = array_create(sizeof(char *));
-
-
+	possibilities = autoc_get_dir_content("./");
+	autoc_array_print(possibilities);
 	last_word = autoc_get_last_word(input->str->s);
 	if (is_input_empty(input->str->s) == 1)
 		ft_printf("INPUT IS AT EMPTY\n"); //user pressed tab without anything before = ALL CMD
@@ -94,11 +95,5 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	else if (is_input_after_first_word(input->str->s) == 1)
 		ft_printf("INPUT IS AFTER FIRST WORD\n"); //user pressed tab after writing the first command = DIR
 	ft_printf("\n|%s|\n", last_word);
-	if (input && input->str && input->str->s)
-				autoc_add_to_array(input->str->s, possibilities);
-	if (last_word)
-		autoc_add_to_array(last_word, possibilities);
-	ft_printf("Input:%s\nLast Word:%s\n", autoc_get_from_array_at(0, possibilities), autoc_get_from_array_at(1, possibilities));
-	array_destroy(&possibilities, free);
 	return (false);
 }

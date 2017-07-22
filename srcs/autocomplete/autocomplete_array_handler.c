@@ -24,3 +24,15 @@ char	*autoc_get_from_array_at(size_t pos, t_array *array)
 {
 	return ((char *)array_get_at(array, pos));
 }
+
+void autoc_array_print(t_array *array)
+{
+	size_t i;
+
+	i = 0;
+	while (i < array->used)
+	{
+		ft_printf("%s\n", autoc_get_from_array_at(i, array));
+		i++;
+	}
+}
