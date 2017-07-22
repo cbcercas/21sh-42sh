@@ -21,7 +21,7 @@ int is_input_empty(char *input)
 	else
 		return (0);
 }
-int is_input_at_first(char *input)
+int is_input_at_first_word(char *input)
 {
 	size_t len;
 	size_t i;
@@ -38,7 +38,7 @@ int is_input_at_first(char *input)
 	return (1);
 }
 
-int is_input_after_first(char *input)
+int is_input_after_first_word(char *input)
 {
 	size_t len;
 	size_t i;
@@ -55,24 +55,37 @@ int is_input_after_first(char *input)
 			while (input[j] == ' ')
 				j--;
 			if (ft_isalnum(input[j]) == 1)
-				return (1);
+					return (1);
 		}
 		i++;
 	}
 	return (0);
 }
 
+int is_input_at_options(char *input)
+{
+	size_t len;
+
+	len = ft_strlen(input);
+	if (input[len - 1] == '-')
+		return (1);
+	return (0);
+}
+
 BOOL	exec_tab(const t_key *key, t_input *input)
 {
+	char *last_word;
+
 	(void)key;
-	(void)input;
+	last_word = autoc_get_last_word(input->str->s);
 	if (is_input_empty(input->str->s) == 1)
-		; //user pressed tab without anything before
-	if (is_input_at_first(input->str->s) == 1)
-		; //user pressed tab with a command started
-	if (is_input_after_first(input->str->s) == 1)
-		; //user pressed tab after writing the first command
-	ft_printf("\n|%s|\n", autoc_get_last_word(input->str->s));
-	//TODO: Savoir si c'est le premier mot, sans mot, ou deuxieme mot et + dans l'input
+		ft_printf("INPUT IS AT EMPTY\n"); //user pressed tab without anything before = ALL CMD
+	else if (is_input_at_first_word(input->str->s) == 1)
+		ft_printf("INPUT IS AT FIRST WORD\n"); //user pressed tab with a command started = PATH/CMD
+	if (is_input_at_options(input->str->s) == 1)
+		ft_printf("INPUT IS AT OPTIONS\n"); //user pressed tab after writing a '-' (TODO go fetch the options)
+	else if (is_input_after_first_word(input->str->s) == 1)
+		ft_printf("INPUT IS AFTER FIRST WORD\n"); //user pressed tab after writing the first command = DIR
+	ft_printf("\n|%s|\n", last_word);
 	return (false);
 }
