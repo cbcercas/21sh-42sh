@@ -15,6 +15,7 @@ set(SOURCE_FILES
         srcs/exec/sh_process_exec.c
         srcs/exec/sh_exec.c
         srcs/exec/sh_exec_pipe.c
+        srcs/exec/sh_exec_redir.c
         srcs/core/init.c
         srcs/core/deinit.c
         srcs/core/input.c
@@ -94,6 +95,7 @@ set(SOURCE_FILES
         srcs/tools/is_printstr.c
         srcs/tools/sh_fork.c
         srcs/tools/sh_pipe.c
+        srcs/tools/sh_tools.c
         srcs/tools/sh_open_execs.c
         srcs/tools/sh_open.c
         srcs/ft_secu_malloc/ft_secu_malloc.c
