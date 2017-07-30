@@ -94,6 +94,7 @@ set(SOURCE_FILES
         srcs/tools/is_printstr.c
         srcs/tools/sh_pipe.c
         srcs/tools/sh_open_execs.c
+        srcs/tools/sh_open.c
         srcs/ft_secu_malloc/ft_secu_malloc.c
         srcs/ft_secu_malloc/ft_secu_free.c
         srcs/ft_secu_malloc/ft_secu_malloc_lvl.c
