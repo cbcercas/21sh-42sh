@@ -6,16 +6,25 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 13:00:38 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 16:14:49 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 15:35:19 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOOLS_H
 # define TOOLS_H
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 # include <libft.h>
+# include <ftprintf.h>
+# include <btree/ft_btree.h>
 
 void	ft_strdblfree(char **strdb);
 BOOL  is_printstr(char const *line);
+pid_t  sh_fork(void);
+int    sh_pipe(int tube[2]);
+int    sh_open_exec(t_btree *ast);
+int    sh_open(char *file, int flags);
 
 #endif
