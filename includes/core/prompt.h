@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:27:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/10 09:39:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/29 23:31:36 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@
 
 void	sh_print_prompt(void);
 size_t sh_len_prompt(void);
+
+int g_ret;
 
 #endif
