@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/21 15:23:48 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 15:32:39 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <signals/signals.h>
 # include <tools/tools.h>
 # include <ft_secu_malloc/ft_secu_malloc.h>
+# include <core/prompt.h>
 
 #define START 1
 #define END 0
@@ -37,12 +38,13 @@ int	sh_exec_command(char **command);*/
 int   sh_exec(t_sh_data *data, t_cmd *item);
 int   sh_exec_builtin(t_sh_data *data, t_cmd *item);
 int   sh_exec_simple(t_sh_data *data, t_cmd *item);
-int   sh_exec_pipe(t_sh_data *data, t_btree *ast);
-
+int   sh_exec_pipe(t_sh_data *data, t_btree *ast, int *fd, BOOL isout);
 int   sh_process_pipe(t_sh_data *data, t_btree *ast);
+
+int   sh_exec_greatand(t_sh_data *data, t_btree *ast, t_cmd *item);
+int   sh_exec_redir(t_sh_data *data, t_btree *ast);
 
 int   sh_process_exec(t_sh_data *data, t_btree *ast);
 
-pid_t  sh_fork(void);
 
 #endif
