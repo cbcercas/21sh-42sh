@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 10:22:20 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 13:19:33 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ t_lim ast_built_word_plus(t_array *expands, t_lim lim)
 
 	exp = NULL;
 	while (lim.cnt <= lim.lim && lim.cnt <= expands->used &&\
-			(!exp || (exp->type == E_TOKEN_WORD) || (exp->type == E_TOKEN_BLANK)))
+			(!exp || (exp->type == E_TOKEN_WORD) || (exp->type == E_TOKEN_BLANK) ||\
+			 ((exp->type == E_TOKEN_IO_NUMBER) &&\
+			  	!ast_is_greatand(expands, lim.cnt - 1, exp->type))))
 	{
 		exp = (t_exp *)array_get_at(expands, lim.cnt);
 		lim.cnt++;
