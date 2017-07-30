@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:15 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/20 17:04:40 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 15:29:51 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,31 +50,9 @@
 		ft_putstr("TOKEN_TYPE_IO_NUMBER");
 }*/
 
-int sh_open(t_btree *ast)
-{
-	t_cmd *item;
-	t_cmd	*redir;
-	int		fd;
-
-	fd = -1;
-	if (!ast && ast->right)
-		return (-1);
-	item = (t_cmd *)ast->right->item;
-	redir = (t_cmd *)ast->item;
-
-	if (redir->type == E_TOKEN_LESSGREAT)
-		fd = open(item->av[0], O_RDWR | O_CREAT, 0644);
-	else if ((redir->type == E_TOKEN_DLESS )|| (redir->type == E_TOKEN_DGREAT))
-		fd = open(item->av[0], O_RDWR | O_CREAT | O_APPEND, 0644);
-	if (fd == -1)
-		ft_printf("Error: to open file: %s\n", item->av[0]);
-	return (fd);
-}
-
 int   sh_process_exec(t_sh_data *data, t_btree *ast)
 {
   t_cmd *item;
-	int		fd;
 
   if (!ast)
     return (-1);
@@ -82,14 +60,11 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast)
   if (item->type == E_TOKEN_WORD)
     return (sh_exec_simple(data, item));
   else if (item->type == E_TOKEN_PIPE)
-  {
-		log_info("PIPE dans exec");
 		return (sh_process_pipe(data, ast));
-  }
   else if(item->type == E_TOKEN_AND_IF)
-    return((sh_process_exec(data, ast->left) != -1) && (sh_process_exec(data, ast->right) != 1));
+    return((sh_process_exec(data, ast->left) == 0) && (sh_process_exec(data, ast->right) == 0));
 	else if(item->type == E_TOKEN_OR_IF)
-	  return((sh_process_exec(data, ast->left) != -1) || (sh_process_exec(data, ast->right) != 1));
+	  return((sh_process_exec(data, ast->left) == 0) || (sh_process_exec(data, ast->right) == 0));
 	else if(item->type == E_TOKEN_SEMI)
 	{
 		sh_process_exec(data, ast->left);
@@ -97,17 +72,10 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast)
 	}
 	else if((item->type == E_TOKEN_LESSGREAT) || (item->type == E_TOKEN_DLESS ) ||\
 	 			(item->type == E_TOKEN_DGREAT))
-	{
-		fd = sh_open(ast);
-		if (fd != -1)
-		{
-			dup2(fd, 1);
-			close(fd);
-			sh_process_exec(data, ast->left);
-		}
-		if (fd != -1)
-			close(fd);
-	}
+      return(sh_exec_redir(data, ast));
+  else if(item->type == E_TOKEN_GREATAND)
+    return(sh_exec_greatand(data, ast, item));
+  //else if (item->type == E_TOKEN_GREATAND)
 	//lexer_print_type(item->type); // POUR DEBUG
   return (ft_printf("\nERROR\n"));
 }
