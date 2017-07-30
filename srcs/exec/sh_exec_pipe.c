@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 10:51:28 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 13:40:06 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/29 23:39:01 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ int nb_of_pipe(t_btree *ast)
   t_btree *tmp;
   t_cmd *item;
 
+  if (!ast)
+    return (-1);
   tmp = ast;
-  i = -1;
+  i = 0;
     item = (t_cmd *)ast->item;
   while(tmp && item->type == E_TOKEN_PIPE)
   {
@@ -32,50 +34,56 @@ int nb_of_pipe(t_btree *ast)
 
 int sh_process_pipe(t_sh_data *data, t_btree *ast)
 {
-  t_btree  *tmp;
+  int   endfd;
+  int   ret;
 
-  tmp = ast;
-  log_info("PIPE");
-  while (nb_of_pipe(tmp) > 0)
+  endfd = -1;
+  ret = 0;
+  while (nb_of_pipe(ast) >= 0)
   {
-    log_info("++pipe boucle");
-    sh_exec_pipe(data, ast->left);
-    tmp = tmp->right;
+    if (ast->left)
+      ret = sh_exec_pipe(data, ast->left, &endfd, false);
+    else
+      ret = sh_exec_pipe(data, ast, &endfd, true);
+    ast = ast->right;
   }
-  log_info("fin pipe");
-  return (sh_process_exec(data, ast->right));
+  return (ret);
 }
 
-int sh_exec_pipe(t_sh_data *data, t_btree *ast)
+int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item)
+{
+  item->info.ret = wait_sh();
+  close(tube[START]);
+  if (*endfd != -1)
+    close(*endfd);
+    *endfd = tube[END];
+  return (item->info.ret);
+}
+
+int sh_exec_pipe(t_sh_data *data, t_btree *ast, int *endfd, BOOL is_out)
 {
   pid_t pid;
 	int tube[2];
   char  *cmd;
   t_cmd *item;
 
-  (void)data;
   item = (t_cmd *)ast->item;
   cmd = NULL;
-	if(pipe(tube) != 0)
-	{
-		ft_putstr_fd("Error creation of pipe.\n", 2);
+	if(sh_pipe(tube) != 0)
 		return (EXIT_FAILURE);
-	}
-  if ((cmd = get_filename(item->av[0])))
-	 pid = sh_fork();
-  else
-    return (-1);
+	 if((pid = sh_fork()) == -1)
+    return (EXIT_FAILURE);
 	if(pid == 0)
 	{
-    dup2(tube[START], STDOUT_FILENO);
+    ((*endfd != -1) ? dup2(*endfd, STDIN_FILENO) : 0);
+    ((!is_out) ? dup2(tube[START], STDOUT_FILENO) : 0);
     close(tube[END]);
-    log_info("exec: %s", item->av[0]);
-      execve(cmd, item->av, NULL);
+    if (sh_is_builtin(item->av[0]))
+      sh_exec_builtin(data, item);
+    else
+      if ((cmd = get_filename(item->av[0])))//TODO: le command not found, ne set g_ret donc le chapeau reste vert ;)
+        execve(cmd, item->av, sh_tenv_to_tab());
     exit (1);
 	}
-  close(tube[START]);
-  wait(NULL);
-  dup2(tube[END], STDIN_FILENO);
-  ft_strdel(&cmd);
-  return (0);
+  return(sh_exec_pipe_parent(tube, endfd, item));
 }
