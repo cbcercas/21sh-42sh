@@ -92,6 +92,7 @@ set(SOURCE_FILES
         srcs/builtins/pwd.c
         srcs/tools/ft_strdblfree.c
         srcs/tools/is_printstr.c
+        srcs/tools/sh_fork.c
         srcs/tools/sh_pipe.c
         srcs/tools/sh_open_execs.c
         srcs/tools/sh_open.c
