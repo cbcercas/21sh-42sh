@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/30 13:19:33 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/31 09:13:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
 		if (prio != 6)
 			ast->left = ast_built(ast->left, expands, lim_left, prio + 1);
 		ast->right = ast_built(ast->right, expands, lim, prio);
-		if ((prio == 2 || prio == 3) && (ft_strequ(exp->str->s, "<") || ft_strequ(exp->str->s, "<<")))
-			ast_built2_swap(ast);
 	}
 	else if (prio != 6)
 		ast = ast_built(ast, expands, lim_left, prio + 1);
