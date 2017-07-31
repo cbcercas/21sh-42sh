@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/16 12:13:48 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 22:45:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ t_array init_tests_ast(char *input)
 
 	if (lexer_init(&tokens) == NULL)
 	{
-		ft_printf("Error initialising tokens");
+		ft_dprintf(2, "Error initialising tokens");
 		exit (1);
 	}
 	else if (automaton_init(&automaton) == NULL)
 	{
-		ft_printf("Error Initialising automaton");
+		ft_dprintf(2, "Error Initialising automaton");
 		exit (1);
 	}
 	else if (lexer_lex(&tokens, &automaton, input))
@@ -53,7 +53,7 @@ t_array init_tests_ast(char *input)
 	}
 	else
 	{
-		ft_printf("Fatal testing error : Couldn't Catch the error.");
+		ft_dprintf(2, "Fatal testing error : Couldn't Catch the error.");
 		exit (1);
 	}
 }
