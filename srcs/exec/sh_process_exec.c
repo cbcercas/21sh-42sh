@@ -6,49 +6,11 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:15 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/30 15:29:51 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/31 09:15:43 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
-
-/*void	lexer_print_type(t_token_type type)// inutile juste pour debug
-{
-	if (type == E_TOKEN_BLANK)
-		ft_putstr("TOKEN_TYPE_BLANK");
-	else if (type == E_TOKEN_NEWLINE)
-		ft_putstr("TOKEN_TYPE_NEWLINE");
-	else if (type == E_TOKEN_WORD)
-		ft_putstr("TOKEN_TYPE_WORD");
-	else if (type == E_TOKEN_SQUOTE)
-		ft_putstr("TOKEN_TYPE_SQUOTE");
-	else if (type == E_CHAR_TYPE_BQUOTE)
-		ft_putstr("TOKEN_TYPE_BQUOTE");
-	else if (type == E_TOKEN_DQUOTE)
-		ft_putstr("TOKEN_TYPE_DQUOTE");
-	else if (type == E_TOKEN_PIPE)
-		ft_putstr("TOKEN_TYPE_PIPE");
-	else if (type == E_TOKEN_OR_IF)
-		ft_putstr("TOKEN_TYPE_OR_IF");
-	else if (type == E_TOKEN_LESSGREAT)
-		ft_putstr("TOKEN_TYPE_LESSGREAT");
-	else if (type == E_TOKEN_DGREAT)
-		ft_putstr("TOKEN_TYPE_DGREAT");
-	else if (type == E_TOKEN_DLESS)
-		ft_putstr("TOKEN_TYPE_DLESS");
-	else if (type == E_TOKEN_AND)
-		ft_putstr("TOKEN_TYPE_AND");
-	else if (type == E_TOKEN_AND_IF)
-		ft_putstr("TOKEN_TYPE_AND_IF");
-	else if (type == E_TOKEN_SEMI)
-		ft_putstr("TOKEN_TYPE_SEMI");
-	else if (type == E_TOKEN_LESSAND)
-		ft_putstr("TOKEN_TYPE_LESSAND");
-	else if (type == E_TOKEN_GREATAND)
-		ft_putstr("TOKEN_TYPE_GREATAND");
-	else if (type == E_TOKEN_IO_NUMBER)
-		ft_putstr("TOKEN_TYPE_IO_NUMBER");
-}*/
 
 int   sh_process_exec(t_sh_data *data, t_btree *ast)
 {
@@ -72,11 +34,9 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast)
 	}
 	else if((item->type == E_TOKEN_LESSGREAT) || (item->type == E_TOKEN_DLESS ) ||\
 	 			(item->type == E_TOKEN_DGREAT))
-      return(sh_exec_redir(data, ast));
+      return(sh_exec_redir(data, ast, item));
   else if(item->type == E_TOKEN_GREATAND)
     return(sh_exec_greatand(data, ast, item));
-  //else if (item->type == E_TOKEN_GREATAND)
-	//lexer_print_type(item->type); // POUR DEBUG
   return (ft_printf("\nERROR\n"));
 }
 
