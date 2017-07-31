@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 13:00:38 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/30 15:35:19 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/31 18:42:40 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ pid_t  sh_fork(void);
 int    sh_pipe(int tube[2]);
 int    sh_open_exec(t_btree *ast);
 int    sh_open(char *file, int flags);
+BOOL  ft_isdigit_str(char *str);
 
 #endif
