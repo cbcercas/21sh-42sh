@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/07/30 15:31:36 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/07/30 20:45:21 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ SRCS			+= expand.c expand_utils.c ft_replace.c expand_print.c\
 
 SRC_SUBDIR      += tests
 SRCS            += env_tests.c lexer_tests.c parser_tests.c ast_tests.c\
-										expand_tests.c
+										expand_tests.c exec_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c

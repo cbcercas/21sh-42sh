@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 12:28:51 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 22:38:52 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 {
 	int opt;
 
-	opts->tcaps = true; 
-	while ((opt = ft_getopt(ac, av, "hvd:t:l")) >= 0)
+	opts->tcaps = true;
+	while ((opt = ft_getopt(ac, av, "chvd:t:l")) >= 0)
 	{
 		if (opt == 'v')
 			opts->verbose = 1;
@@ -58,6 +58,8 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
             sh_usage_help_exit();
 		else if (opt == 'l')
 			opts->tcaps = false;
+		else if (opt == 'c')
+			sh_testing_exec(av, environ);
 	}
 }
 
