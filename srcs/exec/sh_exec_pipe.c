@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 10:51:28 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/29 23:39:01 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/31 18:37:08 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int sh_process_pipe(t_sh_data *data, t_btree *ast)
 
 int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item)
 {
-  item->info.ret = wait_sh();
+  g_ret = wait_sh();//TODO: probleme si $> command infini | command fini
   close(tube[START]);
   if (*endfd != -1)
     close(*endfd);
@@ -78,11 +78,7 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, int *endfd, BOOL is_out)
     ((*endfd != -1) ? dup2(*endfd, STDIN_FILENO) : 0);
     ((!is_out) ? dup2(tube[START], STDOUT_FILENO) : 0);
     close(tube[END]);
-    if (sh_is_builtin(item->av[0]))
-      sh_exec_builtin(data, item);
-    else
-      if ((cmd = get_filename(item->av[0])))//TODO: le command not found, ne set g_ret donc le chapeau reste vert ;)
-        execve(cmd, item->av, sh_tenv_to_tab());
+    sh_process_exec(data, ast);
     exit (1);
 	}
   return(sh_exec_pipe_parent(tube, endfd, item));
