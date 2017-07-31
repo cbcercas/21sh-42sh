@@ -13,7 +13,7 @@ load test_helper
     echo
     [ "${lines[0]}" = "21sh: command not found: foo" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for /bin/ls" {
@@ -25,7 +25,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for /bin/ls -laF" {
@@ -37,7 +37,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for /bin/ls -l -a -F" {
@@ -49,7 +49,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for echo It works" {
@@ -61,7 +61,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for cd /tmp ; /bin/pwd" {
@@ -73,7 +73,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for cd ../../ ; /bin/pwd" {
@@ -85,7 +85,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for cd ; /bin/pwd ; cd - ; /bin/pwd" {
@@ -97,7 +97,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for env" {
@@ -110,7 +110,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for setenv FOO=bar ; env" {
@@ -123,7 +123,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for setenv FOO=bar ; /usr/bin/env" {
@@ -136,12 +136,12 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for unsetenv FOO ; env" {
     skip "a fix"
-    expect=`unsetenv FOO=bar ; env`
+    expect=`unset FOO=bar ; env`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unsetenv FOO=bar ; env'
     echo "ERROR:"
     display_line_output
@@ -149,12 +149,12 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for unsetenv FOO ; /usr/bin/env" {
     skip "a fix"
-    expect=`unsetenv FOO=bar ; /usr/bin/env`
+    expect=`unset FOO=bar ; /usr/bin/env`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unsetenv FOO=bar ; /usr/bin/env'
     echo "ERROR:"
     display_line_output
@@ -162,7 +162,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for unsetenv PATH ; setenv PATH=\"/bin:/usr/bin\" ; ls" {
@@ -174,7 +174,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for unsetenv PATH ; ls" {
@@ -186,7 +186,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for unsetenv PATH ; /bin/ls" {
@@ -198,7 +198,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for ls | cat -e" {
@@ -210,7 +210,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for ls | sort | cat -e" {
@@ -222,7 +222,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g'" {
@@ -235,7 +235,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for echo \"Testing redirections,\" > /tmp/test.txt" {
@@ -247,7 +247,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for echo \"with multiple lines\" >> /tmp/test.txt" {
@@ -259,7 +259,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for wc -c < /tmp/test.txt" {
@@ -271,7 +271,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for ls -l && ls" {
@@ -283,7 +283,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for ls something || ls" {
@@ -296,7 +296,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for  ls || ls something" {
@@ -308,7 +308,7 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for  ls -1; touch test_file; ls -1" {
@@ -316,13 +316,14 @@ load test_helper
     expect=`sh -c "ls -1; touch test_file; ls -1"`
     rm -rf test_file
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls -1; touch test_file; ls -1'
+    rm -rf test_file
     echo "ERROR:"
     display_line_output
     echo "$name_exec EXPECTED ->$expect"
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for  mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi" {
@@ -331,16 +332,17 @@ load test_helper
     rm -rf testa
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi'
     echo "ERROR:"
+      rm -rf testa
     display_line_output
     echo "$name_exec EXPECTED ->$expect"
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for  rm nosuchfile 2>&-" {
-    expect=`sh -c "rm nosuchfile 2>&-"`
+    expect=""
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm nosuchfile 2>&-'
     echo "ERROR:"
     display_line_output
@@ -348,23 +350,23 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for  rm nosuchfile 2>&1 | cat -e" {
-    expect=`sh -c "rm nosuchfile 2>&1 | cat -e"`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm nosuchfile 2>&1 | cat -e'
+    expect=`sh -c 'rm no 2>&1 | cat -e'`
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm no 2>&1 | cat -e'
     echo "ERROR:"
     display_line_output
     echo "$name_exec EXPECTED ->$expect"
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 
 @test "EXEC: Testing [IN CORRECTION] for  echo \"No dollar character\" 1>&2 | cat -e" {
-    expect=`sh -c "echo "No dollar character" 1>&2 | cat -e"`
+    expect=`sh -c 'echo "No dollar character" 1>&2 | cat -e'`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "No dollar character" 1>&2 | cat -e'
     echo "ERROR:"
     display_line_output
@@ -372,7 +374,11 @@ load test_helper
     echo
     [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
-    check_leaks_function ast
+    check_leaks_function exec
 }
 ######################################################################
 ######################################################################
+
+#######################################################################
+#                            IN CORRECTION                           #
+#######################################################################
