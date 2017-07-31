@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 18:26:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/19 10:22:18 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 22:46:33 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ t_array init_tests_exp(char *input)
 
 	if (lexer_init(&tokens) == NULL)
 	{
-		ft_printf("Error initialising tokens");
+		ft_dprintf(2, "Error initialising tokens");
 		exit (1);
 	}
 	else if (automaton_init(&automaton) == NULL)
 	{
-		ft_printf("Error Initialising automaton");
+		ft_dprintf(2, "Error Initialising automaton");
 		exit (1);
 	}
 	else if (lexer_lex(&tokens, &automaton, input))
@@ -52,7 +52,7 @@ t_array init_tests_exp(char *input)
 	}
 	else
 	{
-		ft_printf("Fatal testing error : Couldn't Catch the error.");
+		ft_dprintf(2, "Fatal testing error : Couldn't Catch the error.");
 		exit (1);
 	}
 }
@@ -61,9 +61,7 @@ void sh_testing_expand(char *const *av, char **environ)
 {
 	t_array expand_array;
 	t_array		tokens;
-	//char *input;
 
-	//input = ft_strclean(av[3]);//TODO à faire pour le main ;)
   sh_init_environ(environ);
   sh_history_init(NULL);
 	tokens = init_tests_exp(av[3]);
