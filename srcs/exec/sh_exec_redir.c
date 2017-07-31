@@ -6,13 +6,13 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/30 11:49:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/30 15:35:46 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/31 12:23:30 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
 
-int   sh_exec_redir(t_sh_data *data, t_btree *ast)
+int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item)
 {
   pid_t pid;
   int		fd;
@@ -24,7 +24,10 @@ int   sh_exec_redir(t_sh_data *data, t_btree *ast)
   {
     if (fd != -1)
     {
-      dup2(fd, STDOUT_FILENO);
+      if (item->av[0][0] == '<')
+        dup2(fd, STDIN_FILENO);
+      else
+        dup2(fd, STDOUT_FILENO);
       sh_process_exec(data, ast->left);
       close(fd);
     }
@@ -33,6 +36,7 @@ int   sh_exec_redir(t_sh_data *data, t_btree *ast)
   wait_sh();
   return(1);
 }
+
 
 static void sh_exec_greatand_dup2(int fd_out, int fd_in, t_cmd *item)
 {

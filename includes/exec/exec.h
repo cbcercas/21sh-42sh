@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/30 15:32:39 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/31 12:23:34 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int   sh_exec_pipe(t_sh_data *data, t_btree *ast, int *fd, BOOL isout);
 int   sh_process_pipe(t_sh_data *data, t_btree *ast);
 
 int   sh_exec_greatand(t_sh_data *data, t_btree *ast, t_cmd *item);
-int   sh_exec_redir(t_sh_data *data, t_btree *ast);
+int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item);
 
 int   sh_process_exec(t_sh_data *data, t_btree *ast);
 
