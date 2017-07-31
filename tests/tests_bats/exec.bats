@@ -366,7 +366,7 @@ load test_helper
 }
 
 @test "EXEC: Testing [IN CORRECTION] for  echo \"No dollar character\" 1>&2 | cat -e" {
-    expect=`sh -c 'echo "No dollar character" 1>&2 | cat -e'`
+    expect="No dollar character"
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "No dollar character" 1>&2 | cat -e'
     echo "ERROR:"
     display_line_output
@@ -380,5 +380,148 @@ load test_helper
 ######################################################################
 
 #######################################################################
-#                            IN CORRECTION                           #
+#                            BUILTINS                                 #
 #######################################################################
+
+@test "EXEC: Testing [IN CORRECTION] for  rm nosuchfile 2>&1 | cat -e" {
+    expect=`sh -c 'rm no 2>&1 | cat -e'`
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm no 2>&1 | cat -e'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
+    check_leaks_function exec
+}
+
+
+######################################################################
+#                            Built/Echo                                     #
+######################################################################
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -e \"toto\ntata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -e "toto\ntata"'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -e "toto\ntata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+  [ "$status" -eq 0 ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -e \"toto\\atata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "toto\\atata"'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -e "toto\\atata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -e toto\\btata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -e toto\\btata'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -e toto\\btata' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -e \"toto\\atata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "toto\\atata"'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -e "toto\\atata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -e \"toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -e "toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf"'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -e "toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -E \"toto\ntata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -E "toto\ntata"'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -E "toto\ntata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+  [ "$status" -eq 0 ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -E \"toto\\atata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "toto\\atata"'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -E "toto\\atata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -E toto\\btata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -E toto\\btata'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -E toto\\btata' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -E \"toto\\atata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "toto\\atata"'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -E "toto\\atata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Echo] with 'echo -E \"toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -E "toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf"'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'echo -E "toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+
+check_leaks_function exec
+}
+######################################################################
+######################################################################
