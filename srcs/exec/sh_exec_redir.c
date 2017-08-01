@@ -6,11 +6,22 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/30 11:49:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/31 18:41:55 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/01 11:17:03 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
+
+/*
+** @brief         function for redirections
+**                dup fd with STDIN or STDOUT
+**
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  item    The item in AST
+**
+** @return         g_ret ("g_" global) ("ret" return of exec)
+*/
 
 int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item)
 {
@@ -34,9 +45,18 @@ int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item)
     exit(1);
   }
   wait_sh();
-  return(1);
+  return(g_ret);
 }
 
+/*
+** @brief         function for dup redirections in greatand commands (>&)
+**
+** @param  fd_out  The fd to display out
+** @param  fd_in   The fd not display
+** @param  item    The item in AST
+**
+** @return         no return
+*/
 
 static void sh_exec_greatand_dup2(int fd_out, int fd_in, t_cmd *item)
 {
@@ -49,6 +69,16 @@ static void sh_exec_greatand_dup2(int fd_out, int fd_in, t_cmd *item)
     dup2(fd_out, STDERR_FILENO);
   }
 }
+
+/*
+** @brief         function for open fd redirections in greatand commands (>&)
+**
+** @param  fd_out  The fd to display out
+** @param  fd_in   The fd not display
+** @param  item    The item in AST
+**
+** @return         0 or 1 if error
+*/
 
 static int sh_exec_greatand_open(int *fd_out, int *fd_in, t_cmd *item)
 {
@@ -71,6 +101,17 @@ static int sh_exec_greatand_open(int *fd_out, int *fd_in, t_cmd *item)
   }
   return (0);
 }
+
+/*
+** @brief         function main for redirections in greatand commands (>&)
+**                call sh_exec_greatand_open and sh_exec_greatand_dup2
+**
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  item    The item in AST
+**
+** @return         0 or 1 if error
+*/
 
 int   sh_exec_greatand(t_sh_data *data, t_btree *ast, t_cmd *item)
 {
@@ -97,5 +138,5 @@ int   sh_exec_greatand(t_sh_data *data, t_btree *ast, t_cmd *item)
     close(fd_out);
   if (fd_in > 2)
     close(fd_in);
-  return(1);
+  return(g_ret);
 }

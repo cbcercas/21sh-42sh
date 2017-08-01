@@ -6,11 +6,19 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 10:51:28 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/31 18:37:08 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/01 09:58:02 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
+
+/*
+** @brief         count number of pipe
+**
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+**
+** @return         number of pipe
+*/
 
 int nb_of_pipe(t_btree *ast)
 {
@@ -32,6 +40,15 @@ int nb_of_pipe(t_btree *ast)
   return (i);
 }
 
+/*
+** @brief         main function for execute pipe command
+**
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+**
+** @return         return of sh_exec_pipe
+*/
+
 int sh_process_pipe(t_sh_data *data, t_btree *ast)
 {
   int   endfd;
@@ -50,7 +67,7 @@ int sh_process_pipe(t_sh_data *data, t_btree *ast)
   return (ret);
 }
 
-int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item)
+static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item)
 {
   g_ret = wait_sh();//TODO: probleme si $> command infini | command fini
   close(tube[START]);
@@ -59,6 +76,17 @@ int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item)
     *endfd = tube[END];
   return (item->info.ret);
 }
+
+/*
+** @brief          create pipe, and dup STDIN_FILENO and STDOUT_FILENO in pipe
+**
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  endfd   it is end of pipe of the last pipe command
+** @param  is_out  true: last command, false: dup STDOUT
+**
+** @return          return of sh_exec_pipe_parent, (the status set by wait)
+*/
 
 int sh_exec_pipe(t_sh_data *data, t_btree *ast, int *endfd, BOOL is_out)
 {
