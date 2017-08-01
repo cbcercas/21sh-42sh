@@ -376,12 +376,6 @@ load test_helper
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }
-######################################################################
-######################################################################
-
-#######################################################################
-#                            BUILTINS                                 #
-#######################################################################
 
 @test "EXEC: Testing [IN CORRECTION] for  rm nosuchfile 2>&1 | cat -e" {
     expect=`sh -c 'rm no 2>&1 | cat -e'`
@@ -395,9 +389,55 @@ load test_helper
     check_leaks_function exec
 }
 
+######################################################################
+######################################################################
+
+#######################################################################
+#                            BUILTINS                                 #
+#######################################################################
+
+@test "EXEC: Testing [>&] for  rm nosuchfile 2>&- | cat -e" {
+    expect=`sh -c 'rm no 2>&- | cat -e'`
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm no 2>&- | cat -e'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
+    check_leaks_function exec
+}
+
+@test "EXEC: Testing [>&] for  rm nosuchfile >&- | cat -e" {
+    expect=`sh -c 'rm no >&- | cat -e'`
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm no >&- | cat -e'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
+    check_leaks_function exec
+}
+
+@test "EXEC: Testing [>&] for ls >&- | cat -e" {
+    expect=`sh -c 'ls >&- | cat -e'`
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls >&- | cat -e'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
+    check_leaks_function exec
+}
 
 ######################################################################
-#                            Built/Echo                                     #
+######################################################################
+
+
+######################################################################
+#                            Built/Echo                              #
 ######################################################################
 
 @test "EXPAND: Testing [Built/Echo] with 'echo -e \"toto\ntata\"'" {
@@ -500,7 +540,7 @@ check_leaks_function exec
 }
 
 @test "EXPAND: Testing [Built/Echo] with 'echo -E \"toto\\atata\"'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "toto\\atata"'
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -E "toto\\atata"'
   echo
 	display_line_output
 	echo
