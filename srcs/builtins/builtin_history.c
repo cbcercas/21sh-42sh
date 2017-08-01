@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 10:51:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/19 14:43:21 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/08/01 14:45:38 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		sh_history_help(char *arg)
 	ft_printf("-awrn [filename] or history -ps arg [arg...]\n");
 }
 
-static void	sh_history_helper(t_sh_data *data, char **argv, int opt)
+static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 {
 	(void)data;
 	if (opt == 'p')
@@ -27,14 +27,20 @@ static void	sh_history_helper(t_sh_data *data, char **argv, int opt)
 	else if (opt == -1)
 		sh_history_builtin_print(argv[optind]);
 	else if (opt == '?')
+	{
 		sh_history_help(argv[1]);
+		return (1);
+	}
+	return (0);
 }
 
 int			sh_history(t_sh_data *data, char **argv)
 {
 	int		opt;
+	int		ret;
 
 	(void)data;
+	ret = 0;
 	ft_getopt_reset();
 	opt = ft_getopt(ft_tablen(argv), argv, "cd:arwsnp");
 	if (opt == 'c')
@@ -52,7 +58,7 @@ int			sh_history(t_sh_data *data, char **argv)
 	else if (opt == 's')
 		sh_history_builtin_s(argv, optind);
 	else
-		sh_history_helper(data, argv, opt);
+		ret = sh_history_helper(data, argv, opt);
 	ft_getopt_reset();
-	return (0);
+	return (ret);
 }
