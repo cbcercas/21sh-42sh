@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 19:56:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/21 15:23:06 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/01 10:30:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 #include <libft.h>
 
 # define MALLOC_LVL_DEFAULT 0
-# define MALLOC_LVL_FUNCTION 1
+# define M_LVL_FUNCT 1
 # define M_LVL_AST 2
 # define M_LVL_EXEC 3
+# define M_LVL_EXPA 4
 
 struct          s_secu_malloc
 {
