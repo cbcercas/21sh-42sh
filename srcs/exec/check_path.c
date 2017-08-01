@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/29 15:00:24 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/01 10:24:35 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*sh_check_path(char const *cmd_name)
 	int		ret;
 	int		tmp;
 
-	if (!(env_path = ft_strsplit(sh_getenv_value("PATH"), ':')))
+	if (!(env_path = ft_strsplit_secu(sh_getenv_value("PATH"), ':', M_LVL_FUNCT)))
 		return (NULL);
 	ret = 0;
 	while (env_path && *env_path != NULL)
@@ -70,11 +70,7 @@ char	*sh_check_path(char const *cmd_name)
 		if (!(file = makefilepath(*env_path, cmd_name)))
 			break;
 		if ((tmp = sh_test_access(file)) == 1)
-		{
-			//ft_strdblfree(env_path);
-			//env_path = NULL;
 			return (file);
-		}
 		else if (tmp == -1)
 			ret = -1;
 		ft_strdel(&file);
@@ -84,8 +80,7 @@ char	*sh_check_path(char const *cmd_name)
 		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n", PROGNAME, cmd_name);
 	else if (ret == 0)
 		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", PROGNAME, cmd_name);
-	//ft_strdblfree(env_path);
-	//nv_path = NULL;
+	ft_secu_free_lvl(M_LVL_FUNCT);
 	return (NULL);
 }
 
@@ -108,5 +103,6 @@ char *get_filename(char *av)
 		}
 	else
 		ret = sh_check_path(av);
+	ft_secu_free_lvl(M_LVL_FUNCT);
 	return (ret);
 }
