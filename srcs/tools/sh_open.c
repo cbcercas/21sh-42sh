@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   sh_open.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:27:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/29 23:31:36 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/30 15:30:45 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/30 15:31:20 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
-# include <ftprintf.h>
-# include <stddef.h>
-# include <libft.h>
-# include <environ/environ.h>
+# include <tools/tools.h>
 
-void	sh_print_prompt(void);
-size_t sh_len_prompt(void);
+int   sh_open(char *file, int flags)
+{
+  int fd;
 
-int g_ret;
-
-#endif
+  fd = -1;
+  if ((fd = open(file, flags, 0644)) == -1)
+    ft_dprintf(2, "Error: to open file: %s\n", file);
+  return (fd);
+}

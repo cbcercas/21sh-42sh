@@ -58,7 +58,8 @@ void sh_arrays_reset(t_automaton *automat, t_array *tokens, t_array *expands,\
 	array_reset(expands, sh_exp_del);
 	automaton_reset(automat);
 	input ? ft_strdel(&input) : 0;
-	ft_secu_free_lvl(2);
+	ft_secu_free_lvl(M_LVL_AST);
+	ft_secu_free_lvl(M_LVL_EXPA);
 }
 
 //lex, pars, expand, et build ast, il retourn l'ast

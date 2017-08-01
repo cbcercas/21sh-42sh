@@ -1,36 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_tests.c                                        :+:      :+:    :+:   */
+/*   exec_tests.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/30 22:45:59 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/30 20:30:58 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/30 22:49:42 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tests/ast_tests.h>
+#include <tests/exec_tests.h>
 
-void test_aff(t_cmd *cmd)
-{
-	static int 	i = 0;
-	int					index;
-
-	index = 0;
-	ft_printf("[%d]{", i);
-	while(cmd->av[index] && cmd->av[index + 1])
-	{
-		ft_printf("%s ", cmd->av[index]);
-		index++;
-	}
-	if (cmd->av[index])
-		ft_printf("%s", cmd->av[index]);
-	ft_putstr("} ");
-	i++;
-}
-
-t_array init_tests_ast(char *input)
+t_array init_tests_exec(char *input)
 {
 	t_automaton	automaton;
 	t_array		tokens;
@@ -53,34 +35,26 @@ t_array init_tests_ast(char *input)
 	}
 	else
 	{
-		ft_dprintf(2, "Fatal testing error : Couldn't Catch the error.");
+		ft_dprintf(2, "Fatal -c error : Couldn't Catch the error.\n");
+    ft_dprintf(2, "Maybe arg is NULL\n");
 		exit (1);
 	}
 }
 
-void sh_testing_ast(char *const *av, char **environ)
+void sh_testing_exec(char *const *av, char **environ)
 {
-	t_btree	*ast;
 	t_array		expands;
 	t_array		tokens;
-	char *input;
 
-	input = ft_strclean(av[3]);//TODO à faire pour le main ;)
-	ast = NULL;
 	sh_init_environ(environ);
+  sh_builtins_init();
 	sh_history_init(NULL);
-	tokens = init_tests_ast(input);
+	tokens = init_tests_exec(av[2]);
 	if (expand_init(&expands) == NULL)
 		exit (1);
 	expand(&tokens, &expands);
-	if (!(ast = ast_create(&expands)))
-		ft_printf("AST NULL\n");
-	else if (!av[4] || ft_strequ(av[4], "tree"))
-		btree_print(ast, (char * (*)(void*))&ast_aff);
-	else if (ft_strequ(av[4], "line"))
-		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
-	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
-	free(input);
+	sh_process_exec(NULL, ast_create(&expands));
 	array_reset(&expands, NULL);
+  ft_secu_free_all();
 	exit (0);
 }

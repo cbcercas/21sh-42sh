@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   ft_strnew_secu.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:27:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/29 23:31:36 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/08/01 10:06:23 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/08/01 10:08:03 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
-# include <ftprintf.h>
-# include <stddef.h>
-# include <libft.h>
-# include <environ/environ.h>
+# include <tools/tools.h>
 
-void	sh_print_prompt(void);
-size_t sh_len_prompt(void);
+char	*ft_strnew_secu(size_t size, size_t lvl)
+{
+	char *str;
 
-int g_ret;
-
-#endif
+	str = (char *)ft_secu_malloc_lvl(size + 1, lvl);
+	if (str != NULL)
+		ft_bzero(str, size + 1);
+	return (str);
+}

@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 14:43:08 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/07 22:04:23 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/01 10:31:06 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_exp *exp_create_new(t_token *tok)
 {
   t_exp	*exp;
 
-  if (!tok || !tok->str || !(exp = (t_exp*)malloc(sizeof(t_exp))))
+  if (!tok || !tok->str || !(exp = (t_exp*)ft_secu_malloc_lvl(sizeof(t_exp), M_LVL_EXPA)))
     return (NULL);
   exp->type = tok->type;
   exp->str = string_ndup(tok->str, tok->len);

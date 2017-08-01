@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   sh_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:27:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/29 23:31:36 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/29 13:20:29 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/29 13:22:06 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
-# include <ftprintf.h>
-# include <stddef.h>
-# include <libft.h>
-# include <environ/environ.h>
+# include <tools/tools.h>
 
-void	sh_print_prompt(void);
-size_t sh_len_prompt(void);
-
-int g_ret;
-
-#endif
+int sh_pipe(int tube[2])
+{
+  if(pipe(tube) != 0)
+  {
+    ft_putstr_fd("Error creation of pipe.\n", 2);
+    return (EXIT_FAILURE);
+  }
+  return(EXIT_SUCCESS);
+}

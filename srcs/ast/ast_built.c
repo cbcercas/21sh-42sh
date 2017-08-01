@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 10:22:20 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/31 09:13:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ t_lim ast_built_word_plus(t_array *expands, t_lim lim)
 
 	exp = NULL;
 	while (lim.cnt <= lim.lim && lim.cnt <= expands->used &&\
-			(!exp || (exp->type == E_TOKEN_WORD) || (exp->type == E_TOKEN_BLANK)))
+			(!exp || (exp->type == E_TOKEN_WORD) || (exp->type == E_TOKEN_BLANK) ||\
+			 ((exp->type == E_TOKEN_IO_NUMBER) &&\
+			  	!ast_is_greatand(expands, lim.cnt - 1, exp->type))))
 	{
 		exp = (t_exp *)array_get_at(expands, lim.cnt);
 		lim.cnt++;
@@ -80,8 +82,6 @@ t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
 		if (prio != 6)
 			ast->left = ast_built(ast->left, expands, lim_left, prio + 1);
 		ast->right = ast_built(ast->right, expands, lim, prio);
-		if ((prio == 2 || prio == 3) && (ft_strequ(exp->str->s, "<") || ft_strequ(exp->str->s, "<<")))
-			ast_built2_swap(ast);
 	}
 	else if (prio != 6)
 		ast = ast_built(ast, expands, lim_left, prio + 1);

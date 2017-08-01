@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   sh_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/01/15 20:27:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/29 23:31:36 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/29 13:22:25 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/29 13:24:09 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
-# include <ftprintf.h>
-# include <stddef.h>
-# include <libft.h>
-# include <environ/environ.h>
+# include <tools/tools.h>
 
-void	sh_print_prompt(void);
-size_t sh_len_prompt(void);
+pid_t  sh_fork(void)
+{
+  pid_t pid;
 
-int g_ret;
-
-#endif
+  pid = 0;
+  if ((pid = fork()) == -1)
+    ft_putstr_fd("fork error\n", 2);
+  return (pid);
+}
