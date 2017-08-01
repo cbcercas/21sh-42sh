@@ -26,7 +26,7 @@ int		wait_sh(void)
 			ft_printf("[1]    %d segmentation fault (core dumped)  %s\n", pid_child, sh_history_get_at(-1));
 		else if (WTERMSIG(status) == SIGBUS)
 			ft_printf("[1]    %d bus error  %s\n", pid_child, sh_history_get_at(-1));
-		return (-1);
+		return (status);
 	}
 	return (status);
 }

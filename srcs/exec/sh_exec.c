@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 17:12:03 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/01 10:14:45 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/01 15:26:34 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int sh_exec(t_sh_data *data, t_cmd *item)
       exit(0);
     }
     else
-      item->info.ret = wait_sh();
+      item->info.ret = sh_ret(wait_sh());
   }
   ft_strdel(&cmd);
   ft_strdblfree(envtab);

@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/30 11:49:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/01 11:17:03 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/01 15:46:29 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int sh_exec_greatand_open(int *fd_out, int *fd_in, t_cmd *item)
 {
   if (!item || !item->av || !item->av[0] || !item->av[1])
     return(ft_dprintf(2, "Error: in exec (redir)\n"));
-  if(ft_strequ(item->av[2], "-") || ft_strequ(item->av[2], "-"))
+  if((item->av[2] && ft_strequ(item->av[2], "-"))|| ft_strequ(item->av[1], "-"))
     *fd_out = sh_open("/dev/null", O_RDWR | O_CREAT);
   else if((item->av[2] && ft_isdigit_str(item->av[2])) || (!item->av[2] && ft_isdigit_str(item->av[1])))
     *fd_out = (item->av[2] ? atoi(item->av[2]) : atoi(item->av[1]));

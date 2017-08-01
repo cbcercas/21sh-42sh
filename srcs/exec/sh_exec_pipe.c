@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 10:51:28 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/01 09:58:02 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/01 15:34:09 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int sh_process_pipe(t_sh_data *data, t_btree *ast)
 
 static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item)
 {
-  g_ret = wait_sh();//TODO: probleme si $> command infini | command fini
+  wait_sh();//TODO: probleme si $> command infini | command fini
   close(tube[START]);
   if (*endfd != -1)
     close(*endfd);
