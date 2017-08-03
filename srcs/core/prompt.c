@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:25:01 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/29 23:21:40 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/03 17:04:36 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ size_t get_prompt(BOOL print)
 		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m ", tmp, ret);
 	else if (print)
 		ft_printf("\033[93m➜ \033[0m %s🎩\033[0m ", ret);
-	len += (tmp ? ft_strlen(tmp) + 5 : 5);
+	if (ft_strequ(tmp, "/"))
+		len += 7;
+	else
+		len += (tmp ? ft_strlen(tmp) + 5 : 5);
 	ft_strdel(&path);
 	return (len);
 }
