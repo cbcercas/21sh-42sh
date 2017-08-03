@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/08/01 10:24:35 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/03 17:58:35 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,9 @@ char	*sh_check_path(char const *cmd_name)
 	int		ret;
 	int		tmp;
 
-	if (!(env_path = ft_strsplit_secu(sh_getenv_value("PATH"), ':', M_LVL_FUNCT)))
-		return (NULL);
+	env_path = ft_strsplit_secu(sh_getenv_value("PATH"), ':', M_LVL_FUNCT);
 	ret = 0;
-	while (env_path && *env_path != NULL)
+	while (env_path && *env_path)
 	{
 		if (!(file = makefilepath(*env_path, cmd_name)))
 			break;
