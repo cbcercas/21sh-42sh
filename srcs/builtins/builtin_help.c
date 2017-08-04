@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:29:44 by jlasne            #+#    #+#             */
-/*   Updated: 2017/07/18 12:22:12 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/04 14:54:02 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,26 @@
 void sh_help_default(t_sh_data *data)
 {
 	(void)data;
-	ft_printf("#-- %s Version 42 --#\n", PROGNAME);
+	ft_printf("%s#-- %s Version 42 --#\n%s", B_BLUE, PROGNAME, C_NONE);
 	ft_printf("These shell commands are defined internally.  Type `help' to");
 	ft_printf(" see this list.\n");
 	ft_printf("Type `help name' to find out more about the function `name'.\n");
-	ft_printf("\n\nA star (*) next to a name means that the command is disabled.\n");
-	ft_printf("\necho [-neE] [arg …]\n");
-	ft_printf("help [pattern]\n");
-	ft_printf("exit [n]\n");
-	ft_printf("cd [-L|-P] [directory]\n");
-	ft_printf("setenv [name]=[value]\n");
-	ft_printf("unsetenv [name]\n");
-	ft_printf("env [-i][name=value]...\t[utility [argument...]]\n");
-	ft_printf("bonus [Displays the bonuses for this project]\n");
+	ft_printf("\n\n%sA star%s (*) next to a name means that the command is\
+	 disabled.\n", C_GREEN, C_NONE);
+	ft_printf("\n%secho%s [-neE] [arg …]\n", CL_RED, C_NONE);
+	ft_printf("%shelp%s [pattern]\n", CL_RED, C_NONE);
+	ft_printf("%sexit%s [n]\n", CL_RED, C_NONE);
+	ft_printf("%scd%s [-L|-P] [directory]\n", CL_RED, C_NONE);
+	ft_printf("%ssetenv%s [name]=[value]\n", CL_RED, C_NONE);
+	ft_printf("%sunsetenv%s [name]\n", CL_RED, C_NONE);
+	ft_printf("%senv%s [-i][name=value]...\t[utility [argument...]]\n", CL_RED,\
+	 C_NONE);
+	ft_printf("%sbonus%s [Displays the bonuses for this project]\n", CL_RED, C_NONE);
 }
 
 void sh_help_echo(void)
 {
-	ft_printf("\techo [-neE] [arg …]\n");
+	ft_printf("\t%secho%s [-neE] [arg …]\n", C_RED, C_NONE);
 	ft_printf("Output the args, separated by spaces, terminated with a ");
 	ft_printf("newline.\nThe return status is 0 unless a write error ");
 	ft_printf("occurs.\nIf -n is specified, the trailing newline is ");
@@ -40,14 +42,14 @@ void sh_help_echo(void)
 	ft_printf(" the following backslash-escaped characters is enabled.\n");
 	ft_printf("echo does not interpret -- to mean the end of options.\n");
 	ft_printf("\necho interprets the following escape sequences: \n");
-	ft_printf("\n\\a\n\n\talert (bell) ");
-	ft_printf("\n\\n\n\n\tnew line ");
-	ft_printf("\n\\r\n\n\tcarriage return ");
-	ft_printf("\n\\b\n\n\tbackspace ");
-	ft_printf("\n\\f\n\n\tform feed ");
-	ft_printf("\n\\t\n\n\thorizontal tab ");
-	ft_printf("\n\\v\n\n\tvertical tab ");
-	ft_printf("\n\\\\\n\n\tbackslash\n");
+	ft_printf("\n%s\\a%s\talert (bell)\n", C_RED, C_NONE);
+	ft_printf("%s\\n%s\tnew line\n", C_RED, C_NONE);
+	ft_printf("%s\\r%s\tcarriage return\n", C_RED, C_NONE);
+	ft_printf("%s\\b%s\tbackspace\n", C_RED, C_NONE);
+	ft_printf("%s\\f%s\tform feed\n", C_RED, C_NONE);
+	ft_printf("%s\\t%s\thorizontal tab\n", C_RED, C_NONE);
+	ft_printf("%s\\v%s\tvertical tab\n", C_RED, C_NONE);
+	ft_printf("%s\\\\%s\tbackslash\n", C_RED, C_NONE);
 
 } //TODO: ADD COLORS
 
@@ -111,30 +113,30 @@ void sh_help_env(void)
 	ft_printf("\n-i \tInvoke utility with exactly the environment specified");
 	ft_printf(" by the arguments;\n");
 	ft_printf("\tthe inherited environment shall be ignored completely.\n");
-	ft_printf("\nThe following operands shall be supported:\n");
-	ft_printf("\n");
+	ft_printf("\nThe following operands shall be supported:\n\n");
 	ft_printf("\t   name=value\n");
 	ft_printf("\t\t  Arguments of the form name= value shall modify the ");
 	ft_printf("execution environment, and shall\n");
 	ft_printf("\t\t  be placed into the inherited environment before the ");
-	ft_printf("utility is invoked.\n");
-	ft_printf("\n");
+	ft_printf("utility is invoked.\n\n");
 	ft_printf("\t   utility\n");
 	ft_printf("\t\t  The name of the utility to be invoked. If the utility");
 	ft_printf(" operand names any of the spe-\n");
 	ft_printf("\t\t  cial built-in utilities in Special Built-In Utilities,");
-	ft_printf(" the results are undefined.\n");
-	ft_printf("\n");
-	ft_printf("\t   argument\n");
-	ft_printf("\t\t  A string to pass as an argument for the invoked");
-	ft_printf(" utility.\n");
+	ft_printf(" the results are undefined.\n\n\t   argument\n");
+	ft_printf("\t\t  A string to pass as an argument for the invoked utility.\n");
 }
 
 void sh_help_bonus(void)
 {
-	ft_printf("\tbonus - Bonuses for %s\n", PROGNAME);
-	ft_printf("\t\tBuiltin help\n");
-	ft_printf("\t\tSGG | ShellGrammarGenerator\n");
+	ft_printf("\n\t%sBONUS - Bonuses for %s%s\n", C_UNDER , PROGNAME, C_NONE);
+	ft_printf("\t\t%s*Builtin help\n", C_YELLOW);
+	ft_printf("\t\t%s*SGG | ShellGrammarGenerator\n", CL_RED);
+	ft_printf("\t\t%s%s*Dynamique Prompt ! 🚀%s\n", C_BOLD, C_GREEN, C_NONE);
+	ft_printf("\t\t\t%s%s-With Super Hat ! 🎩%s\n", C_BOLD, C_GREEN, C_NONE);
+	ft_printf("\t\t%s*Tests with Bats Frameworks!\n", CL_BLUE);
+	ft_printf("\t\t%s*ft_secu_malloc\n", C_YELLOW);
+	ft_printf("\t\t%s*MANY COLORS(Make, Prompt, env, help)\n", CL_RED);
 }
 
 int sh_builtin_help(t_sh_data *data, char **args)
