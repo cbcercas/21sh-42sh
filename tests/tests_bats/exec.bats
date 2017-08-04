@@ -389,13 +389,6 @@ load test_helper
     check_leaks_function exec
 }
 
-######################################################################
-######################################################################
-
-#######################################################################
-#                            BUILTINS                                 #
-#######################################################################
-
 @test "EXEC: Testing [>&] for  rm nosuchfile 2>&- | cat -e" {
     expect=`sh -c 'rm no 2>&- | cat -e'`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm no 2>&- | cat -e'
@@ -561,6 +554,42 @@ check_leaks_function exec
   echo
   [ "${output}" = "$ret" ]
 
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Env] with 'env -i'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'env -i'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'env -i' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Env] with 'env -i toto=tata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'env -i toto=tata'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'env -i toto=tata' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "EXPAND: Testing [Built/Env] with 'env -u toto ls'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'env -u toto ls'
+  echo
+	display_line_output
+	echo
+  ret=$( sh -c 'env -u toto ls' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
 check_leaks_function exec
 }
 ######################################################################

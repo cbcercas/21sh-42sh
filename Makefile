@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/08/01 15:27:51 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/08/04 10:26:48 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,9 @@ SRC_SUBDIR		+= builtins
 SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
 							builtin_history_acdws.c builtin_history_print.c\
 							builtin_history_npr.c builtin_help.c\
-							builtins_utils2.c pwd.c
+							builtins_utils2.c pwd.c builtin_environ_env.c\
+							builtin_environ_env_i.c builtin_environ_env_u.c\
+							builtin_environ_env_exec.c
 
 SRC_SUBDIR		+= exec
 SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c\

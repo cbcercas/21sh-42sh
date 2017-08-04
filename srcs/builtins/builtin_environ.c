@@ -6,11 +6,11 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:04:48 by jlasne            #+#    #+#             */
-/*   Updated: 2017/08/03 17:25:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/03 18:22:19 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <environ/builtin_env.h>
+#include <builtins/builtin_env.h>
 #include <builtins/help.h>
 
 int		sh_builtin_setenv(t_sh_data *data, char **args)
@@ -48,22 +48,5 @@ int		sh_builtin_unsetenv(t_sh_data *data, char **args)
 		sh_delenv(args[i]);
 		i++;
 	}
-	return (0);
-}
-
-int		sh_builtin_env(t_sh_data *data, char **args)
-{
-	(void)data;
-	if (args[1] == NULL)
-		sh_print_env();
-	else if (ft_strequ(args[1], "-i"))
-    {
-        if (args[2] == NULL)
-            ft_dprintf(2, "Argument required for option -- i\n");
-        else
-            ft_printf("-i called\n");
-    }
-	else
-		ft_printf("env: %s: invalid option\n", args[1]);
 	return (0);
 }

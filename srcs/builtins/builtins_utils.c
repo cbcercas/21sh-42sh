@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:16 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/08/03 17:24:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/03 18:20:36 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ t_array		*sh_builtins_init(void)
 	if (!ms_add_builtin("setenv", sh_builtin_setenv))
 		return (NULL);
 	if (!ms_add_builtin("unsetenv", sh_builtin_unsetenv))
+		return (NULL);
+	if (!ms_add_builtin("env", sh_builtin_env))
 		return (NULL);
 	return (builtins);
 }
