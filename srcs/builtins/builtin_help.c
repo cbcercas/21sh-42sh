@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:29:44 by jlasne            #+#    #+#             */
-/*   Updated: 2017/08/04 14:54:02 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/04 15:00:32 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,49 +143,24 @@ int sh_builtin_help(t_sh_data *data, char **args)
 {
 	(void) data;
 	if (args[1] == NULL)
-	{
 		sh_help_default(data);
-		return (0);
-	}
-	if (ft_strequ(args[1], "echo"))
-	{
+	else if (ft_strequ(args[1], "echo"))
 		sh_help_echo();
-		return (0);
-	}
 	else if (ft_strequ(args[1], "help"))
-	{
 		sh_help_help();
-		return (0);
-	}
 	else if (ft_strequ(args[1], "exit"))
-	{
 		sh_help_exit();
-		return (0);
-	}
 	else if (ft_strequ(args[1], "cd"))
-	{
 		sh_help_cd();
-		return (0);
-	}
 	else if (ft_strequ(args[1], "setenv"))
-	{
 		sh_help_setenv();
-		return (0);
-	}
 	else if (ft_strequ(args[1], "unsetenv"))
-	{
 		sh_help_unsetenv();
-		return (0);
-	}
 	else if (ft_strequ(args[1], "env"))
-	{
 		sh_help_env();
-		return (0);
-	}
 	else if (ft_strequ(args[1], "bonus"))
-	{
 		sh_help_bonus();
-		return (0);
-	}
+	else
+		return(1);
 	return (0);
 }
