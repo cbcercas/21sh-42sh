@@ -55,7 +55,7 @@ void sh_history_insert_buf(char *str)
 		{
 			if (h->buf)
 				ft_strdel(&(h->buf));
-				h->buf = ft_strdup(str);
+			h->buf = ft_strdup(str);
 			h->cur = -1;
 		}
 }
@@ -77,9 +77,9 @@ void	sh_history_var_session_reset(void)
 	i = 0;
 	if ((hists = sh_history_get()) == NULL)
 		return ;
-		while (i < hists->used && (h = (t_hist *)array_get_at(hists, i)))
-		{
-			h->session = false;
-			i++;
-		}
+	while (i < hists->used && (h = (t_hist *)array_get_at(hists, i)))
+	{
+		h->session = false;
+		i++;
+	}
 }

@@ -95,14 +95,14 @@ void	sh_history_save()
 	}
 	if ((hists = sh_history_get()) == NULL)
 		return ;
-		while (i < hists->used)
-		{
-			h = (t_hist *)array_get_at(hists, i);
-			if(h && h->session == true)
-				ft_dprintf(fd, "%s\n", h->cmd);
-			i++;
-		}
-		sh_history_print_in_log();
-		array_destroy(&hists, sh_history_del);
-		close(fd);
+	while (i < hists->used)
+	{
+		h = (t_hist *)array_get_at(hists, i);
+		if(h && h->session == true)
+			ft_dprintf(fd, "%s\n", h->cmd);
+		i++;
+	}
+	sh_history_print_in_log();
+	array_destroy(&hists, sh_history_del);
+	close(fd);
 }

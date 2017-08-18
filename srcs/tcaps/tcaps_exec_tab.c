@@ -40,11 +40,10 @@ int is_input_at_first_word(char *input)
 
 int is_input_after_first_word(char *input)
 {
-	size_t len;
 	size_t i;
 	size_t j;
 
-	len = ft_strlen(input);
+	ft_strlen(input);
 	i = 0;
 
 	while (input[i] != '\0')

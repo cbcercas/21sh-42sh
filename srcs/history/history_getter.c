@@ -57,14 +57,14 @@ const char	*sh_history_get_at(ssize_t nb)
 
 	if (nb == 0)
 		return (NULL);
-		hists = sh_history_get();
-		if (nb < 0)
-		{
-			if ((h = (t_hist *)array_get_at(hists, hists->used + nb)))
-				return ((const char *)h->cmd);
-		}
-		else if ((h = (t_hist *)array_get_at(hists, nb - 1)))
+	hists = sh_history_get();
+	if (nb < 0)
+	{
+		if ((h = (t_hist *)array_get_at(hists, hists->used + nb)))
 			return ((const char *)h->cmd);
+	}
+	else if ((h = (t_hist *)array_get_at(hists, nb - 1)))
+		return ((const char *)h->cmd);
 	return (NULL);
 }
 

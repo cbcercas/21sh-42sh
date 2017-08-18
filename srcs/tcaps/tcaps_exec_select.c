@@ -94,13 +94,13 @@ BOOL	exec_alt_x(const t_key *key, t_input *input)
   end = input->select.cur_end;
   if (!input->select.is)
     return (false);
-    exec_alt_c(key, input);
-    if (start < end)
-      string_remove(input->str, start, end - start);
-    else if (start > end)
-      string_remove(input->str, end, start - end);
-    else
-      string_remove(input->str, start, 1);
+  exec_alt_c(key, input);
+  if (start < end)
+    string_remove(input->str, start, end - start);
+  else if (start > end)
+    string_remove(input->str, end, start - end);
+  else
+    string_remove(input->str, start, 1);
   redraw_line(input);
   return (false);
 }

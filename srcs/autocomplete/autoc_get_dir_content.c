@@ -12,6 +12,7 @@
 
 #include <autocomplete/autocomplete.h>
 
+
 t_array *autoc_get_dir_content(char *path)
 {
 	t_array *content;
@@ -25,9 +26,11 @@ t_array *autoc_get_dir_content(char *path)
 	{
 		while ((ep = readdir(dp)))
 			autoc_add_to_array(ep->d_name, content);
-		(void)closedir(dp);
+		(void) closedir(dp);
 	}
 	else
+	{
 		;//TODO ERROR HANDLInG HERE
+	}
 	return (content);
 }

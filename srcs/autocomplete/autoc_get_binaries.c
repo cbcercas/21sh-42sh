@@ -48,7 +48,9 @@ t_array *autoc_get_binaries(void)
 			(void)closedir(dp);
 		}
 		else
+		{
 			;//TODO ERROR HANDLInG HERE
+		}
 		i++;
 	}
 	return (binaries);

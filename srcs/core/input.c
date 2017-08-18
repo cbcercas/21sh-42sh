@@ -98,7 +98,6 @@ static void	draw_char(t_input *input, char *c)
 char	*sh_get_line(t_sh_opt *opts)
 {
 	char		buff[MAX_KEY_STRING_LEN + 1];
-	ssize_t		res;
 	t_key		key;
 	BOOL		stop;
 	static t_input	input;
@@ -111,7 +110,7 @@ char	*sh_get_line(t_sh_opt *opts)
 	while (stop == false)
 	{
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
-		res = read(STDIN_FILENO, buff, (opts->tcaps) ? MAX_KEY_STRING_LEN : 1);
+		read(STDIN_FILENO, buff, (opts->tcaps) ? MAX_KEY_STRING_LEN : 1);
 		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
 			stop = key_exec(&key, &input);

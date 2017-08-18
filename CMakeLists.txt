@@ -24,11 +24,11 @@ set(SOURCE_FILES
         srcs/core/usage_help.c
         srcs/core/prompt.c
         srcs/environ/env_list_utils.c
-        srcs/environ/environ.c
-        srcs/environ/getter_env.c
-        srcs/environ/builtin_env_utils.c
-        srcs/environ/builtin_environ.c
-        srcs/environ/modif_env.c
+		srcs/environ/builtin_env_utils.c
+		srcs/environ/env_list_utils.c
+		srcs/environ/environ.c
+		srcs/environ/getter_env.c
+		srcs/environ/modif_env.c
         srcs/expand/expand.c
         srcs/expand/expand_dol.c
         srcs/expand/expand_history.c
@@ -74,6 +74,11 @@ set(SOURCE_FILES
         srcs/builtins/builtin_history_print.c
         srcs/builtins/builtin_history_npr.c
         srcs/builtins/builtin_help.c
+		srcs/builtins/builtin_environ.c
+		srcs/builtins/builtin_environ_env.c
+		srcs/builtins/builtin_environ_env_exec.c
+		srcs/builtins/builtin_environ_env_i.c
+		srcs/builtins/builtin_environ_env_u.c
         srcs/btree/btree_apply_infix.c
         srcs/btree/btree_apply_suffix.c
         srcs/btree/btree_apply_prefix.c
@@ -88,6 +93,7 @@ set(SOURCE_FILES
         srcs/ast/ast_is_greatand.c
         srcs/ast/ast.c
         srcs/tests/ast_tests.c
+		srcs/tests/exec_tests.c
 		srcs/autocomplete/autocomplete.c
 		srcs/autocomplete/autocomplete_array_handler.c
 		srcs/autocomplete/autoc_get_dir_content.c
@@ -99,9 +105,15 @@ set(SOURCE_FILES
         srcs/tools/is_printstr.c
         srcs/tools/sh_fork.c
         srcs/tools/sh_pipe.c
-        srcs/tools/sh_open_execs.c
+        srcs/tools/sh_open_exec.c
         srcs/tools/sh_open.c
-        srcs/ft_secu_malloc/ft_secu_malloc.c
+		srcs/tools/sh_ret.c
+		srcs/tools/ft_isdigit_str.c
+		srcs/tools/ft_strdblfree.c
+		srcs/tools/ft_strnew_secu.c
+		srcs/tools/ft_strsplit_secu.c
+		srcs/tools/ft_strsub_secu.c
+		srcs/ft_secu_malloc/ft_secu_malloc.c
         srcs/ft_secu_malloc/ft_secu_free.c
         srcs/ft_secu_malloc/ft_secu_malloc_lvl.c
         srcs/ft_secu_malloc/ft_secu_free_lvl.c

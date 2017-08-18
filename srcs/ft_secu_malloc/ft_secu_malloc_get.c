@@ -20,8 +20,8 @@ t_mem *get_mem(void)
 	{
 		if (!(mem = (t_mem *)malloc(sizeof(t_mem))))
 			ft_putstr_fd("ERROR: Malloc\n", 2);
-			mem->first = NULL;
-			mem->last = NULL;
+		mem->first = NULL;
+		mem->last = NULL;
 	}
 	return (mem);
 }
