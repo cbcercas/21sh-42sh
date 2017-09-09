@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/30 11:49:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/01 15:46:29 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/09 15:46:49 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,11 @@
 
 int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item)
 {
-  pid_t pid;
   int		fd;
 
   if ((fd = sh_open_exec(ast)) == -1)
       return((g_ret = 1));
-  pid = sh_fork();
-  if (pid == 0)
+  if (sh_fork() == 0)
   {
     if (fd != -1)
     {
