@@ -226,7 +226,6 @@ load test_helper
 }
 
 @test "EXEC: Testing [IN CORRECTION] for base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g'" {
-    skip "a fix"
     expect=`base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g'`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g''
     echo "ERROR:"
