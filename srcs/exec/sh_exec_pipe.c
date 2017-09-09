@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 10:51:28 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/04 15:19:57 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/09 15:51:44 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,20 +56,26 @@ int sh_process_pipe(t_sh_data *data, t_btree *ast)
 
   endfd = -1;
   ret = 0;
-  while (nb_of_pipe(ast) >= 0)
+  if (sh_fork() == 0)
   {
-    if (ast->left)
-      ret = sh_exec_pipe(data, ast->left, &endfd, false);
-    else
-      ret = sh_exec_pipe(data, ast, &endfd, true);
-    ast = ast->right;
+    while (nb_of_pipe(ast) >= 0)
+    {
+      if (ast->left)
+        ret = sh_exec_pipe(data, ast->left, &endfd, false);
+      else
+        ret = sh_exec_pipe(data, ast, &endfd, true);
+      ast = ast->right;
+    }
+    exit(EXIT_SUCCESS);
   }
+  wait_sh();
   return (ret);
 }
 
-static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item)
+static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item, BOOL is_out)
 {
-  item->info.ret = sh_ret(wait_sh());//TODO: probleme si $> command infini | command fini
+  if (is_out)
+    item->info.ret = sh_ret(wait_sh());
   close(tube[START]);
   if (*endfd != -1)
     close(*endfd);
@@ -110,5 +116,5 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, int *endfd, BOOL is_out)
       exit (EXIT_SUCCESS);
     exit (EXIT_FAILURE);
 	}
-  return(sh_exec_pipe_parent(tube, endfd, item));
+  return(sh_exec_pipe_parent(tube, endfd, item, is_out));
 }
