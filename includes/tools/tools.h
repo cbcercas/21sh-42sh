@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 13:00:38 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/01 15:20:45 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/15 14:12:20 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ BOOL  ft_isdigit_str(char *str);
 char	*ft_strnew_secu(size_t size, size_t lvl);
 char		*ft_strsub_secu(char const *s, unsigned int start, size_t len, size_t lvl);
 char		**ft_strsplit_secu(char const *s, char c, size_t lvl);
+char	*ft_strdup_secu(char const *src, size_t lvl);
 
 
 #endif

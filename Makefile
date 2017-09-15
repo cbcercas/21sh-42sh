@@ -34,7 +34,7 @@ SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c\
 SRC_SUBDIR		+= tools
 SRCS			+= ft_strdblfree.c is_printstr.c sh_pipe.c sh_fork.c sh_open_exec.c\
 							sh_open.c ft_isdigit_str.c ft_strsplit_secu.c ft_strsub_secu.c\
-							 ft_strnew_secu.c sh_ret.c
+							 ft_strnew_secu.c sh_ret.c ft_strdup_secu.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c
