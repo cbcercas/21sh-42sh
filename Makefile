@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/08/04 10:26:48 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/09/15 16:35:37 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ SRC_SUBDIR      += ast
 SRCS            += ast.c ast_utils.c ast_built.c ast_is_greatand.c
 
 SRC_SUBDIR      += autocomplete
-SRCS            += autocomplete.c autocomplete_array_handler.c \
+SRCS            += is.c get_words.c get_path.c autocomplete.c display.c #autocomplete_array_handler.c \
                    autoc_get_dir_content.c autoc_get_binaries.c \
                    autoc_display.c
 
