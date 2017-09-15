@@ -1,0 +1,126 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_words.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/14 11:08:33 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/09/15 16:27:22 by gpouyat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <autocomplete/autocomplete.h>
+
+int nb_of_word(char *s)
+{
+	int i;
+	int	count;
+
+	i = 0;
+	count = 1;
+	if (!s)
+		return (0);
+	while (s[i])
+	{
+		if (ISBLANC(s[i]))
+		{
+			count++;
+			while (ISBLANC(s[i]))
+				i++;
+		}
+		if (s[i])
+			i++;
+	}
+	return (count);
+}
+
+char *find_word_after(t_input *input)
+{
+	char *tmp;
+	int		i;
+	int end;
+
+	i = pos_in_str(*input);
+	tmp = NULL;
+	while (!ISBLANC(input->str->s[i]) && i != 0)
+  i--;
+	while(ISBLANC(input->str->s[i]) && i != 0)
+		i--;
+	end = i;
+	while (!ISBLANC(input->str->s[i]) && i != 0)
+		i--;
+	if (!i)
+		tmp = ft_strsub_secu(input->str->s, i, end - i + 1, 1);
+	else
+		tmp = ft_strsub_secu(input->str->s, i + 1, end - i, 1);
+	return (tmp);
+}
+
+char *find_word_cur(t_input *input)
+{
+  int   i;
+  int   end;
+  char *tmp;
+
+  if (!input || !input->str || !input->str->s)
+    return (NULL);
+  end = pos_in_str(*input);
+  i = end;
+  if (!end)
+    return (NULL);
+  if (ISBLANC(input->str->s[end]))
+    i--;
+  while (!ISBLANC(input->str->s[i]) && i != 0)
+    i--;
+  if (!i && (end - i) > 0)
+    tmp = ft_strsub_secu(input->str->s, i, end - i, 1);
+  else if((end - i - 1) > 0)
+    tmp = ft_strsub_secu(input->str->s, i + 1, end - i - 1, 1);
+  else
+    return (NULL);
+  return (tmp);
+}
+
+int get_nb_word_cur(t_input *input)
+{
+  int i;
+  int	count;
+  char *s;
+
+  s = input->str->s;
+  i = pos_in_str(*input);
+  count = 1;
+  if (!s)
+    return (0);
+  while (i)
+  {
+    if (ISBLANC(s[i]))
+    {
+      count++;
+      while ( i && ISBLANC(s[i]))
+        i--;
+    }
+    if (i)
+      i--;
+  }
+  return (count);
+}
+
+size_t get_index_cur(t_input *input)
+{
+	size_t   i;
+
+	if (!input || !input->str || !input->str->s)
+		return (0);
+	i = pos_in_str(*input);
+	if (!i)
+		return (i);
+	if (ISBLANC(input->str->s[i]))
+		return (i);
+	while (!ISBLANC(input->str->s[i]) && i != 0)
+		i--;
+	if (i)
+		i++;
+	return (i);
+}
