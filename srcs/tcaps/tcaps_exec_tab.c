@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:47:05 by jlasne            #+#    #+#             */
-/*   Updated: 2017/09/15 17:50:12 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/16 20:32:17 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 		if (is_path(input))
 			input = autocomplete(get_content_paths(get_path(current)), input);
 		else
-			printf("%s = |%s|\n", "C'EST UNE COMMANDE ", find_word_cur(input));
-		ft_secu_free_lvl(1);
+			input = autocomplete(get_bin(current), input);
+		ft_secu_free_lvl(M_LVL_AUTOC);
 		return (false);
 }
