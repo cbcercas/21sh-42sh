@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:51 by jlasne            #+#    #+#             */
-/*   Updated: 2017/09/15 16:32:08 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/16 20:33:15 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ char *get_path(char *s);
 t_array *get_content_paths(char *path);
 t_input *autocomplete(t_array *content, t_input *input);
 void aff(t_array *content);
+t_array *get_bin(char *begin);
 /*
 # include <stddef.h>
 # include <libft.h>
