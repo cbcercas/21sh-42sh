@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:04:39 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/04 21:45:14 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/18 21:39:28 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 	size_t	pos;
 
 	(void)key;
+	clean_term();
 	log_dbg1("exec delete.");
 	pos = (input->cpos.cp_col + 1 - (input->offset_col + 1)) +
 		  (input->ts.ws_col * input->offset_line);
