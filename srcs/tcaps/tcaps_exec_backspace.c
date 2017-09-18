@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:04:39 by jlasne            #+#    #+#             */
-/*   Updated: 2017/09/18 21:40:06 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/18 21:50:05 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ BOOL	exec_backspace(const t_key *key, t_input *input)
 {
 	(void)key;
 
-	clean_term();
 	log_dbg3("User pressed backspace");
 	if (input->offset_line || input->cpos.cp_col > (unsigned short)input->offset_col)
 	{
