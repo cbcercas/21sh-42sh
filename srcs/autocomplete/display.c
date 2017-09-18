@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 16:30:33 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/16 16:25:09 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/18 21:11:21 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void aff(t_array *content)
 
 	i = 0;
 	default_terminal_mode();
-	clean_term();
 	if (!content)
 		return ;
 	tputs(tgetstr("sc", NULL), 0, &ft_putchar2);
@@ -50,7 +49,6 @@ void aff(t_array *content)
 		ft_printf("%s: too many possibilities (%d)", PROGNAME ,content->used);
 	while( content->used <= 42 && i < content->used)
 	{
-
 		tmp = (t_string *)array_get_at(content, i);
 		if (tmp && tmp->s)
 			ft_printf(" %s ", aff_one(tmp));
@@ -58,4 +56,6 @@ void aff(t_array *content)
 	}
 	raw_terminal_mode();
 	tputs(tgetstr("rc", NULL), 0, &ft_putchar2);
+	if ( (get_curs_y()) == get_term_size().ts_lines)
+		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
 }

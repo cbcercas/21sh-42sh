@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:35 by jlasne            #+#    #+#             */
-/*   Updated: 2017/09/16 20:02:37 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/18 16:49:31 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_input *autocomplete(t_array *content, t_input *input)
 	t_string *string;
 	size_t pos;
 
-	if (content && content->used <= 420)
+	if (content && content->used <= 300)
 		content = filter_autocomplete(content, input);
 	if (content && content->used == 1)
 	{
@@ -74,7 +74,7 @@ t_input *autocomplete(t_array *content, t_input *input)
 		array_destroy(&content, NULL);
 		return (input);
 	}
-	if (content && content->used <= 42)
+	if (content && content->used <= 300)
 		content = tri_content(content);
 	aff(content);
 	array_destroy(&content, NULL);

@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:47:05 by jlasne            #+#    #+#             */
-/*   Updated: 2017/09/16 20:32:17 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/18 21:09:43 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 {
 	char *current;
 
+	clean_term();
 	current = find_word_cur(input);
 	(void) key;
 	(void) input;

@@ -6,19 +6,19 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:18:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/15 16:58:03 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/18 20:44:31 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <history/history.h>
 
-char	*history_research_delete(char *line)
+/*char	*history_research_delete(char *line)
 {
-	clean_term();
+	//clean_term();
 	if (line && ft_strlen(line))
 		line[ft_strlen(line) - 1] = 0;
 	return (line);
-}
+}*/
 
 void		history_research_prompt(char *buff, char *result, BOOL fail)
 {
@@ -61,9 +61,9 @@ BOOL	history_research_search(const char *line, char **result)
 
 static char *apply_buff(char *buff, char *line)
 {
-	if (buff[0] == 127 && line)
+	/*if (buff[0] == 127 && line)
 		line = history_research_delete(line);
-	else if (ISIMPRC(buff))
+	else*/ if (ISIMPRC(buff))
 	{
 		if (line)
 			line = ft_strjoincl(line, buff, 1);
