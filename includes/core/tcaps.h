@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:02:09 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/09/15 16:35:10 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/18 19:48:45 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ void	redraw_line(t_input *input);
 void	tcaps_down(t_input *input);
 
 void clean_term(void);
+int		get_curs_y(void);
 
 #endif
