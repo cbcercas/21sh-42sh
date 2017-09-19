@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/09/18 19:31:23 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/09/19 11:58:41 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
                     tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
                     tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c\
 										tcaps_exec_end_home.c tcaps_exec_alt_arrows.c\
-										tcaps_exec_select.c clean_term.c get_curs_y.c
+										tcaps_exec_select.c clean_term.c get_curs_y.c get_curs_x.c
 
 SRC_SUBDIR      += btree
 SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\
