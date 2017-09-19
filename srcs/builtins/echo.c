@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:13 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/31 19:14:56 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/19 12:41:36 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,8 @@ int sh_echo(t_sh_data *data, char **argv)
 	}
 	if (opt != '?')
 		echo_print(&argv[g_optind], flag);
-	if (flag[0] && opt != '?')
-		ft_putstr("%");
-	ft_putstr("\n");
+	if (!(flag[0] && opt != '?'))
+		ft_putstr("\n");
 	ft_getopt_reset();
 	return (((opt != '?') ? 0 : -1));
 }
