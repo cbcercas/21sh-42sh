@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/18 19:29:23 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/19 11:46:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/19 12:58:56 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,13 @@ int		get_curs_y(void)
 {
 	char b[(MAX_KEY_STRING_LEN * 2) + 1];
 	int i;
-	size_t count;
+	struct termios	tattr;
 
 	i = 0;
-	count = 0;
+	tcgetattr(STDIN_FILENO, &tattr);
+	raw_terminal_mode();
 	bzero(b, MAX_KEY_STRING_LEN * 2);
+	tputs(tgetstr("mk", NULL), 1, ft_putchar2);
 	while (42)
 	{
 		bzero(b, MAX_KEY_STRING_LEN * 2);
@@ -31,7 +33,9 @@ int		get_curs_y(void)
 		if ((b[0] == 27) && (b[1] == '[') && (b[ft_strlen(b) - 1] == 'R'))
 			break;
 	}
+	tputs(tgetstr("me", NULL), 1, ft_putchar2);
 	while (!ft_isdigit(b[i]) && b[i])
 		i++;
+	tcsetattr(STDIN_FILENO, TCSADRAIN, &tattr);
 	return (ft_atoi(b + i));
 }
