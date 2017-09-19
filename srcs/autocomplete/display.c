@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 16:30:33 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/18 21:11:21 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/19 11:49:58 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void aff(t_array *content)
 	if (!content)
 		return ;
 	tputs(tgetstr("sc", NULL), 0, &ft_putchar2);
-	ft_printf("\n");
+	ft_putstr("\n");
 	if (content->used > 42)
 		ft_printf("%s: too many possibilities (%d)", PROGNAME ,content->used);
 	while( content->used <= 42 && i < content->used)
