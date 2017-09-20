@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/08/01 09:20:24 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/20 18:37:08 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item);
 
 int   sh_process_exec(t_sh_data *data, t_btree *ast);
 
+int   sh_heradoc(t_btree *ast, t_cmd *item, int fd);
 
 #endif

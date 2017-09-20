@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/30 11:49:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/09 15:46:49 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/20 19:23:03 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,18 @@ int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item)
 {
   int		fd;
 
+
   if ((fd = sh_open_exec(ast)) == -1)
-      return((g_ret = 1));
+    return((g_ret = 1));
   if (sh_fork() == 0)
   {
     if (fd != -1)
     {
-      if (item->av[0][0] == '<')
-        dup2(fd, STDIN_FILENO);
+       if (item->av[0][0] == '<')
+       {
+         if ((fd = sh_heradoc(ast, item, fd)) != -1)
+          dup2(fd, STDIN_FILENO);
+       }
       else
         dup2(fd, STDOUT_FILENO);
       sh_process_exec(data, ast->left);
@@ -81,7 +85,7 @@ static void sh_exec_greatand_dup2(int fd_out, int fd_in, t_cmd *item)
 static int sh_exec_greatand_open(int *fd_out, int *fd_in, t_cmd *item)
 {
   if (!item || !item->av || !item->av[0] || !item->av[1])
-    return(ft_dprintf(2, "Error: in exec (redir)\n"));
+    return(ft_dprintf(2, "Error: in exec (redir greatand)\n"));
   if((item->av[2] && ft_strequ(item->av[2], "-"))|| ft_strequ(item->av[1], "-"))
     *fd_out = sh_open("/dev/null", O_RDWR | O_CREAT);
   else if((item->av[2] && ft_isdigit_str(item->av[2])) || (!item->av[2] && ft_isdigit_str(item->av[1])))
