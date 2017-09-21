@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:25:01 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/09/19 12:56:08 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/21 16:05:52 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ size_t get_prompt(BOOL print)
 
 void	sh_print_prompt(void)
 {
-	if (get_curs_x() > 1 )
+	if (g_input && g_input->str && g_input->str->len && get_curs_x() > 1 )
 	{
 		tputs(tgetstr("mr", NULL), 1, ft_putchar2);
 		ft_putendl("%");
