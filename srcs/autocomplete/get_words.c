@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 11:08:33 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/15 16:27:22 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/21 16:42:56 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ char *find_word_cur(t_input *input)
   if (!input || !input->str || !input->str->s)
     return (NULL);
   end = pos_in_str(*input);
-  i = end;
   if (!end)
     return (NULL);
-  if (ISBLANC(input->str->s[end]))
-    i--;
+  while (ISBLANC(input->str->s[end - 1]) && end != 0)
+    end--;
+	 i = end;
   while (!ISBLANC(input->str->s[i]) && i != 0)
     i--;
   if (!i && (end - i) > 0)

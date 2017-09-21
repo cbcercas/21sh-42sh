@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 16:30:33 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/19 11:49:58 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/21 16:47:19 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,35 @@ static char *aff_one(t_string *string)
 	return (ret);
 }
 
+static void input_zero(void)
+{
+	g_input->offset_line = 0;
+	g_input->cpos.cp_line = 0;
+	g_input->select.is = false;
+	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
+}
+
+static void re_display_input(size_t pos)
+{
+	ft_putstr("\n");
+	sh_print_prompt();
+	redraw_line(g_input);
+	while (pos != pos_in_str(*g_input))
+		exec_arrow_right(NULL, g_input);
+}
+
 void aff(t_array *content)
 {
 	size_t 		i;
 	t_string 	*tmp;
+	size_t 	pos;
 
+	if (!content || !content->used)
+		return ;
+	pos = pos_in_str(*g_input);
+	input_zero();
 	i = 0;
 	default_terminal_mode();
-	if (!content)
-		return ;
-	tputs(tgetstr("sc", NULL), 0, &ft_putchar2);
 	ft_putstr("\n");
 	if (content->used > 42)
 		ft_printf("%s: too many possibilities (%d)", PROGNAME ,content->used);
@@ -54,8 +73,6 @@ void aff(t_array *content)
 			ft_printf(" %s ", aff_one(tmp));
 		i++;
 	}
+	re_display_input(pos);
 	raw_terminal_mode();
-	tputs(tgetstr("rc", NULL), 0, &ft_putchar2);
-	if ( (get_curs_y()) == get_term_size().ts_lines)
-		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
 }

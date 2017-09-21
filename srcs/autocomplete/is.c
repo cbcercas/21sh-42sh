@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 11:18:31 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/15 17:11:53 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/21 16:31:05 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ BOOL is_command(t_input *input)
 	if (nb_word == 1)
 		return (true);
 	else if (nb_word > 1)
+	{
 		tmp = find_word_after(input);
-	if (!tmp || !ft_strlen(tmp) || ft_strequ(tmp, "&&") || ft_strequ(tmp, "||")\
-	 				|| ft_strequ(tmp, ";") || ft_strequ(tmp, "|") || ft_strequ(tmp, "&"))
-		return (true);
+		if (!tmp || !ft_strlen(tmp) || ft_strequ(tmp, "&&") || ft_strequ(tmp, "||")\
+	 					|| ft_strequ(tmp, ";") || ft_strequ(tmp, "|") || ft_strequ(tmp, "&"))
+			return (true);
+	}
 	return (false);
 }
 
