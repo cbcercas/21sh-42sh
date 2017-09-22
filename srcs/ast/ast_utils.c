@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/21 16:14:18 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/22 14:58:48 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,13 @@ BOOL	ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 	if ( prio == 1 && ((type == E_TOKEN_SEMI) ||\
 				(type == E_TOKEN_AND_IF) || (type == E_TOKEN_OR_IF)))
 		return (true);
-	if (prio == 2 && (type == E_TOKEN_LESSGREAT))
+	if ( prio == 2 && ((type == E_TOKEN_PIPE) || (type == E_TOKEN_AND)))
 		return (true);
-	if ( prio == 3 && (type == E_TOKEN_DLESS || type == E_TOKEN_DGREAT))
+	if ( prio == 3 && (type == E_TOKEN_LESSGREAT || type == E_TOKEN_DLESS || type == E_TOKEN_DGREAT))
 		return (true);
-	if ( prio == 4 && ((type == E_TOKEN_PIPE) || (type == E_TOKEN_AND)))
+	if ( prio == 4 && (ast_is_greatand(expands, cnt, type)))
 		return (true);
-	if ( prio == 5 && (ast_is_greatand(expands, cnt, type)))
-		return (true);
-	if ( prio == 6 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
+	if ( prio == 5 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
 		return (true);
 	return (false);
 }

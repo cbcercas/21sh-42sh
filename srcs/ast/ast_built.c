@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/31 09:13:59 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/21 12:30:24 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_token_type return_type(int prio, t_token_type type)
 {
-	if ( prio != 5 )
+	if ( prio != 4 )
 		return (type);
 	return (E_TOKEN_GREATAND);
 }
@@ -75,15 +75,15 @@ t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
 	if (lim.cnt <= expands->used && exp && lim.cnt < lim.lim)
 	{
 		lim_left.lim = lim.cnt;
-		lim = (prio == 5 ? ast_built_greatand_plus(expands, lim) : lim);
-		lim = (prio == 6 ? ast_built_word_plus(expands, lim) : lim);
+		lim = (prio == 4 ? ast_built_greatand_plus(expands, lim) : lim);
+		lim = (prio == 5 ? ast_built_word_plus(expands, lim) : lim);
 		btree_insert_data(&ast, ast_new_cmd(expands, lim_left.lim - 1, lim.cnt,\
 					return_type(prio, exp->type)), (int (*)(void*, void*))&ast_cmp);
-		if (prio != 6)
+		if (prio != 5)
 			ast->left = ast_built(ast->left, expands, lim_left, prio + 1);
 		ast->right = ast_built(ast->right, expands, lim, prio);
 	}
-	else if (prio != 6)
+	else if (prio != 5)
 		ast = ast_built(ast, expands, lim_left, prio + 1);
 	return (ast);
 }
