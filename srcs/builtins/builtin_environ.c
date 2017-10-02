@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:04:48 by jlasne            #+#    #+#             */
-/*   Updated: 2017/08/03 18:22:19 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/02 14:31:58 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		sh_builtin_setenv(t_sh_data *data, char **args)
 	if (!args || !args[0] || !args[1] || !ft_strchr(args[1], '='))
 	{
 		sh_help_setenv();
-		return(1);
+		return (1);
 	}
 	i = 1;
 	while (args[i] && ft_strchr(args[i], '='))
@@ -40,7 +40,7 @@ int		sh_builtin_unsetenv(t_sh_data *data, char **args)
 	if (!args || !args[0] || !args[1])
 	{
 		sh_help_unsetenv();
-		return(1);
+		return (1);
 	}
 	i = 1;
 	while (args[i])

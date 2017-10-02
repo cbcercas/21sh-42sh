@@ -145,7 +145,7 @@ set(SOURCE_FILES
 		srcs/tests/expand_tests.c
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
-        )
+        srcs/builtins/builtin_help_2.c)
 
 include_directories(includes)
 
