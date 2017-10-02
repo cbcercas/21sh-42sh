@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/25 18:20:34 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/18 13:42:14 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/02 13:40:53 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@ BOOL	is_greatand_front(t_array *expands, size_t cnt)
 	exp = (t_exp *)array_get_at(expands, cnt + 1);
 	if (exp && exp->type == E_TOKEN_GREATAND)
 		return (true);
-	/*while (exp && exp->type == E_TOKEN_BLANK)
-	{
-		cnt++;
-		exp = (t_exp *)array_get_at(expands, cnt + 1);
-		if (exp && exp->type == E_TOKEN_GREATAND)
-			return (true);
-	}*/
 	return (false);
 }
+
+/*
+**while (exp && exp->type == E_TOKEN_BLANK)
+**{
+**cnt++;
+**exp = (t_exp *)array_get_at(expands, cnt + 1);
+**if (exp && exp->type == E_TOKEN_GREATAND)
+**return (true);
+**}
+*/
 
 BOOL	is_greatand_back(t_array *expands, size_t cnt)
 {

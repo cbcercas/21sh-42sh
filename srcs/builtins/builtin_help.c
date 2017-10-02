@@ -135,7 +135,7 @@ void sh_help_bonus(void)
 	ft_printf("\t\t%s%s*Dynamique Prompt ! 🚀%s\n", C_BOLD, C_GREEN, C_NONE);
 	ft_printf("\t\t\t%s%s-With Super Hat ! 🎩%s\n", C_BOLD, C_GREEN, C_NONE);
 	ft_printf("\t\t%s*Tests with Bats Frameworks!\n", CL_BLUE);
-	ft_printf("\t\t%s*ft_secu_malloc\n", C_YELLOW);
+	ft_printf("\t\t%s*secu_malloc\n", C_YELLOW);
 	ft_printf("\t\t%s*MANY COLORS(Make, Prompt, env, help)\n", CL_RED);
 }
 

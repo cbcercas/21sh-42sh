@@ -36,7 +36,7 @@ t_env *builtin_env_new_env(t_env *env)
 {
 	t_env	*e;
 
-	if ((e = ft_secu_malloc(sizeof(*e))) == NULL)
+	if ((e = secu_malloc(sizeof(*e))) == NULL)
 	{
 		log_fatal("Environ: can't create new environment varibles");
 		ft_dprintf(STDERR_FILENO, "Builtins Env: can't create new environment \
