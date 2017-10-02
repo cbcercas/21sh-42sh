@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   help.c                                             :+:      :+:    :+:   */
+/*   usage_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/30 14:28:21 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/06 18:43:37 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void sh_usage_help(void)
 	ft_printf("\t\t\t\t\t set VAR=value ... : set variable(s) and display env\n");
 	ft_printf("\t\t\t\t\t del VAR ... : delete variable(s) and display env\n");
 	ft_printf("\t\t\t      lexer: test lexer module\n");
-	ft_printf("\t\t\t     parser: test lexer module\n");
+	ft_printf("\t\t\t     parser: test parser module\n");
+	ft_printf("\t\t\t     expand: test expand module\n");
 }
 
 void sh_usage_help_exit(void)

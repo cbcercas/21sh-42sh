@@ -12,5 +12,6 @@
 
 void    sh_print_env(void);
 t_array	*sh_get_envs(void);
+void sh_free_elem_env(t_env *elem);
 
 #endif

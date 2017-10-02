@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 10:44:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/23 15:22:51 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 14:58:47 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <ft_secu_malloc/ft_secu_malloc.h>
 
 typedef struct		s_btree
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_env_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:03:02 by jlasne            #+#    #+#             */
-/*   Updated: 2017/06/19 14:03:49 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/08/04 14:01:33 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sh_print_env(void)
 	while (i < envs->used)
 	{
 		e = (t_env *)array_get_at(envs, i);
-		ft_printf("%s=%s\n", e->name, e->value);
+		ft_printf("\033[94m%s\033[0m=%s\n", e->name, e->value);
 		i++;
 	}
 }
@@ -38,9 +38,19 @@ t_array	*sh_get_envs(void)
 		{
 			log_fatal("Environ: can't initialise environment array");
 			ft_dprintf(STDERR_FILENO, "Environ: can't initialise environment\
-					variables");
+					variables\n");
 			exit(1);
 		}
 	}
 	return (e);
+}
+
+void sh_free_elem_env(t_env *env)
+{
+	if (!env)
+		return;
+	if (env->value)
+		free(env->value);
+	if (env->name)
+		free(env->name);
 }

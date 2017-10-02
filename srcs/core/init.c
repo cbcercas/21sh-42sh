@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 10:09:19 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/08 21:22:15 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 22:38:52 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ void sh_testing(const char *arg, char *const *av, char **environ)
 	if (ft_strequ(arg, "parser"))
 		sh_testing_parser(av);
 	if (ft_strequ(arg, "ast"))
-		sh_testing_ast(av);
-
+		sh_testing_ast(av, environ);
+	if (ft_strequ(arg, "expand"))
+		sh_testing_expand(av, environ);
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
@@ -36,7 +37,8 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 {
 	int opt;
 
-	while ((opt = ft_getopt(ac, av, "hvd:t:")) >= 0)
+	opts->tcaps = true;
+	while ((opt = ft_getopt(ac, av, "chvd:t:l")) >= 0)
 	{
 		if (opt == 'v')
 			opts->verbose = 1;
@@ -54,6 +56,10 @@ static void sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 			sh_testing(g_optarg, av, environ);
 		else if (opt == '?')
             sh_usage_help_exit();
+		else if (opt == 'l')
+			opts->tcaps = false;
+		else if (opt == 'c')
+			sh_testing_exec(av, environ);
 	}
 }
 
@@ -73,7 +79,7 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		exit (1);
 	}
 	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
-			sh_setenv("TERM", "dumb");
+			sh_setenv("TERM", "xterm");
 	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
 	{
 		ft_printf("%s: Error on tgetent\n", PROGNAME);

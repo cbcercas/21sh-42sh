@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 21:20:28 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/19 14:25:53 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/07/20 12:51:49 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,14 @@ char	**sh_tenv_to_tab(void)
 	size_t	i;
 
 	envs = sh_get_envs();
-	env_tab = ft_memalloc(sizeof(*env_tab) * envs->used);
+	if (!envs)
+		return (NULL);
+	env_tab = ft_memalloc(sizeof(*env_tab) * (envs->used + 2));
 	i = 0;
-	while ((env = (t_env *)array_get_at(envs, i)) != NULL)
+	while (i < envs->used)
 	{
+		if (!(env = (t_env *)array_get_at(envs, i)))
+			return (NULL);
 		env_tab[i] = ft_strjoin(env->name, "=");
 		env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1);
 		i++;

@@ -156,7 +156,7 @@ test_bats()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/tests_expand.bats" $path_of_file"/tests_bats/ast.bats"
+		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/tests_expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -177,6 +177,10 @@ test_bats()
 		return 0;
 	elif [ $1 = "ast" ] || [ $1 = "a" ]; then
 		bats $path_of_file"/tests_bats/ast.bats"
+		ret=`expr $ret + $?`
+		return 0;
+	elif [ $1 = "exec" ] || [ $1 = "execution" ]; then
+		bats $path_of_file"/tests_bats/exec.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	else
@@ -213,6 +217,8 @@ tests_travis()
 		test_bats 'expand'
 	elif [ ${TRAVIS_BRANCH} = "ast" ] || [ ${TRAVIS_BRANCH} = "AST" ]; then
 		test_bats 'ast'
+	elif [ ${TRAVIS_BRANCH} = "exec" ] || [ ${TRAVIS_BRANCH} = "ex" ]; then
+		test_bats 'exec'
 	else
 		echo -e "Tests doesn't exist for branch: ${TRAVIS_BRANCH}"
 		echo -e "Create an issue to ask new tests for this branch"

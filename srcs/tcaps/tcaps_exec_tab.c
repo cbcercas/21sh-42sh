@@ -3,20 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   tcaps_exec_tab.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:47:05 by jlasne            #+#    #+#             */
-/*   Updated: 2017/03/30 13:48:15 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/09/18 21:09:43 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
+#include <autocomplete/autocomplete.h>
+
 BOOL	exec_tab(const t_key *key, t_input *input)
 {
-	(void)key;
-	write(1, "User pressed tab\n", 16);
-	exec_ctrl_c(key, input);
-	return (false);
+	char *current;
+
+	clean_term();
+	current = find_word_cur(input);
+	(void) key;
+	(void) input;
+		if (autocomplete_is_path(input))
+			input = autocomplete(autocomplete_get_content_paths(autocomplete_get_path(current)), input);
+		else
+			input = autocomplete(autocomplete_get_bin(current), input);
+		ft_secu_free_lvl(M_LVL_AUTOC);
+		return (false);
 }
-
-
