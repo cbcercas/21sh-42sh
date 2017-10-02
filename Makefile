@@ -20,10 +20,10 @@ SRCS			+= environ.c env_list_utils.c getter_env.c builtin_environ.c\
 				   builtin_env_utils.c modif_env.c
 
 SRC_SUBDIR		+= builtins
-SRCS			+= builtins_utils.c exit.c echo.c chdir.c builtin_history.c\
+SRCS			+= builtins_utils.c builtin_exit.c builtin_echo.c builtin_chdir.c builtin_history.c\
 							builtin_history_acdws.c builtin_history_print.c\
 							builtin_history_npr.c builtin_help.c\
-							builtins_utils2.c pwd.c builtin_environ_env.c\
+							builtins_utils2.c builtin_pwd.c builtin_environ_env.c\
 							builtin_environ_env_i.c builtin_environ_env_u.c\
 							builtin_environ_env_exec.c
 
