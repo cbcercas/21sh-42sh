@@ -51,7 +51,7 @@ void sh_help_echo(void)
 	ft_printf("%s\\v%s\tvertical tab\n", C_RED, C_NONE);
 	ft_printf("%s\\\\%s\tbackslash\n", C_RED, C_NONE);
 
-} //TODO: ADD COLORS
+} //TODO: ADD MORE COLORS
 
 void sh_help_help(void)
 {
