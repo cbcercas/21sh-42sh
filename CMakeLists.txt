@@ -32,11 +32,11 @@ set(SOURCE_FILES
 
 		srcs/builtins/builtins_utils.c
 		srcs/builtins/builtins_utils2.c
-		srcs/builtins/chdir.c
-		srcs/builtins/echo.c
-		srcs/builtins/exit.c
+		srcs/builtins/builtin_chdir.c
+		srcs/builtins/builtin_echo.c
+		srcs/builtins/builtin_exit.c
 		srcs/builtins/builtin_help.c
-		srcs/builtins/pwd.c
+		srcs/builtins/builtin_pwd.c
 		srcs/builtins/builtin_environ.c
 		srcs/builtins/builtin_environ_env.c
 		srcs/builtins/builtin_environ_env_exec.c
