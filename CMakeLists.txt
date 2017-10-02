@@ -129,8 +129,7 @@ set(SOURCE_FILES
 		srcs/tools/is_printstr.c
 		srcs/tools/sh_fork.c
 		srcs/tools/sh_pipe.c
-		srcs/tools/sh_open_exec.c
-		srcs/tools/sh_open.c
+        srcs/tools/sh_open.c
 		srcs/tools/ft_str_insert_secu.c
 		srcs/tools/ft_strdup_secu.c
 		srcs/tools/ft_strjoincl_secu.c
