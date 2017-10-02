@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 17:16:17 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 16:11:37 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/16 21:04:36 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ const char	*sh_history_get_at(ssize_t nb)
 
 	if (nb == 0)
 		return (NULL);
-		hists = sh_history_get();
-		if (nb < 0)
-		{
-			if ((h = (t_hist *)array_get_at(hists, hists->used + nb)))
-				return ((const char *)h->cmd);
-		}
-		else if ((h = (t_hist *)array_get_at(hists, nb - 1)))
+	hists = sh_history_get();
+	if (nb < 0)
+	{
+		if ((h = (t_hist *)array_get_at(hists, hists->used + nb)))
 			return ((const char *)h->cmd);
+	}
+	else if ((h = (t_hist *)array_get_at(hists, nb - 1)))
+		return ((const char *)h->cmd);
 	return (NULL);
 }
 
@@ -78,7 +78,9 @@ t_hist	*sh_history_set_new(char const *cmd)
 		hists = sh_history_get();
 		if ((h = (t_hist *)array_get_at(hists, 0)))
 		{
-			ft_strdel(&(h->buf));
+			if (h->buf)
+				ft_secu_free(h->buf);
+			h->buf = NULL;
 			h->cur = -1;
 		}
 		if ((hists->used < 1 || ft_strcmp(cmd, sh_history_get_at(-1))) &&\

@@ -6,11 +6,12 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:25:01 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/08/03 17:04:36 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/19 12:56:08 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/prompt.h>
+# include <core/tcaps.h>
 
 size_t get_prompt(BOOL print)
 {
@@ -42,6 +43,12 @@ size_t get_prompt(BOOL print)
 
 void	sh_print_prompt(void)
 {
+	if (get_curs_x() > 1 )
+	{
+		tputs(tgetstr("mr", NULL), 1, ft_putchar2);
+		ft_putendl("%");
+		tputs(tgetstr("me", NULL), 1, ft_putchar2);
+	}
 	get_prompt(true);
 }
 

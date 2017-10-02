@@ -79,7 +79,7 @@ static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item, BOOL is_out
   close(tube[START]);
   if (*endfd != -1)
     close(*endfd);
-    *endfd = tube[END];
+  *endfd = tube[END];
   return ((g_ret = item->info.ret));
 }
 
@@ -98,11 +98,9 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, int *endfd, BOOL is_out)
 {
   pid_t pid;
 	int tube[2];
-  char  *cmd;
   t_cmd *item;
 
   item = (t_cmd *)ast->item;
-  cmd = NULL;
 	if(sh_pipe(tube) != 0)
 		return (EXIT_FAILURE);
 	 if((pid = sh_fork()) == -1)

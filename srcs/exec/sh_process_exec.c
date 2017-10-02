@@ -6,11 +6,18 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:15 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/08/01 10:13:48 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/14 14:55:17 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
+
+t_cmd *init_exec(t_btree *ast)
+{
+  if (!ast)
+    return (NULL);
+  return ((t_cmd *)ast->item);
+}
 
 /*
 ** @brief         handle ast before exec
@@ -30,17 +37,18 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast)
 {
   t_cmd *item;
 
-  if (!ast)
+  if(!(item = init_exec(ast)))
     return (-1);
-  item = (t_cmd *)ast->item;
   if (item->type == E_TOKEN_WORD)
     return (sh_exec_simple(data, item));
   else if (item->type == E_TOKEN_PIPE)
 		return (sh_process_pipe(data, ast));
   else if(item->type == E_TOKEN_AND_IF)
-    return((sh_process_exec(data, ast->left) == 0) && (sh_process_exec(data, ast->right) == 0));
+    return((sh_process_exec(data, ast->left) == 0) &&\
+            (sh_process_exec(data, ast->right) == 0));
 	else if(item->type == E_TOKEN_OR_IF)
-	  return((sh_process_exec(data, ast->left) == 0) || (sh_process_exec(data, ast->right) == 0));
+	  return((sh_process_exec(data, ast->left) == 0) ||\
+          (sh_process_exec(data, ast->right) == 0));
 	else if(item->type == E_TOKEN_SEMI)
 	{
 		sh_process_exec(data, ast->left);
@@ -51,6 +59,5 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast)
       return(sh_exec_redir(data, ast, item));
   else if(item->type == E_TOKEN_GREATAND)
     return(sh_exec_greatand(data, ast, item));
-  ft_dprintf(2, "\nERROR\n");
   return (-1);
 }

@@ -65,7 +65,19 @@ set(SOURCE_FILES
         srcs/exec/sh_exec.c
         srcs/exec/sh_exec_pipe.c
         srcs/exec/sh_exec_redir.c
-
+        srcs/core/init.c
+        srcs/core/deinit.c
+        srcs/core/input.c
+        srcs/core/input_utils.c
+        srcs/core/main.c
+        srcs/core/usage_help.c
+        srcs/core/prompt.c
+        srcs/environ/env_list_utils.c
+		srcs/environ/builtin_env_utils.c
+		srcs/environ/env_list_utils.c
+		srcs/environ/environ.c
+		srcs/environ/getter_env.c
+		srcs/environ/modif_env.c
         srcs/expand/expand.c
         srcs/expand/expand_dol.c
         srcs/expand/expand_history.c
@@ -131,11 +143,81 @@ set(SOURCE_FILES
         srcs/tests/lexer_tests.c
         srcs/tests/env_tests.c
         srcs/tests/parser_tests.c
-		srcs/tests/env_tests.c
-		srcs/tests/expand_tests.c
-		srcs/tests/ast_tests.c
+        srcs/parser/parser.c
+        srcs/parser/parser_grammar.c
+        srcs/signals/signals.c
+        srcs/signals/signals_handler.c
+        srcs/tcaps/tcaps_exec_alt_arrows.c
+        srcs/tcaps/tcaps_exec_arrow.c
+        srcs/tcaps/tcaps_exec_backspace.c
+        srcs/tcaps/tcaps_exec_ctrl_1.c
+        srcs/tcaps/tcaps_exec_ctrl_2.c
+        srcs/tcaps/tcaps_exec_delete.c
+        srcs/tcaps/tcaps_exec_end_home.c
+        srcs/tcaps/tcaps_exec_select.c
+        srcs/tcaps/tcaps_exec_tab.c
+        srcs/tcaps/tcaps_key_exec.c
+        srcs/tcaps/tcaps_redraw_line.c
+        srcs/tests/env_tests.c
+        srcs/tests/expand_tests.c
+        srcs/history/history.c
+        srcs/history/history_list_utils.c
+        srcs/history/history_getter.c
+        srcs/history/history_print.c
+        srcs/history/history_arrow.c
+        srcs/history/history_research.c
+        srcs/history/history_research_start_end.c
+        srcs/builtins/builtin_history.c
+        srcs/builtins/builtin_history_acdws.c
+        srcs/builtins/builtin_history_print.c
+        srcs/builtins/builtin_history_npr.c
+        srcs/builtins/builtin_help.c
+		srcs/builtins/builtin_environ.c
+		srcs/builtins/builtin_environ_env.c
+		srcs/builtins/builtin_environ_env_exec.c
+		srcs/builtins/builtin_environ_env_i.c
+		srcs/builtins/builtin_environ_env_u.c
+        srcs/btree/btree_apply_infix.c
+        srcs/btree/btree_apply_suffix.c
+        srcs/btree/btree_apply_prefix.c
+        srcs/btree/btree_destroy.c
+        srcs/btree/btree_insert_data.c
+        srcs/btree/btree_create_node.c
+        srcs/btree/btree_print.c
+        srcs/btree/btree_level_count.c
+        srcs/btree/btree_search_item.c
+        srcs/ast/ast_utils.c
+        srcs/ast/ast_built.c
+        srcs/ast/ast_is_greatand.c
+        srcs/ast/ast.c
+        srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
-		)
+		srcs/autocomplete/autocomplete.c
+		srcs/autocomplete/display.c
+		srcs/autocomplete/get_bin.c
+		srcs/autocomplete/get_path.c
+		srcs/autocomplete/get_words.c
+		srcs/autocomplete/is.c
+		srcs/builtins/builtin_help.c
+        srcs/builtins/pwd.c
+        srcs/tools/ft_strdblfree.c
+        srcs/tools/is_printstr.c
+        srcs/tools/sh_fork.c
+        srcs/tools/sh_pipe.c
+        srcs/tools/sh_open_exec.c
+        srcs/tools/sh_open.c
+		srcs/tools/sh_ret.c
+		srcs/tools/ft_isdigit_str.c
+		srcs/tools/ft_strdblfree.c
+		srcs/tools/ft_strnew_secu.c
+		srcs/tools/ft_strsplit_secu.c
+		srcs/tools/ft_strsub_secu.c
+		srcs/ft_secu_malloc/ft_secu_malloc.c
+        srcs/ft_secu_malloc/ft_secu_free.c
+        srcs/ft_secu_malloc/ft_secu_malloc_lvl.c
+        srcs/ft_secu_malloc/ft_secu_free_lvl.c
+        srcs/ft_secu_malloc/ft_secu_free_all.c
+        srcs/ft_secu_malloc/ft_secu_malloc_get.c)
 
 include_directories(includes)
 

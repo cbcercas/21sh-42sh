@@ -6,15 +6,15 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:18:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/07 15:33:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/18 20:44:31 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <history/history.h>
 
-/*char	*history_research_delete(char *line, char *result, BOOL fail)
+/*char	*history_research_delete(char *line)
 {
-	sh_history_clear_len(line, result, fail);
+	//clean_term();
 	if (line && ft_strlen(line))
 		line[ft_strlen(line) - 1] = 0;
 	return (line);
@@ -47,7 +47,9 @@ BOOL	history_research_search(const char *line, char **result)
 				return (true);
 			if (first->cur < 0)
 				first->cur = hists->used - 1;
-			while (first->cur != -1 && (h = (t_hist *)array_get_at(hists, first->cur)) && !ft_strnequ(line, h->cmd, ft_strlen(line)))
+			while (first->cur != -1 &&\
+				 			(h = (t_hist *)array_get_at(hists, first->cur)) &&\
+							 	!ft_strnequ(line, h->cmd, ft_strlen(line)))
 				first->cur--;
 			if (ft_strnequ(line, h->cmd, ft_strlen(line)))
 				*result = ft_strdup(h->cmd);
@@ -55,6 +57,20 @@ BOOL	history_research_search(const char *line, char **result)
 				return (true);
 		}
 	return (false);
+}
+
+static char *apply_buff(char *buff, char *line)
+{
+	/*if (buff[0] == 127 && line)
+		line = history_research_delete(line);
+	else*/ if (ISIMPRC(buff))
+	{
+		if (line)
+			line = ft_strjoincl(line, buff, 1);
+		else
+			line = ft_strdup(buff);
+	}
+	return (line);
 }
 
 void	history_research(t_input *input)
@@ -71,15 +87,8 @@ void	history_research(t_input *input)
 	{
 		if (ISCTRLR(buff) || ISARR(buff))
 			break ;
-		//else if (buff[0] == 127 && line)
-			//line = history_research_delete(line, result, fail);
-		else if (ISIMPRC(buff))
-		{
-			if (line)
-				line = ft_strjoincl(line, buff, 1);
-			else
-				line = ft_strdup(buff);
-		}
+		else
+			line = apply_buff(buff, line);
 		sh_history_clear_len(line, result, fail);
 		fail = history_research_search((const char *)line, &result);
 		history_research_prompt(line, result, fail);

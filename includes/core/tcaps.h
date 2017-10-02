@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:02:09 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/13 14:46:54 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/19 11:57:55 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,9 @@ BOOL	exec_alt_x(const t_key *key, t_input *input);
 
 void	redraw_line(t_input *input);
 void	tcaps_down(t_input *input);
+
+void clean_term(void);
+int		get_curs_y(void);
+int		get_curs_x(void);
 
 #endif

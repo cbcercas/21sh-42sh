@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/08/04 10:26:48 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/09/19 11:58:41 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,9 @@ SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c\
 SRC_SUBDIR		+= tools
 SRCS			+= ft_strdblfree.c is_printstr.c sh_pipe.c sh_fork.c sh_open_exec.c\
 							sh_open.c ft_isdigit_str.c ft_strsplit_secu.c ft_strsub_secu.c\
-							 ft_strnew_secu.c sh_ret.c
+							 ft_strnew_secu.c sh_ret.c ft_strdup_secu.c ft_strjoincl_secu.c\
+							 ft_str_insert_secu.c string_secu.c string_insert_secu.c\
+							 string_growth_secu.c string_dup_secu.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c
@@ -70,7 +72,7 @@ SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
                     tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
                     tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c\
 										tcaps_exec_end_home.c tcaps_exec_alt_arrows.c\
-										tcaps_exec_select.c
+										tcaps_exec_select.c clean_term.c get_curs_y.c get_curs_x.c
 
 SRC_SUBDIR      += btree
 SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\
@@ -81,7 +83,8 @@ SRC_SUBDIR      += ast
 SRCS            += ast.c ast_utils.c ast_built.c ast_is_greatand.c
 
 SRC_SUBDIR      += autocomplete
-SRCS            += autocomplete.c autocomplete_array_handler.c \
+SRCS            += is.c get_words.c get_path.c autocomplete.c display.c\
+ 										get_bin.c #autocomplete_array_handler.c \
                    autoc_get_dir_content.c autoc_get_binaries.c \
                    autoc_display.c
 

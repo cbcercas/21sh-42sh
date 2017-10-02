@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 19:57:29 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/21 12:40:46 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/16 19:42:36 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void *ft_secu_malloc_lvl(size_t size, size_t lvl)
 	mem = get_mem();
 	if (!mem || !(secu_malloc = (t_secu_malloc*)malloc(sizeof(t_secu_malloc)))) // 1 malloc pour deux
 		return(NULL);
+	ft_bzero(secu_malloc, sizeof(t_secu_malloc));
 	ptr = malloc(size);
+	ft_bzero(ptr, size);
 	secu_malloc->lvl = lvl;
 	secu_malloc->ptr = ptr;
 	secu_malloc->next = NULL;

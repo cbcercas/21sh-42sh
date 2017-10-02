@@ -67,23 +67,26 @@ void sh_arrays_reset(t_automaton *automat, t_array *tokens, t_array *expands,\
 t_btree	*sh_process(t_automaton *automat, t_array *tokens, t_array *expands,\
 	 										char *input)
 {
-	t_btree		*ast;
+	t_btree *ast;
 
 	ast = NULL;
 	if (lexer_lex(tokens, automat, input))
+	{
 		if (parser_parse(tokens))
 		{
 			//lexer_print_tokens(tokens);
 			if (expand(tokens, expands))
 			{
-					sh_history_set_new(input);
+				sh_history_set_new(input);
 				if (!(ast = ast_create(expands)))
-					;//ft_printf("AST NULL\n");
+				{ ;//ft_printf("AST NULL\n");
+				}
 				//else
-					//btree_print(ast, (char * (*)(void*))&ast_aff);
+				//btree_print(ast, (char * (*)(void*))&ast_aff);
 				return (ast);
 			}
 		}
+	}
 		return (NULL);
 }
 

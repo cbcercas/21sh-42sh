@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 19:56:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/01 10:30:59 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/16 15:40:43 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define M_LVL_AST 2
 # define M_LVL_EXEC 3
 # define M_LVL_EXPA 4
+# define M_LVL_HIST 5
+# define M_LVL_AUTOC 6
 
 struct          s_secu_malloc
 {
