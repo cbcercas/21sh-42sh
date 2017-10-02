@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include <builtins/chdir.h>
+
 //TODO: j'arrive pas à forcer chdir à aller dans le lien sans le suivre
+
 static char *sh_get_path_p(char *arg, char *buf)
 {
 	ssize_t len;
