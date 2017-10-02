@@ -21,10 +21,10 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	current = find_word_cur(input);
 	(void) key;
 	(void) input;
-		if (is_path(input))
-			input = autocomplete(get_content_paths(get_path(current)), input);
+		if (autocomplete_is_path(input))
+			input = autocomplete(autocomplete_get_content_paths(autocomplete_get_path(current)), input);
 		else
-			input = autocomplete(get_bin(current), input);
+			input = autocomplete(autocomplete_get_bin(current), input);
 		ft_secu_free_lvl(M_LVL_AUTOC);
 		return (false);
 }

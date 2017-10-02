@@ -13,7 +13,7 @@
 # include <autocomplete/autocomplete.h>
 
 
-static t_array *tri_content(t_array *content)
+static t_array *autocomplete_tri_content(t_array *content)
 {
 	size_t		i;
 
@@ -32,7 +32,7 @@ static t_array *tri_content(t_array *content)
 	return (content);
 }
 
-static t_array *filter_autocomplete(t_array *content, t_input *input)
+static t_array *autocomplete_filter_autocomplete(t_array *content, t_input *input)
 {
 	size_t		i;
 	t_string	*string;
@@ -61,7 +61,7 @@ t_input *autocomplete(t_array *content, t_input *input)
 	size_t pos;
 
 	if (content && content->used <= 300)
-		content = filter_autocomplete(content, input);
+		content = autocomplete_filter_autocomplete(content, input);
 	if (content && content->used == 1)
 	{
 		pos = get_index_cur(input);
@@ -75,8 +75,8 @@ t_input *autocomplete(t_array *content, t_input *input)
 		return (input);
 	}
 	if (content && content->used <= 300)
-		content = tri_content(content);
-	aff(content);
+		content = autocomplete_tri_content(content);
+	autocomplete_display(content);
 	array_destroy(&content, NULL);
 	return (input);
 }

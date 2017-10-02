@@ -13,7 +13,7 @@
 #include <autocomplete/autocomplete.h>
 
 
-static char *aff_one(t_string *string)
+static char *autocomplete_disp_one(t_string *string)
 {
 	char 		*ret;
 	size_t	i;
@@ -34,7 +34,7 @@ static char *aff_one(t_string *string)
 	return (ret);
 }
 
-void aff(t_array *content)
+void autocomplete_display(t_array *content)
 {
 	size_t 		i;
 	t_string 	*tmp;
@@ -51,7 +51,7 @@ void aff(t_array *content)
 	{
 		tmp = (t_string *)array_get_at(content, i);
 		if (tmp && tmp->s)
-			ft_printf(" %s ", aff_one(tmp));
+			ft_printf(" %s ", autocomplete_disp_one(tmp));
 		i++;
 	}
 	raw_terminal_mode();

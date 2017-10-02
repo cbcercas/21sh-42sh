@@ -12,7 +12,18 @@
 
 #include <autocomplete/autocomplete.h>
 
-BOOL is_command(t_input *input)
+BOOL autocomplete_is_directory(char *path)
+{
+	struct stat bufstat;
+
+	if (lstat(path, &bufstat) == -1)
+		return (false);
+	if (S_ISDIR(bufstat.st_mode))
+		return (true);
+	return (false);
+}
+
+BOOL autocomplete_is_command(t_input *input)
 {
 	int nb_word;
 	char *tmp;
@@ -33,7 +44,7 @@ BOOL is_command(t_input *input)
 	return (false);
 }
 
-BOOL is_path(t_input *input)
+BOOL autocomplete_is_path(t_input *input)
 {
 	char *tmp;
 
@@ -42,7 +53,7 @@ BOOL is_path(t_input *input)
 	tmp = find_word_cur(input);
 	if  (tmp && ft_strchr(tmp, '/'))
 		return (true);
-	if (is_command(input) == true)
+	if (autocomplete_is_command(input) == true)
 		return (false);
 	return (true);
 }

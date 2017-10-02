@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_bin.c                                          :+:      :+:    :+:   */
+/*   autocomplete_get_bin.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include <autocomplete/autocomplete.h>
 
-t_array *get_bin(char *begin)
+t_array *autocomplete_get_bin(char *begin)
 {
   t_array *content;
   DIR *dir;

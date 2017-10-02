@@ -12,18 +12,7 @@
 
 #include <autocomplete/autocomplete.h>
 
-BOOL is_directory(char *path)
-{
-  struct stat bufstat;
-
-  if (lstat(path, &bufstat) == -1)
-		return (false);
-  if (S_ISDIR(bufstat.st_mode))
-    return (true);
-  return (false);
-}
-
-char *get_path(char *s)
+char *autocomplete_get_path(char *s)
 {
   char *ret;
   char *tmp;
@@ -40,7 +29,7 @@ char *get_path(char *s)
 	return(".");
 }
 
-t_array *get_content_paths(char *path)
+t_array *autocomplete_get_content_paths(char *path)
 {
 	t_array *content;
 	DIR *dir;
@@ -56,7 +45,7 @@ t_array *get_content_paths(char *path)
         tmp = string_dup_secu(file->d_name, M_LVL_AUTOC);
         if (path && !ft_strequ(path, "."))
           tmp = string_insert_front_secu(tmp, path, M_LVL_AUTOC);
-        if (tmp && tmp->s && is_directory(tmp->s))
+        if (tmp && tmp->s && autocomplete_is_directory(tmp->s))
           tmp = string_insert_back_secu(tmp, "/", M_LVL_AUTOC);
         else
           tmp = string_insert_back_secu(tmp, " ", M_LVL_AUTOC);

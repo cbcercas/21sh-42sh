@@ -7,11 +7,11 @@ set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
 set(SOURCE_FILES
 
 		srcs/autocomplete/autocomplete.c
-		srcs/autocomplete/display.c
-		srcs/autocomplete/get_bin.c
-		srcs/autocomplete/get_path.c
-		srcs/autocomplete/get_words.c
-		srcs/autocomplete/is.c
+		srcs/autocomplete/autocomplete_display.c
+		srcs/autocomplete/autocomplete_get_bin.c
+		srcs/autocomplete/autocomplete_get_path.c
+		srcs/autocomplete/autocomplete_get_words.c
+		srcs/autocomplete/autocomplete_is.c
 
 		srcs/automaton/automaton.c
 
