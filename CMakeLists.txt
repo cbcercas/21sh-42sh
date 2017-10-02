@@ -95,10 +95,11 @@ set(SOURCE_FILES
         srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
 		srcs/autocomplete/autocomplete.c
-		srcs/autocomplete/autocomplete_array_handler.c
-		srcs/autocomplete/autoc_get_dir_content.c
-		srcs/autocomplete/autoc_get_binaries.c
-		srcs/autocomplete/autoc_display.c
+		srcs/autocomplete/display.c
+		srcs/autocomplete/get_bin.c
+		srcs/autocomplete/get_path.c
+		srcs/autocomplete/get_words.c
+		srcs/autocomplete/is.c
 		srcs/builtins/builtin_help.c
         srcs/builtins/pwd.c
         srcs/tools/ft_strdblfree.c
