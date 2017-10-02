@@ -12,6 +12,7 @@
 
 #include <core/input.h>
 #include <sys/ioctl.h>
+#include <automaton/automaton.h>
 
 void reset_input(t_input *input)
 {
