@@ -6,22 +6,21 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:35 by jlasne            #+#    #+#             */
-/*   Updated: 2017/09/18 16:49:31 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/02 11:02:42 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <autocomplete/autocomplete.h>
+#include <autocomplete/autocomplete.h>
 
-
-static t_array *autocomplete_tri_content(t_array *content)
+static t_array	*autocomplete_tri_content(t_array *content)
 {
 	size_t		i;
 
 	i = 0;
-	while (content && content->used && i < (content->used - 1) )
+	while (content && content->used && i < (content->used - 1))
 	{
 		if (ft_strcmp(((t_string *)array_get_at(content, i))->s,\
-		 			((t_string *)array_get_at(content, i + 1))->s ) > 0)
+					((t_string *)array_get_at(content, i + 1))->s) > 0)
 		{
 			array_swap(content, i, i + 1);
 			i = 0;
@@ -32,16 +31,16 @@ static t_array *autocomplete_tri_content(t_array *content)
 	return (content);
 }
 
-static t_array *autocomplete_filter_autocomplete(t_array *content, t_input *input)
+static t_array	*autocomplete_filter_autoc(t_array *content, t_input *input)
 {
 	size_t		i;
 	t_string	*string;
-	char *current;
+	char		*current;
 
 	i = 0;
 	if (!content || !(current = find_word_cur(input)))
 		return (content);
-	while(i < content->used)
+	while (i < content->used)
 	{
 		string = (t_string *)array_get_at(content, i);
 		if (string && !ft_strnequ(string->s, current, ft_strlen(current)))
@@ -55,13 +54,13 @@ static t_array *autocomplete_filter_autocomplete(t_array *content, t_input *inpu
 	return (content);
 }
 
-t_input *autocomplete(t_array *content, t_input *input)
+t_input			*autocomplete(t_array *content, t_input *input)
 {
-	t_string *string;
-	size_t pos;
+	t_string	*string;
+	size_t		pos;
 
 	if (content && content->used <= 300)
-		content = autocomplete_filter_autocomplete(content, input);
+		content = autocomplete_filter_autoc(content, input);
 	if (content && content->used == 1)
 	{
 		pos = get_index_cur(input);
