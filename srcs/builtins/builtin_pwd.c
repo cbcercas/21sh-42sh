@@ -1,6 +1,18 @@
-# include <builtins/pwd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/02 15:02:55 by jlasne            #+#    #+#             */
+/*   Updated: 2017/10/02 15:03:17 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int sh_builtin_pwd(t_sh_data *data, char **args)
+#include <builtins/pwd.h>
+
+int	sh_builtin_pwd(t_sh_data *data, char **args)
 {
 	char cwd[1024];
 

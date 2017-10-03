@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/03 18:21:50 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/04 14:03:09 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/02 14:35:12 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,30 @@ char	**sh_builtin_env_to_tab(t_array *envs)
 	return (env_tab);
 }
 
-int sh_builtin_env_exec(char **av, t_array *envs)
+int		sh_builtin_env_exec(char **av, t_array *envs)
 {
-  char	*cmd;
-  char  **envtab = NULL;
-  pid_t	pid;
+	char	*cmd;
+	char	**envtab;
+	pid_t	pid;
 
 	if (!av || !av[0])
 		return (0);
-  envtab = sh_builtin_env_to_tab(envs);
-  cmd = NULL;
+	envtab = sh_builtin_env_to_tab(envs);
+	cmd = NULL;
 	g_ret = 2;
-  if ((cmd = get_filename(av[0])))
-  {
-    pid = sh_fork();
-    if (pid == 0)
-    {
-      execve(cmd, av, envtab);
-      exit(0);
-    }
-    else
-      g_ret = sh_ret(wait_sh());
-  }
-  ft_strdel(&cmd);
-  ft_strdblfree(envtab);
-  envtab = NULL;
-  return (g_ret);
+	if ((cmd = get_filename(av[0])))
+	{
+		pid = sh_fork();
+		if (pid == 0)
+		{
+			execve(cmd, av, envtab);
+			exit(0);
+		}
+		else
+			g_ret = sh_ret(wait_sh());
+	}
+	ft_strdel(&cmd);
+	ft_strdblfree(envtab);
+	envtab = NULL;
+	return (g_ret);
 }
