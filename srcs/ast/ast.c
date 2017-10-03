@@ -14,20 +14,17 @@
 
 int		ast_val_cmp(t_token_type type)
 {
-	if ((type == E_TOKEN_SEMI) ||\
-			(type == E_TOKEN_AND_IF) || (type == E_TOKEN_OR_IF))
+	if (ISSEP(type))
 		return (1);
-	if (type == E_TOKEN_LESSGREAT)
+	if (ISPIPE(type))
 		return (2);
-	if (type == E_TOKEN_DLESS)
+	if (ISRED(type))
 		return (3);
-	if (type == E_TOKEN_DGREAT)
+	if (type == E_TOKEN_AND)
 		return (4);
-	if ((type == E_TOKEN_PIPE) || (type == E_TOKEN_AND))
-		return (5);
 	if (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER)
-		return (6);
-	return (7);
+		return (5);
+	return (6);
 }
 
 int		ast_cmp(t_cmd *s1, t_cmd *s2)

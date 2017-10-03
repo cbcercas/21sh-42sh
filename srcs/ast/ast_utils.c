@@ -53,18 +53,15 @@ char		*ast_aff(t_cmd *cmd)
 
 BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 {
-	if (prio == 1 && ((type == E_TOKEN_SEMI) ||\
-				(type == E_TOKEN_AND_IF) || (type == E_TOKEN_OR_IF)))
+	if (prio == 1 && (ISSEP(type)))
 		return (true);
-	if (prio == 2 && (type == E_TOKEN_LESSGREAT))
+	if (prio == 2 && ISPIPE(type))
 		return (true);
-	if (prio == 3 && (type == E_TOKEN_DLESS || type == E_TOKEN_DGREAT))
+	if (prio == 3 && (ISRED(type) || ast_is_lgand(expands, cnt, type)))
 		return (true);
-	if (prio == 4 && ((type == E_TOKEN_PIPE) || (type == E_TOKEN_AND)))
-		return (true);
-	if (prio == 5 && (ast_is_greatand(expands, cnt, type)))
-		return (true);
-	if (prio == 6 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
+	if (prio == 4 && type == E_TOKEN_AND)
+			return (true);
+	if (prio == 5 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
 		return (true);
 	return (false);
 }
@@ -98,7 +95,3 @@ t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 	ft_bzero((void *)&cmd->info, sizeof(t_info));
 	return (cmd);
 }
-
-/*
-**TODO: peut etre pas <= mais juste < sur la ligne 90
-*/
