@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 
 #include <core/prompt.h>
-# include <core/tcaps.h>
+#include <core/tcaps.h>
 
-size_t get_prompt(BOOL print)
+size_t		get_prompt(BOOL print)
 {
 	char		*path;
 	char		*tmp;
-	size_t	len;
+	size_t		len;
 	char		*ret;
 
 	path = NULL;
@@ -41,9 +41,9 @@ size_t get_prompt(BOOL print)
 	return (len);
 }
 
-void	sh_print_prompt(void)
+void		sh_print_prompt(void)
 {
-	if (get_curs_x() > 1 )
+	if (get_curs_x() > 1)
 	{
 		tputs(tgetstr("mr", NULL), 1, ft_putchar2);
 		ft_putendl("%");
@@ -52,7 +52,7 @@ void	sh_print_prompt(void)
 	get_prompt(true);
 }
 
-size_t sh_len_prompt(void)
+size_t		sh_len_prompt(void)
 {
 	return (get_prompt(false));
 }

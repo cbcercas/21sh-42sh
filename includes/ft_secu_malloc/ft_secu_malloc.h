@@ -43,7 +43,7 @@ typedef struct          s_mem
 t_mem *get_mem(void);
 void *ft_secu_malloc_lvl(size_t size, size_t lvl);
 void ft_secu_free_lvl(size_t lvl);
-void *ft_secu_malloc(size_t size);
+void *secu_malloc(size_t size);
 void ft_secu_free(void *ptr);
 void ft_secu_free_all(void);
 

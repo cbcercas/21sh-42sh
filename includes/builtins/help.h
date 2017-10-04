@@ -12,5 +12,13 @@
 int sh_builtin_help(t_sh_data *data, char **args);
 void sh_help_setenv(void);
 void sh_help_unsetenv(void);
+void sh_help_default(t_sh_data *data);
+void sh_help_help(void);
+void sh_help_echo(void);
+void sh_help_bonus(void);
+void sh_help_exit(void);
+void sh_help_cd(void);
+void sh_help_env(void);
+
 
 #endif

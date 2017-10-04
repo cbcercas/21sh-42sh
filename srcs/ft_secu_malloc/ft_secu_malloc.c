@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_secu_malloc.c                                   :+:      :+:    :+:   */
+/*   secu_malloc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 # include <ft_secu_malloc/ft_secu_malloc.h>
 
-void *ft_secu_malloc(size_t size)
+void *secu_malloc(size_t size)
 {
 	return (ft_secu_malloc_lvl(size, MALLOC_LVL_DEFAULT));
 }

@@ -46,7 +46,7 @@ struct s_lim
 	size_t	lim;
 };
 
-BOOL	ast_is_greatand(t_array *expands, size_t cnt, t_token_type type);
+BOOL	ast_is_lgand(t_array *expands, size_t cnt, t_token_type type);
 BOOL	ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands);
 
 t_btree	*ast_create(t_array *tokens);
@@ -57,5 +57,10 @@ void	ast_del_cmd(t_cmd *cmd);
 char	*ast_aff(t_cmd *cmd);
 int	ast_cmp(t_cmd *s1, t_cmd *s2);
 t_cmd	*ast_new_cmd(t_array *expands, int start, int end, t_token_type type);
+
+# define ISSEP(x) (x == E_TOKEN_SEMI || x == E_TOKEN_AND_IF || x == E_TOKEN_OR_IF)
+# define ISPIPE(x) (x == E_TOKEN_PIPE)
+# define ISLGAND(x) (x == E_TOKEN_GREATAND || x == E_TOKEN_LESSAND)
+# define ISRED(x) (x == E_TOKEN_LESSGREAT || x == E_TOKEN_DLESS || x == E_TOKEN_DGREAT || x == E_TOKEN_DGREAT || ISLGAND(x))
 
 #endif
