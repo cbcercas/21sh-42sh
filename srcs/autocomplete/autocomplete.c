@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:35 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/04 12:11:07 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/04 14:29:08 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_array	*autocomplete_filter(t_array *content, t_input *input)
 	while (i < content->used)
 	{
 		string = (t_string *)array_get_at(content, i);
-		if (string && !ft_strnequ(string->s, current, ft_strlen(current)))
+		if (string && !autocomplete_strnequ(string->s, current, ft_strlen(current)))
 		{
 			content = array_remove_at(content, i, NULL);
 			i = 0;
@@ -67,7 +67,8 @@ t_input			*autocomplete(t_array *content, t_input *input)
 		string = (t_string *)array_get_at(content, 0);
 		string_remove(input->str, pos, 100000);
 		string_insert_back(input->str, string->s);
-		redraw_line(input);
+		tputs(tgetstr("cr", NULL), 1, ft_putchar2);
+		autocomplete_display_prompt(input);
 		while (input->str->s[pos_in_str(*input)])
 			exec_arrow_right(NULL, input);
 		array_destroy(&content, NULL);
