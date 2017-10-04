@@ -31,7 +31,7 @@ static t_array	*autocomplete_tri_content(t_array *content)
 	return (content);
 }
 
-static t_array	*autocomplete_filter_autoc(t_array *content, t_input *input)
+static t_array	*autocomplete_filter(t_array *content, t_input *input)
 {
 	size_t		i;
 	t_string	*string;
@@ -60,7 +60,7 @@ t_input			*autocomplete(t_array *content, t_input *input)
 	size_t		pos;
 
 	if (content && content->used <= 300)
-		content = autocomplete_filter_autoc(content, input);
+		content = autocomplete_filter(content, input);
 	if (content && content->used == 1)
 	{
 		pos = get_index_cur(input);
