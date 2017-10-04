@@ -385,6 +385,61 @@ load test_helper
   check_leaks_function ast
 }
 
+@test "AST: Testing [SIMPLE] for 'toto >&2 tata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "toto >&2 tata" line
+  echo "ERROR:"
+  display_line_output
+    echo "$name_exec EXPECTED ->[0]{>& 2} [1]{toto} [2]{tata} "
+  echo
+  [ "${lines[0]}" = "[0]{>& 2} [1]{toto} [2]{tata} " ]
+  [ "$status" -eq 0 ]
+  check_leaks_function ast
+}
+
+@test "AST: Testing [SIMPLE] for 'toto <&2 tata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "toto <&2 tata" line
+  echo "ERROR:"
+  display_line_output
+    echo "$name_exec EXPECTED ->[0]{<& 2} [1]{toto} [2]{tata} "
+  echo
+  [ "${lines[0]}" = "[0]{<& 2} [1]{toto} [2]{tata} " ]
+  [ "$status" -eq 0 ]
+  check_leaks_function ast
+}
+
+@test "AST: Testing [SIMPLE] for 'toto 2<&2 tata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "toto 2<&2 tata" line
+  echo "ERROR:"
+  display_line_output
+    echo "$name_exec EXPECTED ->[0]{2 <& 2} [1]{toto} [2]{tata} "
+  echo
+  [ "${lines[0]}" = "[0]{2 <& 2} [1]{toto} [2]{tata} " ]
+  [ "$status" -eq 0 ]
+  check_leaks_function ast
+}
+
+@test "AST: Testing [SIMPLE] for 'toto 2>&2 tata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "toto 2>&2 tata" line
+  echo "ERROR:"
+  display_line_output
+    echo "$name_exec EXPECTED ->[0]{2 >& 2} [1]{toto} [2]{tata} "
+  echo
+  [ "${lines[0]}" = "[0]{2 >& 2} [1]{toto} [2]{tata} " ]
+  [ "$status" -eq 0 ]
+  check_leaks_function ast
+}
+
+@test "AST: Testing [SIMPLE] for 'toto 2 >&2 tata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "toto 2 >&2 tata" line
+  echo "ERROR:"
+  display_line_output
+    echo "$name_exec EXPECTED ->[0]{>& 2} [1]{toto 2} [2]{tata} "
+  echo
+  [ "${lines[0]}" = "[0]{>& 2} [1]{toto 2} [2]{tata} " ]
+  [ "$status" -eq 0 ]
+  check_leaks_function ast
+}
+
 #######################################################################
 #######################################################################
 
