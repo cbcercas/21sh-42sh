@@ -36,6 +36,7 @@ void    autocomplete_display(t_array *content);
 t_array *autocomplete_get_bin(char *begin);
 BOOL    autocomplete_is_directory(char *path);
 char    *autocomplete_get_path(char *s);
+int		autocomplete_strnequ(char const *s1, char const *s2, size_t n);
 
 /*
 # include <stddef.h>

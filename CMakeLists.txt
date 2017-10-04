@@ -12,6 +12,7 @@ set(SOURCE_FILES
 		srcs/autocomplete/autocomplete_get_path.c
 		srcs/autocomplete/autocomplete_get_words.c
 		srcs/autocomplete/autocomplete_is.c
+		srcs/autocomplete/autocomplete_utils.c
 
 		srcs/automaton/automaton.c
 
