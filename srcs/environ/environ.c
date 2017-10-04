@@ -30,6 +30,7 @@ t_array	*sh_init_environ(char **environ)
 			environ++;
 		}
 	}
+	log_info("Environ initialized");
 	return (envs);
 }
 
