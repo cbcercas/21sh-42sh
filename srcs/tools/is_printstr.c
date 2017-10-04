@@ -12,7 +12,6 @@
 
 # include <tools/tools.h>
 
-
 BOOL        is_printstr(char const *line)
 {
     while (line && ft_isprint(*line))

@@ -6,26 +6,18 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/09/08 16:51:40 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/02 16:10:41 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <core/main.h>
 
-// permet de destroy, de print un messages, et d'exit
-void sh_over(char *mess, t_automaton *automat, t_array *array, void fn(void *elem))
-{
-	if (mess)
-		ft_putendl_fd(mess, 2);
-	if (automat)
-		automaton_destroy(&automat);
-	if (array)
-		array_destroy(&array, fn);
-	exit (EXIT_FAILURE);
-}
+/*
+**init tout les arrays qu'on a besoins
+*/
 
-// init tout les arrays qu'on a besoins
-void sh_arrays_init(t_automaton *automat, t_array *tokens, t_array *expands)
+void		sh_arrays_init(t_automaton *automat, t_array *tokens,\
+															t_array *expands)
 {
 	if (lexer_init(tokens) == NULL)
 		sh_over("ERROR: Initialisation tokens", automat, tokens, NULL);
@@ -35,8 +27,11 @@ void sh_arrays_init(t_automaton *automat, t_array *tokens, t_array *expands)
 		sh_over("ERROR: Initialisation expand", automat, expands, sh_exp_del);
 }
 
-//récupère l'input en fonction d'isatty
-BOOL sh_get_input(t_sh_data *data, char **input)
+/*
+**récupère l'input en fonction d'isatty
+*/
+
+BOOL		sh_get_input(t_sh_data *data, char **input)
 {
 	if (!isatty(0))
 	{
@@ -50,9 +45,12 @@ BOOL sh_get_input(t_sh_data *data, char **input)
 	return (true);
 }
 
-//reset les arrays
-void sh_arrays_reset(t_automaton *automat, t_array *tokens, t_array *expands,\
-	 										char *input)
+/*
+**reset les arrays
+*/
+
+void		sh_arrays_reset(t_automaton *automat, t_array *tokens, \
+												t_array *expands, char *input)
 {
 	array_reset(tokens, NULL);
 	array_reset(expands, sh_exp_del);
@@ -63,9 +61,12 @@ void sh_arrays_reset(t_automaton *automat, t_array *tokens, t_array *expands,\
 	ft_secu_free_lvl(M_LVL_EXPA);
 }
 
-//lex, pars, expand, et build ast, il retourn l'ast
-t_btree	*sh_process(t_automaton *automat, t_array *tokens, t_array *expands,\
-	 										char *input)
+/*
+**lex, pars, expand, et build ast, il retourn l'ast
+*/
+
+t_btree		*sh_process(t_automaton *automat, t_array *tokens,\
+												t_array *expands, char *input)
 {
 	t_btree *ast;
 
@@ -74,24 +75,27 @@ t_btree	*sh_process(t_automaton *automat, t_array *tokens, t_array *expands,\
 	{
 		if (parser_parse(tokens))
 		{
-			//lexer_print_tokens(tokens);
 			if (expand(tokens, expands))
 			{
 				sh_history_set_new(input);
 				if (!(ast = ast_create(expands)))
-				{ ;//ft_printf("AST NULL\n");
+				{
+					ft_printf("AST NULL\n");
+					exit(EXIT_FAILURE);
 				}
-				//else
-				//btree_print(ast, (char * (*)(void*))&ast_aff);
-				return (ast);
+				else
+					return (ast);
 			}
 		}
 	}
-		return (NULL);
+	return (NULL);
 }
 
-//j'ai beaucoup de mal à diminuer le nombre de variables
-int main(int ac, char *const *av, char **environ)
+/*
+**j'ai beaucoup de mal à diminuer le nombre de variables
+*/
+
+int			main(int ac, char *const *av, char **environ)
 {
 	t_sh_data	data;
 	t_automaton	automaton;
@@ -106,10 +110,11 @@ int main(int ac, char *const *av, char **environ)
 	{
 		sh_print_prompt();
 		if (!sh_get_input(&data, &input))
-			break;
+			break ;
 		if (input && ft_strequ(input, "exit"))
-			break;
-		sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array, input));
+			break ;
+		sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array,\
+																		input));
 		sh_arrays_reset(&automaton, &tokens, &expand_array, input);
 	}
 	sh_arrays_reset(&automaton, &tokens, &expand_array, input);

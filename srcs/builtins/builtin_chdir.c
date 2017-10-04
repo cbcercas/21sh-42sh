@@ -6,21 +6,25 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 17:34:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/08/03 17:13:29 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/02 14:20:09 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/chdir.h>
-//TODO: j'arrive pas à forcer chdir à aller dans le lien sans le suivre
-static char *sh_get_path_p(char *arg, char *buf)
+
+/*
+**TODO: j'arrive pas à forcer chdir à aller dans le lien sans le suivre
+*/
+
+static char		*sh_get_path_p(char *arg, char *buf)
 {
-	ssize_t len;
-	struct stat bufstat;
+	ssize_t		len;
+	struct stat	bufstat;
 
 	if (lstat(arg, &bufstat) || !(bufstat.st_mode & S_IFLNK))
-		return(arg);
+		return (arg);
 	if ((len = readlink(arg, buf, sizeof(buf) - 1)) != -1)
-			buf[len] = '\0';
+		buf[len] = '\0';
 	else
 	{
 		ft_dprintf(2, "%s : cd : Error readlink of %s\n", PROGNAME, arg);
@@ -29,7 +33,7 @@ static char *sh_get_path_p(char *arg, char *buf)
 	return (buf);
 }
 
-static char *sh_get_path(char *arg, int opt)
+static char		*sh_get_path(char *arg, int opt)
 {
 	char *path;
 	char buf[1024];
@@ -37,7 +41,7 @@ static char *sh_get_path(char *arg, int opt)
 	(void)opt;
 	if (!arg)
 	{
-		if(!(path = sh_getenv_value("HOME")))
+		if (!(path = sh_getenv_value("HOME")))
 			ft_dprintf(2, "%s: cd: HOME not set\n", PROGNAME);
 	}
 	else if (ft_strequ(arg, "-"))
@@ -54,10 +58,10 @@ static char *sh_get_path(char *arg, int opt)
 	return (path);
 }
 
-static BOOL sh_test_dirpath(char *path, int opt)
+static BOOL		sh_test_dirpath(char *path, int opt)
 {
-	struct stat bufstat;
-	BOOL				ret;
+	struct stat	bufstat;
+	BOOL		ret;
 
 	ret = false;
 	if ((!stat(path, &bufstat) && opt == 'P') || !lstat(path, &bufstat))
@@ -73,17 +77,18 @@ static BOOL sh_test_dirpath(char *path, int opt)
 	return (ret);
 }
 
-static int sh_do_chdir(char *arg, int opt)
+static int		sh_do_chdir(char *arg, int opt)
 {
 	char cwd[1024];
 	char *path;
 
 	path = sh_get_path(arg, opt);
 	if (!sh_test_dirpath(path, opt))
-		return((g_ret = 1));
+		return ((g_ret = 1));
 	if (chdir(path) == -1)
 	{
-		ft_dprintf(2, "%s: cd: no such file or directory: %s\n", PROGNAME, path);
+		ft_dprintf(2, "%s: cd: no such file or directory: %s\n",\
+																PROGNAME, path);
 		return ((g_ret = 1));
 	}
 	sh_setenv("OLDPWD", sh_getenv_value("PWD"));
@@ -92,7 +97,7 @@ static int sh_do_chdir(char *arg, int opt)
 	return ((g_ret = 0));
 }
 
-int	sh_chdir(t_sh_data *data, char **arg)
+int				sh_chdir(t_sh_data *data, char **arg)
 {
 	int opt;
 	int ret;
@@ -100,14 +105,16 @@ int	sh_chdir(t_sh_data *data, char **arg)
 	(void)data;
 	ret = 0;
 	ft_getopt_reset();
-	if((opt = ft_getopt(ft_tablen(arg), arg, "LPh")) != -1)
+	if ((opt = ft_getopt(ft_tablen(arg), arg, "LPh")) != -1)
 	{
-		if (opt == 'h' )
-			return (ft_dprintf(2, "%s: cd: [-L/-P] [path], use \"help cd\"\n", PROGNAME));
+		if (opt == 'h')
+			return (ft_dprintf(2, "%s: cd: [-L/-P] [path], use \"help cd\"\n",\
+																	PROGNAME));
 		else if (opt == '?')
-			return (ft_dprintf(2, "%s: cd: [-L/-P] [path], use \"help cd\"\n", PROGNAME));
-}
+			return (ft_dprintf(2, "%s: cd: [-L/-P] [path], use \"help cd\"\n",\
+																	PROGNAME));
+	}
 	ret = sh_do_chdir(arg[g_optind], opt);
 	ft_getopt_reset();
-	return(ret);
+	return (ret);
 }
