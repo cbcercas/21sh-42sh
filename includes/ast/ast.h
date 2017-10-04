@@ -55,8 +55,10 @@ t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio);
 void	ast_built2_swap(t_btree *ast);
 void	ast_del_cmd(t_cmd *cmd);
 char	*ast_aff(t_cmd *cmd);
+char		*ast_aff_dbg(t_cmd *cmd);
 int	ast_cmp(t_cmd *s1, t_cmd *s2);
 t_cmd	*ast_new_cmd(t_array *expands, int start, int end, t_token_type type);
+void ast_disp_dbg();
 
 # define ISSEP(x) (x == E_TOKEN_SEMI || x == E_TOKEN_AND_IF || x == E_TOKEN_OR_IF)
 # define ISPIPE(x) (x == E_TOKEN_PIPE)

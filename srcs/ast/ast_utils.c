@@ -93,5 +93,6 @@ t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 	}
 	cmd->av[cnt] = NULL;
 	ft_bzero((void *)&cmd->info, sizeof(t_info));
+	ast_aff_dbg(cmd);
 	return (cmd);
 }

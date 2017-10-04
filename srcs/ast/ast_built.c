@@ -81,10 +81,8 @@ t_btree			*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
 	if (lim.cnt <= expands->used && exp && lim.cnt < lim.lim)
 	{
 		lim_left.lim = lim.cnt;
-		//log_fatal("**%s: %d - P[%d] lim.cnt = %d, lim.lim = %d exp->str->s = (%s) [%d]", __FILE__, __LINE__, prio, lim.cnt, lim.lim, exp->str->s, ast_is_lgand(expands, lim.cnt - 1, exp->type));
 		lim = (ast_is_lgand(expands, lim.cnt - 1, exp->type) ? ast_built_greatand_plus(expands, lim) : lim);
 		lim = (prio == 5 ? ast_built_word_plus(expands, lim) : lim);
-		//log_fatal("%s: %d - lim.cnt = %d, lim.lim = %d", __FILE__, __LINE__, lim.cnt, lim.lim);
 		btree_insert_data(&ast, ast_new_cmd(expands, lim_left.lim - 1, lim.cnt,\
 					return_type(prio, exp->type, expands, lim_left.lim)), \
 				(int (*)(void*, void*))&ast_cmp);

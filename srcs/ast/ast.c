@@ -12,6 +12,23 @@
 
 #include <ast/ast.h>
 
+char		*ast_aff_dbg(t_cmd *cmd)
+{
+	int i;
+
+	i = 0;
+	while (cmd->av[i] && cmd->av[i + 1])
+	{
+		log_dbg3("Ast builtind '%s' ", cmd->av[i]);
+		i++;
+	}
+	if (cmd->av[i])
+		log_dbg3("Ast building '%s' ", cmd->av[i]);
+	return ("");
+}
+
+
+
 int		ast_val_cmp(t_token_type type)
 {
 	if (ISSEP(type))
@@ -43,5 +60,6 @@ t_btree	*ast_create(t_array *expands)
 	lim.cnt = 0;
 	lim.lim = 10000;
 	ast = ast_built(ast, expands, lim, 1);
+	log_dbg1("Ast created.");
 	return (ast);
 }
