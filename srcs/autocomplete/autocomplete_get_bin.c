@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 13:37:14 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/02 11:09:17 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/04 12:08:07 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_array	*autocomplete_get_bin(char *begin)
 	env_path = ft_strsplit_secu(sh_getenv_value("PATH"), ':', M_LVL_AUTOC);
 	while (env_path && *env_path && content->used <= 3000)
 	{
-		if (!(dir = opendir(*env_path)))
+		if ((dir = opendir(*env_path)) != NULL)
 		{
 			while ((file = readdir(dir)))
 			{

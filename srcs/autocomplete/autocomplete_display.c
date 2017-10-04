@@ -1,16 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   display.c                                          :+:      :+:    :+:   */
+/*   autocomplete_display.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 16:30:33 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/02 11:05:59 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/04 12:17:26 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <autocomplete/autocomplete.h>
+
+static void	autocomplete_display_prompt(void)
+{
+	size_t	pos;
+
+	pos = 0;
+	ft_putstr("\n");
+	pos = pos_in_str(*g_input);
+	g_input->offset_col = sh_len_prompt();
+	g_input->offset_line = 0;
+	g_input->cpos.cp_line = 0;
+	g_input->select.is = false;
+	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
+	sh_print_prompt();
+	redraw_line(g_input);
+	while (pos != pos_in_str(*g_input))
+		exec_arrow_right(NULL, g_input);
+}
 
 static char	*autocomplete_disp_one(t_string *string)
 {
@@ -41,10 +59,10 @@ void		autocomplete_display(t_array *content)
 	default_terminal_mode();
 	if (!content)
 		return ;
-	tputs(tgetstr("sc", NULL), 0, &ft_putchar2);
 	ft_putstr("\n");
 	if (content->used > 42)
-		ft_printf("%s: too many possibilities (%d)", PROGNAME, content->used);
+		ft_printf("%s: too many possibilities (%d possibilities)", PROGNAME,\
+				content->used);
 	while (content->used <= 42 && i < content->used)
 	{
 		tmp = (t_string *)array_get_at(content, i);
@@ -52,8 +70,6 @@ void		autocomplete_display(t_array *content)
 			ft_printf(" %s ", autocomplete_disp_one(tmp));
 		i++;
 	}
+	autocomplete_display_prompt();
 	raw_terminal_mode();
-	tputs(tgetstr("rc", NULL), 0, &ft_putchar2);
-	if ((get_curs_y()) == get_term_size().ts_lines)
-		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
 }

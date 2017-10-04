@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:25:01 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/09/19 12:56:08 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/04 11:52:02 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ size_t get_prompt(BOOL print)
 	path = getcwd(path, 0);
 	tmp = (path ? ft_strrchr(path, '/') : NULL);
 	if (print && tmp && tmp[1])
-		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m ", &tmp[1], ret);
+		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m  ", &tmp[1], ret);
 	else if (print && tmp)
-		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m ", tmp, ret);
+		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m  ", tmp, ret);
 	else if (print)
-		ft_printf("\033[93m➜ \033[0m %s🎩\033[0m ", ret);
+		ft_printf("\033[93m➜ \033[0m %s🎩\033[0m  ", ret);
 	if (ft_strequ(tmp, "/"))
 		len += 7;
 	else
