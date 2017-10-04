@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/09/20 18:37:08 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/04 18:02:33 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 #define START 1
 #define END 0
 
-int   sh_exec(t_sh_data *data, t_cmd *item);
+int   sh_exec(t_sh_data *data, t_cmd *item, t_array *fds);
 int   sh_exec_builtin(t_sh_data *data, t_cmd *item);
-int   sh_exec_simple(t_sh_data *data, t_cmd *item);
+int   sh_exec_simple(t_sh_data *data, t_cmd *item, t_array *fds);
 int   sh_exec_pipe(t_sh_data *data, t_btree *ast, int *fd, BOOL isout);
 int   sh_process_pipe(t_sh_data *data, t_btree *ast);
 
