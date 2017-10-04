@@ -6,13 +6,13 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 20:09:31 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/21 13:21:45 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/04 17:38:51 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <ft_secu_malloc/ft_secu_malloc.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
 
-static t_secu_malloc *ft_malloc_search(void *ptr, t_mem *mem)
+static t_secu_malloc	*ft_malloc_search(void *ptr, t_mem *mem)
 {
 	t_secu_malloc *tmp;
 
@@ -22,10 +22,10 @@ static t_secu_malloc *ft_malloc_search(void *ptr, t_mem *mem)
 	return (tmp);
 }
 
-void ft_secu_free(void *ptr)
+void					ft_secu_free(void *ptr)
 {
-	t_mem         *mem;
-	t_secu_malloc *secu_malloc;
+	t_mem			*mem;
+	t_secu_malloc	*secu_malloc;
 
 	if (!(mem = get_mem()))
 		return ;
