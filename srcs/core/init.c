@@ -79,12 +79,14 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	}
 	if (!(sh_getenv("TERM")) || ft_strequ(sh_getenv("TERM")->value, ""))
 		sh_setenv("TERM", "xterm");
+	sh_setenv("SHLVL", ft_itoa(ft_atoi(sh_getenv_value("SHLVL")) + 1)); //TODO, Atoi secure
 	if ((tgetent(0, sh_getenv_value("TERM"))) != 1)
 	{
 		ft_printf("%s: Error on tgetent\n", PROGNAME);
 		sh_deinit(data);
 		exit(1);
 	}
+	log_info("%s initialized correctly. SHLVL is set to %s", PROGNAME, sh_getenv_value("SHLVL"));
 	return (data);
 }
 
