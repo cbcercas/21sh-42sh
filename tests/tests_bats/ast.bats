@@ -406,11 +406,11 @@ load test_helper
                 ls
     ;
                 ..
-            cat -e
+            lol
                 ..
         <
                 ..
-            lol
+            cat -e
                 ..
 ;
                 ..
@@ -440,11 +440,11 @@ load test_helper
                                   ls
                       ;
                                   ..
-                              cat -e
+                              lol
                                   ..
                           <
                                   ..
-                              lol
+                              cat -e
                                   ..
                   ;
                                   ..
@@ -499,9 +499,9 @@ load test_helper
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l| cat -e; cat -e< lol; toto&& tata< ta> toto.txt; rm toto" line
   echo "ERROR:"
   display_line_output
-    echo "$name_exec EXPECTED ->[0]{;} [1]{|} [2]{ls -l} [3]{cat -e} [4]{;} [5]{<} [6]{lol} [7]{cat -e} [8]{&&} [9]{toto} [10]{;} [11]{<} [12]{>} [13]{ta} [14]{toto.txt} [15]{tata} [16]{rm toto} "
+    echo "$name_exec EXPECTED ->[0]{;} [1]{|} [2]{ls -l} [3]{cat -e} [4]{;} [5]{<} [6]{cat -e} [7]{lol} [8]{&&} [9]{toto} [10]{;} [11]{<} [12]{tata} [13]{>} [14]{ta} [15]{toto.txt} [16]{rm toto} "
   echo
-  [ "${lines[0]}" = "[0]{;} [1]{|} [2]{ls -l} [3]{cat -e} [4]{;} [5]{<} [6]{lol} [7]{cat -e} [8]{&&} [9]{toto} [10]{;} [11]{<} [12]{>} [13]{ta} [14]{toto.txt} [15]{tata} [16]{rm toto} " ]
+  [ "${lines[0]}" = "[0]{;} [1]{|} [2]{ls -l} [3]{cat -e} [4]{;} [5]{<} [6]{cat -e} [7]{lol} [8]{&&} [9]{toto} [10]{;} [11]{<} [12]{tata} [13]{>} [14]{ta} [15]{toto.txt} [16]{rm toto} " ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }
@@ -511,9 +511,9 @@ load test_helper
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi" line
   echo "ERROR:"
   display_line_output
-    echo "$name_exec EXPECTED ->[0]{;} [1]{mkdir test} [2]{;} [3]{cd test} [4]{;} [5]{ls -a} [6]{;} [7]{>} [8]{|} [9]{ls} [10]{|} [11]{cat} [12]{wc -c} [13]{fifi} [14]{cat fifi} "
+    echo "$name_exec EXPECTED ->[0]{;} [1]{mkdir test} [2]{;} [3]{cd test} [4]{;} [5]{ls -a} [6]{;} [7]{|} [8]{ls} [9]{|} [10]{cat} [11]{>} [12]{wc -c} [13]{fifi} [14]{cat fifi} "
   echo
-  [ "${lines[0]}" = "[0]{;} [1]{mkdir test} [2]{;} [3]{cd test} [4]{;} [5]{ls -a} [6]{;} [7]{>} [8]{|} [9]{ls} [10]{|} [11]{cat} [12]{wc -c} [13]{fifi} [14]{cat fifi} " ]
+  [ "${lines[0]}" = "[0]{;} [1]{mkdir test} [2]{;} [3]{cd test} [4]{;} [5]{ls -a} [6]{;} [7]{|} [8]{ls} [9]{|} [10]{cat} [11]{>} [12]{wc -c} [13]{fifi} [14]{cat fifi} " ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }
