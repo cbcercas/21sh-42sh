@@ -6,13 +6,13 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 14:03:02 by jlasne            #+#    #+#             */
-/*   Updated: 2017/08/04 14:01:33 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/04 09:41:24 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <environ/builtin_env_utils.h>
 
-void	sh_print_env(void)
+void		sh_print_env(void)
 {
 	t_array	*envs;
 	t_env	*e;
@@ -28,7 +28,7 @@ void	sh_print_env(void)
 	}
 }
 
-t_array	*sh_get_envs(void)
+t_array		*sh_get_envs(void)
 {
 	static t_array	*e = NULL;
 
@@ -45,10 +45,10 @@ t_array	*sh_get_envs(void)
 	return (e);
 }
 
-void sh_free_elem_env(t_env *env)
+void		sh_free_elem_env(t_env *env)
 {
 	if (!env)
-		return;
+		return ;
 	if (env->value)
 		free(env->value);
 	if (env->name)
