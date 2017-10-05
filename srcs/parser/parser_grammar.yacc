@@ -1,15 +1,15 @@
-%token  WORD
-%token  NEWLINE
-%token  IO_NUMBER
-%token  DLESS
-%token  DGREAT
-%token  LESSAND
-%token  GREATAND
-%token  LESSGREAT
+%token  WORD :
+%token  NEWLINE :
+%token  IO_NUMBER :
+%token  DLESS : <<
+%token  DGREAT : >>
+%token  LESSAND : <&
+%token  GREATAND : >&
+%token  LESSGREAT : < , >
+%token  SEMI : ;
+%token  PIPE : |
 
 %tokentemplate E_TOKEN_
-
-%fileincludename enum
 
 %include parser/parser.h
 %include stdint.h
@@ -18,73 +18,73 @@
 
 %%
 
-e_program          : e_linebreak e_complete_commands e_linebreak
-| e_linebreak
+program          : linebreak complete_commands linebreak
+| linebreak
 ;
-e_complete_commands : e_complete_commands e_newline_list e_complete_command
-|                                e_complete_command
+complete_commands : complete_commands newline_list complete_command
+|                                complete_command
 ;
-e_complete_command : e_list e_separator_op
-| e_list
+complete_command : list separator_op
+| list
 ;
-e_list             : e_list e_separator_op e_and_or
-|                   e_and_or
+list             : list separator_op and_or
+|                   and_or
 ;
-e_and_or           : e_pipeline
+and_or           : pipeline
 ;
-e_pipeline         : e_pipe_sequence
+pipeline         : pipe_sequence
 ;
-e_pipe_sequence    :                             e_command
-| e_pipe_sequence '|' e_linebreak e_command
+pipe_sequence    :                             command
+| pipe_sequence '|' linebreak command
 ;
-e_command          : e_simple_command
+command          : simple_command
 ;
-e_simple_command   : e_cmd_prefix e_cmd_word e_cmd_suffix
-| e_cmd_prefix e_cmd_word
-| e_cmd_prefix
-| e_cmd_name e_cmd_suffix
-| e_cmd_name
+simple_command   : cmd_prefix cmd_word cmd_suffix
+| cmd_prefix cmd_word
+| cmd_prefix
+| cmd_name cmd_suffix
+| cmd_name
 ;
-e_cmd_name         : WORD
+cmd_name         : WORD
 ;
-e_cmd_word         : WORD
+cmd_word         : WORD
 ;
-e_cmd_prefix       :            e_io_redirect
-| e_cmd_prefix e_io_redirect
+cmd_prefix       :            io_redirect
+| cmd_prefix io_redirect
 ;
-e_cmd_suffix       :            e_io_redirect
-| e_cmd_suffix e_io_redirect
+cmd_suffix       :            io_redirect
+| cmd_suffix io_redirect
 |            WORD
-| e_cmd_suffix WORD
+| cmd_suffix WORD
 ;
-e_io_redirect      :           e_io_file
-| IO_NUMBER e_io_file
-|           e_io_here
-| IO_NUMBER e_io_here
+io_redirect      :           io_file
+| IO_NUMBER io_file
+|           io_here
+| IO_NUMBER io_here
 ;
-e_io_file          : '<'       e_filename
-| LESSAND   e_filename
-| '>'       e_filename
-| GREATAND  e_filename
-| DGREAT    e_filename
-| LESSGREAT e_filename
+io_file          : '<'       filename
+| LESSAND   filename
+| '>'       filename
+| GREATAND  filename
+| DGREAT    filename
+| LESSGREAT filename
 ;
-e_filename         : WORD
+filename         : WORD
 ;
-e_io_here          : DLESS     e_here_end
+io_here          : DLESS     here_end
 ;
-e_here_end         : WORD
+here_end         : WORD
 ;
-e_newline_list     :              NEWLINE
-| e_newline_list NEWLINE
+newline_list     :              NEWLINE
+| newline_list NEWLINE
 ;
-e_linebreak        : e_newline_list
+linebreak        : newline_list
 ;
-e_separator_op     : ';'
+separator_op     : ';'
 ;
-e_separator        : e_separator_op e_linebreak
-| e_complete_commands
+separator        : separator_op linebreak
+| complete_commands
 ;
-e_sequential_sep   : ';' e_linebreak
-| e_complete_commands
+sequential_sep   : ';' linebreak
+| complete_commands
 ;
