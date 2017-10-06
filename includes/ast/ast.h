@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:44:50 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/06 19:07:44 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/06 19:17:55 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ struct 								s_cmd
 {
 	char								**av;
 	t_token_type				type;
+	t_info							info;
 };
 
 typedef struct s_lim	t_lim;
