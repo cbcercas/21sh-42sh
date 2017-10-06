@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/02 13:48:52 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/06 18:23:24 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,13 @@ void		ast_del_cmd(t_cmd *cmd)
 	cmd = NULL;
 }
 
-void		ast_built2_swap(t_btree *ast)
-{
-	t_btree		*tmp;
-
-	if (!ast)
-		return ;
-	tmp = ast->left;
-	ast->left = ast->right;
-	ast->right = tmp;
-}
-
 char		*ast_aff(t_cmd *cmd)
 {
 	int i;
 
 	i = 0;
+	if (!cmd || !cmd->av)
+		return ("NULL");
 	while (cmd->av[i] && cmd->av[i + 1])
 	{
 		ft_printf("%s ", cmd->av[i]);
@@ -51,19 +42,18 @@ char		*ast_aff(t_cmd *cmd)
 	return ("");
 }
 
-BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
+t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 {
-	if (prio == 1 && (ISSEP(type)))
-		return (true);
-	if (prio == 2 && ISPIPE(type))
-		return (true);
-	if (prio == 3 && (ISRED(type) || ast_is_lgand(expands, cnt, type)))
-		return (true);
-	if (prio == 4 && type == E_TOKEN_AND)
-			return (true);
-	if (prio == 5 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
-		return (true);
-	return (false);
+	t_exp		*exp;
+
+	exp = NULL;
+	while (lim->cnt < lim->lim && lim->cnt <= expands->used &&\
+			(!exp || !(ast_prio(exp->type, prio, lim->cnt - 1, expands))))
+	{
+		exp = (t_exp *)array_get_at(expands, lim->cnt);
+		lim->cnt++;
+	}
+	return (exp);
 }
 
 t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
@@ -84,15 +74,14 @@ t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 	if (!(cmd->av = (char **)secu_malloc(sizeof(char **) * (end - start + 2))))
 		return (NULL);
 	cmd->type = type;
-	while (i < (end - start) &&\
-							(exp = (t_exp*)array_get_at(expands, start + i)))
+	while (i < (end - start) && (exp = (t_exp*)array_get_at(expands, start + i)))
 	{
-		if (exp->str && exp->type != E_TOKEN_BLANK)
+		if (exp->str && exp->type != E_TOKEN_BLANK &&\
+			 !(type == E_TOKEN_WORD && ast_is_redir(expands, start + i, exp->type)))
 			cmd->av[cnt++] = exp->str->s;
 		i++;
 	}
 	cmd->av[cnt] = NULL;
 	ft_bzero((void *)&cmd->info, sizeof(t_info));
-	ast_aff_dbg(cmd);
 	return (cmd);
 }

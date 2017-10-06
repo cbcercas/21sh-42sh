@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast_is_lgand.c                                  :+:      :+:    :+:   */
+/*   ast_is_redir.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,44 +12,53 @@
 
 #include <ast/ast.h>
 
-BOOL	is_greatand_front(t_array *expands, size_t cnt)
+static t_token_type	ast_return_type_redir_front(t_array *expands, size_t cnt)
 {
 	t_exp		*exp;
 
 	exp = (t_exp *)array_get_at(expands, cnt + 1);
-	if (exp && ISLGAND(exp->type))
-		return (true);
-	return (false);
+	if (exp && ISRED(exp->type))
+		return (exp->type);
+	return (E_TOKEN_NONE);
 }
 
-BOOL	is_greatand_back(t_array *expands, size_t cnt)
+static t_token_type	ast_return_type_redir_back(t_array *expands, size_t cnt)
 {
 	t_exp		*exp;
 
 	exp = (t_exp *)array_get_at(expands, cnt - 1);
-	if (exp && ISLGAND(exp->type))
-		return (true);
+	if (exp && ISRED(exp->type))
+		return (exp->type);
 	while (exp && exp->type == E_TOKEN_BLANK)
 	{
 		cnt--;
 		exp = (t_exp *)array_get_at(expands, cnt - 1);
-		if (exp && ISLGAND(exp->type))
-			return (true);
+		if (exp && ISRED(exp->type))
+			return (exp->type);
 	}
-	return (false);
+	return (E_TOKEN_NONE);
 }
 
-BOOL	ast_is_lgand(t_array *expands, size_t cnt, t_token_type type)
+t_token_type	ast_return_type_redir(t_array *expands, size_t cnt, t_token_type type)
 {
-	if (ISLGAND(type))
-		return (true);
-	if ((type != E_TOKEN_IO_NUMBER && type != E_TOKEN_WORD &&\
-				type != E_TOKEN_BLANK && type != E_TOKEN_DQUOTE &&\
-				type != E_TOKEN_SQUOTE))
+	t_token_type	ret;
+
+	ret = type;
+	if (ISRED(ret))
+		return (ret);
+	if (type != E_TOKEN_IO_NUMBER && type != E_TOKEN_WORD &&\
+				type != E_TOKEN_BLANK)
+		return (E_TOKEN_NONE);
+	if (type != E_TOKEN_WORD && (ret = ast_return_type_redir_front(expands, cnt)) != E_TOKEN_NONE)
+		return (ret);
+	if ((ret = ast_return_type_redir_back(expands, cnt)) != E_TOKEN_NONE)
+		return (ret);
+	return (E_TOKEN_NONE);
+}
+
+BOOL ast_is_redir(t_array *expands, size_t cnt, t_token_type type)
+{
+	if (ast_return_type_redir(expands, cnt, type) == E_TOKEN_NONE)
 		return (false);
-	if (is_greatand_front(expands, cnt))
-		return (true);
-	if (is_greatand_back(expands, cnt))
-		return (true);
-	return (false);
+	return (true);
 }
