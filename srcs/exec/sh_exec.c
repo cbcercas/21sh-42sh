@@ -28,7 +28,7 @@ int sh_exec(t_sh_data *data, t_cmd *item)
   pid_t	pid;
 
   (void)data;
-  envtab = sh_tenv_to_tab();
+  envtab = var_to_tab(get_envs());
 	item->info.ret = -1;
   cmd = NULL;
   if ((cmd = get_filename(item->av[0])))

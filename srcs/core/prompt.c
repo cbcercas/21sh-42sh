@@ -22,7 +22,7 @@ size_t		get_prompt(BOOL print)
 
 	path = NULL;
 	ret = (!g_ret ? "\033[92m" : "\033[91m");
-	tmp = sh_getenv_value("USER") ? sh_getenv_value("USER") : ("???");
+	tmp = get_var_value(get_envs(), "USER") ? get_var_value(get_envs(), "USER") : ("???");
 	print ? ft_printf("\033[94m[%s] \033[0m", tmp) : 0;
 	len = (ft_strlen(tmp) + 3);
 	path = getcwd(path, 0);

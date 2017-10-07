@@ -62,7 +62,7 @@ char	*sh_check_path(char const *cmd_name)
 	int		ret;
 	int		tmp;
 
-	env_path = ft_strsplit_secu(sh_getenv_value("PATH"), ':', M_LVL_FUNCT);
+	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':', M_LVL_FUNCT); //TODO check if PATH is in envs or in local var
 	ret = 0;
 	while (env_path && *env_path)
 	{

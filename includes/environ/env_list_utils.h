@@ -23,9 +23,9 @@ typedef struct	s_env
 	char			*value;
 }				t_env;
 
-char	*split_env_name(char const *env);
-char	*split_env_value(char const *env);
-t_env	*env_new(char *name, char *value);
+char	*split_var_name(char const *env);
+char	*split_var_value(char const *env);
+t_env *var_new(char *name, char *value);
 void	del_env(t_env **e);
 void	sh_lst_env_del(t_env **head);
 

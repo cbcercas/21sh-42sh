@@ -46,7 +46,7 @@ void sh_testing_exec(char *const *av, char **environ)
 	t_array		expands;
 	t_array		tokens;
 
-	sh_init_environ(environ);
+	init_environ(environ);
   sh_builtins_init();
 	sh_history_init(NULL);
 	tokens = init_tests_exec(av[2]);

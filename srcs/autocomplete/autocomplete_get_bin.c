@@ -12,6 +12,7 @@
 
 #include <autocomplete/autocomplete.h>
 
+//TODO check if PATH is in envs or in local var
 t_array	*autocomplete_get_bin(char *begin)
 {
 	t_array			*content;
@@ -21,7 +22,7 @@ t_array	*autocomplete_get_bin(char *begin)
 	char			**env_path;
 
 	content = array_create(sizeof(t_string));
-	env_path = ft_strsplit_secu(sh_getenv_value("PATH"), ':', M_LVL_AUTOC);
+	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':', M_LVL_AUTOC);
 	while (env_path && *env_path && content->used <= 3000)
 	{
 		if ((dir = opendir(*env_path)) != NULL)

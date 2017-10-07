@@ -12,17 +12,17 @@
 
 #include <environ/environ.h>
 
-t_array	*sh_init_environ(char **environ)
+t_array	*init_environ(char **environ)
 {
 	t_array	*envs;
 	t_env	*env;
 
-	if ((envs = sh_get_envs()) != NULL)
+	if ((envs = get_envs()) != NULL)
 	{
 		while (*environ)
 		{
-			if ((env = env_new(split_env_name(*environ), \
-							split_env_value(*environ))) != NULL)
+			if ((env = var_new(split_var_name(*environ), \
+                            split_var_value(*environ))) != NULL)
 			{
 				array_push(envs, (void *)env);
 				ft_memdel((void **)&env);
@@ -34,21 +34,19 @@ t_array	*sh_init_environ(char **environ)
 	return (envs);
 }
 
-char	**sh_tenv_to_tab(void)
+char **var_to_tab(t_array *vars)
 {
-	t_array	*envs;
 	t_env	*env;
 	char	**env_tab;
 	size_t	i;
 
-	envs = sh_get_envs();
-	if (!envs)
+	if (!vars)
 		return (NULL);
-	env_tab = ft_memalloc(sizeof(*env_tab) * (envs->used + 2));
+	env_tab = ft_memalloc(sizeof(*env_tab) * (vars->used + 2));
 	i = 0;
-	while (i < envs->used)
+	while (i < vars->used)
 	{
-		if (!(env = (t_env *)array_get_at(envs, i)))
+		if (!(env = (t_env *)array_get_at(vars, i)))
 			return (NULL);
 		env_tab[i] = ft_strjoin(env->name, "=");
 		env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1);
