@@ -34,6 +34,21 @@ t_array	*init_environ(char **environ)
 	return (envs);
 }
 
+t_array *init_local_var(void)
+{
+	t_array	*vars;
+
+	if ((vars = get_vars()) != NULL)
+	{
+		if (!get_var_value(get_envs(), "PATH"))
+		{
+			set_var(get_vars(), "PATH", "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin");
+		}
+	}
+	log_info("Local variables initialized");
+	return (vars);
+}
+
 char **var_to_tab(t_array *vars)
 {
 	t_env	*env;

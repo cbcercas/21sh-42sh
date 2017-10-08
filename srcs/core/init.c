@@ -18,14 +18,16 @@ void		sh_testing(const char *arg, char *const *av, char **environ)
 {
 	if (ft_strequ(arg, "env"))
 		sh_testing_env(av, environ);
-	if (ft_strequ(arg, "lexer"))
+	else if (ft_strequ(arg, "lexer"))
 		sh_testing_lexer(av);
-	if (ft_strequ(arg, "parser"))
+	else if (ft_strequ(arg, "parser"))
 		sh_testing_parser(av);
-	if (ft_strequ(arg, "ast"))
+	else if (ft_strequ(arg, "ast"))
 		sh_testing_ast(av, environ);
-	if (ft_strequ(arg, "expand"))
+	else if (ft_strequ(arg, "expand"))
 		sh_testing_expand(av, environ);
+	else if (ft_strequ(arg, "var"))
+		testing_local_vars(av, environ);
 	else
 	{
 		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
@@ -66,6 +68,7 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av, environ);
 	init_environ(environ);
+	init_local_var();
 	sh_builtins_init();
 	sh_history_init(NULL);
 	init_signals(signals_handler);
