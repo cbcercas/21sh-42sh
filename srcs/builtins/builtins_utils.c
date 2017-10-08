@@ -77,6 +77,8 @@ t_array		*sh_builtins_init(void)
 		return (NULL);
 	if (!ms_add_builtin("env", sh_builtin_env))
 		return (NULL);
+	if (!ms_add_builtin("unset", builtin_unset))
+		return (NULL);
 	return (builtins);
 }
 

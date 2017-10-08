@@ -1,7 +1,7 @@
 #include <core/data.h>
 #include <environ/environ.h>
 
-void builtin_unset(t_sh_data *data, char **argv)
+int	builtin_unset(t_sh_data *data, char **argv)
 {
 	(void) data;
 	while (*argv)
@@ -9,4 +9,5 @@ void builtin_unset(t_sh_data *data, char **argv)
 		del_var(get_vars(), *argv);
 		argv++;
 	}
+	return (0);
 }
