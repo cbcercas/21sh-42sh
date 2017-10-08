@@ -6,7 +6,7 @@ int	builtin_unset(t_sh_data *data, char **argv)
 	(void) data;
 
 	if (argv && *argv)
-		*argv++;
+		(*argv)++;
 	else
 		return (1);
 	while (*argv)
@@ -23,7 +23,7 @@ int	builtin_export(t_sh_data *data, char **argv)
 
 	(void) data;
 	if (argv && *argv)
-		*argv++;
+		(*argv)++;
 	else
 		return (1);
 	while (*argv)
