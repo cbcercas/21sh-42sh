@@ -63,9 +63,9 @@ int			sh_restore_tattr(struct termios *tattr)
 */
 
 /*
-** @brief      uninitializes the program before exiting it
+** @brief      Uninitialize the program before exiting
 **
-** @param[in]  t_sh_data *data  the data used during the program to be freed
+** @param[in]  t_sh_data *data  data needed to uninitialize
 **
 ** @return     void
 */
@@ -76,3 +76,19 @@ void		sh_deinit(t_sh_data *data)
 	ft_putstr("\033[?1049l");
 	sh_data_free(data);
 }
+
+
+
+
+
+/*
+** @brief      .
+**             .
+**             .
+**
+** @param[in]  .  .
+** @param[in]  .  .
+** @param[in]  .  .
+**
+** @return     .
+*/
