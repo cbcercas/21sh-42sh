@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <builtins/builtins_utils.h>
+#include <builtins/builtin_local_var.h>
 
 t_array		*get_builtins(void)
 {
