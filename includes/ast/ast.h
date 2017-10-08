@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:44:50 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/06 19:17:55 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/07 17:03:53 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@
 # include <lexer/lexer.h>
 # include <expand/expand.h>
 
-typedef struct s_info	t_info;
-
+/**
+ * \struct t_info
+ * \brief struct for exec.
+ *
+ */
 struct								s_info
 {
 	//int 								redir_fd_in;
@@ -29,8 +32,19 @@ struct								s_info
 	int 								ret;
 };
 
-typedef struct s_cmd	t_cmd;
+typedef struct s_info	t_info;
 
+/**
+ * \struct t_cmd
+ * \brief node of the AST tree
+ *
+ * node of the tree
+ * contains:
+ * -a char ** for execve
+ * -a type for process exec
+ * -struct info
+ *
+ */
 struct 								s_cmd
 {
 	char								**av;
@@ -38,13 +52,22 @@ struct 								s_cmd
 	t_info							info;
 };
 
-typedef struct s_lim	t_lim;
+typedef struct s_cmd	t_cmd;
 
+
+/**
+ * \struct t_lim
+ * \brief virtual limit for ast_built/ast_built2
+ *
+ *
+ */
 struct 								s_lim
 {
 	size_t							cnt;
 	size_t							lim;
 };
+
+typedef struct s_lim	t_lim;
 
 
 t_btree								*ast_create(t_array *tokens);
