@@ -21,7 +21,4 @@ t_array	*init_environ(char **environ);
 t_array *init_local_var(void);
 char **var_to_tab(t_array *vars);
 
-int		builtin_unset(t_sh_data *data, char **argv);
-
-
 #endif

@@ -14,7 +14,6 @@
 
 t_env *set_var(t_array *vars, char const *name, char const *value)
 {
-	t_array	*envs;
 	t_env	*env;
 
 	if ((env = get_var(vars, name)) != NULL)
@@ -24,10 +23,9 @@ t_env *set_var(t_array *vars, char const *name, char const *value)
 	}
 	else
 	{
-		envs = get_envs();
 		if ((env = var_new(ft_strdup(name), ft_strdup(value))) != NULL)
 		{
-			array_push(envs, (void *)env);
+			array_push(vars, (void *)env);
 			ft_memdel((void**)&env);
 		}
 	}
