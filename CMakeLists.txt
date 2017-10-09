@@ -16,9 +16,10 @@ set(SOURCE_FILES
 
 		srcs/automaton/automaton.c
 
+		srcs/ast/ast_cmp.c
 		srcs/ast/ast_utils.c
 		srcs/ast/ast_built.c
-		srcs/ast/ast_is_greatand.c
+		srcs/ast/ast_is_redir.c
 		srcs/ast/ast.c
 
 		srcs/btree/btree_apply_infix.c

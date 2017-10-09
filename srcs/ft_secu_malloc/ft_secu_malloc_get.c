@@ -6,13 +6,13 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 19:49:44 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/16 19:40:32 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/04 17:39:45 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_secu_malloc/ft_secu_malloc.h>
 
-t_mem *get_mem(void)
+t_mem	*get_mem(void)
 {
 	static t_mem *mem = NULL;
 

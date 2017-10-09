@@ -12,6 +12,15 @@
 
 #include <core/deinit.h>
 
+/**
+ * @brief      Frees the data stored
+ *             in t_sh_data *data
+ *
+ * @param[in]  data  The struct containing the data to be freed
+ *
+ * @return     void
+ */
+
 void		sh_data_free(t_sh_data *data)
 {
 	(void)data;
@@ -23,6 +32,15 @@ void		sh_data_free(t_sh_data *data)
 **TODO: Free local and apps environment variables.
 **TODO: Free correctly data.
 */
+
+/**
+ * @brief      Restores the terminal attributes
+ *             once the program is ended
+ *
+ * @param[in]  tattr  struct containing the current terminal attributes
+ *
+ * @return     int  Returns 0 if success and 1 otherwise
+ */
 
 int			sh_restore_tattr(struct termios *tattr)
 {
@@ -41,8 +59,16 @@ int			sh_restore_tattr(struct termios *tattr)
 }
 
 /*
-** TODO: Do something with the return values
+** TODO: Do something with the return values + logger
 */
+
+/**
+ * @brief      Uninitialize the program before exiting
+ *
+ * @param[in]  data  data needed to uninitialize
+ *
+ * @return     void
+ */
 
 void		sh_deinit(t_sh_data *data)
 {
@@ -50,3 +76,19 @@ void		sh_deinit(t_sh_data *data)
 	ft_putstr("\033[?1049l");
 	sh_data_free(data);
 }
+
+
+
+
+
+/*
+** @brief      .
+**             .
+**             .
+**
+** @param[in]  .  .
+** @param[in]  .  .
+** @param[in]  .  .
+**
+** @return     .
+*/

@@ -6,12 +6,21 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/02 13:48:52 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/08 12:07:14 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ast/ast.h>
 
+/**
+ * \fn void		ast_del_cmd(t_cmd *cmd)
+ *
+ * \brief free cmd content and cmd
+ *
+ * \param cmd
+ *
+ * \return void.
+ */
 void		ast_del_cmd(t_cmd *cmd)
 {
 	if (cmd == NULL)
@@ -25,22 +34,22 @@ void		ast_del_cmd(t_cmd *cmd)
 	cmd = NULL;
 }
 
-void		ast_built2_swap(t_btree *ast)
-{
-	t_btree		*tmp;
-
-	if (!ast)
-		return ;
-	tmp = ast->left;
-	ast->left = ast->right;
-	ast->right = tmp;
-}
-
+/**
+ * \fn char		*ast_aff(t_cmd *cmd)
+ *
+ * \brief display content of cmd
+ *
+ * \param cmd struct command
+ *
+ * \return return "" or NULL.
+ */
 char		*ast_aff(t_cmd *cmd)
 {
 	int i;
 
 	i = 0;
+	if (!cmd || !cmd->av)
+		return ("NULL");
 	while (cmd->av[i] && cmd->av[i + 1])
 	{
 		ft_printf("%s ", cmd->av[i]);
@@ -51,23 +60,46 @@ char		*ast_aff(t_cmd *cmd)
 	return ("");
 }
 
-BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
+/**
+ * \fn t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
+ *
+ * \brief search next token with prio param
+ *
+ * \param expands is token arrays
+ * \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
+ * \param lim virtual limit
+ *
+ * \return token or NULL.
+ */
+t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 {
-	if (prio == 1 && (ISSEP(type)))
-		return (true);
-	if (prio == 2 && ISPIPE(type))
-		return (true);
-	if (prio == 3 && (ISRED(type) || ast_is_lgand(expands, cnt, type)))
-		return (true);
-	if (prio == 4 && type == E_TOKEN_AND)
-			return (true);
-	if (prio == 5 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER))
-		return (true);
-	return (false);
+	t_exp		*exp;
+
+	exp = NULL;
+	while (lim->cnt < lim->lim && lim->cnt <= expands->used &&\
+			(!exp || !(ast_prio(exp->type, prio, lim->cnt - 1, expands))))
+	{
+		exp = (t_exp *)array_get_at(expands, lim->cnt);
+		lim->cnt++;
+	}
+	return (exp);
 }
 
+/**
+ * \fn t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
+ *							                           t_token_type type)
+ *
+ * \brief creat and malloc a new cmd
+ *
+ * \param expands is token arrays
+ * \param start is positon of first token
+ * \param end is positon of last token
+ * \param type is the type of current token
+ *
+ * \return new cmd or NULL
+ */
 t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
-							t_token_type type)
+		t_token_type type)
 {
 	t_cmd	*cmd;
 	t_exp	*exp;
@@ -84,15 +116,14 @@ t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 	if (!(cmd->av = (char **)secu_malloc(sizeof(char **) * (end - start + 2))))
 		return (NULL);
 	cmd->type = type;
-	while (i < (end - start) &&\
-							(exp = (t_exp*)array_get_at(expands, start + i)))
+	while (i < (end - start) && (exp = (t_exp*)array_get_at(expands, start + i)))
 	{
-		if (exp->str && exp->type != E_TOKEN_BLANK)
+		if (exp->str && exp->type != E_TOKEN_BLANK &&\
+				!(type == E_TOKEN_WORD && ast_is_redir(expands, start + i, exp->type)))
 			cmd->av[cnt++] = exp->str->s;
 		i++;
 	}
 	cmd->av[cnt] = NULL;
 	ft_bzero((void *)&cmd->info, sizeof(t_info));
-	ast_aff_dbg(cmd);
 	return (cmd);
 }
