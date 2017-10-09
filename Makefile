@@ -80,7 +80,7 @@ SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\
 					btree_level_count.c  btree_search_item.c btree_print.c
 
 SRC_SUBDIR      += ast
-SRCS            += ast.c ast_utils.c ast_built.c ast_is_greatand.c
+SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c
 
 SRC_SUBDIR      += autocomplete
 SRCS            += autocomplete_is.c autocomplete_get_words.c autocomplete_get_path.c \
