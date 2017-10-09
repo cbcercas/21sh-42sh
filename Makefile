@@ -219,5 +219,16 @@ fclean: clean
 dev:
 	@make -C ./ SAN="yes" DEV="yes"
 
-.PHONY: re clean fclean all lib
+doc:
+ifndef DOXYGEN
+	@echo "Please install doxygen first (brew install doxygen)."
+else
+	@doxygen Doxyfile 1> /dev/null
+	@echo "[\033[35m--------------------------\033[0m]"
+	@echo "[\033[36m------ Documentation -----\033[0m]"
+	@echo "[\033[36m------   generated   -----\033[0m]"
+	@echo "[\033[35m--------------------------\033[0m]"
+endif
+
+.PHONY: re clean fclean all lib doc dev
 .SUFFIXES: .c .h .o .d

@@ -43,6 +43,7 @@ cmake-build-debug
 # Clion Files
 .idea/
 cmake-build-debug/
+DOC/
 
 # Cmake
 CMakeCache.txt
