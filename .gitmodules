@@ -1,3 +1,5 @@
 [submodule "libcbc"]
 	path = libcbc
 	url = https://github.com/cbcercas/libcbc.git
+[submodule "SGG"]
+	url = https://github.com/Seluj78/ShellGrammarGenerator.git
