@@ -96,7 +96,10 @@ int		sh_builtin_help(t_sh_data *data, char **args)
 	else if (ft_strequ(args[1], "bonus"))
 		sh_help_bonus();
 	else
+	{
+		ft_printf("%s: Couldn't find the help wanted for %s\n", PROGNAME, args[1]);
 		return (1);
+	}
 	return (0);
 }
 
