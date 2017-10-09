@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/09 18:03:25 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/10/09 18:45:29 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c
 SRC_SUBDIR      += autocomplete
 SRCS            += autocomplete_is.c autocomplete_get_words.c autocomplete_get_path.c \
                     autocomplete.c autocomplete_display.c autocomplete_get_bin.c\
-                    autocomplete_utils.c
+                    autocomplete_utils.c autocomplete_sort.c
 
 SRC_SUBDIR += ft_secu_malloc
 SRCS			+= ft_secu_free_all.c ft_secu_free.c ft_secu_malloc.c\

@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:35 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/09 17:27:19 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/09 19:25:53 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,6 @@ static size_t	autocomplete_len_cur_word(size_t start, t_input *input)
 				input->str->s[start + i] != ' ')
 		i++;
 	return (i);
-}
-
-static t_array	*autocomplete_tri_content(t_array *content)
-{
-	size_t		i;
-
-	i = 0;
-	while (content && content->used && i < (content->used - 1))
-	{
-		if (ft_strcmp(((t_string *)array_get_at(content, i))->s,\
-					((t_string *)array_get_at(content, i + 1))->s) > 0)
-		{
-			array_swap(content, i, i + 1);
-			i = 0;
-		}
-		else
-			i++;
-	}
-	return (content);
 }
 
 static t_array	*autocomplete_filter(t_array *content, t_input *input)
@@ -93,8 +74,8 @@ t_input			*autocomplete(t_array *content, t_input *input)
 	}
 	if (content && content->used <= 0)
 		return (input);
-	if (content && content->used <= 300 && content->used != 1)
-		content = autocomplete_tri_content(content);
+	if (content && content->used <= 3000 && content->used != 1) //TODO : voir si on baisse la limit
+		content = autocomplete_sort_content(content);
 	autocomplete_display(content);
 	array_destroy(&content, NULL);
 	return (input);

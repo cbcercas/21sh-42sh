@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:51 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/09 18:34:08 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/09 19:03:50 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int		autocomplete_strnequ(char const *s1, char const *s2, size_t n);
 void	autocomplete_display_prompt(t_input *input);
 void	autocomplete_display_line(t_input *input, int len);
 BOOL	autocomplete_is_dots(const char *s);
+t_array	*autocomplete_sort_content(t_array *content);
 
 
 /*

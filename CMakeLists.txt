@@ -13,6 +13,7 @@ set(SOURCE_FILES
 		srcs/autocomplete/autocomplete_get_words.c
 		srcs/autocomplete/autocomplete_is.c
 		srcs/autocomplete/autocomplete_utils.c
+		srcs/autocomplete/autocomplete_sort.c
 
 		srcs/automaton/automaton.c
 
