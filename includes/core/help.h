@@ -17,7 +17,8 @@
 # include <core/main.h>
 # include <ftprintf.h>
 
-void sh_help(void);
-void sh_help_exit(void);
-
+void sh_usage_help(void);
+void sh_usage_help_exit(void);
+void		sh_over(char *mess, t_automaton *automat, t_array *array,\
+															void fn(void *elem));
 #endif

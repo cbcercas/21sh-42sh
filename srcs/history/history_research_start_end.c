@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:42:12 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/07 15:31:55 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/09/15 17:02:00 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 		ft_strdel(&result);
 	}
 	redraw_line(input);
+	while (pos_in_str(*input) < input->str->len)
+		exec_arrow_right(NULL, input);
 }
 
 void	history_research_start(char **line, char **result, BOOL *fail)

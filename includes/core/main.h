@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 20:31:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/03 18:12:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/21 13:03:18 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@
 # include <libft.h>
 # include <lexer/lexer.h>
 # include <parser/parser.h>
+# include <expand/expand.h>
 # include <core/tcaps.h>
 # include <signals/signals.h>
 # include <history/history.h>
-
-# define PROGNAME "21sh"
+# include <builtins/help.h>
+# include <builtins/pwd.h>
+# include <ast/ast.h>
+# include <core/progname.h>
+# include <exec/exec.h>
+# include <ft_secu_malloc/ft_secu_malloc.h>
 
 #endif

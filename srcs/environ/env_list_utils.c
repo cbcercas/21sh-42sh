@@ -6,11 +6,11 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:24:48 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/02/24 16:39:43 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/10/04 09:40:42 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <environ/env_list_utils.h>
 
+#include <environ/env_list_utils.h>
 
 char	*split_env_name(char const *env)
 {
@@ -39,12 +39,14 @@ t_env	*env_new(char *name, char *value)
 	if ((e = ft_memalloc(sizeof(*e))) == NULL)
 	{
 		log_fatal("Environ: can't create new environment varibles");
-		ft_dprintf(STDERR_FILENO,"Environ: can't create new environment varibles");
+		ft_dprintf(STDERR_FILENO, "Environ: can't create new environment \
+				varibles");
 	}
 	else if ((e->name = name) == NULL)
 	{
 		log_fatal("Environ: can't create new environment varibles");
-		ft_dprintf(STDERR_FILENO,"Environ: can't create new environment varibles");
+		ft_dprintf(STDERR_FILENO, "Environ: can't create new environment \
+				varibles");
 		ft_memdel((void**)&e);
 	}
 	else
@@ -57,7 +59,6 @@ void	del_env(t_env **e)
 	ft_strdel(&(*e)->name);
 	ft_strdel(&(*e)->value);
 	ft_memdel((void**)e);
-
 }
 
 void	sh_lst_env_del(t_env **head)

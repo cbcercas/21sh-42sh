@@ -6,13 +6,13 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:16 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/08 11:36:24 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/02 15:04:14 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins_utils.h>
 
-t_array				*get_builtins(void)
+t_array		*get_builtins(void)
 {
 	static t_array	*e = NULL;
 
@@ -28,7 +28,7 @@ t_array				*get_builtins(void)
 	return (e);
 }
 
-static t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
+t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 {
 	t_builtin	*e;
 
@@ -44,98 +44,50 @@ static t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 	return (e);
 }
 
-static t_array	*ms_add_builtin(char *name, t_builtin_fn fn)
+t_array		*ms_add_builtin(char *name, t_builtin_fn fn)
 {
 	t_array		*builtins;
 	t_builtin	*builtin;
 
 	builtins = get_builtins();
 	builtin = sh_new_builtin(name, fn);
-	array_push(builtins, (void *) builtin);
-	ft_memdel((void **) &builtin);
+	array_push(builtins, (void *)builtin);
+	ft_memdel((void **)&builtin);
 	return (builtins);
 }
 
-
-t_array			*sh_builtins_init(void)
+t_array		*sh_builtins_init(void)
 {
 	t_array	*builtins;
 
 	builtins = get_builtins();
-	if (!ms_add_builtin("exit", sh_exit))
-		return (NULL);
 	if (!ms_add_builtin("echo", sh_echo))
+		return (NULL);
+	if (!ms_add_builtin("history", sh_history))
 		return (NULL);
 	if (!ms_add_builtin("cd", sh_chdir))
 		return (NULL);
-	if (!ms_add_builtin("chdir", sh_chdir))
+	if (!ms_add_builtin("pwd", sh_builtin_pwd))
 		return (NULL);
-	//if (!ms_add_builtin("history", sh_history))
-		//return (NULL); // TODO change bultin proto for char **
+	if (!ms_add_builtin("help", sh_builtin_help))
+		return (NULL);
+	if (!ms_add_builtin("setenv", sh_builtin_setenv))
+		return (NULL);
+	if (!ms_add_builtin("unsetenv", sh_builtin_unsetenv))
+		return (NULL);
+	if (!ms_add_builtin("env", sh_builtin_env))
+		return (NULL);
 	return (builtins);
 }
 
+/*
+**if (!ms_add_builtin("exit", sh_exit))
+**return (NULL);
+*/
 
-t_builtin	*get_builtin(char *name)
-{
-	t_array		*builtins;
-	t_builtin	*builtin;
-	size_t		cnt;
-
-	cnt = 0;
-	builtins = get_builtins();
-
-	while (cnt < builtins->used)
-	{
-		builtin = array_get_at(builtins, cnt);
-		if (builtin && ft_strequ(name, builtin->name))
-			return (builtin);
-		cnt += 1;
-	}
-	return (NULL);
-}
-
-t_bool sh_is_builtin(char *name)
-{
-	if (get_builtin(name))
-		return (true);
-	return (false);
-}
-
-static char	*sh_find_quote_end(char *arg)
-{
-	int	lvl;
-	char cur_q;
-
-	lvl = 1;
-	cur_q = *arg;
-	arg++;
-	while (*arg)
-	{
-		if (cur_q == *arg && lvl)
-		{
-			lvl -= 1;
-			if (lvl)
-				cur_q = (cur_q == '"') ? '`' : '"';
-		}
-		else if ((*arg == '"' || *arg == '`') && lvl)
-		{
-			cur_q = *arg;
-			lvl += 1;
-		}
-		if (*arg == cur_q && lvl == 0)
-			return (arg);
-		arg++;
-	}
-	return ((*arg) ? arg : NULL);
-}
-
-char	*sh_extract_str(char *arg)
-{
-	char	*str;
-	char	*q_end;
-
-	q_end = sh_find_quote_end(arg);
-	str = ft_strsub(arg, 1, q_end - arg - 1);
-	return (str);
-}
+/*
+**if (!ms_add_builtin("cd", sh_chdir))
+**return (NULL);
+**if (!ms_add_builtin("chdir", sh_chdir))
+**return (NULL);
+*/

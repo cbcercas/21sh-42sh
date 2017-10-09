@@ -7,12 +7,12 @@ void sh_testing_lexer(char *const *av)
 
     if (lexer_init(&tokens) == NULL)
     {
-        ft_printf("Error initialising tokens");
+        ft_dprintf(2, "Error initialising tokens");
         exit (1);
     }
     else if (automaton_init(&automaton) == NULL)
     {
-        ft_printf("Error Initialising automaton");
+        ft_dprintf(2, "Error Initialising automaton");
         exit (1);
     }
     else if (lexer_lex(&tokens, &automaton, av[3]))
@@ -22,7 +22,7 @@ void sh_testing_lexer(char *const *av)
     }
     else
     {
-        ft_printf("Fatal testing error : Couldn't Catch the error.");
+        ft_dprintf(2, "Fatal testing error : Couldn't Catch the error.");
         exit (1);
     }
 }
