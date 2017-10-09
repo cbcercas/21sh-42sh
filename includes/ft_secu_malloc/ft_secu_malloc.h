@@ -22,6 +22,7 @@
 # define M_LVL_EXPA 4
 # define M_LVL_HIST 5
 # define M_LVL_AUTOC 6
+# define M_LVL_PARSER 7
 
 struct          s_secu_malloc
 {
