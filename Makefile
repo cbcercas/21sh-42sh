@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/09 10:56:53 by jlasne           ###   ########.fr        #
+#    Updated: 2017/10/09 13:30:35 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -239,5 +239,5 @@ else
 	@echo "[\033[35m--------------------------\033[0m]"
 endif
 
-.PHONY: re clean fclean all lib doc dev
+.PHONY: re clean fclean all lib doc dev sgg
 .SUFFIXES: .c .h .o .d

@@ -5,15 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: SSG <SSG@42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/22 21:18:12 by SSG               #+#    #+#             */
-/*   Updated: 2017/06/22 21:18:12 by SSG              ###   ########.fr       */
+/*   Created: 2017/10/09 13:30:39 by SSG               #+#    #+#             */
+/*   Updated: 2017/10/09 13:30:39 by SSG              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENUM_H
 # define ENUM_H
-
-# include <inttypes.h>
+# include <stdint.h>
 
 typedef uint32_t	t_token_type;
 
@@ -44,31 +43,31 @@ typedef	uint32_t	t_grammar_type;
 
 enum	e_grammar_type
 {
-	E_GM_NONE = 200,
-	E_PROGRAM = 201,
-	E_COMPLETE_COMMANDS = 202,
-	E_COMPLETE_COMMAND = 203,
-	E_LIST = 204,
-	E_AND_OR = 205,
-	E_PIPELINE = 206,
-	E_PIPE_SEQUENCE = 207,
-	E_COMMAND = 208,
-	E_SIMPLE_COMMAND = 209,
-	E_CMD_NAME = 210,
-	E_CMD_WORD = 211,
-	E_CMD_PREFIX = 212,
-	E_CMD_SUFFIX = 213,
-	E_IO_REDIRECT = 214,
-	E_IO_FILE = 215,
-	E_FILENAME = 216,
-	E_IO_HERE = 217,
-	E_HERE_END = 218,
-	E_NEWLINE_LIST = 219,
-	E_LINEBREAK = 220,
-	E_SEPARATOR_OP = 221,
-	E_SEPARATOR = 222,
-	E_SEQUENTIAL_SEP = 223,
-	E_GM_END = 224
+	E_GRAM_NONE = 200,
+	E_GRAM_PROGRAM = 201,
+	E_GRAM_COMPLETE_COMMANDS = 202,
+	E_GRAM_COMPLETE_COMMAND = 203,
+	E_GRAM_LIST = 204,
+	E_GRAM_AND_OR = 205,
+	E_GRAM_PIPELINE = 206,
+	E_GRAM_PIPE_SEQUENCE = 207,
+	E_GRAM_COMMAND = 208,
+	E_GRAM_SIMPLE_COMMAND = 209,
+	E_GRAM_CMD_NAME = 210,
+	E_GRAM_CMD_WORD = 211,
+	E_GRAM_CMD_PREFIX = 212,
+	E_GRAM_CMD_SUFFIX = 213,
+	E_GRAM_IO_REDIRECT = 214,
+	E_GRAM_IO_FILE = 215,
+	E_GRAM_FILENAME = 216,
+	E_GRAM_IO_HERE = 217,
+	E_GRAM_HERE_END = 218,
+	E_GRAM_NEWLINE_LIST = 219,
+	E_GRAM_LINEBREAK = 220,
+	E_GRAM_SEPARATOR_OP = 221,
+	E_GRAM_SEPARATOR = 222,
+	E_GRAM_SEQUENTIAL_SEP = 223,
+	E_GRAM_END = 224
 };
 
 #endif
