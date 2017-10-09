@@ -41,10 +41,10 @@ struct	s_input
 };
 
 /**
-** @file       input.c
-**
-** @brief      Functions to read the input
-*/
+ * @file       input.c
+ *
+ * @brief      Functions to read the input
+ */
 char	*sh_get_line(t_sh_opt *opts);
 char	*sh_get_line2(void);
 void	reset_input(t_input *input);

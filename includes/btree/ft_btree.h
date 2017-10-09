@@ -17,6 +17,15 @@
 # include <unistd.h>
 # include <ft_secu_malloc/ft_secu_malloc.h>
 
+/**
+ * @struct s_btree
+ *
+ * @param  parent  Contains the parent btree node
+ * @param  left    Contains the left btree node
+ * @param  right   Contains the right btree node
+ * @param  item    Contains the item in the node
+ */
+
 typedef struct		s_btree
 {
 	struct s_btree	*parent;
@@ -25,7 +34,14 @@ typedef struct		s_btree
 	void						*item;
 }									t_btree;
 
+/**
+ * @file   btree_create_node.c
+ *
+ * @brief  Creates a btree node
+ */
+
 t_btree						*btree_create_node(void *item);
+
 void							btree_apply_suffix(t_btree *root, void (*applyf)(void *));
 void							btree_apply_prefix(t_btree *root, void (*applyf)(void *));
 void							btree_apply_infix(t_btree *root, void (*applyf)(void *));

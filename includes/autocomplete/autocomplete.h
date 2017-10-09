@@ -39,18 +39,4 @@ char    *autocomplete_get_path(char *s);
 int		autocomplete_strnequ(char const *s1, char const *s2, size_t n);
 void	autocomplete_display_prompt(t_input *input);
 
-/*
-# include <stddef.h>
-# include <libft.h>
-# include <ftprintf.h>
-# include <logger.h>
-# include <dirent.h>
-
-char *autoc_get_last_word(char *current_input);
-void    autoc_add_to_array(char *to_add, t_array *array);
-char	*autoc_get_from_array_at(size_t pos, t_array *array);
-void autoc_array_print(t_array *array);
-t_array *autoc_get_dir_content(char *path);
-t_array *autoc_get_binaries(void);
-*/
 #endif

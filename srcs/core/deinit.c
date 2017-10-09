@@ -82,13 +82,9 @@ void		sh_deinit(t_sh_data *data)
 
 
 /*
-** @brief      .
-**             .
-**             .
-**
-** @param[in]  .  .
-** @param[in]  .  .
-** @param[in]  .  .
-**
-** @return     .
-*/
+ * @brief
+ *
+ * @param[in]
+ *
+ * @return
+ */

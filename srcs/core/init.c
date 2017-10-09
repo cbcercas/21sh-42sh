@@ -14,6 +14,16 @@
 
 extern char const	*g_optarg;
 
+/**
+ * @brief     Function is called when a test is needed on one module
+ *
+ * @param[in] arg      Contains the module name to be tested
+ * @param[in] av       Contains the parameters needed for the test function
+ * @param[in] environ  Contains the env (Used when needed by the testing functions)
+ *
+ * @return    void
+ */
+
 void		sh_testing(const char *arg, char *const *av, char **environ)
 {
 	if (ft_strequ(arg, "env"))
@@ -32,6 +42,17 @@ void		sh_testing(const char *arg, char *const *av, char **environ)
 		sh_usage_help_exit();
 	}
 }
+
+/**
+ * @brief     Handles the options passed to the program
+ *
+ * @param[in,out] opts     Contains the options passed by the user
+ * @param[in] ac       Argument count for av
+ * @param[in] av       Contains the arguments
+ * @param[in] environ  Contains the env
+ *
+ * @return    void
+ */
 
 static void	sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 {
@@ -61,6 +82,17 @@ static void	sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 	}
 }
 
+/**
+ * @brief     Initializes the program
+ *
+ * @param[in] data     Contains data such as options and env
+ * @param[in] ac       Argument count for av
+ * @param[in] av       Contains the arguments
+ * @param[in] environ  Contains the env
+ *
+ * @return    the modified t_sh_data
+ */
+
 t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 {
 	ft_bzero(data, sizeof(*data));
@@ -87,6 +119,14 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	}
 	return (data);
 }
+
+/**
+ * @brief         Stores the attributes to be restored later
+ *
+ * @param[in,out] data  Struct that will contain the data
+ *
+ * @return        void
+ */
 
 void		sh_store_tattr(t_sh_data *data)
 {
