@@ -19,8 +19,8 @@ void	sh_help_default(t_sh_data *data)
 	ft_printf("These shell commands are defined internally.  Type `help' to");
 	ft_printf(" see this list.\n");
 	ft_printf("Type `help name' to find out more about the function `name'.\n");
-	ft_printf("\n\n%sA star%s (*) next to a name means that the command is\
-			disabled.\n", C_GREEN, C_NONE);
+	ft_printf("\n\n%sA star%s (*) next to a name means that the command is \
+disabled.\n", C_GREEN, C_NONE);
 	ft_printf("\n%secho%s [-neE] [arg …]\n", CL_RED, C_NONE);
 	ft_printf("%shelp%s [pattern]\n", CL_RED, C_NONE);
 	ft_printf("%sexit%s [n]\n", CL_RED, C_NONE);
@@ -35,10 +35,10 @@ void	sh_help_default(t_sh_data *data)
 
 void	sh_help_help(void)
 {
-	ft_printf("\thelp [pattern]\nDisplay helpful information about builtin\
-																commands.\n");
-	ft_printf("If pattern is specified, help gives detailed help on command \
-																	matching");
+	ft_printf("\thelp [pattern]\nDisplay helpful information about builtin");
+	ft_printf(" commands.\n");
+	ft_printf("If pattern is specified, help gives detailed help on command");
+	ft_printf(" matching");
 	ft_printf(" pattern,\notherwise a list of the builtins is printed.\n");
 }
 
@@ -97,7 +97,8 @@ int		sh_builtin_help(t_sh_data *data, char **args)
 		sh_help_bonus();
 	else
 	{
-		ft_printf("%s: Couldn't find the help wanted for %s\n", PROGNAME, args[1]);
+		ft_printf("%s: Couldn't find the help wanted for %s\n",\
+		PROGNAME, args[1]);
 		return (1);
 	}
 	return (0);
