@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/02 15:07:39 by jlasne           ###   ########.fr        #
+#    Updated: 2017/10/09 10:56:53 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -158,6 +158,7 @@ C_Y = \033[1;33m
 C_B = \033[1;34m
 C_C = \033[1;36m
 C_R = \033[1;31m
+DOXYGEN = $(shell doxygen -v dot 2> /dev/null)
 
 ###############################################################################
 #																			  #
@@ -215,15 +216,17 @@ fclean: clean
 	@echo -e "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
 	@$(RM) $(NAME)
 	@make fclean -C $(LIB_CBC_DIR)
+	@rm -rf DOC
 
 dev:
 	@make -C ./ SAN="yes" DEV="yes"
 
 doc:
 ifndef DOXYGEN
-	@echo "Please install doxygen first (brew install doxygen)."
+	@echo $(DOXYGEN)
+	@echo "Please install doxygen and graphviz first (brew install doxygen graphviz)."
 else
-	@doxygen Doxyfile 1> /dev/null
+	@doxygen Doxyfile
 	@echo "[\033[35m--------------------------\033[0m]"
 	@echo "[\033[36m------ Documentation -----\033[0m]"
 	@echo "[\033[36m------   generated   -----\033[0m]"
