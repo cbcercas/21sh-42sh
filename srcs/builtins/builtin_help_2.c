@@ -20,7 +20,7 @@ void	sh_help_exit(void)
 {
 	ft_printf("\texit [n]\nCause the shell to exit with a status of n.\n");
 	ft_printf("If n is omitted, the exit status is that of the last command \
-																executed.\n");
+executed.\n");
 	ft_printf("A trap on EXIT is executed before the shell terminates.\n");
 }
 
@@ -48,7 +48,7 @@ void	sh_help_setenv(void)
 	ft_printf("\tsetenv [name]=[value]\n");
 	ft_printf("Sets the environment variable name with value value\n");
 	ft_printf("If name already has a value, then it is replaced with the \
-																	new one\n");
+new one\n");
 }
 
 void	sh_help_unsetenv(void)
@@ -83,5 +83,5 @@ void	sh_help_env(void)
 	ft_printf("\t\t  cial built-in utilities in Special Built-In Utilities,");
 	ft_printf(" the results are undefined.\n\n\t   argument\n");
 	ft_printf("\t\t  A string to pass as an argument for the invoked \
-																utility.\n");
+utility.\n");
 }
