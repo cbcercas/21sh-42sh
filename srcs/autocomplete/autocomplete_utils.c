@@ -28,20 +28,3 @@ int		autocomplete_strnequ(char const *s1, char const *s2, size_t n)
 		return (0);
 	return (1);
 }
-
-void	autocomplete_display_prompt(t_input *input)
-{
-	size_t	pos;
-
-	pos = 0;
-	pos = pos_in_str(*input);
-	input->offset_col = sh_len_prompt();
-	input->offset_line = 0;
-	input->cpos.cp_line = 0;
-	input->select.is = false;
-	input->cpos.cp_col = (unsigned short)input->offset_col;
-	sh_print_prompt();
-	redraw_line(input);
-	while (pos != pos_in_str(*input))
-		exec_arrow_right(NULL, input);
-}

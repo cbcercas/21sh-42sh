@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:51 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/04 13:37:02 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/09 16:20:35 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ BOOL    autocomplete_is_directory(char *path);
 char    *autocomplete_get_path(char *s);
 int		autocomplete_strnequ(char const *s1, char const *s2, size_t n);
 void	autocomplete_display_prompt(t_input *input);
+void	autocomplete_display_line(t_input *input, int len);
+
 
 /*
 # include <stddef.h>
