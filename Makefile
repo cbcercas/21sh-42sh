@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/09 10:56:53 by jlasne           ###   ########.fr        #
+#    Updated: 2017/10/09 18:03:25 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,9 +34,9 @@ SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c\
 SRC_SUBDIR		+= tools
 SRCS			+= ft_strdblfree.c is_printstr.c sh_pipe.c sh_fork.c \
 							sh_open.c ft_isdigit_str.c ft_strsplit_secu.c ft_strsub_secu.c\
-							 ft_strnew_secu.c sh_ret.c ft_strdup_secu.c ft_strjoincl_secu.c\
-							 ft_str_insert_secu.c string_secu.c string_insert_secu.c\
-							 string_growth_secu.c string_dup_secu.c
+							ft_strnew_secu.c sh_ret.c ft_strdup_secu.c ft_strjoincl_secu.c\
+							ft_str_insert_secu.c string_secu.c string_insert_secu.c\
+							string_growth_secu.c string_dup_secu.c sh_test_access.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c

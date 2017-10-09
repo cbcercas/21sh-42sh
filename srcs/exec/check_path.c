@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/08/03 17:58:35 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/09 18:00:42 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,6 @@ char		*makefilepath(char const *path, char const *filename)
 	else
 		filepath = ft_strdup(filename);
 	return (filepath);
-}
-
-static int	sh_test_access(char const *filename)
-{
-	struct stat *buf;
-	int		ret;
-
-	if (!(buf = ft_secu_malloc_lvl(sizeof(*buf), 3)))
-		return (-2);
-	ret = 0;
-	ft_bzero(buf, sizeof(*buf));
-	if (stat(filename, buf) == 0)
-	{
-		if (buf->st_mode & S_IXUSR)
-			ret = 1;
-		else
-			ret = -1;
-	}
-	ft_secu_free(buf);
-	return (ret);
 }
 
 /*

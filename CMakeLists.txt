@@ -140,6 +140,7 @@ set(SOURCE_FILES
 		srcs/tools/string_growth_secu.c
 		srcs/tools/string_insert_secu.c
 		srcs/tools/string_secu.c
+		srcs/tools/sh_test_access.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c

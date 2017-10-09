@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:51 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/09 16:20:35 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/09 18:34:08 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <core/input.h>
 # include <ft_secu_malloc/ft_secu_malloc.h>
 # include <history/history.h>
+#include <exec/check_path.h>
 
 int     nb_of_word(char *s);
 char    *find_word_after(t_input *input);
@@ -39,6 +40,7 @@ char    *autocomplete_get_path(char *s);
 int		autocomplete_strnequ(char const *s1, char const *s2, size_t n);
 void	autocomplete_display_prompt(t_input *input);
 void	autocomplete_display_line(t_input *input, int len);
+BOOL	autocomplete_is_dots(const char *s);
 
 
 /*

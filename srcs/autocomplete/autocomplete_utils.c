@@ -28,3 +28,12 @@ int		autocomplete_strnequ(char const *s1, char const *s2, size_t n)
 		return (0);
 	return (1);
 }
+
+BOOL autocomplete_is_dots(const char *s)
+{
+	if (!s)
+		return (false);
+	if (ft_strequ(s, ".") || ft_strequ(s, ".."))
+		return (true);
+	return (false);
+}
