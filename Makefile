@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/09 10:56:53 by jlasne           ###   ########.fr        #
+#    Updated: 2017/10/09 14:24:30 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -158,6 +158,7 @@ C_Y = \033[1;33m
 C_B = \033[1;34m
 C_C = \033[1;36m
 C_R = \033[1;31m
+C_P = \033[1;35m
 DOXYGEN = $(shell doxygen -v dot 2> /dev/null)
 
 ###############################################################################
@@ -189,13 +190,13 @@ $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 	@$(CC) $(LDFLAGS) $(CFLAGS) $(INC) -o $@ -c $<
 	$(eval COUNT_OBJ=$(shell echo $$(($(COUNT_OBJ)+1))))
 	$(eval PERCENT=$(shell echo $$((($(COUNT_OBJ) * 100 )/$(TOTAL)))))
-	@printf "$(C_B)%-8s $(C_Y) $<$(C_NO)\n" "[$(PERCENT)%]"
+	@printf "$(C_B)%-8s $(C_P) $<$(C_NO)\n" "[$(PERCENT)%]"
 
 $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 	@$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
 	$(eval COUNT_DEP=$(shell echo $$(($(COUNT_DEP)+1))))
 	$(eval PERCENT=$(shell echo $$((($(COUNT_DEP) * 100 )/$(TOTAL)))))
-	@printf "$(C_B)%-8s $(C_C) $@$(C_NO)\n" "[$(PERCENT)%]"
+	@printf "$(C_B)%-8s $(C_G) $@$(C_NO)\n" "[$(PERCENT)%]"
 
 $(BUILD_DIR):
 	@$(MKDIR) -p $@
