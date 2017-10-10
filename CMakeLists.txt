@@ -38,6 +38,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtin_echo.c
 		srcs/builtins/builtin_exit.c
 		srcs/builtins/builtin_help.c
+		srcs/builtins/builtin_help_2.c
 		srcs/builtins/builtin_pwd.c
 		srcs/builtins/builtin_environ.c
 		srcs/builtins/builtin_environ_env.c
@@ -148,7 +149,7 @@ set(SOURCE_FILES
 		srcs/tests/expand_tests.c
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
-        srcs/builtins/builtin_help_2.c)
+		)
 
 include_directories(includes)
 
