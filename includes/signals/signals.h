@@ -18,7 +18,7 @@
 
 void    init_signals(void *handler);
 void    signals_handler(int sig);
-int    wait_sh();
+int    wait_sh(void);
 void	signals_sigwinch();
 
 #endif

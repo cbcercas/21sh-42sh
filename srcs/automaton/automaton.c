@@ -6,24 +6,25 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/28 17:50:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/03/05 10:02:58 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/10/02 13:53:45 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include <automaton/automaton.h>
 
-t_automaton *automaton_init(t_automaton *automaton)
+t_automaton		*automaton_init(t_automaton *automaton)
 {
 	if (!(automaton->stack = stack_create(sizeof(int))))
 	{
 		log_fatal("Automaton: Initialization failed");
 		return (NULL);
 	}
-		automaton->cur_state = E_STATE_START;
+	automaton->cur_state = E_STATE_START;
 	log_info("Automaton: Initialization done");
 	return (automaton);
 }
 
-t_automaton *automaton_reset(t_automaton *automaton)
+t_automaton		*automaton_reset(t_automaton *automaton)
 {
 	if ((stack_reset(automaton->stack, NULL) == NULL))
 	{
@@ -35,7 +36,7 @@ t_automaton *automaton_reset(t_automaton *automaton)
 	return (automaton);
 }
 
-void automaton_destroy(t_automaton **automaton)
+void			automaton_destroy(t_automaton **automaton)
 {
 	if (*automaton)
 	{
@@ -46,7 +47,8 @@ void automaton_destroy(t_automaton **automaton)
 	log_info("Automaton: Destroy done");
 }
 
-void automaton_step(t_automaton	*a, t_stack_state state, t_automaton_step step)
+void			automaton_step(t_automaton *a, t_stack_state state, \
+														t_automaton_step step)
 {
 	if (step == E_UNKNOWN)
 	{
@@ -63,7 +65,7 @@ void automaton_step(t_automaton	*a, t_stack_state state, t_automaton_step step)
 		if (is_empty_stack(a->stack))
 			a->cur_state = E_STATE_END;
 		else
-			a->cur_state = *(t_stack_state *) get_top_stack(a->stack);
+			a->cur_state = *(t_stack_state *)get_top_stack(a->stack);
 	}
 	else if (step == E_PUSH)
 	{

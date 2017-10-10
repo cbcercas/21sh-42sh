@@ -6,13 +6,15 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:58:45 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/08 11:02:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/08/04 13:42:14 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_UTILS_H
 # define BUILTINS_UTILS_H
 
+# include <builtins/builtin_env.h>
+# include <environ/builtin_env_utils.h>
 # include <core/data.h>
 # include <builtins/exit.h>
 # include <builtins/echo.h>

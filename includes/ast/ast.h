@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:44:50 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/25 18:56:13 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/07 17:03:53 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,48 +18,141 @@
 # include <logger.h>
 # include <libft.h>
 # include <lexer/lexer.h>
+# include <expand/expand.h>
+
+/**
+ * @struct s_info
+ *
+ * @brief  struct containing return value for exec.
+ */
+struct								s_info
+{
+	//int 								redir_fd_in;
+	//int 								redir_fd_out;
+	int 								ret;
+};
 
 typedef struct s_info	t_info;
 
-struct	s_info
+/**
+ * @struct s_cmd
+ *
+ * @brief  node for the AST tree
+ *
+ * @param  a char ** for execve
+ * @param  a type for process exec
+ * @param  struct info
+ *
+ */
+
+struct 								s_cmd
 {
-	int redir_fd_in;
-	int redir_fd_out;
-	int ret;
+	char								**av;
+	t_token_type				type;
+	t_info							info;
 };
 
 typedef struct s_cmd	t_cmd;
 
-struct s_cmd
+
+/**
+ * @struct s_lim
+ *
+ * @brief virtual limit for ast_built/ast_built2
+ */
+
+struct 								s_lim
 {
-	char const			*str;
-	t_info					info;
-	t_token_type		type;
+	size_t							cnt;
+	size_t							lim;
 };
 
 typedef struct s_lim	t_lim;
 
-struct s_lim
-{
-	size_t	cnt;
-	size_t	lim;
-};
+/**
+ * @file       ast.c
+ *
+ * @brief      Main functions for the ast
+ */
 
-t_btree	*ast_create(t_array *tokens);
-t_btree	*ast_built1(t_btree *ast, t_array *tokens, t_lim lim);
-t_btree	*ast_built2(t_btree *ast, t_array *tokens, t_lim lim);
-t_btree	*ast_built3(t_btree *ast, t_array *tokens, t_lim lim);
-t_btree	*ast_built4(t_btree *ast, t_array *tokens, t_lim lim);
-t_btree	*ast_built6(t_btree *ast, t_array *tokens, t_lim lim);
+t_btree								*ast_create(t_array *tokens);
 
-BOOL	ast_is_redir(t_array *tokens, size_t cnt, t_token *cur);
-t_btree	*ast_built_greatand(t_btree *ast, t_array *tokens, t_lim lim);
+/**
+ * @file       ast_built.c
+ *
+ * @brief      Contains function used to build the ast
+ */
 
-void	ast_built2_swap(t_btree *ast);
+t_btree								*ast_built(t_btree *ast, t_array *expands, t_lim lim,\
+	 																int prio);
 
-void	ast_del_cmd(t_cmd *cmd); //TODO: refactor quand expand sera fini
-char	*ast_aff(t_cmd *cmd);//TODO: refactor quand expand sera fini
-int	ast_cmp(t_cmd *s1, t_cmd *s2);//TODO: refactor quand expand sera fini
-t_cmd	*ast_new_cmd(const char *str, size_t len, t_token_type type);//TODO: refactor quand expand sera fini
+/**
+ * @file       ast_cmp.c
+ *
+ * @brief      Functions to compare the ast nodes to one another
+ */
+
+t_token_type					return_type(int prio, t_token_type type,\
+	 																	t_array *expands, size_t cnt);
+BOOL									ast_prio(t_token_type type, int prio, size_t cnt,\
+	 																t_array *expands);
+int										ast_cmp(t_cmd *s1, t_cmd *s2);
+
+/**
+ * @file       ast_is_redir.c
+ *
+ * @brief      Functions to test ast nodes return types
+ */
+
+t_token_type					ast_return_type_redir(t_array *expands,\
+	 																						size_t cnt, t_token_type type);
+BOOL									ast_is_redir(t_array *expands, size_t cnt,\
+	 																									t_token_type type);
+
+/**
+ * @file       ast_utils.c
+ *
+ * @brief      Utility functions for the ast module
+ */
+
+void									ast_del_cmd(t_cmd *cmd);
+char									*ast_aff(t_cmd *cmd);
+t_exp									*ast_search(t_array *expands, t_lim *lim, int prio);
+t_cmd									*ast_new_cmd(t_array *expands, int start,\
+	 																			int end, t_token_type type);
+
+/**
+ * @def ISSEP
+ *
+ * @brief Is a separator
+ */
+
+# define ISSEP(x) (x == E_TOKEN_SEMI || x == E_TOKEN_AND_IF ||\
+	 									x == E_TOKEN_OR_IF)
+
+/**
+ * @def ISPIPE
+ *
+ * @brief Is a pipe
+ */
+
+# define ISPIPE(x) (x == E_TOKEN_PIPE)
+
+/**
+ * @def ISLGAND
+ *
+ * @brief Is a Great or Less AND
+ */
+
+# define ISLGAND(x) (x == E_TOKEN_GREATAND || x == E_TOKEN_LESSAND)
+
+/**
+ * @def ISRED
+ *
+ * @brief Is a redirection
+ */
+
+# define ISRED(x) (x == E_TOKEN_LESSGREAT || x == E_TOKEN_DLESS ||\
+	 										x == E_TOKEN_DGREAT || x == E_TOKEN_DGREAT || ISLGAND(x))
 
 #endif
