@@ -29,19 +29,40 @@ int		autocomplete_strnequ(char const *s1, char const *s2, size_t n)
 	return (1);
 }
 
-void	autocomplete_display_prompt(t_input *input)
+BOOL autocomplete_is_dots(const char *s)
 {
-	size_t	pos;
+	if (!s)
+		return (false);
+	if (ft_strequ(s, ".") || ft_strequ(s, ".."))
+		return (true);
+	return (false);
+}
 
-	pos = 0;
-	pos = pos_in_str(*input);
-	input->offset_col = sh_len_prompt();
-	input->offset_line = 0;
-	input->cpos.cp_line = 0;
-	input->select.is = false;
-	input->cpos.cp_col = (unsigned short)input->offset_col;
-	sh_print_prompt();
-	redraw_line(input);
-	while (pos != pos_in_str(*input))
-		exec_arrow_right(NULL, input);
+BOOL	autocomplete_get_repons(size_t possibilities)
+{
+	char	buff[MAX_KEY_STRING_LEN];
+	int		res;
+
+	if (possibilities <= 42)
+		return (true);
+	default_terminal_mode();
+	if (possibilities >= 3000)
+	{
+		ft_printf("\n%s: too many (%d possibilities)", PROGNAME,\
+				possibilities);
+		return (false);
+	}
+	ft_printf("\n%s: do you wish to see all %d possibilities ?", PROGNAME,\
+			possibilities);
+	raw_terminal_mode();
+	(void)ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
+	res = read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN);
+	buff[res] = '\0';
+	if (!ft_strcmp(buff, "y") || !ft_strcmp(buff, KEY_CODE_TAB))
+		return (true);
+	default_terminal_mode();
+	ft_printf("\n");
+	autocomplete_display_prompt(g_input);
+	raw_terminal_mode();
+	return (false);
 }

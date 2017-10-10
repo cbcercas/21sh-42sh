@@ -13,6 +13,8 @@ set(SOURCE_FILES
 		srcs/autocomplete/autocomplete_get_words.c
 		srcs/autocomplete/autocomplete_is.c
 		srcs/autocomplete/autocomplete_utils.c
+		srcs/autocomplete/autocomplete_sort.c
+		srcs/autocomplete/autocomplete_display_cols.c
 
 		srcs/automaton/automaton.c
 
@@ -136,6 +138,7 @@ set(SOURCE_FILES
 		srcs/tools/string_growth_secu.c
 		srcs/tools/string_insert_secu.c
 		srcs/tools/string_secu.c
+		srcs/tools/sh_test_access.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c
