@@ -26,7 +26,7 @@ BOOL	exec_select(const t_key *key, t_input *input)
     input->select.is = false;
     input->select.cur_start = 0;
     input->select.cur_end = 0;
-    redraw_line(input);
+	reset_line();
   }
   return (false);
 }
@@ -80,7 +80,7 @@ BOOL	exec_alt_v(const t_key *key, t_input *input)
     if (input->select.is)
       return (false);
   input->str = string_insert(input->str, input->select.str, pos_in_str(*input));
-  redraw_line(input);
+	redraw_line(input);
   return (false);
 }
 

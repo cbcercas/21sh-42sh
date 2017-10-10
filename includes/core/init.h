@@ -31,6 +31,13 @@
 # include <core/deinit.h>
 
 # define NOTATTY 1
+
+/**
+ * @file       init.c
+ *
+ * @brief      Functions to init the program
+ */
+
 t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av, char **environ);
 void sh_store_tattr(t_sh_data *data);
 

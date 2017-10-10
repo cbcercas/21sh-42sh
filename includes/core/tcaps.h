@@ -66,6 +66,8 @@ BOOL	exec_alt_v(const t_key *key, t_input *input);
 BOOL	exec_alt_x(const t_key *key, t_input *input);
 
 void	redraw_line(t_input *input);
+void    reset_line();
+
 void	tcaps_down(t_input *input);
 
 void clean_term(void);

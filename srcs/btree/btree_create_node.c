@@ -25,3 +25,22 @@ t_btree	*btree_create_node(void *item)
 	btree->item = item;
 	return (btree);
 }
+
+void	btree_insert_data(t_btree **root, void *item,\
+													int (*cmpf)(void *, void *))
+{
+	if (!root)
+		return ;
+	if (!(*root))
+		*root = btree_create_node(item);
+	else if ((*cmpf)(item, (*root)->item) < 0)
+	{
+		btree_insert_data(&(*root)->left, item, cmpf);
+		(*root)->left->parent = (*root);
+	}
+	else
+	{
+		btree_insert_data(&(*root)->right, item, cmpf);
+		(*root)->right->parent = (*root);
+	}
+}
