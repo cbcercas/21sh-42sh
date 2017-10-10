@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 10:54:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/10 16:07:36 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 19:15:01 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	sh_history_builtin_a(char *str);
 void	sh_history_builtin_print(const char *arg);
 void	sh_history_builtin_print2(int nb);
 void	sh_history_builtin_c(void);
-void	sh_history_builtin_d(char *arg);
+void	sh_history_builtin_d(const char *arg);
 void	sh_history_builtin_w(char *path);
 void	sh_history_builtin_s(char **argv, int index);
 void	sh_history_builtin_r(char *path);

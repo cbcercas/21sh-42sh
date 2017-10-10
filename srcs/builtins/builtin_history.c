@@ -6,11 +6,14 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 10:51:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/01 14:45:38 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 19:13:56 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins_utils.h>
+
+extern char const	*g_optarg;
+extern int			g_opind;
 
 void		sh_history_help(char *arg)
 {
@@ -46,17 +49,17 @@ int			sh_history(t_sh_data *data, char **argv)
 	if (opt == 'c')
 		sh_history_builtin_c();
 	else if (opt == 'd')
-		sh_history_builtin_d(optarg);
+		sh_history_builtin_d(g_optarg);
 	else if (opt == 'a')
-		sh_history_builtin_a(argv[optind]);
+		sh_history_builtin_a(argv[g_optind]);
 	else if (opt == 'n')
-		sh_history_builtin_n(argv[optind]);
+		sh_history_builtin_n(argv[g_optind]);
 	else if (opt == 'r')
-		sh_history_builtin_r(argv[optind]);
+		sh_history_builtin_r(argv[g_optind]);
 	else if (opt == 'w')
-		sh_history_builtin_w(argv[optind]);
+		sh_history_builtin_w(argv[g_optind]);
 	else if (opt == 's')
-		sh_history_builtin_s(argv, optind);
+		sh_history_builtin_s(argv, g_optind);
 	else
 		ret = sh_history_helper(data, argv, opt);
 	ft_getopt_reset();

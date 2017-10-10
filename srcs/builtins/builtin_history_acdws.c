@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 12:53:12 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/10 18:50:03 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 19:21:01 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,15 @@ void	sh_history_builtin_a(char *str)
 
 void	sh_history_builtin_c(void)
 {
-	t_array		*e;
+	t_array		*hist;
 
 	ft_printf("clear history\n");
-	sh_history_destroy();
-	e = sh_history_get();
-	if ((e = array_create(sizeof(t_hist))) == NULL)
-	{
-		log_fatal("Environ: can't initialise history array");
-		ft_dprintf(STDERR_FILENO, "Environ: can't initialise hsitory");
-		exit(1);
-	}
+	hist = sh_history_get();
+	while (hist && hist->used)
+		hist = array_pop(hist, NULL);
 }
 
-void	sh_history_builtin_d(char *arg)
+void	sh_history_builtin_d(const char *arg)
 {
 	int			nb;
 	t_array		*hists;
@@ -62,9 +57,9 @@ void	sh_history_builtin_d(char *arg)
 	nb = -1;
 	hists = sh_history_get();
 	if (ft_isdigit(arg[0]))
-		nb = atoi(arg);
-	if (array_remove_at(hists, nb, NULL) == NULL)
-		ft_printf("bash: history: %s: history position out of range\n", arg);
+		nb = atoi(arg) - 1;
+	if (nb == -1 || array_remove_at(hists, nb, NULL) == NULL)
+		ft_printf("%s: history: %s: history position out of range\n", PROGNAME, arg);
 }
 
 void	sh_history_builtin_w(char *path)
