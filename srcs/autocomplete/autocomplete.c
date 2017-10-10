@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:35 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/09 19:25:53 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 15:47:14 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_input			*autocomplete(t_array *content, t_input *input)
 		{
 			string_remove(input->str, pos, len);
 			string_insert(input->str, string->s, pos);
-			autocomplete_display_line(input, ft_strlen(string->s) - len);
+			autocomplete_display_input(input, ft_strlen(string->s) - len);
 		}
 	}
 	if (content && content->used <= 0)

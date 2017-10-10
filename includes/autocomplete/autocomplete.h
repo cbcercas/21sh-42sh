@@ -6,7 +6,7 @@
 /*   By: jlasne <jlasne@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/18 16:38:51 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/09 19:03:50 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 12:30:36 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,10 @@ BOOL    autocomplete_is_directory(char *path);
 char    *autocomplete_get_path(char *s);
 int		autocomplete_strnequ(char const *s1, char const *s2, size_t n);
 void	autocomplete_display_prompt(t_input *input);
-void	autocomplete_display_line(t_input *input, int len);
+void	autocomplete_display_input(t_input *input, int len);
 BOOL	autocomplete_is_dots(const char *s);
 t_array	*autocomplete_sort_content(t_array *content);
+BOOL	autocomplete_get_repons(size_t possibilities);
+void	autocomplete_display_cols(t_array *content);
 
-
-/*
-# include <stddef.h>
-# include <libft.h>
-# include <ftprintf.h>
-# include <logger.h>
-# include <dirent.h>
-
-char *autoc_get_last_word(char *current_input);
-void    autoc_add_to_array(char *to_add, t_array *array);
-char	*autoc_get_from_array_at(size_t pos, t_array *array);
-void autoc_array_print(t_array *array);
-t_array *autoc_get_dir_content(char *path);
-t_array *autoc_get_binaries(void);
-*/
 #endif

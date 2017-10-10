@@ -14,6 +14,7 @@ set(SOURCE_FILES
 		srcs/autocomplete/autocomplete_is.c
 		srcs/autocomplete/autocomplete_utils.c
 		srcs/autocomplete/autocomplete_sort.c
+		srcs/autocomplete/autocomplete_display_cols.c
 
 		srcs/automaton/automaton.c
 
