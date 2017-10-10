@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_words.c                                        :+:      :+:    :+:   */
+/*   autocomplete_get_words.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/14 11:08:33 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/02 11:17:35 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/09 14:37:11 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ char	*find_word_after(t_input *input)
 	while (!ISBLANC(input->str->s[i]) && i != 0)
 		i--;
 	if (!i)
-		tmp = ft_strsub_secu(input->str->s, i, end - i + 1, 1);
+		tmp = ft_strsub_secu(input->str->s, i, end - i + 1, M_LVL_AUTOC);
 	else
-		tmp = ft_strsub_secu(input->str->s, i + 1, end - i, 1);
+		tmp = ft_strsub_secu(input->str->s, i + 1, end - i, M_LVL_AUTOC);
 	return (tmp);
 }
 
@@ -74,9 +74,9 @@ char	*find_word_cur(t_input *input)
 	while (!ISBLANC(input->str->s[i]) && i != 0)
 		i--;
 	if (!i && (end - i) > 0)
-		tmp = ft_strsub_secu(input->str->s, i, end - i, 1);
+		tmp = ft_strsub_secu(input->str->s, i, end - i, M_LVL_AUTOC);
 	else if ((end - i - 1) > 0)
-		tmp = ft_strsub_secu(input->str->s, i + 1, end - i - 1, 1);
+		tmp = ft_strsub_secu(input->str->s, i + 1, end - i - 1, M_LVL_AUTOC);
 	else
 		return (NULL);
 	return (tmp);
@@ -114,10 +114,12 @@ size_t	get_index_cur(t_input *input)
 	if (!input || !input->str || !input->str->s)
 		return (0);
 	i = pos_in_str(*input);
-	if (!i)
+	if (!i || !input || !input->str || !input->str->s)
+		return (i);
+	if (ISBLANC(input->str->s[i]) && ISBLANC(input->str->s[i - 1]))
 		return (i);
 	if (ISBLANC(input->str->s[i]))
-		return (i);
+		i--;
 	while (!ISBLANC(input->str->s[i]) && i != 0)
 		i--;
 	if (i)
