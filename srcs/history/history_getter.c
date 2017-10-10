@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 17:16:17 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/16 21:04:36 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 17:37:34 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ const char	*sh_history_get_search(const char *line)
 	t_hist	*first;
 	int			search;
 
-		if (!line || !ft_strlen(line))
+		if (!line || !ft_strlen(line) || !(hists = sh_history_get()) || !hists->used)
 			return (NULL);
-		hists = sh_history_get();
 		if ((first = (t_hist *)array_get_at(hists, 0)))
 		{
+			log_info("Hist");
 			if (!(search = hists->used - 1))
 				return (NULL);
 			while (search != -1 && (h = (t_hist *)array_get_at(hists, search)) && !ft_strnequ(line, h->cmd, ft_strlen(line)))
 				search--;
-			if (ft_strnequ(line, h->cmd, ft_strlen(line)))
+			if (h && ft_strnequ(line, h->cmd, ft_strlen(line)))
 				return ((const char *)h->cmd);
 		}
 	return (NULL);
