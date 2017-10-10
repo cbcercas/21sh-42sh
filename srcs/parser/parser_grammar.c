@@ -32,7 +32,7 @@ uint32_t    grammar[224][6][4]=
 	{
 		{E_GRAM_LIST, E_GRAM_SEPARATOR_OP},
 		{E_GRAM_LIST}
-	},
+ 	},
 	[E_GRAM_LIST] =
 	{
 //		{E_GRAM_LIST, E_GRAM_SEPARATOR_OP, E_GRAM_AND_OR},
