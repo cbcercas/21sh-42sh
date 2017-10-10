@@ -22,6 +22,7 @@
 
 /**
  * @struct s_info
+ *
  * @brief  struct containing return value for exec.
  */
 struct								s_info
@@ -35,6 +36,7 @@ typedef struct s_info	t_info;
 
 /**
  * @struct s_cmd
+ *
  * @brief  node for the AST tree
  *
  * @param  a char ** for execve
@@ -55,6 +57,7 @@ typedef struct s_cmd	t_cmd;
 
 /**
  * @struct s_lim
+ *
  * @brief virtual limit for ast_built/ast_built2
  */
 

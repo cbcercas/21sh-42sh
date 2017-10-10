@@ -22,15 +22,10 @@ set(SOURCE_FILES
 		srcs/ast/ast_is_redir.c
 		srcs/ast/ast.c
 
-		srcs/btree/btree_apply_infix.c
-		srcs/btree/btree_apply_suffix.c
-		srcs/btree/btree_apply_prefix.c
-		srcs/btree/btree_destroy.c
-		srcs/btree/btree_insert_data.c
 		srcs/btree/btree_create_node.c
 		srcs/btree/btree_print.c
-		srcs/btree/btree_level_count.c
-		srcs/btree/btree_search_item.c
+		srcs/btree/btree_apply.c
+		srcs/btree/btree_utils.c
 
 		srcs/builtins/builtins_utils.c
 		srcs/builtins/builtins_utils2.c

@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/09 14:24:30 by jlasne           ###   ########.fr        #
+#    Updated: 2017/10/10 09:51:40 by jlasne           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,9 +75,8 @@ SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
 										tcaps_exec_select.c clean_term.c get_curs_y.c get_curs_x.c
 
 SRC_SUBDIR      += btree
-SRCS            += btree_apply_infix.c btree_destroy.c  btree_apply_prefix.c\
- 					btree_apply_suffix.c btree_create_node.c btree_insert_data.c\
-					btree_level_count.c  btree_search_item.c btree_print.c
+SRCS            += btree_create_node.c btree_apply.c\
+					btree_print.c btree_utils.c
 
 SRC_SUBDIR      += ast
 SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c
