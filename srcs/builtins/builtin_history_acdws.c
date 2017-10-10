@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_history_a.c                                :+:      :+:    :+:   */
+/*   builtin_history_acdws.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 12:53:12 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/19 14:54:26 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/10 18:50:03 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	sh_history_builtin_a(char *str)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(str, O_RDWR | O_CREAT | O_APPEND)) == -1)
+	if ((fd = open(history_get_path(str), O_RDWR | O_CREAT | O_APPEND, 0644))\
+			== -1)
 	{
-		log_warn("History: History is not save no open");
-		ft_putstr_fd("History is not save", 2);
+		log_warn("History: History was not save no open");
+		ft_putstr_fd("History was not save", 2);
 		return ;
 	}
 	if ((hists = sh_history_get()) == NULL)
@@ -74,10 +75,10 @@ void	sh_history_builtin_w(char *path)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(path, O_RDWR | O_CREAT)) == -1)
+	if ((fd = open(history_get_path(path), O_RDWR | O_CREAT, 0644)) == -1)
 	{
-		log_warn("History: History is not save no open");
-		ft_putstr_fd("History is not save", 2);
+		log_warn("History: History was not save no open");
+		ft_putstr_fd("History was not save", 2);
 		return ;
 	}
 	if ((hists = sh_history_get()) == NULL)

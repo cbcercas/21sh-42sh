@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/03 15:40:23 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/10 09:49:40 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 18:41:47 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_array	*sh_history_get(void)
 	return (e);
 }
 
-int sh_history_open_fd(char *path, int flag)
+/*int sh_history_open_fd(char *path, int flag)
 {
 	struct stat			type;
 	int							fd;
@@ -49,9 +49,21 @@ int sh_history_open_fd(char *path, int flag)
 		return (-1);
 	}
 	return (fd);
+}*/
+
+char	*history_get_path(char *str)
+{
+	char	*home;
+
+	if (str)
+		return (str);
+	if(!(home = get_var_value(get_envs(), "HOME")))
+		return (NULL);
+	home = ft_strjoincl_secu(home, "/", 0, M_LVL_FUNCT);
+	return (ft_strjoincl_secu(home, HISTORY_FILE, 1, M_LVL_FUNCT));
 }
 
-t_array		*sh_history_init(char *path)
+t_array		*sh_history_init()
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -60,7 +72,7 @@ t_array		*sh_history_init(char *path)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(path, O_RDWR | O_CREAT)) == -1)
+	if ((fd = open(history_get_path(NULL), O_RDWR | O_CREAT, 0644)) == -1)
 		return (NULL);
 	if ((hists = sh_history_get()) != NULL)
 	{
@@ -79,7 +91,7 @@ t_array		*sh_history_init(char *path)
 	return (hists);
 }
 
-void	sh_history_save()
+void	sh_history_save(void)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -87,10 +99,10 @@ void	sh_history_save()
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(NULL, O_RDWR | O_CREAT | O_APPEND)) == -1)
+	if ((fd = open(history_get_path(NULL), O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
 	{
-		log_warn("History: History is not save no open");
-		ft_putstr_fd("History is not save", 2);
+		log_warn("History: History was not save FAIL open");
+		ft_putstr_fd("\nHistory was not save", 2);
 		return ;
 	}
 	if ((hists = sh_history_get()) == NULL)

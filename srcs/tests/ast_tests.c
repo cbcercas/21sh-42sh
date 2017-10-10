@@ -68,7 +68,7 @@ void sh_testing_ast(char *const *av, char **environ)
 	input = ft_strclean(av[3]);//TODO à faire pour le main ;)
 	ast = NULL;
 	init_environ(environ);
-	sh_history_init(NULL);
+	sh_history_init();
 	tokens = init_tests_ast(input);
 	if (expand_init(&expands) == NULL)
 		exit (1);

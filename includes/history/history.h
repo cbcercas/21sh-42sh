@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/16 21:03:45 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 18:35:39 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define ISCTRL(x) ((x[0] >= 1 && x[0] <= 26) && x[1] == 0)
 # define ISCTRLR(x) (x[0] == 18 && x[1] == 0)
 # define ISARR(x) (x[0] == 27 && x[1] == 91 && x[4] == 0)
-# define HISTORY_FILE "/tmp/.21sh_history"
+# define HISTORY_FILE ".21sh_history"
 
 typedef	struct	s_hist
 {
@@ -47,8 +47,8 @@ typedef	struct	s_hist
 
 t_hist					*sh_history_new(char *cmd);
 t_array					*sh_history_get(void);
-int 						sh_history_open_fd(char *path, int flag);
-t_array					*sh_history_init(char *path);
+char	*history_get_path(char *str);
+t_array					*sh_history_init(void);
 void 						sh_history_print(void);
 void 						sh_history_print_in_log(void);
 void						sh_history_save(void);
