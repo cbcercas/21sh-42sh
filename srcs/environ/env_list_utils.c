@@ -12,7 +12,7 @@
 
 #include <environ/env_list_utils.h>
 
-char	*split_env_name(char const *env)
+char	*split_var_name(char const *env)
 {
 	char	*sep;
 	char	*name;
@@ -22,7 +22,7 @@ char	*split_env_name(char const *env)
 	return (name);
 }
 
-char	*split_env_value(char const *env)
+char	*split_var_value(char const *env)
 {
 	char	*sep;
 	char	*value;
@@ -32,7 +32,7 @@ char	*split_env_value(char const *env)
 	return (value);
 }
 
-t_env	*env_new(char *name, char *value)
+t_env *var_new(char *name, char *value)
 {
 	t_env	*e;
 
@@ -54,6 +54,7 @@ t_env	*env_new(char *name, char *value)
 	return (e);
 }
 
+//TODO check usage and remove it
 void	del_env(t_env **e)
 {
 	ft_strdel(&(*e)->name);
@@ -61,6 +62,7 @@ void	del_env(t_env **e)
 	ft_memdel((void**)e);
 }
 
+//TODO check usage and remove it
 void	sh_lst_env_del(t_env **head)
 {
 	while ((*head)->next)

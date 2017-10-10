@@ -12,17 +12,15 @@
 
 #include <environ/getter_env.h>
 
-t_env	*sh_getenv(const char *name)
+t_env *get_var(t_array *vars, const char *name)
 {
-	t_array	*envs;
 	t_env	*e;
 	size_t	i;
 
 	i = 0;
-	envs = sh_get_envs();
-	while (i < envs->used)
+	while (i < vars->used)
 	{
-		e = (t_env *)array_get_at(envs, i);
+		e = (t_env *)array_get_at(vars, i);
 		if (ft_strequ(e->name, name) && e->name)
 			return (e);
 		i++;
@@ -30,11 +28,11 @@ t_env	*sh_getenv(const char *name)
 	return (NULL);
 }
 
-char	*sh_getenv_value(const char *name)
+char *get_var_value(t_array *vars, const char *name)
 {
 	t_env	*e;
 
-	if ((e = sh_getenv(name)) != NULL)
+	if ((e = get_var(vars, name)) != NULL)
 		return (e->value);
 	return (NULL);
 }

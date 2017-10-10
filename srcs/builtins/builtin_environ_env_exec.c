@@ -43,7 +43,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 
 	if (!av || !av[0])
 		return (0);
-	envtab = sh_builtin_env_to_tab(envs);
+	envtab = var_to_tab(envs);
 	cmd = NULL;
 	g_ret = 2;
 	if ((cmd = get_filename(av[0])))
@@ -58,7 +58,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 			g_ret = sh_ret(wait_sh());
 	}
 	ft_strdel(&cmd);
-	ft_strdblfree(envtab);
+	ft_freetab(envtab, sizeof(envtab));
 	envtab = NULL;
 	return (g_ret);
 }

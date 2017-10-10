@@ -10,8 +10,9 @@
 # include <ftprintf.h>
 # include <core/data.h>
 
-void    sh_print_env(void);
-t_array	*sh_get_envs(void);
+void print_vars(t_array *vars);
+t_array	*get_envs(void);
+t_array		*get_vars(void);
 void sh_free_elem_env(t_env *elem);
 
 #endif

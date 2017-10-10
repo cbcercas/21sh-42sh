@@ -21,4 +21,8 @@ void	sh_testing_env_del(char *const *av);
 void	sh_testing_ast(char *const *av, char **environ);
 void	sh_testing_exec(char *const *av, char **environ);
 
+void	testing_local_vars_set(char *const *av);
+void	testing_local_vars_del(char *const *av);
+void	testing_local_vars(char *const *av, char **environ);
+
 #endif //MINISHELL_TEST_H

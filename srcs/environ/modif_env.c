@@ -12,46 +12,42 @@
 
 #include <environ/modif_env.h>
 
-t_env		*sh_setenv(char const *name, char const *value)
+t_env *set_var(t_array *vars, char const *name, char const *value)
 {
-	t_array	*envs;
 	t_env	*env;
 
-	if ((env = sh_getenv(name)) != NULL)
+	if ((env = get_var(vars, name)) != NULL)
 	{
 		ft_strdel(&env->value);
 		env->value = ft_strdup(value);
 	}
 	else
 	{
-		envs = sh_get_envs();
-		if ((env = env_new(ft_strdup(name), ft_strdup(value))) != NULL)
+		if ((env = var_new(ft_strdup(name), ft_strdup(value))) != NULL)
 		{
-			array_push(envs, (void *)env);
+			array_push(vars, (void *)env);
 			ft_memdel((void**)&env);
 		}
 	}
 	return (NULL);
 }
 
-t_env		*sh_delenv(char const *name)
+t_env *del_var(t_array *vars, char const *name)
 {
-	t_array		*envs;
 	t_env		*e;
 	size_t		i;
 
 	i = 0;
-	envs = sh_get_envs();
-	while (i < envs->used)
+	while (i < vars->used)
 	{
-		e = (t_env *)array_get_at(envs, i);
+		e = (t_env *)array_get_at(vars, i);
 		if (ft_strequ(e->name, name) && e->name)
 			break ;
 		i++;
 	}
-	if (i >= envs->used)
+	if (i >= vars->used)
 		log_warn("Environ: can't find \"%s\" variables ", name);
 	else
-		envs = array_remove_at(envs, i, NULL);
+		vars = array_remove_at(vars, i, NULL);
 	return (NULL);
 }
