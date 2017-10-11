@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/10 18:35:39 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/11 12:46:32 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@
 # include <types/bool.h>
 # include <signals/signals.h>
 
-# define ISBLANC(x) (x == '\t' || x== '\v' || x == ' ')
-# define ISIMPRC(x) (x[0] > 31 && x[0] < 127 && x[1] == 0)
-# define ISCTRL(x) ((x[0] >= 1 && x[0] <= 26) && x[1] == 0)
-# define ISCTRLR(x) (x[0] == 18 && x[1] == 0)
-# define ISARR(x) (x[0] == 27 && x[1] == 91 && x[4] == 0)
 # define HISTORY_FILE ".21sh_history"
 
 typedef	struct	s_hist

@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 13:00:38 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/09 18:02:29 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/11 12:42:15 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 void	ft_strdblfree(char **strdb);
 BOOL	is_printstr(char const *line);
+BOOL  is_white(int c);
+BOOL  is_str_car(const char *buff);
 pid_t	sh_fork(void);
 int		sh_pipe(int tube[2]);
 int		sh_open_exec(t_btree *ast);

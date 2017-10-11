@@ -21,7 +21,7 @@ int			sh_history_is_space_plus(char const *line)
 		return (1);
 	while (line && line[i])
 	{
-		if (!ISBLANC(line[i]))
+		if (!is_white(line[i]))
 			return (0);
 		i++;
 	}
