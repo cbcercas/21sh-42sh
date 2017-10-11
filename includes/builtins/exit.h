@@ -18,6 +18,12 @@
 # include <core/tcaps.h>
 # include <core/init.h>
 
+/**
+ * @file   builtin_exit.c
+ *
+ * @brief  Contains the functions for the exit builtin
+ */
+
 int	sh_exit(t_sh_data *data, char **arg);
 
 #endif
