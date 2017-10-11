@@ -16,7 +16,7 @@ t_bool	is_grammar_type(t_grammar_type g)
 
 char *parser_gram_get_name(t_grammar_type gram)
 {
-	static char	*grammar[225] =
+	static char	*grammar[226] =
     {
             [E_TOKEN_NONE] = "E_TOKEN_NONE",
             [E_TOKEN_BLANK] = "E_TOKEN_BLANK",
@@ -61,7 +61,8 @@ char *parser_gram_get_name(t_grammar_type gram)
             [E_GRAM_SEPARATOR_OP] = "E_GRAM_SEPARATOR_OP",
             [E_GRAM_SEPARATOR] = "E_GRAM_SEPARATOR",
             [E_GRAM_SEQUENTIAL_SEP] = "E_GRAM_SEQUENTIAL_SEP",
-            [E_GRAM_END] = "E_GRAM_END",
+			[E_GRAM_EMPTY] = "E_GRAM_EMPTY",
+			[E_GRAM_END] = "E_GRAM_END"
     };
 	return (grammar[gram]);
 };
@@ -70,29 +71,30 @@ enum e_parse_ret
 {
     E_PARSE_RET_TRUE,
     E_PARSE_RET_FALSE,
+	E_PARSE_RET_END,
     E_PARSE_RET_ERROR
 };
 
-enum e_parse_ret	parser_bt(t_array *tokens, size_t tok_num, 	t_grammar_type gram_cur, int parser_lvl)
+#include <stdio.h>
+enum e_parse_ret	parser_bt(t_array *tokens, size_t tok_num, t_grammar_type gram_cur, uint32_t g_list, uint32_t g_final, int parser_lvl)
 {
 	t_token	*tok_cur;
-	uint32_t	g_list;
-	uint32_t	g_final;
     enum e_parse_ret ret;
 
 	tok_cur = (t_token *)array_get_at(tokens, tok_num);
-	g_list = 0;
-	g_final = 0;
-    ft_printf("%d Parsing: tok_num : %d, tok_type: %s gram type : %s \n", parser_lvl, tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(gram_cur));
-    if (tok_cur && grammar[gram_cur][g_list][g_final])
+    printf("%d%*sParsing: tok_num : %zu, tok_type: %s gram type : %s \n", parser_lvl, parser_lvl, " ", tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(gram_cur));
+    if (tok_cur->type != 0 && gram_cur != 0)
     {
-        if (is_grammar_type(grammar[gram_cur][g_list][g_final]))
+        if (is_grammar_type(gram_cur))
         {
-            ret = parser_bt(tokens, tok_num, grammar[gram_cur][g_list][g_final], parser_lvl + 1);
+			//printf("%*s parser_bt(tokens, %d, grammar[%s][%d][%s], %d + 1);", " ", tok_num, parser_gram_get_name(gram_cur), g_list, parser_gram_get_name())
+            ret = parser_bt(tokens, tok_num, grammar[gram_cur][g_list][g_final], 0, g_final, parser_lvl + 1);
             if (ret == E_PARSE_RET_TRUE)
-                return (parser_bt(tokens, tok_num + 1, grammar[gram_cur][g_list][g_final + 1], parser_lvl + 1));
+                return (parser_bt(tokens, tok_num + 1, gram_cur, 0, g_final + 1, parser_lvl + 1));
             else if (ret == E_PARSE_RET_FALSE)
-                return(parser_bt(tokens, tok_num, grammar[gram_cur][g_list + 1][0], parser_lvl + 1));
+                return(parser_bt(tokens, tok_num, gram_cur, g_list + 1, 0, parser_lvl + 1)); // <--
+			else if (ret == E_PARSE_RET_END)
+				return (E_PARSE_RET_FALSE);
             return (ret);
         }
         else
@@ -104,19 +106,63 @@ enum e_parse_ret	parser_bt(t_array *tokens, size_t tok_num, 	t_grammar_type gram
                 return (E_PARSE_RET_FALSE);
         }
     }
-    else if (!tok_num && gram_cur)
+    else if (tok_cur->type == E_TOKEN_NONE && gram_cur != 0)
     {
         ft_dprintf(2, "parse error near \"%s\" \n", ft_strsub_secu(tok_cur->str, 0, tok_cur->len, M_LVL_PARSER));
         return (E_PARSE_RET_ERROR);
     }
+    else if (gram_cur == 0)
+        return (E_PARSE_RET_END);
     return (E_PARSE_RET_TRUE);
+}
+
+enum e_parse_ret parser_test(t_array *tokens, size_t tok_num, t_grammar_type gram_cur, uint32_t glist, uint32_t gfinal, int parser_lvl)
+{
+	t_token	*tok_cur;
+	enum e_parse_ret	ret;
+
+	tok_cur = (t_token *)array_get_at(tokens, tok_num);
+	while (tok_cur->type == E_TOKEN_BLANK)
+	{
+		tok_num += 1;
+		tok_cur = (t_token *) array_get_at(tokens, tok_num);
+	}
+	if (is_grammar_type(gram_cur))
+	{
+		while (grammar[gram_cur][glist][0])
+		{
+			while (grammar[gram_cur][glist][gfinal])
+			{
+				printf("%d%*sParsing: tok_num : %zu, tok_type: %s gram type : %s \n", parser_lvl, parser_lvl, " ", tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(gram_cur));
+				ret = parser_test(tokens, tok_num, grammar[gram_cur][glist][gfinal], 0, 0, parser_lvl + 1);
+				if (ret == E_PARSE_RET_TRUE && tok_num < tokens->used)
+					return (parser_test(tokens, tok_num + 1, gram_cur, glist, gfinal + 1, parser_lvl + 1));
+				else if (tok_num >= tokens->used && !grammar[gram_cur][glist][gfinal + 1])
+					return (E_PARSE_RET_TRUE);
+				gfinal += 1;
+			}
+			gfinal = 0;
+			glist += 1;
+		}
+	}
+	else if (is_token_type(gram_cur))
+	{
+	 ft_printf("token\n");
+		if (tok_cur->type == gram_cur)
+		{
+			ft_printf("ok\n");
+				return (E_PARSE_RET_TRUE);
+		}
+	}
+	return (E_PARSE_RET_FALSE);
 }
 
 t_bool parser_parse(t_array *tokens)
 {
     enum e_parse_ret ret;
 
-    ret = parser_bt(tokens, 0, E_GRAM_PROGRAM, 0);
+//	ret = parser_bt(tokens, 0, E_GRAM_PROGRAM, 0, 0, 1);
+	ret = parser_test(tokens, 0, E_GRAM_PROGRAM, 0, 0, 1);
     if (ret == E_PARSE_RET_TRUE)
     {
         ft_printf("Parser Ok/n");
