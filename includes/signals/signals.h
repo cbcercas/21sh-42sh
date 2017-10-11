@@ -14,8 +14,6 @@
 # include <sys/ioctl.h>
 # include <stdio.h>
 
-# define ISSIGQUIT(x) (((x >= 1 && x <= 17) || x == 23 || x == 24 || (x >= 26 && x <= 31)) && x != SIGWINCH)
-
 void    init_signals(void *handler);
 void    signals_handler(int sig);
 int    wait_sh(void);
