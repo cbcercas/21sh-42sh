@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: SSG <SSG@42.fr>                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/09 13:30:39 by SSG               #+#    #+#             */
-/*   Updated: 2017/10/09 13:30:39 by SSG              ###   ########.fr       */
+/*   Created: 2017/10/11 15:52:55 by SSG               #+#    #+#             */
+/*   Updated: 2017/10/11 15:52:55 by SSG              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ enum	e_grammar_type
 	E_GRAM_SEPARATOR_OP = 221,
 	E_GRAM_SEPARATOR = 222,
 	E_GRAM_SEQUENTIAL_SEP = 223,
-	E_GRAM_END = 224
+	E_GRAM_EMPTY = 224,
+	E_GRAM_END = 225
 };
 
 #endif
