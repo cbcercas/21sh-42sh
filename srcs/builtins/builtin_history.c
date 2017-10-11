@@ -12,7 +12,7 @@
 
 #include <builtins/builtins_utils.h>
 
-void		sh_history_help(char *arg)
+static void		sh_history_help(char *arg)
 {
 	(void)arg;
 	ft_printf("history: usage: history [-c] [-d offset] [n] or history");
