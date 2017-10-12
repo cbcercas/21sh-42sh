@@ -60,7 +60,7 @@ static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 
 	exp = NULL;
 	while (lim.cnt <= lim.lim && lim.cnt <= expands->used &&\
-			(!exp || (!ISSEP(exp->type))))
+			(!exp || (!ISSEP(exp->type) && exp->type != E_TOKEN_NEWLINE)))
 	{
 		exp = (t_exp *)array_get_at(expands, lim.cnt);
 		lim.cnt++;
