@@ -22,7 +22,7 @@ static size_t		autocomplete_find_longest_word(t_array *content)
 	len = 0;
 	if (!content || !content->used)
 		return (0);
-	while (content->used >= i && (string = (t_string *)array_get_at(content, i)))
+	while (content->used > i && (string = (t_string *)array_get_at(content, i)))
 	{
 		if (string->len > len)
 			len = string->len;
@@ -74,7 +74,10 @@ static void	display_one(t_array *content, size_t pos, size_t size)
 		return ;
 	str = autocomplete_remove_path(string);
 	len = str ? ft_strlen(str) : 0;
-	size = size - len + 2;
+	if (size >= len + 2)
+		size = size - len + 2;
+	else
+		size = 0;
 	ft_putstr(str);
 	while(size-- > 0)
 		ft_putchar(' ');
