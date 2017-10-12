@@ -41,12 +41,12 @@ static char		*sh_get_path(char *arg, int opt)
 	(void)opt;
 	if (!arg)
 	{
-		if (!(path = sh_getenv_value("HOME")))
+		if (!(path = get_var_value(get_envs(), "HOME")))
 			ft_dprintf(2, "%s: cd: HOME not set\n", PROGNAME);
 	}
 	else if (ft_strequ(arg, "-"))
 	{
-		if (!(path = sh_getenv_value("OLDPWD")))
+		if (!(path = get_var_value(get_envs(), "OLDPWD")))
 			ft_dprintf(2, "%s: cd: OLDPWD not set\n", PROGNAME);
 		else
 			ft_putendl(path);
@@ -91,9 +91,9 @@ static int		sh_do_chdir(char *arg, int opt)
 																PROGNAME, path);
 		return ((g_ret = 1));
 	}
-	sh_setenv("OLDPWD", sh_getenv_value("PWD"));
+	set_var(get_envs(), get_var_value(get_envs(), "OLDPWD"), "PWD");
 	getcwd(cwd, sizeof(cwd));
-	sh_setenv("PWD", cwd);
+	set_var(get_envs(),"PWD", cwd);
 	return ((g_ret = 0));
 }
 

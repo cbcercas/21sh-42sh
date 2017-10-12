@@ -19,7 +19,7 @@ void	sh_testing_env_set(char *const *av)
 	i = 4;
 	while(av[i] && ft_strchr(av[i], '='))
 	{
-		sh_setenv(split_env_name(av[i]), split_env_value(av[i]));
+		set_var(get_envs(), split_var_name(av[i]), split_var_value(av[i]));
 		i++;
 	}
 }
@@ -31,18 +31,18 @@ void	sh_testing_env_del(char *const *av)
 	i = 4;
 	while(av[i])
 	{
-		sh_delenv(av[i]);
+		del_var(get_envs(), av[i]);
 		i++;
 	}
 }
 
 void sh_testing_env(char *const *av, char **environ)
 {
-	sh_init_environ(environ);
+	init_environ(environ);
 	if (av[3] && (ft_strequ(av[3], "set")))
 		sh_testing_env_set(av);
 	else if (av[3] && (ft_strequ(av[3], "del")))
 		sh_testing_env_del(av);
-	sh_print_env();
+	print_vars(get_envs());
 	exit(0);
 }

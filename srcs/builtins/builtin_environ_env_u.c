@@ -60,7 +60,7 @@ t_array			*clone_env(t_array *tmp)
 	t_env	*env;
 	size_t	i;
 
-	envs = sh_get_envs();
+	envs = get_envs();
 	if (!envs)
 		return (tmp);
 	i = 0;

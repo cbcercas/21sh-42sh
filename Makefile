@@ -6,10 +6,11 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/10 09:51:40 by jlasne           ###   ########.fr        #
+#    Updated: 2017/10/11 11:52:49 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+#TODO fix indent, space before '\'...
 NAME			= 21sh
 
 SRC_SUBDIR		= core
@@ -20,12 +21,13 @@ SRCS			+= environ.c env_list_utils.c getter_env.c builtin_environ.c\
 				   builtin_env_utils.c modif_env.c
 
 SRC_SUBDIR		+= builtins
-SRCS			+= builtins_utils.c builtin_exit.c builtin_echo.c builtin_chdir.c builtin_history.c\
-							builtin_history_acdws.c builtin_history_print.c\
-							builtin_history_npr.c builtin_help.c\
-							builtins_utils2.c builtin_pwd.c builtin_environ_env.c\
-							builtin_environ_env_i.c builtin_environ_env_u.c\
-							builtin_environ_env_exec.c builtin_help_2.c
+SRCS			+= builtins_utils.c builtin_exit.c builtin_echo.c \
+                    builtin_chdir.c builtin_history.c builtin_history_acdws.c \
+                    builtin_history_print.c builtin_history_npr.c \
+                    builtin_help.c builtins_utils2.c builtin_pwd.c \
+                    builtin_environ_env.c builtin_environ_env_i.c \
+                    builtin_environ_env_u.c builtin_environ_env_exec.c \
+                    builtin_help_2.c builtin_local_var.c
 
 SRC_SUBDIR		+= exec
 SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c\
@@ -36,7 +38,7 @@ SRCS			+= ft_strdblfree.c is_printstr.c sh_pipe.c sh_fork.c \
 							sh_open.c ft_isdigit_str.c ft_strsplit_secu.c ft_strsub_secu.c\
 							ft_strnew_secu.c sh_ret.c ft_strdup_secu.c ft_strjoincl_secu.c\
 							ft_str_insert_secu.c string_secu.c string_insert_secu.c\
-							string_growth_secu.c string_dup_secu.c sh_test_access.c
+							string_growth_secu.c string_dup_secu.c sh_test_access.c is.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c
@@ -57,7 +59,7 @@ SRCS			+= expand.c expand_utils.c ft_replace.c expand_print.c\
 
 SRC_SUBDIR      += tests
 SRCS            += env_tests.c lexer_tests.c parser_tests.c ast_tests.c\
-										expand_tests.c exec_tests.c
+				    expand_tests.c exec_tests.c local_var_tests.c
 
 SRC_SUBDIR      += term
 SRCS            += term_modes.c

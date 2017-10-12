@@ -12,19 +12,21 @@
 
 #ifndef ECHO_H
 # define ECHO_H
+
 # include <libft.h>
 # include <ftprintf.h>
 # include <core/data.h>
 # include <exec/exec.h>
 # include <builtins/builtins_utils.h>
 
-/*typedef struct s_echo
-{
-	char			cur_q;
-	int				lvl;
-}				t_echo;*/
+/**
+ * @file   builtin_echo.c
+ *
+ * @brief  Contains the functions for the builtin echo
+ */
 
 int	sh_echo(t_sh_data *data, char **arg);
+
 extern int g_optind;
 
 #endif

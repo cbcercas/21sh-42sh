@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 13:00:38 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/09 18:02:29 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/11 15:16:29 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@
 # include <ftprintf.h>
 # include <btree/ft_btree.h>
 # include <string/ft_string.h>
+# include <lexer/lexer.h>
 
 void	ft_strdblfree(char **strdb);
 BOOL	is_printstr(char const *line);
+BOOL  is_white(int c);
+BOOL  is_str_car(const char *buff);
+BOOL  is_redirect(int c);
+BOOL  is_sepa(int c);
 pid_t	sh_fork(void);
 int		sh_pipe(int tube[2]);
 int		sh_open_exec(t_btree *ast);

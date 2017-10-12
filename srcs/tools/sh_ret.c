@@ -12,9 +12,10 @@
 
 #include <tools/tools.h>
 
+//TODO Rename this
 int sh_ret(int status)
 {
-   if(WIFEXITED(status))
-    return(WEXITSTATUS(status));
-  return(0);
+    if(WIFEXITED(status))
+        return(WEXITSTATUS(status));
+    return(0);
 }

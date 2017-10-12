@@ -23,7 +23,7 @@ t_hist	*sh_history_new(char *cmd)
 		log_fatal("History: can't create new history command");
 		ft_dprintf(STDERR_FILENO,"History: can't create new history command");
 	}
-	else if ((h->cmd = cmd) == NULL)
+	else if ((h->cmd = (const char *)cmd) == NULL)
 	{
 		log_fatal("History: can't create new history command");
 		ft_dprintf(STDERR_FILENO,"History: can't create new history command");
@@ -40,7 +40,7 @@ void sh_history_del(void *i)
 
 	h = (t_hist *)i;
 	if (h->cmd)
-		ft_strdel(&(h->cmd));
+		ft_strdel((char **)&(h->cmd));
 	if (h->buf)
 		ft_secu_free(h->buf);
 	h->buf = NULL;

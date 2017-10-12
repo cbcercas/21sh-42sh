@@ -23,10 +23,10 @@ int		nb_of_word(char *s)
 		return (0);
 	while (s[i])
 	{
-		if (ISBLANC(s[i]))
+		if (is_white(s[i]))
 		{
 			count++;
-			while (ISBLANC(s[i]))
+			while (is_white(s[i]))
 				i++;
 		}
 		if (s[i])
@@ -43,12 +43,12 @@ char	*find_word_after(t_input *input)
 
 	i = pos_in_str(*input);
 	tmp = NULL;
-	while (!ISBLANC(input->str->s[i]) && i != 0)
+	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
-	while (ISBLANC(input->str->s[i]) && i != 0)
+	while (is_white(input->str->s[i]) && i != 0)
 		i--;
 	end = i;
-	while (!ISBLANC(input->str->s[i]) && i != 0)
+	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
 	if (!i)
 		tmp = ft_strsub_secu(input->str->s, i, end - i + 1, M_LVL_AUTOC);
@@ -69,9 +69,9 @@ char	*find_word_cur(t_input *input)
 	i = end;
 	if (!end)
 		return (NULL);
-	if (ISBLANC(input->str->s[end]))
+	if (is_white(input->str->s[end]))
 		i--;
-	while (!ISBLANC(input->str->s[i]) && i != 0)
+	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
 	if (!i && (end - i) > 0)
 		tmp = ft_strsub_secu(input->str->s, i, end - i, M_LVL_AUTOC);
@@ -95,10 +95,10 @@ int		get_nb_word_cur(t_input *input)
 		return (0);
 	while (i)
 	{
-		if (ISBLANC(s[i]))
+		if (is_white(s[i]))
 		{
 			count++;
-			while (i && ISBLANC(s[i]))
+			while (i && is_white(s[i]))
 				i--;
 		}
 		if (i)
@@ -116,11 +116,11 @@ size_t	get_index_cur(t_input *input)
 	i = pos_in_str(*input);
 	if (!i || !input || !input->str || !input->str->s)
 		return (i);
-	if (ISBLANC(input->str->s[i]) && ISBLANC(input->str->s[i - 1]))
+	if (is_white(input->str->s[i]) && is_white(input->str->s[i - 1]))
 		return (i);
-	if (ISBLANC(input->str->s[i]))
+	if (is_white(input->str->s[i]))
 		i--;
-	while (!ISBLANC(input->str->s[i]) && i != 0)
+	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
 	if (i)
 		i++;
