@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   btree_level_count.c                                :+:      :+:    :+:   */
+/*   sh_test_access.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/06/17 19:51:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/18 20:39:45 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/10/09 18:00:31 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/10/09 18:02:51 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <btree/ft_btree.h>
+#include <tools/tools.h>
 
-int	ft_max(int left, int right)
+int	sh_test_access(char const *filename)
 {
-	if (left > right)
-		return (left);
-	else
-		return (right);
-}
+	struct stat *buf;
+	int		ret;
 
-int	btree_level_count(t_btree *root)
-{
-	if (!root)
-		return (0);
-	return (ft_max(btree_level_count(root->left),
-	btree_level_count(root->right)) + 1);
+	if (!(buf = ft_secu_malloc_lvl(sizeof(*buf), M_LVL_FUNCT)))
+		return (-2);
+	ret = 0;
+	ft_bzero(buf, sizeof(*buf));
+	if (stat(filename, buf) == 0)
+	{
+		if (buf->st_mode & S_IXUSR)
+			ret = 1;
+		else
+			ret = -1;
+	}
+	ft_secu_free(buf);
+	return (ret);
 }

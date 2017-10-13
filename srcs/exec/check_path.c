@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/08/03 17:58:35 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/09 18:00:42 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,26 +32,6 @@ char		*makefilepath(char const *path, char const *filename)
 	return (filepath);
 }
 
-static int	sh_test_access(char const *filename)
-{
-	struct stat *buf;
-	int		ret;
-
-	if (!(buf = ft_secu_malloc_lvl(sizeof(*buf), 3)))
-		return (-2);
-	ret = 0;
-	ft_bzero(buf, sizeof(*buf));
-	if (stat(filename, buf) == 0)
-	{
-		if (buf->st_mode & S_IXUSR)
-			ret = 1;
-		else
-			ret = -1;
-	}
-	ft_secu_free(buf);
-	return (ret);
-}
-
 /*
 ** return string malloc filename with path
 */
@@ -62,7 +42,7 @@ char	*sh_check_path(char const *cmd_name)
 	int		ret;
 	int		tmp;
 
-	env_path = ft_strsplit_secu(sh_getenv_value("PATH"), ':', M_LVL_FUNCT);
+	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':', M_LVL_FUNCT); //TODO check if PATH is in envs or in local var
 	ret = 0;
 	while (env_path && *env_path)
 	{

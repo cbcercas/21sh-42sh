@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/06 18:18:09 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/07 19:40:01 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/11 15:06:56 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 		return (E_TOKEN_WORD);
 	if (prio != 3)
 		return (type);
-	if (ISLGAND(type))
+	if (type == E_TOKEN_GREATAND || type == E_TOKEN_LESSAND)
 		return (type);
 	if (ast_is_redir(expands, cnt - 1, type))
 		return (ast_return_type_redir(expands, cnt - 1, type));
@@ -52,9 +52,9 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
  */
 BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 {
-	if (prio == 1 && (ISSEP(type)))
+	if (prio == 1 && (is_sepa(type)))
 		return (true);
-	if (prio == 2 && ISPIPE(type))
+	if (prio == 2 && type == E_TOKEN_PIPE)
 		return (true);
 	if (prio == 3 && (ast_is_redir(expands, cnt, type)))
 		return (true);
@@ -77,11 +77,11 @@ BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
  */
 static int		ast_val_cmp(t_token_type type)
 {
-	if (ISSEP(type))
+	if (is_sepa(type))
 		return (1);
-	if (ISPIPE(type))
+	if (type == E_TOKEN_PIPE)
 		return (2);
-	if (ISRED(type))
+	if (is_redirect(type))
 		return (3);
 	if (type == E_TOKEN_AND)
 		return (4);

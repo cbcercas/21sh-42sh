@@ -26,9 +26,8 @@ load test_helper
   echo "                2VAR=2"
   echo "                3VAR=3"
 	echo
-  [ "${lines[0]}" = "1VAR=1" ]
-	[ "${lines[1]}" = "2VAR=2" ]
-  [ "${lines[2]}" = "3VAR=3" ]
+  expect=`echo -e "\033[94m1VAR\033[0m=1\n\033[94m2VAR\033[0m=2\n\033[94m3VAR\033[0m=3"`
+  [ "${output}" = "$expect" ]
   [ "${lines[3]}" = "" ]
 }
 
@@ -39,7 +38,7 @@ load test_helper
 	echo
   echo "$name_exec EXPECTED ->1VAR=ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:"
 	echo
-  [ "${lines[0]}" = "1VAR=ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:"` ]
   [ "${lines[1]}" = "" ]
 }
 
@@ -53,10 +52,10 @@ load test_helper
   echo "                3VAR=3=3=3===hl0=?\(\)#"
   echo "                4VAR="
 	echo
-  [ "${lines[0]}" = "1VAR=1=1=1=1======1" ]
-	[ "${lines[1]}" = "2VAR=2=two=deux:,%=" ]
-  [ "${lines[2]}" = "3VAR=3=3=3===hl0=?\(\)#" ]
-  [ "${lines[3]}" = "4VAR=" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=1=1=1=1======1"` ]
+	[ "${lines[1]}" = `echo -e "\033[94m2VAR\033[0m=2=two=deux:,%="` ]
+  [ "${lines[2]}" = `echo -e "\033[94m3VAR\033[0m=3=3=3===hl0=?\(\)#"` ]
+  [ "${lines[3]}" = `echo -e "\033[94m4VAR\033[0m="` ]
   [ "${lines[4]}" = "" ]
 }
 
@@ -70,6 +69,13 @@ load test_helper
     i=`expr $i + 1`
   done
   run env -i $vars ${BATS_TEST_DIRNAME}/../../$name_exec -t env $vars
+  i=0
+  vars=""
+  while [ $i != 100 ]
+  do
+    vars+=`echo -e "\033[94m"`$var$i`echo -e "VAR\033[0m="`"$i "
+    i=`expr $i + 1`
+  done
   vars=$(echo "$vars" | sed -e 's/ /\'$'\n/g')
   echo "ERROR:"
 	display_line_output
@@ -97,8 +103,8 @@ load test_helper
   echo "$name_exec EXPECTED ->1VAR=1"
   echo "                2VAR=2"
 	echo
-  [ "${lines[0]}" = "1VAR=1" ]
-	[ "${lines[1]}" = "2VAR=2" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=1"` ]
+	[ "${lines[1]}" = `echo -e "\033[94m2VAR\033[0m=2"` ]
   [ "${lines[2]}" = "" ]
 }
 
@@ -112,10 +118,10 @@ load test_helper
   echo "                3VAR=3"
   echo "                4VAR=4"
 	echo
-  [ "${lines[0]}" = "1VAR=1" ]
-	[ "${lines[1]}" = "2VAR=2" ]
-  [ "${lines[2]}" = "3VAR=3" ]
-  [ "${lines[3]}" = "4VAR=4" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=1"` ]
+	[ "${lines[1]}" = `echo -e "\033[94m2VAR\033[0m=2"` ]
+  [ "${lines[2]}" = `echo -e "\033[94m3VAR\033[0m=3"` ]
+  [ "${lines[3]}" = `echo -e "\033[94m4VAR\033[0m=4"` ]
   [ "${lines[4]}" = "" ]
 }
 
@@ -127,8 +133,8 @@ load test_helper
   echo "$name_exec EXPECTED ->1VAR=1"
   echo "                2VAR=2"
 	echo
-  [ "${lines[0]}" = "1VAR=1" ]
-	[ "${lines[1]}" = "2VAR=2" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=1"` ]
+	[ "${lines[1]}" = `echo -e "\033[94m2VAR\033[0m=2"` ]
   [ "${lines[2]}" = "" ]
 }
 
@@ -141,9 +147,9 @@ load test_helper
   echo "                2VAR=2"
   echo "                3VAR=3"
 	echo
-  [ "${lines[0]}" = "1VAR=1" ]
-	[ "${lines[1]}" = "2VAR=2" ]
-  [ "${lines[2]}" = "3VAR=3" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=1"` ]
+	[ "${lines[1]}" = `echo -e "\033[94m2VAR\033[0m=2"` ]
+  [ "${lines[2]}" = `echo -e "\033[94m3VAR\033[0m=3"` ]
   [ "${lines[3]}" = "" ]
 }
 
@@ -154,7 +160,7 @@ load test_helper
 	echo
   echo "$name_exec EXPECTED ->1VAR=modif"
 	echo
-  [ "${lines[0]}" = "1VAR=modif" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=modif"` ]
   [ "${lines[1]}" = "" ]
 }
 
@@ -165,7 +171,7 @@ load test_helper
 	echo
   echo "$name_exec EXPECTED ->1VAR="
 	echo
-  [ "${lines[0]}" = "1VAR=" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m="` ]
   [ "${lines[1]}" = "" ]
 }
 
@@ -178,9 +184,9 @@ load test_helper
   echo "                3VAR=toto"
   echo "                2VAR=3"
 	echo
-  [ "${lines[0]}" = "1VAR=modif" ]
-  [ "${lines[1]}" = "3VAR=toto" ]
-  [ "${lines[2]}" = "2VAR=3" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=modif"` ]
+  [ "${lines[1]}" = `echo -e "\033[94m3VAR\033[0m=toto"` ]
+  [ "${lines[2]}" = `echo -e "\033[94m2VAR\033[0m=3"` ]
   [ "${lines[3]}" = "" ]
 }
 
@@ -194,6 +200,13 @@ load test_helper
     i=`expr $i + 1`
   done
   run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" $vars
+  i=0
+  vars=""
+  while [ $i != 100 ]
+  do
+    vars+=`echo -e "\033[94m"`$var$i`echo -e "VAR\033[0m="`"$i "
+    i=`expr $i + 1`
+  done
   vars=$(echo "$vars" | sed -e 's/ /\'$'\n/g')
   echo "ERROR:"
 	display_line_output
@@ -234,9 +247,9 @@ load test_helper
   echo "                2VAR=2"
   echo "                3VAR=3"
 	echo
-  [ "${lines[0]}" = "1VAR=1" ]
-	[ "${lines[1]}" = "2VAR=2" ]
-  [ "${lines[2]}" = "3VAR=3" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=1"` ]
+	[ "${lines[1]}" = `echo -e "\033[94m2VAR\033[0m=2"` ]
+  [ "${lines[2]}" = `echo -e "\033[94m3VAR\033[0m=3"` ]
   [ "${lines[3]}" = "" ]
 }
 
@@ -258,7 +271,7 @@ load test_helper
 	echo
   echo "$name_exec EXPECTED ->2VAR=2"
   echo
-  [ "${lines[0]}" = "2VAR=2" ]
+  [ "${lines[0]}" = `echo -e "\033[94m2VAR\033[0m=2"` ]
   [ "${lines[1]}" = "" ]
 }
 
@@ -271,9 +284,9 @@ load test_helper
   echo "                2VAR=2"
   echo "                3VAR=3"
 	echo
-  [ "${lines[0]}" = "1VAR=1" ]
-	[ "${lines[1]}" = "2VAR=2" ]
-  [ "${lines[2]}" = "3VAR=3" ]
+  [ "${lines[0]}" = `echo -e "\033[94m1VAR\033[0m=1"` ]
+	[ "${lines[1]}" = `echo -e "\033[94m2VAR\033[0m=2"` ]
+  [ "${lines[2]}" = `echo -e "\033[94m3VAR\033[0m=3"` ]
   [ "${lines[3]}" = "" ]
 }
 

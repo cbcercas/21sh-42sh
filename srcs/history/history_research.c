@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:18:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/18 20:44:31 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/11 12:44:11 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static char *apply_buff(char *buff, char *line)
 {
 	/*if (buff[0] == 127 && line)
 		line = history_research_delete(line);
-	else*/ if (ISIMPRC(buff))
+	else*/ if (is_str_car(buff))
 	{
 		if (line)
 			line = ft_strjoincl(line, buff, 1);
@@ -82,13 +82,10 @@ void	history_research(t_input *input)
 
 	history_research_start(&line, &result, &fail);
 	ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
-	while (read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN) && ft_strcmp(buff, "\n")
-	 && !ISCTRL(buff))
+	while (read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN) &&\
+	 					ft_strcmp(buff, "\n") && is_str_car(buff))
 	{
-		if (ISCTRLR(buff) || ISARR(buff))
-			break ;
-		else
-			line = apply_buff(buff, line);
+		line = apply_buff(buff, line);
 		sh_history_clear_len(line, result, fail);
 		fail = history_research_search((const char *)line, &result);
 		history_research_prompt(line, result, fail);

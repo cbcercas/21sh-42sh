@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 17:12:03 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/04 19:42:36 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/10 18:27:27 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int sh_exec(t_sh_data *data, t_cmd *item, t_array *fds)
 	if (multipl_pipe(pipes) != 0)
 		return ((g_ret = EXIT_FAILURE));
 	(void)data;
-	envtab = sh_tenv_to_tab();
+	envtab = var_to_tab(get_envs());
 	item->info.ret = -1;
 	cmd = NULL;
 	if ((cmd = get_filename(item->av[0])))

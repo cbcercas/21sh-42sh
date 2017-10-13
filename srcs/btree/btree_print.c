@@ -32,7 +32,7 @@ static void		btree_display_str(char *str)
 	write(1, str, btree_strlen(str));
 }
 
-void			node_print(t_btree *this, int current_level, int max_level,\
+static void			node_print(t_btree *this, int current_level, int max_level,\
 														char *(*applyf)(void *))
 {
 	int i;

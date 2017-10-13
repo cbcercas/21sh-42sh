@@ -13,6 +13,8 @@ set(SOURCE_FILES
 		srcs/autocomplete/autocomplete_get_words.c
 		srcs/autocomplete/autocomplete_is.c
 		srcs/autocomplete/autocomplete_utils.c
+		srcs/autocomplete/autocomplete_sort.c
+		srcs/autocomplete/autocomplete_display_cols.c
 
 		srcs/automaton/automaton.c
 
@@ -22,15 +24,10 @@ set(SOURCE_FILES
 		srcs/ast/ast_is_redir.c
 		srcs/ast/ast.c
 
-		srcs/btree/btree_apply_infix.c
-		srcs/btree/btree_apply_suffix.c
-		srcs/btree/btree_apply_prefix.c
-		srcs/btree/btree_destroy.c
-		srcs/btree/btree_insert_data.c
 		srcs/btree/btree_create_node.c
 		srcs/btree/btree_print.c
-		srcs/btree/btree_level_count.c
-		srcs/btree/btree_search_item.c
+		srcs/btree/btree_apply.c
+		srcs/btree/btree_utils.c
 
 		srcs/builtins/builtins_utils.c
 		srcs/builtins/builtins_utils2.c
@@ -38,6 +35,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtin_echo.c
 		srcs/builtins/builtin_exit.c
 		srcs/builtins/builtin_help.c
+		srcs/builtins/builtin_help_2.c
 		srcs/builtins/builtin_pwd.c
 		srcs/builtins/builtin_environ.c
 		srcs/builtins/builtin_environ_env.c
@@ -140,6 +138,8 @@ set(SOURCE_FILES
 		srcs/tools/string_growth_secu.c
 		srcs/tools/string_insert_secu.c
 		srcs/tools/string_secu.c
+		srcs/tools/sh_test_access.c
+		srcs/tools/is.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c
@@ -148,7 +148,7 @@ set(SOURCE_FILES
 		srcs/tests/expand_tests.c
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
-        srcs/builtins/builtin_help_2.c)
+		)
 
 include_directories(includes)
 

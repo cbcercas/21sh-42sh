@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/19 16:12:42 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/11 15:39:25 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void    signals_handler(int sig)
 	}
 	if(sig == SIGWINCH)
 		signals_sigwinch();
-	if(ISSIGQUIT(sig) && sig != 28)
+	if (((sig >= 1 && sig <= 17) || sig == 23 || sig == 24 ||\
+					(sig >= 26 && sig <= 31)) && sig != SIGWINCH && sig != 28)
 		signals_quit(sig);
 	log_info("Signals:Shell cath signal:%d", sig);
 }

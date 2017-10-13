@@ -11,9 +11,16 @@
 /* ************************************************************************** */
 #ifndef CHDIR_H
 # define CHDIR_H
+
 # include <core/data.h>
 # include <ftprintf.h>
 # include <builtins/builtins_utils.h>
+
+/**
+ * @file   builtin_chdir.c
+ *
+ * @brief  Contains the functions for chdir (cd)
+ */
 
 int	sh_chdir(t_sh_data *data, char **arg);
 

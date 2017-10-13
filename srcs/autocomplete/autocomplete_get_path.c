@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_path.c                                         :+:      :+:    :+:   */
+/*   autocomplete_get_path.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/15 13:37:14 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/02 11:11:22 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/09 17:56:51 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,19 @@ t_array		*autocomplete_get_content_paths(char *path)
 
 	content = array_create(sizeof(t_string));
 	dir = opendir(path);
+	tmp = NULL;
 	if (dir != NULL)
 	{
 		while ((file = readdir(dir)) && content->used <= 3000)
 		{
-			tmp = string_dup_secu(file->d_name, M_LVL_AUTOC);
-			if (path && !ft_strequ(path, "."))
+			if (!autocomplete_is_dots(file->d_name))
+				tmp = string_dup_secu(file->d_name, M_LVL_AUTOC);
+			if (tmp && path && !ft_strequ(path, "."))
 				tmp = string_insert_front_secu(tmp, path, M_LVL_AUTOC);
 			if (tmp && tmp->s && autocomplete_is_directory(tmp->s))
 				tmp = string_insert_back_secu(tmp, "/", M_LVL_AUTOC);
-			else
-				tmp = string_insert_back_secu(tmp, " ", M_LVL_AUTOC);
-			array_push(content, (void *)tmp);
+			if (tmp)
+				array_push(content, (void *)tmp);
 		}
 		closedir(dir);
 	}

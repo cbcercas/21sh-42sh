@@ -60,7 +60,7 @@ static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 
 	exp = NULL;
 	while (lim.cnt <= lim.lim && lim.cnt <= expands->used &&\
-			(!exp || (!ISSEP(exp->type) && exp->type != E_TOKEN_NEWLINE)))
+			(!exp || (!is_sepa(exp->type))))
 	{
 		exp = (t_exp *)array_get_at(expands, lim.cnt);
 		lim.cnt++;
@@ -82,7 +82,7 @@ static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 
  * \return ast abstrac syntax tree.
  */
-t_btree			*ast_built2(t_btree *ast, t_array *expands, t_lim lim, int prio)
+static t_btree			*ast_built2(t_btree *ast, t_array *expands, t_lim lim, int prio)
 {
 	t_exp	*exp;
 	t_lim	lim_left;

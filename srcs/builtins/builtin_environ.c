@@ -26,7 +26,8 @@ int		sh_builtin_setenv(t_sh_data *data, char **args)
 	i = 1;
 	while (args[i] && ft_strchr(args[i], '='))
 	{
-		sh_setenv(split_env_name(args[i]), split_env_value(args[i]));
+		set_var(get_envs(), split_var_name(args[i]), split_var_value(args[i]));
+		log_dbg1("Environ set for %s", args[i]);
 		i++;
 	}
 	return (0);
@@ -45,7 +46,8 @@ int		sh_builtin_unsetenv(t_sh_data *data, char **args)
 	i = 1;
 	while (args[i])
 	{
-		sh_delenv(args[i]);
+		del_var(get_envs(), args[i]);
+		log_dbg1("Deleted env entry for %s", args[i]);
 		i++;
 	}
 	return (0);
