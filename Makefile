@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/09 13:30:35 by jlasne           ###   ########.fr        #
+#    Updated: 2017/10/13 16:01:51 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ SRC_SUBDIR		+= signals
 SRCS			+= signals.c signals_handler.c
 
 SRC_SUBDIR		+= parser
-SRCS			+= parser.c parser_grammar.c
+SRCS			+= parser.c
 
 SRC_SUBDIR		+= expand
 SRCS			+= expand.c expand_utils.c ft_replace.c expand_print.c\

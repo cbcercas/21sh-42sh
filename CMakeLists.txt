@@ -102,7 +102,6 @@ set(SOURCE_FILES
 
 
 		srcs/parser/parser.c
-		srcs/parser/parser_grammar.c
 
 		srcs/signals/signals.c
 		srcs/signals/signals_handler.c

@@ -1,266 +1,314 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/13 16:00:25 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/10/13 16:19:07 by gpouyat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <parser/parser.h>
 #include <lexer/lexer.h>
+#include <parser/enum.h>
 #include <types/bool.h>
 #include <array/array.h>
 #include <tools/tools.h>
+#include <core/progname.h>
 
-extern uint32_t    grammar[224][6][4];
-
-t_bool	is_grammar_type(t_grammar_type g)
+static t_token_type	g_grammar2[19][19][1] =
 {
-	if (g > E_GRAM_NONE && g < E_GRAM_END)
-	return (true);
-	else
+	[E_TOKEN_NONE] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_SEMI] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_BLANK] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_PIPE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_SEMI] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_OR_IF] = {1},
+		[E_TOKEN_AND_IF] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_NEWLINE] =
+	{
+		[E_TOKEN_NONE] = {1}
+	},
+	[E_TOKEN_WORD] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_PIPE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_SEMI] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_OR_IF] = {1},
+		[E_TOKEN_AND_IF] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_SQUOTE] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_PIPE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_SEMI] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_OR_IF] = {1},
+		[E_TOKEN_AND_IF] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_BQUOTE] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_PIPE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_SEMI] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_OR_IF] = {1},
+		[E_TOKEN_AND_IF] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_DQUOTE] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_PIPE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_SEMI] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_OR_IF] = {1},
+		[E_TOKEN_AND_IF] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_PIPE] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_LESSGREAT] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_IO_NUMBER] = {1}
+	},
+	[E_TOKEN_SEMI] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_IO_NUMBER] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_PIPE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_SEMI] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_OR_IF] = {1},
+		[E_TOKEN_AND_IF] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_DLESS] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_IO_NUMBER] = {1}
+	},
+	[E_TOKEN_DGREAT] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_IO_NUMBER] = {1}
+	},
+	[E_TOKEN_OR_IF] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_AND_IF] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
+	},
+	[E_TOKEN_LESSAND] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_IO_NUMBER] = {1}
+	},
+	[E_TOKEN_GREATAND] =
+	{
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_IO_NUMBER] = {1}
+	}
+};
+
+static const char	*g_grammar[226] =
+{
+	[E_TOKEN_BLANK] = " ",
+	[E_TOKEN_NEWLINE] = "\\n",
+	[E_TOKEN_WORD] = "WORD",
+	[E_TOKEN_SQUOTE] = "\'",
+	[E_TOKEN_BQUOTE] = "`",
+	[E_TOKEN_DQUOTE] = "\"",
+	[E_TOKEN_PIPE] = "|",
+	[E_TOKEN_LESSGREAT] = "< or >",
+	[E_TOKEN_AND] = "&",
+	[E_TOKEN_SEMI] = ";",
+	[E_TOKEN_IO_NUMBER] = "IO_NUMBER",
+	[E_TOKEN_DLESS] = "<<",
+	[E_TOKEN_DGREAT] = ">>",
+	[E_TOKEN_OR_IF] = "||",
+	[E_TOKEN_AND_IF] = "&&",
+	[E_TOKEN_LESSAND] = "<&",
+	[E_TOKEN_GREATAND] = ">&"
+};
+
+BOOL						ret_parser(t_token *toknext)
+{
+	ft_printf("%s: parse error near `%s'\n", PROGNAME,\
+		g_grammar[toknext->type]);
 	return (false);
-};
-
-char *parser_gram_get_name(t_grammar_type gram)
-{
-	static char	*grammar[226] =
-	{
-		[E_TOKEN_NONE] = "E_TOKEN_NONE",
-		[E_TOKEN_BLANK] = "E_TOKEN_BLANK",
-		[E_TOKEN_NEWLINE] = "E_TOKEN_NEWLINE",
-		[E_TOKEN_WORD] = "E_TOKEN_WORD",
-		[E_TOKEN_SQUOTE] = "E_TOKEN_SQUOTE",
-		[E_TOKEN_BQUOTE] = "E_TOKEN_BQUOTE",
-		[E_TOKEN_DQUOTE] = "E_TOKEN_DQUOTE",
-		[E_TOKEN_PIPE] = "E_TOKEN_PIPE",
-		[E_TOKEN_LESSGREAT] = "E_TOKEN_LESSGREAT",
-		[E_TOKEN_AND] = "E_TOKEN_AND",
-		[E_TOKEN_SEMI] = "E_TOKEN_SEMI",
-		[E_TOKEN_IO_NUMBER] = "E_TOKEN_IO_NUMBER",
-		[E_TOKEN_DLESS] = "E_TOKEN_DLESS",
-		[E_TOKEN_DGREAT] = "E_TOKEN_DGREAT",
-		[E_TOKEN_OR_IF] = "E_TOKEN_OR_IF",
-		[E_TOKEN_AND_IF] = "E_TOKEN_AND_IF",
-		[E_TOKEN_LESSAND] = "E_TOKEN_LESSAND",
-		[E_TOKEN_GREATAND] = "E_TOKEN_GREATAND",
-		[E_TOKEN_MAX] = "E_TOKEN_MAX",
-		[E_GRAM_NONE] = "E_GRAM_NONE",
-		[E_GRAM_PROGRAM] = "E_GRAM_PROGRAM",
-		[E_GRAM_COMPLETE_COMMANDS] = "E_GRAM_COMPLETE_COMMANDS",
-		[E_GRAM_COMPLETE_COMMAND] = "E_GRAM_COMPLETE_COMMAND",
-		[E_GRAM_LIST] = "E_GRAM_LIST",
-		[E_GRAM_AND_OR] ="E_GRAM_AND_OR",
-		[E_GRAM_PIPELINE] = "E_GRAM_PIPELINE,",
-		[E_GRAM_PIPE_SEQUENCE] = "E_GRAM_PIPE_SEQUENCE",
-		[E_GRAM_COMMAND] = "E_GRAM_COMMAND",
-		[E_GRAM_SIMPLE_COMMAND] = "E_GRAM_SIMPLE_COMMAND",
-		[E_GRAM_CMD_NAME] = "E_GRAM_CMD_NAME",
-		[E_GRAM_CMD_WORD] = "E_GRAM_CMD_WORD",
-		[E_GRAM_CMD_PREFIX] = "E_GRAM_CMD_PREFIX",
-		[E_GRAM_CMD_SUFFIX] = "E_GRAM_CMD_SUFFIX",
-		[E_GRAM_IO_REDIRECT] = "E_GRAM_IO_REDIRECT",
-		[E_GRAM_IO_FILE] = "E_GRAM_IO_FILE",
-		[E_GRAM_FILENAME] = "E_GRAM_FILENAME",
-		[E_GRAM_IO_HERE] = "E_GRAM_IO_HERE",
-		[E_GRAM_HERE_END] = "E_GRAM_END",
-		[E_GRAM_NEWLINE_LIST] = "E_GRAM_NEWLINE_LIST",
-		[E_GRAM_LINEBREAK] = "E_GRAM_LINEBREAK",
-		[E_GRAM_SEPARATOR_OP] = "E_GRAM_SEPARATOR_OP",
-		[E_GRAM_SEPARATOR] = "E_GRAM_SEPARATOR",
-		[E_GRAM_SEQUENTIAL_SEP] = "E_GRAM_SEQUENTIAL_SEP",
-		[E_GRAM_EMPTY] = "E_GRAM_EMPTY",
-		[E_GRAM_END] = "E_GRAM_END"
-	};
-	return (grammar[gram]);
-};
-
-enum e_parse_ret
-{
-	E_PARSE_RET_TRUE,
-	E_PARSE_RET_FALSE,
-	E_PARSE_RET_END,
-	E_PARSE_RET_ERROR
-};
-
-#include <stdio.h>
-/*
-enum e_parse_ret	parser_bt(t_array *tokens, size_t tok_num, t_grammar_type gram_cur, uint32_t g_list, uint32_t g_final, int parser_lvl)
-{
-t_token	*tok_cur;
-enum e_parse_ret ret;
-
-tok_cur = (t_token *)array_get_at(tokens, tok_num);
-printf("%d%*sParsing: tok_num : %zu, tok_type: %s gram type : %s \n", parser_lvl, parser_lvl, " ", tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(gram_cur));
-if (tok_cur->type != 0 && gram_cur != 0)
-{
-if (is_grammar_type(gram_cur))
-{
-//printf("%*s parser_bt(tokens, %d, grammar[%s][%d][%s], %d + 1);", " ", tok_num, parser_gram_get_name(gram_cur), g_list, parser_gram_get_name())
-ret = parser_bt(tokens, tok_num, grammar[gram_cur][g_list][g_final], 0, g_final, parser_lvl + 1);
-if (ret == E_PARSE_RET_TRUE)
-return (parser_bt(tokens, tok_num + 1, gram_cur, 0, g_final + 1, parser_lvl + 1));
-else if (ret == E_PARSE_RET_FALSE)
-return(parser_bt(tokens, tok_num, gram_cur, g_list + 1, 0, parser_lvl + 1)); // <--
-else if (ret == E_PARSE_RET_END)
-return (E_PARSE_RET_FALSE);
-return (ret);
-}
-else
-{
-ft_printf("%d token : %s\n", parser_lvl, parser_gram_get_name(grammar[gram_cur][g_list][g_final]));
-if (grammar[gram_cur][g_list][g_final] == tok_cur->type)
-return (E_PARSE_RET_TRUE);
-else
-return (E_PARSE_RET_FALSE);
-}
-}
-else if (tok_cur->type == E_TOKEN_NONE && gram_cur != 0)
-{
-ft_dprintf(2, "parse error near \"%s\" \n", ft_strsub_secu(tok_cur->str, 0, tok_cur->len, M_LVL_PARSER));
-return (E_PARSE_RET_ERROR);
-}
-else if (gram_cur == 0)
-return (E_PARSE_RET_END);
-return (E_PARSE_RET_TRUE);
 }
 
-enum e_parse_ret parser_test(t_array *tokens, size_t tok_num, t_grammar_type gram_cur, uint32_t glist, uint32_t gfinal, int parser_lvl)
+BOOL						parser_parse(t_array *tokens)
 {
-t_token	*tok_cur;
-enum e_parse_ret	ret;
+	size_t	i;
+	t_token	*tok;
+	t_token	*toknext;
 
-tok_cur = (t_token *)array_get_at(tokens, tok_num);
-while (tok_cur->type == E_TOKEN_BLANK)
-{
-tok_num += 1;
-tok_cur = (t_token *) array_get_at(tokens, tok_num);
-}
-if (is_grammar_type(gram_cur))
-{
-while (grammar[gram_cur][glist][0])
-{
-while (grammar[gram_cur][glist][gfinal])
-{
-printf("%d%*sParsing: tok_num : %zu, tok_type: %s gram type : %s \n", parser_lvl, parser_lvl, " ", tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(gram_cur));
-ret = parser_test(tokens, tok_num, grammar[gram_cur][glist][gfinal], 0, 0, parser_lvl + 1);
-if (ret == E_PARSE_RET_TRUE && tok_num < tokens->used)
-return (parser_test(tokens, tok_num + 1, gram_cur, glist, gfinal + 1, parser_lvl + 1));
-else if (tok_num >= tokens->used && !grammar[gram_cur][glist][gfinal + 1])
-return (E_PARSE_RET_TRUE);
-gfinal += 1;
-}
-gfinal = 0;
-glist += 1;
-}
-}
-else if (is_token_type(gram_cur))
-{
-ft_printf("token\n");
-if (tok_cur->type == gram_cur)
-{
-ft_printf("ok\n");
-return (E_PARSE_RET_TRUE);
-}
-}
-return (E_PARSE_RET_FALSE);
-}*/
-enum e_parse_ret	parser(t_array *tokens, t_grammar_type gram_cur);
-
-size_t	g_tok_num;
-
-enum e_parse_ret	parser_final(t_array *tokens, t_grammar_type gram_cur, uint32_t g_list)
-{
-	enum e_parse_ret	ret;
-	uint32_t g_final;
-	size_t	tmp_tok_num;
-
-	t_token	*tok_cur;
-	tmp_tok_num = g_tok_num;
-	tok_cur = (t_token *)array_get_at(tokens, g_tok_num);
-
-	g_final = 0;
-	ret = E_PARSE_RET_TRUE;
-	while (grammar[gram_cur][g_list][g_final] && ret == E_PARSE_RET_TRUE)
-	{
-		printf("***********Parsing: g_tok_num : %zu, tok_type: %s gram type : %s \n", g_tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(grammar[gram_cur][g_list][g_final]));
-		ret = parser(tokens, grammar[gram_cur][g_list][g_final]);
-		g_tok_num++;
-		g_final++;
-	}
-	g_tok_num = tmp_tok_num;
-	//ft_printf("***********Parsing:QUIT");
-	return (ret);
-}
-
-enum e_parse_ret	parser_list(t_array *tokens, t_grammar_type gram_cur)
-{
-	enum e_parse_ret	ret;
-	uint32_t g_list;
-
-	t_token	*tok_cur;
-	tok_cur = (t_token *)array_get_at(tokens, g_tok_num);
-
-	g_list = 0;
-	ret = E_PARSE_RET_FALSE;
-	while (grammar[gram_cur][g_list][0])
-	{
-		printf("-------Parsing: g_tok_num : %zu, tok_type: %s gram type : %s \n", g_tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(grammar[gram_cur][g_list][0]));
-		ret = parser_final(tokens, gram_cur, g_list);
-		if (ret == E_PARSE_RET_TRUE && tokens->used == g_tok_num)
-			return (ret);
-		g_list++;
-	}
-	return (ret);
-}
-
-enum e_parse_ret	parser(t_array *tokens, t_grammar_type gram_cur)
-{
-	t_token	*tok_cur;
-	enum e_parse_ret	ret;
-
-	ret = E_PARSE_RET_FALSE;
-	tok_cur = (t_token *)array_get_at(tokens, g_tok_num);
-	if (!tok_cur)
-		return (E_PARSE_RET_TRUE);
-	while (tok_cur->type == E_TOKEN_BLANK)
-	{
-		g_tok_num += 1;
-		tok_cur = (t_token *)array_get_at(tokens, g_tok_num);
-	}
-	//getchar();
-	printf("\n+++Parsing: g_tok_num : %zu, tok_type: %s gram type : %s \n", g_tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(gram_cur));
-	if (is_grammar_type(gram_cur))
-	{
-		//printf("\n+++Parsing: tok_num : %zu, tok_type: %s gram type : %s \n", tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(gram_cur));
-		ret = parser_list(tokens, gram_cur);
-	}
-	else if (is_token_type(gram_cur))
-	{
-		printf("Parsing: tok_num : %zu, tok_type: %s gram type : %s \n", g_tok_num, parser_gram_get_name(tok_cur->type), parser_gram_get_name(gram_cur));
-		if (tok_cur->type == gram_cur)
-		{
-			ft_printf("ok\n\n");
-			return (E_PARSE_RET_TRUE);
-		}
-		ft_printf("fail\n\n");
-	}
-	return (ret);
-}
-
-t_bool parser_parse(t_array *tokens)
-{
-	enum e_parse_ret ret;
-
-	(void)tokens;
-	g_tok_num = 0;
-	ret = parser(tokens, E_GRAM_PROGRAM);
-	//ft_printf("\n%s\n", parser_gram_get_name(grammar[E_GRAM_PROGRAM][0][0]));
-	//	ret = parser_bt(tokens, 0, E_GRAM_PROGRAM, 0, 0, 1);
-	//	ret = parser_test(tokens, 0, E_GRAM_PROGRAM, 0, 0, 1);
-	if (ret == E_PARSE_RET_TRUE)
-	{
-		ft_printf("\nParser Ok\n");
-		ft_secu_free_lvl(M_LVL_PARSER);
+	i = 0;
+	if (!tokens || !tokens->used)
 		return (true);
-	}
-	else
+	tok = (t_token*)array_get_at(tokens, 0);
+	if (!g_grammar2[0][tok->type][0])
+		return (ret_parser(tok));
+	while (tokens->used > i + 1)
 	{
-		ft_printf("\nParser Error\n");
-		ft_secu_free_lvl(M_LVL_PARSER);
-		return (false);
+		toknext = (t_token*)array_get_at(tokens, i + 1);
+		if (g_grammar2[tok->type][toknext->type][0])
+			i += 1;
+		else
+			return (ret_parser(toknext));
+		tok = (t_token*)array_get_at(tokens, i);
 	}
-
+	if (tokens->used == i + 1 && toknext->type == E_TOKEN_NEWLINE)
+		return (true);
+	return (ret_parser(tok));
 }
