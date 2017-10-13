@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_history_a.c                                :+:      :+:    :+:   */
+/*   builtin_history_acdws.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 12:53:12 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/19 14:54:26 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/10 19:21:01 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	sh_history_builtin_a(char *str)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(str, O_RDWR | O_CREAT | O_APPEND)) == -1)
+	if ((fd = open(history_get_path(str), O_RDWR | O_CREAT | O_APPEND, 0644))\
+			== -1)
 	{
-		log_warn("History: History is not save no open");
-		ft_putstr_fd("History is not save", 2);
+		log_warn("History: History was not save no open");
+		ft_putstr_fd("History was not save", 2);
 		return ;
 	}
 	if ((hists = sh_history_get()) == NULL)
@@ -40,20 +41,15 @@ void	sh_history_builtin_a(char *str)
 
 void	sh_history_builtin_c(void)
 {
-	t_array		*e;
+	t_array		*hist;
 
 	ft_printf("clear history\n");
-	sh_history_destroy();
-	e = sh_history_get();
-	if ((e = array_create(sizeof(t_hist))) == NULL)
-	{
-		log_fatal("Environ: can't initialise history array");
-		ft_dprintf(STDERR_FILENO, "Environ: can't initialise hsitory");
-		exit(1);
-	}
+	hist = sh_history_get();
+	while (hist && hist->used)
+		hist = array_pop(hist, NULL);
 }
 
-void	sh_history_builtin_d(char *arg)
+void	sh_history_builtin_d(const char *arg)
 {
 	int			nb;
 	t_array		*hists;
@@ -61,9 +57,9 @@ void	sh_history_builtin_d(char *arg)
 	nb = -1;
 	hists = sh_history_get();
 	if (ft_isdigit(arg[0]))
-		nb = atoi(arg);
-	if (array_remove_at(hists, nb, NULL) == NULL)
-		ft_printf("bash: history: %s: history position out of range\n", arg);
+		nb = atoi(arg) - 1;
+	if (nb == -1 || array_remove_at(hists, nb, NULL) == NULL)
+		ft_printf("%s: history: %s: history position out of range\n", PROGNAME, arg);
 }
 
 void	sh_history_builtin_w(char *path)
@@ -74,10 +70,10 @@ void	sh_history_builtin_w(char *path)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(path, O_RDWR | O_CREAT)) == -1)
+	if ((fd = open(history_get_path(path), O_RDWR | O_CREAT, 0644)) == -1)
 	{
-		log_warn("History: History is not save no open");
-		ft_putstr_fd("History is not save", 2);
+		log_warn("History: History was not save no open");
+		ft_putstr_fd("History was not save", 2);
 		return ;
 	}
 	if ((hists = sh_history_get()) == NULL)

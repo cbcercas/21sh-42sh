@@ -37,6 +37,7 @@ BOOL	key_exec(t_key *key, t_input *input)
 		{KEY_CODE_ALT_RARROW, &exec_alt_right},
 		{KEY_CODE_INSERT, &exec_select},
 		{KEY_CODE_ALT_I, &exec_select},
+		{KEY_CODE_ALT_S, &exec_select},
 		{KEY_CODE_END, &exec_end},
 		{KEY_CODE_ALT_C, &exec_alt_c},
 		{KEY_CODE_ALT_V, &exec_alt_v},

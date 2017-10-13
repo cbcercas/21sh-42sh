@@ -18,7 +18,7 @@ int		builtins_env_over(t_array *env_local, int ret)
 	return (ret);
 }
 
-int		sh_builtin_env_opt(char **argv)
+int		builtin_env_opt(char **argv)
 {
 	int opt;
 	int tmp;
@@ -46,22 +46,6 @@ int		sh_builtin_env_opt(char **argv)
 	return (opt);
 }
 
-void	sh_builtin_env_print_env(t_array *envs)
-{
-	t_env	*e;
-	size_t	i;
-
-	i = 0;
-	if (!envs || !envs->used)
-		return ;
-	while (i < envs->used)
-	{
-		e = (t_env *)array_get_at(envs, i);
-		ft_printf("\033[94m%s\033[0m=%s\n", e->name, e->value);
-		i++;
-	}
-}
-
 t_array	*sh_get_env_builtins(int opt, char **argv)
 {
 	t_array *tmp;
@@ -87,14 +71,14 @@ int		sh_builtin_env(t_sh_data *data, char **argv)
 	(void)data;
 	if (!argv[1])
 	{
-		sh_print_env();
+		print_vars(get_envs());
 		return (0);
 	}
-	opt = sh_builtin_env_opt(argv);
+	opt = builtin_env_opt(argv);
 	if (opt == -1 && g_optind == 1)
 	{
 		if (g_optind != -1 && sh_builtin_env_exec(&argv[g_optind],\
-																sh_get_envs()))
+                                                                get_envs()))
 			return (1);
 		return (0);
 	}
@@ -103,7 +87,7 @@ int		sh_builtin_env(t_sh_data *data, char **argv)
 	if (g_optind != -1 && sh_builtin_env_exec(&argv[g_optind], env_local))
 		return (builtins_env_over(env_local, 1));
 	if (g_optind != -1 && !argv[g_optind])
-		sh_builtin_env_print_env(env_local);
+		print_vars(env_local);
 	ft_getopt_reset();
 	return (builtins_env_over(env_local, 0));
 }

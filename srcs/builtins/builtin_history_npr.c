@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/10 09:29:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/19 14:59:51 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/10 18:41:32 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		sh_history_builtin_r(char *path)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(path, O_RDWR | O_CREAT)) == -1)
+	if ((fd = open(history_get_path(path), O_RDWR | O_CREAT, 0644)) == -1)
 		return ;
 	if ((hists = sh_history_get()) != NULL)
 	{
@@ -49,7 +49,7 @@ void		sh_history_builtin_n(char *path)
 	size_t	i;
 
 	i = 0;
-	if ((fd = sh_history_open_fd(path, O_RDWR | O_CREAT)) == -1)
+	if ((fd = open(history_get_path(path), O_RDWR | O_CREAT, 0644)) == -1)
 		return ;
 	if ((hists = sh_history_get()) != NULL)
 	{

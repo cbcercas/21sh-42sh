@@ -28,7 +28,7 @@ static t_token_type	ast_return_type_redir_front(t_array *expands, size_t cnt)
 	t_exp		*exp;
 
 	exp = (t_exp *)array_get_at(expands, cnt + 1);
-	if (exp && ISRED(exp->type))
+	if (exp && is_redirect(exp->type))
 		return (exp->type);
 	return (E_TOKEN_NONE);
 }
@@ -49,13 +49,13 @@ static t_token_type	ast_return_type_redir_back(t_array *expands, size_t cnt)
 	t_exp		*exp;
 
 	exp = (t_exp *)array_get_at(expands, cnt - 1);
-	if (exp && ISRED(exp->type))
+	if (exp && is_redirect(exp->type))
 		return (exp->type);
 	while (exp && exp->type == E_TOKEN_BLANK)
 	{
 		cnt--;
 		exp = (t_exp *)array_get_at(expands, cnt - 1);
-		if (exp && ISRED(exp->type))
+		if (exp && is_redirect(exp->type))
 			return (exp->type);
 	}
 	return (E_TOKEN_NONE);
@@ -78,7 +78,7 @@ t_token_type	ast_return_type_redir(t_array *expands, size_t cnt, t_token_type ty
 	t_token_type	ret;
 
 	ret = type;
-	if (ISRED(ret))
+	if (is_redirect(ret))
 		return (ret);
 	if (type != E_TOKEN_IO_NUMBER && type != E_TOKEN_WORD &&\
 			type != E_TOKEN_BLANK)

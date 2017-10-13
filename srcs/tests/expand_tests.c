@@ -62,8 +62,8 @@ void sh_testing_expand(char *const *av, char **environ)
 	t_array expand_array;
 	t_array		tokens;
 
-  sh_init_environ(environ);
-  sh_history_init(NULL);
+  init_environ(environ);
+  sh_history_init();
 	tokens = init_tests_exp(av[3]);
   if (expand_init(&expand_array) == NULL)
 		exit (1);

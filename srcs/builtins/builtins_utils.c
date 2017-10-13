@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <builtins/builtins_utils.h>
+#include <builtins/builtin_local_var.h>
 
 t_array		*get_builtins(void)
 {
@@ -76,6 +77,8 @@ t_array		*sh_builtins_init(void)
 	if (!ms_add_builtin("unsetenv", sh_builtin_unsetenv))
 		return (NULL);
 	if (!ms_add_builtin("env", sh_builtin_env))
+		return (NULL);
+	if (!ms_add_builtin("unset", builtin_unset))
 		return (NULL);
 	return (builtins);
 }

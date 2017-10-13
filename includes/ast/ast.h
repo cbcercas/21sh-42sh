@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:44:50 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/07 17:03:53 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/11 15:19:08 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,39 +120,4 @@ char									*ast_aff(t_cmd *cmd);
 t_exp									*ast_search(t_array *expands, t_lim *lim, int prio);
 t_cmd									*ast_new_cmd(t_array *expands, int start,\
 	 																			int end, t_token_type type);
-
-/**
- * @def ISSEP
- *
- * @brief Is a separator
- */
-
-# define ISSEP(x) (x == E_TOKEN_SEMI || x == E_TOKEN_AND_IF ||\
-	 									x == E_TOKEN_OR_IF)
-
-/**
- * @def ISPIPE
- *
- * @brief Is a pipe
- */
-
-# define ISPIPE(x) (x == E_TOKEN_PIPE)
-
-/**
- * @def ISLGAND
- *
- * @brief Is a Great or Less AND
- */
-
-# define ISLGAND(x) (x == E_TOKEN_GREATAND || x == E_TOKEN_LESSAND)
-
-/**
- * @def ISRED
- *
- * @brief Is a redirection
- */
-
-# define ISRED(x) (x == E_TOKEN_LESSGREAT || x == E_TOKEN_DLESS ||\
-	 										x == E_TOKEN_DGREAT || x == E_TOKEN_DGREAT || ISLGAND(x))
-
 #endif

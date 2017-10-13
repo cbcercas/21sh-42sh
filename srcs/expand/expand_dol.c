@@ -19,7 +19,7 @@ char	*sh_getenv_exp(const char *name)
 	size_t	i;
 
 	i = 0;
-	envs = sh_get_envs();
+	envs = get_envs();
 	while (i < envs->used)
 	{
 		e = (t_env *)array_get_at(envs, i);
@@ -93,7 +93,7 @@ void expand_dol(t_exp *exp)
 			(ft_is_spec(exp->str->s[i + 1])) ? expand_dol_spec_replace(exp, &i) :\
 			 expand_dol_replace(exp, len, &i);
 		}
-		else if (exp->str->s[i] == '~' && (tmp = sh_getenv_value("HOME")) &&\
+		else if (exp->str->s[i] == '~' && (tmp = get_var_value(get_envs(), "HOME")) &&\
 		 				(i == 0 || exp->str->s[i - 1] != '\\') )
 			exp->str->s = ft_replace_exp(exp->str->s, tmp, i, 1);
 		else
