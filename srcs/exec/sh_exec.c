@@ -6,62 +6,75 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 17:12:03 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/10 18:27:27 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/13 19:50:58 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
 
-int manage_fds_start(t_array *fds, int pipes[3][3])
+BOOL	manage_fds(t_list *fds[4])
 {
-	int *fd;
+	t_list	*tmp;
 
-	fd = (int *)array_get_at(fds, START);
-	if (!fd)
-		return (EXIT_FAILURE);
-	close(pipes[STDIN_FILENO][END]);
-	close(pipes[STDOUT_FILENO][END]);
-	close(pipes[STDERR_FILENO][END]);
+	tmp = fds[STDOUT_FILENO];
+	while (tmp)
+	{
+		if (dup2(tmp->content_size, STDOUT_FILENO) == -1)
+		{
+			ft_dprintf(STDERR_FILENO, "Exec: Error dup2\n");
+			return (false);
+		}
+		exec_list_push(&fds[3], tmp->content_size);
+		tmp = tmp->next;
+	}
+	//ft_lstdel(&fds[STDOUT_FILENO], NULL);
 
-	if (dup2(pipes[STDIN_FILENO][START], fd[STDIN_FILENO]) == -1)
-		return (EXIT_FAILURE);
-	if (dup2(pipes[STDOUT_FILENO][START], fd[STDOUT_FILENO]) == -1)
-		return (EXIT_FAILURE);
-	if (dup2(pipes[STDERR_FILENO][START], fd[STDERR_FILENO]) == -1)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+
+	tmp = fds[STDIN_FILENO];
+	while (tmp)
+	{
+		if (dup2(tmp->content_size, STDIN_FILENO) == -1)
+		{
+			ft_dprintf(STDERR_FILENO, "Exec: Error dup2\n");
+			return (false);
+		}
+		exec_list_push(&fds[3], tmp->content_size);
+		tmp = tmp->next;
+	}
+	//ft_lstdel(&fds[STDIN_FILENO], NULL);
+
+
+	tmp = fds[STDERR_FILENO];
+	while (tmp)
+	{
+		if (dup2(tmp->content_size, STDERR_FILENO) == -1)
+		{
+			ft_dprintf(STDERR_FILENO, "Exec: Error dup2\n");
+			return (false);
+		}
+		exec_list_push(&fds[3], tmp->content_size);
+		tmp = tmp->next;
+	}
+	//ft_lstdel(&fds[STDERR_FILENO], NULL);
+	return (true);
 }
 
-int manage_fds_end(t_array *fds, int pipes[3][3])
+BOOL	multi_close(t_list *fds[4])
 {
-	int *fd;
-	char buf[2];
+	t_list	*tmp;
 
-	fd = (int *)array_get_at(fds, END);
-	if (!fd)
-		return (EXIT_FAILURE);
-	close(pipes[STDIN_FILENO][START]);
-	close(pipes[STDOUT_FILENO][START]);
-	close(pipes[STDERR_FILENO][START]);
-
-	while(read(pipes[STDIN_FILENO][END], buf, 1))
-		write(STDIN_FILENO, buf, 1);
-	while(read(pipes[STDOUT_FILENO][END], buf, 1))
-		write(STDOUT_FILENO, buf, 1);
-	while(read(pipes[STDERR_FILENO][END], buf, 1))
-		write(STDERR_FILENO, buf, 1);
-	return (EXIT_SUCCESS);
-}
-
-int multipl_pipe(int pipes[3][3])
-{
-	if(sh_pipe(pipes[STDIN_FILENO]) != 0)
-		return (EXIT_FAILURE);
-	if(sh_pipe(pipes[STDOUT_FILENO]) != 0)
-		return (EXIT_FAILURE);
-	if(sh_pipe(pipes[STDERR_FILENO]) != 0)
-		return (EXIT_FAILURE);
-	return (EXIT_SUCCESS);
+	tmp = fds[3];
+	while (tmp)
+	{
+		if (close(tmp->content_size) == -1)
+		{
+			ft_dprintf(STDERR_FILENO, "Exec: Error close\n");
+			return (false);
+		}
+		tmp = tmp->next;
+	}
+	//ft_lstdel(&fds[3], NULL);
+	return (true);
 }
 
 /*
@@ -73,16 +86,12 @@ int multipl_pipe(int pipes[3][3])
  ** @return         status set by wait
  */
 
-int sh_exec(t_sh_data *data, t_cmd *item, t_array *fds)
+int		sh_exec(t_sh_data *data, t_cmd *item, t_list *fds[4])
 {
 	char	*cmd;
 	char  **envtab = NULL;
 	pid_t	pid;
-	int	pipes[3][3];
 
-	(void)fds;
-	if (multipl_pipe(pipes) != 0)
-		return ((g_ret = EXIT_FAILURE));
 	(void)data;
 	envtab = var_to_tab(get_envs());
 	item->info.ret = -1;
@@ -90,16 +99,15 @@ int sh_exec(t_sh_data *data, t_cmd *item, t_array *fds)
 	if ((cmd = get_filename(item->av[0])))
 	{
 		pid = sh_fork();
+		manage_fds(fds);
 		if (pid == 0)
 		{
-			if (manage_fds_start(fds, pipes))
-				return ((g_ret = EXIT_FAILURE));
 			execve(cmd, item->av, envtab);
 			exit(0);
 		}
 		item->info.ret = sh_ret(wait_sh());
-		manage_fds_end(fds, pipes);
 	}
+	multi_close(fds);
 	ft_strdel(&cmd);
 	ft_strdblfree(envtab);
 	envtab = NULL;
@@ -137,7 +145,7 @@ int sh_exec_builtin(t_sh_data *data, t_cmd *item)
  ** @return         result of sh_exec_builtin or sh_exec
  */
 
-int  sh_exec_simple(t_sh_data *data, t_cmd *item, t_array *fds)
+int  sh_exec_simple(t_sh_data *data, t_cmd *item, t_list *fds[4])
 {
 	int ret;
 

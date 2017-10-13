@@ -67,6 +67,7 @@ set(SOURCE_FILES
 		srcs/exec/sh_exec_pipe.c
 		srcs/exec/sh_exec_redir.c
 		srcs/exec/sh_heradoc.c
+		srcs/exec/exec_tlist.c
 
 		srcs/expand/expand.c
 		srcs/expand/expand_dol.c

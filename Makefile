@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/11 11:52:49 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/10/13 19:12:13 by gpouyat          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRCS			+= builtins_utils.c builtin_exit.c builtin_echo.c \
 
 SRC_SUBDIR		+= exec
 SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c\
-							sh_exec_redir.c sh_heradoc.c
+							sh_exec_redir.c sh_heradoc.c exec_tlist.c
 
 SRC_SUBDIR		+= tools
 SRCS			+= ft_strdblfree.c is_printstr.c sh_pipe.c sh_fork.c \

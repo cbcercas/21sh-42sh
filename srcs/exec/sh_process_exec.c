@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:15 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/10/04 19:37:27 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/13 19:46:12 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,11 @@ t_cmd *init_exec(t_btree *ast, t_array **fds)
  ** @return     -1 on error or unknow TOKEN
  */
 
-int   sh_process_exec(t_sh_data *data, t_btree *ast)
+int   sh_process_exec(t_sh_data *data, t_btree *ast, t_list *fds[4])
 {
 	t_cmd	*item;
-	t_array	*fds;
 
-	fds = NULL;
-	if(!(item = init_exec(ast, &fds)))
-		return (-1);
+	item = (t_cmd *)ast->item;
 	if (item->type == E_TOKEN_WORD)
 		return (sh_exec_simple(data, item, fds));
 	/*else if (item->type == E_TOKEN_PIPE)
@@ -72,4 +69,17 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast)
 	else if(item->type == E_TOKEN_GREATAND)
 		return(sh_exec_greatand(data, ast, item));*/
 	return (-1);
+}
+
+int		exec_exec(t_sh_data *data, t_btree *ast)
+{
+	t_list	*fds[4];
+
+	fds[0] = NULL;
+	fds[1] = NULL;
+	fds[2] = NULL;
+	fds[3] = NULL;
+	(void)ast;
+	(void)data;
+	return (sh_process_exec(data, ast, fds));
 }

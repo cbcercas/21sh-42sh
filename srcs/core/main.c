@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 19:36:55 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/10/02 16:10:41 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/13 19:08:00 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,8 +136,8 @@ int			main(int ac, char *const *av, char **environ)
 			break ;
 		if (input && ft_strequ(input, "exit"))
 			break ;
-		sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array,\
-																		input));
+			exec_exec(&data, sh_process(&automaton, &tokens, &expand_array, input));
+		//sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array, input));
 		sh_arrays_reset(&automaton, &tokens, &expand_array, input);
 	}
 	sh_arrays_reset(&automaton, &tokens, &expand_array, input);
