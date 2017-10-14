@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/20 16:53:32 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/08 12:00:30 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/14 15:02:58 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 
 	exp = NULL;
 	while (lim.cnt <= lim.lim && lim.cnt <= expands->used &&\
-			(!exp || (!is_sepa(exp->type))))
+			(!exp || (!is_sepa(exp->type) && exp->type != E_TOKEN_NEWLINE)))
 	{
 		exp = (t_exp *)array_get_at(expands, lim.cnt);
 		lim.cnt++;

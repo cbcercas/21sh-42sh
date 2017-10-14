@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 10:51:28 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/09 15:51:44 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/14 12:32:26 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 **
 ** @return         number of pipe
 */
-
+/*
 int nb_of_pipe(t_btree *ast)
 {
   int   i;
@@ -39,7 +39,7 @@ int nb_of_pipe(t_btree *ast)
   }
   return (i);
 }
-
+*/
 /*
 ** @brief         main function for execute pipe command
 **
@@ -48,7 +48,7 @@ int nb_of_pipe(t_btree *ast)
 **
 ** @return         return of sh_exec_pipe
 */
-
+/*
 int sh_process_pipe(t_sh_data *data, t_btree *ast)
 {
   int   endfd;
@@ -82,7 +82,7 @@ static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item, BOOL is_out
   *endfd = tube[END];
   return ((g_ret = item->info.ret));
 }
-
+*/
 /*
 ** @brief          create pipe, and dup STDIN_FILENO and STDOUT_FILENO in pipe
 **
@@ -93,7 +93,7 @@ static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item, BOOL is_out
 **
 ** @return          return of sh_exec_pipe_parent, (the status set by wait)
 */
-
+/*
 int sh_exec_pipe(t_sh_data *data, t_btree *ast, int *endfd, BOOL is_out)
 {
   pid_t pid;
@@ -116,3 +116,4 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, int *endfd, BOOL is_out)
 	}
   return(sh_exec_pipe_parent(tube, endfd, item, is_out));
 }
+*/

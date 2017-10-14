@@ -6,77 +6,64 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/19 17:12:03 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/13 19:50:58 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/14 20:04:03 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
 
-BOOL	manage_fds(t_list *fds[4])
+BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[4])
 {
-	t_list	*tmp;
-
-	tmp = fds[STDOUT_FILENO];
-	while (tmp)
-	{
-		if (dup2(tmp->content_size, STDOUT_FILENO) == -1)
-		{
-			ft_dprintf(STDERR_FILENO, "Exec: Error dup2\n");
-			return (false);
-		}
-		exec_list_push(&fds[3], tmp->content_size);
-		tmp = tmp->next;
-	}
-	//ft_lstdel(&fds[STDOUT_FILENO], NULL);
-
-
-	tmp = fds[STDIN_FILENO];
-	while (tmp)
-	{
-		if (dup2(tmp->content_size, STDIN_FILENO) == -1)
-		{
-			ft_dprintf(STDERR_FILENO, "Exec: Error dup2\n");
-			return (false);
-		}
-		exec_list_push(&fds[3], tmp->content_size);
-		tmp = tmp->next;
-	}
-	//ft_lstdel(&fds[STDIN_FILENO], NULL);
-
-
-	tmp = fds[STDERR_FILENO];
-	while (tmp)
-	{
-		if (dup2(tmp->content_size, STDERR_FILENO) == -1)
-		{
-			ft_dprintf(STDERR_FILENO, "Exec: Error dup2\n");
-			return (false);
-		}
-		exec_list_push(&fds[3], tmp->content_size);
-		tmp = tmp->next;
-	}
-	//ft_lstdel(&fds[STDERR_FILENO], NULL);
+	if (fds[STDOUT_FILENO] && sh_pipe(pipe[STDOUT_FILENO]) == EXIT_FAILURE)
+		return (false);
+	if (fds[STDIN_FILENO] && sh_pipe(pipe[STDOUT_FILENO]) == EXIT_FAILURE)
+		return (false);
+	if (fds[STDERR_FILENO] && sh_pipe(pipe[STDOUT_FILENO]) == EXIT_FAILURE)
+		return (false);
 	return (true);
 }
 
-BOOL	multi_close(t_list *fds[4])
+BOOL	manage_dup2(int pipe[3][2], t_list *fds[4])
 {
-	t_list	*tmp;
-
-	tmp = fds[3];
-	while (tmp)
-	{
-		if (close(tmp->content_size) == -1)
-		{
-			ft_dprintf(STDERR_FILENO, "Exec: Error close\n");
-			return (false);
-		}
-		tmp = tmp->next;
-	}
-	//ft_lstdel(&fds[3], NULL);
+	if (fds[STDOUT_FILENO] && (dup2(pipe[STDOUT_FILENO][START], STDOUT_FILENO) == -1))
+		return (false);
+	if (fds[STDIN_FILENO] && (dup2(pipe[STDIN_FILENO][START], STDIN_FILENO) == -1))
+		return (false);
+	if (fds[STDERR_FILENO] && (dup2(pipe[STDERR_FILENO][START], STDERR_FILENO) == -1))
+		return (false);
 	return (true);
 }
 
+BOOL	multi_close(int pipe[3][2], t_list *fds[4], BOOL pos)
+{
+	if (fds[STDOUT_FILENO] && close(pipe[STDOUT_FILENO][pos]))
+		return (false);
+	if (fds[STDIN_FILENO] && close(pipe[STDIN_FILENO][pos]))
+		return (false);
+	if (fds[STDERR_FILENO] && close(pipe[STDERR_FILENO][pos]))
+		return (false);
+	return (true);
+}
+
+void	manage_fds(int pipe[3][2], t_list *fds[4])
+{
+	t_list	*tmp;
+	char		buf[1];
+	int			i;
+	int			ret;
+
+	i = 3;
+	while(i--)
+		while ((ret = read(pipe[i][END], buf, 1)) && ret != -1)
+		{
+			tmp = fds[i];
+			while (tmp)
+			{
+				write (tmp->content_size, buf, 1);
+				tmp = tmp->next;
+			}
+		}
+}
 /*
  ** @brief          exec a system command
  **
@@ -86,33 +73,39 @@ BOOL	multi_close(t_list *fds[4])
  ** @return         status set by wait
  */
 
-int		sh_exec(t_sh_data *data, t_cmd *item, t_list *fds[4])
+int		sh_exec(t_cmd *item, t_list *fds[4])
 {
 	char	*cmd;
 	char  **envtab = NULL;
 	pid_t	pid;
+	int		pipe[3][2];
 
-	(void)data;
 	envtab = var_to_tab(get_envs());
-	item->info.ret = -1;
 	cmd = NULL;
 	if ((cmd = get_filename(item->av[0])))
 	{
+		if (!manage_create_pipe(pipe, fds))
+			return (EXIT_FAILURE);
 		pid = sh_fork();
-		manage_fds(fds);
 		if (pid == 0)
 		{
+			if (!manage_dup2(pipe, fds))
+				exit(EXIT_FAILURE);
 			execve(cmd, item->av, envtab);
-			exit(0);
+			exit(EXIT_FAILURE);
 		}
-		item->info.ret = sh_ret(wait_sh());
+		g_ret = sh_ret(wait_sh());
 	}
-	multi_close(fds);
+	if (!multi_close(pipe, fds, START))
+		return (EXIT_FAILURE);
+	manage_fds(pipe, fds);
+	if (!multi_close(pipe, fds, END))
+		return (EXIT_FAILURE);
 	ft_strdel(&cmd);
-	ft_strdblfree(envtab);
+	ft_freetab(envtab, ft_tablen(envtab));
 	envtab = NULL;
-	g_ret = item->info.ret;
-	return (item->info.ret);
+	log_info("END of sh_exec");
+	return (g_ret);
 }
 
 /*
@@ -124,16 +117,30 @@ int		sh_exec(t_sh_data *data, t_cmd *item, t_list *fds[4])
  ** @return         result of builtin
  */
 
-int sh_exec_builtin(t_sh_data *data, t_cmd *item)
+int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[4])
 {
 	t_builtin *builtin;
+	int		pipe[3][2];
 
+	if (!manage_create_pipe(pipe, fds))
+		return (EXIT_FAILURE);
+	if (!manage_dup2(pipe, fds))
+		return (EXIT_FAILURE);
 	builtin	= get_builtin(item->av[0]);
-	item->info.ret = -1;
 	if (builtin)
-		item->info.ret = builtin->fn(data, item->av);
-	g_ret = item->info.ret;
-	return (item->info.ret);
+		g_ret = builtin->fn(data, item->av);
+
+	if (fds[STDOUT_FILENO])
+		close(STDOUT_FILENO);
+	if (fds[STDIN_FILENO])
+		close(STDERR_FILENO);
+	if (!multi_close(pipe, fds, START))
+		return (EXIT_FAILURE);
+	manage_fds(pipe, fds);
+log_info("TOTO");
+	if (!multi_close(pipe, fds, END))
+		return (EXIT_FAILURE);
+	return (g_ret);
 }
 
 /*
@@ -149,10 +156,11 @@ int  sh_exec_simple(t_sh_data *data, t_cmd *item, t_list *fds[4])
 {
 	int ret;
 
+	log_info("EXEC: %s", item->av[0]);
 	ret = 0;
 	if (sh_is_builtin(item->av[0]))
-		ret = sh_exec_builtin(data, item);
+		ret = sh_exec_builtin(data, item, fds);
 	else
-		ret = sh_exec(data, item, fds);
+		ret = sh_exec(item, fds);
 	return(ret);
 }
