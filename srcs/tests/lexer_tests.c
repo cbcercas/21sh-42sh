@@ -15,7 +15,7 @@ void sh_testing_lexer(char *const *av)
         ft_dprintf(2, "Error Initialising automaton");
         exit (1);
     }
-    else if (lexer_lex(&tokens, &automaton, av[3]))
+    else if (lexer_lex(&tokens, av[3]))
     {
         lexer_print_tokens(&tokens);
         exit (1);

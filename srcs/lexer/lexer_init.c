@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <lexer/lexer.h>
+#include <ftprintf.h>
 
 t_array	*lexer_init(t_array *tokens)
 {
@@ -21,5 +22,6 @@ t_array	*lexer_init(t_array *tokens)
 		return (tokens);
 	}
 	log_fatal("Lexer: Initialization failed");
+	ft_dprintf(2, "Lexer: Initialization failed");
 	return (NULL);
 }

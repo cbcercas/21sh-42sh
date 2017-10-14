@@ -27,7 +27,7 @@ void	sh_testing_parser(char *const *av)
 			ft_dprintf(2, "Error Initialising automaton");
 			exit (1);
 	}
-	else if (lexer_lex(&tokens, &automaton, av[3]))
+	else if (lexer_lex(&tokens, av[3]))
 	{
 			if(parser_parse(&tokens))
 			{

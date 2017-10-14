@@ -23,6 +23,7 @@
 # include <logger.h>
 
 typedef struct s_token	t_token;
+typedef struct s_lexer_data	t_lexer_data;
 
 struct s_token
 {
@@ -31,6 +32,11 @@ struct s_token
 	t_token_type		type;
 };
 
+struct s_lexer_data
+{
+	t_automaton	automaton;
+
+};
 enum e_char_type
 {
 	E_CHAR_TYPE_NONE,
@@ -50,7 +56,7 @@ enum e_char_type
 };
 
 t_array	*lexer_init(t_array *toks);
-t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *input);
+t_array	*lexer_lex(t_array *tokens, char const *input);
 void	lexer_print_token(t_token *tok);
 void	lexer_print_tokens(t_array *tokens);
 void	lexer_clean_tokens(t_array *tokens);

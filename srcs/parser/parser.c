@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 
 #include <parser/parser.h>
-#include <lexer/lexer.h>
-#include <parser/enum.h>
-#include <types/bool.h>
-#include <array/array.h>
-#include <tools/tools.h>
 #include <core/progname.h>
 
 static t_token_type	g_grammar2[19][19][1] =

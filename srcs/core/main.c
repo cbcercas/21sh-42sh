@@ -16,15 +16,12 @@
 **init tout les arrays qu'on a besoins
 */
 
-void		sh_arrays_init(t_automaton *automat, t_array *tokens,\
-															t_array *expands)
+void		sh_arrays_init(t_array *tokens, t_array *expand)
 {
 	if (lexer_init(tokens) == NULL)
-		sh_over("ERROR: Initialisation tokens", automat, tokens, NULL);
-	if (automaton_init(automat) == NULL)
-		sh_over("ERROR: Initialisation automaton", automat, NULL, NULL);
-	if (expand_init(expands) == NULL)
-		sh_over("ERROR: Initialisation expand", automat, expands, sh_exp_del);
+		exit(EXIT_FAILURE);
+	if (expand_init(expand) == NULL)
+		exit(EXIT_FAILURE);
 }
 
 /*
@@ -49,12 +46,10 @@ BOOL		sh_get_input(t_sh_data *data, char **input)
 **reset les arrays
 */
 
-void		sh_arrays_reset(t_automaton *automat, t_array *tokens, \
-												t_array *expands, char *input)
+void		sh_arrays_reset(t_array *tokens, t_array *expands, char *input)
 {
 	array_reset(tokens, NULL);
 	array_reset(expands, sh_exp_del);
-	automaton_reset(automat);
 	input ? ft_strdel(&input) : 0;
 	string_del(&g_input->str);
 	ft_secu_free_lvl(M_LVL_AST);
@@ -65,26 +60,22 @@ void		sh_arrays_reset(t_automaton *automat, t_array *tokens, \
 **lex, pars, expand, et build ast, il retourn l'ast
 */
 
-t_btree		*sh_process(t_automaton *automat, t_array *tokens,\
-												t_array *expands, char *input)
+t_btree		*sh_process(t_btree **ast, t_array *expands, t_array *tokens, char *input)
 {
-	t_btree *ast;
-
-	ast = NULL;
-	if (lexer_lex(tokens, automat, input))
+	if (lexer_lex(tokens, input))
 	{
 		if (parser_parse(tokens))
 		{
 			if (expand(tokens, expands))
 			{
 				sh_history_set_new(input);
-				if (!(ast = ast_create(expands)))
+				if (!(ast_create(ast, expands)))
 				{
 					ft_printf("AST NULL\n");
 					exit(EXIT_FAILURE);
 				}
 				else
-					return (ast);
+					return (*ast);
 			}
 		}
 	}
@@ -121,12 +112,13 @@ t_btree		*sh_process(t_automaton *automat, t_array *tokens,\
 int			main(int ac, char *const *av, char **environ)
 {
 	t_sh_data	data;
-	t_automaton	automaton;
 	t_array		tokens;
-	t_array		expand_array;
+	t_array		expand;
+	t_btree		*ast;
 	char		*input;
 
-	sh_arrays_init(&automaton, &tokens, &expand_array);
+	ast = NULL;
+	sh_arrays_init(&tokens, &expand);
 	if (!sh_init(&data, ac, av, environ))
 		exit(1);
 	while (42)
@@ -136,11 +128,11 @@ int			main(int ac, char *const *av, char **environ)
 			break ;
 		if (input && ft_strequ(input, "exit"))
 			break ;
-		sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array,\
-																		input));
-		sh_arrays_reset(&automaton, &tokens, &expand_array, input);
+		if (sh_process(&ast, &expand, &tokens, input))
+			sh_process_exec(&data, ast);
+		sh_arrays_reset(&tokens, &expand, input);
 	}
-	sh_arrays_reset(&automaton, &tokens, &expand_array, input);
+	sh_arrays_reset(&tokens, &expand, input);
 	sh_exit(&data, NULL);
 	return (0);
 }

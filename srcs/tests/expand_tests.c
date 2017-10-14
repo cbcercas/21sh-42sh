@@ -44,7 +44,7 @@ t_array init_tests_exp(char *input)
 		ft_dprintf(2, "Error Initialising automaton");
 		exit (1);
 	}
-	else if (lexer_lex(&tokens, &automaton, input))
+	else if (lexer_lex(&tokens, input))
 	{
 		if (automaton.stack)
 			stack_destroy(&(automaton.stack), NULL);

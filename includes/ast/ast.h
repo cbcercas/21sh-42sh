@@ -75,7 +75,7 @@ typedef struct s_lim	t_lim;
  * @brief      Main functions for the ast
  */
 
-t_btree								*ast_create(t_array *tokens);
+t_btree								*ast_create(t_btree **ast, t_array *tokens);
 
 /**
  * @file       ast_built.c
@@ -83,7 +83,7 @@ t_btree								*ast_create(t_array *tokens);
  * @brief      Contains function used to build the ast
  */
 
-t_btree								*ast_built(t_btree *ast, t_array *expands, t_lim lim,\
+t_btree								*ast_built(t_btree **ast, t_array *expands, t_lim lim,\
 	 																int prio);
 
 /**

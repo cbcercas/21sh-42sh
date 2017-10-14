@@ -45,7 +45,7 @@ t_array init_tests_ast(char *input)
 		ft_dprintf(2, "Error Initialising automaton");
 		exit (1);
 	}
-	else if (lexer_lex(&tokens, &automaton, input))
+	else if (lexer_lex(&tokens, input))
 	{
 		if (automaton.stack)
 			stack_destroy(&(automaton.stack), NULL);
@@ -73,7 +73,7 @@ void sh_testing_ast(char *const *av, char **environ)
 	if (expand_init(&expands) == NULL)
 		exit (1);
 	expand(&tokens, &expands);
-	if (!(ast = ast_create(&expands)))
+	if (!(ast = ast_create(&ast, &expands)))
 		ft_printf("AST NULL\n");
 	else if (!av[4] || ft_strequ(av[4], "tree"))
 		btree_print(ast, (char * (*)(void*))&ast_aff);

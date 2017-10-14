@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <expand/expand.h>
+#include <ftprintf.h>
 
 t_array	*expand_init(t_array *expand_array)
 {
@@ -21,6 +22,7 @@ t_array	*expand_init(t_array *expand_array)
 		return (expand_array);
 	}
 	log_fatal("Expand: Initialization failed");
+	ft_dprintf(2, "Expand: Initialization failed");
 	return (NULL);
 }
 

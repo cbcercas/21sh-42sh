@@ -21,15 +21,13 @@
  *
  * \return ast.
  */
-t_btree	*ast_create(t_array *expands)
+t_btree	*ast_create(t_btree		**ast, t_array *expands)
 {
 	t_lim		lim;
-	t_btree		*ast;
 
-	ast = NULL;
 	lim.cnt = 0;
 	lim.lim = 10000;
-	ast = ast_built(ast, expands, lim, 1);
+	ast_built(ast, expands, lim, 1);
 	log_dbg1("Ast created.");
-	return (ast);
+	return (*ast);
 }

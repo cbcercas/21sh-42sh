@@ -82,7 +82,7 @@ static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 
  * \return ast abstrac syntax tree.
  */
-static t_btree			*ast_built2(t_btree *ast, t_array *expands, t_lim lim, int prio)
+static t_btree			*ast_built2(t_btree **ast, t_array *expands, t_lim lim, int prio)
 {
 	t_exp	*exp;
 	t_lim	lim_left;
@@ -95,12 +95,12 @@ static t_btree			*ast_built2(t_btree *ast, t_array *expands, t_lim lim, int prio
 		lim_left.lim = lim.cnt;
 		lim = (prio == 3 ? ast_built_redir_plus(expands, lim) : lim);
 		lim = (prio == 5 ? ast_built_word_plus(expands, lim) : lim);
-		btree_insert_data(&ast, ast_new_cmd(expands, lim_left.lim - 1, lim.cnt,\
+		btree_insert_data(ast, ast_new_cmd(expands, lim_left.lim - 1, lim.cnt,\
 					return_type(prio, exp->type, expands, lim_left.lim)), \
 				(int (*)(void*, void*))&ast_cmp);
-		ast->left = ast_built2(ast->left, expands, lim, prio);
+		(*ast)->left = ast_built2(&(*ast)->left, expands, lim, prio);
 	}
-	return (ast);
+	return (*ast);
 }
 
 /**
@@ -114,7 +114,7 @@ static t_btree			*ast_built2(t_btree *ast, t_array *expands, t_lim lim, int prio
 
  * \return ast abstrac syntax tree.
  */
-t_btree			*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
+t_btree			*ast_built(t_btree **ast, t_array *expands, t_lim lim, int prio)
 {
 	t_exp	*exp;
 	t_lim	lim_left;
@@ -124,19 +124,19 @@ t_btree			*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
 	if (prio != 5 && prio != 3)
 		exp = ast_search(expands, &lim, prio);
 	else
-		ast = ast_built2(ast, expands, lim_left, prio);
+		*ast = ast_built2(ast, expands, lim_left, prio);
 	if (lim.cnt <= expands->used && exp && lim.cnt < lim.lim)
 	{
 		lim_left.lim = lim.cnt;
-		btree_insert_data(&ast, ast_new_cmd(expands, lim_left.lim - 1, lim.cnt,\
+		btree_insert_data(ast, ast_new_cmd(expands, lim_left.lim - 1, lim.cnt,\
 					return_type(prio, exp->type, expands, lim_left.lim)), \
 				(int (*)(void*, void*))&ast_cmp);
 		if (prio != 5 && prio != 3)
-			ast->left = ast_built(ast->left, expands, lim_left, prio + 1);
+			(*ast)->left = ast_built(&(*ast)->left, expands, lim_left, prio + 1);
 		if (prio != 5 && prio != 3)
-			ast->right = ast_built(ast->right, expands, lim, prio);
+			(*ast)->right = ast_built(&(*ast)->right, expands, lim, prio);
 	}
 	else if (prio != 5)
-		ast = ast_built(ast, expands, lim_left, prio + 1);
-	return (ast);
+		*ast = ast_built(ast, expands, lim_left, prio + 1);
+	return (*ast);
 }

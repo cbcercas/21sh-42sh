@@ -531,24 +531,29 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 }
 
 
-t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *in)
+t_array	*lexer_lex(t_array *tokens, char const *in)
 {
+	static t_automaton	automaton;
+
+	if (automaton_init(&automaton) == NULL)
+		exit(EXIT_FAILURE);
 	if (in == NULL)
 		return (NULL);
-	while ((*in != 0) && (automaton->cur_state < E_STATE_ERROR))
-		lexer_tokenize(&in, tokens, automaton);
-	if (automaton->cur_state == E_STATE_ERROR)
+	while ((*in != 0) && (automaton.cur_state < E_STATE_ERROR))
+		lexer_tokenize(&in, tokens, &automaton);
+	if (automaton.cur_state == E_STATE_ERROR)
 	{
 		ft_printf("%s: Lexing error.\n", PROGNAME);
 		array_reset(tokens, NULL);
 	}
-	else if (!is_empty_stack(automaton->stack))
+	else if (!is_empty_stack(automaton.stack))
 	{
 		ft_printf("%s: Lexing error: Incomplete command.\n", PROGNAME);
 		array_reset(tokens, NULL);
 	}
 	if (tokens)
 		lexer_clean_tokens(tokens);
+	stack_destroy(&automaton.stack, NULL);
 	return (tokens);
 }
 

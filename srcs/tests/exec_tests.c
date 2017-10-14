@@ -27,7 +27,7 @@ t_array init_tests_exec(char *input)
 		ft_dprintf(2, "Error Initialising automaton");
 		exit (1);
 	}
-	else if (lexer_lex(&tokens, &automaton, input))
+	else if (lexer_lex(&tokens, input))
 	{
 		if (automaton.stack)
 			stack_destroy(&(automaton.stack), NULL);
@@ -45,15 +45,17 @@ void sh_testing_exec(char *const *av, char **environ)
 {
 	t_array		expands;
 	t_array		tokens;
+	t_btree		*ast;
 
+	ast = NULL;
 	init_environ(environ);
-  sh_builtins_init();
+  	sh_builtins_init();
 	sh_history_init();
 	tokens = init_tests_exec(av[2]);
 	if (expand_init(&expands) == NULL)
 		exit (1);
 	expand(&tokens, &expands);
-	sh_process_exec(NULL, ast_create(&expands));
+	sh_process_exec(NULL, ast_create(&ast, &expands));
 	array_reset(&expands, NULL);
   ft_secu_free_all();
 	exit (0);

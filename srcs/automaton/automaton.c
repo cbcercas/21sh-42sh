@@ -11,16 +11,19 @@
 /* ************************************************************************** */
 
 #include <automaton/automaton.h>
+#include <ftprintf.h>
 
 t_automaton		*automaton_init(t_automaton *automaton)
 {
 	if (!(automaton->stack = stack_create(sizeof(int))))
 	{
 		log_fatal("Automaton: Initialization failed");
+		ft_dprintf(2, "Automaton: Initialization failed");
 		return (NULL);
 	}
 	automaton->cur_state = E_STATE_START;
 	log_info("Automaton: Initialization done");
+
 	return (automaton);
 }
 
