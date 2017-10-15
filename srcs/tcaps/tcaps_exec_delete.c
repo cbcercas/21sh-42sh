@@ -30,6 +30,7 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 	}
 	else
 		write(1, "\a", 1);
-	sh_history_insert_buf(input->str->s);;
+	//TODO WTF really you save the history on delete? why?
+	sh_history_insert_buf(input->str->s);
 	return (false);
 }
