@@ -97,6 +97,7 @@ static void	sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 
 t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 {
+
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av, environ);
 	init_environ(environ);
@@ -114,7 +115,10 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	}
 	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var(get_envs(), "TERM")->value, ""))
 		set_var(get_envs(), "TERM", "xterm");
-	set_var(get_envs(),"SHLVL", ft_itoa(ft_atoi(get_var_value(get_envs(),"SHLVL")) + 1)); //TODO, Atoi secure
+	if (get_var_value(get_envs(),"SHLVL"))
+		set_var(get_envs(),"SHLVL", ft_itoa(ft_atoi(get_var_value(get_envs(),"SHLVL")) + 1)); //TODO, Atoi secure
+	else
+		set_var(get_envs(),"SHLVL", ft_strdup("1"));
 	if ((tgetent(0, get_var_value(get_envs(),"TERM"))) != 1)
 	{
 		ft_printf("%s: Error on tgetent\n", PROGNAME);
