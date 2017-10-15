@@ -20,7 +20,7 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 	log_dbg1("exec delete.");
 	pos = (input->cpos.cp_col + 1 - (input->offset_col + 1)) +
 		  (input->ts.ws_col * input->offset_line);
-	if (input->str->len >= pos)
+	if (input->str->len > pos)
 	{
 		string_remove_char(input->str, pos);
 		tputs(tgetstr("dm", NULL), 0, &ft_putchar2);
