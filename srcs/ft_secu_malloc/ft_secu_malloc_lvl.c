@@ -37,11 +37,12 @@ void			*ft_secu_malloc_lvl(size_t size, size_t lvl)
 
 	ptr = NULL;
 	mem = get_mem();
-	if (!mem || !(secu_malloc = (t_secu_malloc*)malloc(sizeof(t_secu_malloc))))
+	if (!mem || !(secu_malloc = (t_secu_malloc*)ft_memalloc(sizeof
+																 (t_secu_malloc))))
 		return (NULL);
-	ft_bzero(secu_malloc, sizeof(t_secu_malloc));
-	ptr = malloc(size);
-	ft_bzero(ptr, size);
+	//ft_bzero(secu_malloc, sizeof(t_secu_malloc));
+	ptr = ft_memalloc(size);
+	//ft_bzero(ptr, size);
 	secu_malloc->lvl = lvl;
 	secu_malloc->ptr = ptr;
 	secu_malloc->next = NULL;

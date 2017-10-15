@@ -14,6 +14,7 @@
 
 void	signals_quit(int sig)
 {
+	default_terminal_mode();
 	if(sig == SIGSEGV)
 		ft_putstr("\nShell Segfault\n");
 	else if(sig == SIGABRT)

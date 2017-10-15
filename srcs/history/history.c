@@ -84,6 +84,8 @@ t_array		*sh_history_init()
 					array_push(hists, (void *)h);
 					ft_memdel((void **) &h);
 				}
+				else
+					ft_strdel(&line);
 				i++;
 		}
 	}

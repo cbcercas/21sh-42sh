@@ -31,7 +31,7 @@ SRCS			+= builtins_utils.c builtin_exit.c builtin_echo.c \
 
 SRC_SUBDIR		+= exec
 SRCS			+= sh_process_exec.c check_path.c sh_exec.c sh_exec_pipe.c\
-							sh_exec_redir.c sh_heradoc.c exec_tlist.c
+							sh_exec_redir.c sh_heradoc.c exec_tlist.c manage.c
 
 SRC_SUBDIR		+= tools
 SRCS			+= ft_strdblfree.c is_printstr.c sh_pipe.c sh_fork.c \

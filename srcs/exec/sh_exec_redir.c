@@ -6,12 +6,12 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/30 11:49:39 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/14 20:02:29 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/15 12:45:54 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <exec/exec.h>
-BOOL	manage_fds(t_list *fds[4]);
+
 
 /*
 ** @brief         function for redirections
@@ -24,47 +24,82 @@ BOOL	manage_fds(t_list *fds[4]);
 ** @return         g_ret ("g_" global) ("ret" return of exec)
 */
 
+/*void	display_fds(t_list *fds[4])
+{
+	t_list			*tmp;
+	int				i;
+
+	i = 3;
+	while(i--)
+	{
+		tmp = fds[i];
+		while (tmp)
+		{
+			log_info("%d = FD = %d", i, tmp->content_size);
+			tmp = tmp->next;
+		}
+	}
+}*/
+
+static	void	redir_great(t_cmd *item, t_list *fds[4], int fd)
+{
+	if (ft_isdigit(item->av[0][0]))
+	{
+		if (atoi(item->av[0]) <= STDERR_FILENO && atoi(item->av[0])
+												  >= 0)
+			exec_list_push(&fds[atoi(item->av[0])], fd);
+		else
+		{
+			ft_dprintf(2, "%s: '%d' ONLY 0, 1 or 2 number\n", PROGNAME,
+					   atoi(item->av[0]));
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+		exec_list_push(&fds[STDOUT_FILENO], fd);
+}
+
+static void		redir_less(t_cmd *item, int fd)
+{
+	if (ft_isdigit(item->av[0][0]))
+	{
+		if (atoi(item->av[0]) <= STDERR_FILENO && atoi(item->av[0])
+												  >= 0)
+			dup2(fd, atoi(item->av[0]));
+		else
+		{
+			ft_dprintf(2, "%s: '%d' ONLY 0, 1 or 2 number\n", PROGNAME,
+					   atoi(item->av[0]));
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+		dup2(fd, STDIN_FILENO);
+}
+
 int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item, t_list *fds[4])
 {
 	int		fd;
-	//int		pipe[2];
 
-	(void)item;
 	if ((fd = sh_open_exec(ast)) == -1)
 		return((g_ret = 1));
-			//sh_pipe(pipe);
 	if (sh_fork() == 0)
 	{
 		if (fd != -1)
 		{
-			/*if (item->av[0][0] == '<')
-			{
-				if ((fd = sh_heradoc(ast, item, fd)) != -1)
-				dup2(fd, STDIN_FILENO);
-			}
+			if (item->type == E_TOKEN_DGREAT || ft_strequ(item->av[0], ">") ||
+				ft_strequ(item->av[1], ">"))
+				redir_great(item, fds, fd);
+			//else if (item->type == E_TOKEN_DLESS)
+				//sh_heradoc(item);
 			else
-			dup2(fd, STDOUT_FILENO);*/
-			if (ft_isdigit(item->av[0][0]))
-			{
-				if (atoi(item->av[0]) >= STDERR_FILENO && atoi(item->av[0]) >= 0)
-					exec_list_push(&fds[atoi(item->av[0])], fd);
-				else
-				{
-					ft_dprintf(2, "%s: bad fd number\n", PROGNAME);
-					exit(EXIT_FAILURE);
-				}
-			}
-			else
-					exec_list_push(&fds[STDOUT_FILENO], fd);
-			//exec_list_push(&fds[STDOUT_FILENO], fd);
+				redir_less(item, fd);
 			sh_process_exec(data, ast->left, fds);
 		}
 		exit(EXIT_SUCCESS);
 	}
 	wait_sh();
-	//close(pipe[START]);
-	//dup2(pipe[END], STDOUT_FILENO);
-
+	close(fd);
 	return(g_ret);
 }
 /*

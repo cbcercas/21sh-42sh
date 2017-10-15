@@ -13,6 +13,24 @@
 # include <tools/tools.h>
 # include <ast/ast.h>
 
+static  int  here_find_fd(t_cmd *item)
+{
+	int   fd;
+
+	fd = atoi(item->av[0]);
+	if (ft_isdigit(item->av[0][0]))
+	{
+		if (fd <= STDERR_FILENO && fd >= 0)
+			return (fd);
+		else {
+			ft_dprintf(2, "%s: '%d' ONLY 0, 1 or 2 number\n", PROGNAME,
+					   fd);
+			return (-1);
+		}
+	}
+	return (STDOUT_FILENO);
+}
+
 int	sh_open_exec(t_btree *ast)
 {
   t_cmd *item;
@@ -29,7 +47,15 @@ int	sh_open_exec(t_btree *ast)
 	if (ft_isdigit(item->av[0][0]))
 		pos++;
 	if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[pos], ">"))
-		fd = open(item->av[pos + 1], O_RDWR | O_CREAT, 0644);
+		fd = open(item->av[pos + 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+	else if (item->type == E_TOKEN_LESSGREAT)
+		fd = open(item->av[pos + 1], O_RDWR, 0644);
+	else if (item->type == E_TOKEN_DGREAT)
+		fd = open(item->av[pos + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
+	else if (item->type == E_TOKEN_DLESS)
+		fd = here_find_fd(item);
+	if (fd == -1)
+		ft_dprintf(2, "Error: to open file: %s\n", item->av[pos + 1]);
 	return (fd);
 }
 

@@ -12,23 +12,6 @@
 
 # include <exec/exec.h>
 
-t_cmd *init_exec(t_btree *ast, t_array **fds)
-{
-	int		fd[3];
-
-	fd[0] = STDIN_FILENO;
-	fd[1] = STDOUT_FILENO;
-	fd[2] = STDERR_FILENO;
-	if (!ast)
-		return (NULL);
-	*fds = array_create(sizeof(fd));
-	*fds = array_push(*fds, fd);
-	*fds = array_push(*fds, fd);
-	if (!*fds)
-		return (NULL);
-	return ((t_cmd *)ast->item);
-}
-
 /*
  ** @brief         handle ast before exec
  **                it is recurcive function
@@ -66,6 +49,8 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast, t_list *fds[4])
 	else if((item->type == E_TOKEN_LESSGREAT) || (item->type == E_TOKEN_DLESS ) ||\
 			(item->type == E_TOKEN_DGREAT))
 			return(sh_exec_redir(data, ast, item, fds));
+
+
 	/*else if (item->type == E_TOKEN_PIPE)
 		return (sh_process_pipe(data, ast));
 
