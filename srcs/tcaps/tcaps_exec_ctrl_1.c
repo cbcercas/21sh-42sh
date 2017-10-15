@@ -34,6 +34,8 @@ BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 		default_terminal_mode();
 		exit(EXIT_SUCCESS);
 	}
+	else
+		exec_delete(key, input);
 	return (false);
 }
 
