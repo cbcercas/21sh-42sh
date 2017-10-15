@@ -275,26 +275,26 @@ static const char	*g_grammar[226] =
 	[E_TOKEN_GREATAND] = ">&"
 };
 
-BOOL						ret_parser(t_token *toknext)
+t_return						ret_parser(t_token *toknext)
 {
-	ft_printf("%s: parse error near `%s'\n", PROGNAME,\
-		g_grammar[toknext->type]);
-	return (false);
+	ft_dprintf(STDERR_FILENO, "%s: parse error near `%s'\n", PROGNAME,
+			  g_grammar[toknext->type]);
+	return (E_RET_PARSER_ERROR);
 }
 
-BOOL						parser_parse(t_array *tokens)
+t_return						parser_parse(t_array *tokens)
 {
 	size_t	i;
 	t_token	*tok;
 	t_token	*toknext;
 
 	i = 0;
-	if (!tokens || !tokens->used)
-		return (true);
+	if (!tokens->used)
+		return (E_RET_PARSER_OK);
 	tok = (t_token*)array_get_at(tokens, 0);
 	if (!g_grammar2[0][tok->type][0])
 		return (ret_parser(tok));
-	while (tokens->used > i + 1)
+	while (tokens->used > i + 1 )
 	{
 		toknext = (t_token*)array_get_at(tokens, i + 1);
 		if (g_grammar2[tok->type][toknext->type][0])
@@ -303,7 +303,9 @@ BOOL						parser_parse(t_array *tokens)
 			return (ret_parser(toknext));
 		tok = (t_token*)array_get_at(tokens, i);
 	}
-	if (tokens->used == i + 1 && toknext->type == E_TOKEN_NEWLINE)
-		return (true);
+
+	//if (tokens->used == i + 1 && toknext->type == E_TOKEN_NEWLINE)
+	if (g_grammar2[tok->type][E_TOKEN_NEWLINE][0])
+		return (E_RET_PARSER_OK);
 	return (ret_parser(tok));
 }

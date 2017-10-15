@@ -32,12 +32,14 @@ typedef struct s_input	t_input;
 struct	s_input
 {
 	t_string		*str;
+	BOOL			prompt;
 	size_t			prompt_len;
-	size_t			offset_col;
-	size_t			offset_line;
+	unsigned short	offset_col;
+	unsigned short	offset_line;
 	struct winsize	ts;
 	t_cpos			cpos;
 	t_select		select;
+	size_t			len_save;
 };
 
 /**
@@ -45,10 +47,10 @@ struct	s_input
  *
  * @brief      Functions to read the input
  */
-char	*sh_get_line(t_sh_opt *opts);
+char *sh_get_line(t_input *input, t_sh_opt *opts);
 char	*sh_get_line2(void);
 void	reset_input(t_input *input);
-size_t	pos_in_str(t_input input);
+size_t	pos_in_str(t_input *input);
 
 extern	t_input	*g_input;
 

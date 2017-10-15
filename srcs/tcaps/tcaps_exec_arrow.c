@@ -18,14 +18,14 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 	(void)key;
 
 	log_dbg1("exec arrow right.");
-	if (((input->cpos.cp_col + (input->offset_line  * input->ts.ws_col) - input->offset_col)) < input->str->len)
+	if (((size_t) (input->cpos.cp_col + (input->offset_line  * input->ts.ws_col) - input->offset_col)) < input->str->len)
 	{
 		exec_select_arrows(key, input, "right");
 		if (input->cpos.cp_col + 1 == input->ts.ws_col)
 			input->offset_line += 1;
 		move_cursor_right(&input->cpos, &input->ts);
 		if (input->select.is)
-			input->select.cur_end = pos_in_str(*input);
+			input->select.cur_end = pos_in_str(input);
 	}
 	sh_history_insert_buf(input->str->s);
 	return (false);
@@ -42,7 +42,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 			input->offset_line -= 1;
 		move_cursor_left(&input->cpos, &input->ts);
 		if (input->select.is)
-			input->select.cur_end = pos_in_str(*input);
+			input->select.cur_end = pos_in_str(input);
 	}
 	sh_history_insert_buf(input->str->s);
 	return (false);

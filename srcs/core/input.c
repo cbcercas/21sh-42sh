@@ -111,35 +111,33 @@ static void		draw_char(t_input *input, char *c)
 **	redraw_line(input);
 */
 
-char			*sh_get_line(t_sh_opt *opts)
+char *sh_get_line(t_input *input, t_sh_opt *opts)
 {
 	char			buff[MAX_KEY_STRING_LEN + 1];
 	t_key			key;
 	BOOL			stop;
-	static t_input	input;
 
-	ft_bzero(&input, sizeof(input));
+
 	stop = false;
 	raw_terminal_mode();
-	reset_input(&input);
-	g_input = &input;
+	//reset_input(&input);
 	while (stop == false)
 	{
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
 		read(STDIN_FILENO, buff, (opts->tcaps) ? MAX_KEY_STRING_LEN : 1);
 		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
-			stop = key_exec(&key, &input);
-		else if (is_printstr(buff) && !input.select.is)
+			stop = key_exec(&key, input);
+		else if (is_printstr(buff) && !input->select.is)
 		{
-			if (!string_insert(input.str, key.key, pos_in_str(input)))
+			if (!string_insert(input->str, key.key, pos_in_str(input)))
 				return (NULL);
-			sh_history_insert_buf(input.str->s);
-			draw_char(&input, key.key);
+			sh_history_insert_buf(input->str->s);
+			draw_char(input, key.key);
 		}
 		key_del(&key);
 	}
 	default_terminal_mode();
 	sh_history_insert_buf(NULL);
-	return (input.str->len > 0 ? ft_strdup(input.str->s) : NULL);
+	return (input->str->len > 0 ? ft_strdup(input->str->s) : NULL);
 }

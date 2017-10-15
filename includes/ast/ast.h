@@ -75,7 +75,7 @@ typedef struct s_lim	t_lim;
  * @brief      Main functions for the ast
  */
 
-t_btree								*ast_create(t_btree **ast, t_array *tokens);
+t_return								ast_create(t_btree **ast, t_array *tokens);
 
 /**
  * @file       ast_built.c

@@ -65,7 +65,7 @@ BOOL	exec_ctrl_l(const t_key *key, t_input *input)
 	size_t 	pos;
 
 	(void)key;
-	pos = pos_in_str(*input);
+	pos = pos_in_str(input);
 	input->offset_col = sh_len_prompt();
 	input->offset_line = 0;
 	input->cpos.cp_line = 0;
@@ -74,7 +74,7 @@ BOOL	exec_ctrl_l(const t_key *key, t_input *input)
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
 	sh_print_prompt();
 	redraw_line(input);
-	while (pos != pos_in_str(*input))
+	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);
 	return (false);
 }

@@ -41,6 +41,28 @@ size_t		get_prompt(BOOL print)
 	return (len);
 }
 
+void		prompt_normal(t_input *inp)
+{
+	reset_input(inp);
+	ft_printf("Un joli prompt $ ");
+	inp->prompt_len = 17;
+	inp->offset_col = 17;
+	inp->cpos.cp_col = inp->offset_col;
+	inp->cpos.cp_line = 0;
+}
+
+void 		prompt_incomplete(t_input *inp)
+{
+	ft_printf("> ");
+	//reset_input(inp);
+	string_insert(inp->str,"\n", inp->str->len);
+	inp->len_save = inp->str->len;
+	inp->prompt_len = 2;
+	inp->offset_col = 2;
+	inp->cpos.cp_col = inp->offset_col;
+	inp->cpos.cp_line = 0;
+}
+
 void		sh_print_prompt(void)
 {
 	if (get_curs_x() > 1)
@@ -49,10 +71,18 @@ void		sh_print_prompt(void)
 		ft_putendl("%");
 		tputs(tgetstr("me", NULL), 1, ft_putchar2);
 	}
-	get_prompt(true);
+	if (g_input->prompt)
+	{
+		prompt_normal(g_input);
+	}
+	else
+	{
+		prompt_incomplete(g_input);
+	}
+
 }
 
 size_t		sh_len_prompt(void)
 {
-	return (get_prompt(false));
+	return (g_input->prompt_len);
 }

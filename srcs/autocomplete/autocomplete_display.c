@@ -31,7 +31,7 @@ void		autocomplete_display_prompt(t_input *input)
 	size_t	pos;
 
 	pos = 0;
-	pos = pos_in_str(*input);
+	pos = pos_in_str(input);
 	input->offset_col = sh_len_prompt();
 	input->offset_line = 0;
 	input->cpos.cp_line = 0;
@@ -39,7 +39,7 @@ void		autocomplete_display_prompt(t_input *input)
 	input->cpos.cp_col = (unsigned short)input->offset_col;
 	sh_print_prompt();
 	redraw_line(input);
-	while (pos != pos_in_str(*input))
+	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);
 }
 

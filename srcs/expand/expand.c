@@ -11,24 +11,23 @@ t_exp *expand_exp(t_exp *exp) {
 	return (exp);
 }
 
-t_array	*expand(t_array *tokens, t_array *expand) {
+t_return	expand(t_array *tokens, t_array *expand) {
 	t_exp *exp;
 	size_t i;
 
 	i = 0;
-	if (!tokens || !expand || i >= tokens->used)
-		return (NULL);
-	while (tokens && i < tokens->used)
+	if (tokens->used == 0)
+		return (E_RET_EXPAND_ERROR);
+	while (i < tokens->used)
 	{
 		if (!(exp = exp_create_new((t_token *)array_get_at(tokens, i))))
-			return (NULL);
+			return (E_RET_EXPAND_ERROR);
 		if (!expand_exp(exp))
-			return (NULL);
+			return (E_RET_EXPAND_ERROR);
 		expand_remove_quote(exp);
 		array_push(expand, (void *) exp);
 		i++;
 	}
 	expand_merge_tokens_word(expand);
-
-	return (expand);
+	return (E_RET_EXPAND_OK);
 }

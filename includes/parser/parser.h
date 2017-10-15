@@ -48,7 +48,7 @@ enum e_grammar_type
 	E_GM_END = 224
 };
 */
-t_bool	parser_parse(t_array *tokens);
+t_return	parser_parse(t_array *tokens);
 t_bool	is_grammar_type(t_grammar_type g);
 
 #endif

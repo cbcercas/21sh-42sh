@@ -18,6 +18,7 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 
 	(void)key;
 	log_dbg1("exec delete.");
+	pos = 0;
 	pos = (input->cpos.cp_col + 1 - (input->offset_col + 1)) +
 		  (input->ts.ws_col * input->offset_line);
 	if (input->str->len > pos)

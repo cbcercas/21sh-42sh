@@ -52,10 +52,10 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 BOOL	exec_alt_left(const t_key *key, t_input *input)
 {
 	exec_arrow_left(key, input);
-	while ((pos_in_str(*input) != 0) &&\
-			(pos_in_str(*input) == input->str->len ||\
-			 !(input->str->s[pos_in_str(*input)] == ' ' &&\
-				 input->str->s[pos_in_str(*input) - 1] != ' ')))
+	while ((pos_in_str(input) != 0) &&\
+			(pos_in_str(input) == input->str->len ||\
+			 !(input->str->s[pos_in_str(input)] == ' ' &&\
+				 input->str->s[pos_in_str(input) - 1] != ' ')))
 		exec_arrow_left(key, input);
 	return (false);
 }
@@ -63,10 +63,10 @@ BOOL	exec_alt_left(const t_key *key, t_input *input)
 BOOL	exec_alt_right(const t_key *key, t_input *input)
 {
 	exec_arrow_right(key, input);
-	while ((pos_in_str(*input) != input->str->len) &&\
-			(pos_in_str(*input) == 0 ||\
-			 !(input->str->s[pos_in_str(*input)] != ' ' &&\
-				 input->str->s[pos_in_str(*input) - 1] == ' ')))
+	while ((pos_in_str(input) != input->str->len) &&\
+			(pos_in_str(input) == 0 ||\
+			 !(input->str->s[pos_in_str(input)] != ' ' &&\
+				 input->str->s[pos_in_str(input) - 1] == ' ')))
 		exec_arrow_right(key, input);
 	return (false);
 }

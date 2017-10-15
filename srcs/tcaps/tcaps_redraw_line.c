@@ -8,8 +8,8 @@ void	redraw_line(t_input *input)
 	int		col;
 
 
-	tmp = input->str->s + ((input->cpos.cp_col + 1) - (input->offset_col + 1)) +
-		  (input->ts.ws_col * input->offset_line);
+	tmp = input->str->s + ((((input->cpos.cp_col + 1) - (input->offset_col + 1)) +
+		  (input->ts.ws_col * input->offset_line)) + input->len_save);
 	len = (int)ft_strlen(tmp);
 	line = 0;
 	col = 0;
@@ -56,11 +56,11 @@ void reset_line()
 	size_t 	pos;
 	size_t 	savepos;
 
-	pos = pos_in_str(*g_input);
+	pos = pos_in_str(g_input);
 	savepos = pos;
 	while (savepos--)
 		exec_arrow_left(NULL, g_input);
 	redraw_line(g_input);
-	while (pos != pos_in_str(*g_input))
+	while (pos != pos_in_str(g_input))
 		exec_arrow_right(NULL, g_input);
 };

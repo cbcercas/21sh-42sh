@@ -21,7 +21,7 @@
  *
  * \return ast.
  */
-t_btree	*ast_create(t_btree		**ast, t_array *expands)
+t_return	ast_create(t_btree		**ast, t_array *expands)
 {
 	t_lim		lim;
 
@@ -29,5 +29,5 @@ t_btree	*ast_create(t_btree		**ast, t_array *expands)
 	lim.lim = 10000;
 	ast_built(ast, expands, lim, 1);
 	log_dbg1("Ast created.");
-	return (*ast);
+	return (E_RET_AST_OK);
 }

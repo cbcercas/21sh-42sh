@@ -28,17 +28,24 @@ void		sh_arrays_init(t_array *tokens, t_array *expand)
 **récupère l'input en fonction d'isatty
 */
 
-BOOL		sh_get_input(t_sh_data *data, char **input)
+BOOL		sh_get_input(t_sh_data *data, t_input *input)
 {
+	char *line;
+
+	line = NULL;
 	if (!isatty(0))
 	{
-		if (!get_next_line(0, input))
+		if (!get_next_line(0, &line))
 			return (false);
-		if (input)
-			ft_putendl(*input);
+		if (line)
+		{
+			ft_putendl(line);
+			string_insert(input->str, line, 0);
+			ft_strdel(&line);
+		}
 	}
 	else
-		*input = sh_get_line(&(data->opts));
+		sh_get_line(input, &(data->opts));
 	return (true);
 }
 
@@ -46,13 +53,12 @@ BOOL		sh_get_input(t_sh_data *data, char **input)
 **reset les arrays
 */
 
-void		sh_arrays_reset(t_array *tokens, t_array *expands, char *input)
+void		sh_arrays_reset(t_array *tokens, t_array *expands)
 {
+	//TODO test reset
 	array_reset(tokens, NULL);
 	array_reset(expands, sh_exp_del);
-	input ? ft_strdel(&input) : 0;
-	string_del(&g_input->str);
-	ft_secu_free_lvl(M_LVL_AST);
+	//ft_secu_free_lvl(M_LVL_AST);
 	ft_secu_free_lvl(M_LVL_EXPA);
 }
 
@@ -60,26 +66,40 @@ void		sh_arrays_reset(t_array *tokens, t_array *expands, char *input)
 **lex, pars, expand, et build ast, il retourn l'ast
 */
 
-t_btree		*sh_process(t_btree **ast, t_array *expands, t_array *tokens, char *input)
+t_return	sh_process(t_btree **ast, t_array *expands, t_array *tokens,
+					   t_input *input)
 {
-	if (lexer_lex(tokens, input))
+	t_return	ret;
+	//static char *save = NULL;
+
+	//save = save ? ft_strjoincl(save, input->str->s, 1) : ft_strdup(input->str->s);
+	if (((ret = lexer_lex(tokens, input->str->s)) == E_RET_LEXER_INCOMPLETE)
+		|| (tokens->used > 1 &&
+		((t_token*)array_get_at(tokens, tokens->used - 1))->type == E_TOKEN_PIPE))
 	{
-		if (parser_parse(tokens))
+		input->prompt = false;
+	}
+	else
+	{
+		input->prompt = true;
+		sh_history_set_new(input->str->s);
+		lexer_print_tokens(tokens);
+		if (ret == E_RET_LEXER_OK && (ret = parser_parse(tokens)) ==
+									 E_RET_PARSER_OK)
 		{
-			if (expand(tokens, expands))
+			if ((ret = expand(tokens, expands)) == E_RET_EXPAND_OK)
 			{
-				sh_history_set_new(input);
-				if (!(ast_create(ast, expands)))
+				if ((ret = ast_create(ast, expands)) == E_RET_AST_ERROR)
 				{
-					ft_printf("AST NULL\n");
+					ft_dprintf(STDERR_FILENO, "%s: AST creation failed\n",
+							   PROGNAME);
 					exit(EXIT_FAILURE);
 				}
-				else
-					return (*ast);
 			}
 		}
+		//ft_strdel(&save);
 	}
-	return (NULL);
+	return (ret);
 }
 
 /*
@@ -109,30 +129,50 @@ t_btree		*sh_process(t_btree **ast, t_array *expands, t_array *tokens, char *inp
  * WIP *Need to add all the instructions here and add them on README.md to*
  */
 
-int			main(int ac, char *const *av, char **environ)
+struct s_test
 {
-	t_sh_data	data;
 	t_array		tokens;
 	t_array		expand;
 	t_btree		*ast;
-	char		*input;
 
-	ast = NULL;
-	sh_arrays_init(&tokens, &expand);
+};
+
+int			main(int ac, char *const *av, char **environ)
+{
+	t_sh_data	data;
+	struct s_test exec_dat;
+	t_return	ret;
+	//char		*input;
+	t_input		input;
+	ft_bzero(&input, sizeof(input));
+	input.str = NULL;
+	input.select.str = NULL;
+	input.prompt = true;
+	input.len_save = 0;
+	g_input = &input;
+
+	exec_dat.ast = NULL;
+	sh_arrays_init(&exec_dat.tokens, &exec_dat.expand);
 	if (!sh_init(&data, ac, av, environ))
 		exit(1);
+	reset_input(&input);
 	while (42)
 	{
 		sh_print_prompt();
 		if (!sh_get_input(&data, &input))
 			break ;
-		if (input && ft_strequ(input, "exit"))
+		if (input.str->len > 1 && ft_strequ(input.str->s, "exit"))
 			break ;
-		if (sh_process(&ast, &expand, &tokens, input))
-			sh_process_exec(&data, ast);
-		sh_arrays_reset(&tokens, &expand, input);
+		ret = sh_process(&exec_dat.ast, &exec_dat.expand, &exec_dat.tokens, &input);
+		if (ret == E_RET_AST_OK)
+		{
+			sh_process_exec(&data, exec_dat.ast);
+		}
+		if (exec_dat.ast)
+			btree_destroy(&exec_dat.ast, (void (*)(void*))&ast_del_cmd);
+		sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
 	}
-	sh_arrays_reset(&tokens, &expand, input);
+	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
 	sh_exit(&data, NULL);
 	return (0);
 }

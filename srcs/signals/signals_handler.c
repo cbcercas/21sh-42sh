@@ -29,7 +29,7 @@ void	signals_sigwinch(void)
 {
 	size_t 	pos;
 
-	pos = pos_in_str(*g_input);
+	pos = pos_in_str(g_input);
 	g_input->offset_col = sh_len_prompt();
 	g_input->offset_line = 0;
 	g_input->cpos.cp_line = 0;
@@ -39,7 +39,7 @@ void	signals_sigwinch(void)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &g_input->ts);
 	sh_print_prompt();
 	redraw_line(g_input);
-	while (pos != pos_in_str(*g_input))
+	while (pos != pos_in_str(g_input))
 		exec_arrow_right(NULL, g_input);
 }
 

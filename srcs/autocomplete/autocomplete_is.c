@@ -31,7 +31,7 @@ BOOL	autocomplete_is_command(t_input *input)
 	tmp = NULL;
 	if (!input || !input->str || !input->str->s)
 		return (true);
-	if (!pos_in_str(*input) || get_nb_word_cur(input) == 1)
+	if (!pos_in_str(input) || get_nb_word_cur(input) == 1)
 		return (true);
 	nb_word = nb_of_word(input->str->s);
 	if (nb_word == 1)

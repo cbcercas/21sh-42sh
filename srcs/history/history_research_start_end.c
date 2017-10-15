@@ -28,7 +28,7 @@ void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 		ft_strdel(&result);
 	}
 	redraw_line(input);
-	while (pos_in_str(*input) < input->str->len)
+	while (pos_in_str(input) < input->str->len)
 		exec_arrow_right(NULL, input);
 }
 

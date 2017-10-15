@@ -73,7 +73,7 @@ void sh_testing_ast(char *const *av, char **environ)
 	if (expand_init(&expands) == NULL)
 		exit (1);
 	expand(&tokens, &expands);
-	if (!(ast = ast_create(&ast, &expands)))
+	if ((ast_create(&ast, &expands) != E_RET_AST_OK ))
 		ft_printf("AST NULL\n");
 	else if (!av[4] || ft_strequ(av[4], "tree"))
 		btree_print(ast, (char * (*)(void*))&ast_aff);

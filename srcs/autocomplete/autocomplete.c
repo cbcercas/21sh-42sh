@@ -20,7 +20,7 @@ static size_t	autocomplete_len_cur_word(size_t start, t_input *input)
 	i = 0;
 	if (!input || !input->str || start > input->str->len)
 		return (i);
-	pos = pos_in_str(*input);
+	pos = pos_in_str(input);
 	if (input->str->s[pos] == '/')
 		pos++;
 	while (start + i < pos && start + i < input->str->len &&\

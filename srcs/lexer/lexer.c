@@ -531,33 +531,35 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 }
 
 
-t_array	*lexer_lex(t_array *tokens, char const *in)
+t_return lexer_lex(t_array *tokens, char const *in)
 {
 	static t_automaton	automaton;
 
 	if (automaton_init(&automaton) == NULL)
 		exit(EXIT_FAILURE);
 	if (in == NULL)
-		return (NULL);
+		return (E_RET_LEXER_ERROR);
 	while ((*in != 0) && (automaton.cur_state < E_STATE_ERROR))
 		lexer_tokenize(&in, tokens, &automaton);
 	if (automaton.cur_state == E_STATE_ERROR)
 	{
-		ft_printf("%s: Lexing error.\n", PROGNAME);
+		ft_dprintf(STDERR_FILENO, "%s: Lexing error.\n", PROGNAME);
 		array_reset(tokens, NULL);
+		return(E_RET_LEXER_ERROR);
 	}
 	else if (!is_empty_stack(automaton.stack))
 	{
-		ft_printf("%s: Lexing error: Incomplete command.\n", PROGNAME);
+		//TODO when merge master add return error
 		array_reset(tokens, NULL);
+		return(E_RET_LEXER_INCOMPLETE);
 	}
-	if (tokens)
+	if (tokens && tokens->used)
 		lexer_clean_tokens(tokens);
 	stack_destroy(&automaton.stack, NULL);
-	return (tokens);
+	return (E_RET_LEXER_OK);
 }
 
-void	lexer_print_token(t_token *tok)
+static void	lexer_print_token(t_token *tok)
 {
 	if (tok->type == E_TOKEN_BLANK)
 		ft_putstr("TOKEN_TYPE_BLANK");
