@@ -29,6 +29,7 @@ set(SOURCE_FILES
 		srcs/btree/btree_apply.c
 		srcs/btree/btree_utils.c
 
+		srcs/builtins/builtin_local_var.c
 		srcs/builtins/builtins_utils.c
 		srcs/builtins/builtins_utils2.c
 		srcs/builtins/builtin_chdir.c
@@ -148,6 +149,7 @@ set(SOURCE_FILES
 		srcs/tests/expand_tests.c
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
+		srcs/tests/local_var_tests.c
 		)
 
 include_directories(includes)
