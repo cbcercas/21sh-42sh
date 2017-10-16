@@ -35,6 +35,7 @@ char		*makefilepath(char const *path, char const *filename)
 /*
 ** return string malloc filename with path
 */
+
 char	*sh_check_path(char const *cmd_name)
 {
 	char	**env_path;
@@ -56,7 +57,7 @@ char	*sh_check_path(char const *cmd_name)
 		env_path++;
 	}
 	if (ret == -1)
-		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n", PROGNAME, cmd_name);
+		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n", PROGNAME, cmd_name); //TODO : Fix #64
 	else if (ret == 0)
 		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", PROGNAME, cmd_name);
 	ft_secu_free_lvl(M_LVL_FUNCT);
@@ -69,14 +70,12 @@ char	*sh_check_path(char const *cmd_name)
 
 char *get_filename(char *av)
 {
-	int		tmp;
 	char	*ret;
 
-	tmp = 0;
 	ret = NULL;
 	if (ft_strchr(av, '/'))
 		{
-			if ((tmp = sh_test_access(av)) == 1)
+			if (sh_test_access(av) == 1)
 				return (ft_strdup(av));
 			ft_printf("%s: permission denied: %s\n", PROGNAME, av);
 		}

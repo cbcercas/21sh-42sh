@@ -57,6 +57,7 @@ void	manage_fds(int pipe[3][2], t_list *fds[4])
 
 	i = 3;
 	while (i--)
+	{
 		while (fds[i] && (ret = read(pipe[i][END], buf, 1)) && ret != -1)
 		{
 			tmp = fds[i];
@@ -66,4 +67,19 @@ void	manage_fds(int pipe[3][2], t_list *fds[4])
 				tmp = tmp->next;
 			}
 		}
+	}
+}
+
+void	manage_close(t_list *fds[4])
+{
+	t_list		*tmp;
+
+	tmp = fds[3];
+	log_info("manage_close");
+	while (tmp)
+	{
+		log_info("close = %d", tmp->content_size);
+		close(tmp->content_size);
+		tmp = tmp->next;
+	}
 }

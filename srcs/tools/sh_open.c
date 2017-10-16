@@ -33,17 +33,17 @@ static  int  here_find_fd(t_cmd *item)
 
 int	sh_open_exec(t_btree *ast)
 {
-  t_cmd *item;
+	t_cmd   *item;
 	int		fd;
 	int		pos;
-  if (!ast && ast->right)
-    return (-1);
-  item = (t_cmd *)ast->item;
 
+	if (!ast && ast->right)
+		return (-1);
+	item = (t_cmd *)ast->item;
 	pos = 0;
 	fd = -1;
 	if (!item || ft_tablen(item->av) < 2)
-	return (fd);
+		return (fd);
 	if (ft_isdigit(item->av[0][0]))
 		pos++;
 	if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[pos], ">"))

@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 15:47:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/05 15:10:47 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/15 12:33:05 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 	//exec_ctrl_c(key, input);
 	(void)key;
 	(void)input;
-	string_insert(input->str, key->key, pos_in_str(*input));
+	string_insert(input->str, key->key, input->str->len);
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);

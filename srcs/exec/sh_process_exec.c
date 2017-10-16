@@ -49,14 +49,15 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast, t_list *fds[4])
 	else if((item->type == E_TOKEN_LESSGREAT) || (item->type == E_TOKEN_DLESS ) ||\
 			(item->type == E_TOKEN_DGREAT))
 			return(sh_exec_redir(data, ast, item, fds));
+	else if(item->type == E_TOKEN_GREATAND || item->type == E_TOKEN_LESSAND)
+		return(sh_exec_greatand(data, ast, item, fds));
 
 
 	/*else if (item->type == E_TOKEN_PIPE)
 		return (sh_process_pipe(data, ast));
 
 
-	else if(item->type == E_TOKEN_GREATAND)
-		return(sh_exec_greatand(data, ast, item));*/
+;*/
 	return (-1);
 }
 
@@ -66,9 +67,9 @@ int		exec_exec(t_sh_data *data, t_btree *ast)
 
 		if (!ast)
 			return (-1);
-	fds[0] = NULL;
-	fds[1] = NULL;
-	fds[2] = NULL;
+	fds[STDIN_FILENO] = NULL;
+	fds[STDOUT_FILENO] = NULL;
+	fds[STDERR_FILENO] = NULL;
 	fds[3] = NULL;
 	return (sh_process_exec(data, ast, fds));
 }

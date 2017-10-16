@@ -24,7 +24,7 @@
 int		sh_exec(t_cmd *item, t_list *fds[4])
 {
 	char	*path;
-    int		pipe[3][2];
+	int		pipe[3][2];
 
 	if ((path = get_filename(item->av[0])))
 	{
@@ -35,10 +35,11 @@ int		sh_exec(t_cmd *item, t_list *fds[4])
 		{
 			if (!manage_dup2(pipe, fds))
 				exit(EXIT_FAILURE);
+			manage_close(fds);
 			execve(path, item->av, var_to_tab(get_envs()));
 			exit(EXIT_FAILURE);
 		}
-		g_ret = sh_ret(wait_sh());
+		g_ret = sh_ret(wait_sh()); // TODO a mettre dans l'input pour le chapeau de couleur (singleton)
 		signal(SIGWINCH, signals_handler);
 	}
 	if (!multi_close(pipe, fds, START))
@@ -68,6 +69,7 @@ int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[4])
 		return (EXIT_FAILURE);
 	if (!manage_dup2(pipe, fds))
 		return (EXIT_FAILURE);
+	manage_close(fds);
 	builtin	= get_builtin(item->av[0]);
 	if (builtin)
 		g_ret = builtin->fn(data, item->av);

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <signals/signals.h>
+# include <builtins/exit.h>
 
 void	signals_quit(int sig)
 {
@@ -23,6 +24,8 @@ void	signals_quit(int sig)
 		ft_printf("\nShell quit with signal: %d\nGoodbye, see-you! :)\n", sig);
 	log_fatal("Signals: Shell quit with signal: %d", sig);
 	//sh_deinit(&data);//TODO si on veut gérer il faut une global dsl mr_chapeau
+	signal(SIGUSR1, SIG_IGN);
+	kill(0, SIGUSR1);
 	exit(128 + (sig % 32));
 }
 
@@ -55,6 +58,8 @@ void    signals_handler(int sig)
 	}
 	if(sig == SIGWINCH)
 		signals_sigwinch();
+	if (sig == SIGUSR1)
+		sh_exit(NULL, NULL);
 	if (((sig >= 1 && sig <= 17) || sig == 23 || sig == 24 ||\
 					(sig >= 26 && sig <= 31)) && sig != SIGWINCH && sig != 28)
 		signals_quit(sig);

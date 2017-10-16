@@ -69,6 +69,7 @@ set(SOURCE_FILES
 		srcs/exec/sh_heradoc.c
 		srcs/exec/exec_tlist.c
 		srcs/exec/manage.c
+		srcs/exec/sh_exec_redir2.c
 
 		srcs/expand/expand.c
 		srcs/expand/expand_dol.c
