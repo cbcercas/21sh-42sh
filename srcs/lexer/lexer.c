@@ -490,7 +490,7 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 		tok.type = g_char_type[(int)**in];
 	while (**in && a->cur_state < E_STATE_END)
 	{
-		if (**in == '\\')
+		if (tok.type != E_TOKEN_SQUOTE && **in == '\\')
 			(*in) += 2;
 		else
 			(*in) += 1;
