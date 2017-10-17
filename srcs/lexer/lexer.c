@@ -516,6 +516,11 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 {
 	while (**in)
 	{
+		if ((**in == '\\') && (*(*in + 1) == '\n'))
+		{
+			*in += 2;
+			return;
+		}
 		if (g_stepper[a->cur_state][g_char_type[(int)**in]][0])
 		{
 			if (g_tok_redir[(int) **in][(int) *(*in + 1)] > E_TOKEN_NONE)
