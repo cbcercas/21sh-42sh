@@ -31,7 +31,7 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast, t_list *fds[4])
 	t_cmd	*item;
 
 	if (!ast)
-		return (-1);
+		return (g_ret);
 	item = (t_cmd *)ast->item;
 	if (item->type == E_TOKEN_WORD)
 		return (sh_exec_simple(data, item, fds));
@@ -46,18 +46,14 @@ int   sh_process_exec(t_sh_data *data, t_btree *ast, t_list *fds[4])
 	else if(item->type == E_TOKEN_OR_IF)
 		return((sh_process_exec(data, ast->left, fds) == 0) ||\
 			(sh_process_exec(data, ast->right, fds) == 0));
-	else if((item->type == E_TOKEN_LESSGREAT) || (item->type == E_TOKEN_DLESS ) ||\
-			(item->type == E_TOKEN_DGREAT))
+	else if((item->type == E_TOKEN_LESSGREAT) || (item->type == E_TOKEN_DGREAT))
 			return(sh_exec_redir(data, ast, item, fds));
 	else if(item->type == E_TOKEN_GREATAND || item->type == E_TOKEN_LESSAND)
 		return(sh_exec_greatand(data, ast, item, fds));
-
-
-	/*else if (item->type == E_TOKEN_PIPE)
-		return (sh_process_pipe(data, ast));
-
-
-;*/
+	else if(item->type == E_TOKEN_DLESS)
+		return(sh_heredoc(data, ast, item, fds));
+	else if (item->type == E_TOKEN_PIPE)
+		return (sh_exec_pipe(data, ast, fds));
 	return (-1);
 }
 

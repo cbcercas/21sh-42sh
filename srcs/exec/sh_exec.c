@@ -39,7 +39,8 @@ int		sh_exec(t_cmd *item, t_list *fds[4])
 			execve(path, item->av, var_to_tab(get_envs()));
 			exit(EXIT_FAILURE);
 		}
-		g_ret = sh_ret(wait_sh()); // TODO a mettre dans l'input pour le chapeau de couleur (singleton)
+		g_ret = sh_ret(wait_sh()); // TODO a mettre dans l'input pour le
+		// chapeau de couleur (singleton)
 		signal(SIGWINCH, signals_handler);
 	}
 	if (!multi_close(pipe, fds, START))

@@ -43,12 +43,12 @@ size_t		get_prompt(BOOL print)
 
 void		sh_print_prompt(void)
 {
-	if (get_curs_x() > 1)
-	{
-		tputs(tgetstr("mr", NULL), 1, ft_putchar2);
-		ft_putendl("%");
-		tputs(tgetstr("me", NULL), 1, ft_putchar2);
-	}
+	//if (get_curs_x() > 1)
+	//{
+		//tputs(tgetstr("mr", NULL), 1, ft_putchar2);
+		//ft_putendl("%");
+		//tputs(tgetstr("me", NULL), 1, ft_putchar2);
+	//}
 	get_prompt(true);
 }
 

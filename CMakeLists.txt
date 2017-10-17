@@ -46,6 +46,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtin_history_acdws.c
 		srcs/builtins/builtin_history_print.c
 		srcs/builtins/builtin_history_npr.c
+		srcs/builtins/builtin_local_var.c
 
 		srcs/core/init.c
 		srcs/core/deinit.c
@@ -151,6 +152,7 @@ set(SOURCE_FILES
 		srcs/tests/expand_tests.c
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
+		srcs/tests/local_var_tests.c
 		)
 
 include_directories(includes)

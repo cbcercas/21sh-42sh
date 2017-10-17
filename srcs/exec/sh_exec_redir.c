@@ -29,7 +29,7 @@ static void		redir_less(t_cmd *item, int fd)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
-		if (ft_isdigit(item->av[0][0]))
+		if (check_fd(ft_atoi(item->av[0])))
 			dup2(fd, ft_atoi(item->av[0]));
 		else
 			exit(EXIT_FAILURE);

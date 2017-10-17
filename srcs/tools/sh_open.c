@@ -13,6 +13,15 @@
 # include <tools/tools.h>
 # include <ast/ast.h>
 
+BOOL			check_fd(int fd)
+{
+	if (fd <= STDERR_FILENO && fd >= 0)
+		return (true);
+	ft_dprintf(2, "%s: '%d' ONLY stdin (0), stdout (1), stderr (2) -- file"
+			"descriptor files\n", PROGNAME, fd);
+	return (false);
+}
+
 static  int  here_find_fd(t_cmd *item)
 {
 	int   fd;
@@ -55,7 +64,8 @@ int	sh_open_exec(t_btree *ast)
 	else if (item->type == E_TOKEN_DLESS)
 		fd = here_find_fd(item);
 	if (fd == -1)
-		ft_dprintf(2, "Error: to open file: %s\n", item->av[pos + 1]);
+		ft_dprintf(2, "%s: no such file or directory: %s\n", PROGNAME,
+				   item->av[pos + 1]);
 	return (fd);
 }
 

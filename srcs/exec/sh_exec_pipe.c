@@ -12,6 +12,62 @@
 
 # include <exec/exec.h>
 
+
+int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4])
+{
+	pid_t pid;
+	int pipe[2];
+
+
+	if(sh_pipe(pipe) != 0)
+		return (EXIT_FAILURE);
+	if((pid = sh_fork()) == -1)
+		return (EXIT_FAILURE);
+	if(pid == 0)
+	{
+		exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+		close(pipe[END]);
+		if (!sh_process_exec(data, ast->left, fds))
+			exit (EXIT_SUCCESS);
+		exit (EXIT_FAILURE);
+	}
+	wait_sh();
+	close(pipe[START]);
+	if (!sh_fork())
+	{
+		dup2(pipe[END], STDIN_FILENO);
+		sh_process_exec(data, ast->right, fds);
+		exit(EXIT_FAILURE);
+	}
+	wait_sh();
+	kill(pid, SIGINT);
+	close(pipe[END]);
+	return (g_ret);
+}
+
+
+/*int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4])
+{
+	pid_t	pid;
+	int		pipe[2];
+
+	if(sh_pipe(pipe) != 0)
+		return (EXIT_FAILURE);
+	if((pid = sh_fork()) == -1)
+		return (EXIT_FAILURE);
+	if (pid == 0)
+	{
+		close(pipe[START]);
+		dup2(pipe[END], STDOUT_FILENO);
+		sh_process_exec(data, ast->right, fds);
+		exit(g_ret);
+	}
+	exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+	sh_process_exec(data, ast->left, fds);
+	waitpid(pid, NULL, 0);
+	close(pipe[END]);
+	return (g_ret);
+}*/
 /*
 ** @brief         count number of pipe
 **
