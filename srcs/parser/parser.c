@@ -23,7 +23,6 @@ static t_token_type	g_grammar2[19][19][1] =
 	[E_TOKEN_NONE] =
 	{
 		[E_TOKEN_BLANK] = {1},
-		[E_TOKEN_NEWLINE] = {1},
 		[E_TOKEN_WORD] = {1},
 		[E_TOKEN_SQUOTE] = {1},
 		[E_TOKEN_BQUOTE] = {1},
@@ -282,9 +281,19 @@ static const char	*g_grammar[226] =
 
 BOOL						ret_parser(t_token *toknext)
 {
-	ft_printf("%s: parse error near `%s'\n", PROGNAME,\
-		g_grammar[toknext->type]);
+	ft_printf("%s: parse error near `%s' : %s\n", PROGNAME,\
+		g_grammar[toknext->type], toknext->str);
 	return (false);
+}
+
+static BOOL					parser_end(t_array *tokens, size_t i, t_token *tok)
+{
+	t_token *toknext;
+
+	toknext = array_get_at(tokens, i);
+	if (tokens->used <= i + 1 && toknext->type == E_TOKEN_NEWLINE)
+		return (true);
+	return (ret_parser(tok));
 }
 
 BOOL						parser_parse(t_array *tokens)
@@ -301,18 +310,16 @@ BOOL						parser_parse(t_array *tokens)
 		return (ret_parser(tok));
 	while (tokens->used > i + 1)
 	{
-		while (tokens->used > i + 1 && tok->type == E_TOKEN_BLANK )
-			tok = (t_token *)array_get_at(tokens, ++i);
-		if (tokens->used == i + 1)
-			return (ret_parser(tok));
 		toknext = (t_token*)array_get_at(tokens, i + 1);
+		while (tokens->used > i + 1 && toknext->type == E_TOKEN_BLANK)
+			toknext = (t_token *)array_get_at(tokens, ++i);
+		if (tokens->used == i + 1)
+			return (ret_parser(toknext));
 		if (g_grammar2[tok->type][toknext->type][0])
 			i += 1;
 		else
 			return (ret_parser(toknext));
-		tok = (t_token*)array_get_at(tokens, i);
+		tok = toknext;
 	}
-	if (tokens->used == i + 1 && toknext->type == E_TOKEN_NEWLINE)
-		return (true);
-	return (ret_parser(tok));
+	return (parser_end(tokens, i, tok));
 }
