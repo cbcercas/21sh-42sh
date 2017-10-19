@@ -12,7 +12,7 @@
 
 #include <exec/exec.h>
 
-static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list *fds[4])
+static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list *fds[5])
 {
 	if (fd2 == -2)
 	{
@@ -29,7 +29,7 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list *fds[4])
 }
 
 static void		sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item
-															, t_list *fds[4])
+															, t_list *fds[5])
 {
 	if (item && item->type == E_TOKEN_GREATAND)
 	{
@@ -90,7 +90,8 @@ static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item)
 	return (true);
 }
 
-int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list *fds[5], int
+wait_flag)
 {
 	pid_t	pid;
 	int		fd1;

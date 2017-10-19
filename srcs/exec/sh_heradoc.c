@@ -53,7 +53,7 @@ static char	*sh_heredoc_search_end(t_cmd *item)
 	return (item->av[1]);
 }
 
-int sh_heredoc(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+int sh_heredoc(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag)
 {
 	int		fd;
 	int		pipe[2];

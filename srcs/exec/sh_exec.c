@@ -21,7 +21,7 @@
  ** @return         status set by wait
  */
 
-int sh_exec(t_cmd *item, t_list *fds[4], int wait_flag)
+int sh_exec(t_cmd *item, t_list *fds[5], int wait_flag)
 {
 	char	*path;
 	int		pipe[3][2];
@@ -32,6 +32,9 @@ int sh_exec(t_cmd *item, t_list *fds[4], int wait_flag)
 		if (!manage_create_pipe(pipe, fds))
 			return (EXIT_FAILURE);
 		signal(SIGWINCH, NULL);
+		if (fds[4] && (dup2(fds[4]->content_size,
+							STDOUT_FILENO) == -1))
+			return (false);
 		if (!(pid = sh_fork()))
 		{
 			if (!manage_dup2(pipe, fds))
@@ -63,7 +66,7 @@ int sh_exec(t_cmd *item, t_list *fds[4], int wait_flag)
  ** @return         result of builtin
  */
 
-int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[4])
+int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[5])
 {
 	t_builtin *builtin;
 	int		pipe[3][2];
@@ -73,7 +76,10 @@ int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[4])
 	if (!manage_dup2(pipe, fds))
 		return (EXIT_FAILURE);
 	manage_close(fds);
-	builtin	= get_builtin(item->av[0]);
+	if (fds[4] && (dup2(fds[4]->content_size,
+						STDOUT_FILENO) == -1))
+		return (false);
+	builtin = get_builtin(item->av[0]);
 	if (builtin)
 		g_ret = builtin->fn(data, item->av);
 	if (fds[STDOUT_FILENO])
@@ -97,7 +103,7 @@ int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[4])
  ** @return         result of sh_exec_builtin or sh_exec
  */
 
-int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list *fds[4], int wait_flag)
+int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list *fds[5], int wait_flag)
 {
 	int ret;
 

@@ -39,9 +39,9 @@ int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
 		return (EXIT_FAILURE);
 	if(pid == 0)
 	{
-		dup2(pipe[START], STDOUT_FILENO);
+		//dup2(pipe[START], STDOUT_FILENO);
 		log_info("fd = %d", pipe[START]);
-		//exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+		exec_list_push(&fds[4], pipe[START]);
 		close(pipe[END]);
 		if (!sh_process_exec(data, ast->left, fds, WNOHANG))
 			exit (EXIT_SUCCESS);

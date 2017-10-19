@@ -12,7 +12,7 @@
 
 # include <exec/exec.h>
 
-static	void	redir_great(t_cmd *item, t_list *fds[4], int fd)
+static	void	redir_great(t_cmd *item, t_list *fds[5], int fd)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
@@ -38,7 +38,7 @@ static void		redir_less(t_cmd *item, int fd)
 		dup2(fd, STDIN_FILENO);
 }
 
-int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag)
 {
 	int		fd;
 	t_cmd	*item;

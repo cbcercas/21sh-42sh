@@ -26,7 +26,8 @@
  ** @return     -1 on error or unknow TOKEN
  */
 
-int sh_process_exec(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+int sh_process_exec(t_sh_data *data, t_btree *ast, t_list *fds[5], int
+wait_flag)
 {
 	t_cmd	*item;
 
@@ -59,7 +60,7 @@ int sh_process_exec(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag
 
 int		exec_exec(t_sh_data *data, t_btree *ast)
 {
-	t_list	*fds[4];
+	t_list	*fds[5];
 
 		if (!ast)
 			return (-1);
@@ -67,5 +68,6 @@ int		exec_exec(t_sh_data *data, t_btree *ast)
 	fds[STDOUT_FILENO] = NULL;
 	fds[STDERR_FILENO] = NULL;
 	fds[3] = NULL;
+	fds[4] = NULL;
 	return (sh_process_exec(data, ast, fds, 0));
 }

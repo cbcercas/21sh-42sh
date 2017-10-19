@@ -12,7 +12,7 @@
 
 #include <exec/exec.h>
 
-BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[4])
+BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5])
 {
 	if (fds[STDOUT_FILENO] && sh_pipe(pipe[STDOUT_FILENO]) == EXIT_FAILURE)
 		return (false);
@@ -23,7 +23,7 @@ BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[4])
 	return (true);
 }
 
-BOOL	manage_dup2(int pipe[3][2], t_list *fds[4])
+BOOL	manage_dup2(int pipe[3][2], t_list *fds[5])
 {
 	if (fds[STDOUT_FILENO] && (dup2(pipe[STDOUT_FILENO][START],
 									STDOUT_FILENO) == -1))
@@ -37,7 +37,7 @@ BOOL	manage_dup2(int pipe[3][2], t_list *fds[4])
 	return (true);
 }
 
-BOOL	multi_close(int pipe[3][2], t_list *fds[4], BOOL pos)
+BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos)
 {
 	if (fds[STDOUT_FILENO] && close(pipe[STDOUT_FILENO][pos]))
 		return (false);
@@ -48,7 +48,7 @@ BOOL	multi_close(int pipe[3][2], t_list *fds[4], BOOL pos)
 	return (true);
 }
 
-void	manage_fds(int pipe[3][2], t_list *fds[4])
+void	manage_fds(int pipe[3][2], t_list *fds[5])
 {
 	t_list			*tmp;
 	char			buf[1];
@@ -56,8 +56,10 @@ void	manage_fds(int pipe[3][2], t_list *fds[4])
 	ssize_t			ret;
 
 	i = 3;
+	log_info("manage_fds");
 	while (i--)
 	{
+		log_info("i = %d", i);
 		while (fds[i] && (ret = read(pipe[i][END], buf, 1)) && ret != -1)
 		{
 			tmp = fds[i];
@@ -70,7 +72,7 @@ void	manage_fds(int pipe[3][2], t_list *fds[4])
 	}
 }
 
-void	manage_close(t_list *fds[4])
+void	manage_close(t_list *fds[5])
 {
 	t_list		*tmp;
 
