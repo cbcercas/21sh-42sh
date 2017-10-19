@@ -38,10 +38,14 @@ static void		redir_less(t_cmd *item, int fd)
 		dup2(fd, STDIN_FILENO);
 }
 
-int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item, t_list *fds[4])
+int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
 {
 	int		fd;
+	t_cmd	*item;
 
+	if (!ast)
+		return (g_ret);
+	item = (t_cmd *)ast->item;
 	if ((fd = sh_open_exec(ast)) == -1)
 		return((g_ret = 1));
 	if (sh_fork() == 0)
@@ -55,11 +59,11 @@ int   sh_exec_redir(t_sh_data *data, t_btree *ast, t_cmd *item, t_list *fds[4])
 				//sh_heradoc(item);
 			else
 				redir_less(item, fd);
-			sh_process_exec(data, ast->left, fds);
+			sh_process_exec(data, ast->left, fds, wait_flag);
 		}
 		exit(EXIT_SUCCESS);
 	}
-	wait_sh();
+	sh_wait(0, 0);
 	close(fd);
 	return(g_ret);
 }

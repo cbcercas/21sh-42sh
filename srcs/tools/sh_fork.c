@@ -16,7 +16,6 @@ pid_t  sh_fork(void)
 {
   pid_t pid;
 
-  pid = 0;
   if ((pid = fork()) == -1)
     ft_putstr_fd("fork error\n", 2);
   return (pid);

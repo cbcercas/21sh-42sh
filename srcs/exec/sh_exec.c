@@ -21,17 +21,18 @@
  ** @return         status set by wait
  */
 
-int		sh_exec(t_cmd *item, t_list *fds[4])
+int sh_exec(t_cmd *item, t_list *fds[4], int wait_flag)
 {
 	char	*path;
 	int		pipe[3][2];
+	pid_t	pid;
 
 	if ((path = get_filename(item->av[0])))
 	{
 		if (!manage_create_pipe(pipe, fds))
 			return (EXIT_FAILURE);
 		signal(SIGWINCH, NULL);
-		if (!sh_fork())
+		if (!(pid = sh_fork()))
 		{
 			if (!manage_dup2(pipe, fds))
 				exit(EXIT_FAILURE);
@@ -39,13 +40,14 @@ int		sh_exec(t_cmd *item, t_list *fds[4])
 			execve(path, item->av, var_to_tab(get_envs()));
 			exit(EXIT_FAILURE);
 		}
-		g_ret = sh_ret(wait_sh()); // TODO a mettre dans l'input pour le
-		// chapeau de couleur (singleton)
+		g_ret = sh_ret(sh_wait(pid, wait_flag)); // TODO a mettre dans
 		signal(SIGWINCH, signals_handler);
 	}
 	if (!multi_close(pipe, fds, START))
 		return (EXIT_FAILURE);
-	manage_fds(pipe, fds);
+
+	log_info("EXEC: manage_fds %s = [%d]", item->av[0], getpid());
+		manage_fds(pipe, fds);
 	if (!multi_close(pipe, fds, END))
 		return (EXIT_FAILURE);
 	ft_strdel(&path);
@@ -95,15 +97,17 @@ int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[4])
  ** @return         result of sh_exec_builtin or sh_exec
  */
 
-int  sh_exec_simple(t_sh_data *data, t_cmd *item, t_list *fds[4])
+int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list *fds[4], int wait_flag)
 {
 	int ret;
 
-	log_info("EXEC: %s", item->av[0]);
+	//log_info("EXEC: %s", item->av[0]);
+	if (item->av[0][0] == 'c')
+		log_info("EXEC: %s = [%d]", item->av[0], getpid());
 	ret = 0;
 	if (sh_is_builtin(item->av[0]))
 		ret = sh_exec_builtin(data, item, fds);
 	else
-		ret = sh_exec(item, fds);
+		ret = sh_exec(item, fds, wait_flag);
 	return(ret);
 }

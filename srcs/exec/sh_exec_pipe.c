@@ -12,8 +12,55 @@
 
 # include <exec/exec.h>
 
+int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag);
 
-int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4])
+int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+{
+	int		pid;
+
+	pid = 0;
+	if (!(pid = sh_fork()))
+	{
+		sh_exec_pipe2(data, ast, fds, wait_flag);
+		exit(0);
+	}
+	sh_wait(pid, 0);
+	return (g_ret);
+}
+
+int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+{
+	pid_t pid;
+	int pipe[2];
+
+	if(sh_pipe(pipe) != 0)
+		return (EXIT_FAILURE);
+	if((pid = sh_fork()) == -1)
+		return (EXIT_FAILURE);
+	if(pid == 0)
+	{
+		dup2(pipe[START], STDOUT_FILENO);
+		log_info("fd = %d", pipe[START]);
+		//exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+		close(pipe[END]);
+		if (!sh_process_exec(data, ast->left, fds, WNOHANG))
+			exit (EXIT_SUCCESS);
+		exit (EXIT_FAILURE);
+	}
+	sh_wait(pid, 0);
+	close(pipe[START]);
+	if (!sh_fork())
+	{
+		dup2(pipe[END], STDIN_FILENO);
+		sh_process_exec(data, ast->right, fds, wait_flag);
+		exit(EXIT_FAILURE);
+	}
+	sh_wait(-1, 0);
+	close(pipe[END]);
+	return (g_ret);
+}
+
+/*int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
 {
 	pid_t pid;
 	int pipe[2];
@@ -25,27 +72,32 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4])
 		return (EXIT_FAILURE);
 	if(pid == 0)
 	{
-		exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+		log_info("G: %d", getpid());
 		close(pipe[END]);
-		if (!sh_process_exec(data, ast->left, fds))
+		exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+		exec_list_push(&fds[3], pipe[END]);
+		if (!(sh_process_exec(data, ast->left, fds, 0)))
 			exit (EXIT_SUCCESS);
 		exit (EXIT_FAILURE);
 	}
-	wait_sh();
-	close(pipe[START]);
+	sh_wait(pid, 0);
+
 	if (!sh_fork())
 	{
+		//log_info("D: %d", getpid());
+		exec_list_push(&fds[3], pipe[START]);
+		close(pipe[START]);
 		dup2(pipe[END], STDIN_FILENO);
-		sh_process_exec(data, ast->right, fds);
-		exit(EXIT_FAILURE);
+		sh_process_exec(data, ast->right, fds, wait_flag);
+		exit(EXIT_SUCCESS);
 	}
-	wait_sh();
-	kill(pid, SIGINT);
+	sh_wait(0, wait_flag);
+	//kill(pid, SIGKILL);
+	//log_info("P: %d", getpid());
 	close(pipe[END]);
+	close(pipe[START]);
 	return (g_ret);
-}
-
-
+}*/
 /*int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4])
 {
 	pid_t	pid;
@@ -131,7 +183,7 @@ int sh_process_pipe(t_sh_data *data, t_btree *ast)
 static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item, BOOL is_out)
 {
   if (is_out)
-    item->info.ret = sh_ret(wait_sh());
+    item->info.ret = sh_ret(sh_wait());
   close(tube[START]);
   if (*endfd != -1)
     close(*endfd);

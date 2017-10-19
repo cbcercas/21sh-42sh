@@ -14,12 +14,12 @@ void    init_signals(void *handler)
 	log_info("Signal: Init success");
 }
 
-int		wait_sh(void)
+int sh_wait(pid_t pid, int wait_flag)
 {
 	int		status;
 	pid_t	pid_child;
 
-	pid_child = wait(&status);
+	pid_child = waitpid(pid, &status, wait_flag);
 	if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGSEGV)

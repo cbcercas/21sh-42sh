@@ -53,12 +53,15 @@ static char	*sh_heredoc_search_end(t_cmd *item)
 	return (item->av[1]);
 }
 
-int			sh_heredoc(t_sh_data *data, t_btree *ast, t_cmd *item,
-t_list *fds[4])
+int sh_heredoc(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
 {
 	int		fd;
 	int		pipe[2];
+	t_cmd	*item;
 
+	if (!ast)
+		return (g_ret);
+	item = (t_cmd *)ast->item;
 	if (!sh_heredoc_get_fd(item, &fd))
 		return ((g_ret = -1));
 	signal(SIGINT, SIG_IGN);
@@ -68,16 +71,16 @@ t_list *fds[4])
 		mini_input(sh_heredoc_search_end(item), pipe[START]);
 		exit(EXIT_SUCCESS);
 	}
-	wait_sh();
+	sh_wait(0, 0);
 	signal(SIGINT, signals_handler);
 	close(pipe[START]);
 	if (!sh_fork())
 	{
 		dup2(pipe[END], fd);
-		sh_process_exec(data, ast->left, fds);
+		sh_process_exec(data, ast->left, fds, wait_flag);
 		exit(EXIT_FAILURE);
 	}
-	wait_sh();
+	sh_wait(0, 0);
 	close(pipe[END]);
 	return (g_ret);
 }

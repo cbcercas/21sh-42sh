@@ -55,7 +55,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 			exit(0);
 		}
 		else
-			g_ret = sh_ret(wait_sh());
+			g_ret = sh_ret(sh_wait(0, 0));
 	}
 	ft_strdel(&cmd);
 	ft_freetab(envtab, sizeof(envtab));

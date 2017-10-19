@@ -136,7 +136,7 @@ int			main(int ac, char *const *av, char **environ)
 			break ;
 		if (input && ft_strequ(input, "exit"))
 			break ;
-			exec_exec(&data, sh_process(&automaton, &tokens, &expand_array, input));
+		exec_exec(&data, sh_process(&automaton, &tokens, &expand_array, input));
 		//sh_process_exec(&data, sh_process(&automaton, &tokens, &expand_array, input));
 		sh_arrays_reset(&automaton, &tokens, &expand_array, input);
 	}
