@@ -83,7 +83,6 @@ t_return	sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 	{
 		input->prompt = true;
 		sh_history_set_new(input->str->s);
-		lexer_print_tokens(tokens);
 		if (ret == E_RET_LEXER_OK && (ret = parser_parse(tokens)) ==
 									 E_RET_PARSER_OK)
 		{
