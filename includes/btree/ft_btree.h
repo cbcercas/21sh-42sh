@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __FT_BTREE_H__
-# define __FT_BTREE_H__
-
+#ifndef FT_BTREE_H
+# define FT_BTREE_H
 
 /**
  * @struct s_btree

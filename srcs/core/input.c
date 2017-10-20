@@ -15,7 +15,6 @@
 #include <tools/tools.h>
 #include <history/history.h>
 
-
 t_input *g_input;
 
 BOOL			remove_escaped_newline(char **input)

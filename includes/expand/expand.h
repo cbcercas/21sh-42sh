@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __EXPAND_H__
-# define __EXPAND_H__
+#ifndef EXPAND_H
+# define EXPAND_H
 
 # include <string/ft_string.h>
 # include <core/return.h>
