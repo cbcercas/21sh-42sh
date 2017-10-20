@@ -13,21 +13,9 @@
 #ifndef HISTORY_H
 # define HISTORY_H
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <logger.h>
-# include <libft.h>
-# include <gnl/get_next_line.h>
-# include <ftprintf.h>
-# include <core/input.h>
-# include <core/tcaps.h>
-# include <core/prompt.h>
 # include <types/bool.h>
-# include <signals/signals.h>
+# include <array/array.h>
+# include <core/input.h>
 
 # define HISTORY_FILE ".21sh_history"
 

@@ -1,5 +1,5 @@
 #include <expand/expand.h>
-
+#include <history/history.h>
 
 t_exp   *expand_hist(t_exp *exp)
 {

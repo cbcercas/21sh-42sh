@@ -10,7 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <history/history.h>
+#include <array/array.h>
+#include <history/history.h>
+#include <logger.h>
+#include <ftprintf.h>
+#include <environ/getter_env.h>
+#include <environ/builtin_env_utils.h>
+#include <tools/tools.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <fcntl.h>
+#include <gnl/get_next_line.h>
+
 
 t_array	*sh_history_get(void)
 {

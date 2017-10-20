@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/help.h>
+#include <ftprintf.h>
 
 /*
 **TODO: ADD MORE COLORS

@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtin_history.h>
+#include <history/history.h>
+#include <fcntl.h>
+#include <core/progname.h>
 
 void	sh_history_builtin_a(char *str)
 {

@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <exec/exec.h>
+#include <exec/exec.h>
+#include <ast/ast.h>
 
 t_cmd *init_exec(t_btree *ast, t_array **fds)
 {

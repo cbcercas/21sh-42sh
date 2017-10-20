@@ -1,4 +1,6 @@
+#include <array/array.h>
 #include <expand/expand.h>
+#include <ftprintf.h>
 
 void expand_print(t_array *array_exp)
 {

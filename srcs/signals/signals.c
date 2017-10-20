@@ -1,5 +1,10 @@
 
 #include <signals/signals.h>
+#include <signal.h>
+#include <logger.h>
+#include <sys/wait.h>
+#include <ftprintf.h>
+#include <history/history.h>
 
 void    init_signals(void *handler)
 {

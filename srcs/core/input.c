@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/tcaps.h>
-#include <sys/ioctl.h>
 #include <core/input.h>
+#include <core/tcaps.h>
+#include <tools/tools.h>
+#include <history/history.h>
+
 
 t_input *g_input;
 

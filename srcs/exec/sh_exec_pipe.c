@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 
 # include <exec/exec.h>
+#include <btree/ft_btree.h>
+#include <ast/ast.h>
+#include <tools/tools.h>
+#include <signals/signals.h>
+#include <core/prompt.h>
 
 /*
 ** @brief         count number of pipe

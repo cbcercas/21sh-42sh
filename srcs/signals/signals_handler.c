@@ -11,6 +11,15 @@
 /* ************************************************************************** */
 
 #include <signals/signals.h>
+#include <sys/wait.h>
+#include <libft.h>
+#include <ftprintf.h>
+#include <logger.h>
+#include <core/input.h>
+#include <term.h>
+#include <sys/ioctl.h>
+#include <core/prompt.h>
+#include <core/tcaps.h>
 
 void	signals_quit(int sig)
 {

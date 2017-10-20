@@ -10,8 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <exec/check_path.h>
-#include <core/main.h>
+#include <libft.h>
+#include <tools/tools.h>
+#include <environ/getter_env.h>
+#include <environ/builtin_env_utils.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <ftprintf.h>
+#include <core/progname.h>
 
 char		*makefilepath(char const *path, char const *filename)
 {

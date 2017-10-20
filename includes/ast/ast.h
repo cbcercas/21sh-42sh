@@ -13,11 +13,10 @@
 #ifndef AST_H
 # define AST_H
 
+# include <parser/enum.h>
+# include <stdlib.h>
+# include <core/return.h>
 # include <btree/ft_btree.h>
-# include <types/bool.h>
-# include <logger.h>
-# include <libft.h>
-# include <lexer/lexer.h>
 # include <expand/expand.h>
 
 /**

@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtin_env.h>
+#include <array/array.h>
+#include <environ/env_list_utils.h>
+#include <ftprintf.h>
+
+extern int g_optind;
 
 t_array	*sh_builtin_env_i(t_array *tmp, char **argv)
 {

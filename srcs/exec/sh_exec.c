@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <exec/exec.h>
+#include <exec/exec.h>
+#include <tools/tools.h>
+#include <core/prompt.h>
+#include <environ/environ.h>
+#include <environ/builtin_env_utils.h>
+#include <exec/check_path.h>
+#include <signals/signals.h>
+#include <builtins/builtins_utils.h>
 
 int manage_fds_start(t_array *fds, int pipes[3][3])
 {

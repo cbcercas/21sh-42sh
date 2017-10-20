@@ -13,13 +13,7 @@
 #ifndef BUILTIN_ENVIRON_H
 #define BUILTIN_ENVIRON_H
 
-# include <libft.h>
-# include <logger.h>
-# include <ftprintf.h>
 # include <core/data.h>
-# include <environ/getter_env.h>
-# include <environ/modif_env.h>
-# include <builtins/builtins_utils.h>
 
 /**
  * @file   builtin_environ.c

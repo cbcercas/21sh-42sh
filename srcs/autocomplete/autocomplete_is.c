@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <core/input.h>
 #include <autocomplete/autocomplete.h>
+#include <sys/stat.h>
 
 BOOL	autocomplete_is_directory(char *path)
 {

@@ -13,14 +13,8 @@
 #ifndef TCAPS_H
 # define TCAPS_H
 
-# include <libft.h>
 # include <libtcaps.h>
-# include <types/bool.h>
-# include <core/input.h>
-# include <logger.h>
-# include <history/history.h>
-# include <autocomplete/autocomplete.h>
-
+# include "input.h"
 
 typedef struct	s_key_exec
 {

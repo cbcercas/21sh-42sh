@@ -10,7 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/main.h>
+#include <array/array.h>
+#include <lexer/lexer.h>
+#include <expand/expand.h>
+#include <core/input.h>
+#include <core/prompt.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <btree/ft_btree.h>
+#include <history/history.h>
+#include <parser/parser.h>
+#include <ast/ast.h>
+#include <core/progname.h>
+#include <core/init.h>
+#include <exec/exec.h>
+#include <builtins/exit.h>
 
 /*
 **init tout les arrays qu'on a besoins

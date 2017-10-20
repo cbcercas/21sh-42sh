@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
+#include <core/input.h>
 
 BOOL	exec_alt_up(const t_key *key, t_input *input)
 {

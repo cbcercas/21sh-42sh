@@ -10,7 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <array/array.h>
+#include <environ/env_list_utils.h>
+#include <environ/builtin_env_utils.h>
 #include <expand/expand.h>
+#include <core/progname.h>
+#include <environ/getter_env.h>
+
 
 char	*sh_getenv_exp(const char *name)
 {

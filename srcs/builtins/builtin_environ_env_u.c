@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtin_env.h>
+#include <environ/env_list_utils.h>
+#include <array/array.h>
+#include <logger.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <ftprintf.h>
+#include <environ/builtin_env_utils.h>
+
+extern int g_optind;
 
 t_env			*sh_builtin_env_delenv(char const *name, t_array *envs)
 {

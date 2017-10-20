@@ -10,7 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <array/array.h>
+#include <environ/builtin_env_utils.h>
+#include <unistd/ft_unistd.h>
+#include <ftprintf.h>
 #include <builtins/builtin_env.h>
+
+extern int g_optind;
 
 int		builtins_env_over(t_array *env_local, int ret)
 {

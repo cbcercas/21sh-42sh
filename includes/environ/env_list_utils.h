@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 #ifndef ENV_LIST_UTILS_H
 # define ENV_LIST_UTILS_H
-# include <libft.h>
-# include <logger.h>
-# include <ftprintf.h>
-# include <core/data.h>
 
 typedef struct	s_env
 {

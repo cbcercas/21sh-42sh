@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <exec/exec.h>
+#include <exec/exec.h>
+#include <btree/ft_btree.h>
+#include <ast/ast.h>
+#include <tools/tools.h>
+#include <core/prompt.h>
+#include <signals/signals.h>
+#include <ftprintf.h>
+#include <fcntl.h>
 
 /*
 ** @brief         function for redirections

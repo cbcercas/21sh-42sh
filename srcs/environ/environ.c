@@ -11,6 +11,11 @@
 /* ************************************************************************** */
 
 #include <environ/environ.h>
+#include <environ/env_list_utils.h>
+#include <environ/builtin_env_utils.h>
+#include <logger.h>
+#include <environ/getter_env.h>
+#include <environ/modif_env.h>
 
 t_array	*init_environ(char **environ)
 {

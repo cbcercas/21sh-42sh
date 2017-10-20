@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <tools/tools.h>
+#include <types/bool.h>
+#include <libft.h>
 
 BOOL        is_printstr(char const *line)
 {

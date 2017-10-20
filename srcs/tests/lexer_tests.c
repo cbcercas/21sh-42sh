@@ -1,4 +1,7 @@
 #include <tests/lexer_tests.h>
+#include <automaton/automaton.h>
+#include <lexer/lexer.h>
+#include <ftprintf.h>
 
 void sh_testing_lexer(char *const *av)
 {

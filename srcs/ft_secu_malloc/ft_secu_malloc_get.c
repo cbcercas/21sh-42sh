@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <ft_secu_malloc/ft_secu_malloc.h>
+#include <libft.h>
 
 t_mem	*get_mem(void)
 {

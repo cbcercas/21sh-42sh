@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
+#include <core/input.h>
 
 BOOL	exec_end(const t_key *key, t_input *input)
 {

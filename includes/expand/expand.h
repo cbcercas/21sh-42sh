@@ -13,13 +13,9 @@
 #ifndef __EXPAND_H__
 # define __EXPAND_H__
 
-//#include <sys/types.h>
-//#include <unistd.h>
-# include <lexer/lexer.h>
 # include <string/ft_string.h>
-# include <history/history.h>
-# include <core/progname.h>
-//#include <core/main.h>
+# include <core/return.h>
+# include <lexer/lexer.h>
 
 typedef struct 			s_exp
 {

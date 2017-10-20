@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <parser/enum.h>
+#include <array/array.h>
 #include <ast/ast.h>
+#include <tools/tools.h>
 
 /**
  * \fn t_token_type	return_type(int prio, t_token_type type, t_array *expands,\

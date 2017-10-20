@@ -1,11 +1,7 @@
 #ifndef DEINIT_H
 #define DEINIT_H
 
-
-# include <core/data.h>
-# include <unistd.h>
-# include <termios.h>
-# include <core/main.h>
+# include "data.h"
 
 /**
  * @file       deinit.c

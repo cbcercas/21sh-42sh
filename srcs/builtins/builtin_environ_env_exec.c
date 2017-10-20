@@ -10,8 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtin_env.h>
-#include <ast/ast.h>
+#include <array/array.h>
+#include <environ/env_list_utils.h>
+#include <environ/environ.h>
+#include <exec/check_path.h>
+#include <tools/tools.h>
+#include <signals/signals.h>
+
+extern int g_ret;
 
 char	**sh_builtin_env_to_tab(t_array *envs)
 {

@@ -1,3 +1,6 @@
+#include <types/bool.h>
+#include <string/ft_string.h>
+#include <parser/enum.h>
 #include <expand/expand.h>
 
 char 	find_first_quote(const char *str)

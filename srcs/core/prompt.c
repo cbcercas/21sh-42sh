@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/prompt.h>
+#include <stdlib.h>
+#include <types/bool.h>
+#include <environ/getter_env.h>
+#include <environ/builtin_env_utils.h>
+#include <ftprintf.h>
+#include <core/input.h>
 #include <core/tcaps.h>
+
+//TODO see todo g_ret
+#include <core/prompt.h>
 
 size_t		get_prompt(BOOL print)
 {

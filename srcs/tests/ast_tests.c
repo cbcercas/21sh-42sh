@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tests/ast_tests.h>
+#include <ast/ast.h>
+#include <ftprintf.h>
+#include <automaton/automaton.h>
+#include <environ/environ.h>
+#include <history/history.h>
 
 void test_aff(t_cmd *cmd)
 {

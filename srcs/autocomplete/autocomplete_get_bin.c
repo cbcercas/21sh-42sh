@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include <autocomplete/autocomplete.h>
+#include <tools/tools.h>
+#include <environ/getter_env.h>
+#include <environ/builtin_env_utils.h>
 
 //TODO check if PATH is in envs or in local var
 static void		autocomplete_push_one(t_array *content, struct dirent *file,\

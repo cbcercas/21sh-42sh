@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/pwd.h>
+#include <core/data.h>
+#include <stdlib.h>
+#include <ftprintf.h>
+#include <unistd.h>
 
 int	sh_builtin_pwd(t_sh_data *data, char **args)
 {

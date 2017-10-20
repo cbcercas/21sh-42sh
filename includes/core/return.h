@@ -12,7 +12,6 @@
 
 #ifndef RETURN_H
 # define RETURN_H
-# include <types/bool.h>
 
 typedef enum e_return	t_return;
 

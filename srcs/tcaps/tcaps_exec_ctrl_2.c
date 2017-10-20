@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
+#include <core/input.h>
+#include <core/prompt.h>
+#include <history/history.h>
 
 BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {

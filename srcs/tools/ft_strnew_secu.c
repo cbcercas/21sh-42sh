@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 # include <tools/tools.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
 
 char	*ft_strnew_secu(size_t size, size_t lvl)
 {

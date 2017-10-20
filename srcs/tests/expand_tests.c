@@ -10,7 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tests/expand_tests.h>
+#include <array/array.h>
+#include <expand/expand.h>
+#include <ftprintf.h>
+#include <automaton/automaton.h>
+#include <environ/environ.h>
+#include <history/history.h>
 
 void expand_print_test(t_array *array_exp)
 {

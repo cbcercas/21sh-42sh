@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#include <autocomplete/autocomplete.h>
+#include <string/ft_string.h>
+#include <ftprintf.h>
+#include <core/progname.h>
 
 void autocomplete_sort_loop(t_string **tmp, t_array *content, size_t *tmp_pos)
 {

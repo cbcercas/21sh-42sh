@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <unistd.h>
 #include <btree/ft_btree.h>
 
 static int		btree_strlen(char *s)

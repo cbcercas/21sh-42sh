@@ -10,6 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <core/data.h>
+#include <ftprintf.h>
+#include <core/color.h>
+#include <core/progname.h>
+#include <libft.h>
 #include <builtins/help.h>
 
 void	sh_help_default(t_sh_data *data)

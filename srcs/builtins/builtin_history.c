@@ -10,10 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtins_utils.h>
+#include <ftprintf.h>
+#include <core/data.h>
+#include <builtins/builtin_history.h>
+#include <unistd/ft_unistd.h>
 
 extern char const	*g_optarg;
-extern int			g_opind;
+extern int			g_optind;
 
 void		sh_history_help(char *arg)
 {
@@ -28,7 +31,7 @@ static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 	if (opt == 'p')
 		sh_history_builtin_p(argv);
 	else if (opt == -1)
-		sh_history_builtin_print(argv[optind]);
+		sh_history_builtin_print(argv[g_optind]);
 	else if (opt == '?')
 	{
 		sh_history_help(argv[1]);

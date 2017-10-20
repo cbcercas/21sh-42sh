@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <core/input.h>
+#include <libtcaps.h>
 #include <history/history.h>
+#include <core/prompt.h>
+#include <core/tcaps.h>
 
 BOOL	history_exec_arrow_right(t_input *input)
 {

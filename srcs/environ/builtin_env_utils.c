@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include <environ/builtin_env_utils.h>
+#include <ftprintf.h>
+#include <logger.h>
 
 void print_vars(t_array *vars)
 {

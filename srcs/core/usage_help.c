@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/help.h>
+
+
+#include <automaton/automaton.h>
+#include <ftprintf.h>
+#include <core/progname.h>
 
 /*
 **permet de destroy, de print un messages, et d'exit

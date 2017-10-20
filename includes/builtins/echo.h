@@ -13,11 +13,7 @@
 #ifndef ECHO_H
 # define ECHO_H
 
-# include <libft.h>
-# include <ftprintf.h>
 # include <core/data.h>
-# include <exec/exec.h>
-# include <builtins/builtins_utils.h>
 
 /**
  * @file   builtin_echo.c

@@ -13,9 +13,6 @@
 #ifndef __FT_BTREE_H__
 # define __FT_BTREE_H__
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <ft_secu_malloc/ft_secu_malloc.h>
 
 /**
  * @struct s_btree

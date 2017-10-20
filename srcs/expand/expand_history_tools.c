@@ -1,4 +1,7 @@
+
+#include <libft.h>
 #include <expand/expand.h>
+#include <history/history.h>
 
 int     ft_strlen_before(const char *str)
 {

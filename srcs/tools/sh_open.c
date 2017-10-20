@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <tools/tools.h>
-# include <ast/ast.h>
+#include <btree/ft_btree.h>
+#include <ast/ast.h>
+#include <fcntl.h>
+#include <ftprintf.h>
 
 int sh_open_exec(t_btree *ast)
 {

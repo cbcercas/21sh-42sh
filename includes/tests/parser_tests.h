@@ -13,10 +13,6 @@
 #ifndef PARSER_TESTS_H
 #define PARSER_TESTS_H
 
-#include <automaton/automaton.h>
-#include <lexer/lexer.h>
-#include <parser/parser.h>
-
 void	sh_testing_parser(char *const *av);
 
 #endif

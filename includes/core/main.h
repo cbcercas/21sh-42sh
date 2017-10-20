@@ -12,21 +12,5 @@
 
 #ifndef MAIN_H
 # define MAIN_H
-# include <core/init.h>
-# include <core/prompt.h>
-# include <core/input.h>
-# include <libft.h>
-# include <lexer/lexer.h>
-# include <parser/parser.h>
-# include <expand/expand.h>
-# include <core/tcaps.h>
-# include <signals/signals.h>
-# include <history/history.h>
-# include <builtins/help.h>
-# include <builtins/pwd.h>
-# include <ast/ast.h>
-# include <core/progname.h>
-# include <exec/exec.h>
-# include <ft_secu_malloc/ft_secu_malloc.h>
 
 #endif

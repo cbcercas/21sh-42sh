@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <core/input.h>
 #include <autocomplete/autocomplete.h>
 
 static size_t	autocomplete_len_cur_word(size_t start, t_input *input)

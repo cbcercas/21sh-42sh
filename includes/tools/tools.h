@@ -13,14 +13,10 @@
 #ifndef TOOLS_H
 # define TOOLS_H
 
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <fcntl.h>
-# include <libft.h>
-# include <ftprintf.h>
+# include <types/bool.h>
 # include <btree/ft_btree.h>
+# include <stdlib.h>
 # include <string/ft_string.h>
-# include <lexer/lexer.h>
 
 void	ft_strdblfree(char **strdb);
 BOOL	is_printstr(char const *line);

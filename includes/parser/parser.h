@@ -13,9 +13,10 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include <lexer/lexer.h>
-# include <parser/parser_grammar.h>
-# include <stdint.h>
+# include <core/return.h>
+# include <array/array.h>
+# include "enum.h"
+
 /*
 typedef	uint32_t t_grammar_type;
 

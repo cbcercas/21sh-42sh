@@ -12,8 +12,6 @@
 
 #ifndef TEST_H
 # define TEST_H
-# include <ftprintf.h>
-# include <environ/environ.h>
 
 void sh_testing_env(char *const *av, char **environ);
 void	sh_testing_env_set(char *const *av);

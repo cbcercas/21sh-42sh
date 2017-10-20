@@ -1,4 +1,5 @@
 #include <expand/expand.h>
+#include <ftprintf.h>
 
 t_exp *expand_exp(t_exp *exp) {
 	if (exp->type != E_TOKEN_SQUOTE) {

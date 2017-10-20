@@ -10,7 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <exec/exec.h>
+#include <libft.h>
+#include <btree/ft_btree.h>
+#include <ast/ast.h>
+#include <exec/exec.h>
+#include <gnl/get_next_line.h>
+#include <tools/tools.h>
+#include <signals/signals.h>
 
 static void mini_input(char *end, int fd)
 {

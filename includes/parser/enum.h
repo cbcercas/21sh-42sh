@@ -12,7 +12,8 @@
 
 #ifndef ENUM_H
 # define ENUM_H
-# include <stdint.h>
+
+# include <inttypes.h>
 
 typedef uint32_t	t_token_type;
 

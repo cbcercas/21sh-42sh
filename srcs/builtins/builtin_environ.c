@@ -10,8 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtin_env.h>
+#include <core/data.h>
+#include <libft.h>
 #include <builtins/help.h>
+#include <environ/modif_env.h>
+#include <environ/builtin_env_utils.h>
+#include <logger.h>
 
 int		sh_builtin_setenv(t_sh_data *data, char **args)
 {

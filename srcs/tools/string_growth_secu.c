@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tools/tools.h>
+#include <string/ft_string.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
 
 t_string	*string_growth_cap_secu(t_string *string, size_t cap, size_t lvl)
 {

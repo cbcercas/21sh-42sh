@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <core/tcaps.h>
+#include <core/tcaps.h>
 
 int		get_curs_x(void)
 {

@@ -12,14 +12,13 @@
 
 #ifndef INPUT_H
 # define INPUT_H
-# include <string/ft_string.h>
-# include <libtcaps.h>
-# include <core/prompt.h>
-# include <sys/ioctl.h>
-# include <tools/tools.h>
-//int		sh_get_command(t_ms_data	*data);
 
-typedef struct s_select	t_select;
+#include <string/ft_string.h>
+#include <libtcaps.h>
+#include "data.h"
+
+//int		sh_get_command(t_ms_data	*data);
+typedef struct s_select t_select;
 struct	s_select
 {
 	BOOL		is;

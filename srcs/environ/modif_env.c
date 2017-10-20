@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <environ/modif_env.h>
+#include <environ/env_list_utils.h>
+#include <array/array.h>
+#include <environ/getter_env.h>
+#include <logger.h>
+
 
 t_env *set_var(t_array *vars, char const *name, char const *value)
 {

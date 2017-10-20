@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <automaton/automaton.h>
+#include <logger.h>
 #include <ftprintf.h>
 
 t_automaton		*automaton_init(t_automaton *automaton)

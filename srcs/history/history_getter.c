@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <libft.h>
+#include <tools/tools.h>
 #include <history/history.h>
+#include <logger.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
 
 int			sh_history_is_space_plus(char const *line)
 {

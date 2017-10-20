@@ -1,5 +1,9 @@
-#include <stddef.h>
+
+
 #include <libft.h>
+#include <libtcaps.h>
+#include <core/tcaps.h>
+#include <core/progname.h>
 #include <autocomplete/autocomplete.h>
 
 int autocomplete_case_compare(const char s1, const char s2)

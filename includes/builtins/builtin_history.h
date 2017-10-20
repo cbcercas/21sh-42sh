@@ -13,7 +13,6 @@
 #ifndef BUILTIN_HISTORY_H
 #define BUILTIN_HISTORY_H
 
-# include <history/history.h>
 # include <core/data.h>
 
 /**

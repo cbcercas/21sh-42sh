@@ -14,13 +14,9 @@
 # define LEXER_H
 
 # include <stdlib.h>
-
-# include <array/array.h>
-# include <types/stack.h>
-# include <automaton/automaton.h>
 # include <parser/enum.h>
-# include <ftprintf.h>
-# include <logger.h>
+# include <tests/ast_tests.h>
+# include <automaton/automaton.h>
 # include <core/return.h>
 
 typedef struct s_token	t_token;

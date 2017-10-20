@@ -5,10 +5,9 @@
 #ifndef BUILTIN_ENV_UTILS_H
 #define BUILTIN_ENV_UTILS_H
 
-# include <libft.h>
-# include <logger.h>
-# include <ftprintf.h>
-# include <core/data.h>
+
+# include <array/array.h>
+# include "env_list_utils.h"
 
 void print_vars(t_array *vars);
 t_array	*get_envs(void);

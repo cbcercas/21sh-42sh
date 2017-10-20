@@ -13,13 +13,9 @@
 #ifndef BUILTINS_UTILS_H
 # define BUILTINS_UTILS_H
 
-# include <builtins/builtin_env.h>
-# include <environ/builtin_env_utils.h>
 # include <core/data.h>
-# include <builtins/exit.h>
-# include <builtins/echo.h>
-# include <builtins/chdir.h>
-# include <builtins/builtin_history.h>
+# include <stdlib.h>
+# include <array/array.h>
 
 /**
  * @typedef  XXX

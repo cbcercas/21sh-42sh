@@ -1,4 +1,5 @@
 #include <core/tcaps.h>
+#include <core/input.h>
 
 void	redraw_line(t_input *input)
 {

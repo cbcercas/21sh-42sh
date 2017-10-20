@@ -12,9 +12,9 @@
 
 #ifndef DATA_H
 # define DATA_H
-# include <sys/param.h>
-# include <environ/env_list_utils.h>
+
 # include <logger.h>
+# include <types/bool.h>
 
 typedef struct s_sh_opt		t_sh_opt;
 typedef struct s_sh_data	t_sh_data;

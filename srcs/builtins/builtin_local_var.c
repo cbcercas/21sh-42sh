@@ -1,5 +1,7 @@
 #include <core/data.h>
-#include <environ/environ.h>
+#include <environ/modif_env.h>
+#include <environ/builtin_env_utils.h>
+#include <environ/getter_env.h>
 
 int	builtin_unset(t_sh_data *data, char **argv)
 {

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <btree/ft_btree.h>
+#include <stdlib.h>
 
 void	btree_apply_infix(t_btree *root, void (*applyf)(void *))
 {

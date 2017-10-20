@@ -13,9 +13,7 @@
 #ifndef HELP_H
 # define HELP_H
 
-# include <stdlib.h>
-# include <core/main.h>
-# include <ftprintf.h>
+# include <automaton/automaton.h>
 
 void sh_usage_help(void);
 void sh_usage_help_exit(void);

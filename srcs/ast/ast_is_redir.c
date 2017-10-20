@@ -10,7 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ast/ast.h>
+#include <parser/enum.h>
+#include <array/array.h>
+#include <expand/expand.h>
+#include <tools/tools.h>
 
 /**
  * \fn static t_token_type ast_return_type_redir_front(t_array *expands,\

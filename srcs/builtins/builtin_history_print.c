@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtin_history.h>
+#include <history/history.h>
 
 void	sh_history_builtin_print2(int nb)
 {

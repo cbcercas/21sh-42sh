@@ -12,10 +12,8 @@
 
 #ifndef ENVIRON_H
 # define ENVIRON_H
-# include <environ/env_list_utils.h>
-# include <environ/getter_env.h>
-# include <environ/modif_env.h>
-# include <logger.h>
+
+# include <array/array.h>
 
 t_array	*init_environ(char **environ);
 t_array *init_local_var(void);

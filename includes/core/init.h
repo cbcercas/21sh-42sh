@@ -11,24 +11,9 @@
 /* ************************************************************************** */
 
 # ifndef INIT_H
-
 # define INIT_H
-# include <unistd.h>
-# include <libft.h>
-# include <ftprintf.h>
-# include <environ/env_list_utils.h>
-# include <environ/environ.h>
-# include <builtins/builtins_utils.h>
-# include <core/main.h>
-# include <unistd/ft_unistd.h>
-# include <core/help.h>
-# include <core/data.h>
-# include <tests/test.h>
-# include <tests/lexer_tests.h>
-# include <tests/parser_tests.h>
-#include <tests/expand_tests.h>
-# include <signals/signals.h>
-# include <core/deinit.h>
+
+# include "data.h"
 
 # define NOTATTY 1
 

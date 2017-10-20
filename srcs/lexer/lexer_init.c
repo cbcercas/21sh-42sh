@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <array/array.h>
 #include <lexer/lexer.h>
+#include <logger.h>
 #include <ftprintf.h>
 
 t_array	*lexer_init(t_array *tokens)

@@ -12,11 +12,8 @@
 
 #ifndef EXIT_H
 # define EXIT_H
-# include <ftprintf.h>
+
 # include <core/data.h>
-# include <builtins/builtin_history.h>
-# include <core/tcaps.h>
-# include <core/init.h>
 
 /**
  * @file   builtin_exit.c

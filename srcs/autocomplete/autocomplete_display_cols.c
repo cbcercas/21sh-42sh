@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <autocomplete/autocomplete.h>
+#include <array/array.h>
+#include <string/ft_string.h>
+#include <libtcaps.h>
 
 static size_t		autocomplete_find_longest_word(t_array *content)
 {

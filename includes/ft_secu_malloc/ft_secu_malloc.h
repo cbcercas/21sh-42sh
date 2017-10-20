@@ -13,7 +13,7 @@
 #ifndef ft_secu_malloc_H
 # define ft_secu_malloc_H
 
-#include <libft.h>
+# include <stdlib.h>
 
 # define MALLOC_LVL_DEFAULT 0
 # define M_LVL_FUNCT 1

@@ -13,11 +13,4 @@
 #ifndef EXEC_TESTS_H
 # define EXEC_TESTS_H
 
-# include <automaton/automaton.h>
-# include <lexer/lexer.h>
-# include <parser/parser.h>
-# include <libft.h>
-# include <ast/ast.h>
-# include <exec/exec.h>
-
 #endif

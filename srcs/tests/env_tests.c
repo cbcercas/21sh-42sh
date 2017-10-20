@@ -10,7 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tests/test.h>
+#include <libft.h>
+#include <environ/modif_env.h>
+#include <environ/builtin_env_utils.h>
+#include <environ/environ.h>
+
 
 void	sh_testing_env_set(char *const *av)
 {

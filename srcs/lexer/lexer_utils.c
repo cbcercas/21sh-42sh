@@ -1,4 +1,5 @@
-#include <lexer/lexer.h>
+#include <types/bool.h>
+#include <parser/enum.h>
 
 t_bool	is_token_type(t_token_type t)
 {

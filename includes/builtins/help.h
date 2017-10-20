@@ -6,8 +6,6 @@
 # define INC_21SH_HELP_H
 
 # include <core/data.h>
-# include <core/color.h>
-# include <core/main.h>//TODO: c'est pas terrible d'inclures un header qui inclue quasi tout on risque d'avoir des problem, lorsque qu'on include help.h
 
 /**
  * @file   builtin_help.c

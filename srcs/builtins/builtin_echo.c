@@ -10,7 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/echo.h>
+#include <libft.h>
+#include <ftprintf.h>
+#include <core/data.h>
+#include <unistd/ft_unistd.h>
+
+extern int g_optind;
 
 char	*ft_replace(char *src1, char *src2, int index, int size)
 {

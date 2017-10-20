@@ -5,13 +5,8 @@
 #ifndef MINISHELL_PARSER_GRAMMAR_H
 #define MINISHELL_PARSER_GRAMMAR_H
 
-# include <lexer/lexer.h>
-# include <logger.h>
-
-
-
-
-
+# include <types/bool.h>
+# include <array/array.h>
 
 #define __FILENAME__ (ft_strrchr(__FILE__, '/') ? ft_strrchr(__FILE__, '/') + 1 : __FILE__)
 

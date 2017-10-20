@@ -13,20 +13,9 @@
 #ifndef COMMAND_H
 # define COMMAND_H
 
-/*# include <unistd.h>
-# include <core/init.h>
 # include <core/data.h>
-# include <sys/wait.h>*/
-# include <libft.h>
-# include <btree/ft_btree.h>
-# include <lexer/lexer.h>
 # include <ast/ast.h>
-# include <builtins/builtins_utils.h>
-# include <exec/check_path.h>
-# include <signals/signals.h>
-# include <tools/tools.h>
-# include <ft_secu_malloc/ft_secu_malloc.h>
-# include <core/prompt.h>
+# include <array/array.h>
 
 #define START 1
 #define END 0

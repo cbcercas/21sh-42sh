@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <tools/tools.h>
+#include <ft_secu_malloc/ft_secu_malloc.h>
 
 char	*ft_strjoincl_secu(char *s1, char *s2, int free, size_t lvl)
 {

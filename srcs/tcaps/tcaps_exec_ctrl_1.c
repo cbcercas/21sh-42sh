@@ -11,6 +11,9 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
+#include <core/input.h>
+#include <history/history.h>
+#include <core/prompt.h>
 
 BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 {

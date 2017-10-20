@@ -13,10 +13,4 @@
 #ifndef AST_TESTS_H
 # define AST_TESTS_H
 
-# include <automaton/automaton.h>
-# include <lexer/lexer.h>
-# include <parser/parser.h>
-# include <libft.h>
-# include <ast/ast.h>
-
 #endif

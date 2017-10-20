@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/deinit.h>
+
+#include <core/data.h>
+#include <termios.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <ftprintf.h>
+#include <core/progname.h>
+#include <libft.h>
 
 /**
  * @brief      Frees the data stored

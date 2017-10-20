@@ -22,7 +22,7 @@
 # include <core/input.h>
 # include <ft_secu_malloc/ft_secu_malloc.h>
 # include <history/history.h>
-#include <exec/check_path.h>
+# include <exec/check_path.h>
 
 int     nb_of_word(char *s);
 char    *find_word_after(t_input *input);
