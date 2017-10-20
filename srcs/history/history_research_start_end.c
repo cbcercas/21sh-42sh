@@ -19,6 +19,7 @@
 void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 {
 	unsigned int len;
+	//TODO REFACTOR
 
 	len = (fail == true ? 32 : 18);
 	sh_history_clear_line(len + ft_strlen(line) + ft_strlen(result));

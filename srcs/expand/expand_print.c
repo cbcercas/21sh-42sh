@@ -33,7 +33,7 @@ void       ft_expand_print_token(t_token_type type)
     ft_putstr("TOKEN_TYPE_WORD");
   else if (type == E_TOKEN_SQUOTE)
     ft_putstr("TOKEN_TYPE_SQUOTE");
-  else if (type == E_CHAR_TYPE_BQUOTE)
+  else if (type == E_CHAR_TYPE_BQUOTE) // TODO Really???
     ft_putstr("TOKEN_TYPE_BQUOTE");
   else if (type == E_TOKEN_DQUOTE)
     ft_putstr("TOKEN_TYPE_DQUOTE");

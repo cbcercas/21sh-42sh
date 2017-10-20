@@ -52,6 +52,7 @@ BOOL		sh_get_input(t_sh_data *data, t_input *input)
 			return (false);
 		if (line)
 		{
+			//TODO what append when lexing incomplet
 			ft_putendl(line);
 			string_insert(input->str, line, 0);
 			ft_strdel(&line);

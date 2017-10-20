@@ -37,6 +37,7 @@ void	signals_quit(int sig)
 void	signals_sigwinch(void)
 {
 	size_t 	pos;
+	//TODO REFACTOR
 
 	pos = pos_in_str(g_input);
 	g_input->offset_col = sh_len_prompt();

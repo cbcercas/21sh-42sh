@@ -118,6 +118,7 @@ static void	sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 {
 
+	//TODO secure init
 	ft_bzero(data, sizeof(*data));
 	sh_options(&data->opts, ac, av, environ);
 	init_environ(environ);

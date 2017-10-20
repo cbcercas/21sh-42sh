@@ -18,6 +18,7 @@
 
 BOOL	history_exec_arrow_right(t_input *input)
 {
+	//TODO REFACTOR
 	(void)input;
 	if (((size_t)(input->cpos.cp_col + (input->offset_line  * input->ts.ws_col) - input->offset_col)) < input->str->len)
 	{
@@ -33,6 +34,7 @@ BOOL	history_exec_arrow_right(t_input *input)
 void	sh_history_draw_line(t_input *input, const char *line)
 {
 	unsigned int len;
+	//TODO REFACTOR
 
 	log_dbg3("History: draw=\"%s\" ", line);
 	sh_history_clear_line(input->str->len + sh_len_prompt());
@@ -51,6 +53,7 @@ void	sh_history_up(t_input *input)
 	t_array	*hists;
 	t_hist	*h;
 	t_hist	*first;
+	//TODO REFACTOR
 
 		hists = sh_history_get();
 		if ((first = (t_hist *)array_get_at(hists, 0)))
@@ -74,6 +77,7 @@ void	sh_history_down(t_input *input)
 	t_array	*hists;
 	t_hist	*h;
 	t_hist	*first;
+	//TODO REFACTOR
 
 		hists = sh_history_get();
 		if ((first = (t_hist *)array_get_at(hists, 0)))

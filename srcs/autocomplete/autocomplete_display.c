@@ -28,6 +28,7 @@ void		autocomplete_display(t_array *content)
 	raw_terminal_mode();
 }
 
+//TODO Refactor reset input, split history, print
 void		autocomplete_display_prompt(t_input *input)
 {
 	size_t	pos;

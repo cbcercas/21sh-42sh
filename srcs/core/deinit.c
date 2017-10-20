@@ -54,7 +54,7 @@ int			sh_restore_tattr(struct termios *tattr)
 	struct termios term;
 
 	term = *tattr;
-	free(tattr);
+	free(tattr); //TODO use ft_memdel()
 	tattr = NULL;
 	if (isatty(0) && tcsetattr(STDIN_FILENO, TCSAFLUSH, &term) < 0)
 	{
