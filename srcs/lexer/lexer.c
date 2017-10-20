@@ -561,6 +561,7 @@ t_return lexer_lex(t_array *tokens, char const *in)
 	{
 		//TODO when merge master add return error
 		array_reset(tokens, NULL);
+		stack_destroy(&automaton.stack, NULL);
 		return(E_RET_LEXER_INCOMPLETE);
 	}
 	if (tokens && tokens->used)
