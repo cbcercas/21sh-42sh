@@ -43,7 +43,7 @@ int     	histisclear(const char *str);
 int 		expand_hist_digit(t_exp *exp, int *i, int len);
 int    		expand_hist_alpha(t_exp *exp, int *i, int len);
 t_exp   	*expand_remove_quote(t_exp *exp);
-bool 		expand_antislash(t_string *string, t_token_type type);
+BOOL 		expand_antislash(t_string *string, t_token_type type);
 void 		expand_merge_tokens_word(t_array *array_exp);
 void		expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp, size_t *i);
 

@@ -69,7 +69,7 @@ char		*sh_extract_str(char *arg)
 	return (str);
 }
 
-t_bool		sh_is_builtin(char *name)
+BOOL		sh_is_builtin(char *name)
 {
 	if (get_builtin(name))
 		return (true);
