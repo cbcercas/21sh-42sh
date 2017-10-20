@@ -37,13 +37,33 @@ void		sh_arrays_init(t_array *tokens, t_array *expand)
 		exit(EXIT_FAILURE);
 }
 
+
+char *str_from_input(void)
+{
+	t_input	*input;
+	char	*line;
+
+	input = input_get();
+	line = NULL;
+	if (input == NULL)
+		return (NULL);
+	while (input)
+	{
+		if(!(line = ft_strjoincl(line, input->str->s, 1)))
+			return (NULL);
+		input = input->next;
+	}
+	return (line);
+}
+
 /*
 **récupère l'input en fonction d'isatty
 */
 
-BOOL		sh_get_input(t_sh_data *data, t_input *input)
+static char		*sh_get_input(t_sh_data *data, char *prompt)
 {
 	char *line;
+	t_input *input;
 
 	line = NULL;
 	if (!isatty(0))
@@ -53,14 +73,24 @@ BOOL		sh_get_input(t_sh_data *data, t_input *input)
 		if (line)
 		{
 			//TODO what append when lexing incomplet
+			input = input_get();
 			ft_putendl(line);
 			string_insert(input->str, line, 0);
 			ft_strdel(&line);
 		}
 	}
 	else
+	{
+		if (!(input = input_get_last()))
+			return (NULL);
+		if (!(input->next = input_new()))
+			return (NULL);
+		input->next->prev = input;
+		input = input->next;
+		sh_print_prompt(input, prompt);
 		sh_get_line(input, &(data->opts));
-	return (true);
+	}
+	return (str_from_input());
 }
 
 /*
@@ -81,22 +111,19 @@ void		sh_arrays_reset(t_array *tokens, t_array *expands)
 */
 
 t_return	sh_process(t_btree **ast, t_array *expands, t_array *tokens,
-					   t_input *input)
+					   char *line)
 {
 	t_return	ret;
 	//static char *save = NULL;
 
 	//save = save ? ft_strjoincl(save, input->str->s, 1) : ft_strdup(input->str->s);
-	if (((ret = lexer_lex(tokens, input->str->s)) == E_RET_LEXER_INCOMPLETE)
+	if (((ret = lexer_lex(tokens, line)) == E_RET_LEXER_INCOMPLETE)
 		|| (tokens->used > 1 &&
 		((t_token*)array_get_at(tokens, tokens->used - 1))->type == E_TOKEN_PIPE))
-	{
-		input->prompt = false;
-	}
+		return (ret);
 	else
 	{
-		input->prompt = true;
-		sh_history_set_new(input->str->s);
+		sh_history_set_new(line);
 		if (ret == E_RET_LEXER_OK && (ret = parser_parse(tokens)) ==
 									 E_RET_PARSER_OK)
 		{
@@ -110,7 +137,6 @@ t_return	sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 				}
 			}
 		}
-		//ft_strdel(&save);
 	}
 	return (ret);
 }
@@ -155,31 +181,26 @@ int			main(int ac, char *const *av, char **environ)
 	t_sh_data	data;
 	struct s_test exec_dat;
 	t_return	ret;
-	//char		*input;
-	t_input		input;
-	ft_bzero(&input, sizeof(input));
-	input.str = NULL;
-	input.select.str = NULL;
-	input.prompt = true;
-	input.len_save = 0;
-	g_input = &input;
+	char		*line;
 
+	line = NULL;
 	exec_dat.ast = NULL;
 	sh_arrays_init(&exec_dat.tokens, &exec_dat.expand);
 	if (!sh_init(&data, ac, av, environ))
 		exit(1);
-	reset_input(&input);
 	while (42)
 	{
-		sh_print_prompt();
-		if (!sh_get_input(&data, &input))
+		if (!(line = sh_get_input(&data, NULL)))
 			break ;
-		if (input.str->len > 1 && ft_strequ(input.str->s, "exit"))
+		if (ft_strlen(line) > 1 && ft_strequ(line, "exit"))
 			break ;
-		ret = sh_process(&exec_dat.ast, &exec_dat.expand, &exec_dat.tokens, &input);
+		ret = sh_process(&exec_dat.ast, &exec_dat.expand, &exec_dat.tokens, line);
 		if (ret == E_RET_AST_OK)
 		{
 			sh_process_exec(&data, exec_dat.ast);
+			ft_strdel(&line);
+			input_destroy(&(input_get())->next);
+			input_reset(input_get());
 		}
 		if (exec_dat.ast)
 			btree_destroy(&exec_dat.ast, (void (*)(void*))&ast_del_cmd);

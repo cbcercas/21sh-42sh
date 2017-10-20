@@ -112,6 +112,55 @@ static void		draw_char(t_input *input, char *c)
 **	redraw_line(input);
 */
 
+t_input	*input_new(void)
+{
+	t_input	*input;
+
+	if (!(input = ft_memalloc(sizeof(*input))))
+		return (NULL);
+	input->next = NULL;
+	input->prev = NULL;
+	if (!(input->str = string_create()))
+		ft_memdel((void**)&input);
+	return (input);
+}
+
+t_input	*input_get(void)
+{
+	static t_input	*input = NULL;
+
+	if (input == NULL)
+		input = input_new();
+	return (input);
+}
+
+t_input	*input_get_last(void)
+{
+	t_input	*input;
+
+	input = input_get();
+	while (input && input->next)
+		input = input->next;
+	return (input);
+}
+
+/*
+
+#define INPUT_PREV true
+#define INPUT_NEXT false
+
+t_input	*get_input_line(t_inputBOOL direction)
+{
+	if (direction == INPUT_PREV && (input->prev)
+		if )
+
+			else
+}
+(...);
+*/
+
+
+
 char *sh_get_line(t_input *input, t_sh_opt *opts)
 {
 	char			buff[MAX_KEY_STRING_LEN + 1];
@@ -140,5 +189,5 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 	}
 	default_terminal_mode();
 	sh_history_insert_buf(NULL);
-	return (input->str->len > 0 ? ft_strdup(input->str->s) : NULL);
+	return (NULL);
 }

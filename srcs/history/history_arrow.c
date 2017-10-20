@@ -39,7 +39,7 @@ void	sh_history_draw_line(t_input *input, const char *line)
 	log_dbg3("History: draw=\"%s\" ", line);
 	sh_history_clear_line(input->str->len + sh_len_prompt());
 	reset_input(input);
-	sh_print_prompt();
+	sh_print_prompt(input, NULL);
 	if(line)
 		string_replace(input->str, line);
 	len = input->str->len;

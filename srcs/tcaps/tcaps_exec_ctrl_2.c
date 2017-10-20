@@ -17,11 +17,22 @@
 
 BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {
-	//exec_ctrl_c(key, input);
 	//TODO REFACTOR
+
+// exec_ctrl_c(key, input);
 	(void)key;
-	(void)input;
-	//string_insert(input->str, key->key, pos_in_str(input));
+	//string_insert(input->str,"\n", input->str->len);
+	if (input->str->s[pos_in_str(input) - 1] == '\\')
+	{
+		//string_insert(input->str, key->key, pos_in_str(input));
+		tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+		tputs("\n", 0, &ft_putchar2);
+		tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+		input->prompt = false;
+		//TODO realy need this
+		sh_print_prompt(input, NULL);
+		return (false);
+	}
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);

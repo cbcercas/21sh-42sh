@@ -13,9 +13,10 @@
 #ifndef PROMPT_H
 # define PROMPT_H
 
-void	sh_print_prompt(void);
-size_t sh_len_prompt(void);
 # include "input.h"
+
+void	sh_print_prompt(t_input	*input, const char *prompt);
+size_t	sh_len_prompt(void);
 
 int g_ret;
 

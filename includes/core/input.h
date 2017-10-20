@@ -30,6 +30,8 @@ struct	s_select
 typedef struct s_input	t_input;
 struct	s_input
 {
+	t_input			*next;
+	t_input			*prev;
 	t_string		*str;
 	BOOL			prompt;
 	size_t			prompt_len;
@@ -50,6 +52,12 @@ char *sh_get_line(t_input *input, t_sh_opt *opts);
 char	*sh_get_line2(void);
 void	reset_input(t_input *input);
 size_t	pos_in_str(t_input *input);
+t_input	*input_new(void);
+t_input	*input_get(void);
+t_input	*input_get_last(void);
+
+void	input_destroy(t_input **input);
+void	input_reset(t_input *input);
 
 //TODO Remove this
 extern	t_input	*g_input;

@@ -38,16 +38,19 @@ void	signals_sigwinch(void)
 {
 	size_t 	pos;
 	//TODO REFACTOR
+	t_input	*input;
 
+	// TODO need current input
+	input = input_get();
 	pos = pos_in_str(g_input);
-	g_input->offset_col = sh_len_prompt();
-	g_input->offset_line = 0;
-	g_input->cpos.cp_line = 0;
-	g_input->select.is = false;
-	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
+	//g_input->offset_col = sh_len_prompt();
+	//g_input->offset_line = 0;
+	//g_input->cpos.cp_line = 0;
+	//g_input->select.is = false;
+	//g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &g_input->ts);
-	sh_print_prompt();
+	sh_print_prompt(input, NULL);
 	redraw_line(g_input);
 	while (pos != pos_in_str(g_input))
 		exec_arrow_right(NULL, g_input);

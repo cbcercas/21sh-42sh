@@ -35,12 +35,12 @@ void		autocomplete_display_prompt(t_input *input)
 
 	pos = 0;
 	pos = pos_in_str(input);
-	input->offset_col = sh_len_prompt();
-	input->offset_line = 0;
-	input->cpos.cp_line = 0;
+	//input->offset_col = sh_len_prompt();
+	//input->offset_line = 0;
+	//input->cpos.cp_line = 0;
 	input->select.is = false;
-	input->cpos.cp_col = (unsigned short)input->offset_col;
-	sh_print_prompt();
+	//input->cpos.cp_col = (unsigned short)input->offset_col;
+	sh_print_prompt(input, NULL);
 	redraw_line(input);
 	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);

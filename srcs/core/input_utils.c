@@ -29,6 +29,36 @@ void	reset_input(t_input *input)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
 	ft_strdel(&input->select.str);
 	ft_bzero(&input->select, sizeof(t_select));
+	input->prompt = true;
+	input->next = NULL;
+}
+
+void	input_destroy(t_input **input)
+{
+	if (*input && (*input)->next)
+		input_destroy(&(*input)->next);
+	string_del(&(*input)->str);
+	ft_strdel(&(*input)->select.str);
+	ft_memdel((void**)input);
+}
+
+void	input_reset(t_input *input)
+{
+	if (input->str)
+		string_reset(input->str);
+	else
+		input->str = string_create();
+	input->prompt_len = 0;
+	input->len_save = 0;
+	input->offset_col = 0;
+	input->offset_line = 0;
+	input->cpos.cp_line = 0;
+	input->cpos.cp_col = input->offset_col;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
+	ft_strdel(&input->select.str);
+	ft_bzero(&input->select, sizeof(t_select));
+	input->prompt = true;
+	input->next = NULL;
 }
 
 size_t	pos_in_str(t_input *input)
