@@ -541,10 +541,24 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 }
 
 
+static t_return	lexer_get_incomplete_ret(t_stack_state cur_state)
+{
+	if (cur_state == E_STATE_SQUOTE)
+		return (E_RET_LEXER_SQUOTE);
+	else if (cur_state == E_STATE_BQUOTE)
+		return (E_RET_LEXER_BQUOTE);
+	else if (cur_state == E_STATE_DQUOTE)
+		return (E_RET_LEXER_DQUOTE);
+	else
+		return (E_RET_LEXER_INCOMPLETE);
+}
+
 t_return lexer_lex(t_array *tokens, char const *in)
 {
 	static t_automaton	automaton;
+	t_return			ret;
 
+	ret = E_RET_LEXER_OK;
 	if (automaton_init(&automaton) == NULL)
 		exit(EXIT_FAILURE);
 	if (in == NULL)
@@ -554,20 +568,16 @@ t_return lexer_lex(t_array *tokens, char const *in)
 	if (automaton.cur_state == E_STATE_ERROR)
 	{
 		ft_dprintf(STDERR_FILENO, "%s: Lexing error.\n", PROGNAME);
-		array_reset(tokens, NULL);
-		return(E_RET_LEXER_ERROR);
+		ret = E_RET_LEXER_ERROR;
 	}
 	else if (!is_empty_stack(automaton.stack))
-	{
-		//TODO when merge master add return error
-		array_reset(tokens, NULL);
-		stack_destroy(&automaton.stack, NULL);
-		return(E_RET_LEXER_INCOMPLETE);
-	}
+		ret = lexer_get_incomplete_ret(automaton.cur_state);
 	if (tokens && tokens->used)
 		lexer_clean_tokens(tokens);
+	if (ret != E_RET_LEXER_OK)
+		array_reset(tokens, NULL);
 	stack_destroy(&automaton.stack, NULL);
-	return (E_RET_LEXER_OK);
+	return (ret);
 }
 
 static void	lexer_print_token(t_token *tok)

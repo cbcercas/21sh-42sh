@@ -26,7 +26,7 @@ void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 	if (line)
 		ft_strdel(&line);
 	reset_input(input);
-	sh_print_prompt(input, NULL);
+	sh_print_prompt(input, NULL, 0);
 	if(result)
 	{
 		string_replace(input->str, result);

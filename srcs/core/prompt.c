@@ -20,6 +20,7 @@
 
 //TODO see todo g_ret
 #include <core/prompt.h>
+#include <core/return.h>
 
 size_t		get_prompt(BOOL print)
 {
@@ -59,18 +60,25 @@ void		prompt_normal(t_input *inp)
 	inp->cpos.cp_line = 0;
 }
 
-void 		prompt_perso(t_input *inp, const char *prompt)
+void 		prompt_perso(t_input *inp, const char *prompt, t_return ret)
 {
-	ft_printf("%s", prompt);
-	//reset_input(inp);
-	//inp->len_save = inp->str->len;
-	inp->prompt_len = ft_strlen(prompt);
+	if (prompt == NULL && ret == E_RET_LEXER_SQUOTE)
+		prompt = "quote>";
+	else if (prompt == NULL && ret == E_RET_LEXER_DQUOTE)
+		prompt = "dquote>";
+	else if (prompt == NULL && ret == E_RET_LEXER_BQUOTE)
+		prompt = "bquote>";
+	else if (prompt == NULL && ret == E_RET_LEXER_PIPE)
+		prompt = "pipe>";
+	else if (prompt == NULL)
+		prompt = ">";
+	inp->prompt_len = ft_strlen(prompt) + 1;
 	inp->offset_col = (unsigned short)inp->prompt_len;
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
 }
 
-void		sh_print_prompt(t_input	*input, const char *prompt)
+void sh_print_prompt(t_input *input, const char *prompt, t_return ret)
 {
 	if (get_curs_x() > 1)
 	{
@@ -78,13 +86,13 @@ void		sh_print_prompt(t_input	*input, const char *prompt)
 		ft_putendl("%");
 		tputs(tgetstr("me", NULL), 1, ft_putchar2);
 	}
-	if (input->prev != NULL)
+	if (input->prev == NULL)
 	{
 		prompt_normal(input);
 	}
 	else
 	{
-		prompt_perso(input, prompt);
+		prompt_perso(input, prompt, ret);
 	}
 
 }

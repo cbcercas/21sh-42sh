@@ -50,7 +50,7 @@ void	signals_sigwinch(void)
 	//g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &g_input->ts);
-	sh_print_prompt(input, NULL);
+	sh_print_prompt(input, NULL, 0);
 	redraw_line(g_input);
 	while (pos != pos_in_str(g_input))
 		exec_arrow_right(NULL, g_input);

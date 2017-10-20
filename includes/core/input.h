@@ -55,6 +55,7 @@ size_t	pos_in_str(t_input *input);
 t_input	*input_new(void);
 t_input	*input_get(void);
 t_input	*input_get_last(void);
+t_input	*input_add_new(t_input *input);
 
 void	input_destroy(t_input **input);
 void	input_reset(t_input *input);

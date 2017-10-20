@@ -40,7 +40,7 @@ void		autocomplete_display_prompt(t_input *input)
 	//input->cpos.cp_line = 0;
 	input->select.is = false;
 	//input->cpos.cp_col = (unsigned short)input->offset_col;
-	sh_print_prompt(input, NULL);
+	sh_print_prompt(input, NULL, 0);
 	redraw_line(input);
 	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);
