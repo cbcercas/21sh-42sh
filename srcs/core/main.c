@@ -60,9 +60,9 @@ char *str_from_input(void)
 **récupère l'input en fonction d'isatty
 */
 
-static char		*sh_get_input(t_sh_data *data, char *prompt)
+static char *sh_get_input(t_sh_data *data, char *prompt, t_return ret)
 {
-	char *line;
+	char    *line;
 	t_input *input;
 
 	line = NULL;
@@ -81,13 +81,14 @@ static char		*sh_get_input(t_sh_data *data, char *prompt)
 	}
 	else
 	{
-		if (!(input = input_get_last()))
+		if (ret >= E_RET_LEXER_INCOMPLETE && ret <= E_RET_LEXER_PIPE)
+		{
+			if ((input = input_add_new(input_get_last())) == NULL)
+				return (NULL);
+		}
+		else if (!(input = input_get_last()))
 			return (NULL);
-		if (!(input->next = input_new()))
-			return (NULL);
-		input->next->prev = input;
-		input = input->next;
-		sh_print_prompt(input, prompt);
+		sh_print_prompt(input, prompt, ret);
 		sh_get_line(input, &(data->opts));
 	}
 	return (str_from_input());
@@ -114,14 +115,9 @@ t_return	sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 					   char *line)
 {
 	t_return	ret;
-	//static char *save = NULL;
 
-	//save = save ? ft_strjoincl(save, input->str->s, 1) : ft_strdup(input->str->s);
-	if (((ret = lexer_lex(tokens, line)) == E_RET_LEXER_INCOMPLETE)
-		|| (tokens->used > 1 &&
-		((t_token*)array_get_at(tokens, tokens->used - 1))->type == E_TOKEN_PIPE))
-		return (ret);
-	else
+	if ((ret = lexer_lex(tokens, line)) == E_RET_LEXER_OK
+		&& ((t_token*)array_get_at(tokens, tokens->used - 1))->type != E_TOKEN_PIPE)
 	{
 		sh_history_set_new(line);
 		if (ret == E_RET_LEXER_OK && (ret = parser_parse(tokens)) ==
@@ -138,6 +134,8 @@ t_return	sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 			}
 		}
 	}
+	else if (ret == E_RET_LEXER_OK)
+		ret = E_RET_LEXER_PIPE;
 	return (ret);
 }
 
@@ -183,6 +181,7 @@ int			main(int ac, char *const *av, char **environ)
 	t_return	ret;
 	char		*line;
 
+	ret = E_RET_NEW_PROMPT;
 	line = NULL;
 	exec_dat.ast = NULL;
 	sh_arrays_init(&exec_dat.tokens, &exec_dat.expand);
@@ -190,21 +189,24 @@ int			main(int ac, char *const *av, char **environ)
 		exit(1);
 	while (42)
 	{
-		if (!(line = sh_get_input(&data, NULL)))
+		if (!(line = sh_get_input(&data, NULL, ret)))
 			break ;
 		if (ft_strlen(line) > 1 && ft_strequ(line, "exit"))
 			break ;
 		ret = sh_process(&exec_dat.ast, &exec_dat.expand, &exec_dat.tokens, line);
 		if (ret == E_RET_AST_OK)
-		{
 			sh_process_exec(&data, exec_dat.ast);
-			ft_strdel(&line);
+
+		if (!(ret >= E_RET_LEXER_INCOMPLETE && ret <= E_RET_LEXER_PIPE))
+		{
 			input_destroy(&(input_get())->next);
 			input_reset(input_get());
+			ret = E_RET_NEW_PROMPT;
 		}
 		if (exec_dat.ast)
 			btree_destroy(&exec_dat.ast, (void (*)(void*))&ast_del_cmd);
 		sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
+		ft_strdel(&line);
 	}
 	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
 	sh_exit(&data, NULL);

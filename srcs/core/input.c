@@ -120,8 +120,7 @@ t_input	*input_new(void)
 		return (NULL);
 	input->next = NULL;
 	input->prev = NULL;
-	if (!(input->str = string_create()))
-		ft_memdel((void**)&input);
+	input_reset(input);
 	return (input);
 }
 
@@ -144,6 +143,21 @@ t_input	*input_get_last(void)
 	return (input);
 }
 
+t_input	*input_add_new(t_input *input)
+{
+	t_input	*save;
+
+	if (!input)
+		return (NULL);
+	save = input->next;
+	if((input->next = input_new()) == NULL)
+		return (NULL);
+	input->next->prev = input;
+	input->next->next = save;
+	if (save)
+		save->prev = input->next;
+	return (input->next);
+}
 /*
 
 #define INPUT_PREV true

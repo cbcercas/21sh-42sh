@@ -76,7 +76,7 @@ BOOL	exec_ctrl_l(const t_key *key, t_input *input)
 	//input->select.is = false;
 	//input->cpos.cp_col = (unsigned short)input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
-	sh_print_prompt(input, NULL);
+	sh_print_prompt(input, NULL, 0);
 	redraw_line(input);
 	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);

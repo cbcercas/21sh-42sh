@@ -35,11 +35,14 @@ void	reset_input(t_input *input)
 
 void	input_destroy(t_input **input)
 {
-	if (*input && (*input)->next)
-		input_destroy(&(*input)->next);
-	string_del(&(*input)->str);
-	ft_strdel(&(*input)->select.str);
-	ft_memdel((void**)input);
+	if (*input)
+	{
+		if ((*input)->next)
+			input_destroy(&(*input)->next);
+		string_del(&((*input)->str));
+		ft_strdel(&(*input)->select.str);
+		ft_memdel((void **) input);
+	}
 }
 
 void	input_reset(t_input *input)
@@ -58,7 +61,6 @@ void	input_reset(t_input *input)
 	ft_strdel(&input->select.str);
 	ft_bzero(&input->select, sizeof(t_select));
 	input->prompt = true;
-	input->next = NULL;
 }
 
 size_t	pos_in_str(t_input *input)
