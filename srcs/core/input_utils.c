@@ -29,7 +29,6 @@ void	reset_input(t_input *input)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
 	ft_strdel(&input->select.str);
 	ft_bzero(&input->select, sizeof(t_select));
-	input->prompt = true;
 	input->next = NULL;
 }
 
@@ -60,7 +59,6 @@ void	input_reset(t_input *input)
 	ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
 	ft_strdel(&input->select.str);
 	ft_bzero(&input->select, sizeof(t_select));
-	input->prompt = true;
 }
 
 size_t	pos_in_str(t_input *input)

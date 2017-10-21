@@ -83,14 +83,9 @@ void sh_print_prompt(t_input *input, const char *prompt, t_return ret)
 		tputs(tgetstr("me", NULL), 1, ft_putchar2);
 	}
 	if (input->prev == NULL)
-	{
 		prompt_normal(input);
-	}
 	else
-	{
 		prompt_perso(input, prompt, ret);
-	}
-
 }
 
 size_t		sh_len_prompt(void)

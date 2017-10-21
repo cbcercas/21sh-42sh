@@ -28,7 +28,6 @@ BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 		tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 		tputs("\n", 0, &ft_putchar2);
 		tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-		input->prompt = false;
 		//TODO realy need this
 		sh_print_prompt(input, NULL, 0);
 		return (false);

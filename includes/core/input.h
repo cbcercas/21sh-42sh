@@ -33,7 +33,6 @@ struct	s_input
 	t_input			*next;
 	t_input			*prev;
 	t_string		*str;
-	BOOL			prompt;
 	size_t			prompt_len;
 	unsigned short	offset_col;
 	unsigned short	offset_line;
