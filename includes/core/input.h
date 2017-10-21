@@ -38,9 +38,18 @@ struct	s_input
 	unsigned short	offset_line;
 	struct winsize	ts;
 	t_cpos			cpos;
+	//TODO remove select (now it is in t_window)
 	t_select		select;
 	//TODO remove len_save;
 	size_t			len_save;
+typedef struct s_window	t_window;
+struct 					s_window
+{
+	t_input				*cur;
+	t_input				*save;
+	int 				histlvl;
+	struct winsize		ts;
+	t_select			select;
 };
 
 /**
@@ -60,6 +69,8 @@ char	*input_to_history(t_input *input);
 
 void	input_destroy(t_input **input);
 void	input_reset(t_input *input);
+
+t_window	*get_windows(int rst);
 
 //TODO Remove this
 extern	t_input	*g_input;

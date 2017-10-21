@@ -55,6 +55,7 @@ set(SOURCE_FILES
 		srcs/core/main.c
 		srcs/core/usage_help.c
 		srcs/core/prompt.c
+		srcs/core/input_windows.c
 
 		srcs/environ/env_list_utils.c
 		srcs/environ/environ.c
