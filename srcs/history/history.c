@@ -121,7 +121,7 @@ void	sh_history_save(void)
 	{
 		h = (t_hist *)array_get_at(hists, i);
 		if(h && h->session == true)
-			ft_dprintf(fd, "%s\n", h->cmd);
+			ft_dprintf(fd, ";%s\n", h->cmd);
 		i++;
 	}
 	sh_history_print_in_log();

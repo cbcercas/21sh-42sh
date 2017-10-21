@@ -35,7 +35,7 @@ t_array					*sh_history_init(void);
 void 						sh_history_print(void);
 void 						sh_history_print_in_log(void);
 void						sh_history_save(void);
-t_hist					*sh_history_set_new(char const *cmd);
+t_hist					*sh_history_set_new(char **cmd);
 int							sh_history_is_space_plus(char const *line);
 void						sh_history_up(t_input *input);
 void						sh_history_down(t_input *input);

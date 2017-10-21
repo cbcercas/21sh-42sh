@@ -115,11 +115,13 @@ t_return	sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 					   char *line)
 {
 	t_return	ret;
+	char		*hline;
 
 	if ((ret = lexer_lex(tokens, line)) == E_RET_LEXER_OK
 		&& ((t_token*)array_get_at(tokens, tokens->used - 1))->type != E_TOKEN_PIPE)
 	{
-		sh_history_set_new(line);
+		hline = input_to_history(input_get());
+		sh_history_set_new(&hline);
 		if (ret == E_RET_LEXER_OK && (ret = parser_parse(tokens)) ==
 									 E_RET_PARSER_OK)
 		{

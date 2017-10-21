@@ -72,12 +72,12 @@ const char	*sh_history_get_at(ssize_t nb)
 	return (NULL);
 }
 
-t_hist	*sh_history_set_new(char const *cmd)
+t_hist	*sh_history_set_new(char **cmd)
 {
 	t_array	*hists;
 	t_hist	*h;
 
-		if (sh_history_is_space_plus(cmd) || !is_printstr(cmd))
+		if (!*cmd && (sh_history_is_space_plus(*cmd) || !is_printstr(*cmd)))
 			return (NULL);
 		hists = sh_history_get();
 		if ((h = (t_hist *)array_get_at(hists, 0)))
@@ -87,12 +87,14 @@ t_hist	*sh_history_set_new(char const *cmd)
 			h->buf = NULL;
 			h->cur = -1;
 		}
-		if ((hists->used < 1 || ft_strcmp(cmd, sh_history_get_at(-1))) &&\
-		 ((h = sh_history_new(ft_strdup(cmd))) != NULL))
+		if ((hists->used < 1 || ft_strcmp(*cmd, sh_history_get_at(-1)))
+			&& ((h = sh_history_new(ft_strdup(*cmd))) != NULL))
 		{
 			h->session = true;
 			array_push(hists, (void *)h);
 			ft_memdel((void**)&h);
 		}
+	if (*cmd)
+		ft_strdel(cmd);
 	return (NULL);
 }

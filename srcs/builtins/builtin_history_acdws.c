@@ -103,7 +103,6 @@ void	sh_history_builtin_s(char **argv, int index)
 	}
 	if (cmd_join)
 	{
-		sh_history_set_new(cmd_join);
-		ft_strdel(&cmd_join);
+		sh_history_set_new(&cmd_join);
 	}
 }

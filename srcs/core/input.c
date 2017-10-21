@@ -158,6 +158,24 @@ t_input	*input_add_new(t_input *input)
 		save->prev = input->next;
 	return (input->next);
 }
+
+char	*input_to_history(t_input *input)
+{
+	char	*line;
+
+	line = NULL;
+	if (input == NULL)
+		return (NULL);
+	while (input)
+	{
+		if(!(line = ft_strjoincl(line, input->str->s, 1)))
+			return (NULL);
+		if((input->next) && !(line = ft_strjoincl(line, "\\n", 1)))
+			return (NULL);
+		input = input->next;
+	}
+	return (line);
+}
 /*
 
 #define INPUT_PREV true
