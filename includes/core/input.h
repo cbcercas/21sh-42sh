@@ -39,6 +39,7 @@ struct	s_input
 	struct winsize	ts;
 	t_cpos			cpos;
 	t_select		select;
+	//TODO remove len_save;
 	size_t			len_save;
 };
 
