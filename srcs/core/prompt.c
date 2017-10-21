@@ -52,7 +52,7 @@ size_t		get_prompt(BOOL print)
 
 void		prompt_normal(t_input *inp)
 {
-	reset_input(inp);
+	input_reset(inp);
 	ft_printf("Un joli prompt $ ");
 	inp->prompt_len = 17;
 	inp->offset_col = 17;
