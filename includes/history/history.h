@@ -31,7 +31,7 @@ typedef	struct	s_hist
 t_hist					*sh_history_new(char *cmd);
 t_array					*sh_history_get(void);
 char	*history_get_path(char *str);
-t_array					*sh_history_init(void);
+t_array *sh_history_init(t_array *hists);
 void 						sh_history_print(void);
 void 						sh_history_print_in_log(void);
 void						sh_history_save(void);
@@ -54,5 +54,5 @@ void					sh_history_var_session_reset(void);
 //BOOL       		sh_history_is_print(char const *line);
 const char					*sh_history_get_search(const char *line);
 const char					*sh_history_get_at(ssize_t nb);
-
+const char					*history_get_n(size_t n);
 #endif

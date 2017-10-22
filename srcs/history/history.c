@@ -73,28 +73,31 @@ char	*history_get_path(char *str)
 	return (ft_strjoincl_secu(home, HISTORY_FILE, 1, M_LVL_FUNCT));
 }
 
-t_array		*sh_history_init()
+t_array *sh_history_init(t_array *hists)
 {
-	t_array	*hists;
 	t_hist	*h;
-	char		*line;
+	char	*line;
+	char	*cmd;
 	int			fd;
 	size_t	i;
 
 	i = 0;
+	cmd = NULL;
 	if ((fd = open(history_get_path(NULL), O_RDWR | O_CREAT, 0644)) == -1)
 		return (NULL);
 	if ((hists = sh_history_get()) != NULL)
 	{
-		while (get_next_line(fd, &line) && i < 1000)
+		while (i < 1000)
 		{
-				if ((h = sh_history_new(line)))
-				{
-					h->session = false;
-					array_push(hists, (void *)h);
-					ft_memdel((void **) &h);
-				}
-				i++;
+			while (get_next_line(fd, &line) && (line[ft_strlen(line - 1)] == '\\'))
+				cmd = ft_strjoincl(cmd, line, 2);
+			if ((h = sh_history_new(cmd ? cmd : line)))
+			{
+				h->session = false;
+				array_push(hists, (void *)h);
+				ft_memdel((void **) &h);
+			}
+			i++;
 		}
 	}
 	close(fd);
@@ -121,10 +124,23 @@ void	sh_history_save(void)
 	{
 		h = (t_hist *)array_get_at(hists, i);
 		if(h && h->session == true)
-			ft_dprintf(fd, ";%s\n", h->cmd);
+			ft_dprintf(fd, "%s\n", h->cmd);
 		i++;
 	}
 	sh_history_print_in_log();
 	array_destroy(&hists, sh_history_del);
 	close(fd);
+}
+
+const char 	*history_get_n(size_t n)
+{
+	t_array	*hists;
+	t_hist	*h;
+
+	hists = sh_history_get();
+	if (!hists || (n >= hists->used))
+		return (NULL);
+	if (!(h = (t_hist *)array_get_at(hists, hists->used - n - 1)))
+		return (NULL);
+	return (h->cmd);
 }

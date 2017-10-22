@@ -122,6 +122,7 @@ t_input	*input_new(void)
 	input->prev = NULL;
 	input->ts = get_ts();
 	input->select = get_select();
+	input->hist_lock = false;
 	input_reset(input);
 	return (input);
 }
@@ -182,11 +183,31 @@ char	*input_to_history(t_input *input)
 	{
 		if(!(line = ft_strjoincl(line, input->str->s, 1)))
 			return (NULL);
-		if((input->next) && !(line = ft_strjoincl(line, "\\n", 1)))
+		if((input->next) && !(line = ft_strjoincl(line, "\\\n", 1)))
 			return (NULL);
 		input = input->next;
 	}
 	return (line);
+}
+
+t_input *input_from_history(const char *hist)
+{
+	t_input		*input;
+	const char	*c;
+
+	if (!(input = input_new()) || !hist)
+		return (NULL);
+	while ((c = ft_strstr(hist, "\\")) != NULL)
+	{
+		string_ninsert(input->str, hist, 0, hist - c);
+		hist = c + 1;
+		//TODO add support long line
+		input = input_add_new(input);
+	}
+	string_ninsert(input->str, hist, 0, hist - c);
+	while (input->prev)
+		input = input->prev;
+	return (input);
 }
 
 void	redraw_input(t_input *inp)
@@ -196,7 +217,7 @@ void	redraw_input(t_input *inp)
 
 	inpcpy = inp;
 	line = 0;
-	//TOXO prompt_len in history????
+	//TODO prompt_len in history????
 	tputs(tgoto(tgetstr("cm", NULL) , tgetnum("li"), (int)inp->prompt_len), 1, &ft_putchar2);
 	//clear
 	tputs(tgetstr("ce", NULL), 0, ft_putchar2);
@@ -249,12 +270,16 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 		{
 			if (!string_insert(input->str, key.key, pos_in_str(input)))
 				return (NULL);
+			//TODO Really reset hist lvl?
+			get_windows(12);
 			sh_history_insert_buf(input->str->s);
 			draw_char(input, key.key);
 		}
+		input = get_windows(0)->cur;
 		key_del(&key);
 	}
 	default_terminal_mode();
+	input->hist_lock = true;
 	sh_history_insert_buf(NULL);
 	return (NULL);
 }

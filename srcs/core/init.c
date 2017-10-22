@@ -124,7 +124,7 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	init_environ(environ);
 	init_local_var();
 	sh_builtins_init();
-	sh_history_init();
+	sh_history_init(sh_history_get());
 	init_signals(signals_handler);
 	sh_store_tattr(data);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)

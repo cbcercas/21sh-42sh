@@ -42,6 +42,7 @@ struct	s_input
 	struct winsize	*ts;
 	t_cpos			cpos;
 	t_select		*select;
+	BOOL				hist_lock;
 };
 
 typedef struct s_window	t_window;
@@ -50,7 +51,7 @@ struct 					s_window
 	t_input				*cur_head;
 	t_input				*cur;
 	t_input				*save;
-	int 				histlvl;
+	size_t 				histlvl;
 	struct winsize		ts;
 	t_select			select;
 };
@@ -74,6 +75,7 @@ void	redraw_input(t_input *inp);
 void	input_destroy(t_input **input);
 void	input_reset(t_input *input);
 t_input *input_hard_reset(t_input **input);
+t_input *input_from_history(const char *hist);
 
 t_window	*get_windows(int rst);
 t_select	*get_select(void);

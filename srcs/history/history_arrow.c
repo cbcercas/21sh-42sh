@@ -20,11 +20,11 @@ BOOL	history_exec_arrow_right(t_input *input)
 {
 	//TODO REFACTOR
 	(void)input;
-	if (((size_t)(input->cpos.cp_col + (input->offset_line  * input->ts.ws_col) - input->offset_col)) < input->str->len)
+	if (((size_t)(input->cpos.cp_col + (input->offset_line  * input->ts->ws_col) - input->offset_col)) < input->str->len)
 	{
-		if (input->cpos.cp_col + 1 == input->ts.ws_col)
+		if (input->cpos.cp_col + 1 == input->ts->ws_col)
 			input->offset_line += 1;
-		move_cursor_right(&input->cpos, &input->ts);
+		move_cursor_right(&input->cpos, input->ts);
 	}
 	else
 		write(1, "\a", 1);
@@ -37,8 +37,8 @@ void	sh_history_draw_line(t_input *input, const char *line)
 	//TODO REFACTOR
 
 	log_dbg3("History: draw=\"%s\" ", line);
-	sh_history_clear_line(input->str->len + sh_len_prompt());
-	reset_input(input);
+	sh_history_clear_line((unsigned int)(input->prompt_len + input->str->len));
+	//reset_input(input);
 	sh_print_prompt(input, NULL, 0);
 	if(line)
 		string_replace(input->str, line);
@@ -62,13 +62,15 @@ void	sh_history_up(t_input *input)
 				return;
 			log_dbg3("History: buf=%s", first->buf);
 			log_dbg3("History: use=%d", hists->used);
-			log_dbg3("History: cur=%d", first->cur);
+			log_dbg3("History: cur_head=%d", first->cur);
 			if (first->cur < 0)
 				first->cur = hists->used - 1;
 			else if(first->cur)
 				first->cur--;
 			if ((h = (t_hist *)array_get_at(hists, first->cur)))
-				sh_history_draw_line(input, (const char *)h->cmd);
+			{
+				sh_history_draw_line(input, (const char *) h->cmd);
+			}
 		}
 }
 
@@ -86,7 +88,7 @@ void	sh_history_down(t_input *input)
 					return ;
 				log_dbg3("History: buf=%s", first->buf);
 				log_dbg3("History: use=%d", hists->used);
-				log_dbg3("History: cur=%d", first->cur);
+				log_dbg3("History: cur_head=%d", first->cur);
 				if(hists->used && (size_t)first->cur <= (hists->used - 1))
 					first->cur++;
 				if(first->cur == (int)hists->used)
