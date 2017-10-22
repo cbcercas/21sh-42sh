@@ -71,6 +71,8 @@ void	input_destroy(t_input **input);
 void	input_reset(t_input *input);
 
 t_window	*get_windows(int rst);
+t_select	*get_select(void);
+struct winsize	*get_ts(void);
 
 //TODO Remove this
 extern	t_input	*g_input;

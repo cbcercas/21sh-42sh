@@ -32,24 +32,30 @@ BOOL	exec_select(const t_key *key, t_input *input)
   return (false);
 }
 
+//TODO replace char *str by is_*_arrow(key->key)
 BOOL	exec_select_arrows(const t_key *key, t_input *input, char *str)
 {
-  size_t  start;
-  size_t  end;
+  t_select			*sel;
+  struct winsize	*ts;
+  size_t			start;
+  size_t			end;
 
   (void)key;
-  if (input && input->select.is && input->str->s && input->str &&\
-     input->str->s[pos_in_str(input)])
+  sel = get_select();
+	ts = get_ts();
+  if (input && sel->is && input->str->s && input->str
+      && input->str->s[pos_in_str(input)])
   {
-    start = input->select.cur_start;
-    end = input->select.cur_end;
-    if (str && ((start <= end && ft_strequ("right", str)) ||\
-     (start >= end && ft_strequ("left", str))))
-     tputs(tgetstr("mr", NULL), 1, ft_putchar2);
+
+    start = sel->cur_start;
+    end = sel->cur_end;
+    if (str && ((start <= end && ft_strequ("right", str))
+                || (start >= end && ft_strequ("left", str))))
+     tputs(tgetstr("mr", NULL), 1, &ft_putchar2);
     ft_putchar(input->str->s[pos_in_str(input)]);
-    if (input->cpos.cp_col + 1 != input->ts.ws_col)
+    if (input->cpos.cp_col + 1 != ts->ws_col)
       tputs(tgetstr("le", NULL), 0, &ft_putchar2);
-    tputs(tgetstr("me", NULL), 1, ft_putchar2);
+    tputs(tgetstr("me", NULL), 1, &ft_putchar2);
   }
   return (false);
 }

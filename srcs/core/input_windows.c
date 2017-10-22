@@ -45,3 +45,13 @@ t_window	*get_windows(int rst)
 	}
 	return (wd);
 }
+
+t_select	*get_select(void)
+{
+	return (&(get_windows(0))->select);
+}
+
+struct winsize	*get_ts(void)
+{
+	return (&(get_windows(0))->ts);
+}

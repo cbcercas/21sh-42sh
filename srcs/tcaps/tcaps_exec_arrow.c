@@ -16,18 +16,20 @@
 
 BOOL	exec_arrow_right(const t_key *key, t_input *input)
 {
-	(void)input;
-	(void)key;
+	struct winsize	*ts;
+	t_select		*sel;
 
 	log_dbg1("exec arrow right.");
-	if (((size_t) (input->cpos.cp_col + (input->offset_line  * input->ts.ws_col) - input->offset_col)) < input->str->len)
+	ts = get_ts();
+	sel = get_select();
+	if (((size_t) (input->cpos.cp_col + (input->offset_line  * ts->ws_col) - input->offset_col)) < input->str->len)
 	{
 		exec_select_arrows(key, input, "right");
-		if (input->cpos.cp_col + 1 == input->ts.ws_col)
+		if (input->cpos.cp_col + 1 == ts->ws_col)
 			input->offset_line += 1;
-		move_cursor_right(&input->cpos, &input->ts);
-		if (input->select.is)
-			input->select.cur_end = pos_in_str(input);
+		move_cursor_right(&input->cpos, ts);
+		if (sel->is)
+			sel->cur_end = pos_in_str(input);
 	}
 	sh_history_insert_buf(input->str->s);
 	return (false);
@@ -35,16 +37,20 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 
 BOOL	exec_arrow_left(const t_key *key, t_input *input)
 {
-	(void)key;
+	struct winsize	*ts;
+	t_select		*sel;
+
 	log_dbg1("exec arrow left.");
-	if (((input->cpos.cp_col + ((input->offset_line ) * input->ts.ws_col) - input->offset_col)) > 0)
+	ts = get_ts();
+	sel = get_select();
+	if (((input->cpos.cp_col + ((input->offset_line ) * ts->ws_col) - input->offset_col)) > 0)
 	{
 		exec_select_arrows(key, input, "left");
 		if (input->cpos.cp_col == 0)
 			input->offset_line -= 1;
-		move_cursor_left(&input->cpos, &input->ts);
-		if (input->select.is)
-			input->select.cur_end = pos_in_str(input);
+		move_cursor_left(&input->cpos, ts);
+		if (sel->is)
+			sel->cur_end = pos_in_str(input);
 	}
 	sh_history_insert_buf(input->str->s);
 	return (false);
