@@ -52,10 +52,10 @@ size_t		get_prompt(BOOL print)
 
 void		prompt_normal(t_input *inp)
 {
-	input_reset(inp);
 	ft_printf("Un joli prompt $ ");
 	inp->prompt_len = 17;
 	inp->offset_col = 17;
+	//TODO offset if prompt > ts
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
 }
@@ -65,10 +65,14 @@ void 		prompt_perso(t_input *inp, const char *prompt, t_return ret)
 	static char p[E_RET_LEXER_PIPE - E_RET_LEXER_INCOMPLETE + 1][8]=
 					{{""}, {"quote"}, {"bquote"}, {"dquote"}, {""}};
 
+	if (ret == E_RET_REDRAW_PROMPT)
+		ret = inp->prompt_type;
 	if (prompt == NULL)
-		prompt = p[ret - E_RET_LEXER_INCOMPLETE];
+			prompt = p[ret - E_RET_LEXER_INCOMPLETE];
 	ft_printf("%s> ", prompt);
+	inp->prompt_type = ret;
 	inp->prompt_len = ft_strlen(prompt) + 2;
+	//TODO offset if prompt > ts
 	inp->offset_col = (unsigned short)inp->prompt_len;
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
@@ -88,7 +92,3 @@ void sh_print_prompt(t_input *input, const char *prompt, t_return ret)
 		prompt_perso(input, prompt, ret);
 }
 
-size_t		sh_len_prompt(void)
-{
-	return (g_input->prompt_len);
-}

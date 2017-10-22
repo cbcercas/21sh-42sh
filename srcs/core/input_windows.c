@@ -30,7 +30,7 @@ t_window	*get_windows(int rst)
 		rst = 37;
 	}
 	if (rst >= 20)
-		if(!(input_hard_reset(&wd->cur)))
+		if(!(input_hard_reset(&wd->cur_head)))
 			return(NULL);
 	if ((rst >= 10 && rst < 20) || rst >= 30)
 		input_destroy(&wd->save);

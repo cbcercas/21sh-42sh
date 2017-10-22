@@ -10,13 +10,13 @@ void	redraw_line(t_input *input)
 
 
 	tmp = input->str->s + ((((input->cpos.cp_col + 1) - (input->offset_col + 1)) +
-		  (input->ts.ws_col * input->offset_line)) + input->len_save);
+		  (input->ts->ws_col * input->offset_line)));
 	len = (int)ft_strlen(tmp);
 	line = 0;
 	col = 0;
 	// clear rest of line if needed
 	tputs(tgetstr("ce", NULL), 0, ft_putchar2);
-	if ( len + 1 > (input->ts.ws_col - input->cpos.cp_col))
+	if ( len + 1 > (input->ts->ws_col - input->cpos.cp_col))
 	{
 		tputs(tgetstr("do", NULL), 0, ft_putchar2);
 		tputs(tgetstr("cr", NULL), 0, ft_putchar2);
@@ -31,10 +31,10 @@ void	redraw_line(t_input *input)
 	//affiche la ligne
 	tputs(tmp, (int) len, &ft_putchar2);
 	col = input->cpos.cp_col + len;
-	if (len > (input->ts.ws_col - input->cpos.cp_col))
+	if (len > (input->ts->ws_col - input->cpos.cp_col))
 	{
-		line =(len - (input->ts.ws_col - input->cpos.cp_col)) / input->ts.ws_col + ((len - (input->ts.ws_col - input->cpos.cp_col)) % input->ts.ws_col? 1 : 0);
-		col  = (len - (input->ts.ws_col - input->cpos.cp_col)) % input->ts.ws_col;
+		line =(len - (input->ts->ws_col - input->cpos.cp_col)) / input->ts->ws_col + ((len - (input->ts->ws_col - input->cpos.cp_col)) % input->ts->ws_col? 1 : 0);
+		col  = (len - (input->ts->ws_col - input->cpos.cp_col)) % input->ts->ws_col;
 	}
 	//TODO add tcaps_up(t_input *input, int nb)
 	while (line)

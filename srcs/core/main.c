@@ -43,7 +43,7 @@ char *str_from_input(void)
 	t_input	*input;
 	char	*line;
 
-	input = input_get();
+	input = input_get_cur_head();
 	line = NULL;
 	if (input == NULL)
 		return (NULL);
@@ -73,7 +73,7 @@ static char *sh_get_input(t_sh_data *data, char *prompt, t_return ret)
 		if (line)
 		{
 			//TODO what append when lexing incomplet
-			input = input_get();
+			input = input_get_cur_head();
 			ft_putendl(line);
 			string_insert(input->str, line, 0);
 			ft_strdel(&line);
@@ -83,11 +83,12 @@ static char *sh_get_input(t_sh_data *data, char *prompt, t_return ret)
 	{
 		if (ret >= E_RET_LEXER_INCOMPLETE && ret <= E_RET_LEXER_PIPE)
 		{
-			if ((input = input_add_new(input_get_last())) == NULL)
+			if ((input = input_add_new(input_get_last(input_get_cur_head()))) == NULL)
 				return (NULL);
 		}
-		else if (!(input = input_get_last()))
+		else if (!(input = input_get_last(input_get_cur_head())))
 			return (NULL);
+		(get_windows(0))->cur = input;
 		sh_print_prompt(input, prompt, ret);
 		sh_get_line(input, &(data->opts));
 	}
@@ -120,7 +121,7 @@ t_return	sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 	if ((ret = lexer_lex(tokens, line)) == E_RET_LEXER_OK
 		&& ((t_token*)array_get_at(tokens, tokens->used - 1))->type != E_TOKEN_PIPE)
 	{
-		hline = input_to_history(input_get());
+		hline = input_to_history(input_get_cur_head());
 		sh_history_set_new(&hline);
 		if (ret == E_RET_LEXER_OK && (ret = parser_parse(tokens)) ==
 									 E_RET_PARSER_OK)
@@ -200,8 +201,8 @@ int			main(int ac, char *const *av, char **environ)
 			sh_process_exec(&data, exec_dat.ast);
 		if (!(ret >= E_RET_LEXER_INCOMPLETE && ret <= E_RET_LEXER_PIPE))
 		{
-			input_destroy(&(input_get())->next);
-			input_reset(input_get());
+			input_destroy(&(input_get_cur_head())->next);
+			input_reset(input_get_cur_head());
 			ret = E_RET_NEW_PROMPT;
 		}
 		if (exec_dat.ast)

@@ -21,14 +21,13 @@ void	reset_input(t_input *input)
 	else
 		input->str = string_create();
 	input->prompt_len = 0;
-	input->len_save = 0;
 	input->offset_col = 0;
 	input->offset_line = 0;
 	input->cpos.cp_line = 0;
 	input->cpos.cp_col = input->offset_col;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
-	ft_strdel(&input->select.str);
-	ft_bzero(&input->select, sizeof(t_select));
+	//ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
+	ft_strdel(&input->select->str);
+	ft_bzero(input->select, sizeof(t_select));
 	input->next = NULL;
 }
 
@@ -39,7 +38,7 @@ void	input_destroy(t_input **input)
 		if ((*input)->next)
 			input_destroy(&(*input)->next);
 		string_del(&((*input)->str));
-		ft_strdel(&(*input)->select.str);
+		ft_strdel(&(*input)->select->str);
 		ft_memdel((void **) input);
 	}
 }
@@ -51,25 +50,26 @@ void	input_reset(t_input *input)
 	else
 		input->str = string_create();
 	input->prompt_len = 0;
-	input->len_save = 0;
 	input->offset_col = 0;
 	input->offset_line = 0;
 	input->cpos.cp_line = 0;
 	input->cpos.cp_col = input->offset_col;
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
-	ft_strdel(&input->select.str);
-	ft_bzero(&input->select, sizeof(t_select));
+	//ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
+	ft_strdel(&input->select->str);
+	ft_bzero(input->select, sizeof(t_select));
+	//input->inp_save = NULL;
 }
 
 size_t	pos_in_str(t_input *input)
 {
-	size_t	ret;
-	size_t	len_prompt;
+	size_t			ret;
+	size_t			len_prompt;
+	struct winsize	*ts;
 
 	ret = 0;
+	ts = get_ts();
  	len_prompt = input->prompt_len;
-	ret = input->cpos.cp_col + (input->offset_line * input->ts.ws_col) - \
-			len_prompt + input->len_save;
+	ret = input->cpos.cp_col + (input->offset_line *  ts->ws_col) - len_prompt;
 	return (ret);
 }
 

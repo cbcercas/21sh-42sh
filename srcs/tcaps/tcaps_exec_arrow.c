@@ -63,7 +63,8 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	log_dbg1("exec arrow up.");
 	//TODO add history
 	//tputs(tgetstr(key->key_code, NULL), 0, &ft_putchar2);
-	sh_history_up(input);
+	//sh_history_up(input);
+//	history_get_up();
 	//redraw_line(input);
 	return (false);
 }

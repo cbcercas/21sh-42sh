@@ -19,7 +19,7 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
-	reset_input(input);
+	get_windows(32);
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
@@ -29,8 +29,6 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 {
-	(void)key;
-	(void)input;
 	if (input->str->len == 0)
 	{
 		sh_history_save();
@@ -76,7 +74,7 @@ BOOL	exec_ctrl_l(const t_key *key, t_input *input)
 	//input->select.is = false;
 	//input->cpos.cp_col = (unsigned short)input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
-	sh_print_prompt(input, NULL, 0);
+	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	redraw_line(input);
 	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);

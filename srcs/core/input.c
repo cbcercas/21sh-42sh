@@ -120,24 +120,36 @@ t_input	*input_new(void)
 		return (NULL);
 	input->next = NULL;
 	input->prev = NULL;
+	input->ts = get_ts();
+	input->select = get_select();
 	input_reset(input);
 	return (input);
 }
-
-t_input	*input_get(void)
+t_input *input_hard_reset(t_input **input)
 {
-	static t_input	*input = NULL;
-
-	if (input == NULL)
-		input = input_new();
-	return (input);
+	input_destroy(input);
+	*input = input_new();
+	return (*input);
 }
 
-t_input	*input_get_last(void)
+t_input	*input_get_cur_head(void)
 {
-	t_input	*input;
+	t_window	*w;
 
-	input = input_get();
+	w = get_windows(0);
+	return (w->cur_head);
+}
+
+t_input	*input_get_cur(void)
+{
+	t_window	*w;
+
+	w = get_windows(0);
+	return (w->cur);
+}
+
+t_input *input_get_last(t_input *input)
+{
 	while (input && input->next)
 		input = input->next;
 	return (input);
@@ -176,6 +188,29 @@ char	*input_to_history(t_input *input)
 	}
 	return (line);
 }
+
+void	redraw_input(t_input *inp)
+{
+	t_input	*inpcpy;
+	int 	line;
+
+	inpcpy = inp;
+	line = 0;
+	//TOXO prompt_len in history????
+	tputs(tgoto(tgetstr("cm", NULL) , tgetnum("li"), (int)inp->prompt_len), 1, &ft_putchar2);
+	//clear
+	tputs(tgetstr("ce", NULL), 0, ft_putchar2);
+	while (inpcpy)
+	{
+		//TODO check if line is multiline all char are drawed
+		tputs(inpcpy->str->s, (int)inpcpy->str->len, &ft_putchar2);
+		//TODO increment col pos, offset line...
+		inpcpy = inpcpy->next;
+		line += 1;
+	}
+	//TODO refactor to support multiline
+	tputs(tgoto(tgetstr("cm", NULL) , tgetnum("li") - line, (int)inp->prompt_len + (int)inp->str->len), 1, &ft_putchar2);
+}
 /*
 
 #define INPUT_PREV true
@@ -210,7 +245,7 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
 			stop = key_exec(&key, input);
-		else if (is_printstr(buff) && !input->select.is)
+		else if (is_printstr(buff) && !input->select->is)
 		{
 			if (!string_insert(input->str, key.key, pos_in_str(input)))
 				return (NULL);

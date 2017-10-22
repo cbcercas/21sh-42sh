@@ -18,7 +18,7 @@
 BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {
 	//TODO REFACTOR
-
+	//TODO if \\n in middle line
 // exec_ctrl_c(key, input);
 	(void)key;
 	//string_insert(input->str,"\n", input->str->len);
