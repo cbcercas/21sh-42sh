@@ -59,8 +59,8 @@ BOOL	exec_alt_c(const t_key *key, t_input *input);
 BOOL	exec_alt_v(const t_key *key, t_input *input);
 BOOL	exec_alt_x(const t_key *key, t_input *input);
 
-void	redraw_line(t_input *input);
-void    reset_line();
+void	redraw_line(t_input *input) __attribute__ ((deprecated("Use redraw_input instead")));
+void    reset_line()  __attribute__ ((deprecated("Refactor or remove")));
 
 void	tcaps_down(t_input *input);
 

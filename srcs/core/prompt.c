@@ -53,6 +53,7 @@ size_t		get_prompt(BOOL print)
 void		prompt_normal(t_input *inp)
 {
 	ft_printf("Un joli prompt $ ");
+	inp->prompt_type = E_RET_NEW_PROMPT;
 	inp->prompt_len = 17;
 	inp->offset_col = 17;
 	//TODO offset if prompt > ts
@@ -86,9 +87,10 @@ void sh_print_prompt(t_input *input, const char *prompt, t_return ret)
 		ft_putendl("%");
 		tputs(tgetstr("me", NULL), 1, ft_putchar2);
 	}
-	if (input->prev == NULL)
+
+	if ((input->prev == NULL && ret == E_RET_NEW_PROMPT) || (ret == E_RET_REDRAW_PROMPT && input->prompt_type == E_RET_NEW_PROMPT))
 		prompt_normal(input);
-	else
+	else //if ((ret != E_RET_EMPTY_LINE && ret != E_RET_NEW_PROMPT) && (ret == E_RET_REDRAW_PROMPT && input->prompt_type != E_RET_NEW_PROMPT))
 		prompt_perso(input, prompt, ret);
 }
 

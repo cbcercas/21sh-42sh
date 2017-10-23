@@ -13,6 +13,7 @@
 #include <autocomplete/autocomplete.h>
 #include <core/tcaps.h>
 #include <core/prompt.h>
+#include <core/input.h>
 
 void		autocomplete_display(t_array *content)
 {

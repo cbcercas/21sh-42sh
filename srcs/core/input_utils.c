@@ -24,8 +24,8 @@ void	reset_input(t_input *input)
 	input->offset_col = 0;
 	input->offset_line = 0;
 	input->cpos.cp_line = 0;
+	input->offset_len = 0;
 	input->cpos.cp_col = input->offset_col;
-	//ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
 	ft_strdel(&input->select->str);
 	ft_bzero(input->select, sizeof(t_select));
 	input->next = NULL;
@@ -54,10 +54,10 @@ void	input_reset(t_input *input)
 	input->offset_line = 0;
 	input->cpos.cp_line = 0;
 	input->cpos.cp_col = input->offset_col;
-	//ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
+	input->offset_len = 0;
+	input->lock = false;
 	ft_strdel(&input->select->str);
 	ft_bzero(input->select, sizeof(t_select));
-	//input->inp_save = NULL;
 }
 
 size_t	pos_in_str(t_input *input)
@@ -69,12 +69,6 @@ size_t	pos_in_str(t_input *input)
 	ret = 0;
 	ts = get_ts();
  	len_prompt = input->prompt_len;
-	ret = input->cpos.cp_col + (input->offset_line *  ts->ws_col) - len_prompt;
+	ret = input->cpos.cp_col + (input->offset_line *  ts->ws_col) - len_prompt + input->offset_len;
 	return (ret);
-}
-
-void	sh_reset_line(t_automaton *automaton, t_array *tokens)
-{
-	array_reset(tokens, NULL);
-	automaton_reset(automaton);
 }

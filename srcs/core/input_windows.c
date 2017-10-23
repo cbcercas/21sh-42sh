@@ -55,3 +55,19 @@ struct winsize	*get_ts(void)
 {
 	return (&(get_windows(0))->ts);
 }
+
+t_input	*input_get_cur_head(void)
+{
+	t_window	*w;
+
+	w = get_windows(0);
+	return (w->cur_head);
+}
+
+t_input	*input_get_cur(void)
+{
+	t_window	*w;
+
+	w = get_windows(0);
+	return (w->cur);
+}

@@ -22,7 +22,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 	log_dbg1("exec arrow right.");
 	ts = get_ts();
 	sel = get_select();
-	if (((size_t) (input->cpos.cp_col + (input->offset_line  * ts->ws_col) - input->offset_col)) < input->str->len)
+	if (((size_t) (input->cpos.cp_col + (input->offset_line  * ts->ws_col) - input->offset_col) + input->offset_len) < input->str->len)
 	{
 		exec_select_arrows(key, input, "right");
 		if (input->cpos.cp_col + 1 == ts->ws_col)
@@ -31,7 +31,6 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 		if (sel->is)
 			sel->cur_end = pos_in_str(input);
 	}
-	sh_history_insert_buf(input->str->s);
 	return (false);
 }
 
@@ -52,7 +51,6 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 		if (sel->is)
 			sel->cur_end = pos_in_str(input);
 	}
-	sh_history_insert_buf(input->str->s);
 	return (false);
 }
 
@@ -61,44 +59,98 @@ static void cpy_input_data(t_input *cpy, t_input *ori)
 	cpy->prompt_type = ori->prompt_type;
 	cpy->prompt_len = ori->prompt_len;
 	cpy->offset_col = (unsigned short)ori->prompt_len;
-	cpy->cpos.cp_col = (unsigned short)ori->prompt_len;
+	ft_memmove(&cpy->cpos, &ori->cpos, sizeof(ori->cpos));
+}
+
+t_input	*input_back_to_origin(t_input *input)
+{
+	t_cpos	cpos;
+	ssize_t up;
+
+	cpos.cp_col = input->cpos.cp_col;
+	cpos.cp_line = 0;
+	while (input)
+	{
+		up = ((input->prompt_len + input->str->len) / input->ts->ws_col);
+		if (input->prev && !input->prev->lock)
+		{
+			tputs(tgetstr("up", NULL), 0, &ft_putchar2);
+			while (up-- > 0)
+				tputs(tgetstr("up", NULL), 0, &ft_putchar2);
+			input = input->prev;
+		}
+		else
+		{
+			move_cursor_to_col(&cpos, get_ts(), input->offset_col);
+			ft_memmove(&input->cpos, &cpos, sizeof(cpos));
+			break;
+		}
+	}
+	return (input);
+}
+
+t_input	*input_draw(t_input *input)
+{
+	ssize_t	down;
+
+	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	while (input)
+	{
+		redraw_line(input);
+		if (input->next)
+		{
+			down = 2 + (input->prompt_len + input->str->len) / input->ts->ws_col;
+			while (--down > 0)
+			{
+				tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+				tputs("\n", 0, &ft_putchar2);
+			}
+			input = input->next;
+		}else
+			break;
+	}
+	return (input);
+}
+
+void	input_goto_line_end(t_input *input)
+{
+	t_cpos	dest;
+
+	dest.cp_line = (unsigned short)((input->prompt_len + input->str->len)
+				   / input->ts->ws_col);
+	dest.cp_col = (unsigned short)((input->prompt_len + input->str->len)
+								   % input->ts->ws_col);
+	while (dest.cp_line > input->cpos.cp_line)
+		move_cursor_down(&input->cpos);
+	move_cursor_to_col(&input->cpos, input->ts, dest.cp_col);
 }
 
 BOOL	exec_arrow_up(const t_key *key, t_input *input)
 {
 	t_input *tmp;
 
-
 	(void)key;
 	log_dbg1("exec arrow up.");
-	//TODO add history
-	if (input->hist_lock)
+	if (input->lock)
 		return (false);
-	//TODO get history + test
+	//TODO add beep
 	if (!(tmp = input_from_history(history_get_n((get_windows(0)->histlvl)++))))
 		return(false);
-	while (input->prev && !input->prev->hist_lock)
-	{
-		//TODO offset line :(
-		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
-		input = input->prev;
-	}
+	input = input_back_to_origin(input);
+	cpy_input_data(tmp, input);
 	if (get_windows(0)->save == NULL)
 		get_windows(0)->save = input;
-	if (input->prev)
-		input->prev->next = tmp;
-	tmp->prev = input->prev;
+	else
+		input_destroy(&input);
+	if (get_windows(0)->save->prev)
+		get_windows(0)->save->prev->next = tmp;
+	else
+		get_windows(0)->cur_head = tmp;
+	tmp->prev = get_windows(0)->save->prev;
 	get_windows(0)->cur = tmp;
-	cpy_input_data(tmp, input);
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-	sh_print_prompt(tmp, NULL, E_RET_REDRAW_PROMPT);
-	while (tmp)
-	{
-		redraw_line(tmp);
-		tmp = tmp->next;
-		tputs(tgetstr("nw", NULL), 0, &ft_putchar2);
-	}
+	tmp = input_draw(tmp);
+	tmp = input_back_to_origin(tmp);
+	input_goto_line_end(tmp);
 	return (false);
 }
 

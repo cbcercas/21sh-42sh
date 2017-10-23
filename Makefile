@@ -14,7 +14,8 @@
 NAME			= 21sh
 
 SRC_SUBDIR		= core
-SRCS			+= main.c prompt.c init.c input.c usage_help.c input_utils.c deinit.c
+SRCS			+= main.c prompt.c init.c input.c usage_help.c input_utils.c \
+                    deinit.c input_windows.c input_draw.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c builtin_environ.c\
@@ -67,7 +68,7 @@ SRCS            += term_modes.c
 SRC_SUBDIR      += history
 SRCS            += history.c history_list_utils.c history_getter.c\
 					history_print.c history_arrow.c history_research.c\
-					history_research_start_end.c
+					history_research_start_end.c history_input_utils.c
 
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
@@ -108,6 +109,10 @@ endif
 ifeq ($(SAN),yes)
 	LDFLAGS += -fsanitize=address
 	CFLAGS += -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
+endif
+
+ifeq ($(NOERR),yes)
+    CFLAGS		= -g -Wall -Wextra -Wdeprecated-declarations
 endif
 
 #The Directories, Source, Includes, Objects and Libraries

@@ -39,10 +39,11 @@ struct	s_input
 	size_t			prompt_len;
 	unsigned short	offset_col;
 	unsigned short	offset_line;
+	unsigned short	offset_len;
 	struct winsize	*ts;
 	t_cpos			cpos;
 	t_select		*select;
-	BOOL				hist_lock;
+	BOOL			lock;
 };
 
 typedef struct s_window	t_window;
@@ -63,25 +64,29 @@ struct 					s_window
  */
 char *sh_get_line(t_input *input, t_sh_opt *opts);
 char	*sh_get_line2(void);
-void	reset_input(t_input *input);
+void			reset_input(t_input *input) __attribute__ ((deprecated("use input_reset instead")));
 size_t	pos_in_str(t_input *input);
 t_input	*input_new(void);
-t_input	*input_get_cur_head(void);
-t_input	*input_get_cur(void);
 t_input *input_get_last(t_input *input);
 t_input	*input_add_new(t_input *input);
-char	*input_to_history(t_input *input);
-void	redraw_input(t_input *inp);
+
 void	input_destroy(t_input **input);
 void	input_reset(t_input *input);
 t_input *input_hard_reset(t_input **input);
 t_input *input_from_history(const char *hist);
 
-t_window	*get_windows(int rst);
-t_select	*get_select(void);
+t_window		*get_windows(int rst);
+t_select		*get_select(void);
 struct winsize	*get_ts(void);
+t_input			*input_get_cur_head(void);
+t_input			*input_get_cur(void);
 
+/*
+ * input_draw.c
+ */
+void		draw_char(t_input *input, char *c);
+void			redraw_input(t_input *inp);
 //TODO Remove this
-extern	t_input	*g_input;
+extern	t_input	*g_input __attribute__ ((deprecated("Us get_windows(0)-cur or get_windows(0)->cur_head")));
 
 #endif

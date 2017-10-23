@@ -24,6 +24,7 @@ struct						s_sh_opt
 	unsigned		verbose:1;
 	unsigned		dbg:1;
 	enum e_d_lvl	dbg_lvl;
+	//TODO remove tcaps;
 	BOOL			tcaps;
 };
 

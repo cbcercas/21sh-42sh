@@ -16,7 +16,7 @@
 #include <logger.h>
 #include <libtcaps.h>
 
-void sh_history_print()
+void sh_history_print(void)
 {
 	t_array	*hists;
 	t_hist	*h;

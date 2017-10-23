@@ -89,14 +89,23 @@ t_array *sh_history_init(t_array *hists)
 	{
 		while (i < 1000)
 		{
-			while (get_next_line(fd, &line) && (line[ft_strlen(line - 1)] == '\\'))
-				cmd = ft_strjoincl(cmd, line, 2);
-			if ((h = sh_history_new(cmd ? cmd : line)))
+			while (get_next_line(fd, &line) && (line[ft_strlen(line) - 1] == '\\'))
+			{
+				if (cmd)
+					cmd = ft_strjoincl(cmd, "\n", 1);
+				cmd = ft_strjoincl(cmd, line, 3);
+				//cmd[ft_strlen(cmd) - 1] = '\0';
+			}
+			if (cmd && line)
+				cmd = ft_strjoincl(cmd, "\n", 1);
+			cmd = ft_strjoincl(cmd, line, 3);
+			if ((h = sh_history_new(cmd)))
 			{
 				h->session = false;
 				array_push(hists, (void *)h);
 				ft_memdel((void **) &h);
 			}
+			cmd = NULL;
 			i++;
 		}
 	}

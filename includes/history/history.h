@@ -55,4 +55,7 @@ void					sh_history_var_session_reset(void);
 const char					*sh_history_get_search(const char *line);
 const char					*sh_history_get_at(ssize_t nb);
 const char					*history_get_n(size_t n);
+
+char						*input_to_history(t_input *input);
+t_input 					*input_from_history(const char *hist);
 #endif

@@ -56,6 +56,7 @@ set(SOURCE_FILES
 		srcs/core/usage_help.c
 		srcs/core/prompt.c
 		srcs/core/input_windows.c
+		srcs/core/input_draw.c
 
 		srcs/environ/env_list_utils.c
 		srcs/environ/environ.c
@@ -94,7 +95,7 @@ set(SOURCE_FILES
 		srcs/history/history_arrow.c
 		srcs/history/history_research.c
 		srcs/history/history_research_start_end.c
-
+		srcs/history/history_input_utils.c
 		srcs/lexer/lexer_init.c
 		srcs/lexer/lexer.c
 		srcs/lexer/lexer_clean.c

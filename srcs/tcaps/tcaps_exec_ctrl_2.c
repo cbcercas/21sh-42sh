@@ -11,26 +11,28 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/input.h>
 #include <core/prompt.h>
 #include <history/history.h>
 
 BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {
-	//TODO REFACTOR
-	//TODO if \\n in middle line
-// exec_ctrl_c(key, input);
 	(void)key;
-	//string_insert(input->str,"\n", input->str->len);
-	if (input->str->s[pos_in_str(input) - 1] == '\\')
+	if (pos_in_str(input) == input->str->len
+		&& input->str->s[input->str->len - 1] == '\\' && !input->next)
 	{
-		//string_insert(input->str, key->key, pos_in_str(input));
 		tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 		tputs("\n", 0, &ft_putchar2);
 		tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-		//TODO realy need this
-		sh_print_prompt(input, NULL, 0);
+		input->lock = true;
+		input_add_new(input);
+		get_windows(0)->cur = input->next;
+		sh_print_prompt(input->next, NULL, E_RET_LEXER_PIPE);
 		return (false);
+	}
+	while (input->next)
+	{
+		tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+		input = input->next;
 	}
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);

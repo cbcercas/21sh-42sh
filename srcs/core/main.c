@@ -47,7 +47,7 @@ char *str_from_input(void)
 	line = NULL;
 	if (input == NULL)
 		return (NULL);
-	while (input)
+	while (input && input->str)
 	{
 		if(!(line = ft_strjoincl(line, input->str->s, 1)))
 			return (NULL);
