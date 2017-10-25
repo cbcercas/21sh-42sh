@@ -27,7 +27,8 @@ BOOL	exec_select(const t_key *key, t_input *input)
     input->select->is = false;
     input->select->cur_start = 0;
     input->select->cur_end = 0;
-	reset_line();
+	  //TODO Refactor
+    reset_line(input);
   }
   return (false);
 }

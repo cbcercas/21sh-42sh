@@ -13,8 +13,8 @@
 #include <autocomplete/autocomplete.h>
 #include <core/tcaps.h>
 #include <core/prompt.h>
-#include <core/input.h>
 
+//TODO Refactor with new input design (draw_input())
 void		autocomplete_display(t_array *content)
 {
 	if (!content || !content->used || content->used == 1)
@@ -25,11 +25,13 @@ void		autocomplete_display(t_array *content)
 	ft_putchar('\n');
 	autocomplete_display_cols(content);
 	ft_printf("\n");
-	autocomplete_display_prompt(g_input);
+	//why redraw prompt
+	autocomplete_display_prompt(get_windows(0)->cur);
 	raw_terminal_mode();
 }
 
 //TODO Refactor reset input, split history, print
+//TODO Refactor with new input design
 void		autocomplete_display_prompt(t_input *input)
 {
 	size_t	pos;

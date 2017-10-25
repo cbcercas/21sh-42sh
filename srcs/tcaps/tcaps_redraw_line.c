@@ -52,16 +52,16 @@ void	redraw_line(t_input *input)
 	}
 }
 
-void reset_line()
+void reset_line(t_input *input)
 {
 	size_t 	pos;
 	size_t 	savepos;
 
-	pos = pos_in_str(g_input);
+	pos = pos_in_str(input);
 	savepos = pos;
 	while (savepos--)
-		exec_arrow_left(NULL, g_input);
-	redraw_line(g_input);
-	while (pos != pos_in_str(g_input))
-		exec_arrow_right(NULL, g_input);
+		exec_arrow_left(NULL, input);
+	redraw_line(input);
+	while (pos != pos_in_str(input))
+		exec_arrow_right(NULL, input);
 };

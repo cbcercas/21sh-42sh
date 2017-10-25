@@ -66,7 +66,7 @@ BOOL	autocomplete_get_repons(size_t possibilities)
 		return (true);
 	default_terminal_mode();
 	ft_printf("\n");
-	autocomplete_display_prompt(g_input);
+	autocomplete_display_prompt(get_windows(0)->cur);
 	raw_terminal_mode();
 	return (false);
 }
