@@ -25,6 +25,31 @@ void		draw_char(t_input *input, char *c)
 		exec_arrow_right(NULL, input);
 }
 
+//TODO draw only from cursor pos
+t_input	*input_draw(t_input *input)
+{
+	ssize_t	down;
+
+	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	while (input)
+	{
+		redraw_line(input);
+		if (input->next)
+		{
+			down = 2 + (input->prompt_len + input->str->len) / input->ts->ws_col;
+			while (--down > 0)
+			{
+				tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+				tputs("\n", 0, &ft_putchar2);
+			}
+			input = input->next;
+		}else
+			break;
+	}
+	return (input);
+}
+
+//TODO Remove
 void	redraw_input(t_input *inp)
 {
 	t_input	*inpcpy;

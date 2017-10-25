@@ -89,29 +89,6 @@ t_input	*input_back_to_origin(t_input *input)
 	return (input);
 }
 
-t_input	*input_draw(t_input *input)
-{
-	ssize_t	down;
-
-	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-	while (input)
-	{
-		redraw_line(input);
-		if (input->next)
-		{
-			down = 2 + (input->prompt_len + input->str->len) / input->ts->ws_col;
-			while (--down > 0)
-			{
-				tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-				tputs("\n", 0, &ft_putchar2);
-			}
-			input = input->next;
-		}else
-			break;
-	}
-	return (input);
-}
-
 void	input_goto_line_end(t_input *input)
 {
 	t_cpos	dest;

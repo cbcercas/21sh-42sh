@@ -86,6 +86,8 @@ t_input			*input_get_cur(void);
  */
 void		draw_char(t_input *input, char *c);
 void			redraw_input(t_input *inp);
+t_input			*input_draw(t_input *input);
+
 //TODO Remove this
 extern	t_input	*g_input __attribute__ ((deprecated("Us get_windows(0)-cur or get_windows(0)->cur_head")));
 
