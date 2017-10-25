@@ -60,7 +60,13 @@ void    signals_handler(int sig)
 		signals_sigwinch();
 	if (sig == SIGUSR1)
 		sh_exit(NULL, NULL);
-	if (((sig >= 1 && sig <= 17) || sig == 23 || sig == 24 ||\
+	if (sig == 13)
+	{
+		if (g_pid)
+			kill(g_pid, SIGKILL);
+		exit(EXIT_SUCCESS);
+	}
+	else if (((sig >= 1 && sig <= 17) || sig == 23 || sig == 24 ||\
 					(sig >= 26 && sig <= 31)) && sig != SIGWINCH && sig != 28)
 		signals_quit(sig);
 	log_info("Signals:Shell cath signal:%d", sig);

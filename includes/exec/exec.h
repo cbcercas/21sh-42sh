@@ -54,5 +54,6 @@ void	manage_fds(int pipe[3][2], t_list *fds[5]);
 BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos);
 void	manage_close(t_list *fds[5]);
 
+int 	g_pid;
 
 #endif

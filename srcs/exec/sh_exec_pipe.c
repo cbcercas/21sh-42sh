@@ -12,13 +12,142 @@
 
 # include <exec/exec.h>
 
-int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag);
+void	multi_wait(t_list *pids)
+{
+	log_info("pid = %d", getpid());
+	while (pids)
+	{
+		//kill(pids->content_size, )
+		sh_wait(pids->content_size, 0);
+		//kill(-pids->content_size, SIGKILL);
+		pids = pids->next;
+	}
+}
+
+t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int
+wait_flag);
+
+int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+{
+	t_list		*pids;
+//	int		pid2;
+
+//	if((pid2 = sh_fork()) == -1)
+//		return (EXIT_FAILURE);
+//	if(pid2 == 0)
+	//{
+		pids = sh_exec_pipe2(data, ast, fds, wait_flag);
+		multi_wait(pids);
+	//	exit(EXIT_SUCCESS);
+	//}
+	sh_wait(-1, 0);
+	//signal(SIGK, SIG_IGN);
+	//kill(0,SIGKILL);
+	return(g_ret);
+}
+
+t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int
+wait_flag)
+{
+	int		pipe[2];
+	int		pid;
+	static t_list		*pids = NULL;
+
+	if(sh_pipe(pipe) != 0)
+		return (NULL);
+	if (((t_cmd *)ast->right->item)->type == E_TOKEN_PIPE)
+		sh_exec_pipe2(data, ast->right, fds, wait_flag);
+	else
+	{
+		if((pid = sh_fork()) == -1)
+			return (NULL);
+		if(pid == 0)
+		{
+			close(pipe[START]);
+			dup2(pipe[END], STDIN_FILENO);
+			sh_process_exec(data, ast->right, fds, 0);
+			exit(EXIT_SUCCESS);
+		}
+		exec_list_push(&pids, pid);
+	}
+	close(pipe[END]);
+	if((pid = sh_fork()) == -1)
+		return (NULL);
+	if(pid == 0)
+	{
+		exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+		sh_process_exec(data, ast->left, fds, WNOHANG);
+		exit(EXIT_SUCCESS);
+	}
+	exec_list_push(&pids, pid);
+	close(pipe[START]);
+	return (pids);
+}
+
+
+/*int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int
+wait_flag);
+
+int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+{
+	int		pid;
+	int		pid2;
+
+	if((pid2 = sh_fork()) == -1)
+		return (EXIT_FAILURE);
+	if(pid2 == 0)
+	{
+		pid = sh_exec_pipe2(data, ast, fds, wait_flag);
+		if (pid != -1)
+			sh_wait(pid, 0);
+		exit(EXIT_SUCCESS);
+	}
+	sh_wait(-1, 0);
+	return(g_ret);
+}
+
+int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
+{
+	int		pipe[2];
+	static int		pid = -1;
+
+	if(sh_pipe(pipe) != 0)
+		return (EXIT_FAILURE);
+	if (((t_cmd *)ast->right->item)->type == E_TOKEN_PIPE)
+		sh_exec_pipe2(data, ast->right, fds, wait_flag);
+	else
+	{
+		if((pid = sh_fork()) == -1)
+			return (EXIT_FAILURE);
+		if(pid == 0)
+		{
+			log_warn("D:");
+			//exec_list_push(&fds[STDOUT_FILENO], )
+			sh_process_exec(data, ast->right, fds, 0);
+			exit(EXIT_SUCCESS);
+		}
+	}
+	log_warn("G:");
+	close(pipe[END]);
+	if (!sh_fork())
+	{
+		//exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+		sh_process_exec(data, ast->left, fds, WNOHANG);
+		exit(EXIT_SUCCESS);
+	}
+	sh_wait(-1, WNOHANG);
+	close(pipe[START]);
+	log_warn("É:");
+	return (pid);
+}*/
+
+/*int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int
+wait_flag);
 
 int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
 {
 	int		pid;
 
-	pid = 0;
 	if (!(pid = sh_fork()))
 	{
 		sh_exec_pipe2(data, ast, fds, wait_flag);
@@ -41,7 +170,7 @@ int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
 	{
 		//dup2(pipe[START], STDOUT_FILENO);
 		log_info("fd = %d", pipe[START]);
-		exec_list_push(&fds[4], pipe[START]);
+		exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
 		close(pipe[END]);
 		if (!sh_process_exec(data, ast->left, fds, WNOHANG))
 			exit (EXIT_SUCCESS);
@@ -58,8 +187,7 @@ int sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
 	sh_wait(-1, 0);
 	close(pipe[END]);
 	return (g_ret);
-}
-
+}*/
 /*int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[4], int wait_flag)
 {
 	pid_t pid;

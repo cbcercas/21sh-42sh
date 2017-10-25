@@ -27,14 +27,12 @@ int sh_exec(t_cmd *item, t_list *fds[5], int wait_flag)
 	int		pipe[3][2];
 	pid_t	pid;
 
+	pid = -1;
 	if ((path = get_filename(item->av[0])))
 	{
 		if (!manage_create_pipe(pipe, fds))
 			return (EXIT_FAILURE);
 		signal(SIGWINCH, NULL);
-		if (fds[4] && (dup2(fds[4]->content_size,
-							STDOUT_FILENO) == -1))
-			return (false);
 		if (!(pid = sh_fork()))
 		{
 			if (!manage_dup2(pipe, fds))
@@ -43,14 +41,15 @@ int sh_exec(t_cmd *item, t_list *fds[5], int wait_flag)
 			execve(path, item->av, var_to_tab(get_envs()));
 			exit(EXIT_FAILURE);
 		}
-		g_ret = sh_ret(sh_wait(pid, wait_flag)); // TODO a mettre dans
-		signal(SIGWINCH, signals_handler);
 	}
+	g_pid = pid;
+	g_ret = sh_ret(sh_wait(pid, wait_flag)); // TODO a mettre dans
+	signal(SIGWINCH, signals_handler);
 	if (!multi_close(pipe, fds, START))
 		return (EXIT_FAILURE);
 
 	log_info("EXEC: manage_fds %s = [%d]", item->av[0], getpid());
-		manage_fds(pipe, fds);
+	manage_fds(pipe, fds);
 	if (!multi_close(pipe, fds, END))
 		return (EXIT_FAILURE);
 	ft_strdel(&path);
@@ -76,9 +75,6 @@ int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[5])
 	if (!manage_dup2(pipe, fds))
 		return (EXIT_FAILURE);
 	manage_close(fds);
-	if (fds[4] && (dup2(fds[4]->content_size,
-						STDOUT_FILENO) == -1))
-		return (false);
 	builtin = get_builtin(item->av[0]);
 	if (builtin)
 		g_ret = builtin->fn(data, item->av);
@@ -107,6 +103,7 @@ int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list *fds[5], int wait_flag)
 {
 	int ret;
 
+	g_pid = 0;
 	//log_info("EXEC: %s", item->av[0]);
 	if (item->av[0][0] == 'c')
 		log_info("EXEC: %s = [%d]", item->av[0], getpid());
