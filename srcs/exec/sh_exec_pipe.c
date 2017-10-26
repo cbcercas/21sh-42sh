@@ -46,7 +46,7 @@ static t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 	if(pid == 0)
 		sh_pipe_right(data, ast, fds, pipe);
 	exec_list_push(&pids, pid);
-	sleep(0);// TODO: FIX + issues
+	usleep(42);// TODO: FIX + issues
 	if((pid = sh_fork()) == -1)
 		return (NULL);
 	if(pid == 0)
