@@ -50,34 +50,33 @@ BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos)
 
 void	manage_fds(int pipe[3][2], t_list *fds[5])
 {
-	t_list			*tmp;
-	char			buf[1];
-	int				i;
-	ssize_t			ret;
+	t_list *tmp;
+	char buf[1];
+	int i;
+	ssize_t ret;
 
-	i = 3;
-	log_info("manage_fds");
-	while (i--)
-	{
-		log_info("i = %d", i);
-		while (fds[i] && (ret = read(pipe[i][END], buf, 1)) && ret != -1)
+	i = CLOSE;
+	log_info("EXEC manage_fds");
+		while (i--)
 		{
-			tmp = fds[i];
-			while (tmp)
+			while (fds[i] && (ret = read(pipe[i][END], buf, 1)) && ret != -1)
 			{
-				write(tmp->content_size, buf, 1);
-				tmp = tmp->next;
+				tmp = fds[i];
+				while (tmp)
+				{
+					write(tmp->content_size, buf, 1);
+					tmp = tmp->next;
+				}
 			}
 		}
-	}
 }
 
 void	manage_close(t_list *fds[5])
 {
 	t_list		*tmp;
 
-	tmp = fds[3];
-	log_info("manage_close");
+	tmp = fds[CLOSE];
+	log_info("EXEC manage_close");
 	while (tmp)
 	{
 		log_info("close = %d", tmp->content_size);

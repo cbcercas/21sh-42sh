@@ -12,7 +12,7 @@
 
 #include <exec/exec.h>
 
-static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list *fds[5])
+static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 {
 	if (fd2 == -2)
 	{
@@ -28,8 +28,8 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list *fds[5])
 		dup2(STDIN_FILENO, fd2);
 }
 
-static void		sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item
-															, t_list *fds[5])
+static void		sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
+											 t_list **fds)
 {
 	if (item && item->type == E_TOKEN_GREATAND)
 	{
@@ -42,9 +42,16 @@ static void		sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item
 			return ;
 		}
 		if (fd1 != -1)
+		{
+			fds[fd1] = NULL;
+			log_info("REDIR fd =%d", fd1);
 			exec_list_push(&fds[fd1], fd2);
+		}
 		else
+		{
+			fds[STDOUT_FILENO] = NULL;
 			exec_list_push(&fds[STDOUT_FILENO], fd2);
+		}
 		return ;
 	}
 	sh_exec_greatand_push_dup2(fd1, fd2, fds);
@@ -90,8 +97,7 @@ static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item)
 	return (true);
 }
 
-int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list *fds[5], int
-wait_flag)
+int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	pid_t	pid;
 	int		fd1;
@@ -102,14 +108,15 @@ wait_flag)
 		return (g_ret);
 	item = (t_cmd *)ast->item;
 	if (!sh_exec_greatand_open(&fd1, &fd2, item))
-		return ((g_ret = 1));
-	pid = sh_fork();
+		return ((g_ret = EXIT_FAILURE));
+	if((pid = sh_fork()) == -1)
+		return ((g_ret = EXIT_FAILURE));
 	if (pid == 0)
 	{
 		if (fd2 != -1)
 		{
 			sh_exec_greatand_push_dup(fd1, fd2, item, fds);
-			sh_process_exec(data, ast->left, fds, wait_flag);
+			sh_process_exec(data, ast->left, fds);
 			close(fd2);
 			close(fd1);
 		}

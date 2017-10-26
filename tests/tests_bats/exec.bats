@@ -167,7 +167,7 @@ load test_helper
 
 @test "EXEC: Testing [IN CORRECTION] for unsetenv PATH ; setenv PATH=\"/bin:/usr/bin\" ; ls" {
     expect=`ls`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unsetenv PATH ; setenv PATH=\"/bin:/usr/bin\" ; ls'
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unsetenv PATH ; setenv PATH="/bin:/usr/bin" ; ls'
     echo "ERROR:"
     display_line_output
     echo "$name_exec EXPECTED ->$expect"
@@ -226,13 +226,12 @@ load test_helper
 }
 
 @test "EXEC: Testing [IN CORRECTION] for base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g'" {
-    expect=`base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g'`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'base64 /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g''
     echo "ERROR:"
     display_line_output
-    echo "$name_exec EXPECTED ->$expect"
+    echo "$name_exec EXPECTED ->No or Yes"
     echo
-    [ "${output}" = "$expect" ]
+    [ "${output}" = "Yes" ] || [ "${output}" = "No" ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }
@@ -352,7 +351,7 @@ load test_helper
     check_leaks_function exec
 }
 
-@test "EXEC: Testing [IN CORRECTION] for  rm nosuchfile 2>&1 | cat -e" {
+@test "EXEC: Testing [IN CORRECTION] for  rm no 2>&1 | cat -e" {
     expect=`sh -c 'rm no 2>&1 | cat -e'`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm no 2>&1 | cat -e'
     echo "ERROR:"
@@ -400,30 +399,6 @@ load test_helper
     check_leaks_function exec
 }
 
-@test "EXEC: Testing [>&] for  rm nosuchfile >&- | cat -e" {
-    expect=`sh -c 'rm no >&- | cat -e'`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm no >&- | cat -e'
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->$expect"
-    echo
-    [ "${output}" = "$expect" ]
-    [ "$status" -eq 0 ]
-    check_leaks_function exec
-}
-
-@test "EXEC: Testing [>&] for ls >&- | cat -e" {
-    expect=`sh -c 'ls >&- | cat -e'`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls >&- | cat -e'
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->$expect"
-    echo
-    [ "${output}" = "$expect" ]
-    [ "$status" -eq 0 ]
-    check_leaks_function exec
-}
-
 ######################################################################
 ######################################################################
 
@@ -437,7 +412,7 @@ load test_helper
   echo
 	display_line_output
 	echo
-  ret=$( sh -c 'echo -e "toto\ntata"' )
+  ret=$( bash -c 'echo -e "toto\ntata"' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]
@@ -450,7 +425,7 @@ check_leaks_function exec
   echo
 	display_line_output
 	echo
-  ret=$( sh -c 'echo -e "toto\\atata"' )
+  ret=$( bash -c 'echo -e "toto\\atata"' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]
@@ -462,7 +437,7 @@ check_leaks_function exec
   echo
 	display_line_output
 	echo
-  ret=$( sh -c 'echo -e toto\\btata' )
+  ret=$( bash -c 'echo -e toto\\btata' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]
@@ -474,23 +449,10 @@ check_leaks_function exec
   echo
 	display_line_output
 	echo
-  ret=$( sh -c 'echo -e "toto\\atata"' )
+  ret=$( bash -c 'echo -e "toto\\atata"' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]
-check_leaks_function exec
-}
-
-@test "EXPAND: Testing [Built/Echo] with 'echo -e \"toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf\"'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -e "toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf"'
-  echo
-	display_line_output
-	echo
-  ret=$( sh -c 'echo -e "toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf"' )
-  echo "$name_exec EXPECTED ->$ret"
-  echo
-  [ "${output}" = "$ret" ]
-
 check_leaks_function exec
 }
 
@@ -499,7 +461,7 @@ check_leaks_function exec
   echo
 	display_line_output
 	echo
-  ret=$( sh -c 'echo -E "toto\ntata"' )
+  ret=$( bash -c 'echo -E "toto\ntata"' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]
@@ -512,7 +474,7 @@ check_leaks_function exec
   echo
 	display_line_output
 	echo
-  ret=$( sh -c 'echo -E "toto\\atata"' )
+  ret=$( bash -c 'echo -E "toto\\atata"' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]
@@ -524,7 +486,7 @@ check_leaks_function exec
   echo
 	display_line_output
 	echo
-  ret=$( sh -c 'echo -E toto\\btata' )
+  ret=$( bash -c 'echo -E toto\\btata' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]
@@ -536,23 +498,10 @@ check_leaks_function exec
   echo
 	display_line_output
 	echo
-  ret=$( sh -c 'echo -E "toto\\atata"' )
+  ret=$( bash -c 'echo -E "toto\\atata"' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]
-check_leaks_function exec
-}
-
-@test "EXPAND: Testing [Built/Echo] with 'echo -E \"toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf\"'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -E "toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf"'
-  echo
-	display_line_output
-	echo
-  ret=$( sh -c 'echo -E "toto\\a\a\\\a\\t\t\\\t\n\\n\\\n\b\\b\\\bata\r\\r\\\r\f\\\f\\fdfgdg\v\\v\\\vsfsdf"' )
-  echo "$name_exec EXPECTED ->$ret"
-  echo
-  [ "${output}" = "$ret" ]
-
 check_leaks_function exec
 }
 
@@ -562,30 +511,6 @@ check_leaks_function exec
 	display_line_output
 	echo
   ret=$( sh -c 'env -i' )
-  echo "$name_exec EXPECTED ->$ret"
-  echo
-  [ "${output}" = "$ret" ]
-check_leaks_function exec
-}
-
-@test "EXPAND: Testing [Built/Env] with 'env -i toto=tata'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'env -i toto=tata'
-  echo
-	display_line_output
-	echo
-  ret=$( sh -c 'env -i toto=tata' )
-  echo "$name_exec EXPECTED ->$ret"
-  echo
-  [ "${output}" = "$ret" ]
-check_leaks_function exec
-}
-
-@test "EXPAND: Testing [Built/Env] with 'env -u toto ls'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'env -u toto ls'
-  echo
-	display_line_output
-	echo
-  ret=$( sh -c 'env -u toto ls' )
   echo "$name_exec EXPECTED ->$ret"
   echo
   [ "${output}" = "$ret" ]

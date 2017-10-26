@@ -13,10 +13,6 @@
 #ifndef COMMAND_H
 # define COMMAND_H
 
-/*# include <unistd.h>
-# include <core/init.h>
-# include <core/data.h>
-# include <sys/wait.h>*/
 # include <libft.h>
 # include <btree/ft_btree.h>
 # include <lexer/lexer.h>
@@ -30,29 +26,32 @@
 
 #define START 1
 #define END 0
+#define CLOSE 3
+#define PIPE_OUT 4
+#define PIPE_IN 5
 
 void	exec_list_push(t_list **head, size_t fd);
 int		exec_exec(t_sh_data *data, t_btree *ast);
 void	exec_list_pop(t_list **head);
-int sh_exec(t_cmd *item, t_list *fds[5], int wait_flag);
-int   sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list *fds[5]);
-int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list *fds[5], int wait_flag);
-int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag);
+int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds);
+int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds);
 
 int
-sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag);
-int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag);
+sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds);
+int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds);
 
 int
-sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds, int wait_flag);
+sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds);
 
-int sh_heredoc(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag);
+int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds);
 
 BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5]);
 BOOL	manage_dup2(int pipe[3][2], t_list *fds[5]);
 void	manage_fds(int pipe[3][2], t_list *fds[5]);
 BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos);
 void	manage_close(t_list *fds[5]);
+
+void	exec_list_mouv(t_list **dest, t_list **src);
 
 int 	g_pid;
 

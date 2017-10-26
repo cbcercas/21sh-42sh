@@ -12,17 +12,21 @@
 
 # include <exec/exec.h>
 
-static	void	redir_great(t_cmd *item, t_list *fds[5], int fd)
+static	void	redir_great(t_cmd *item, t_list **fds, int fd)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
 		if (check_fd(ft_atoi(item->av[0])))
+		{
+			fds[ft_atoi(item->av[0])] = NULL;
 			exec_list_push(&fds[ft_atoi(item->av[0])], fd);
-		else
+		} else
 			exit(EXIT_FAILURE);
-	}
-	else
+	} else
+	{
+		fds[STDOUT_FILENO] = NULL;
 		exec_list_push(&fds[STDOUT_FILENO], fd);
+	}
 }
 
 static void		redir_less(t_cmd *item, int fd)
@@ -38,7 +42,7 @@ static void		redir_less(t_cmd *item, int fd)
 		dup2(fd, STDIN_FILENO);
 }
 
-int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag)
+int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	int		fd;
 	t_cmd	*item;
@@ -47,7 +51,7 @@ int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag)
 		return (g_ret);
 	item = (t_cmd *)ast->item;
 	if ((fd = sh_open_exec(ast)) == -1)
-		return((g_ret = 1));
+		return((g_ret = EXIT_FAILURE));
 	if (sh_fork() == 0)
 	{
 		if (fd != -1)
@@ -55,11 +59,9 @@ int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag)
 			if (item->type == E_TOKEN_DGREAT || ft_strequ(item->av[0], ">")
 				|| ft_strequ(item->av[1], ">"))
 				redir_great(item, fds, fd);
-			//else if (item->type == E_TOKEN_DLESS)
-				//sh_heradoc(item);
 			else
 				redir_less(item, fd);
-			sh_process_exec(data, ast->left, fds, wait_flag);
+			sh_process_exec(data, ast->left, fds);
 		}
 		exit(EXIT_SUCCESS);
 	}

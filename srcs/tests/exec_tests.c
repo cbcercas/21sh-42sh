@@ -53,7 +53,7 @@ void sh_testing_exec(char *const *av, char **environ)
 	if (expand_init(&expands) == NULL)
 		exit (1);
 	expand(&tokens, &expands);
-	//sh_process_exec(NULL, ast_create(&expands));
+	exec_exec(NULL, ast_create(&expands));
 	array_reset(&expands, NULL);
   ft_secu_free_all();
 	exit (0);

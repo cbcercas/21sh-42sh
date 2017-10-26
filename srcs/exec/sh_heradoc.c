@@ -22,6 +22,7 @@ static void	mini_input(char *end, int pipe_fd)
 		return ;
 	}
 	ft_putstr("heredoc>");
+	log_info("EXEC: HEREDOC word end = (%s)", end);
 	while (get_next_line(0, &line))
 	{
 		if (line && ft_strequ(line, end))
@@ -46,6 +47,17 @@ static BOOL	sh_heredoc_get_fd(t_cmd *item, int *fd)
 	return (true);
 }
 
+static int heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
+{
+	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), fd))
+		return ((g_ret = EXIT_FAILURE));
+	if(sh_pipe(pipe) != 0)
+		return((g_ret = EXIT_FAILURE));
+	if((*pid = sh_fork()) == -1)
+		return((g_ret = EXIT_FAILURE));
+	return (EXIT_SUCCESS);
+}
+
 static char	*sh_heredoc_search_end(t_cmd *item)
 {
 	if (ft_isdigit(item->av[0][0]))
@@ -53,31 +65,29 @@ static char	*sh_heredoc_search_end(t_cmd *item)
 	return (item->av[1]);
 }
 
-int sh_heredoc(t_sh_data *data, t_btree *ast, t_list *fds[5], int wait_flag)
+int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	int		fd;
 	int		pipe[2];
-	t_cmd	*item;
+	int		pid;
 
-	if (!ast)
+	if (!ast || heredoc_init(ast, &fd, pipe, &pid) == EXIT_FAILURE)
 		return (g_ret);
-	item = (t_cmd *)ast->item;
-	if (!sh_heredoc_get_fd(item, &fd))
-		return ((g_ret = -1));
-	signal(SIGINT, SIG_IGN);
-	if (!sh_pipe(pipe) && !sh_fork())
+	if (!pid)
 	{
+		signal(SIGINT, SIG_IGN);
 		close(pipe[END]);
-		mini_input(sh_heredoc_search_end(item), pipe[START]);
+		mini_input(sh_heredoc_search_end(((t_cmd *)ast->item)), pipe[START]);
 		exit(EXIT_SUCCESS);
 	}
 	sh_wait(0, 0);
-	signal(SIGINT, signals_handler);
 	close(pipe[START]);
 	if (!sh_fork())
 	{
-		dup2(pipe[END], fd);
-		sh_process_exec(data, ast->left, fds, wait_flag);
+		//dup2(pipe[END], fd);
+		fds[PIPE_IN] = NULL;
+		exec_list_push(&fds[PIPE_IN], pipe[END]);
+		sh_process_exec(data, ast->left, fds);
 		exit(EXIT_FAILURE);
 	}
 	sh_wait(0, 0);
