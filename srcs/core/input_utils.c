@@ -72,3 +72,10 @@ size_t	pos_in_str(t_input *input)
 	ret = input->cpos.cp_col + (input->offset_line *  ts->ws_col) - len_prompt + input->offset_len;
 	return (ret);
 }
+
+t_input *input_get_writable(t_input *input)
+{
+	while(input && input->prev && !input->prev->lock)
+		input = input->prev;
+	return (input);
+}

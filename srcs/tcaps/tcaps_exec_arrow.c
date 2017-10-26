@@ -111,6 +111,8 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	if (input->lock)
 		return (false);
 	//TODO add beep
+	//if (!(tmp = input_from_history(history_get_next(input_to_history
+	//(input_get_writable(input))))))
 	if (!(tmp = input_from_history(history_get_n((get_windows(0)->histlvl)++))))
 		return(false);
 	input = input_back_to_origin(input);

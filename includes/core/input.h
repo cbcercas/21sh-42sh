@@ -74,6 +74,7 @@ void	input_destroy(t_input **input);
 void	input_reset(t_input *input);
 t_input *input_hard_reset(t_input **input);
 t_input *input_from_history(const char *hist);
+t_input *input_get_writable(t_input *input);
 
 t_window		*get_windows(int rst);
 t_select		*get_select(void);
