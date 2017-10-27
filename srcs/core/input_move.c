@@ -42,10 +42,7 @@ void	input_goto_line_end(t_input *input)
 {
 	t_cpos	dest;
 
-	dest.cp_line = (unsigned short)((input->prompt_len + input->str->len)
-									/ input->ts->ws_col);
-	dest.cp_col = (unsigned short)((input->prompt_len + input->str->len)
-								   % input->ts->ws_col);
+	dest = input_get_last_pos(input);
 	move_cursor_to(&dest, &input->cpos, input->ts);
 }
 
@@ -55,5 +52,16 @@ t_cpos	input_get_first_pos(t_input *input)
 
 	cpos.cp_col = (unsigned short) input->prompt_len;
 	cpos.cp_line = 0;
+	return (cpos);
+}
+
+t_cpos	input_get_last_pos(t_input *input)
+{
+	t_cpos cpos;
+
+	cpos.cp_line = (unsigned short)((input->prompt_len + input->str->len)
+									/ input->ts->ws_col);
+	cpos.cp_col = (unsigned short)((input->prompt_len + input->str->len)
+								   % input->ts->ws_col);
 	return (cpos);
 }
