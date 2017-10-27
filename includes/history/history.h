@@ -58,4 +58,6 @@ const char					*history_get_n(size_t n);
 
 char						*input_to_history(t_input *input);
 t_input 					*input_from_history(const char *hist);
+const char					*history_get_next(char *str);
+const char					*history_get_prev(char *str);
 #endif

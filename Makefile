@@ -68,7 +68,8 @@ SRCS            += term_modes.c
 SRC_SUBDIR      += history
 SRCS            += history.c history_list_utils.c history_getter.c\
 					history_print.c history_arrow.c history_research.c\
-					history_research_start_end.c history_input_utils.c
+					history_research_start_end.c history_input_utils.c\
+					history_getter_2.c
 
 SRC_SUBDIR      += tcaps
 SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
