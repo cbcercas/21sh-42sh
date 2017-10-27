@@ -14,22 +14,48 @@
 #include <history/history.h>
 #include <core/prompt.h>
 
+/*
+**BOOL	exec_arrow_right(const t_key *key, t_input *input)
+**{
+**	struct winsize	*ts;
+**	t_select		*sel;
+**
+**	log_dbg1("exec arrow right.");
+**	ts = get_ts();
+**	sel = get_select();
+**	if (((size_t) (input->cpos.cp_col + (input->offset_line  * ts->ws_col) - input->offset_col) + input->offset_len) < input->str->len)
+**	{
+**		exec_select_arrows(key, input, "right");
+**		if (input->cpos.cp_col + 1 == ts->ws_col)
+**			input->offset_line += 1;
+**		move_cursor_right(&input->cpos, ts);
+**		if (sel->is)
+**			sel->cur_end = pos_in_str(input);
+**	}
+**	return (false);
+**}
+*/
+
 BOOL	exec_arrow_right(const t_key *key, t_input *input)
 {
 	struct winsize	*ts;
-	t_select		*sel;
 
 	log_dbg1("exec arrow right.");
 	ts = get_ts();
-	sel = get_select();
-	if (((size_t) (input->cpos.cp_col + (input->offset_line  * ts->ws_col) - input->offset_col) + input->offset_len) < input->str->len)
+	if (pos_in_str(input) == input->str->len && input->next)
 	{
-		exec_select_arrows(key, input, "right");
-		if (input->cpos.cp_col + 1 == ts->ws_col)
-			input->offset_line += 1;
-		move_cursor_right(&input->cpos, ts);
-		if (sel->is)
-			sel->cur_end = pos_in_str(input);
+		input = input->next;
+		tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+		input->cpos = input_get_first_pos(input);
+		move_cursor_to(&input->cpos, &(t_cpos){input->prev->cpos.cp_col, 0}, get_ts());
+		get_windows(0)->cur = input;
+	}
+	else if (((size_t) (input->cpos.cp_col + (input->cpos.cp_line  * ts->ws_col) - input->prompt_len)) < input->str->len)
+	{
+
+			if (input->cpos.cp_col + 1 == ts->ws_col)
+				input->offset_line += 1;
+			move_cursor_right(&input->cpos, ts);
 	}
 	return (false);
 }
