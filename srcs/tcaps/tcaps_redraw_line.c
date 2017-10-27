@@ -65,4 +65,4 @@ void reset_line(t_input *input)
 	redraw_line(input);
 	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);
-};
+}
