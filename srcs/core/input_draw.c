@@ -20,28 +20,24 @@ void		draw_char(t_input *input, char *c)
 	len = 0;
 	if (c)
 		len = (int)ft_strlen(c);
-	redraw_line(input);
+	redraw_input(input);
 	while (len--)
 		exec_arrow_right(NULL, input);
 }
 
-//TODO draw only from cursor pos
+//TODO add suport of input > ts.ws_line
+//draw input from cursor to the end
 t_input	*input_draw(t_input *input)
 {
-	ssize_t	down;
-
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
 	while (input)
 	{
 		redraw_line(input);
 		if (input->next)
 		{
-			down = 2 + (input->prompt_len + input->str->len) / input->ts->ws_col;
-			while (--down > 0)
-			{
-				tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-				tputs("\n", 0, &ft_putchar2);
-			}
+			input_goto_line_end(input);
+			tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+			tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 			input = input->next;
 		}else
 			break;
@@ -49,26 +45,21 @@ t_input	*input_draw(t_input *input)
 	return (input);
 }
 
-//TODO Remove
-void	redraw_input(t_input *inp)
+//TODO add suport of input > ts.ws_line
+void	redraw_input(t_input *input)
 {
-	t_input	*inpcpy;
-	int 	line;
+	t_input	*tmp;
+	t_input	*prev;
+	t_cpos	cpos;
 
-	inpcpy = inp;
-	line = 0;
-	//TODO prompt_len in history????
-	tputs(tgoto(tgetstr("cm", NULL) , tgetnum("li"), (int)inp->prompt_len), 1, &ft_putchar2);
-	//clear
-	tputs(tgetstr("ce", NULL), 0, ft_putchar2);
-	while (inpcpy)
-	{
-		//TODO check if line is multiline all char are drawed
-		tputs(inpcpy->str->s, (int)inpcpy->str->len, &ft_putchar2);
-		//TODO increment col pos, offset line...
-		inpcpy = inpcpy->next;
-		line += 1;
-	}
-	//TODO refactor to support multiline
-	tputs(tgoto(tgetstr("cm", NULL) , tgetnum("li") - line, (int)inp->prompt_len + (int)inp->str->len), 1, &ft_putchar2);
+//	if (((pos_in_str(input) + 1) == input->str->len) && !input->next)
+//		return;
+	prev = input->prev;
+	input->prev = NULL;
+	ft_memmove(&cpos, &input->cpos, sizeof(cpos));
+
+	tmp = input_draw(input);
+	input_back_to_origin(tmp);
+	move_cursor_to(&cpos, &input->cpos, get_ts());
+	input->prev = prev;
 }

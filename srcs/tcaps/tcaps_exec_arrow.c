@@ -62,52 +62,13 @@ static void cpy_input_data(t_input *cpy, t_input *ori)
 	ft_memmove(&cpy->cpos, &ori->cpos, sizeof(ori->cpos));
 }
 
-t_input	*input_back_to_origin(t_input *input)
-{
-	t_cpos	cpos;
-	ssize_t up;
-
-	cpos.cp_col = input->cpos.cp_col;
-	cpos.cp_line = 0;
-	while (input)
-	{
-		up = ((input->prompt_len + input->str->len) / input->ts->ws_col);
-		if (input->prev && !input->prev->lock)
-		{
-			tputs(tgetstr("up", NULL), 0, &ft_putchar2);
-			while (up-- > 0)
-				tputs(tgetstr("up", NULL), 0, &ft_putchar2);
-			input = input->prev;
-		}
-		else
-		{
-			move_cursor_to_col(&cpos, get_ts(), input->offset_col);
-			ft_memmove(&input->cpos, &cpos, sizeof(cpos));
-			break;
-		}
-	}
-	return (input);
-}
-
-void	input_goto_line_end(t_input *input)
-{
-	t_cpos	dest;
-
-	dest.cp_line = (unsigned short)((input->prompt_len + input->str->len)
-				   / input->ts->ws_col);
-	dest.cp_col = (unsigned short)((input->prompt_len + input->str->len)
-								   % input->ts->ws_col);
-	while (dest.cp_line > input->cpos.cp_line)
-		move_cursor_down(&input->cpos);
-	move_cursor_to_col(&input->cpos, input->ts, dest.cp_col);
-}
-
 BOOL	exec_arrow_up(const t_key *key, t_input *input)
 {
 	t_input *tmp;
 
 	(void)key;
 	log_dbg1("exec arrow up.");
+	//TODO really need this?
 	if (input->lock)
 		return (false);
 	//TODO add beep
@@ -126,7 +87,8 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	tmp->prev = get_windows(0)->save->prev;
 	get_windows(0)->cur = tmp;
 	tmp = input_draw(tmp);
-	tmp = input_back_to_origin(tmp);
+	if (tmp->prev)
+		tmp = input_back_to_origin(tmp);
 	input_goto_line_end(tmp);
 	return (false);
 }

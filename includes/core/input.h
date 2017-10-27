@@ -73,7 +73,7 @@ t_input	*input_add_new(t_input *input);
 void	input_destroy(t_input **input);
 void	input_reset(t_input *input);
 t_input *input_hard_reset(t_input **input);
-t_input *input_from_history(const char *hist);
+t_cpos	input_get_first_pos(t_input *input);
 
 t_window		*get_windows(int rst);
 t_select		*get_select(void);
@@ -88,6 +88,11 @@ void		draw_char(t_input *input, char *c);
 void			redraw_input(t_input *inp);
 t_input			*input_draw(t_input *input);
 
+/*
+ * input_move.c
+ */
+t_input			*input_back_to_origin(t_input *input);
+void			input_goto_line_end(t_input *input);
 //TODO Remove this
 extern	t_input	*g_input __attribute__ ((deprecated("Us get_windows(0)-cur or get_windows(0)->cur_head")));
 

@@ -1,6 +1,7 @@
 #include <core/tcaps.h>
 #include <core/input.h>
 
+//TODO Need a big rewrite
 void	redraw_line(t_input *input)
 {
 	char   *tmp;
@@ -16,7 +17,7 @@ void	redraw_line(t_input *input)
 	col = 0;
 	// clear rest of line if needed
 	tputs(tgetstr("ce", NULL), 0, ft_putchar2);
-	if ( len + 1 > (input->ts->ws_col - input->cpos.cp_col))
+	if ( len > (input->ts->ws_col - input->cpos.cp_col))
 	{
 		tputs(tgetstr("do", NULL), 0, ft_putchar2);
 		tputs(tgetstr("cr", NULL), 0, ft_putchar2);
