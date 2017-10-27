@@ -69,7 +69,7 @@ size_t	pos_in_str(t_input *input)
 	ret = 0;
 	ts = get_ts();
  	len_prompt = input->prompt_len;
-	ret = input->cpos.cp_col + (input->offset_line *  ts->ws_col) - len_prompt + input->offset_len;
+	ret = input->cpos.cp_col + (input->cpos.cp_line * ts->ws_col) - len_prompt;
 	return (ret);
 }
 
