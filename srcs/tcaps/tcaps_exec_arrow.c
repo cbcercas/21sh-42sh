@@ -124,7 +124,7 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	//TODO add beep
 	//if (!(tmp = input_from_history(history_get_next(input_to_history
 	//(input_get_writable(input))))))
-	if (!(tmp = input_from_history(history_get_n((get_windows(0)->histlvl)++))))
+	if (!(tmp = input_from_history(history_get_prev(input_to_history(input_get_writable(input->lock ? get_windows(0)->save : input))))))
 		return(false);
 	input = input_back_to_origin(input);
 	cpy_input_data(tmp, input);
