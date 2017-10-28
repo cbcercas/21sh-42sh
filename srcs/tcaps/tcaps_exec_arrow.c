@@ -40,6 +40,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 {
 	struct winsize	*ts;
 
+	(void)key;
 	log_dbg1("exec arrow right.");
 	ts = get_ts();
 	if (pos_in_str(input) == input->str->len && input->next)
@@ -85,6 +86,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 {
 	struct winsize	*ts;
 
+	(void)key;
 	log_dbg1("exec arrow left.");
 	ts = get_ts();
 	if (pos_in_str(input) == 0 && input->prev)
