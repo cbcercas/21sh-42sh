@@ -52,7 +52,8 @@ struct 					s_window
 	t_input				*cur_head;
 	t_input				*cur;
 	t_input				*save;
-	size_t 				histlvl;
+	ssize_t 				histlvl;
+	BOOL				histlock;
 	struct winsize		ts;
 	t_select			select;
 };

@@ -19,7 +19,7 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
-	get_windows(32);
+	get_windows(72);
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);

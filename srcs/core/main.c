@@ -198,7 +198,10 @@ int			main(int ac, char *const *av, char **environ)
 			break ;
 		ret = sh_process(&exec_dat.ast, &exec_dat.expand, &exec_dat.tokens, line);
 		if (ret == E_RET_AST_OK)
+		{
 			sh_process_exec(&data, exec_dat.ast);
+			get_windows(72); //TODO move this
+		}
 		if (!(ret >= E_RET_LEXER_INCOMPLETE && ret <= E_RET_LEXER_PIPE))
 		{
 			input_destroy(&(input_get_cur_head())->next);

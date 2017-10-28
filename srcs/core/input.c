@@ -79,7 +79,7 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 		{
 			if (!string_insert(input->str, key.key, pos_in_str(input)))
 				return (NULL);
-			get_windows(12);
+			get_windows(10)->histlock = true;
 			draw_char(input, key.key);
 		}
 		input = get_windows(0)->cur;
