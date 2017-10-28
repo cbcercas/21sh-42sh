@@ -9,7 +9,8 @@ void	redraw_line(t_input *input)
 	int		line;
 	int		col;
 
-
+	if (input->str->len == 0)
+		return ;
 	tmp = input->str->s + ((((input->cpos.cp_col + 1) - (input->offset_col + 1)) +
 		  (input->ts->ws_col * input->cpos.cp_line)));
 	len = (int)ft_strlen(tmp);
