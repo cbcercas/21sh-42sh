@@ -36,7 +36,7 @@ t_input *input_from_history(const char *hist)
 	t_input		*input;
 	const char	*c;
 
-	if (!(input = input_new()) || !hist)
+	if (!hist || !ft_strlen(hist) || !(input = input_new()))
 		return (NULL);
 	while ((c = ft_strstr(hist, "\\\n")) != NULL)
 	{
