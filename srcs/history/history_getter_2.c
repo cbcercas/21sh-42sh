@@ -14,47 +14,56 @@
 #include <history/history.h>
 //#include <logger.h>
 
-const char *history_get_next(char *str)
-{
-	t_array		*hists;
-	t_hist		*h;
-	size_t		lvl;
-	size_t		len;
-
-	if (!str || !(hists = sh_history_get()))
-		return (NULL);
-	len = ft_strlen(str);
-	lvl = ((t_window*)get_windows(0))->histlvl;
-	while ((h = (t_hist *)array_get_at(hists, lvl)) && hists->used > lvl &&
-			ft_strncmp(h->cmd, str, len))
-		lvl++;
-		ft_strdel(&str);
-	if (hists->used <= lvl)
-		return (NULL);
-	((t_window*)get_windows(0))->histlvl = lvl;
-	return (h->cmd);
-}
-
 const char *history_get_prev(char *str)
 {
 	t_array		*hists;
 	t_hist		*h;
-	size_t		lvl;
+	ssize_t		lvl;
 	size_t		len;
 
-	if (!str || !(hists = sh_history_get()))
+	lvl = get_windows(0)->histlvl;
+	if (!str || !(hists = sh_history_get()) || lvl < -1)
 		return (NULL);
 	len = ft_strlen(str);
-	lvl = ((t_window*)get_windows(0))->histlvl;
-	while ((h = (t_hist *)array_get_at(hists, lvl)) && lvl &&
-		   ft_strncmp(h->cmd, str, len))
-		lvl--;
-	if (ft_strnequ(h->cmd, str, len))
+	if (!get_windows(0)->histlock)
+		h = (t_hist *)array_get_at(hists, ((hists->used - 1) - (size_t)++lvl));
+	else
 	{
-		ft_strdel(&str);
-		((t_window*)get_windows(0))->histlvl = lvl;
-		return (h->cmd);
+		while (hists->used > (size_t)++lvl && (h = (t_hist *)array_get_at(hists, ((hists->used - 1) - (size_t)lvl))))
+			if (ft_strnequ(h->cmd, str, len))
+				break;
 	}
 	ft_strdel(&str);
+	if ((ssize_t)hists->used <= lvl || !h)
+		return (NULL);
+	get_windows(0)->histlvl = lvl;
+	return (h->cmd);
+}
+
+const char *history_get_next(char *str)
+{
+	t_array		*hists;
+	t_hist		*h;
+	ssize_t		lvl;
+	size_t		len;
+
+	lvl = get_windows(0)->histlvl;
+	if (!str || !(hists = sh_history_get()) || lvl < 0)
+		return (NULL);
+	len = ft_strlen(str);
+	if (!get_windows(0)->histlock)
+		h = (t_hist *)array_get_at(hists, (size_t)((hists->used - 1) - --lvl));
+	else
+	{
+		while ((h = (t_hist *)array_get_at(hists, (size_t)((hists->used - 1) - --lvl))))
+			   if (ft_strnequ(h->cmd, str, len))
+				   break;
+	}
+	ft_strdel(&str);
+	if (lvl >= 0 && h)
+	{
+		get_windows(0)->histlvl = lvl;
+		return (h->cmd);
+	}
 	return (NULL);
 }
