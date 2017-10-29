@@ -13,9 +13,9 @@
 #include <core/input.h>
 #include <core/tcaps.h>
 
-void		draw_char(t_input *input, char *c)
+void	draw_char(t_input *input, char *c)
 {
-	int		len;
+	int	len;
 
 	len = 0;
 	if (c)
@@ -52,8 +52,6 @@ void	redraw_input(t_input *input)
 	t_input	*prev;
 	t_cpos	cpos;
 
-//	if (((pos_in_str(input) + 1) == input->str->len) && !input->next)
-//		return;
 	prev = input->prev;
 	input->prev = NULL;
 	ft_memmove(&cpos, &input->cpos, sizeof(cpos));

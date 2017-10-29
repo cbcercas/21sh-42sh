@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tcaps_redraw_line.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/17 14:41:47 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/10/19 06:00:26 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <core/tcaps.h>
 
 void	redraw_line(t_input *input)
@@ -26,11 +38,10 @@ void	redraw_line(t_input *input)
 		tputs(tgetstr("nd", NULL), 0, &ft_putchar2);
 }
 
-
-void reset_line(t_input *input)
+void	reset_line(t_input *input)
 {
-	size_t 	pos;
-	size_t 	savepos;
+	size_t	pos;
+	size_t	savepos;
 
 	pos = pos_in_str(input);
 	savepos = pos;
