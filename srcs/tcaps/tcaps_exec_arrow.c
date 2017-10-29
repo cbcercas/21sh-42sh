@@ -106,95 +106,33 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 	return (false);
 }
 
-static void cpy_input_data(t_input *cpy, t_input *ori)
-{
-	cpy->prompt_type = ori->prompt_type;
-	cpy->prompt_len = ori->prompt_len;
-	cpy->offset_col = (unsigned short)ori->prompt_len;
-	ft_memmove(&cpy->cpos, &ori->cpos, sizeof(ori->cpos));
-}
-
 BOOL	exec_arrow_up(const t_key *key, t_input *input)
 {
-	t_input *tmp;
+	t_input		*new_inp;
 
 	(void)key;
 	log_dbg1("exec arrow up.");
-	//TODO really need this?
-	if (input->lock)
+	if (!(new_inp = sh_history_up(input)))
 		return (false);
-	//TODO add beep
-	if (!(tmp = input_from_history(history_get_prev(input_to_history(input_get_writable(input->lock ? get_windows(0)->save : input))))))
-		return(false);
 	input = input_back_to_origin(input);
-	cpy_input_data(tmp, input);
-	if (get_windows(0)->save == NULL)
-		get_windows(0)->save = input;
-	else
-		input_destroy(&input);
-	if (get_windows(0)->save->prev)
-		get_windows(0)->save->prev->next = tmp;
-	else
-		get_windows(0)->cur_head = tmp;
-	tmp->prev = get_windows(0)->save->prev;
-	get_windows(0)->cur = tmp;
-	tmp = input_draw(tmp);
-	if (tmp->prev)
-		tmp = input_back_to_origin(tmp);
-	input_goto_line_end(tmp);
+	input_to_save(&input, new_inp);
+	new_inp = input_draw(new_inp);
+	if (new_inp->prev)
+		new_inp = input_back_to_origin(new_inp);
+	input_goto_line_end(new_inp);
 	return (false);
 }
 
 BOOL	exec_arrow_down(const t_key *key, t_input *input)
 {
-	t_input *tmp;
-	t_input	*remove;
+	t_input *new_inp;
 
 	(void)key;
-	remove = NULL;
-	tmp = NULL;
 	log_dbg1("exec arrow down.");
-	//TODO really need this?
-	if (input->lock)
+	if (!(new_inp = sh_history_down(input)))
 		return (false);
-	//TODO add beep
-	if (get_windows(0)->histlvl >= 1 && (tmp = input_from_history(history_get_next(input_to_history(input_get_writable(get_windows(0)->histlock ? get_windows(0)->save : input))))))
-	{
-		input = input_back_to_origin(input);
-		cpy_input_data(tmp, input);
-		if (get_windows(0)->save == NULL)
-			get_windows(0)->save = input;
-		else
-			remove = input;
-		if (get_windows(0)->save->prev)
-			get_windows(0)->save->prev->next = tmp;
-		else
-			get_windows(0)->cur_head = tmp;
-		tmp->prev = get_windows(0)->save->prev;
-	}
-	else if (get_windows(0)->save && !tmp)
-	{
-		get_windows(0)->histlvl -= 1;
-		input = input_back_to_origin(input);
-		if (input->prev)
-		{
-			get_windows(0)->save->prev = input->prev;
-			input->prev->next = get_windows(0)->save;
-		}
-		else
-			get_windows(0)->cur_head = get_windows(0)->save;
-		remove = input;
-		tmp = get_windows(0)->save;
-		get_windows(0)->save = NULL;
-	}
-	else
-		return(false);
-	get_windows(0)->cur = tmp;
-	tputs(tgetstr("ce", NULL), 0, &ft_putchar2);
-	tmp = input_draw(tmp);
-	if (tmp->prev)
-		tmp = input_back_to_origin(tmp);
-	input_goto_line_end(tmp);
-	input_destroy(&remove);
+	new_inp = input_draw(new_inp);
+	new_inp = new_inp->prev ? input_back_to_origin(new_inp) : new_inp;
+	input_goto_line_end(new_inp);
 	return (false);
 }

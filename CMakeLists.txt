@@ -52,6 +52,7 @@ set(SOURCE_FILES
 		srcs/core/deinit.c
 		srcs/core/input.c
 		srcs/core/input_utils.c
+		srcs/core/input_utils_2.c
 		srcs/core/main.c
 		srcs/core/usage_help.c
 		srcs/core/prompt.c

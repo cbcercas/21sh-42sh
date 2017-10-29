@@ -8,7 +8,7 @@ t_window	*get_windows2(t_window *wd, int rst)
 		ft_bzero((void *)&wd->select, sizeof(wd->select));
 	}
 	if ((rst %= 4) && rst >= 2)
-		wd->histlvl = -1;
+		wd->h_lvl = -1;
 
 	if ((rst %= 2) && rst == 1)
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, &wd->ts);
@@ -18,7 +18,7 @@ t_window	*get_windows2(t_window *wd, int rst)
  * @brief		Create and manage windows data
  * @param[in]	rst		the reset byte
  * @details		rst can be a byte or an addition of byte like that
- *				40	reset histlock
+ *				40	reset h_complet
  * 				20	hard reset current input
  * 				10	destroy saved input
  * 				4	reset the selection data
@@ -45,7 +45,7 @@ t_window	*get_windows(int rst)
 		rst = 77;
 	}
 	if (rst >= 40)
-		wd->histlock = false;
+		wd->h_complet = false;
 	if ((rst %= 40) && rst >= 20)
 		if(!(input_hard_reset(&wd->cur_head)))
 			return(NULL);
