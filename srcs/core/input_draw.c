@@ -59,7 +59,10 @@ void	redraw_input(t_input *input)
 	ft_memmove(&cpos, &input->cpos, sizeof(cpos));
 
 	tmp = input_draw(input);
-	input_back_to_origin(tmp);
-	move_cursor_to(&cpos, &input->cpos, get_ts());
+	if (tmp != input)
+	{
+		input_back_to_origin(tmp);
+		move_cursor_to(&cpos, &input->cpos, get_ts());
+	}
 	input->prev = prev;
 }
