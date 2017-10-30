@@ -50,7 +50,6 @@ void	signals_sigwinch(void)
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	//TODO check when offset prompt
-	input->offset_line = 0;
 	//input->cpos.cp_line = 0;
 	//input->cpos.cp_col = input->offset_col;
 	//input->select->is = false;

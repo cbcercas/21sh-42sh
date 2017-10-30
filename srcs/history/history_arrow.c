@@ -20,12 +20,8 @@ BOOL	history_exec_arrow_right(t_input *input)
 {
 	//TODO REFACTOR
 	(void)input;
-	if (((size_t)(input->cpos.cp_col + (input->offset_line  * input->ts->ws_col) - input->offset_col)) < input->str->len)
-	{
-		if (input->cpos.cp_col + 1 == input->ts->ws_col)
-			input->offset_line += 1;
+	if (((size_t)(input->cpos.cp_col + (input->cpos.cp_line  * input->ts->ws_col) - input->offset_col)) < input->str->len)
 		move_cursor_right(&input->cpos, input->ts);
-	}
 	else
 		write(1, "\a", 1);
 	return (false);

@@ -51,13 +51,8 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 		move_cursor_to(&input->cpos, &(t_cpos){input->prev->cpos.cp_col, 0}, get_ts());
 		get_windows(0)->cur = input;
 	}
-	else if (((size_t) (input->cpos.cp_col + (input->cpos.cp_line  * ts->ws_col) - input->prompt_len)) < input->str->len)
-	{
-
-			if (input->cpos.cp_col + 1 == ts->ws_col)
-				input->offset_line += 1;
+	else if ((input->cpos.cp_col + (input->cpos.cp_line  * ts->ws_col) - input->offset_col) < input->str->len)
 			move_cursor_right(&input->cpos, ts);
-	}
 	return (false);
 }
 /*
@@ -98,11 +93,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 		get_windows(0)->cur = input;
 	}
 	else if (((input->cpos.cp_col + (input->cpos.cp_line * ts->ws_col) - input->offset_col)) > 0)
-	{
-		if (input->cpos.cp_col == 0)
-			input->offset_line -= 1;
 		move_cursor_left(&input->cpos, ts);
-	}
 	return (false);
 }
 

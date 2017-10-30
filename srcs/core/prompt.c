@@ -47,7 +47,7 @@ void		prompt_normal(t_input *inp)
 {
 	inp->prompt_type = E_RET_NEW_PROMPT;
 	inp->prompt_len = get_prompt();
-	inp->offset_col = inp->prompt_len;
+	inp->offset_col = (unsigned short)inp->prompt_len % inp->ts->ws_col;
 	//TODO offset if prompt > ts
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
@@ -66,7 +66,7 @@ void 		prompt_perso(t_input *inp, const char *prompt, t_return ret)
 	inp->prompt_type = ret;
 	inp->prompt_len = ft_strlen(prompt) + 2;
 	//TODO offset if prompt > ts
-	inp->offset_col = (unsigned short)inp->prompt_len;
+	inp->offset_col = (unsigned short)inp->prompt_len % inp->ts->ws_col;
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
 }

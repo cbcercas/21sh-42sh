@@ -22,10 +22,8 @@ void	reset_input(t_input *input)
 		input->str = string_create();
 	input->prompt_len = 0;
 	input->offset_col = 0;
-	input->offset_line = 0;
 	input->cpos.cp_line = 0;
-	input->offset_len = 0;
-	input->cpos.cp_col = input->offset_col;
+	input->cpos.cp_col = 0;
 	ft_strdel(&input->select->str);
 	ft_bzero(input->select, sizeof(t_select));
 	input->next = NULL;
@@ -51,10 +49,8 @@ void	input_reset(t_input *input)
 		input->str = string_create();
 	input->prompt_len = 0;
 	input->offset_col = 0;
-	input->offset_line = 0;
 	input->cpos.cp_line = 0;
-	input->cpos.cp_col = input->offset_col;
-	input->offset_len = 0;
+	input->cpos.cp_col = 0;
 	input->lock = false;
 	ft_strdel(&input->select->str);
 	ft_bzero(input->select, sizeof(t_select));
@@ -63,13 +59,11 @@ void	input_reset(t_input *input)
 size_t	pos_in_str(t_input *input)
 {
 	size_t			ret;
-	size_t			len_prompt;
 	struct winsize	*ts;
 
-	ret = 0;
 	ts = get_ts();
- 	len_prompt = input->prompt_len;
-	ret = input->cpos.cp_col + (input->cpos.cp_line * ts->ws_col) - len_prompt;
+	ret = (input->cpos.cp_col - input->offset_col)
+		  + (input->cpos.cp_line * ts->ws_col);
 	return (ret);
 }
 

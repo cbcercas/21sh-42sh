@@ -16,7 +16,7 @@ static void cpy_input_data(t_input *cpy, t_input *ori)
 {
 	cpy->prompt_type = ori->prompt_type;
 	cpy->prompt_len = ori->prompt_len;
-	cpy->offset_col = (unsigned short)ori->prompt_len;
+	cpy->offset_col = ori->offset_col;
 	ft_memmove(&cpy->cpos, &ori->cpos, sizeof(ori->cpos));
 }
 

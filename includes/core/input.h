@@ -34,11 +34,8 @@ struct					s_input
 	t_input				*prev;
 	t_string			*str;
 	t_return			prompt_type;
-	//TODO Use offset_col and offset line for prompt_len representation
 	size_t				prompt_len;
 	unsigned short		offset_col;
-	unsigned short		offset_line;
-	unsigned short		offset_len;
 	struct winsize		*ts;
 	t_cpos				cpos;
 	t_select			*select;

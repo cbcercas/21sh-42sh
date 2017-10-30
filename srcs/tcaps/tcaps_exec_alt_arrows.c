@@ -18,12 +18,12 @@ BOOL	exec_alt_up(const t_key *key, t_input *input)
 	size_t    x;
 	size_t    y;
 
-	y = input->offset_line - 1;
+	y = input->cpos.cp_line - 1;
 	x = input->cpos.cp_col;
-	if (input->offset_line <= 0 || (input->offset_line == 1 && x < input->prompt_len))
+	if (input->cpos.cp_line <= 0 || (input->cpos.cp_line == 1 && x < input->offset_col))
 		return (false);
 	(void)key;
-	while (input->cpos.cp_col != x || input->offset_line != y)
+	while (input->cpos.cp_col != x || input->cpos.cp_line != y)
 		exec_arrow_left(NULL, input);
 	return (false);
 }
@@ -37,12 +37,12 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 
 	i = 0;
 	nb_of_line = input->str->len / input->ts->ws_col;
-	y = input->offset_line + 1;
+	y = input->cpos.cp_line + 1;
 	x = input->cpos.cp_col;
-	if (nb_of_line == input->offset_line)
+	if (nb_of_line == input->cpos.cp_line)
 		return (false);
 	(void)key;
-	while ((input->cpos.cp_col != x || input->offset_line != y) && input->str->len != i)
+	while ((input->cpos.cp_col != x || input->cpos.cp_line != y) && input->str->len != i)
 	{
 		exec_arrow_right(NULL, input);
 		i++;
