@@ -21,6 +21,7 @@ void	redraw_line(t_input *input)
 
 	line = 0;
 	col = 0;
+	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
 	if (input->str->len == 0)
 		return ;
 	tmp = input->str->s + pos_in_str(input);
