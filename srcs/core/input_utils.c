@@ -35,7 +35,8 @@ void	input_destroy(t_input **input)
 	{
 		if ((*input)->next)
 			input_destroy(&(*input)->next);
-		string_del(&((*input)->str));
+		if ((*input)->str)
+			string_del(&((*input)->str));
 		ft_strdel(&(*input)->select->str);
 		ft_memdel((void **) input);
 	}

@@ -29,7 +29,6 @@ void	draw_char(t_input *input, char *c)
 //draw input from cursor to the end
 t_input	*input_draw(t_input *input)
 {
-	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
 	while (input)
 	{
 		redraw_line(input);

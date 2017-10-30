@@ -23,6 +23,12 @@ BOOL	exec_backspace(const t_key *key, t_input *input)
 		exec_arrow_left(key, input);
 		exec_delete(key, input);
 	}
+	else if (input->prev)
+	{
+		exec_arrow_left(key, input);
+		get_windows(0)->cur = input->prev;
+		exec_delete(key, input->prev);
+	}
 	else
 		write(1, "\a", 1);
 	//TODO change to termcaps

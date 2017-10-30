@@ -17,22 +17,29 @@
 BOOL	exec_delete(const t_key *key, t_input *input)
 {
 	size_t	pos;
+	t_input	*del;
 
 	(void)key;
 	log_dbg1("exec delete.");
-	pos = 0;
-	pos = (size_t)(input->cpos.cp_col + 1 - (input->offset_col + 1)) +
-		  (input->ts->ws_col * input->cpos.cp_line);
+	pos = pos_in_str(input);
 	if (input->str->len > pos)
-	{
 		string_remove_char(input->str, pos);
-		tputs(tgetstr("dm", NULL), 0, &ft_putchar2);
-		tputs(tgetstr("dc", NULL), 0, &ft_putchar2);
-		tputs(tgetstr("de", NULL), 0, &ft_putchar2);
-		redraw_line(input);
+	else if (input->str->len == pos && input->next)
+	{
+		input->str = string_join_cl(&input->str, &input->next->str, true);
+		del = input->next;
+		input->next = del->next;
+		if (input->next)
+			input->next->prev = input;
+		del->next = NULL;
+		input_destroy(&del);
 	}
 	else
+	{
 		write(1, "\a", 1);
+		return (false);
+	}
+	redraw_input(input);
 	//TODO WTF really you save the history on delete? why?
 	//sh_history_insert_buf(input->str->s);
 	return (false);

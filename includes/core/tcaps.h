@@ -36,8 +36,8 @@ BOOL	exec_ctrl_l(const t_key *key, t_input *input);
 BOOL	exec_ctrl_j(const t_key *key, t_input *input);
 BOOL	exec_ctrl_r(const t_key *key, t_input *input);
 
-BOOL	exec_backspace(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL	exec_delete(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+BOOL	exec_backspace(const t_key *key, t_input *input);
+BOOL	exec_delete(const t_key *key, t_input *input);
 
 BOOL	exec_tab(const t_key *key, t_input *input);
 
