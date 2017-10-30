@@ -11,51 +11,43 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <types/bool.h>
 #include <environ/getter_env.h>
 #include <environ/builtin_env_utils.h>
 #include <ftprintf.h>
 #include <core/input.h>
 #include <core/tcaps.h>
+#include <ft_libgen.h>
 
 //TODO see todo g_ret
 #include <core/prompt.h>
 #include <core/return.h>
 
-size_t		get_prompt(BOOL print)
+static size_t		get_prompt(void)
 {
+	char		*user;
 	char		*path;
-	char		*tmp;
+	const char	*basename;
+	char		*retstr;
 	size_t		len;
-	char		*ret;
 
+	user = get_var_value(get_envs(), "USER");
+	if (!user)
+		user =  "???";
 	path = NULL;
-	ret = (!g_ret ? "\033[92m" : "\033[91m"); // TODO g_ret really need a global
-	tmp = get_var_value(get_envs(), "USER") ? get_var_value(get_envs(), "USER") : ("???");
-	print ? ft_printf("\033[94m[%s] \033[0m", tmp) : 0;
-	len = (ft_strlen(tmp) + 3);
 	path = getcwd(path, 0);
-	tmp = (path ? ft_strrchr(path, '/') : NULL);
-	if (print && tmp && tmp[1])
-		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m  ", &tmp[1], ret);
-	else if (print && tmp)
-		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m  ", tmp, ret);
-	else if (print)
-		ft_printf("\033[93m➜ \033[0m %s🎩\033[0m  ", ret);
-	if (ft_strequ(tmp, "/"))
-		len += 7;
-	else
-		len += (tmp ? ft_strlen(tmp) + 5 : 5);
-	ft_strdel(&path);
+	basename = ft_basename(path);
+	retstr = (!g_ret) ? "\033[32m^_^" : "\033[91mX_X";
+	ft_printf("\033[0m(%s\033[0m) - %s - %s $ ",
+			  retstr, user, basename);
+	len = 11 + 3 + ft_strlen(user) + ft_strlen(basename);
 	return (len);
 }
 
 void		prompt_normal(t_input *inp)
 {
-	ft_printf("Un joli prompt $ ");
 	inp->prompt_type = E_RET_NEW_PROMPT;
-	inp->prompt_len = 17;
-	inp->offset_col = 17;
+	inp->prompt_len = get_prompt();
+	inp->offset_col = inp->prompt_len;
 	//TODO offset if prompt > ts
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
