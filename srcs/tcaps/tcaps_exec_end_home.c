@@ -16,23 +16,21 @@
 // TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_end(const t_key *key, t_input *input)
 {
-  size_t    i;
+	t_cpos	dest;
 
-  i = 0;
 	(void)key;
-  while (input->str->len > i++)
-    exec_arrow_right(NULL, input);
+	dest = input_get_last_pos(input);
+	move_cursor_to(&dest, &input->cpos, input->ts);
 	return (false);
 }
 
 // TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_start(const t_key *key, t_input *input)
 {
-  size_t    i;
+	t_cpos	dest;
 
-  i = 0;
 	(void)key;
-  while (input->str->len > i++)
-    exec_arrow_left(NULL, input);
+	dest = input_get_first_pos(input);
+	move_cursor_to(&dest, &input->cpos, input->ts);
 	return (false);
 }
