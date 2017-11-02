@@ -49,6 +49,10 @@ t_env *del_var(t_array *vars, char const *name)
 	if (i >= vars->used)
 		log_warn("Environ: can't find \"%s\" variables ", name);
 	else
-		vars = array_remove_at(vars, i, NULL);
+	{
+		ft_strdel(&e->name);
+		ft_strdel(&e->value);
+		array_remove_at(vars, i, NULL);
+	}
 	return (NULL);
 }

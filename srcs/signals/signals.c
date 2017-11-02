@@ -19,6 +19,7 @@ int sh_wait(pid_t pid, int wait_flag)
 	int		status;
 	pid_t	pid_child;
 
+	status = 0;
 	pid_child = waitpid(pid, &status, wait_flag);
 	if (WIFSIGNALED(status))
 	{
