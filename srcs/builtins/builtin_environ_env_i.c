@@ -20,8 +20,8 @@ t_array	*sh_builtin_env_i(t_array *tmp, char **argv)
 		return (NULL);
 	while (g_optind != -1 && argv[g_optind] && ft_strchr(argv[g_optind], '='))
 	{
-		if ((env = var_new(split_var_name(argv[g_optind]), \
-                        split_var_value(argv[g_optind]))))
+		if ((env = var_new(split_var_name(argv[g_optind]),
+						   split_var_value(argv[g_optind]), true)))
 		{
 			array_push(tmp, (void *)env);
 			ft_memdel((void**)&env);

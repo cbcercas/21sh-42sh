@@ -54,31 +54,11 @@ t_env			*builtin_env_new_env(t_env *env)
 	return (e);
 }
 
-t_array			*clone_env(t_array *tmp)
-{
-	t_array	*envs;
-	t_env	*env;
-	size_t	i;
-
-	envs = get_envs();
-	if (!envs)
-		return (tmp);
-	i = 0;
-	while (i < envs->used)
-	{
-		if (!(env = builtin_env_new_env((t_env *)array_get_at(envs, i))))
-			return (NULL);
-		array_push(tmp, (void *)env);
-		i++;
-	}
-	return (tmp);
-}
-
 t_array			*sh_builtin_env_u(t_array *tmp, char **argv)
 {
 	if (tmp == NULL)
 		return (NULL);
-	tmp = clone_env(tmp);
+	tmp = clone_vars(get_envs(), tmp);
 	if (g_optind != -1 && argv[g_optind])
 	{
 		sh_builtin_env_delenv(argv[g_optind], tmp);

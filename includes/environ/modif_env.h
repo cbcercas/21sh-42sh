@@ -9,6 +9,7 @@
 # include <environ/getter_env.h>
 
 t_env *del_var(t_array *vars, char const *name);
-t_env *set_var(t_array *vars, char const *name, char const *value);
+t_env *
+set_var(t_array *vars, char const *name, char const *value, BOOL is_export);
 
 #endif

@@ -14,5 +14,6 @@ void print_vars(t_array *vars);
 t_array	*get_envs(void);
 t_array		*get_vars(void);
 void sh_free_elem_env(t_env *elem);
+t_array			*clone_vars(t_array *vars, t_array *tmp);
 
 #endif

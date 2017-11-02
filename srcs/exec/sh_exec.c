@@ -116,7 +116,9 @@ int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 		dup2((int)fds[PIPE_OUT]->content_size, STDOUT_FILENO);
 	if(fds[PIPE_IN])
 		dup2((int)fds[PIPE_IN]->content_size, STDIN_FILENO);
-	if (sh_is_builtin(item->av[0]))
+	if (item && item->av && ft_strchr(item->av[0], '=') && ft_strlen(item->av[0]) != 1)
+		sh_exec_local_var(data, item, fds);
+	else if (sh_is_builtin(item->av[0]))
 		ret = sh_exec_builtin(data, item, fds);
 	else
 		ret = sh_exec(item, fds);

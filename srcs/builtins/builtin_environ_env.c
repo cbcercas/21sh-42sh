@@ -14,7 +14,7 @@
 
 int		builtins_env_over(t_array *env_local, int ret)
 {
-	array_destroy(&env_local, (void (*)(void*))&sh_free_elem_env);
+	array_destroy(&env_local, NULL);//(void (*)(void*))&sh_free_elem_env);
 	return (ret);
 }
 

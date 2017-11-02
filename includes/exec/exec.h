@@ -52,6 +52,7 @@ BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos);
 void	manage_close(t_list *fds[5]);
 
 void	exec_list_mouv(t_list **dest, t_list **src);
+int		sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds);
 
 int 	g_pid;
 
