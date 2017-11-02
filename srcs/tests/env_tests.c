@@ -19,7 +19,8 @@ void	sh_testing_env_set(char *const *av)
 	i = 4;
 	while(av[i] && ft_strchr(av[i], '='))
 	{
-		set_var(get_envs(), split_var_name(av[i]), split_var_value(av[i]));
+		set_var(get_envs(), split_var_name(av[i]), split_var_value(av[i]),
+				true);
 		i++;
 	}
 }

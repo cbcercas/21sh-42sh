@@ -22,7 +22,7 @@ void print_vars(t_array *vars)
 		return ;
 	while (i < vars->used)
 	{
-		e = (t_env *)array_get_at(vars, i);
+		e = (t_env *) array_get_at(vars, i);
 		ft_printf("\033[94m%s\033[0m=%s\n", e->name, e->value);
 		i++;
 	}
@@ -70,4 +70,26 @@ void		sh_free_elem_env(t_env *env)
 		free(env->value);
 	if (env->name)
 		free(env->name);
+}
+
+t_array			*clone_vars(t_array *vars, t_array *tmp)
+{
+	t_env	*var;
+	size_t	i;
+
+	if (!vars)
+		return (tmp);
+	i = 0;
+	while (i < vars->used)
+	{
+		var = (t_env *)array_get_at(vars, i);
+		if ((var = var_new(ft_strdup(var->name), ft_strdup(var->value), true))
+				   != NULL)
+		{
+			array_push(tmp, (void *)var);
+			ft_memdel((void **)&var);
+		}
+		i++;
+	}
+	return (tmp);
 }

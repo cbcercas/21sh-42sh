@@ -21,8 +21,8 @@ t_array	*init_environ(char **environ)
 	{
 		while (*environ)
 		{
-			if ((env = var_new(split_var_name(*environ), \
-                            split_var_value(*environ))) != NULL)
+			if ((env = var_new(split_var_name(*environ),
+							   split_var_value(*environ), true)) != NULL)
 			{
 				array_push(envs, (void *)env);
 				ft_memdel((void **)&env);
@@ -42,7 +42,9 @@ t_array *init_local_var(void)
 	{
 		if (!get_var_value(get_envs(), "PATH"))
 		{
-			set_var(get_vars(), "PATH", "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin");
+			set_var(get_vars(), "PATH",
+					"/sbin:/bin:</usr/sbin:/usr/bin:/usr/local/sbin:/usr/local"
+							"/bin", true);
 		}
 	}
 	log_info("Local variables initialized");
