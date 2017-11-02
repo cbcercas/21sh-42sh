@@ -91,9 +91,9 @@ static int		sh_do_chdir(char *arg, int opt)
 																PROGNAME, path);
 		return ((g_ret = 1));
 	}
-	set_var(get_envs(), get_var_value(get_envs(), "OLDPWD"), "PWD");
+	set_var(get_envs(), get_var_value(get_envs(), "OLDPWD"), "PWD", true);
 	getcwd(cwd, sizeof(cwd));
-	set_var(get_envs(),"PWD", cwd);
+	set_var(get_envs(), "PWD", cwd, true);
 	return ((g_ret = 0));
 }
 
