@@ -14,19 +14,12 @@
 
 char	*sh_getenv_exp(const char *name)
 {
-	t_array	*envs;
-	t_env	*e;
-	size_t	i;
+	char		*value;
 
-	i = 0;
-	envs = get_envs();
-	while (i < envs->used)
-	{
-		e = (t_env *)array_get_at(envs, i);
-		if (e->name && ft_strequ(e->name, name))
-			return (e->value);
-		i++;
-	}
+	if ((value = get_var_value(get_envs(), name)))
+		return (value);
+	if ((value = get_var_value(get_vars(), name)))
+		return (value);
 	return (NULL);
 }
 
