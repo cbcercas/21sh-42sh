@@ -17,15 +17,14 @@ void	signals_quit(int sig)
 {
 	default_terminal_mode();
 	if(sig == SIGSEGV)
-		ft_putstr("\nShell Segfault\n");
+		ft_putstr_fd("\nShell Segfault !\n", 2);
 	else if(sig == SIGABRT)
-		ft_putstr("Shell Abort");
+		ft_putstr_fd("Shell Abort", 2);
 	else
-		ft_printf("\nShell quit with signal: %d\nGoodbye, see-you! :)\n", sig);
+		ft_dprintf(STDERR_FILENO, "\nShell quit with signal: %d\nGoodbye, "
+				"see-you! :)\n", sig);
 	log_fatal("Signals: Shell quit with signal: %d", sig);
-	//sh_deinit(&data);//TODO si on veut gérer il faut une global dsl mr_chapeau
-	signal(SIGUSR1, SIG_IGN);
-	kill(0, SIGUSR1);
+	kill_childs(SIGTERM);
 	exit(128 + (sig % 32));
 }
 
@@ -58,12 +57,12 @@ void    signals_handler(int sig)
 	}
 	if(sig == SIGWINCH)
 		signals_sigwinch();
-	if (sig == SIGUSR1)
+	if (sig == SIGUSR1 || sig == SIGTERM)
 		sh_exit(NULL, NULL);
 	if (sig == 13)
 	{
-		if (g_pid)
-			kill(g_pid, SIGKILL);
+		if (get_pid_child(-1))
+			kill(get_pid_child(-1), SIGKILL);
 		exit(EXIT_SUCCESS);
 	}
 	else if (((sig >= 1 && sig <= 17) || sig == 23 || sig == 24 ||\

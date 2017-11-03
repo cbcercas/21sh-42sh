@@ -11,12 +11,18 @@
 /* ************************************************************************** */
 
 # include <tools/tools.h>
+# include <signals/signals.h>
 
 pid_t  sh_fork(void)
 {
-  pid_t pid;
+	pid_t	pid;
 
-  if ((pid = fork()) == -1)
-    ft_putstr_fd("fork error\n", 2);
+	if ((pid = fork()) == -1)
+		ft_putstr_fd("fork error\n", 2);
+	if (pid > 0)
+	{
+		log_dbg1("SH_FORK: Save pid_child %d", pid);
+		array_push(get_pids_child(), &pid);
+	}
   return (pid);
 }
