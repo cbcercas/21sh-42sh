@@ -24,6 +24,7 @@ int	sh_exit(t_sh_data *data, char **arg)
 	ft_printf("exit\n");
 	if (arg && arg[1] && ft_isdigit(arg[1][0]))
 		status = ft_atoi(arg[1]);
+	kill_childs(SIGTERM);
 	exit(status);
 }
 
