@@ -29,12 +29,12 @@ typedef struct 			s_exp
 
 t_array *expand(t_array *tokens, t_array *array_exp);
 t_exp	*expand_exp(t_exp *exp);
-void 	expand_dol(t_exp *exp);
+void 	expand_dol(t_string *str);
 t_array	*expand_init(t_array *expand_array);
 t_array	*expand(t_array *tokens, t_array *array_exp);
 t_exp	*exp_create_new(t_token *tok);
 t_exp	*expand_hist(t_exp *exp);
-char	*ft_replace_exp(char *src1, char *src2, int index, int size);
+char	*ft_replace_exp(char *src1, char *src2, size_t index, int size);
 
 void	sh_exp_del(void *i);
 void	sh_expand_destroy(t_array *array_exp);
