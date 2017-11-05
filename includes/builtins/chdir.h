@@ -22,6 +22,7 @@
  * @brief  Contains the functions for chdir (cd)
  */
 
-int	sh_chdir(t_sh_data *data, char **arg);
+int		sh_chdir(t_sh_data *data, char **arg);
+char	*expand_path(char **path);
 
 #endif

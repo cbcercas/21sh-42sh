@@ -32,6 +32,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtins_utils.c
 		srcs/builtins/builtins_utils2.c
 		srcs/builtins/builtin_chdir.c
+		srcs/builtins/builtin_chdir_expand.c
 		srcs/builtins/builtin_echo.c
 		srcs/builtins/builtin_exit.c
 		srcs/builtins/builtin_help.c
@@ -146,6 +147,7 @@ set(SOURCE_FILES
 		srcs/tools/string_secu.c
 		srcs/tools/sh_test_access.c
 		srcs/tools/is.c
+        srcs/tools/getpwd.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c

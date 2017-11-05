@@ -13,7 +13,7 @@
 #include <builtins/builtins_utils.h>
 
 extern char const	*g_optarg;
-extern int			g_opind;
+extern int			g_optind;
 
 void		sh_history_help(char *arg)
 {

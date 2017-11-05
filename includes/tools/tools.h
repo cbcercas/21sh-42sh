@@ -22,6 +22,7 @@
 # include <string/ft_string.h>
 # include <lexer/lexer.h>
 
+char	*get_pwd(void);
 void	ft_strdblfree(char **strdb);
 BOOL	is_printstr(char const *line);
 BOOL  is_white(int c);
