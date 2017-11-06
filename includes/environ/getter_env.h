@@ -11,7 +11,7 @@
 # include <core/data.h>
 # include <environ/builtin_env_utils.h>
 
-char	*sh_getenv_value(const char *name);
-t_env	*sh_getenv(char const *name);
+char *get_var_value(t_array *vars, const char *name);
+t_env *get_var(t_array *vars, const char *name);
 
 #endif

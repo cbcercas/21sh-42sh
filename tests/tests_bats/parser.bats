@@ -38,6 +38,28 @@ check_leaks_function parser
 check_leaks_function parser
 }
 
+@test "PARSER: Testing [OK] for ' ls'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser " ls"
+  echo "ERROR:"
+  echo "$name_exec OUTPUT   ->${lines[0]}"
+  echo "$name_exec EXPECTED ->${okparser}"
+  echo
+  [ "${lines[0]}" = "${okparser}" ]
+  [ "$status" -eq 0 ]
+check_leaks_function parser
+}
+
+@test "PARSER: Testing [OK] for 'ls '" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls "
+  echo "ERROR:"
+  echo "$name_exec OUTPUT   ->${lines[0]}"
+  echo "$name_exec EXPECTED ->${okparser}"
+  echo
+  [ "${lines[0]}" = "${okparser}" ]
+  [ "$status" -eq 0 ]
+check_leaks_function parser
+}
+
 @test "PARSER: Testing [OK] for 'ls -l'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls -l"
   echo "ERROR:"
@@ -60,8 +82,8 @@ check_leaks_function parser
 check_leaks_function parser
 }
 
-@test "PARSER: Testing [OK] for 'ls -l | cat -e | pleins | de  | pipe'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls -l | cat -e | pleins | de  | pipe"
+@test "PARSER: Testing [OK] for 'ls -l | cat -e | pleins | de | pipe'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls -l | cat -e | pleins | de | pipe"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
   echo "$name_exec EXPECTED ->${okparser}"
@@ -73,6 +95,17 @@ check_leaks_function parser
 
 @test "PARSER: Testing [OK] for 'ls ; ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls ; ls"
+  echo "ERROR:"
+  echo "$name_exec OUTPUT   ->${lines[0]}"
+  echo "$name_exec EXPECTED ->${okparser}"
+  echo
+  [ "${lines[0]}" = "${okparser}" ]
+  [ "$status" -eq 0 ]
+check_leaks_function parser
+}
+
+@test "PARSER: Testing [OK] for 'abc; ;abc'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "abc; ;abc"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
   echo "$name_exec EXPECTED ->${okparser}"
@@ -471,4 +504,4 @@ check_leaks_function parser
 ######################################################################
 ######################################################################
 
-#TODO:bad fd with >&
+#TODO: bad fd with >& and <&

@@ -6,23 +6,23 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/15 21:20:28 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/19 14:25:53 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/07/20 12:51:49 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <environ/environ.h>
 
-t_array	*sh_init_environ(char **environ)
+t_array	*init_environ(char **environ)
 {
 	t_array	*envs;
 	t_env	*env;
 
-	if ((envs = sh_get_envs()) != NULL)
+	if ((envs = get_envs()) != NULL)
 	{
 		while (*environ)
 		{
-			if ((env = env_new(split_env_name(*environ), \
-							split_env_value(*environ))) != NULL)
+			if ((env = var_new(split_var_name(*environ), \
+                            split_var_value(*environ))) != NULL)
 			{
 				array_push(envs, (void *)env);
 				ft_memdel((void **)&env);
@@ -30,21 +30,39 @@ t_array	*sh_init_environ(char **environ)
 			environ++;
 		}
 	}
+	log_info("Environ initialized");
 	return (envs);
 }
 
-char	**sh_tenv_to_tab(void)
+t_array *init_local_var(void)
 {
-	t_array	*envs;
+	t_array	*vars;
+
+	if ((vars = get_vars()) != NULL)
+	{
+		if (!get_var_value(get_envs(), "PATH"))
+		{
+			set_var(get_vars(), "PATH", "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin");
+		}
+	}
+	log_info("Local variables initialized");
+	return (vars);
+}
+
+char **var_to_tab(t_array *vars)
+{
 	t_env	*env;
 	char	**env_tab;
 	size_t	i;
 
-	envs = sh_get_envs();
-	env_tab = ft_memalloc(sizeof(*env_tab) * envs->used);
+	if (!vars)
+		return (NULL);
+	env_tab = ft_memalloc(sizeof(*env_tab) * (vars->used + 2));
 	i = 0;
-	while ((env = (t_env *)array_get_at(envs, i)) != NULL)
+	while (i < vars->used)
 	{
+		if (!(env = (t_env *)array_get_at(vars, i)))
+			return (NULL);
 		env_tab[i] = ft_strjoin(env->name, "=");
 		env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1);
 		i++;

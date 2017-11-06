@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/27 18:08:05 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/07/30 22:45:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,19 @@
 
 void test_aff(t_cmd *cmd)
 {
-	static int i = 0;
-	ft_printf("[%d]{%s} ", i, cmd->str);
+	static int 	i = 0;
+	int					index;
+
+	index = 0;
+	ft_printf("[%d]{", i);
+	while(cmd->av[index] && cmd->av[index + 1])
+	{
+		ft_printf("%s ", cmd->av[index]);
+		index++;
+	}
+	if (cmd->av[index])
+		ft_printf("%s", cmd->av[index]);
+	ft_putstr("} ");
 	i++;
 }
 
@@ -26,12 +37,12 @@ t_array init_tests_ast(char *input)
 
 	if (lexer_init(&tokens) == NULL)
 	{
-		ft_printf("Error initialising tokens");
+		ft_dprintf(2, "Error initialising tokens");
 		exit (1);
 	}
 	else if (automaton_init(&automaton) == NULL)
 	{
-		ft_printf("Error Initialising automaton");
+		ft_dprintf(2, "Error Initialising automaton");
 		exit (1);
 	}
 	else if (lexer_lex(&tokens, &automaton, input))
@@ -42,21 +53,27 @@ t_array init_tests_ast(char *input)
 	}
 	else
 	{
-		ft_printf("Fatal testing error : Couldn't Catch the error.");
+		ft_dprintf(2, "Fatal testing error : Couldn't Catch the error.");
 		exit (1);
 	}
 }
 
-void sh_testing_ast(char *const *av)
+void sh_testing_ast(char *const *av, char **environ)
 {
 	t_btree	*ast;
+	t_array		expands;
 	t_array		tokens;
 	char *input;
 
 	input = ft_strclean(av[3]);//TODO à faire pour le main ;)
 	ast = NULL;
+	init_environ(environ);
+	sh_history_init();
 	tokens = init_tests_ast(input);
-	if (!(ast = ast_create(&tokens)))
+	if (expand_init(&expands) == NULL)
+		exit (1);
+	expand(&tokens, &expands);
+	if (!(ast = ast_create(&expands)))
 		ft_printf("AST NULL\n");
 	else if (!av[4] || ft_strequ(av[4], "tree"))
 		btree_print(ast, (char * (*)(void*))&ast_aff);
@@ -64,6 +81,6 @@ void sh_testing_ast(char *const *av)
 		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
 	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	free(input);
-	array_reset(&tokens, NULL);
+	array_reset(&expands, NULL);
 	exit (0);
 }

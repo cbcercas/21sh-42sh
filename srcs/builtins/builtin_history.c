@@ -6,11 +6,14 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 10:51:56 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/06/19 14:43:21 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/10/10 19:13:56 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins/builtins_utils.h>
+
+extern char const	*g_optarg;
+extern int			g_opind;
 
 void		sh_history_help(char *arg)
 {
@@ -19,7 +22,7 @@ void		sh_history_help(char *arg)
 	ft_printf("-awrn [filename] or history -ps arg [arg...]\n");
 }
 
-static void	sh_history_helper(t_sh_data *data, char **argv, int opt)
+static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 {
 	(void)data;
 	if (opt == 'p')
@@ -27,32 +30,38 @@ static void	sh_history_helper(t_sh_data *data, char **argv, int opt)
 	else if (opt == -1)
 		sh_history_builtin_print(argv[optind]);
 	else if (opt == '?')
+	{
 		sh_history_help(argv[1]);
+		return (1);
+	}
+	return (0);
 }
 
 int			sh_history(t_sh_data *data, char **argv)
 {
 	int		opt;
+	int		ret;
 
 	(void)data;
+	ret = 0;
 	ft_getopt_reset();
 	opt = ft_getopt(ft_tablen(argv), argv, "cd:arwsnp");
 	if (opt == 'c')
 		sh_history_builtin_c();
 	else if (opt == 'd')
-		sh_history_builtin_d(optarg);
+		sh_history_builtin_d(g_optarg);
 	else if (opt == 'a')
-		sh_history_builtin_a(argv[optind]);
+		sh_history_builtin_a(argv[g_optind]);
 	else if (opt == 'n')
-		sh_history_builtin_n(argv[optind]);
+		sh_history_builtin_n(argv[g_optind]);
 	else if (opt == 'r')
-		sh_history_builtin_r(argv[optind]);
+		sh_history_builtin_r(argv[g_optind]);
 	else if (opt == 'w')
-		sh_history_builtin_w(argv[optind]);
+		sh_history_builtin_w(argv[g_optind]);
 	else if (opt == 's')
-		sh_history_builtin_s(argv, optind);
+		sh_history_builtin_s(argv, g_optind);
 	else
-		sh_history_helper(data, argv, opt);
+		ret = sh_history_helper(data, argv, opt);
 	ft_getopt_reset();
-	return (0);
+	return (ret);
 }

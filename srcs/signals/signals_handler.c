@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/05/23 20:39:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/11 15:39:25 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@ void	signals_quit(int sig)
 
 void	signals_sigwinch(void)
 {
-	struct winsize w;
+	size_t 	pos;
 
-	g_input->offset_col = 3;
+	pos = pos_in_str(*g_input);
+	g_input->offset_col = sh_len_prompt();
 	g_input->offset_line = 0;
 	g_input->cpos.cp_line = 0;
+	g_input->select.is = false;
 	g_input->cpos.cp_col = (unsigned short)g_input->offset_col;
 	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	g_input->ts.ts_lines = w.ws_row;
-	g_input->ts.ts_cols = w.ws_col;
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &g_input->ts);
 	sh_print_prompt();
 	redraw_line(g_input);
+	while (pos != pos_in_str(*g_input))
+		exec_arrow_right(NULL, g_input);
 }
 
 void    signals_handler(int sig)
@@ -47,12 +49,13 @@ void    signals_handler(int sig)
 	{
 		log_info("Signal: User pressed Ctrl+C.");
 		ft_putstr("\n");
-		sh_print_prompt();
+		//sh_print_prompt();
 		return;
 	}
 	if(sig == SIGWINCH)
 		signals_sigwinch();
-	if(ISSIGQUIT(sig) && sig != 28)
+	if (((sig >= 1 && sig <= 17) || sig == 23 || sig == 24 ||\
+					(sig >= 26 && sig <= 31)) && sig != SIGWINCH && sig != 28)
 		signals_quit(sig);
 	log_info("Signals:Shell cath signal:%d", sig);
 }

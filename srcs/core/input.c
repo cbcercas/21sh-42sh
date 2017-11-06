@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:12 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/06/30 15:17:43 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/02 15:40:24 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 t_input *g_input;
 
-BOOL remove_escaped_newline(char **input)
+BOOL			remove_escaped_newline(char **input)
 {
 	size_t	len;
 
@@ -24,75 +24,98 @@ BOOL remove_escaped_newline(char **input)
 	if (*(*input + len - 1) == '\\')
 	{
 		*(*input + len - 1) = '\0';
-		return true;
+		return (true);
 	}
 	return (false);
 }
 
-/**
+/*
 ** @brief      Read the input on standard entry
 **
 ** @return     A pointer to the input string
 */
-char	*sh_get_line_old(void)
+
+/*
+**char			*sh_get_line_old(void)
+**{
+**	char	*line;
+**	char	*input;
+**
+**	input = NULL;
+**	(void)get_next_line(0, &line);
+**	input = ft_strjoincl(input, line, 3);
+**	while (remove_escaped_newline(&input))
+**	{
+**		ft_printf(">");
+**		(void)get_next_line(0, &line);
+**		input = ft_strjoincl(input, line, 3);
+**	}
+**	if (*input != '\0')
+**		return (input);
+**	ft_strdel(&input);
+**	return (NULL);
+**}
+*/
+
+/*
+**void			tcaps_down(t_input *input)
+**{
+**	tputs(tgetstr("do", NULL), 1, ft_putchar2);
+**	input->offset_line += 1;
+**	input->cpos.cp_line += 1;
+**	tputs(tgetstr("cr", NULL), 1, ft_putchar2);
+**	input->cpos.cp_col = 0;
+**}
+*/
+
+/*
+**"do" descends une ligne puis
+**"cr" goto debut de ligne
+*/
+
+/*
+**static void	tcaps_insert_char(char *c)
+**  {
+**  tputs(tgetstr("im", NULL), 0, &ft_putchar2);
+**  tputs(c, 1, &ft_putchar2);
+**  tputs(tgetstr("ie", NULL), 0, &ft_putchar2);
+** }
+*/
+
+static void		draw_char(t_input *input, char *c)
 {
-	char	*line;
-	char	*input;
-	input = NULL;
-	(void)get_next_line(0, &line);
-	input = ft_strjoincl(input, line, 3);
-	while (remove_escaped_newline(&input))
-	{
-		ft_printf(">");
-		(void)get_next_line(0, &line);
-		input = ft_strjoincl(input, line, 3);
-	}
-	if (*input != '\0')
-		return (input);
-	ft_strdel(&input);
-	return (NULL);
+	int		len;
+
+	len = 0;
+	if (c)
+		len = ft_strlen(c);
+	redraw_line(input);
+	while (len--)
+		exec_arrow_right(NULL, input);
 }
 
-void	tcaps_down(t_input *input)
-{
-	// Descend une ligne
-	tputs(tgetstr("do", NULL), 1, ft_putchar2);
-	input->offset_line += 1;
-	input->cpos.cp_line += 1;
-	// goto debut ligne
-	tputs(tgetstr("cr", NULL), 1, ft_putchar2);
-	input->cpos.cp_col = 0;
-}
+/*
+** si je suis au milieu de la string j'insert le char sinon je le write
+**if (input->str->len > (((((input->ts.ws_col * input->offset_line) - \
+**															input->offset_col)
+**	  + (input->cpos.cp_col - 1 + input->offset_line )))))
+**	  tcaps_insert_char(c);
+**	  else
+**	  tputs(c, 1, &ft_putchar2);
+**	  input->cpos.cp_col += 1;
+**	  if (input->cpos.cp_col >= input->ts.ws_col)
+**	  tcaps_down(input);
+**	// si je suis au milieu de la string je la redraw
+**	if (input->str->len > ((((input->ts.ws_col * input->offset_line) + \
+**									input->cpos.cp_col) - input->offset_col)))
+**	redraw_line(input);
+*/
 
-static void	tcaps_insert_char(char *c)
+char			*sh_get_line(t_sh_opt *opts)
 {
-	tputs(tgetstr("im", NULL), 0, &ft_putchar2);
-	tputs(c, 1, &ft_putchar2);
-	tputs(tgetstr("ie", NULL), 0, &ft_putchar2);
-}
-
-static void	draw_char(t_input *input, char *c)
-{
-	// si je suis au milieu de la string j'insert le char sinon je le write
-	if (input->str->len > (((((input->ts.ts_cols * input->offset_line) - input->offset_col)
-		+ (input->cpos.cp_col - 1 + input->offset_line )))))
-		tcaps_insert_char(c);
-	else
-		tputs(c, 1, &ft_putchar2);
-	input->cpos.cp_col += 1;
-	if (input->cpos.cp_col >= input->ts.ts_cols)
-		tcaps_down(input);
-	// si je suis au milieu de la string je la redraw
-	if (input->str->len > ((((input->ts.ts_cols * input->offset_line) + input->cpos.cp_col) - input->offset_col)))
-		redraw_line(input);
-}
-
-char	*sh_get_line(void)
-{
-	char		buff[MAX_KEY_STRING_LEN];
-	ssize_t		res;
-	t_key		key;
-	BOOL		stop;
+	char			buff[MAX_KEY_STRING_LEN + 1];
+	t_key			key;
+	BOOL			stop;
 	static t_input	input;
 
 	ft_bzero(&input, sizeof(input));
@@ -103,14 +126,13 @@ char	*sh_get_line(void)
 	while (stop == false)
 	{
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
-		res = read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN);
-		buff[res] = '\0';
-		key = key_get(buff);
+		read(STDIN_FILENO, buff, (opts->tcaps) ? MAX_KEY_STRING_LEN : 1);
+		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
 			stop = key_exec(&key, &input);
-		else if (sh_history_is_print(buff))
+		else if (is_printstr(buff) && !input.select.is)
 		{
-			if (!string_insert(input.str, key.key, sh_pos_of_insert(input)))
+			if (!string_insert(input.str, key.key, pos_in_str(input)))
 				return (NULL);
 			sh_history_insert_buf(input.str->s);
 			draw_char(&input, key.key);
