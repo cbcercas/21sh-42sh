@@ -14,7 +14,7 @@
 
 int		builtins_env_over(t_array *env_local, int ret)
 {
-	array_destroy(&env_local, NULL);//(void (*)(void*))&sh_free_elem_env);
+	array_destroy(&env_local, del_env);//(void (*)(void*))&sh_free_elem_env);
 	return (ret);
 }
 
@@ -57,10 +57,11 @@ t_array	*sh_get_env_builtins(int opt, char **argv)
 		exit(1);
 	}
 	if (opt == 'i')
-		return (sh_builtin_env_i(tmp, argv));
+		return (sh_builtin_env_add(tmp, argv));
 	else if (opt == 'u')
 		return (sh_builtin_env_u(tmp, argv));
-	return (NULL);
+	else
+		return (sh_builtin_env_add(clone_vars(get_envs(), tmp), argv));
 }
 
 int		sh_builtin_env(t_sh_data *data, char **argv)
@@ -75,13 +76,6 @@ int		sh_builtin_env(t_sh_data *data, char **argv)
 		return (0);
 	}
 	opt = builtin_env_opt(argv);
-	if (opt == -1 && g_optind == 1)
-	{
-		if (g_optind != -1 && sh_builtin_env_exec(&argv[g_optind],\
-                                                                get_envs()))
-			return (1);
-		return (0);
-	}
 	if (!(env_local = sh_get_env_builtins(opt, argv)))
 		return (1);
 	if (g_optind != -1 && sh_builtin_env_exec(&argv[g_optind], env_local))

@@ -13,28 +13,6 @@
 #include <builtins/builtin_env.h>
 #include <ast/ast.h>
 
-char	**sh_builtin_env_to_tab(t_array *envs)
-{
-	t_env	*env;
-	char	**env_tab;
-	size_t	i;
-
-	if (!envs)
-		return (NULL);
-	env_tab = ft_memalloc(sizeof(*env_tab) * (envs->used + 2));
-	i = 0;
-	while (i < envs->used)
-	{
-		if (!(env = (t_env *)array_get_at(envs, i)))
-			return (NULL);
-		env_tab[i] = ft_strjoin(env->name, "=");
-		env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1);
-		i++;
-	}
-	env_tab[i] = NULL;
-	return (env_tab);
-}
-
 int		sh_builtin_env_exec(char **av, t_array *envs)
 {
 	char	*cmd;
@@ -60,7 +38,6 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 	}
 	signal(SIGWINCH, signals_handler);
 	ft_strdel(&cmd);
-	ft_freetab(envtab, sizeof(envtab));
-	envtab = NULL;
+	ft_freetab(envtab, ft_tablen(envtab));
 	return (g_ret);
 }

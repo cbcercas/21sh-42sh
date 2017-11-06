@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <environ/builtin_env_utils.h>
+#include <environ/modif_env.h>
 
 void print_vars(t_array *vars)
 {
@@ -61,17 +62,6 @@ t_array		*get_vars(void)
 	return (e);
 }
 
-// TODO Check usage and remove it
-void		sh_free_elem_env(t_env *env)
-{
-	if (!env)
-		return ;
-	if (env->value)
-		free(env->value);
-	if (env->name)
-		free(env->name);
-}
-
 t_array			*clone_vars(t_array *vars, t_array *tmp)
 {
 	t_env	*var;
@@ -83,12 +73,8 @@ t_array			*clone_vars(t_array *vars, t_array *tmp)
 	while (i < vars->used)
 	{
 		var = (t_env *)array_get_at(vars, i);
-		if ((var = var_new(ft_strdup(var->name), ft_strdup(var->value), true))
-				   != NULL)
-		{
-			array_push(tmp, (void *)var);
-			ft_memdel((void **)&var);
-		}
+		if (var)
+			set_var(tmp, var->name, var->value, var->is_export);
 		i++;
 	}
 	return (tmp);

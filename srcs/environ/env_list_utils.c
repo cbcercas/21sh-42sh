@@ -64,11 +64,3 @@ void	del_env(void *e)
 	ft_strdel(&((t_env *)e)->value);
 	ft_memdel((void**)e);
 }
-
-//TODO check usage and remove it
-/*void	sh_lst_env_del(t_env **head)
-{
-	while ((*head)->next)
-		sh_lst_env_del(&(*head)->next);
-	del_env(head);
-}*/
