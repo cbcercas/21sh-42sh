@@ -34,7 +34,7 @@ static size_t		get_prompt(void)
 	if (!user)
 		user =  "???";
 	path = NULL;
-	path = getcwd(path, 0);
+	path = getcwd(path, 0);//TODO use get_pwd, after merge whith exec
 	basename = ft_basename(path);
 	retstr = (!g_ret) ? "\033[32m^_^" : "\033[91mX_X";
 	ft_printf("\033[0m(%s\033[0m) - %s - %s $ ",
