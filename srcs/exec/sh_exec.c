@@ -110,6 +110,7 @@ int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 {
 	int ret;
 
+	ret = 1;
 	log_info("EXEC: %s", item->av[0]);
 	if(fds[PIPE_OUT])
 		dup2((int)fds[PIPE_OUT]->content_size, STDOUT_FILENO);

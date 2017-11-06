@@ -76,7 +76,7 @@ void expand_dol(t_string *str)
 	{
 		len = 0;
 		if (str->s[i] == '\\' && str->s[i + 1])
-			i =+ 2;
+			i += 2;
 		if (str->s[i] == '$' && str->s[i + 1])
 		{
 			while(str->s[i + 1 + len] && ft_isalnum(str->s[i + 1 + len]))
