@@ -48,6 +48,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 	g_ret = 2;
 	if ((cmd = get_filename(av[0])))
 	{
+		signal(SIGWINCH, SIG_IGN);
 		pid = sh_fork();
 		if (pid == 0)
 		{
@@ -57,6 +58,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 		else
 			g_ret = sh_ret(sh_wait(0, 0));
 	}
+	signal(SIGWINCH, signals_handler);
 	ft_strdel(&cmd);
 	ft_freetab(envtab, sizeof(envtab));
 	envtab = NULL;

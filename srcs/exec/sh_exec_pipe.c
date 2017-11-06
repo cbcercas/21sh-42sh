@@ -38,7 +38,7 @@ static t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 	int 	pid;
 	int		pipe[2];
 	static t_list		*pids = NULL;
-	
+
 	if(sh_pipe(pipe) != 0)
 		return (NULL);
 	if((pid = sh_fork()) == -1)
@@ -60,6 +60,7 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	t_list		*pids;
 
+	signal(SIGWINCH, SIG_IGN);
 	pids = sh_exec_pipe2(data, ast, fds);
 	log_info("MULTI WAIT");
 	while (pids)
@@ -67,5 +68,6 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 		sh_wait(pids->content_size, 0);
 		pids = pids->next;
 	}
+	signal(SIGWINCH, signals_handler);
 	return(g_ret);
 }

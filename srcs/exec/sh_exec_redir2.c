@@ -109,7 +109,7 @@ int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 	item = (t_cmd *)ast->item;
 	if (!sh_exec_greatand_open(&fd1, &fd2, item))
 		return ((g_ret = EXIT_FAILURE));
-	if((pid = sh_fork()) == -1)
+	if((pid = sh_fork()) == -1 && signal(SIGWINCH, SIG_IGN) != SIG_ERR)
 		return ((g_ret = EXIT_FAILURE));
 	if (pid == 0)
 	{
@@ -123,5 +123,6 @@ int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 		exit(EXIT_SUCCESS);
 	}
 	sh_wait(0, 0);
+	signal(SIGWINCH, signals_handler);
 	return (g_ret);
 }
