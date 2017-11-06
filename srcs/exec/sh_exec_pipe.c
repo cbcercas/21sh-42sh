@@ -38,25 +38,24 @@ static t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 	int 	pid;
 	int		pipe[2];
 	static t_list		*pids = NULL;
-
+	
 	if(sh_pipe(pipe) != 0)
 		return (NULL);
 	if((pid = sh_fork()) == -1)
 		return (NULL);
 	if(pid == 0)
-		sh_pipe_right(data, ast, fds, pipe);
+		sh_pipe_left(data, ast, fds, pipe);
 	exec_list_push(&pids, pid);
-	usleep(42);// TODO: FIX + issues
+	//TODO: wait heredoc
 	if((pid = sh_fork()) == -1)
 		return (NULL);
 	if(pid == 0)
-		sh_pipe_left(data, ast, fds, pipe);
+		sh_pipe_right(data, ast, fds, pipe);
 	exec_list_push(&pids, pid);
 	close(pipe[START]);
 	close(pipe[END]);
 	return(pids);
 }
-
 int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	t_list		*pids;
