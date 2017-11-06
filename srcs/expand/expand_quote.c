@@ -15,10 +15,10 @@ char 	find_first_quote(const char *str)
 	return (0);
 }
 
-bool	expand_antislash(t_string *string, t_token_type type)
+BOOL	expand_antislash(t_string *string, t_token_type type)
 {
 	int 	i;
-	bool	ignore;
+	BOOL	ignore;
 
 	ignore = false;
 	i = -1;
@@ -42,7 +42,7 @@ t_exp   *expand_remove_quote(t_exp *exp)
 {
 	char		*c;
 	char 		quote;
-	bool 		ignore;
+	BOOL 		ignore;
 
 	ignore = false;
 	if (exp->type != E_TOKEN_SQUOTE)
