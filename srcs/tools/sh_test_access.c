@@ -14,20 +14,15 @@
 
 int	sh_test_access(char const *filename)
 {
-	struct stat *buf;
-	int		ret;
+	struct stat buf;
 
-	if (!(buf = ft_secu_malloc_lvl(sizeof(*buf), M_LVL_FUNCT)))
-		return (-2);
-	ret = 0;
-	ft_bzero(buf, sizeof(*buf));
-	if (stat(filename, buf) == 0)
+	if (stat(filename, &buf) == 0)
 	{
-		if (buf->st_mode & S_IXUSR)
-			ret = 1;
+		if (buf.st_mode & S_IXUSR)
+			return (0);
 		else
-			ret = -1;
+			return (1);
 	}
-	ft_secu_free(buf);
-	return (ret);
+	else
+		return (2);
 }

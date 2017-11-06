@@ -49,9 +49,9 @@ char	*sh_check_path(char const *cmd_name)
 	{
 		if (!(file = makefilepath(*env_path, cmd_name)))
 			break;
-		if ((tmp = sh_test_access(file)) == 1)
+		if (!(tmp = sh_test_access(file)) )
 			return (file);
-		else if (tmp == -1)
+		else if (tmp == 1)
 			ret = -1;
 		ft_strdel(&file);
 		env_path++;
@@ -71,13 +71,24 @@ char	*sh_check_path(char const *cmd_name)
 char *get_filename(char *av)
 {
 	char	*ret;
+	int		err;
+	struct stat buf;
 
 	ret = NULL;
 	if (ft_strchr(av, '/'))
 		{
-			if (sh_test_access(av) == 1)
+			if (!(err = lstat(av, &buf)) && buf.st_mode & S_IXUSR &&
+					!(S_ISDIR(buf.st_mode)))
 				return (ft_strdup(av));
-			ft_printf("%s: permission denied: %s\n", PROGNAME, av);
+			if (!err && !(buf.st_mode & S_IXUSR))
+				ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n",
+						   PROGNAME, av);
+			else if (err)
+				ft_dprintf(STDERR_FILENO, "%s: no such file or directory: %s\n",
+						  PROGNAME, av);
+			else if (S_ISDIR(buf.st_mode))
+				ft_dprintf(STDERR_FILENO, "%s: sh: %s: is a directory\n",
+						  PROGNAME, av);
 		}
 	else
 		ret = sh_check_path(av);
