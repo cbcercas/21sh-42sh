@@ -11,42 +11,59 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/input.h>
 
 BOOL	exec_alt_up(const t_key *key, t_input *input)
 {
+	struct winsize	*ts;
 	size_t    x;
-	size_t    y;
 
-	y = input->cpos.cp_line - 1;
-	x = input->cpos.cp_col;
-	if (input->cpos.cp_line <= 0 || (input->cpos.cp_line == 1 && x < input->offset_col))
-		return (false);
 	(void)key;
-	while (input->cpos.cp_col != x || input->cpos.cp_line != y)
-		exec_arrow_left(NULL, input);
+	log_dbg1("exec alt arrow up.");
+	ts = get_ts();
+	x = input->cpos.cp_col;
+	if (!(input->cpos.cp_line <= 0 || (input->cpos.cp_line == 1 &&
+													x < input->offset_col)))
+	{
+		move_cursor_up(&input->cpos);
+		return (false);
+	}
+	if (!input->prev)
+		return (false);
+	input = input->prev;
+	tputs(tgetstr("up", NULL), 0, &ft_putchar2);
+	input->cpos = input_get_last_pos(input);
+	move_cursor_to(&input->cpos, &(t_cpos){input->next->cpos.cp_col,
+										   input->cpos.cp_line}, get_ts());
+	if (pos_in_str(input->next) < input->str->len)
+		while (input->cpos.cp_col != input->next->cpos.cp_col)
+			move_cursor_left(&input->cpos, ts);
+	get_windows(0)->cur = input;
 	return (false);
 }
 
 BOOL	exec_alt_down(const t_key *key, t_input *input)
 {
-	size_t    x;
-	size_t    y;
-	size_t    nb_of_line;
-	size_t    i;
+	struct winsize	*ts;
 
-	i = 0;
-	nb_of_line = input->str->len / input->ts->ws_col;
-	y = input->cpos.cp_line + 1;
-	x = input->cpos.cp_col;
-	if (nb_of_line == input->cpos.cp_line)
-		return (false);
-	(void)key;
-	while ((input->cpos.cp_col != x || input->cpos.cp_line != y) && input->str->len != i)
+	(void) key;
+	log_dbg1("exec alt arrow down.");
+	ts = get_ts();
+	if (input->str->len / input->ts->ws_col != input->cpos.cp_line)
 	{
-		exec_arrow_right(NULL, input);
-		i++;
+		move_cursor_down(&input->cpos);
+		return (false);
 	}
+	if (!input->next)
+		return (false);
+	input = input->next;
+	tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+	input->cpos = input_get_last_pos(input);
+	move_cursor_to(&input->cpos, &(t_cpos){input->prev->cpos.cp_col,
+										   input->cpos.cp_line}, get_ts());
+	if (pos_in_str(input->prev) < input->str->len)
+		while (input->cpos.cp_col != input->prev->cpos.cp_col)
+			move_cursor_right(&input->cpos, ts);
+	get_windows(0)->cur = input;
 	return (false);
 }
 

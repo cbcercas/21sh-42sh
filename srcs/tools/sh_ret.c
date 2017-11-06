@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <wait.h>
+#include <sys/wait.h>
 
 //TODO Rename this
 int sh_ret(int status)
