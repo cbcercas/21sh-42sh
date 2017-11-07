@@ -45,12 +45,12 @@ SRCS                    += ft_strdblfree.c is_printstr.c sh_pipe.c sh_fork.c \
 
 SRC_SUBDIR              += automaton
 SRCS                    += automaton.c
+SRC_SUBDIR		+= parser
+SRCS			+= parser.c
 
 SRC_SUBDIR              += signals
 SRCS                    += signals.c signals_handler.c
 
-SRC_SUBDIR              += parser
-SRCS                    += parser.c parser_grammar.c
 
 SRC_SUBDIR              += expand
 SRCS                    += expand.c expand_utils.c ft_replace.c expand_print.c\

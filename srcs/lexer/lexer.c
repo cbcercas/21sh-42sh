@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 04:03:46 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/07 21:35:15 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/13 17:19:49 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -510,6 +510,8 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 		}
 	}
 	tok.len = (*in) - tok.str;
+	if (tok.type == E_TOKEN_AND)
+		automaton_step(a, E_STATE_ERROR, E_PUSH);
 	array_push(toks, &tok);
 }
 

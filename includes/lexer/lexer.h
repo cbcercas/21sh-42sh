@@ -54,5 +54,6 @@ t_array	*lexer_lex(t_array *tokens, t_automaton *automaton, char const *input);
 void	lexer_print_token(t_token *tok);
 void	lexer_print_tokens(t_array *tokens);
 void	lexer_clean_tokens(t_array *tokens);
+t_bool	is_token_type(t_token_type t);
 
 #endif

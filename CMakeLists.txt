@@ -95,10 +95,10 @@ set(SOURCE_FILES
 		srcs/lexer/lexer_init.c
 		srcs/lexer/lexer.c
 		srcs/lexer/lexer_clean.c
+		srcs/lexer/lexer_utils.c
 
 
 		srcs/parser/parser.c
-		srcs/parser/parser_grammar.c
 
 		srcs/signals/signals.c
 		srcs/signals/signals_handler.c
