@@ -41,6 +41,22 @@ BOOL	exec_alt_up(const t_key *key, t_input *input)
 	return (false);
 }
 
+static	BOOL	alt_down_simple(t_input *input, struct winsize	*ts)
+{
+	size_t			save_col;
+
+	save_col = input->cpos.cp_col;
+	if (((input->str->len + input->prompt_len) / ts->ws_col) - 1 != (input->cpos.cp_line))
+	{
+		move_cursor_down(&input->cpos);
+		return (false);
+	}
+	move_cursor_right(&(input->cpos), ts);
+	while (input->cpos.cp_col != save_col && pos_in_str(input) < input->str->len)
+		move_cursor_right(&(input->cpos), ts);
+	return (false);
+}
+
 BOOL	exec_alt_down(const t_key *key, t_input *input)
 {
 	struct winsize	*ts;
@@ -49,10 +65,7 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 	log_dbg1("exec alt arrow down.");
 	ts = get_ts();
 	if ((input->str->len + input->prompt_len) / ts->ws_col != input->cpos.cp_line)
-	{
-		move_cursor_down(&input->cpos);
-		return (false);
-	}
+		return (alt_down_simple(input, ts));
 	if (!input->next)
 		return (false);
 	input = input->next;
