@@ -24,8 +24,9 @@ void	reset_input(t_input *input)
 	input->offset_col = 0;
 	input->cpos.cp_line = 0;
 	input->cpos.cp_col = 0;
-	ft_strdel(&input->select->str);
-	ft_bzero(input->select, sizeof(t_select));
+	input->select_pos.is_set = false;
+	input->select_pos.cur_end = 0;
+	input->select_pos.cur_start = 0;
 	input->next = NULL;
 }
 
@@ -37,7 +38,6 @@ void	input_destroy(t_input **input)
 			input_destroy(&(*input)->next);
 		if ((*input)->str)
 			string_del(&((*input)->str));
-		ft_strdel(&(*input)->select->str);
 		ft_memdel((void **) input);
 	}
 }
@@ -53,8 +53,9 @@ void	input_reset(t_input *input)
 	input->cpos.cp_line = 0;
 	input->cpos.cp_col = 0;
 	input->lock = false;
-	ft_strdel(&input->select->str);
-	ft_bzero(input->select, sizeof(t_select));
+	input->select_pos.is_set = false;
+	input->select_pos.cur_end = 0;
+	input->select_pos.cur_start = 0;
 }
 
 size_t	pos_in_str(t_input *input)

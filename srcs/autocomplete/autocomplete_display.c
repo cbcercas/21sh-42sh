@@ -41,7 +41,7 @@ void		autocomplete_display_prompt(t_input *input)
 	//input->offset_col = sh_len_prompt();
 	//input->offset_line = 0;
 	//input->cpos.cp_line = 0;
-	input->select->is = false;
+	get_select()->is = false;
 	//input->cpos.cp_col = (unsigned short)input->offset_col;
 	sh_print_prompt(input, NULL, 0);
 	redraw_line(input);

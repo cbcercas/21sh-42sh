@@ -14,8 +14,6 @@
 
 BOOL	exec_alt_input(const t_key *key, t_input *input, unsigned short x)
 {
-	if (!is_alt_down_arrow(key->key) && !is_alt_down_arrow(key->key))
-			return (false);
 	if((!input->prev && is_alt_up_arrow(key->key)) ||
 			(!input->next && is_alt_down_arrow(key->key)))
 		return (false);
@@ -39,6 +37,7 @@ BOOL	exec_alt_input(const t_key *key, t_input *input, unsigned short x)
 		input->cpos.cp_col = x;
 	move_cursor_to(&input->cpos
 			, &(t_cpos){input->cpos.cp_col, input->cpos.cp_line}, get_ts());
+	get_windows(0)->cur = input;
 	return (false);
 }
 

@@ -43,6 +43,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 	(void)key;
 	log_dbg1("exec arrow right.");
 	ts = get_ts();
+	exec_select_arrows(key, input);
 	if (pos_in_str(input) == input->str->len && input->next)
 	{
 		input = input->next;
@@ -50,9 +51,15 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 		input->cpos = input_get_first_pos(input);
 		move_cursor_to(&input->cpos, &(t_cpos){input->prev->cpos.cp_col, 0}, get_ts());
 		get_windows(0)->cur = input;
+		if (!input->select_pos.is_set)
+		{
+			input->select_pos.is_set = true;
+			input->select_pos.cur_start = pos_in_str(input);
+		}
 	}
 	else if ((input->cpos.cp_col + (input->cpos.cp_line  * ts->ws_col) - input->offset_col) < input->str->len)
 			move_cursor_right(&input->cpos, ts);
+	input->select_pos.cur_end = pos_in_str(input);
 	return (false);
 }
 /*
@@ -84,16 +91,24 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 	(void)key;
 	log_dbg1("exec arrow left.");
 	ts = get_ts();
+	exec_select_arrows(key, input);
 	if (pos_in_str(input) == 0 && input->prev)
 	{
+		draw_reverse_char(input->str->s[pos_in_str(input)], false);
 		input = input->prev;
 		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
 		input->cpos = input_get_last_pos(input);
 		move_cursor_to(&input->cpos, &(t_cpos){input->next->cpos.cp_col, input->cpos.cp_line}, get_ts());
 		get_windows(0)->cur = input;
+		if (!input->select_pos.is_set)
+		{
+			input->select_pos.is_set = true;
+			input->select_pos.cur_start = pos_in_str(input);
+		}
 	}
 	else if (((input->cpos.cp_col + (input->cpos.cp_line * ts->ws_col) - input->offset_col)) > 0)
 		move_cursor_left(&input->cpos, ts);
+	input->select_pos.cur_end = pos_in_str(input);
 	return (false);
 }
 

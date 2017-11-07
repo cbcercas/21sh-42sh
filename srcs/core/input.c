@@ -23,7 +23,6 @@ t_input	*input_new(void)
 	input->next = NULL;
 	input->prev = NULL;
 	input->ts = get_ts();
-	input->select = get_select();
 	input->lock = false;
 	input_reset(input);
 	return (input);
@@ -75,7 +74,7 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_NONE))
 			stop = key_exec(&key, input);
-		else if (is_printstr(buff) && !input->select->is)
+		else if (is_printstr(buff) && !get_select()->is)
 		{
 			if (!string_insert(input->str, key.key, pos_in_str(input)))
 				return (NULL);

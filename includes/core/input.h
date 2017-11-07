@@ -22,9 +22,15 @@ typedef struct s_select	t_select;
 struct					s_select
 {
 	BOOL				is;
+	char				*str;
+};
+
+typedef struct s_select_pos	t_select_pos;
+struct					s_select_pos
+{
+	BOOL				is_set;
 	size_t				cur_start;
 	size_t				cur_end;
-	char				*str;
 };
 
 typedef struct s_input	t_input;
@@ -38,7 +44,7 @@ struct					s_input
 	unsigned short		offset_col;
 	struct winsize		*ts;
 	t_cpos				cpos;
-	t_select			*select;
+	t_select_pos		select_pos;
 	BOOL				lock;
 };
 

@@ -54,7 +54,9 @@ BOOL	exec_end(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo
 BOOL	exec_start(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
 
 BOOL	exec_select(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL	exec_select_arrows(const t_key *key, t_input *input, char *str) __attribute__ ((deprecated("Todo refactor new input design")));
+void	draw_reverse_char(char c, BOOL is_reverse);
+
+BOOL exec_select_arrows(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
 BOOL	exec_alt_c(const t_key *key, t_input *input);
 BOOL	exec_alt_v(const t_key *key, t_input *input);
 BOOL	exec_alt_x(const t_key *key, t_input *input);
