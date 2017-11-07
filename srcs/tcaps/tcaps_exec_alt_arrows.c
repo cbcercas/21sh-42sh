@@ -48,7 +48,7 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 	(void) key;
 	log_dbg1("exec alt arrow down.");
 	ts = get_ts();
-	if (input->str->len / input->ts->ws_col != input->cpos.cp_line)
+	if ((input->str->len + input->prompt_len) / ts->ws_col != input->cpos.cp_line)
 	{
 		move_cursor_down(&input->cpos);
 		return (false);
