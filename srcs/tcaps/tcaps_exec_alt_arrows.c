@@ -46,7 +46,7 @@ BOOL	exec_alt_up(const t_key *key, t_input *input)
 	unsigned short    x;
 
 	log_dbg1("exec alt arrow up.");
-	if (get_select()->is)
+	if (get_select()->is || !input->prev || input->prev->lock)
 		return (false);
 	x = input->cpos.cp_col;
 	if (!(input->cpos.cp_line <= 0 || (input->cpos.cp_line == 1 &&
@@ -64,7 +64,7 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 	unsigned short    x;
 
 	log_dbg1("exec alt arrow down.");
-	if (get_select()->is)
+	if (get_select()->is || !input->next || input->next->lock)
 		return (false);
 	x = input->cpos.cp_col;
 	if (input->cpos.cp_line != input_get_last_pos(input).cp_line)
