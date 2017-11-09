@@ -17,6 +17,8 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 {
 	char *current;
 
+	if (get_select()->is)
+		return (false);
 	current = find_word_cur(input);
 	(void) key;
 		if (autocomplete_is_path(input))

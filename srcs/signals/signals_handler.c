@@ -46,6 +46,8 @@ void	signals_sigwinch(void)
 
 	// reset term size
 	get_windows(1);
+	get_select()->is = false;
+	reset_select_pos();
 	//goto debut ligne
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);

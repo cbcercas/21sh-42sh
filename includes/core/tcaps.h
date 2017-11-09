@@ -57,6 +57,7 @@ BOOL	exec_select(const t_key *key, t_input *input) __attribute__ ((deprecated("T
 void	draw_reverse_char(char c, BOOL is_reverse);
 
 BOOL exec_select_arrows(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+void	reset_select_pos(void);
 BOOL	exec_alt_c(const t_key *key, t_input *input);
 BOOL	exec_alt_v(const t_key *key, t_input *input);
 BOOL	exec_alt_x(const t_key *key, t_input *input);

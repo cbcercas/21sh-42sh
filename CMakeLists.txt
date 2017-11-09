@@ -108,6 +108,8 @@ set(SOURCE_FILES
 		srcs/signals/signals.c
 		srcs/signals/signals_handler.c
 
+		srcs/tcaps/tcaps_exec_alt_c.c
+		srcs/tcaps/tcaps_exec_alt_v.c
 		srcs/tcaps/tcaps_exec_alt_arrows.c
 		srcs/tcaps/tcaps_exec_arrow.c
 		srcs/tcaps/tcaps_exec_backspace.c

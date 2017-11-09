@@ -19,6 +19,8 @@ BOOL	exec_end(const t_key *key, t_input *input)
 	t_cpos	dest;
 
 	(void)key;
+	if (get_select()->is)
+			return (false);
 	dest = input_get_last_pos(input);
 	move_cursor_to(&dest, &input->cpos, input->ts);
 	return (false);
@@ -30,6 +32,8 @@ BOOL	exec_start(const t_key *key, t_input *input)
 	t_cpos	dest;
 
 	(void)key;
+	if (get_select()->is)
+		return (false);
 	dest = input_get_first_pos(input);
 	move_cursor_to(&dest, &input->cpos, input->ts);
 	return (false);

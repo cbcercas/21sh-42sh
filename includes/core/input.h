@@ -23,6 +23,7 @@ struct					s_select
 {
 	BOOL				is;
 	char				*str;
+	struct s_input		*start_abs;
 };
 
 typedef struct s_select_pos	t_select_pos;

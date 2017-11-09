@@ -49,7 +49,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 		input = input->next;
 		tputs(tgetstr("do", NULL), 0, &ft_putchar2);
 		input->cpos = input_get_first_pos(input);
-		move_cursor_to(&input->cpos, &(t_cpos){input->prev->cpos.cp_col, 0}, get_ts());
+		move_cursor_to(&input->cpos, &(t_cpos){input->prev->cpos.cp_col, 0}, ts);
 		get_windows(0)->cur = input;
 		if (!input->select_pos.is_set)
 		{
@@ -94,7 +94,6 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 	exec_select_arrows(key, input);
 	if (pos_in_str(input) == 0 && input->prev)
 	{
-		draw_reverse_char(input->str->s[pos_in_str(input)], false);
 		input = input->prev;
 		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
 		input->cpos = input_get_last_pos(input);

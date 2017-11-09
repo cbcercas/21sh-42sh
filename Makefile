@@ -77,7 +77,7 @@ SRCS            += tcaps_exec_arrow.c tcaps_exec_backspace.c \
                     tcaps_exec_ctrl_1.c tcaps_exec_ctrl_2.c tcaps_exec_tab.c \
                     tcaps_key_exec.c tcaps_exec_delete.c tcaps_redraw_line.c\
 										tcaps_exec_end_home.c tcaps_exec_alt_arrows.c\
-										tcaps_exec_select.c clean_term.c get_curs_y.c get_curs_x.c
+										tcaps_exec_select.c clean_term.c get_curs_y.c get_curs_x.c tcaps_exec_alt_v.c tcaps_exec_alt_c.c
 
 SRC_SUBDIR      += btree
 SRCS            += btree_create_node.c btree_apply.c\

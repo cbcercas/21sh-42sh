@@ -47,8 +47,11 @@ t_window	*get_windows(int rst)
 	if (rst >= 40)
 		wd->h_complet = false;
 	if ((rst %= 40) && rst >= 20)
-		if(!(input_hard_reset(&wd->cur_head)))
-			return(NULL);
+	{
+		get_select()->is = false;
+		if (!(input_hard_reset(&wd->cur_head)))
+			return (NULL);
+	}
 	if ((rst %= 20) && rst >= 10)
 		input_destroy(&wd->save);
 	return (get_windows2(wd, rst));

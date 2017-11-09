@@ -20,6 +20,8 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 	t_input	*del;
 
 	(void)key;
+	if (get_select()->is)
+		return (false);
 	log_dbg1("exec delete.");
 	pos = pos_in_str(input);
 	if (input->str->len > pos)

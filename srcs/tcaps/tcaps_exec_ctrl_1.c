@@ -29,6 +29,8 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 {
+	if (get_select()->is)
+		return (false);
 	if (input->str->len == 0)
 	{
 		sh_history_save();
@@ -44,6 +46,8 @@ BOOL	exec_ctrl_z(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
+	if (get_select()->is)
+		return (false);
 	write(1, "User pressed CTRL+Z\n", 20);
 	exec_ctrl_c(key, input);
 	return (false);
@@ -51,12 +55,16 @@ BOOL	exec_ctrl_z(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_a(const t_key *key, t_input *input)
 {
+	if (get_select()->is)
+		return (false);
 	exec_start(key, input);
 	return (false);
 }
 
 BOOL	exec_ctrl_e(const t_key *key, t_input *input)
 {
+	if (get_select()->is)
+		return (false);
 	exec_end(key, input);
 	return (false);
 }
@@ -67,6 +75,8 @@ BOOL	exec_ctrl_l(const t_key *key, t_input *input)
 	//TODO REFACTOR need current input (redraw only the last line with "> "
 
 	(void)key;
+	if (get_select()->is)
+		return (false);
 	pos = pos_in_str(input);
 	//input->offset_col = sh_len_prompt();
 	//input->offset_line = 0;

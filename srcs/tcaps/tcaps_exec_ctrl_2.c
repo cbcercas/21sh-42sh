@@ -17,6 +17,8 @@
 BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {
 	(void)key;
+	if (get_select()->is)
+		return (false);
 	if (pos_in_str(input) == input->str->len
 		&& input->str->s[input->str->len - 1] == '\\' && !input->next)
 	{
@@ -44,6 +46,8 @@ BOOL	exec_ctrl_r(const t_key *key, t_input *input)
 {
 	(void)key;
 	(void)input;
+	if (get_select()->is)
+		return (false);
 	history_research(input);
 	return (false);
 }

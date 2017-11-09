@@ -45,6 +45,8 @@ BOOL	exec_alt_up(const t_key *key, t_input *input)
 {
 	unsigned short    x;
 
+	if (get_select()->is)
+		return (false);
 	log_dbg1("exec alt arrow up.");
 	if (get_select()->is || !input->prev || input->prev->lock)
 		return (false);
@@ -63,6 +65,8 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 {
 	unsigned short    x;
 
+	if (get_select()->is)
+		return (false);
 	log_dbg1("exec alt arrow down.");
 	if (get_select()->is || !input->next || input->next->lock)
 		return (false);
