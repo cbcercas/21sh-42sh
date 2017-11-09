@@ -19,7 +19,7 @@ BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 	(void)key;
 	if (get_select()->is)
 		return (false);
-	if (pos_in_str(input) == input->str->len
+	if (pos_in_str(input) == input->str->len && input->str->len
 		&& input->str->s[input->str->len - 1] == '\\' && !input->next)
 	{
 		tputs(tgetstr("cr", NULL), 0, &ft_putchar2);

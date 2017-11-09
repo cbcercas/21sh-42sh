@@ -85,6 +85,7 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 		key_del(&key);
 	}
 	default_terminal_mode();
-	input->lock = true;
+	if (input)
+		input->lock = true;
 	return (NULL);
 }

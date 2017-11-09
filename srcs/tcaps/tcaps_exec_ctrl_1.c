@@ -23,6 +23,7 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	get_windows(0)->cur = NULL;
 	//sh_history_insert_buf(input->str->s);
 	return (true);
 }

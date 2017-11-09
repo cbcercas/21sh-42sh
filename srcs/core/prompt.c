@@ -73,12 +73,12 @@ void 		prompt_perso(t_input *inp, const char *prompt, t_return ret)
 
 void sh_print_prompt(t_input *input, const char *prompt, t_return ret)
 {
-	if (get_curs_x() > 1)
+	/*if (get_curs_x() > 1)
 	{
 		tputs(tgetstr("mr", NULL), 1, ft_putchar2);
 		ft_putendl("%");
 		tputs(tgetstr("me", NULL), 1, ft_putchar2);
-	}
+	}*/
 
 	if ((input->prev == NULL && ret == E_RET_NEW_PROMPT) || (ret == E_RET_REDRAW_PROMPT && input->prompt_type == E_RET_NEW_PROMPT))
 		prompt_normal(input);

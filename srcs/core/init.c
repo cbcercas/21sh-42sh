@@ -169,6 +169,7 @@ void		sh_store_tattr(t_sh_data *data)
 	{
 		ft_printf("%s: tcgetattr error when trying", PROGNAME);
 		ft_printf(" to save terminal attributes\n");
+		data->tattr = NULL;
 		return ;
 	}
 	else if ((data->tattr = (struct termios*)malloc(sizeof(struct termios))))

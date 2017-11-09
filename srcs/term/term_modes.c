@@ -30,11 +30,13 @@ void	raw_terminal_mode(void)
 void	default_terminal_mode(void)
 {
 	struct termios	tattr;
+	int 			ret;
 
-	tcgetattr(STDIN_FILENO, &tattr);
+	ret = tcgetattr(STDIN_FILENO, &tattr);
 	tattr.c_lflag |= (ECHO | ICANON | IEXTEN | ISIG);
 	tattr.c_oflag |= ( OPOST);
-	tcsetattr(STDIN_FILENO, TCSADRAIN, &tattr);
+	if (!ret)
+		tcsetattr(STDIN_FILENO, TCSADRAIN, &tattr);
 
 	return;
 }

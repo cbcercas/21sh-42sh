@@ -66,15 +66,15 @@ static char *sh_get_input(t_sh_data *data, char *prompt, t_return ret)
 	t_input *input;
 
 	line = NULL;
-	if (!isatty(0))
+	if (!isatty(STDIN_FILENO))
 	{
 		if (!get_next_line(0, &line))
-			return (false);
+			return (NULL);
 		if (line)
 		{
 			//TODO what append when lexing incomplet
 			input = input_get_cur_head();
-			ft_putendl(line);
+			//ft_putendl(line);
 			string_insert(input->str, line, 0);
 			ft_strdel(&line);
 		}
@@ -177,42 +177,48 @@ struct s_test
 
 };
 
+static	BOOL	sh_loop(t_sh_data	data, struct s_test exec_dat, t_return *ret)
+{
+	char		*line;
+
+	if (!(line = sh_get_input(&data, NULL, *ret)))
+		return (true);
+	if (ft_strlen(line) > 1 && ft_strequ(line, "exit"))
+		return (true);
+	*ret = sh_process(&exec_dat.ast, &exec_dat.expand, &exec_dat.tokens, line);
+	if (*ret == E_RET_AST_OK)
+	{
+		sh_process_exec(&data, exec_dat.ast);
+		get_windows(72); //TODO move this
+	}
+	if (!(*ret >= E_RET_LEXER_INCOMPLETE && *ret <= E_RET_LEXER_PIPE))
+	{
+		input_destroy(&(input_get_cur_head())->next);
+		input_reset(input_get_cur_head());
+		*ret = E_RET_NEW_PROMPT;
+	}
+	if (exec_dat.ast)
+		btree_destroy(&exec_dat.ast, (void (*)(void*))&ast_del_cmd);
+	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
+	ft_strdel(&line);
+	return (false);
+}
+
 int			main(int ac, char *const *av, char **environ)
 {
 	t_sh_data	data;
 	struct s_test exec_dat;
 	t_return	ret;
-	char		*line;
+	BOOL			stop;
 
+	stop = false;
 	ret = E_RET_NEW_PROMPT;
-	line = NULL;
 	exec_dat.ast = NULL;
 	sh_arrays_init(&exec_dat.tokens, &exec_dat.expand);
 	if (!sh_init(&data, ac, av, environ))
 		exit(1);
-	while (42)
-	{
-		if (!(line = sh_get_input(&data, NULL, ret)))
-			break ;
-		if (ft_strlen(line) > 1 && ft_strequ(line, "exit"))
-			break ;
-		ret = sh_process(&exec_dat.ast, &exec_dat.expand, &exec_dat.tokens, line);
-		if (ret == E_RET_AST_OK)
-		{
-			sh_process_exec(&data, exec_dat.ast);
-			get_windows(72); //TODO move this
-		}
-		if (!(ret >= E_RET_LEXER_INCOMPLETE && ret <= E_RET_LEXER_PIPE))
-		{
-			input_destroy(&(input_get_cur_head())->next);
-			input_reset(input_get_cur_head());
-			ret = E_RET_NEW_PROMPT;
-		}
-		if (exec_dat.ast)
-			btree_destroy(&exec_dat.ast, (void (*)(void*))&ast_del_cmd);
-		sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
-		ft_strdel(&line);
-	}
+	while (!stop)
+		stop = sh_loop(data, exec_dat, &ret);
 	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
 	sh_exit(&data, NULL);
 	return (0);

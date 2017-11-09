@@ -20,7 +20,7 @@ BOOL	exec_end(const t_key *key, t_input *input)
 
 	(void)key;
 	if (get_select()->is)
-			return (false);
+		return (false);
 	dest = input_get_last_pos(input);
 	move_cursor_to(&dest, &input->cpos, input->ts);
 	return (false);
