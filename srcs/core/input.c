@@ -64,7 +64,6 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 	t_key			key;
 	BOOL			stop;
 
-
 	stop = false;
 	raw_terminal_mode();
 	while (stop == false)
@@ -85,7 +84,6 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 		key_del(&key);
 	}
 	default_terminal_mode();
-	if (input)
-		input->lock = true;
+	(input ? input->lock = true : 0);
 	return (NULL);
 }

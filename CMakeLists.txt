@@ -49,7 +49,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtin_history_npr.c
 
 		srcs/core/sh_loop.c
-		srcs/core/sh_get_line.c
+        srcs/core/sh_get_input.c
 		srcs/core/init.c
 		srcs/core/deinit.c
 		srcs/core/input.c

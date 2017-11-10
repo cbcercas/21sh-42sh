@@ -38,29 +38,6 @@ t_array	*sh_history_get(void)
 	return (e);
 }
 
-/*int sh_history_open_fd(char *path, int flag)
-{
-	struct stat			type;
-	int							fd;
-
-	fd = -1;
-	if(!flag)
-		return (-1);
-	if(!path)
-		path = HISTORY_FILE;
-	if (stat("/tmp", &type) == -1 || !S_ISDIR(type.st_mode))
-	{
-		log_warn("History: stat \"tmp\" fail");
-		return (-1);
-	}
-	if ((fd = open(path, flag, 0644)) == -1)
-	{
-		log_warn("History: open \"%s\" fail", path);
-		return (-1);
-	}
-	return (fd);
-}*/
-
 char	*history_get_path(char *str)
 {
 	char	*home;
@@ -73,41 +50,46 @@ char	*history_get_path(char *str)
 	return (ft_strjoincl_secu(home, HISTORY_FILE, 1, M_LVL_FUNCT));
 }
 
-t_array *sh_history_init(t_array *hists)
+void	sh_history_init_one(t_array *hists, int fd)
 {
 	t_hist	*h;
 	char	*line;
 	char	*cmd;
+
+	cmd = NULL;
+	line = NULL;
+	while (get_next_line(fd, &line) && line && ft_strlen(line) > 0 &&
+		   (line[ft_strlen(line) - 1] == '\\'))
+	{
+		if (cmd)
+			cmd = ft_strjoincl(cmd, "\n", 1);
+		cmd = ft_strjoincl(cmd, line, 3);
+	}
+	if (cmd && line)
+		cmd = ft_strjoincl(cmd, "\n", 1);
+	cmd = ft_strjoincl(cmd, line, 3);
+	if ((h = sh_history_new(cmd)))
+	{
+		h->session = false;
+		array_push(hists, (void *) h);
+		ft_memdel((void **) &h);
+	}
+}
+
+t_array *sh_history_init(t_array *hists)
+{
 	int			fd;
 	size_t	i;
 
 	i = 0;
-	cmd = NULL;
+	if (!(hists = sh_history_get()))
+		return (NULL);
 	if ((fd = open(history_get_path(NULL), O_RDWR | O_CREAT, 0644)) == -1)
 		return (NULL);
-	if ((hists = sh_history_get()) != NULL)
+	while (i < 1000)
 	{
-		while (i < 1000)
-		{
-			while (get_next_line(fd, &line) && (line[ft_strlen(line) - 1] == '\\'))
-			{
-				if (cmd)
-					cmd = ft_strjoincl(cmd, "\n", 1);
-				cmd = ft_strjoincl(cmd, line, 3);
-				//cmd[ft_strlen(cmd) - 1] = '\0';
-			}
-			if (cmd && line)
-				cmd = ft_strjoincl(cmd, "\n", 1);
-			cmd = ft_strjoincl(cmd, line, 3);
-			if ((h = sh_history_new(cmd)))
-			{
-				h->session = false;
-				array_push(hists, (void *)h);
-				ft_memdel((void **) &h);
-			}
-			cmd = NULL;
-			i++;
-		}
+		sh_history_init_one(hists, fd);
+		i++;
 	}
 	close(fd);
 	return (hists);
