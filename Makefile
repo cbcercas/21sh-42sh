@@ -14,9 +14,9 @@
 NAME			= 21sh
 
 SRC_SUBDIR		= core
-SRCS			+= main.c prompt.c init.c input.c usage_help.c input_utils.c \
+SRCS			+= sh_get_line.c main.c prompt.c init.c input.c usage_help.c input_utils.c \
                     deinit.c input_windows.c input_draw.c input_move.c \
-                    input_utils_2.c
+                    input_utils_2.c sh_loop.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c builtin_environ.c\
