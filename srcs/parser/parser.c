@@ -303,8 +303,8 @@ t_return						parser_parse(t_array *tokens)
 	{
 		while (tokens->used > i + 1 && tok->type == E_TOKEN_BLANK )
 			tok = (t_token *)array_get_at(tokens, ++i);
-		if (tokens->used == i + 1)
-			return (ret_parser(tok));
+		//if (tokens->used == i + 1)
+			//return (ret_parser(tok));
 		toknext = (t_token*)array_get_at(tokens, i + 1);
 		if (g_grammar2[tok->type][toknext->type][0])
 			i += 1;
