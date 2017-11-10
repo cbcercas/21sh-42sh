@@ -562,7 +562,10 @@ t_return lexer_lex(t_array *tokens, char const *in)
 	if (automaton_init(&automaton) == NULL)
 		exit(EXIT_FAILURE);
 	if (in == NULL || !ft_strlen(in))
+	{
+		stack_destroy(&automaton.stack, NULL);
 		return ((in) ? E_RET_EMPTY_LINE : E_RET_LEXER_ERROR);
+	}
 	while ((*in != 0) && (automaton.cur_state < E_STATE_ERROR))
 		lexer_tokenize(&in, tokens, &automaton);
 	if (automaton.cur_state == E_STATE_ERROR)

@@ -56,9 +56,11 @@ t_input	*sh_history_up(t_input *input)
 	tmp = input_to_history(input_get_writable(hist_inp));
 	if (!(new_inp = input_from_history(history_get_prev(tmp))))
 	{
+		ft_strdel(&tmp);
 		tcaps_bell();
 		return(NULL);
 	}
+	ft_strdel(&tmp);
 	return (new_inp);
 }
 
@@ -87,5 +89,6 @@ t_input	*sh_history_down(t_input *input)
 	}
 	if (!new_inp)
 		tcaps_bell();
+	ft_strdel(&tmp);
 	return (new_inp);
 }

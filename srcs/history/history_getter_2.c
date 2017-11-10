@@ -34,7 +34,6 @@ const char *history_get_prev(char *str)
 			if (ft_strnequ(h->cmd, str, len))
 				break;
 	}
-	ft_strdel(&str);
 	if ((ssize_t)hists->used <= lvl || !h)
 		return (NULL);
 	get_windows(0)->h_lvl = lvl;
@@ -61,7 +60,6 @@ const char *history_get_next(char *str)
 			if (ft_strnequ(h->cmd, str, len))
 				break;
 	}
-	ft_strdel(&str);
 	if (lvl >= 0 && h)
 	{
 		get_windows(0)->h_lvl = lvl;
