@@ -48,6 +48,7 @@ BOOL	exec_alt_c(const t_key *key, t_input *input)
 	size_t		start;
 	size_t		end;
 
+	(void)input;
 	(void)key;
 	str = NULL;
 	if (!get_select()->is)

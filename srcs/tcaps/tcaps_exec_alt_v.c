@@ -3,7 +3,7 @@
 #include <history/history.h>
 
 
-BOOL	exec_alt_v_multi(t_input *input, char *save)
+static void	exec_alt_v_multi(t_input *input, char *save)
 {
 	char	*tmp;
 	t_input		*next_save;
@@ -36,6 +36,7 @@ BOOL	exec_alt_v(const t_key *key, t_input *input)
 {
 	char	*save;
 
+	(void)key;
 	if (get_select()->is || !input || !input->str || !get_select()->str)
 		return (false);
 	save = get_select()->str;
