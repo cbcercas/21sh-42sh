@@ -5,7 +5,6 @@ set(CMAKE_CXX_STANDARD 11)
 set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
 
 set(SOURCE_FILES
-
 		srcs/autocomplete/autocomplete.c
 		srcs/autocomplete/autocomplete_display.c
 		srcs/autocomplete/autocomplete_get_bin.c

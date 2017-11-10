@@ -333,7 +333,7 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 			[E_CHAR_TYPE_NONE] = {0, 1},
 			[E_CHAR_TYPE_BLANK] = {0, 1},
 			[E_CHAR_TYPE_NEWLINE] = {0, 1},
-			[E_CHAR_TYPE_LETTER] = {0, 1},
+			[E_CHAR_TYPE_LETTER] = {0, 0},
 			[E_CHAR_TYPE_SQUOTE] = {0, 1},
 			[E_CHAR_TYPE_BQUOTE] = {0, 1},
 			[E_CHAR_TYPE_DQUOTE] = {0, 1},
@@ -495,6 +495,8 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 		tok.type = g_char_type[(int)**in];
 	while (**in && a->cur_state < E_STATE_END)
 	{
+		if (tok.type == E_TOKEN_IO_NUMBER && g_char_type[(int) **in] == E_CHAR_TYPE_LETTER)
+			tok.type = E_TOKEN_WORD;
 		if (tok.type != E_TOKEN_SQUOTE && **in == '\\')
 			(*in) += 2;
 		else
