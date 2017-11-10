@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <string/ft_string.h>
 
+char	*get_pwd(void);
 void	ft_strdblfree(char **strdb);
 BOOL	is_printstr(char const *line);
 BOOL  is_white(int c);
@@ -30,7 +31,8 @@ int		sh_open_exec(t_btree *ast);
 int		sh_open(char *file, int flags);
 int		sh_ret(int status);
 int		sh_test_access(char const *filename);
-BOOL  ft_isdigit_str(char *str);
+BOOL	ft_isdigit_str(char *str);
+BOOL	check_fd(int fd);;
 char	*ft_strnew_secu(size_t size, size_t lvl);
 char		*ft_strsub_secu(char const *s, unsigned int start, size_t len, size_t lvl);
 char		**ft_strsplit_secu(char const *s, char c, size_t lvl);

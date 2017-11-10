@@ -23,7 +23,6 @@ static t_token_type	g_grammar2[19][19][1] =
 	[E_TOKEN_NONE] =
 	{
 		[E_TOKEN_BLANK] = {1},
-		[E_TOKEN_NEWLINE] = {1},
 		[E_TOKEN_WORD] = {1},
 		[E_TOKEN_SQUOTE] = {1},
 		[E_TOKEN_BQUOTE] = {1},
@@ -301,8 +300,8 @@ t_return						parser_parse(t_array *tokens)
 		return (ret_parser(tok));
 	while (tokens->used > i + 1 )
 	{
-		while (tokens->used > i + 1 && tok->type == E_TOKEN_BLANK )
-			tok = (t_token *)array_get_at(tokens, ++i);
+		//while (tokens->used > i + 1 && tok->type == E_TOKEN_BLANK )
+			//tok = (t_token *)array_get_at(tokens, ++i);
 		//if (tokens->used == i + 1)
 			//return (ret_parser(tok));
 		toknext = (t_token*)array_get_at(tokens, i + 1);
@@ -310,7 +309,7 @@ t_return						parser_parse(t_array *tokens)
 			i += 1;
 		else
 			return (ret_parser(toknext));
-		tok = (t_token*)array_get_at(tokens, i);
+		tok = toknext;
 	}
 
 	//if (tokens->used == i + 1 && toknext->type == E_TOKEN_NEWLINE)

@@ -6,29 +6,13 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:15 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/10/04 19:37:27 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/14 12:51:42 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exec/exec.h>
 #include <ast/ast.h>
-
-t_cmd *init_exec(t_btree *ast, t_array **fds)
-{
-	int		fd[3];
-
-	fd[0] = STDIN_FILENO;
-	fd[1] = STDOUT_FILENO;
-	fd[2] = STDERR_FILENO;
-	if (!ast)
-		return (NULL);
-	*fds = array_create(sizeof(fd));
-	*fds = array_push(*fds, fd);
-	*fds = array_push(*fds, fd);
-	if (!*fds)
-		return (NULL);
-	return ((t_cmd *)ast->item);
-}
+#include <core/prompt.h>
 
 /*
  ** @brief         handle ast before exec
@@ -44,33 +28,47 @@ t_cmd *init_exec(t_btree *ast, t_array **fds)
  ** @return     -1 on error or unknow TOKEN
  */
 
-int   sh_process_exec(t_sh_data *data, t_btree *ast)
+int sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 {
-	t_cmd	*item;
-	t_array	*fds;
-
-	fds = NULL;
-	if(!(item = init_exec(ast, &fds)))
-		return (-1);
-	if (item->type == E_TOKEN_WORD)
-		return (sh_exec_simple(data, item, fds));
-	/*else if (item->type == E_TOKEN_PIPE)
-		return (sh_process_pipe(data, ast));
-	else if(item->type == E_TOKEN_AND_IF)
-		return((sh_process_exec(data, ast->left) == 0) &&\
-				(sh_process_exec(data, ast->right) == 0));
-	else if(item->type == E_TOKEN_OR_IF)
-		return((sh_process_exec(data, ast->left) == 0) ||\
-				(sh_process_exec(data, ast->right) == 0));
-	else if(item->type == E_TOKEN_SEMI)
+	if (!ast)
+		return (g_ret);
+	if (((t_cmd *)ast->item)->type == E_TOKEN_WORD)
+		return (sh_exec_simple(data, ((t_cmd *)ast->item), fds));
+	else if(((t_cmd *)ast->item)->type == E_TOKEN_SEMI)
 	{
-		sh_process_exec(data, ast->left);
-		return (sh_process_exec(data, ast->right));
+		sh_process_exec(data, ast->left, fds);
+		return (sh_process_exec(data, ast->right, fds));
 	}
-	else if((item->type == E_TOKEN_LESSGREAT) || (item->type == E_TOKEN_DLESS ) ||\
-			(item->type == E_TOKEN_DGREAT))
-		return(sh_exec_redir(data, ast, item));
-	else if(item->type == E_TOKEN_GREATAND)
-		return(sh_exec_greatand(data, ast, item));*/
+	else if(((t_cmd *)ast->item)->type == E_TOKEN_AND_IF)
+		return((sh_process_exec(data, ast->left, fds) == 0) &&
+				(sh_process_exec(data, ast->right, fds) == 0));
+	else if(((t_cmd *)ast->item)->type == E_TOKEN_OR_IF)
+		return((sh_process_exec(data, ast->left, fds) == 0) ||
+				(sh_process_exec(data, ast->right, fds) == 0));
+	else if((((t_cmd *)ast->item)->type == E_TOKEN_LESSGREAT) || (((t_cmd *)
+			ast->item)->type == E_TOKEN_DGREAT))
+			return(sh_exec_redir(data, ast, fds));
+	else if(((t_cmd *)ast->item)->type == E_TOKEN_GREATAND || ((t_cmd *)
+			ast->item)->type == E_TOKEN_LESSAND)
+		return(sh_exec_greatand(data, ast, fds));
+	else if(((t_cmd *)ast->item)->type == E_TOKEN_DLESS)
+		return(sh_heredoc(data, ast, fds));
+	else if (((t_cmd *)ast->item)->type == E_TOKEN_PIPE)
+		return (sh_exec_pipe(data, ast, fds));
 	return (-1);
+}
+
+int		exec_exec(t_sh_data *data, t_btree *ast)
+{
+	t_list	*fds[6];
+
+		if (!ast)
+			return (-1);
+	fds[STDIN_FILENO] = NULL;
+	fds[STDOUT_FILENO] = NULL;
+	fds[STDERR_FILENO] = NULL;
+	fds[CLOSE] = NULL;
+	fds[PIPE_OUT] = NULL;
+	fds[PIPE_IN] = NULL;
+	return (sh_process_exec(data, ast, fds));
 }

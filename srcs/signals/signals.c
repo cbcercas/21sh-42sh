@@ -19,19 +19,23 @@ void    init_signals(void *handler)
 	log_info("Signal: Init success");
 }
 
-int		wait_sh(void)
+int sh_wait(pid_t pid, int wait_flag)
 {
 	int		status;
 	pid_t	pid_child;
 
-	pid_child = wait(&status);
+	status = 0;
+	pid_child = waitpid(pid, &status, wait_flag);
 	if (WIFSIGNALED(status))
 	{
 		if (WTERMSIG(status) == SIGSEGV)
-			ft_printf("[1]    %d segmentation fault (core dumped)  %s\n", pid_child, sh_history_get_at(-1));
+			ft_dprintf(STDERR_FILENO, "[1]    %d segmentation fault (core "
+					"dumped)  %s\n", pid_child, sh_history_get_at(-1));
 		else if (WTERMSIG(status) == SIGBUS)
-			ft_printf("[1]    %d bus error  %s\n", pid_child, sh_history_get_at(-1));
+			ft_dprintf(STDERR_FILENO, "[1]    %d bus error  %s\n", pid_child,
+					  sh_history_get_at(-1));
 		return (status);
 	}
+	remove_pid_child(pid);
 	return (status);
 }

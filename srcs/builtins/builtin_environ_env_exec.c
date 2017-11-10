@@ -19,28 +19,6 @@
 
 extern int g_ret;
 
-char	**sh_builtin_env_to_tab(t_array *envs)
-{
-	t_env	*env;
-	char	**env_tab;
-	size_t	i;
-
-	if (!envs)
-		return (NULL);
-	env_tab = ft_memalloc(sizeof(*env_tab) * (envs->used + 2));
-	i = 0;
-	while (i < envs->used)
-	{
-		if (!(env = (t_env *)array_get_at(envs, i)))
-			return (NULL);
-		env_tab[i] = ft_strjoin(env->name, "=");
-		env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1);
-		i++;
-	}
-	env_tab[i] = NULL;
-	return (env_tab);
-}
-
 int		sh_builtin_env_exec(char **av, t_array *envs)
 {
 	char	*cmd;
@@ -54,6 +32,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 	g_ret = 2;
 	if ((cmd = get_filename(av[0])))
 	{
+		signal(SIGWINCH, SIG_IGN);
 		pid = sh_fork();
 		if (pid == 0)
 		{
@@ -61,10 +40,10 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 			exit(0);
 		}
 		else
-			g_ret = sh_ret(wait_sh());
+			g_ret = sh_ret(sh_wait(0, 0));
 	}
+	signal(SIGWINCH, signals_handler);
 	ft_strdel(&cmd);
-	ft_freetab(envtab, sizeof(envtab));
-	envtab = NULL;
+	ft_freetab(envtab, ft_tablen(envtab));
 	return (g_ret);
 }

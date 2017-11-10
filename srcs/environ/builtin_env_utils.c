@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <environ/builtin_env_utils.h>
+#include <environ/modif_env.h>
 #include <ftprintf.h>
 #include <logger.h>
 
@@ -24,7 +25,7 @@ void print_vars(t_array *vars)
 		return ;
 	while (i < vars->used)
 	{
-		e = (t_env *)array_get_at(vars, i);
+		e = (t_env *) array_get_at(vars, i);
 		ft_printf("\033[94m%s\033[0m=%s\n", e->name, e->value);
 		i++;
 	}
@@ -63,13 +64,20 @@ t_array		*get_vars(void)
 	return (e);
 }
 
-// TODO Check usage and remove it
-void		sh_free_elem_env(t_env *env)
+t_array			*clone_vars(t_array *vars, t_array *tmp)
 {
-	if (!env)
-		return ;
-	if (env->value)
-		free(env->value);
-	if (env->name)
-		free(env->name);
+	t_env	*var;
+	size_t	i;
+
+	if (!vars)
+		return (tmp);
+	i = 0;
+	while (i < vars->used)
+	{
+		var = (t_env *)array_get_at(vars, i);
+		if (var)
+			set_var(tmp, var->name, var->value, var->is_export);
+		i++;
+	}
+	return (tmp);
 }

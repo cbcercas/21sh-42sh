@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/30 20:30:58 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/30 22:49:42 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/14 12:33:20 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void sh_testing_exec(char *const *av, char **environ)
 		exit (1);
 	expand(&tokens, &expands);
 	ast_create(&ast, &expands);
-	sh_process_exec(NULL, ast);
+	exec_exec(NULL, ast);
 	array_reset(&expands, NULL);
   ft_secu_free_all();
 	exit (0);

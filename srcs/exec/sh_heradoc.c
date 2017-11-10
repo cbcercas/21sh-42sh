@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <exec/exec.h>
 #include <libft.h>
 #include <btree/ft_btree.h>
 #include <ast/ast.h>
@@ -17,76 +18,93 @@
 #include <gnl/get_next_line.h>
 #include <tools/tools.h>
 #include <signals/signals.h>
+#include <ftprintf.h>
+#include <core/progname.h>
+#include <signal.h>
+#include <core/prompt.h>
 
-static void mini_input(char *end, int fd)
+static void	mini_input(char *end, int pipe_fd)
 {
-  char *line;
+	char *line;
 
-  ft_putstr("heredoc>");
-  while (get_next_line(0, &line))
-  {
-    if (!ft_strcmp(line, end))
-      break;
-    ft_putendl_fd(line, fd);
-    ft_strdel(&line);
-    ft_putstr("heredoc>");
-  }
-  exit(EXIT_SUCCESS);
+	if (!end)
+	{
+		ft_dprintf(2, "%s: exec parser error \\n\n", PROGNAME);
+		return ;
+	}
+	ft_putstr("heredoc>");
+	log_info("EXEC: HEREDOC word end = (%s)", end);
+	while (get_next_line(0, &line))
+	{
+		if (line && ft_strequ(line, end))
+			break ;
+		ft_putendl_fd(line, pipe_fd);
+		ft_strdel(&line);
+		ft_putstr("heredoc>");
+	}
 }
 
-static char *heradoc_find_end(t_btree *ast)
+static BOOL	sh_heredoc_get_fd(t_cmd *item, int *fd)
 {
-  t_cmd *item;
-
-  item = NULL;
-  if (ast && ast->right && !ast->right->left)
-    item = (t_cmd *)ast->right->item;
-  else if (ast && ast->right && ast->right->left)
-    item = (t_cmd *)ast->right->left->item;
-  if (item)
-    return (item->av[0]);
-  return (NULL);
+	if (ft_isdigit(item->av[0][0]))
+	{
+		if (check_fd(atoi(item->av[0])))
+			*fd = atoi(item->av[0]);
+		else
+			return (false);
+	}
+	else
+		*fd = STDIN_FILENO;
+	return (true);
 }
 
-static void more_heradoc(t_btree *ast, int tube[2])
+static int heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
 {
-  pid_t pid;
-  t_cmd *tmp;
-
-  if((pid = sh_fork()) == -1)
-    return ;
-  if (pid == 0)
-  {
-    close(tube[END]);
-    mini_input(heradoc_find_end(ast), tube[START]);
-    exit (1);
-  }
-  wait_sh();
-  if (ast->right && (tmp = (t_cmd *)ast->right->item) && tmp->type == E_TOKEN_DLESS)
-    more_heradoc(ast->right, tube);
+	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), fd))
+		return ((g_ret = EXIT_FAILURE));
+	if(sh_pipe(pipe) != 0)
+		return((g_ret = EXIT_FAILURE));
+	signal(SIGWINCH, SIG_IGN);
+	if((*pid = sh_fork()) == -1)
+		return((g_ret = EXIT_FAILURE));
+	if (!*pid)
+		signal(SIGINT, SIG_IGN);
+	return (EXIT_SUCCESS);
 }
 
-int   sh_heradoc(t_btree *ast, t_cmd *item, int fd)
+static char	*sh_heredoc_search_end(t_cmd *item)
 {
-  pid_t pid;
-  int tube[2];
-  t_cmd *tmp;
+	if (ft_isdigit(item->av[0][0]))
+		return (item->av[2]);
+	return (item->av[1]);
+}
 
-  (void)ast;
-  if (item->type != E_TOKEN_DLESS)
-    return (fd);
-  if((sh_pipe(tube) != 0) || ((pid = sh_fork()) == -1))
-    return (-1);
-  if (pid == 0)
-  {
-    close(tube[END]);
-    mini_input(heradoc_find_end(ast), tube[START]);
-    exit (EXIT_SUCCESS);
-  }
-  wait_sh();
-  if (ast->right && (tmp = (t_cmd *)ast->right->item) &&\
-        tmp->type == E_TOKEN_DLESS)
-    more_heradoc(ast->right, tube);
-  close(tube[START]);
-  return (tube[END]);
+int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
+{
+	int		fd;
+	int		pipe[2];
+	int		pid;
+
+	if (!ast || heredoc_init(ast, &fd, pipe, &pid) == EXIT_FAILURE)
+		return (g_ret);
+	if (!pid)
+	{
+		close(pipe[END]);
+		mini_input(sh_heredoc_search_end(((t_cmd *)ast->item)), pipe[START]);
+		exit(EXIT_SUCCESS);
+	}
+	sh_wait(0, 0);
+	close(pipe[START]);
+	if (!sh_fork())
+	{
+		//dup2(pipe[END], fd);
+		fds[PIPE_IN] = NULL;
+		exec_list_push(&fds[PIPE_IN], pipe[END]);
+		sh_process_exec(data, ast->left, fds);
+		exit(EXIT_FAILURE);
+	}
+	sh_wait(0, 0);
+	signal(SIGWINCH, signals_handler);
+	close(pipe[END]);
+	return (g_ret);
 }

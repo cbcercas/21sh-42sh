@@ -35,7 +35,7 @@ char	*split_var_value(char const *env)
 	return (value);
 }
 
-t_env *var_new(char *name, char *value)
+t_env *var_new(char *name, char *value, BOOL is_export)
 {
 	t_env	*e;
 
@@ -53,22 +53,17 @@ t_env *var_new(char *name, char *value)
 		ft_memdel((void**)&e);
 	}
 	else
+	{
 		e->value = value;
+		e->is_export = is_export;
+	}
 	return (e);
 }
 
 //TODO check usage and remove it
-void	del_env(t_env **e)
+void	del_env(void *e)
 {
-	ft_strdel(&(*e)->name);
-	ft_strdel(&(*e)->value);
+	ft_strdel(&((t_env *)e)->name);
+	ft_strdel(&((t_env *)e)->value);
 	ft_memdel((void**)e);
-}
-
-//TODO check usage and remove it
-void	sh_lst_env_del(t_env **head)
-{
-	while ((*head)->next)
-		sh_lst_env_del(&(*head)->next);
-	del_env(head);
 }

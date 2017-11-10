@@ -25,7 +25,7 @@ static void		autocomplete_push_one(t_array *content, struct dirent *file,\
 	tmp = NULL;
 	path = NULL;
 	if (!autocomplete_is_dots(file->d_name) &&\
-			sh_test_access((path = makefilepath(*env_path, file->d_name))) != -1 &&\
+			!sh_test_access((path = makefilepath(*env_path, file->d_name))) &&\
 				(!begin || ft_strnequ(begin, file->d_name, ft_strlen(begin))))
 	{
 		tmp = string_dup_secu(file->d_name, M_LVL_AUTOC);

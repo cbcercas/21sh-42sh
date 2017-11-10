@@ -46,7 +46,7 @@ t_array *sh_builtin_env_u(t_array *tmp, char **argv);
  * @brief  ???
  */
 
-t_array *sh_builtin_env_i(t_array *tmp, char **argv);
+t_array *sh_builtin_env_add(t_array *tmp, char **argv);
 
 /**
  * @file   builtin_environ_env_exec.c

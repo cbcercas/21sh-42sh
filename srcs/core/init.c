@@ -135,11 +135,10 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		exit(1);
 	}
 	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var(get_envs(), "TERM")->value, ""))
-		set_var(get_envs(), "TERM", "xterm");
-	if (get_var_value(get_envs(),"SHLVL"))
-		set_var(get_envs(),"SHLVL", ft_itoa(ft_atoi(get_var_value(get_envs(),"SHLVL")) + 1)); //TODO, Atoi secure
-	else
-		set_var(get_envs(),"SHLVL", ft_strdup("1"));
+		set_var(get_envs(), "TERM", "xterm", true);
+	set_var(get_envs(), "SHLVL",
+			ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1), true);
+	//TODO, Atoi secure
 	if ((tgetent(0, get_var_value(get_envs(),"TERM"))) != 1)
 	{
 		ft_printf("%s: Error on tgetent\n", PROGNAME);

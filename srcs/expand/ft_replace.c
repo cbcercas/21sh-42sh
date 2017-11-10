@@ -12,7 +12,7 @@
 
 #include <libft.h>
 
-int		ft_replace_init(char *src1, int index, int size)
+static int		ft_replace_init(char *src1, size_t index, int size)
 {
 	if (!src1 || ft_strlen(src1) < (size_t)(index + 1))
 		return (-1);
@@ -21,7 +21,7 @@ int		ft_replace_init(char *src1, int index, int size)
 	return (0);
 }
 
-char	*ft_replace_exp(char *src1, char *src2, int index, int size)
+char	*ft_replace_exp(char *src1, char *src2, size_t index, int size)
 {
 	char	*begin;
 	char	*end;

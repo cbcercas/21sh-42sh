@@ -14,6 +14,7 @@
 #include <history/history.h>
 #include <core/deinit.h>
 #include <core/tcaps.h>
+#include <signals/signals.h>
 
 int	sh_exit(t_sh_data *data, char **arg)
 {
@@ -21,11 +22,13 @@ int	sh_exit(t_sh_data *data, char **arg)
 
 	status = 0;
 	sh_history_save();
-	sh_deinit(data);
+	if (data)
+		sh_deinit(data);
 	default_terminal_mode();
 	ft_printf("exit\n");
 	if (arg && arg[1] && ft_isdigit(arg[1][0]))
 		status = ft_atoi(arg[1]);
+	kill_childs(SIGTERM);
 	exit(status);
 }
 

@@ -16,7 +16,8 @@
 #include <logger.h>
 
 
-t_env *set_var(t_array *vars, char const *name, char const *value)
+t_env *set_var(t_array *vars, char const *name, char const *value, BOOL
+is_export)
 {
 	t_env	*env;
 
@@ -27,7 +28,7 @@ t_env *set_var(t_array *vars, char const *name, char const *value)
 	}
 	else
 	{
-		if ((env = var_new(ft_strdup(name), ft_strdup(value))) != NULL)
+		if ((env = var_new(ft_strdup(name), ft_strdup(value), is_export)) != NULL)
 		{
 			array_push(vars, (void *)env);
 			ft_memdel((void**)&env);
@@ -52,6 +53,10 @@ t_env *del_var(t_array *vars, char const *name)
 	if (i >= vars->used)
 		log_warn("Environ: can't find \"%s\" variables ", name);
 	else
-		vars = array_remove_at(vars, i, NULL);
+	{
+		ft_strdel(&e->name);
+		ft_strdel(&e->value);
+		array_remove_at(vars, i, NULL);
+	}
 	return (NULL);
 }

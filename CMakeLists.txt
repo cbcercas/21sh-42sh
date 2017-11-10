@@ -32,6 +32,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtins_utils.c
 		srcs/builtins/builtins_utils2.c
 		srcs/builtins/builtin_chdir.c
+		srcs/builtins/builtin_chdir_expand.c
 		srcs/builtins/builtin_echo.c
 		srcs/builtins/builtin_exit.c
 		srcs/builtins/builtin_help.c
@@ -46,6 +47,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtin_history_acdws.c
 		srcs/builtins/builtin_history_print.c
 		srcs/builtins/builtin_history_npr.c
+		srcs/builtins/builtin_local_var.c
 
 		srcs/core/sh_loop.c
         srcs/core/sh_get_input.c
@@ -59,6 +61,7 @@ set(SOURCE_FILES
 		srcs/core/prompt.c
 		srcs/core/input_windows.c
 		srcs/core/input_draw.c
+        srcs/core/input_move.c
 
 		srcs/environ/env_list_utils.c
 		srcs/environ/environ.c
@@ -72,6 +75,10 @@ set(SOURCE_FILES
 		srcs/exec/sh_exec_pipe.c
 		srcs/exec/sh_exec_redir.c
 		srcs/exec/sh_heradoc.c
+		srcs/exec/exec_tlist.c
+		srcs/exec/manage.c
+		srcs/exec/sh_exec_redir2.c
+		srcs/exec/sh_exec_local_var.c
 
 		srcs/expand/expand.c
 		srcs/expand/expand_dol.c
@@ -93,6 +100,7 @@ set(SOURCE_FILES
 		srcs/history/history.c
 		srcs/history/history_list_utils.c
 		srcs/history/history_getter.c
+        srcs/history/history_getter_2.c
 		srcs/history/history_print.c
 		srcs/history/history_arrow.c
 		srcs/history/history_research.c
@@ -106,6 +114,7 @@ set(SOURCE_FILES
 
 		srcs/parser/parser.c
 
+		srcs/signals/get_pid_childs.c
 		srcs/signals/signals.c
 		srcs/signals/signals_handler.c
 
@@ -147,6 +156,7 @@ set(SOURCE_FILES
 		srcs/tools/string_secu.c
 		srcs/tools/sh_test_access.c
 		srcs/tools/is.c
+        srcs/tools/getpwd.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c

@@ -91,6 +91,8 @@ t_array		*sh_builtins_init(void)
 		return (NULL);
 	if (!ms_add_builtin("unset", builtin_unset))
 		return (NULL);
+	if (!ms_add_builtin("export", builtin_export))
+		return (NULL);
 	return (builtins);
 }
 

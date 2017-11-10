@@ -6,15 +6,18 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:59:15 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/30 22:45:59 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/14 14:58:10 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <tests/ast_tests.h>
+# include <expand/expand.h>
 #include <ast/ast.h>
 #include <ftprintf.h>
 #include <automaton/automaton.h>
 #include <environ/environ.h>
 #include <history/history.h>
+
 
 void test_aff(t_cmd *cmd)
 {

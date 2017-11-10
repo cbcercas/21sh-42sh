@@ -1,15 +1,18 @@
 #include <expand/expand.h>
 #include <ftprintf.h>
 
-t_exp *expand_exp(t_exp *exp) {
-	if (exp->type != E_TOKEN_SQUOTE) {
-		expand_dol(exp);
-		if (expand_hist(exp) == NULL) {
-			ft_printf("event not found\n");
-			return (NULL);
-		}
-	}
-	return (exp);
+t_exp *expand_exp(t_exp *exp)
+{
+  if (exp->type == E_TOKEN_WORD || exp->type == E_TOKEN_DQUOTE)
+  {
+    expand_dol(exp->str);
+    if (expand_hist(exp) == NULL)
+    {
+      ft_printf("event not found\n");
+      return (NULL);
+    }
+  }
+  return (exp);
 }
 
 t_return	expand(t_array *tokens, t_array *expand) {

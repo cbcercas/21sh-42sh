@@ -126,7 +126,7 @@ int		sh_echo(t_sh_data *data, char **argv)
 	if (!(flag[0] && opt != '?'))
 		ft_putstr("\n");
 	ft_getopt_reset();
-	return (((opt != '?') ? 0 : -1));
+	return (((opt != '?') ? 0 : 1));
 }
 /*
 **For flag var in function sh_echo

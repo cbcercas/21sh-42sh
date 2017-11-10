@@ -57,7 +57,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 			input->select_pos.cur_start = pos_in_str(input);
 		}
 	}
-	else if ((input->cpos.cp_col + (input->cpos.cp_line  * ts->ws_col) - input->offset_col) < input->str->len)
+	else if ((unsigned)(input->cpos.cp_col + (input->cpos.cp_line  * ts->ws_col) - input->offset_col) < input->str->len)
 			move_cursor_right(&input->cpos, ts);
 	input->select_pos.cur_end = pos_in_str(input);
 	return (false);

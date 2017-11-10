@@ -20,35 +20,29 @@
 #include <core/prompt.h>
 #include <environ/modif_env.h>
 #include <unistd/ft_unistd.h>
+#include <builtins/echo.h>
+#include <tools/tools.h>
+#include <builtins/chdir.h>
 
-extern int g_optind;
-/*
-**TODO: j'arrive pas à forcer chdir à aller dans le lien sans le suivre
-*/
-
-static char		*sh_get_path_p(char *arg, char *buf)
+static	BOOL	sh_test_path(char *path, char *arg)
 {
-	ssize_t		len;
 	struct stat	bufstat;
 
-	if (lstat(arg, &bufstat) || !(bufstat.st_mode & S_IFLNK))
-		return (arg);
-	if ((len = readlink(arg, buf, sizeof(buf) - 1)) != -1)
-		buf[len] = '\0';
-	else
+	if (!stat(path, &bufstat) && !lstat(path, &bufstat))
 	{
-		ft_dprintf(2, "%s : cd : Error readlink of %s\n", PROGNAME, arg);
-		buf = NULL;
+		if (bufstat.st_mode & S_IXUSR)
+			return (true);
+		else
+			ft_dprintf(2, "%s: cd: permission denied: %s\n", PROGNAME, arg);
 	}
-	return (buf);
+	ft_dprintf(2, "cd: no such file or directory: %s\n", arg);
+	return (false);
 }
 
-static char		*sh_get_path(char *arg, int opt)
+static	char	*sh_get_path(char *arg)
 {
-	char *path;
-	char buf[1024];
+	char		*path;
 
-	(void)opt;
 	if (!arg)
 	{
 		if (!(path = get_var_value(get_envs(), "HOME")))
@@ -63,47 +57,36 @@ static char		*sh_get_path(char *arg, int opt)
 	}
 	else
 		path = arg;
-	if (path && opt == 'P')
-		path = sh_get_path_p(path, buf);
 	return (path);
-}
-
-static BOOL		sh_test_dirpath(char *path, int opt)
-{
-	struct stat	bufstat;
-	BOOL		ret;
-
-	ret = false;
-	if ((!stat(path, &bufstat) && opt == 'P') || !lstat(path, &bufstat))
-	{
-		if (bufstat.st_mode & S_IXUSR)
-			ret = true;
-		else
-		{
-			ret = false;
-			ft_dprintf(2, "%s: cd: permission denied: %s\n", PROGNAME, path);
-		}
-	}
-	return (ret);
 }
 
 static int		sh_do_chdir(char *arg, int opt)
 {
-	char cwd[1024];
-	char *path;
+	char	*path;
+	char	*cur;
 
-	path = sh_get_path(arg, opt);
-	if (!sh_test_dirpath(path, opt))
+	if (!(path = sh_get_path(arg)))
 		return ((g_ret = 1));
-	if (chdir(path) == -1)
+	expand_path(&path);
+	if (!sh_test_path(path, arg))
 	{
-		ft_dprintf(2, "%s: cd: no such file or directory: %s\n",\
-																PROGNAME, path);
+		ft_strdel(&path);
 		return ((g_ret = 1));
 	}
-	set_var(get_envs(), get_var_value(get_envs(), "OLDPWD"), "PWD");
-	getcwd(cwd, sizeof(cwd));
-	set_var(get_envs(),"PWD", cwd);
+	set_var(get_envs(), "OLDPWD", (cur = get_pwd()), true);
+	ft_strdel(&cur);
+	if (chdir(path) == -1)
+	{
+		ft_dprintf(2, "cd: can't cd with: %s\n", path);
+		ft_strdel(&path);
+		return ((g_ret = 1));
+	}
+	if (opt == 'P')
+		set_var(get_envs(), "PWD", (cur = getcwd(NULL, 0)), true);
+	else
+		set_var(get_envs(), "PWD", path, true);
+	ft_strdel(&path);
+	ft_strdel(&cur);
 	return ((g_ret = 0));
 }
 
@@ -113,17 +96,10 @@ int				sh_chdir(t_sh_data *data, char **arg)
 	int ret;
 
 	(void)data;
-	ret = 0;
 	ft_getopt_reset();
-	if ((opt = ft_getopt(ft_tablen(arg), arg, "LPh")) != -1)
-	{
-		if (opt == 'h')
-			return (ft_dprintf(2, "%s: cd: [-L/-P] [path], use \"help cd\"\n",\
-																	PROGNAME));
-		else if (opt == '?')
-			return (ft_dprintf(2, "%s: cd: [-L/-P] [path], use \"help cd\"\n",\
-																	PROGNAME));
-	}
+	if ((opt = ft_getopt(ft_tablen(arg), arg, "LPh")) != -1 && (opt == 'h' ||
+			opt == '?'))
+		return (ft_dprintf(2, "cd: [-L/-P] [path], use \"help cd\"\n"));
 	ret = sh_do_chdir(arg[g_optind], opt);
 	ft_getopt_reset();
 	return (ret);

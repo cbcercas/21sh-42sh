@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_fork.c                                          :+:      :+:    :+:   */
+/*   exec_tlist.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/29 13:22:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/29 13:24:09 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/10/13 18:45:10 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/10/13 19:50:04 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <tools/tools.h>
-# include <signals/signals.h>
-#include <unistd.h>
-#include <libft.h>
-#include <logger.h>
+#include <exec/exec.h>
 
-pid_t  sh_fork(void)
+void	exec_list_push(t_list **head, size_t fd)
 {
-	pid_t	pid;
+	t_list	*elem;
 
-	if ((pid = fork()) == -1)
-		ft_putstr_fd("fork error\n", 2);
-	if (pid > 0)
-	{
-		log_dbg1("SH_FORK: Save pid_child %d", pid);
-		array_push(get_pids_child(), &pid);
-	}
-  return (pid);
+	elem = (t_list *)ft_memalloc(sizeof(t_list));
+	if (!elem)
+		return ;
+	elem->content = NULL;
+	elem->content_size = fd;
+	elem->next = NULL;
+	ft_lstpush_back(head, elem);
 }
