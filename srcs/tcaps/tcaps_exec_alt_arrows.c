@@ -28,8 +28,8 @@ BOOL	exec_alt_input(const t_key *key, t_input *input, unsigned short x)
 	}
 	else
 	{
-		input = input->next;
 		exec_arrow_right(NULL, input);
+		input = input->next;
 	}
 	if (input_get_last_pos(input).cp_col < x)
 		input->cpos = input_get_last_pos(input);
@@ -48,7 +48,7 @@ BOOL	exec_alt_up(const t_key *key, t_input *input)
 	if (get_select()->is)
 		return (false);
 	log_dbg1("exec alt arrow up.");
-	if (get_select()->is || !input->prev || input->prev->lock)
+	if (get_select()->is )
 		return (false);
 	x = input->cpos.cp_col;
 	if (!(input->cpos.cp_line <= 0 || (input->cpos.cp_line == 1 &&
@@ -58,6 +58,10 @@ BOOL	exec_alt_up(const t_key *key, t_input *input)
 		move_cursor_to(&input->cpos, &(t_cpos){input->cpos.cp_col, input->cpos.cp_line}, get_ts());
 		return (false);
 	}
+	if (!input->prev || input->prev->lock)
+		return (false);
+	if (!input->prev->prev && x <= input->prev->prompt_len && input_get_last_pos(input->prev).cp_line == 0)
+			x = x + (unsigned short)input->prev->prompt_len;
 	return (exec_alt_input(key, input, x));
 }
 
