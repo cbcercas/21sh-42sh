@@ -30,7 +30,7 @@ t_array		*get_builtins(void)
 
 	if (e == NULL)
 	{
-		if ((e = array_create(sizeof(t_env))) == NULL)
+		if ((e = array_create(sizeof(t_builtin))) == NULL)
 		{
 			log_fatal("Builtins: Can't initialise builtins array");
 			ft_dprintf(STDERR_FILENO, "Builtins: Can't initialize Builtins");
