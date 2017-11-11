@@ -24,7 +24,7 @@
 #include <tools/tools.h>
 #include <builtins/chdir.h>
 
-static	BOOL	sh_test_path(char *path, char *arg)
+static	BOOL	sh_test_path(char *path)
 {
 	struct stat	bufstat;
 
@@ -33,9 +33,9 @@ static	BOOL	sh_test_path(char *path, char *arg)
 		if (bufstat.st_mode & S_IXUSR)
 			return (true);
 		else
-			ft_dprintf(2, "%s: cd: permission denied: %s\n", PROGNAME, arg);
+			ft_dprintf(2, "%s: cd: permission denied\n", PROGNAME);
 	}
-	ft_dprintf(2, "cd: no such file or directory: %s\n", arg);
+	ft_dprintf(2, "cd: no such file or directory\n");
 	return (false);
 }
 
@@ -68,7 +68,7 @@ static int		sh_do_chdir(char *arg, int opt)
 	if (!(path = sh_get_path(arg)))
 		return ((g_ret = 1));
 	expand_path(&path);
-	if (!sh_test_path(path, arg))
+	if (!sh_test_path(path))
 	{
 		ft_strdel(&path);
 		return ((g_ret = 1));
