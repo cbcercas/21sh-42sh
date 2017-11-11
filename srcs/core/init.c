@@ -31,6 +31,7 @@
 #include <environ/getter_env.h>
 #include <environ/modif_env.h>
 #include <term.h>
+#include <builtins/exit.h>
 
 extern char const	*g_optarg;
 
@@ -114,39 +115,45 @@ static void	sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
  *
  * @return    the modified t_sh_data
  */
-
-t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
+static void	sh_multi_init(t_sh_data *data, int ac, char *const *av, char **environ)
 {
-
-	//TODO secure init
+	if (!data)
+		sh_exit(NULL, NULL);
 	ft_bzero(data, sizeof(*data));
-	sh_options(&data->opts, ac, av, environ);
+	sh_options(&(data->opts), ac, av, environ);
 	init_environ(environ);
 	init_local_var();
 	sh_builtins_init();
 	sh_history_init(sh_history_get());
 	init_signals(signals_handler);
 	sh_store_tattr(data);
+}
+
+
+t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
+{
+	char	*tmp;
+
+	sh_multi_init(data, ac, av, environ);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
-		ft_printf("%s: Error when getting current working directory\n",\
+		ft_dprintf(2, "%s: Error when getting current working directory\n",\
 																	PROGNAME);
 		sh_deinit(data);
 		exit(1);
 	}
-	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var(get_envs(), "TERM")->value, ""))
+	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var_value(get_envs(), "TERM"), ""))
 		set_var(get_envs(), "TERM", "xterm", true);
-	set_var(get_envs(), "SHLVL",
-			ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1), true);
-	//TODO, Atoi secure
+	tmp = ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1);
+	set_var(get_envs(), "SHLVL", tmp, true);
 	if ((tgetent(0, get_var_value(get_envs(),"TERM"))) != 1)
 	{
-		ft_printf("%s: Error on tgetent\n", PROGNAME);
+		ft_dprintf(2, "%s: Error on tgetent\n", PROGNAME);
 		sh_deinit(data);
 		exit(1);
 	}
-	log_info("%s initialized correctly. SHLVL is set to %s", PROGNAME,
-			 get_var_value(get_envs(),"SHLVL"));
+	log_info("INIT: initialized correctly. SHLVL is set to %s", tmp);
+	ft_strdel(&tmp);
 	return (data);
 }
 
