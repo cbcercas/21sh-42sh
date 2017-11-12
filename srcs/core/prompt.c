@@ -18,7 +18,6 @@
 #include <core/tcaps.h>
 #include <ft_libgen.h>
 
-//TODO see todo g_ret
 #include <core/prompt.h>
 #include <core/return.h>
 #include <tools/tools.h>
@@ -34,9 +33,9 @@ static size_t		get_prompt(void)
 	user = get_var_value(get_envs(), "USER");
 	if (!user)
 		user =  "???";
-	path = get_pwd();//TODO use get_pwd, after merge whith exec
+	path = get_pwd();
 	basename = ft_basename(path);
-	retstr = (!g_ret) ? "\033[32m^_^" : "\033[91mX_X";
+	retstr = (!*get_cmd_ret()) ? "\033[32m^_^" : "\033[91mX_X";
 	ft_printf("\033[0m(%s\033[0m) - %s - %s $ ",
 			  retstr, user, basename);
 	len = 11 + 3 + ft_strlen(user) + ft_strlen(basename);

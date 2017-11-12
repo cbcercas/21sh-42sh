@@ -75,5 +75,5 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 		pids = pids->next;
 	}
 	signal(SIGWINCH, signals_handler);
-	return(g_ret);
+	return(*get_cmd_ret());
 }

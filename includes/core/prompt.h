@@ -19,6 +19,5 @@
 void sh_print_prompt(t_input *input, const char *prompt, t_return ret);
 size_t	sh_len_prompt(void);
 
-int g_ret;
 
 #endif

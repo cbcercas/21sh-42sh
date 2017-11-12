@@ -28,9 +28,9 @@ static int sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 	if (!multi_close(pipe, fds, END))
 		return (EXIT_FAILURE);
 	ft_strdel(&path);
-	g_ret = sh_ret(sh_wait(pid, 0)); // TODO a mettre dans
+	*get_cmd_ret() = sh_ret(sh_wait(pid, 0)); // TODO a mettre dans
 	signal(SIGWINCH, signals_handler);
-	return (g_ret);
+	return (*get_cmd_ret());
 }
 
 /*
@@ -90,7 +90,7 @@ static int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 	manage_close(fds);
 	builtin = get_builtin(item->av[0]);
 	if (builtin)
-		g_ret = builtin->fn(data, item->av);
+		*get_cmd_ret() = builtin->fn(data, item->av);
 	if (fds[STDOUT_FILENO])
 		close(STDOUT_FILENO);
 	if (fds[STDIN_FILENO])
@@ -102,7 +102,7 @@ static int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 	manage_fds(pipe, fds);
 	if (!multi_close(pipe, fds, END))
 		return (EXIT_FAILURE);
-	return (g_ret);
+	return (*get_cmd_ret());
 }
 
 /*
