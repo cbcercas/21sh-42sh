@@ -32,6 +32,11 @@ int	sh_exit(t_sh_data *data, char **arg)
 	exit(status);
 }
 
+int builtin_exit(t_sh_data *data, char **arg)
+{
+	return (sh_exit(data, arg));
+}
+
 /*
 **ft_putstr("\033[?1049l");
 */

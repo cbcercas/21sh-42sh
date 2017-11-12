@@ -94,7 +94,7 @@ t_array		*sh_builtins_init(void)
 		return (NULL);
 	if (!ms_add_builtin("export", builtin_export))
 		return (NULL);
-	if (!ms_add_builtin("exit", sh_exit))
+	if (!ms_add_builtin("exit", builtin_exit))
 		return (NULL);
 	return (builtins);
 }
