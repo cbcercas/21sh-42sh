@@ -499,9 +499,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->21sh: Lexing error."
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
 	echo
-  [ "${lines[0]}" = "21sh: Lexing error." ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -510,9 +510,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->21sh: Lexing error."
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
 	echo
-  [ "${lines[0]}" = "21sh: Lexing error." ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -521,9 +521,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->21sh: Lexing error."
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
 	echo
-  [ "${lines[0]}" = "21sh: Lexing error." ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -532,9 +532,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->21sh: Lexing error."
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
 	echo
-  [ "${lines[0]}" = "21sh: Lexing error." ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
 check_leaks_function lexer
 }
 
