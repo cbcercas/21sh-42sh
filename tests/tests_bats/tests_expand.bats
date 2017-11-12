@@ -194,6 +194,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with '!!'" {
+  skip
   echo -e "blow\njob" > /tmp/.21sh_history
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "!!"
   echo
@@ -275,7 +276,8 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist error] with '!!!!!!! '" {
-  echo -e "blow\njob" > /tmp/.21sh_history
+skip  
+echo -e "blow\njob" > /tmp/.21sh_history
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "hello !!!!!!!"
   echo
   echo "ERROR: \"hello !!!!!!!\""
