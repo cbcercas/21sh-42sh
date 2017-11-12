@@ -15,6 +15,8 @@
 #include <ftprintf.h>
 #include <automaton/automaton.h>
 #include <environ/environ.h>
+#include <environ/modif_env.h>
+#include <environ/builtin_env_utils.h>
 #include <history/history.h>
 
 void expand_print_test(t_array *array_exp)
@@ -68,6 +70,7 @@ void sh_testing_expand(char *const *av, char **environ)
 	t_array		tokens;
 
   init_environ(environ);
+  set_var(get_envs(), "HOME", "/tmp", true);
 	sh_history_init(sh_history_get());
 	tokens = init_tests_exp(av[3]);
   if (expand_init(&expand_array) == NULL)

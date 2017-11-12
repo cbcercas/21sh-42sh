@@ -156,7 +156,7 @@ check_leaks_function expand
 #######################################################################
 
 @test "EXPAND: Testing [hist] with '!1'" {
-  echo -e "ls\ntoto" > ~/.21sh_history
+  echo -e "ls\ntoto" > /tmp/.21sh_history
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "!1"
   echo
   echo "ERROR: \"!1\""
@@ -170,7 +170,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with '! blow'" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "!1!2"
   echo
   echo "ERROR: \"!1!2\""
@@ -186,7 +186,7 @@ check_leaks_function expand
 
 @test "EXPAND: Testing [hist] with '!!'" {
   skip
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "!!"
   echo
   echo "ERROR: \"!!\""
@@ -201,7 +201,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with '!j'" {
-  echo -e "jab\nblow\njob" > ~/.21sh_history
+  echo -e "jab\nblow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "!j"
   echo
   echo "ERROR: \"!j\""
@@ -216,7 +216,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with '!ja'" {
-  echo -e "jab\nblow\njob" > ~/.21sh_history
+  echo -e "jab\nblow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "!ja"
   echo
   echo "ERROR: \"!ja\""
@@ -231,7 +231,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist] with 'hello !1 i cs !2 ls'" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "hello !1 i cs !2 ls"
   echo
   echo "ERROR: \"hello !1 i cs !2 ls\""
@@ -252,7 +252,7 @@ check_leaks_function expand
 #######################################################################
 
 @test "EXPAND: Testing [hist error] with '! '" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "hello !"
   echo
   echo "ERROR: \"hello !\""
@@ -267,7 +267,7 @@ check_leaks_function expand
 
 @test "EXPAND: Testing [hist error] with '!!!!!!! '" {
 skip  
-echo -e "blow\njob" > ~/.21sh_history
+echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "hello !!!!!!!"
   echo
   echo "ERROR: \"hello !!!!!!!\""
@@ -281,7 +281,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist error] with '!'" {
-  echo -e "blo!2w\njob" > ~/.21sh_history
+  echo -e "blo!2w\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "hello !1"
   echo
   echo "ERROR: \"hello !1\""
@@ -295,7 +295,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist error] with '!3000'" {
-  echo -e "blo!2w\njob" > ~/.21sh_history
+  echo -e "blo!2w\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "!3000"
   echo
   echo "ERROR: \"!3000\""
@@ -309,7 +309,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hist error] with 'tata !hello toto'" {
-  echo -e "blo!2w\njob" > ~/.21sh_history
+  echo -e "blo!2w\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "tata !hello toto"
   echo
   echo "ERROR: \"tata !hello toto\""
@@ -329,7 +329,7 @@ check_leaks_function expand
 #######################################################################
 
 @test "EXPAND: Testing [dbquote] with 'simple'" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"tata\""
   echo
   echo "ERROR: \"tata\""
@@ -343,7 +343,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double 1'" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"tata\" \"toto\""
   echo
   echo "ERROR: \"\"tata\" \"toto\"\""
@@ -357,7 +357,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double 2'" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"tata\"\"toto\""
   echo
   echo "ERROR: \"\"tata\"\"toto\"\""
@@ -371,7 +371,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double 3'" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"tata\"toto"
   echo
   echo "ERROR: \"\"tata\"toto\""
@@ -385,7 +385,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double 4'" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\$VAR2\"toto"
   echo
   echo "ERROR: \"\$VAR2\"toto\""
@@ -399,7 +399,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double \"\"a\"\"'" {
-  echo -e "blow\njob" > ~/.21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\"\"a\"\"\""
   echo
   echo "ERROR: \"\"\"\"a\"\"\"\""
@@ -413,7 +413,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [dbquote] with 'double \"a\"\"a\"\"\" \"au\"'" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"a\"\"a\"\"\" \"au\""
   echo
   echo "ERROR: \"a\"\"a\"\"\" \"au\""
@@ -435,7 +435,7 @@ check_leaks_function expand
 
 
 @test "EXPAND: Testing [quote] with 'simple'" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'tata'"
   echo
   echo "ERROR: \"'tata'\""
@@ -449,7 +449,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 1'" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'tata' 'toto'"
   echo
   echo "ERROR: \"'tata' 'toto'\""
@@ -463,7 +463,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 2'" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'tata''toto'"
   echo
   echo "ERROR: \"'tata''toto'\""
@@ -477,7 +477,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 3'" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'tata'toto"
   echo
   echo "ERROR: \"'tata'toto\""
@@ -491,7 +491,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 4'" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto"
   echo
   echo "ERROR: \"'\$VAR2'toto\""
@@ -505,7 +505,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 4'" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto'!2'"
   echo
   echo "ERROR: \"'\$VAR2'toto'!2'\""
@@ -519,7 +519,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 5'" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto'!2'"
   echo
 echo "ERROR: \"'\$VAR2'toto'!2'\""
@@ -533,7 +533,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double ''a'''" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'''a'''"
   echo
   echo "ERROR: \"'''a'''\""
@@ -547,7 +547,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [quote] with 'double 'a''a''' 'au''" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'a''a''' 'au'''"
   echo
   echo "ERROR: 'a''a''' 'au'''"
@@ -567,7 +567,7 @@ check_leaks_function expand
 ######################################################################
 
 @test "EXPAND: Testing [mix] 1" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR1=blow VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\$VAR2'toto "\$VAR1" !2"
   echo
   echo "ERROR: \"'\$VAR2'toto "\$VAR1" !2\""
@@ -581,7 +581,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [mix] 2" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR1=blow VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'!10'\"\$VAR1\"'''a'''\"b\"\$VAR1"
   echo
   echo "ERROR: \"'!10'\"\$VAR1\"'''a'''\"b\"\$VAR1\""
@@ -595,7 +595,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [mix] 3" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"''\" '\"\"'"
   echo
 echo "ERROR: \"\"''\" '\"\"'\""
@@ -609,7 +609,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [mix] 4" {
-  echo -e "blow\njob" > ~/21sh_history
+  echo -e "blow\njob" > $history_loc
   run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\"\$VAR\"' \"'\$VAR'\""
   echo
   echo "ERROR: \"'\"\$VAR\"' \"'\$VAR'\"\""
@@ -626,7 +626,7 @@ check_leaks_function expand
 #######################################################################
 
 @test "EXPAND: Testing [hard] 1" {
-  echo -e "blow\njob\n!2\n!3\n!!" > ~/21sh_history
+  echo -e "blow\njob\n!2\n!3\n!!" > $history_loc
   run $val_cmd env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'!2'!4\$VAR"
   echo
   echo "ERROR: \"'!2'!4\$VAR\""
@@ -641,7 +641,7 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [hard] 2" {
-  echo -e "blow\njob\n!2\n!3\n!!" > ~/21sh_history
+  echo -e "blow\njob\n!2\n!3\n!!" > $history_loc
   run $val_cmd env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "'\\\$VAR'\"toto!3\""
   echo
   echo "ERROR: '\\\$VAR'\"toto!3\""
@@ -656,16 +656,16 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [MEGA hard] HARD" {
-  echo -e "blow\njob\n!2\n!3\n!!" > ~/21sh_history
+  echo -e "blow\njob\n!2\n!3\n!!" > $history_loc
   run $val_cmd env -i VAR=\$VAR2 VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\'\$VAR2\'\" '\\\"'\$VAR2'\\\"'"
   echo
   echo "ERROR: \"\"\'\$VAR2\'\" '\\\"'\$VAR2'\\\"'\""
   echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->\'tata\' \\\"tata\\\""
+  echo "$name_exec EXPECTED ->'tata' \\\"tata\\\""
 	echo
-  [ "${lines[0]}" = "\'tata\' \\\"tata\\\"" ]
+  [ "${lines[0]}" = "\"'tata'\" \\\"tata\\\"" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }
@@ -727,9 +727,9 @@ check_leaks_function expand
   echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->$HOME"
+  echo "$name_exec EXPECTED ->$home_tests"
   echo
-  [ "${lines[0]}" = "$HOME" ]
+  [ "${lines[0]}" = "$home_tests" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }
@@ -741,9 +741,9 @@ check_leaks_function expand
   echo
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED ->HELLO~toto$HOME"
+  echo "$name_exec EXPECTED ->HELLO~toto$home_tests"
   echo
-  [ "${lines[0]}" = "HELLO~toto$HOME" ]
+  [ "${lines[0]}" = "HELLO~toto$home_tests" ]
 	[ "${lines[1]}" = "" ]
 check_leaks_function expand
 }

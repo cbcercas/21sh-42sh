@@ -30,6 +30,9 @@ parser_error_redir_double="$name_exec: Parse error near \`>>'"
 parser_error_newline="$name_exec: Parse error near \`\n'"
 
 fatal="Fatal testing error: Couldn't catch the error."
+
+history_loc="/tmp/.21sh_history"
+home_tests="/tmp"
 ##########################
 
 
