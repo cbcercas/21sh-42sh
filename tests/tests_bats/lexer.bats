@@ -537,3 +537,23 @@ check_leaks_function lexer
   [ "${lines[0]}" = "21sh: Lexing error." ]
 check_leaks_function lexer
 }
+
+
+#######################################################################
+#                              Other tests                            #
+#######################################################################
+
+@test "LEXER: Testing [Other Test] for 'cd 21-42sh'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t lexer "cd 21-42sh"
+  echo "ERROR:"
+    display_line_output
+    echo
+  echo "$name_exec EXPECTED -><cd> = TOKEN_TYPE_WORD"
+	echo "                < > = TOKEN_TYPE_BLANK"
+	echo "                <21-42sh> = TOKEN_TYPE_WORD"
+    echo
+  [ "${lines[0]}" = "<cd> = TOKEN_TYPE_WORD" ]
+	[ "${lines[1]}" = "< > = TOKEN_TYPE_BLANK" ]
+	[ "${lines[2]}" = "<21-42sh> = TOKEN_TYPE_WORD" ]
+check_leaks_function lexer
+}
