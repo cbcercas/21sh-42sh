@@ -23,6 +23,7 @@
 #include <builtins/help.h>
 #include <builtins/builtin_env.h>
 #include <builtins/builtin_local_var.h>
+#include <builtins/exit.h>
 
 t_array		*get_builtins(void)
 {
@@ -92,6 +93,8 @@ t_array		*sh_builtins_init(void)
 	if (!ms_add_builtin("unset", builtin_unset))
 		return (NULL);
 	if (!ms_add_builtin("export", builtin_export))
+		return (NULL);
+	if (!ms_add_builtin("exit", sh_exit))
 		return (NULL);
 	return (builtins);
 }

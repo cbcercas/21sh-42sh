@@ -52,6 +52,8 @@ void		sh_usage_help(void)
 	ft_printf("\t\t\t     expand: test expand module\n");
 }
 
+//TODO: Add -c
+
 void		sh_usage_help_exit(void)
 {
 	sh_usage_help();

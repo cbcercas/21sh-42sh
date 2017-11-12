@@ -85,3 +85,5 @@ void	sh_help_env(void)
 	ft_printf("\t\t  A string to pass as an argument for the invoked \
 utility.\n");
 }
+
+//TODO: add pwd, history

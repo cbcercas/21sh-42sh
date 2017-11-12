@@ -22,6 +22,7 @@ help()
 		echo -e "\t\t'env' or 'e'"
 		echo -e "\t\t'expand' or 'x'"
 		echo -e "\t\t'ast' or 'a'"
+		echo -e "\t\t'builtins' or 'b'"
 		echo -e "\t\t'all' or 'A' \033[3mAll module [In bats tests: + compile test]\033[0m"
 		echo -e
 		echo -e "\t\033[1;m REQUIRED:\033[0m"
@@ -157,7 +158,7 @@ test_bats()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/tests_expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats"
+		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/tests_expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats" $path_of_file"/tests_bats/builtins.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -182,6 +183,10 @@ test_bats()
 		return 0;
 	elif [ $1 = "exec" ] || [ $1 = "execution" ]; then
 		bats $path_of_file"/tests_bats/exec.bats"
+		ret=`expr $ret + $?`
+		return 0;
+	elif [ $1 = "builtins" ] || [ $1 = "b" ]; then
+		bats $path_of_file"/tests_bats/builtins.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	else
