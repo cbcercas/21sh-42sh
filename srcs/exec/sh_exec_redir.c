@@ -56,10 +56,10 @@ int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 	t_cmd	*item;
 
 	if (!ast)
-		return (g_ret);
+		return (*get_cmd_ret());
 	item = (t_cmd *)ast->item;
 	if ((fd = sh_open_exec(ast)) == -1)
-		return((g_ret = EXIT_FAILURE));
+		return((*get_cmd_ret() = EXIT_FAILURE));
 	signal(SIGWINCH, SIG_IGN);
 	if (sh_fork() == 0)
 	{
@@ -77,6 +77,6 @@ int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 	sh_wait(0, 0);
 	signal(SIGWINCH, signals_handler);
 	close(fd);
-	return(g_ret);
+	return(*get_cmd_ret());
 }
 

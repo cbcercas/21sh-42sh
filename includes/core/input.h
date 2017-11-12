@@ -58,6 +58,7 @@ struct 					s_window
 	ssize_t 			h_lvl;
 	BOOL				h_complet;
 	struct winsize		ts;
+	int					cmd_ret;
 	t_select			select;
 };
 
@@ -90,6 +91,7 @@ t_input					*input_from_save(t_input **to_destroy);
 /*
 **
 */
+int * get_cmd_ret(void);
 t_window				*get_windows(int rst);
 t_select				*get_select(void);
 struct winsize			*get_ts(void);

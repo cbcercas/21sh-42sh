@@ -43,7 +43,7 @@ void expand_dol_spec_replace(t_string *str, size_t *i)
 	fri = false;
 	tmp = NULL;
 	if (str->s[*i + 1] == '?' && (fri = true))
-		tmp = ft_itoa(g_ret);// TODO: faire quand exec termine, avec global
+		tmp = ft_itoa(*get_cmd_ret());// TODO: faire quand exec termine, avec global
 	else if (str->s[*i + 1] == '0' && !(fri = false))
 		tmp = PROGNAME;
 	else if (str->s[*i + 1] == '$' && (fri = true))

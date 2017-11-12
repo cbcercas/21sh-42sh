@@ -82,3 +82,11 @@ t_input	*input_get_cur(void)
 	w = get_windows(0);
 	return (w->cur);
 }
+
+int		*get_cmd_ret(void)
+{
+	t_window	*w;
+
+	w = get_windows(0);
+	return(&w->cmd_ret);
+}

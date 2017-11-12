@@ -31,7 +31,7 @@
 int sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	if (!ast)
-		return (g_ret);
+		return (*get_cmd_ret());
 	if (((t_cmd *)ast->item)->type == E_TOKEN_WORD)
 		return (sh_exec_simple(data, ((t_cmd *)ast->item), fds));
 	else if(((t_cmd *)ast->item)->type == E_TOKEN_SEMI)

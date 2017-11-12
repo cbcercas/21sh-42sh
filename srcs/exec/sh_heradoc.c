@@ -61,12 +61,12 @@ static BOOL	sh_heredoc_get_fd(t_cmd *item, int *fd)
 static int heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
 {
 	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), fd))
-		return ((g_ret = EXIT_FAILURE));
+		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if(sh_pipe(pipe) != 0)
-		return((g_ret = EXIT_FAILURE));
+		return((*get_cmd_ret() = EXIT_FAILURE));
 	signal(SIGWINCH, SIG_IGN);
 	if((*pid = sh_fork()) == -1)
-		return((g_ret = EXIT_FAILURE));
+		return((*get_cmd_ret() = EXIT_FAILURE));
 	if (!*pid)
 		signal(SIGINT, SIG_IGN);
 	return (EXIT_SUCCESS);
@@ -86,7 +86,7 @@ int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	int		pid;
 
 	if (!ast || heredoc_init(ast, &fd, pipe, &pid) == EXIT_FAILURE)
-		return (g_ret);
+		return (*get_cmd_ret());
 	if (!pid)
 	{
 		close(pipe[END]);
@@ -106,5 +106,5 @@ int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	sh_wait(0, 0);
 	signal(SIGWINCH, signals_handler);
 	close(pipe[END]);
-	return (g_ret);
+	return (*get_cmd_ret());
 }

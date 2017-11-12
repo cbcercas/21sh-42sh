@@ -16,8 +16,8 @@
 #include <exec/check_path.h>
 #include <tools/tools.h>
 #include <signals/signals.h>
+#include <core/input.h>
 
-extern int g_ret;
 
 int		sh_builtin_env_exec(char **av, t_array *envs)
 {
@@ -29,7 +29,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 		return (0);
 	envtab = var_to_tab(envs);
 	cmd = NULL;
-	g_ret = 2;
+	*get_cmd_ret() = 2;
 	if ((cmd = get_filename(av[0])))
 	{
 		signal(SIGWINCH, SIG_IGN);
@@ -40,10 +40,10 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 			exit(0);
 		}
 		else
-			g_ret = sh_ret(sh_wait(0, 0));
+			*get_cmd_ret() = sh_ret(sh_wait(0, 0));
 	}
 	signal(SIGWINCH, signals_handler);
 	ft_strdel(&cmd);
 	ft_freetab(envtab, ft_tablen(envtab));
-	return (g_ret);
+	return (*get_cmd_ret());
 }
