@@ -106,13 +106,9 @@ SRCS			+= ft_secu_free_all.c ft_secu_free.c ft_secu_malloc.c\
 				ft_secu_malloc_get.c ft_secu_malloc_lvl.c ft_secu_free_lvl.c
 
 ###############################################################################
-#
-#
-#                                                                       CONFIG
-#
-#
-#
-##############################################################################
+#                                 CONFIG                                      #
+###############################################################################
+
 #  Compiler
 CC                      = clang
 CFLAGS          = -g -Wall -Wextra -Werror
@@ -192,23 +188,20 @@ ifeq ($(UNAME_S), Darwin)
 endif
 
 ###############################################################################
-#
-								  #
-#                                                               DOT NOT EDIT BELOW
-				  #
-#
-								  #
+#                           DOT NOT EDIT BELOW                                #
 ###############################################################################
-#########
+
+ #########
 ## RULES ##
  #########
+
 #.SECONDARY: $(OBJS) lib
 
 .NOTPARALLEL:
 all: $(DEPS) lib $(NAME)
 
 # Add dependency as prerequisites
-#-include $(DEPS)
+-include $(DEPS)
 
 
 $(NAME): $(OBJS)
