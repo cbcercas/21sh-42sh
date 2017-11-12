@@ -220,19 +220,10 @@ $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 
 $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 		@$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
-		$(eval COUNT_DEP=$(shell echo $$(($(COUNT_DEP)+1))))
-		$(eval PERCENT=$(shell echo $$((($(COUNT_DEP) * 100 )/$(TOTAL)))))
-		@printf "$(C_B)%-8s $(C_G) $@$(C_NO)\n" "[$(PERCENT)%]"
 
 $(BUILD_DIR):
 		@$(MKDIR) -p $@
 
-sgg:
-	@bash SGG/ShellGrammarGenerator.sh --input srcs/parser/parser_grammar.yacc --output parser_grammar.c -H enum.h
-	@mv parser_grammar.c srcs/parser/parser_grammar.c
-	@mv enum.h includes/parser/enum.h
-	@sed -i.bak 's/'"enum.h"'/'"parser\/enum.h"'/g' srcs/parser/parser_grammar.c
-	@rm srcs/parser/parser_grammar.c.bak
 lib:
 		@make -C $(LIB_CBC_DIR)
 
