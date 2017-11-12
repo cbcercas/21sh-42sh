@@ -25,7 +25,7 @@ void sh_testing_lexer(char *const *av)
     }
     else
     {
-        ft_dprintf(2, "Fatal testing error : Couldn't Catch the error.");
+        ft_dprintf(2, "Fatal testing error: Couldn't catch the error.");
         exit (1);
     }
 }

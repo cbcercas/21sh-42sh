@@ -9,9 +9,9 @@ load test_helper
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast ""
     echo "ERROR:"
     echo "$name_exec OUTPUT   ->${lines[0]}"
-    echo "$name_exec EXPECTED ->AST NULL"
+    echo "$name_exec EXPECTED ->"
     echo
-    [ "${lines[0]}" = "AST NULL" ]
+    [ "${lines[0]}" = "" ]
     [ "$status" -eq 0 ]
     check_leaks_function ast
 }
@@ -20,9 +20,9 @@ load test_helper
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast " "
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->AST NULL"
+  echo "$name_exec EXPECTED ->"
   echo
-  [ "${lines[0]}" = "AST NULL" ]
+  [ "${lines[0]}" = "" ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }
@@ -220,14 +220,10 @@ load test_helper
 @test "AST: Testing [SIMPLE] for 'ls & ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls & ls"
   echo "ERROR:"
-  expect=$(echo -e "[--- Display tree ---]\n    ls\n&\n    ls")
   display_line_output
-  echo "$name_exec EXPECTED ->[--- Display tree ---]"
-  echo "                    ls"
-  echo "                &"
-  echo "                    ls"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
   echo
-  [ "$output" = "$expect" ]
+  [ "$output" = "$name_exec: Lexing error." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }
@@ -236,24 +232,10 @@ load test_helper
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "a & b & c"
   echo "ERROR:"
   display_line_output
-  echo "$name_exec EXPECTED ->[--- Display tree ---]"
-  echo "                        c"
-  echo "                    &"
-  echo "                        b"
-  echo "                &"
-  echo "                        .."
-  echo "                    a"
-  echo "                        .."
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
   echo
 
-  [ "${lines[0]}" = "[--- Display tree ---]" ]
-  [ "${lines[1]}" = "        c" ]
-  [ "${lines[2]}" = "    &" ]
-  [ "${lines[3]}" = "        b" ]
-  [ "${lines[4]}" = "&" ]
-  [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    a" ]
-  [ "${lines[7]}" = "        .." ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }

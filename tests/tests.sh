@@ -21,6 +21,7 @@ help()
 		echo -e "\t\t'lexer' or 'l'"
 		echo -e "\t\t'env' or 'e'"
 		echo -e "\t\t'expand' or 'x'"
+		echo -e "\t\t'ast' or 'a'"
 		echo -e "\t\t'all' or 'A' \033[3mAll module [In bats tests: + compile test]\033[0m"
 		echo -e
 		echo -e "\t\033[1;m REQUIRED:\033[0m"
