@@ -66,12 +66,12 @@ static int		sh_do_chdir(char *arg, int opt)
 	char	*cur;
 
 	if (!(path = sh_get_path(arg)))
-		return ((g_ret = 1));
+		return ((*get_cmd_ret() = 1));
 	expand_path(&path);
 	if (!sh_test_path(path))
 	{
 		ft_strdel(&path);
-		return ((g_ret = 1));
+		return ((*get_cmd_ret() = 1));
 	}
 	set_var(get_envs(), "OLDPWD", (cur = get_pwd()), true);
 	ft_strdel(&cur);
@@ -79,7 +79,7 @@ static int		sh_do_chdir(char *arg, int opt)
 	{
 		ft_dprintf(2, "cd: can't cd with: %s\n", path);
 		ft_strdel(&path);
-		return ((g_ret = 1));
+		return ((*get_cmd_ret() = 1));
 	}
 	if (opt == 'P')
 		set_var(get_envs(), "PWD", (cur = getcwd(NULL, 0)), true);
@@ -87,7 +87,7 @@ static int		sh_do_chdir(char *arg, int opt)
 		set_var(get_envs(), "PWD", path, true);
 	ft_strdel(&path);
 	ft_strdel(&cur);
-	return ((g_ret = 0));
+	return ((*get_cmd_ret() = 0));
 }
 
 int				sh_chdir(t_sh_data *data, char **arg)
