@@ -499,17 +499,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED -><ls> = TOKEN_TYPE_WORD"
-	echo "                < > = TOKEN_TYPE_BLANK"
-	echo "                <&> = TOKEN_TYPE_AND"
-	echo "                < > = TOKEN_TYPE_BLANK"
-	echo "                <ls> = TOKEN_TYPE_WORD"
+  echo "$name_exec EXPECTED ->21sh: Lexing error."
 	echo
-  [ "${lines[0]}" = "<ls> = TOKEN_TYPE_WORD" ]
-	[ "${lines[1]}" = "< > = TOKEN_TYPE_BLANK" ]
-	[ "${lines[2]}" = "<&> = TOKEN_TYPE_AND" ]
-	[ "${lines[3]}" = "< > = TOKEN_TYPE_BLANK" ]
-	[ "${lines[4]}" = "<ls> = TOKEN_TYPE_WORD" ]
+  [ "${lines[0]}" = "21sh: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -518,15 +510,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED -><ls> = TOKEN_TYPE_WORD"
-	echo "                < > = TOKEN_TYPE_BLANK"
-	echo "                <&> = TOKEN_TYPE_AND"
-	echo "                <ls> = TOKEN_TYPE_WORD"
+  echo "$name_exec EXPECTED ->21sh: Lexing error."
 	echo
-  [ "${lines[0]}" = "<ls> = TOKEN_TYPE_WORD" ]
-	[ "${lines[1]}" = "< > = TOKEN_TYPE_BLANK" ]
-	[ "${lines[2]}" = "<&> = TOKEN_TYPE_AND" ]
-	[ "${lines[3]}" = "<ls> = TOKEN_TYPE_WORD" ]
+  [ "${lines[0]}" = "21sh: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -535,15 +521,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED -><ls> = TOKEN_TYPE_WORD"
-	echo "                <&> = TOKEN_TYPE_AND"
-	echo "                < > = TOKEN_TYPE_BLANK"
-	echo "                <ls> = TOKEN_TYPE_WORD"
+  echo "$name_exec EXPECTED ->21sh: Lexing error."
 	echo
-  [ "${lines[0]}" = "<ls> = TOKEN_TYPE_WORD" ]
-	[ "${lines[1]}" = "<&> = TOKEN_TYPE_AND" ]
-	[ "${lines[2]}" = "< > = TOKEN_TYPE_BLANK" ]
-	[ "${lines[3]}" = "<ls> = TOKEN_TYPE_WORD" ]
+  [ "${lines[0]}" = "21sh: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -552,12 +532,8 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED -><ls> = TOKEN_TYPE_WORD"
-	echo "                <&> = TOKEN_TYPE_AND"
-	echo "                <ls> = TOKEN_TYPE_WORD"
+  echo "$name_exec EXPECTED ->21sh: Lexing error."
 	echo
-  [ "${lines[0]}" = "<ls> = TOKEN_TYPE_WORD" ]
-	[ "${lines[1]}" = "<&> = TOKEN_TYPE_AND" ]
-	[ "${lines[2]}" = "<ls> = TOKEN_TYPE_WORD" ]
+  [ "${lines[0]}" = "21sh: Lexing error." ]
 check_leaks_function lexer
 }
