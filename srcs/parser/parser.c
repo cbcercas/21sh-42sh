@@ -281,7 +281,7 @@ static const char	*g_grammar[226] =
 
 t_return						ret_parser(t_token *toknext)
 {
-	ft_dprintf(STDERR_FILENO, "%s: parse error near `%s'\n", PROGNAME,
+	ft_dprintf(STDERR_FILENO, "%s: Parse error near `%s'\n", PROGNAME,
 			  g_grammar[toknext->type]);
 	return (E_RET_PARSER_ERROR);
 }

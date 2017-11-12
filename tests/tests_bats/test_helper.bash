@@ -15,16 +15,19 @@ display_line_output()
 
 ####message parser#########
 okparser="Parser say OK"
-parser_error_simple_pv="Parser: Syntax error near ';'"
-parser_error_double_pv="Parser: Syntax error near ';;'"
+parser_error_simple_pv="$name_exec: Parse error near \`;'"
+parser_error_double_pv="$name_exec: Parse error near \`;;'"
 
-parser_error_simple_es="Parser: Syntax error near '&'"
-parser_error_double_es="Parser: Syntax error near '&&'"
+parser_error_simple_es="$name_exec: Parse error near \`&'"
+parser_error_double_es="$name_exec: Parse error near \`&&'"
 
-parser_error_simple_p="Parser: Syntax error near '|'"
-parser_error_double_p="Parser: Syntax error near '||'"
+parser_error_simple_p="$name_exec: Parse error near \`|'"
+parser_error_double_p="$name_exec: Parse error near \`||'"
 
-parser_error_newline="Parser: Syntax error near '\n'"
+parser_error_redir="$name_exec: Parse error near \`< or >'"
+parser_error_redir_double="$name_exec: Parse error near \`>>'"
+
+parser_error_newline="$name_exec: Parse error near \`\n'"
 ##########################
 
 

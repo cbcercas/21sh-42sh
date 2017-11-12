@@ -31,9 +31,9 @@ void	sh_testing_parser(char *const *av)
 			ft_dprintf(2, "Error Initialising automaton");
 			exit (1);
 	}
-	else if (lexer_lex(&tokens, av[3]))
+	else if (lexer_lex(&tokens, av[3]) == E_RET_LEXER_OK)
 	{
-			if(parser_parse(&tokens))
+			if(parser_parse(&tokens) == E_RET_PARSER_OK)
 			{
 				ft_printf("Parser say OK\n");
 				exit (0);
@@ -42,7 +42,7 @@ void	sh_testing_parser(char *const *av)
 	}
 	else
 	{
-			ft_dprintf(2, "Fatal testing error : Couldn't Catch the error.");
+			ft_dprintf(2, "Fatal testing error: Couldn't catch the error.");
 			exit (1);
 	}
 }
