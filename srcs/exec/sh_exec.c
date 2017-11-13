@@ -53,7 +53,7 @@ static int sh_exec(t_cmd *item, t_list **fds)
 	{
 		if (!manage_create_pipe(pipe, fds))
 			return (EXIT_FAILURE);
-		if((pid = sh_fork()) == -1)
+		if((pid = sh_fork(E_PID_CMD)) == -1)
 			return (EXIT_FAILURE);
 		signal(SIGWINCH, NULL);
 		if (!pid)

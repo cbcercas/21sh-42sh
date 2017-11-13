@@ -16,16 +16,18 @@
 #include <libft.h>
 #include <logger.h>
 
-pid_t  sh_fork(void)
+pid_t sh_fork(t_pid_type type)
 {
 	pid_t	pid;
+	t_pids	save_pid;
 
 	if ((pid = fork()) == -1)
 		ft_putstr_fd("fork error\n", 2);
 	if (pid > 0)
 	{
+		save_pid.pid = pid;
 		log_dbg1("SH_FORK: Save pid_child %d", pid);
-		array_push(get_pids_child(), &pid);
+		array_push(get_pids_child(), &save_pid);
 	}
   return (pid);
 }
