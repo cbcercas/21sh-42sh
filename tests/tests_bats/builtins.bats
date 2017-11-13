@@ -168,18 +168,18 @@ load test_helper
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /this/doesnt/exists'
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->$cdnosuch"
-	[ "${lines[0]}" = "$cdnosuch" ]
+	echo "$name_exec EXPECTED ->$cdnosuch: /this/doesnt/exists"
+	[ "${lines[0]}" = "$cdnosuch: /this/doesnt/exists" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
 
-@test "BUILTINS: Testing [Builtin CD] for 'touch notadir && cd notadir && rm notadir'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'touch notadir && cd notadir && rm notadir'
+@test "BUILTINS: Testing [Builtin CD] for 'touch notadir && cd notadir ; rm notadir'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'touch notadir && cd notadir ; rm notadir'
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->cd: not a directory"
-	[ "${lines[0]}" = "cd: not a directory" ]
+	echo "$name_exec EXPECTED ->cd: not a directory: notadir"
+	[ "${lines[0]}" = "cd: not a directory: notadir" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
@@ -199,9 +199,9 @@ load test_helper
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv HOME=/tmp/nosuch && cd; pwd'
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->$cdnosuch"
+	echo "$name_exec EXPECTED ->$cdnosuch: /tmp/nosuch"
 	echo "						$pwdtest"
-	[ "${lines[0]}" = "$cdnosuch" ]
+	[ "${lines[0]}" = "$cdnosuch: /tmp/nosuch" ]
 	[ "${lines[1]}" = "$pwdtest" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
@@ -225,10 +225,10 @@ load test_helper
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->/tmp/nosuchdir"
-	echo "						$cdnosuch"
+	echo "						$cdnosuch: /tmp/nosuchdir"
 	echo "						$pwdtest"
 	[ "${lines[0]}" = "/tmp/nosuchdir" ]
-	[ "${lines[1]}" = "$cdnosuch" ]
+	[ "${lines[1]}" = "$cdnosuch: /tmp/nosuchdir" ]
 	[ "${lines[2]}" = "$pwdtest" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
@@ -245,10 +245,10 @@ load test_helper
 	echo "						/tmp/nosuchdir"
 	echo "						$cdnosuch"
 	[ "${lines[0]}" = "/tmp/nosuchdir" ]
-	[ "${lines[1]}" = "$cdnosuch" ]
+	[ "${lines[1]}" = "$cdnosuch: /tmp/nosuchdir" ]
 	[ "${lines[2]}" = "$pwdtest" ]
 	[ "${lines[3]}" = "/tmp/nosuchdir" ]
-	[ "${lines[4]}" = "$cdnosuch" ]
+	[ "${lines[4]}" = "$cdnosuch: /tmp/nosuchdir" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
@@ -258,8 +258,8 @@ load test_helper
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd ////////.//////./////...//////// && pwd'
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->$cdnosuch"
-	[ "${lines[0]}" = "$cdnosuch" ]
+	echo "$name_exec EXPECTED ->$cdnosuch: ////////.//////./////...////////"
+	[ "${lines[0]}" = "$cdnosuch: ////////.//////./////...////////" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }

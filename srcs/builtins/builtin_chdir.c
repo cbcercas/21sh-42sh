@@ -33,9 +33,9 @@ static	BOOL	sh_test_path(char *path)
 		if (bufstat.st_mode & S_IXUSR && S_ISDIR(bufstat.st_mode))
 			return (true);
 		else if (S_ISDIR(bufstat.st_mode))
-			ft_dprintf(2, "%s: cd: permission denied: %s\n", PROGNAME, path);
+			ft_dprintf(2, "cd: permission denied: %s\n", path);
 		else
-			ft_dprintf(2, "%s: cd: it's not a directory: %s\n", PROGNAME, path);
+			ft_dprintf(2, "cd: not a directory: %s\n", path);
 		return (false);
 	}
 	ft_dprintf(2, "cd: no such file or directory: %s\n", path);
