@@ -28,14 +28,17 @@ static	BOOL	sh_test_path(char *path)
 {
 	struct stat	bufstat;
 
-	if (!stat(path, &bufstat) && !lstat(path, &bufstat))
+	if (!lstat(path, &bufstat) && !stat(path, &bufstat))
 	{
-		if (bufstat.st_mode & S_IXUSR)
+		if (bufstat.st_mode & S_IXUSR && S_ISDIR(bufstat.st_mode))
 			return (true);
+		else if (S_ISDIR(bufstat.st_mode))
+			ft_dprintf(2, "%s: cd: permission denied: %s\n", PROGNAME, path);
 		else
-			ft_dprintf(2, "%s: cd: permission denied\n", PROGNAME);
+			ft_dprintf(2, "%s: cd: it's not a directory: %s\n", PROGNAME, path);
+		return (false);
 	}
-	ft_dprintf(2, "cd: no such file or directory\n");
+	ft_dprintf(2, "cd: no such file or directory: %s\n", path);
 	return (false);
 }
 
@@ -67,12 +70,9 @@ static int		sh_do_chdir(char *arg, int opt)
 
 	if (!(path = sh_get_path(arg)))
 		return ((*get_cmd_ret() = 1));
-	expand_path(&path);
 	if (!sh_test_path(path))
-	{
-		ft_strdel(&path);
 		return ((*get_cmd_ret() = 1));
-	}
+	expand_path(&path);
 	set_var(get_envs(), "OLDPWD", (cur = get_pwd()), true);
 	ft_strdel(&cur);
 	if (chdir(path) == -1)

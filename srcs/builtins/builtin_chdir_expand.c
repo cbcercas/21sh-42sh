@@ -3,6 +3,7 @@
 #include <libft.h>
 #include <tools/tools.h>
 #include <builtins/exit.h>
+#include <sys/stat.h>
 
 static char 	*find_start_ddots(char *path)
 {
@@ -56,8 +57,10 @@ char	*expand_path(char **path)
 {
 	char		*current;
 	char		*ret;
+	struct stat	bufstat;
 
-	if (!path || !*path || !(current = get_pwd()))
+	if (!path || !*path || stat(*path, &bufstat) || lstat(*path, &bufstat)
+		|| !(current = get_pwd()))
 		return (NULL);
 	ret = ft_strdup(*path);
 	if (*path[0] != '/' && (!(current = ft_strjoincl(current, "/", 1)) ||
