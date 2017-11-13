@@ -29,6 +29,7 @@ disabled.\n", C_GREEN, C_NONE);
 	ft_printf("\n%secho%s [-neE] [arg …]\n", CL_RED, C_NONE);
 	ft_printf("%shelp%s [pattern]\n", CL_RED, C_NONE);
 	ft_printf("%sexit%s [n]\n", CL_RED, C_NONE);
+	ft_printf("%shistory%s [n] [cdanrwps]\n", CL_RED, C_NONE);
 	ft_printf("%scd%s [-L|-P] [directory]\n", CL_RED, C_NONE);
 	ft_printf("%ssetenv%s [name]=[value]\n", CL_RED, C_NONE);
 	ft_printf("%sunsetenv%s [name]\n", CL_RED, C_NONE);
@@ -81,7 +82,6 @@ void	sh_help_bonus(void)
 
 int		sh_builtin_help(t_sh_data *data, char **args)
 {
-	(void)data;
 	if (args[1] == NULL)
 		sh_help_default(data);
 	else if (ft_strequ(args[1], "echo"))
@@ -98,16 +98,11 @@ int		sh_builtin_help(t_sh_data *data, char **args)
 		sh_help_unsetenv();
 	else if (ft_strequ(args[1], "env"))
 		sh_help_env();
-	else if (ft_strequ(args[1], "bonus"))
-		sh_help_bonus();
 	else
-	{
-		ft_printf("%s: Couldn't find the help wanted for %s\n",\
-		PROGNAME, args[1]);
-		return (1);
-	}
+		return (sh_builtin_help_helper(args));
 	return (0);
 }
+
 
 /*
 **TODO: ADD MORE COLORS

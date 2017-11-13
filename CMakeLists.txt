@@ -48,6 +48,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtin_history_print.c
 		srcs/builtins/builtin_history_npr.c
 		srcs/builtins/builtin_local_var.c
+		srcs/builtins/builtin_help_3.c
 
 		srcs/core/sh_loop.c
         srcs/core/sh_get_input.c
