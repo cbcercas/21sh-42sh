@@ -66,7 +66,7 @@ static int heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
 	if(sh_pipe(pipe) != 0)
 		return((*get_cmd_ret() = EXIT_FAILURE));
 	signal(SIGWINCH, SIG_IGN);
-	if((*pid = sh_fork()) == -1)
+	if((*pid = sh_fork(E_PID_HERE)) == -1)
 		return((*get_cmd_ret() = EXIT_FAILURE));
 	if (!*pid)
 		signal(SIGINT, SIG_IGN);
@@ -96,7 +96,7 @@ int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	}
 	sh_wait(0, 0);
 	close(pipe[START]);
-	if (!sh_fork())
+	if (!sh_fork(E_PID_HERE))
 	{
 		ft_lstdel(&fds[PIPE_IN], &exec_list_nothing);
 		exec_list_push(&fds[PIPE_IN], pipe[END]);

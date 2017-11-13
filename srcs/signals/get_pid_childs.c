@@ -22,7 +22,8 @@ t_array		*get_pids_child(void)
 
 	if (e == NULL)
 	{
-		if ((e = array_create(sizeof(int))) == NULL)
+		if ((e = array_create(sizeof(
+									  t_pids))) == NULL)
 		{
 			log_fatal("get_pids_child: can't initialise pids child array");
 			ft_dprintf(STDERR_FILENO, "get_pids_child: can't initialise pids childs\
@@ -42,9 +43,9 @@ int		kill_childs(int sig)
 		return (EXIT_FAILURE);
 	while (0 < e->used)
 	{
-		log_dbg3("kill pid = %d (SHLVL = %s)\n", *(int*)array_get_at(e, 0),
+		log_dbg3("kill pid = %d (SHLVL = %s)\n", ((t_pids*)array_get_at(e, 0))->pid,
 				  get_var_value(get_envs(), "SHLVL"));
-		kill(*(int*)array_get_at(e, 0), sig);
+		kill(((t_pids*)array_get_at(e, 0))->pid, sig);
 		array_remove_at(e, 0, NULL);
 	}
 	return (EXIT_SUCCESS);
@@ -59,7 +60,7 @@ void	remove_pid_child(int pid_child)
 	e = get_pids_child();
 	while (i < e->used)
 	{
-		if (*(int*)array_get_at(e, i) == pid_child)
+		if (((t_pids*)array_get_at(e, 0))->pid == pid_child)
 			break ;
 		i++;
 	}
@@ -72,13 +73,7 @@ void	remove_pid_child(int pid_child)
 	}
 }
 
-BOOL	*get_stop(void)
-{
-	static BOOL		stop = true;
-	return (&stop);
-}
-
-/*void	remove_useless(void)
+void	remove_useless(void)
 {
 	size_t		i;
 	t_array		*e;
@@ -89,9 +84,9 @@ BOOL	*get_stop(void)
 		return ;
 	while (i < e->used)
 	{
-		if (kill(*(int*)array_get_at(e, i), 0) == -1)
+		if (kill(((t_pids*)array_get_at(e, 0))->pid, 0) == -1)
 			array_remove_at(e, i, NULL);
 		else
 			i++;
 	}
-}*/
+}

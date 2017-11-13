@@ -47,7 +47,7 @@ static t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 
 	if(sh_pipe(pipe) != 0)
 		return (NULL);
-	if((pid = sh_fork()) == -1)
+	if((pid = sh_fork(E_PID_PIPE)) == -1)
 		return (NULL);
 	*get_stop() = true;
 	if(pid == 0)
@@ -55,9 +55,9 @@ static t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 	exec_list_push(&pids, pid);
 	while (ast->left && ast->left->item &&
 			((t_cmd *)(ast->left->item))->type == E_TOKEN_DLESS && *get_stop())
-		;
+			;
 	*get_stop() = true;
-	if((pid = sh_fork()) == -1)
+	if((pid = sh_fork(E_PID_PIPE)) == -1)
 		return (NULL);
 	if(pid == 0)
 		sh_pipe_right(data, ast, fds, pipe);

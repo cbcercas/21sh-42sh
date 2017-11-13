@@ -39,3 +39,9 @@ int sh_wait(pid_t pid, int wait_flag)
 	remove_pid_child(pid);
 	return (status);
 }
+
+BOOL	*get_stop(void)
+{
+	static BOOL		stop = true;
+	return (&stop);
+}

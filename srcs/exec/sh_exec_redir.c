@@ -61,7 +61,7 @@ int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 	if ((fd = sh_open_exec(ast)) == -1)
 		return((*get_cmd_ret() = EXIT_FAILURE));
 	signal(SIGWINCH, SIG_IGN);
-	if (sh_fork() == 0)
+	if (sh_fork(E_PID_REDIR) == 0)
 	{
 		if (fd != -1)
 		{

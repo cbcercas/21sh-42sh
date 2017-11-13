@@ -17,6 +17,7 @@
 # include <btree/ft_btree.h>
 # include <stdlib.h>
 # include <string/ft_string.h>
+# include <signals/signals.h>
 
 char	*get_pwd(void);
 void	ft_strdblfree(char **strdb);
@@ -25,7 +26,7 @@ BOOL  is_white(int c);
 BOOL  is_str_car(const char *buff);
 BOOL  is_redirect(int c);
 BOOL  is_sepa(int c);
-pid_t	sh_fork(void);
+pid_t sh_fork(t_pid_type type);
 int		sh_pipe(int tube[2]);
 int		sh_open_exec(t_btree *ast);
 int		sh_open(char *file, int flags);

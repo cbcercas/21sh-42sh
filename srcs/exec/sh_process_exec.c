@@ -13,6 +13,7 @@
 #include <exec/exec.h>
 #include <ast/ast.h>
 #include <core/prompt.h>
+#include <signals/signals.h>
 
 /*
  ** @brief         handle ast before exec
@@ -70,5 +71,6 @@ int		exec_exec(t_sh_data *data, t_btree *ast)
 	fds[CLOSE] = NULL;
 	fds[PIPE_OUT] = NULL;
 	fds[PIPE_IN] = NULL;
+	remove_useless();
 	return (sh_process_exec(data, ast, fds));
 }

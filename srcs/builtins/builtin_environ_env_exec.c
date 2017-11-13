@@ -33,7 +33,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 	if ((cmd = get_filename(av[0])))
 	{
 		signal(SIGWINCH, SIG_IGN);
-		pid = sh_fork();
+		pid = sh_fork(E_PID_CMD);
 		if (pid == 0)
 		{
 			execve(cmd, av, envtab);
