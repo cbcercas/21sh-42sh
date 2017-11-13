@@ -97,6 +97,7 @@ set(SOURCE_FILES
 		srcs/ft_secu_malloc/ft_secu_malloc_get.c
 		srcs/ft_secu_malloc/ft_secu_malloc_lvl.c
 
+		srcs/history/history_init.c
 		srcs/history/history.c
 		srcs/history/history_list_utils.c
 		srcs/history/history_getter.c
