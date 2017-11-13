@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/10/13 19:12:13 by gpouyat          ###   ########.fr        #
+#    Updated: 2017/11/13 10:37:58 by chbravo-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -240,7 +240,7 @@ fclean: clean
 	@$(ECHOLOR) "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
 	@$(RM) $(NAME)
 	@make fclean -C $(LIB_CBC_DIR)
-	@rm -rf DOC  
+	@rm -rf DOC
 
 dev:
 		@make -C ./ SAN="yes" DEV="yes"
@@ -254,7 +254,7 @@ else
 	@$(ECHOLOR) "[\033[35m--------------------------\033[0m]"
 	@$(ECHOLOR) "[\033[36m------ Documentation -----\033[0m]"
 	@$(ECHOLOR) "[\033[36m------   generated   -----\033[0m]"
-	@$(ECHOLOR) "[\033[35m--------------------------\033[0m]"      
+	@$(ECHOLOR) "[\033[35m--------------------------\033[0m]"
 endif
 
 .PHONY: re clean fclean all lib doc dev
