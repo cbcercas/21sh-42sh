@@ -33,6 +33,7 @@ fatal="Fatal testing error: Couldn't catch the error."
 
 history_loc="/tmp/.21sh_history"
 home_tests="/tmp"
+cdnosuch="cd: no such file or directory"
 ##########################
 
 
