@@ -200,10 +200,6 @@ endif
 .NOTPARALLEL:
 all: $(DEPS) lib $(NAME)
 
-# Add dependency as prerequisites
--include $(DEPS)
-
-
 $(NAME): $(OBJS)
 		@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INC)
 		@$(ECHOLOR) "$(C_G)🎩🎩🎩$(C_NO) ALL LINKED $(C_G)🎩🎩🎩$(C_NO)"
@@ -213,6 +209,8 @@ $(NAME): $(OBJS)
 		@$(ECHOLOR) "[\033[35m---------------------------------\033[0m]"
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
+		# Add dependency as prerequisites
+		-include $(DEPS)
 		@$(CC) $(LDFLAGS) $(CFLAGS) $(INC) -o $@ -c $<
 		$(eval COUNT_OBJ=$(shell echo $$(($(COUNT_OBJ)+1))))
 		$(eval PERCENT=$(shell echo $$((($(COUNT_OBJ) * 100 )/$(TOTAL)))))
