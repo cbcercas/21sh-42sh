@@ -19,7 +19,7 @@ SRCS			+= sh_get_input.c main.c prompt.c init.c input.c usage_help.c \
  					input_move.c input_utils_2.c sh_loop.c
 
 SRC_SUBDIR		+= environ
-SRCS			+= environ.c env_list_utils.c getter_env.c builtin_env_utils.c\
+SRCS			+= environ.c env_list_utils.c getter_env.c env_utils.c\
 					modif_env.c
 
 SRC_SUBDIR		+= builtins
@@ -30,7 +30,7 @@ SRCS			+= builtin_chdir.c builtin_chdir_expand.c builtin_echo.c\
 					builtin_help.c builtin_history_acdws.c builtin_history.c\
 					builtin_history_npr.c builtin_history_print.c\
 					builtin_local_var.c builtin_pwd.c builtins_utils2.c\
-					builtins_utils.c builtin_help_3.c
+					builtin_utils.c builtin_help_3.c
 
 
 SRC_SUBDIR		+= exec

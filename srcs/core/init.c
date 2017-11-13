@@ -27,7 +27,7 @@
 #include <signals/signals.h>
 #include <sys/param.h>
 #include <core/deinit.h>
-#include <environ/builtin_env_utils.h>
+#include <environ/env_utils.h>
 #include <environ/getter_env.h>
 #include <environ/modif_env.h>
 #include <term.h>

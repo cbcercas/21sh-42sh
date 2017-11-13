@@ -14,7 +14,7 @@
 #include <tools/tools.h>
 #include <core/prompt.h>
 #include <environ/environ.h>
-#include <environ/builtin_env_utils.h>
+#include <environ/env_utils.h>
 #include <exec/check_path.h>
 #include <signals/signals.h>
 #include <builtins/builtin_utils.h>

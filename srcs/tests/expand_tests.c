@@ -16,7 +16,7 @@
 #include <automaton/automaton.h>
 #include <environ/environ.h>
 #include <environ/modif_env.h>
-#include <environ/builtin_env_utils.h>
+#include <environ/env_utils.h>
 #include <history/history.h>
 
 void expand_print_test(t_array *array_exp)

@@ -12,7 +12,7 @@
 
 #include <stdlib.h>
 #include <environ/getter_env.h>
-#include <environ/builtin_env_utils.h>
+#include <environ/env_utils.h>
 #include <ftprintf.h>
 #include <core/input.h>
 #include <core/tcaps.h>

@@ -67,7 +67,7 @@ set(SOURCE_FILES
 		srcs/environ/env_list_utils.c
 		srcs/environ/environ.c
 		srcs/environ/getter_env.c
-		srcs/environ/builtin_env_utils.c
+		srcs/environ/env_utils.c
 		srcs/environ/modif_env.c
 
 		srcs/exec/check_path.c

@@ -15,7 +15,7 @@
 #include <logger.h>
 #include <ft_secu_malloc/ft_secu_malloc.h>
 #include <ftprintf.h>
-#include <environ/builtin_env_utils.h>
+#include <environ/env_utils.h>
 #include <environ/modif_env.h>
 
 extern int g_optind;
