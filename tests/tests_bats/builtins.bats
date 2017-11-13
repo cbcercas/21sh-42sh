@@ -116,3 +116,17 @@ load test_helper
 	[ "$status" -eq 2 ]
 	check_leaks_function exec
 }
+
+################################################################################
+#                                    Testing CD                                #
+################################################################################
+
+@test "BUILTINS: Testing [Builtin EXIT] for 'cd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->"
+	[ "${lines[0]}" = "" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
