@@ -15,4 +15,7 @@ t_array		*get_pids_child(void);
 int		kill_childs(int sig);
 void	remove_pid_child(int pid_child);
 void	remove_useless(void);
+
+BOOL	*get_stop(void);
+
 #endif

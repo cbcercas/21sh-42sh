@@ -23,7 +23,7 @@ static void sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds, int
 {
 	close(pipe[START]);
 	//dup2(pipe[END], STDIN_FILENO);
-	fds[PIPE_IN] = NULL;
+	ft_lstdel(&fds[PIPE_IN], &exec_list_nothing);
 	exec_list_push(&fds[PIPE_IN], pipe[END]);
 	sh_process_exec(data, ast->right, fds);
 	exit(EXIT_SUCCESS);
@@ -49,10 +49,14 @@ static t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 		return (NULL);
 	if((pid = sh_fork()) == -1)
 		return (NULL);
+	*get_stop() = true;
 	if(pid == 0)
 		sh_pipe_left(data, ast, fds, pipe);
 	exec_list_push(&pids, pid);
-	//TODO: wait heredoc
+	while (ast->left && ast->left->item &&
+			((t_cmd *)(ast->left->item))->type == E_TOKEN_DLESS && *get_stop())
+		;
+	*get_stop() = true;
 	if((pid = sh_fork()) == -1)
 		return (NULL);
 	if(pid == 0)

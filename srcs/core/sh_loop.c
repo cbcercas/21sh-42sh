@@ -59,19 +59,19 @@ static t_return		sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 	return (ret);
 }
 
-BOOL				sh_loop(t_sh_data data, struct s_exec_data exec_dat,
+BOOL				sh_loop(t_sh_data data, struct s_exec_data *exec_dat,
 							t_return *ret)
 {
 	char	*line;
 
 	if (!(line = sh_get_input(&data, NULL, *ret)))
 		return (true);
-	if (ft_strlen(line) > 1 && ft_strequ(line, "exit"))
-		return (true);
-	*ret = sh_process(&exec_dat.ast, &exec_dat.expand, &exec_dat.tokens, line);
+	/*if (ft_strlen(line) > 1 && ft_strequ(line, "exit"))
+		return (true);*/
+	*ret = sh_process(&exec_dat->ast, &exec_dat->expand, &exec_dat->tokens, line);
 	if (*ret == E_RET_AST_OK)
 	{
-		exec_exec(&data, exec_dat.ast);
+		exec_exec(&data, exec_dat->ast);
 		get_windows(72); //TODO move this
 	}
 	if (!(*ret >= E_RET_LEXER_INCOMPLETE && *ret <= E_RET_LEXER_PIPE))
@@ -80,9 +80,9 @@ BOOL				sh_loop(t_sh_data data, struct s_exec_data exec_dat,
 		input_reset(input_get_cur_head());
 		*ret = E_RET_NEW_PROMPT;
 	}
-	if (exec_dat.ast)
-		btree_destroy(&exec_dat.ast, (void (*)(void*))&ast_del_cmd);
-	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
+	if (exec_dat->ast)
+		btree_destroy(&exec_dat->ast, (void (*)(void*))&ast_del_cmd);
+	sh_arrays_reset(&exec_dat->tokens, &exec_dat->expand);
 	ft_strdel(&line);
 	return (false);
 }

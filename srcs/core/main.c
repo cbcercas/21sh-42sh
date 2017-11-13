@@ -68,7 +68,7 @@ int				main(int ac, char *const *av, char **environ)
 	if (!sh_init(&data, ac, av, environ))
 		exit(1);
 	while (!stop)
-		stop = sh_loop(data, exec_dat, &ret);
+		stop = sh_loop(data, &exec_dat, &ret);
 	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
 	sh_exit(&data, NULL);
 	return (0);
