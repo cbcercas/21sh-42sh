@@ -17,7 +17,7 @@
 #include <environ/builtin_env_utils.h>
 #include <exec/check_path.h>
 #include <signals/signals.h>
-#include <builtins/builtins_utils.h>
+#include <builtins/builtin_utils.h>
 #include <signal.h>
 
 static int sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)

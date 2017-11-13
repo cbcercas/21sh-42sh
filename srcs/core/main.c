@@ -16,7 +16,7 @@
 #include <core/input.h>
 #include <btree/ft_btree.h>
 #include <core/init.h>
-#include <builtins/exit.h>
+#include <builtins/builtin_exit.h>
 #include <core/sh_loop.h>
 #include <core/main.h>
 

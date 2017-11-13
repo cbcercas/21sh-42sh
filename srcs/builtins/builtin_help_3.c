@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/help.h>
+#include <builtins/builtin_help.h>
 
 /*
 **TODO: ADD MORE COLORS

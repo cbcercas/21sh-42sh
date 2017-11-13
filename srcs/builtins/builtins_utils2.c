@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/builtins_utils.h>
+#include <builtins/builtin_utils.h>
 #include <array/array.h>
 
 t_builtin	*get_builtin(char *name)

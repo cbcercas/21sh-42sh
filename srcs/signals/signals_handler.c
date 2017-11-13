@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <signals/signals.h>
-# include <builtins/exit.h>
+# include <builtins/builtin_exit.h>
 #include <sys/wait.h>
 #include <libft.h>
 #include <ftprintf.h>

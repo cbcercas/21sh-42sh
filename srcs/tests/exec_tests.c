@@ -16,7 +16,7 @@
 #include <ftprintf.h>
 #include <btree/ft_btree.h>
 #include <environ/environ.h>
-#include <builtins/builtins_utils.h>
+#include <builtins/builtin_utils.h>
 #include <history/history.h>
 #include <expand/expand.h>
 #include <ast/ast.h>

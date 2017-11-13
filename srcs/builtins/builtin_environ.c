@@ -12,7 +12,7 @@
 
 #include <core/data.h>
 #include <libft.h>
-#include <builtins/help.h>
+#include <builtins/builtin_help.h>
 #include <environ/modif_env.h>
 #include <environ/builtin_env_utils.h>
 #include <logger.h>

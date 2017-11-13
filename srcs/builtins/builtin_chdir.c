@@ -20,9 +20,9 @@
 #include <core/prompt.h>
 #include <environ/modif_env.h>
 #include <unistd/ft_unistd.h>
-#include <builtins/echo.h>
+#include <builtins/builtin_echo.h>
 #include <tools/tools.h>
-#include <builtins/chdir.h>
+#include <builtins/builtin_chdir.h>
 
 static	BOOL	sh_test_path(char *path)
 {

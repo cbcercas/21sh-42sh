@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins/pwd.h>
+#include <builtins/builtin_pwd.h>
 #include <unistd/ft_unistd.h>
 #include <tools/tools.h>
 #include <environ/getter_env.h>

@@ -14,16 +14,16 @@
 #include <environ/env_list_utils.h>
 #include <logger.h>
 #include <ftprintf.h>
-#include <builtins/builtins_utils.h>
+#include <builtins/builtin_utils.h>
 #include <core/progname.h>
-#include <builtins/echo.h>
+#include <builtins/builtin_echo.h>
 #include <builtins/builtin_history.h>
-#include <builtins/chdir.h>
-#include <builtins/pwd.h>
-#include <builtins/help.h>
+#include <builtins/builtin_chdir.h>
+#include <builtins/builtin_pwd.h>
+#include <builtins/builtin_help.h>
 #include <builtins/builtin_env.h>
 #include <builtins/builtin_local_var.h>
-#include <builtins/exit.h>
+#include <builtins/builtin_exit.h>
 
 t_array		*get_builtins(void)
 {

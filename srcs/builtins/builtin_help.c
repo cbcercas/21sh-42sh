@@ -15,7 +15,7 @@
 #include <core/color.h>
 #include <core/progname.h>
 #include <libft.h>
-#include <builtins/help.h>
+#include <builtins/builtin_help.h>
 
 void	sh_help_default(t_sh_data *data)
 {

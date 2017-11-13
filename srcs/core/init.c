@@ -22,7 +22,7 @@
 #include <logger.h>
 #include <core/progname.h>
 #include <environ/environ.h>
-#include <builtins/builtins_utils.h>
+#include <builtins/builtin_utils.h>
 #include <history/history.h>
 #include <signals/signals.h>
 #include <sys/param.h>
@@ -31,7 +31,7 @@
 #include <environ/getter_env.h>
 #include <environ/modif_env.h>
 #include <term.h>
-#include <builtins/exit.h>
+#include <builtins/builtin_exit.h>
 
 extern char const	*g_optarg;
 
