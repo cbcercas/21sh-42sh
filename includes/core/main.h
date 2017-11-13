@@ -13,7 +13,9 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-typedef struct s_array	t_array;
+#include <array/array.h>
+#include <btree/ft_btree.h>
+//typedef struct s_array	t_array;
 
 struct s_exec_data
 {

@@ -27,6 +27,7 @@
 #define PIPE_IN 5
 
 void	exec_list_push(t_list **head, size_t fd);
+void	exec_list_nothing(void *no, size_t thing);
 int		exec_exec(t_sh_data *data, t_btree *ast);
 void	exec_list_pop(t_list **head);
 int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds);

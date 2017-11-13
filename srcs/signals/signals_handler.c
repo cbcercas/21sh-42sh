@@ -77,6 +77,12 @@ void    signals_handler(int sig)
 		signals_sigwinch();
 	if (sig == SIGUSR1 || sig == SIGTERM)
 		sh_exit(NULL, NULL);
+	if (sig == SIGUSR2)
+	{
+		*get_stop() = false;
+		log_dbg3("SIGNAL SIGUSR1 g_stop = %d", *get_stop());
+		return ;
+	}
 	if (sig == 13)
 	{
 		if (get_pid_child(-1))

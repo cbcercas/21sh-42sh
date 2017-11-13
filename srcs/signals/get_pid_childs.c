@@ -72,7 +72,13 @@ void	remove_pid_child(int pid_child)
 	}
 }
 
-void	remove_useless(void)
+BOOL	*get_stop(void)
+{
+	static BOOL		stop = true;
+	return (&stop);
+}
+
+/*void	remove_useless(void)
 {
 	size_t		i;
 	t_array		*e;
@@ -88,4 +94,4 @@ void	remove_useless(void)
 		else
 			i++;
 	}
-}
+}*/

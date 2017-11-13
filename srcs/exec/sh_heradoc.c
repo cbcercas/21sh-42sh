@@ -42,6 +42,7 @@ static void	mini_input(char *end, int pipe_fd)
 		ft_strdel(&line);
 		ft_putstr("heredoc>");
 	}
+	ft_strdel(&line);
 }
 
 static BOOL	sh_heredoc_get_fd(t_cmd *item, int *fd)
@@ -97,8 +98,7 @@ int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	close(pipe[START]);
 	if (!sh_fork())
 	{
-		//dup2(pipe[END], fd);
-		fds[PIPE_IN] = NULL;
+		ft_lstdel(&fds[PIPE_IN], &exec_list_nothing);
 		exec_list_push(&fds[PIPE_IN], pipe[END]);
 		sh_process_exec(data, ast->left, fds);
 		exit(EXIT_FAILURE);
@@ -106,5 +106,6 @@ int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	sh_wait(0, 0);
 	signal(SIGWINCH, signals_handler);
 	close(pipe[END]);
+	kill(0, SIGUSR2);
 	return (*get_cmd_ret());
 }
