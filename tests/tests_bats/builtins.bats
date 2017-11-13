@@ -131,8 +131,8 @@ load test_helper
 	check_leaks_function exec
 }
 
-@test "BUILTINS: Testing [Builtin CD] for 'cd;pwd'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd;pwd'
+@test "BUILTINS: Testing [Builtin CD] for 'cd&&pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd&&pwd'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->$HOME"
@@ -141,9 +141,9 @@ load test_helper
 	check_leaks_function exec
 }
 
-@test "BUILTINS: Testing [Builtin CD] for 'cd;pwd;cd -'" {
+@test "BUILTINS: Testing [Builtin CD] for 'cd && pwd && cd -'" {
 	oldpwd_test=$PWD
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd;pwd;cd -'
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd && pwd && cd -'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->$HOME"
@@ -154,8 +154,8 @@ load test_helper
 	check_leaks_function exec
 }
 
-@test "BUILTINS: Testing [Builtin CD] for 'cd ////./////.//////; pwd'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd ////./////.//////; pwd'
+@test "BUILTINS: Testing [Builtin CD] for 'cd ////./////.////// && pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd ////./////.////// && pwd'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->/"
@@ -174,8 +174,8 @@ load test_helper
 	check_leaks_function exec
 }
 
-@test "BUILTINS: Testing [Builtin CD] for 'touch notadir; cd notadir; rm notadir'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'touch notadir; cd notadir; rm notadir'
+@test "BUILTINS: Testing [Builtin CD] for 'touch notadir && cd notadir && rm notadir'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'touch notadir && cd notadir && rm notadir'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->cd: not a directory"
@@ -184,8 +184,8 @@ load test_helper
 	check_leaks_function exec
 }
 
-@test "BUILTINS: Testing [Builtin CD] for 'setenv HOME=/tmp; cd; pwd'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv HOME=/tmp; cd; pwd'
+@test "BUILTINS: Testing [Builtin CD] for 'setenv HOME=/tmp && cd && pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv HOME=/tmp && cd && pwd'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->/tmp"
@@ -194,9 +194,9 @@ load test_helper
 	check_leaks_function exec
 }
 
-@test "BUILTINS: Testing [Builtin CD] for 'setenv HOME=/tmp/nosuch; cd; pwd'" {
+@test "BUILTINS: Testing [Builtin CD] for 'setenv HOME=/tmp/nosuch && cd; pwd'" {
 	pwdtest="$PWD"
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv HOME=/tmp/nosuch; cd; pwd'
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv HOME=/tmp/nosuch && cd; pwd'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->$cdnosuch"
@@ -206,4 +206,62 @@ load test_helper
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
+
+@test "BUILTINS: Testing [Builtin CD] for 'setenv OLDPWD=/tmp && cd - && pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv OLDPWD=/tmp && cd - && pwd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->/tmp"
+	echo "						/tmp"
+	[ "${lines[0]}" = "/tmp" ]
+	[ "${lines[1]}" = "/tmp" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTINS: Testing [Builtin CD] for 'setenv OLDPWD=/tmp/nosuchdir && cd -;pwd'" {
+	pwdtest="$PWD"
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv OLDPWD=/tmp/nosuchdir && cd -;pwd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->/tmp/nosuchdir"
+	echo "						$cdnosuch"
+	echo "						$pwdtest"
+	[ "${lines[0]}" = "/tmp/nosuchdir" ]
+	[ "${lines[1]}" = "$cdnosuch" ]
+	[ "${lines[2]}" = "$pwdtest" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTINS: Testing [Builtin CD] for 'setenv OLDPWD=/tmp/nosuchdir && cd -;pwd;cd -'" {
+	pwdtest="$PWD"
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv OLDPWD=/tmp/nosuchdir && cd -;pwd;cd -'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->/tmp/nosuchdir"
+	echo "						$cdnosuch"
+	echo "						$pwdtest"
+	echo "						/tmp/nosuchdir"
+	echo "						$cdnosuch"
+	[ "${lines[0]}" = "/tmp/nosuchdir" ]
+	[ "${lines[1]}" = "$cdnosuch" ]
+	[ "${lines[2]}" = "$pwdtest" ]
+	[ "${lines[3]}" = "/tmp/nosuchdir" ]
+	[ "${lines[4]}" = "$cdnosuch" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+
+@test "BUILTINS: Testing [Builtin CD] for 'cd ////////.//////.//////...//////// && pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd ////////.//////./////...//////// && pwd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$cdnosuch"
+	[ "${lines[0]}" = "$cdnosuch" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
 #TODO: des HOME PWD OLDPWD Bizzares et des //././/.//.////.../////
