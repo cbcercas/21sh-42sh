@@ -73,7 +73,7 @@ SRC_SUBDIR		+= history
 SRCS			+= history_arrow.c history.c history_getter_2.c\
 					history_getter.c history_input_utils.c history_list_utils.c\
 					history_print.c history_research.c\
-					history_research_start_end.c
+					history_research_start_end.c history_init.c
 
 
 SRC_SUBDIR		+= tcaps

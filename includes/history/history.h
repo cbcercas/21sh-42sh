@@ -18,6 +18,8 @@
 # include <core/input.h>
 
 # define HISTORY_FILE ".21sh_history"
+# define HISTORY_FILE_MAX 10000
+# define HISTORY_MAX 500
 
 typedef	struct	s_hist
 {
@@ -32,6 +34,7 @@ t_hist					*sh_history_new(char *cmd);
 t_array					*sh_history_get(void);
 char	*history_get_path(char *str);
 t_array *sh_history_init(t_array *hists);
+int		get_history_init_choice(int choice);
 void 						sh_history_print(void);
 void 						sh_history_print_in_log(void);
 void						sh_history_save(void);
