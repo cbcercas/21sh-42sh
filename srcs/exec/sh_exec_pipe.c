@@ -23,7 +23,8 @@ static void sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds, int
 {
 	close(pipe[START]);
 	//dup2(pipe[END], STDIN_FILENO);
-	ft_lstdel(&fds[PIPE_IN], &exec_list_nothing);
+	if (fds[PIPE_IN])
+		ft_lstdel(&fds[PIPE_IN], &exec_list_nothing);
 	exec_list_push(&fds[PIPE_IN], pipe[END]);
 	sh_process_exec(data, ast->right, fds);
 	exit(EXIT_SUCCESS);
