@@ -12,7 +12,7 @@
 
 #include <tools/tools.h>
 #include <core/input.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 
 int		nb_of_word(char *s)
 {

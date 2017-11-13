@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_secu_malloc/ft_secu_malloc.h>
-#include <libft.h>
+#include <secure_memory/ft_secu_malloc.h>
 
 static void		ft_s_malloc_mouv(t_secu_malloc *secu_malloc, t_mem *mem)
 {

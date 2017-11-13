@@ -20,7 +20,7 @@
 #include <history/history.h>
 #include <parser/parser.h>
 #include <core/sh_get_line.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 #include <core/progname.h>
 
 void			sh_arrays_reset(t_array *tokens, t_array *expands);

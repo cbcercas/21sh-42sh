@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_secu_free_all.c                                 :+:      :+:    :+:   */
+/*   ft_strdblfree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/20 21:26:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/04 17:40:30 by jlasne           ###   ########.fr       */
+/*   Created: 2017/03/06 18:54:40 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/20 13:40:06 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 
-void	ft_secu_free_all(void)
+void	ft_strdblfree(char **strdb)
 {
-	t_mem			*mem;
-	t_secu_malloc	*secu_malloc;
-	t_secu_malloc	*tmp;
+	int		i;
 
-	if (!(mem = get_mem()))
+	i = 0;
+	if (!strdb)
 		return ;
-	secu_malloc = mem->first;
-	while (secu_malloc)
+	while (strdb && strdb[i])
 	{
-		tmp = secu_malloc;
-		secu_malloc = secu_malloc->next;
-		free(tmp->ptr);
-		free(tmp);
+		if (strdb[i])
+			ft_strdel(&strdb[i]);
+		i++;
 	}
-	free(mem);
+	free(strdb);
 }

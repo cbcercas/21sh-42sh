@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 
 static t_secu_malloc	*ft_malloc_search(void *ptr, t_mem *mem)
 {

@@ -80,6 +80,9 @@ set(SOURCE_FILES
 		srcs/exec/manage.c
 		srcs/exec/sh_exec_redir2.c
 		srcs/exec/sh_exec_local_var.c
+		srcs/exec/sh_fork.c
+		srcs/exec/sh_pipe.c
+		srcs/exec/sh_open.c
 
 		srcs/expand/expand.c
 		srcs/expand/expand_dol.c
@@ -91,12 +94,24 @@ set(SOURCE_FILES
 		srcs/expand/expand_utils.c
 		srcs/expand/ft_replace.c
 
-		srcs/ft_secu_malloc/ft_secu_free.c
-		srcs/ft_secu_malloc/ft_secu_free_all.c
-		srcs/ft_secu_malloc/ft_secu_free_lvl.c
-		srcs/ft_secu_malloc/ft_secu_malloc.c
-		srcs/ft_secu_malloc/ft_secu_malloc_get.c
-		srcs/ft_secu_malloc/ft_secu_malloc_lvl.c
+		srcs/secure_memory/ft_secu_free.c
+		srcs/secure_memory/ft_secu_free_all.c
+		srcs/secure_memory/ft_secu_free_lvl.c
+		srcs/secure_memory/ft_secu_malloc.c
+		srcs/secure_memory/ft_secu_malloc_get.c
+		srcs/secure_memory/ft_secu_malloc_lvl.c
+		srcs/secure_memory/ft_str_insert_secu.c
+		srcs/secure_memory/ft_strdup_secu.c
+		srcs/secure_memory/ft_strjoincl_secu.c
+		srcs/secure_memory/string_dup_secu.c
+		srcs/secure_memory/string_growth_secu.c
+		srcs/secure_memory/string_insert_secu.c
+		srcs/secure_memory/string_secu.c
+		srcs/secure_memory/ft_strnew_secu.c
+		srcs/secure_memory/ft_strsub_secu.c
+		srcs/secure_memory/ft_strsplit_secu.c
+		srcs/secure_memory/ft_strdblfree.c
+
 
 		srcs/history/history.c
 		srcs/history/history_list_utils.c
@@ -107,6 +122,7 @@ set(SOURCE_FILES
 		srcs/history/history_research.c
 		srcs/history/history_research_start_end.c
 		srcs/history/history_input_utils.c
+
 		srcs/lexer/lexer_init.c
 		srcs/lexer/lexer.c
 		srcs/lexer/lexer_clean.c
@@ -139,25 +155,11 @@ set(SOURCE_FILES
 		srcs/term/term_modes.c
 
 		srcs/tools/ft_isdigit_str.c
-		srcs/tools/ft_strnew_secu.c
-		srcs/tools/ft_strsub_secu.c
-		srcs/tools/sh_ret.c
-		srcs/tools/ft_strsplit_secu.c
-		srcs/tools/ft_strdblfree.c
 		srcs/tools/is_printstr.c
-		srcs/tools/sh_fork.c
-		srcs/tools/sh_pipe.c
-        srcs/tools/sh_open.c
-		srcs/tools/ft_str_insert_secu.c
-		srcs/tools/ft_strdup_secu.c
-		srcs/tools/ft_strjoincl_secu.c
-		srcs/tools/string_dup_secu.c
-		srcs/tools/string_growth_secu.c
-		srcs/tools/string_insert_secu.c
-		srcs/tools/string_secu.c
 		srcs/tools/sh_test_access.c
 		srcs/tools/is.c
         srcs/tools/getpwd.c
+		srcs/tools/sh_ret.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c

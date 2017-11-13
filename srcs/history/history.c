@@ -17,7 +17,7 @@
 #include <environ/getter_env.h>
 #include <environ/env_utils.h>
 #include <tools/tools.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 #include <fcntl.h>
 #include <gnl/get_next_line.h>
 

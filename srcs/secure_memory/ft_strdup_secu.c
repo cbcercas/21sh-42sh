@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdblfree.c                                    :+:      :+:    :+:   */
+/*   ft_strdup_secu.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/06 18:54:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 13:40:06 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/09/15 14:09:38 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/09/15 14:12:02 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <secure_memory/ft_secu_malloc.h>
 
-void	ft_strdblfree(char **strdb)
+char	*ft_strdup_secu(char const *src, size_t lvl)
 {
-	int		i;
+	char	*dup;
+	size_t	size;
 
-	i = 0;
-	if (!strdb)
-		return ;
-	while (strdb && strdb[i])
+	size = ft_strlen(src);
+	if ((dup = ft_strnew_secu(size, lvl)))
 	{
-		if (strdb[i])
-			ft_strdel(&strdb[i]);
-		i++;
+		ft_memcpy(dup, src, size);
+		return (dup);
 	}
-	free(strdb);
+	return (NULL);
 }

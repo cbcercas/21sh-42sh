@@ -19,6 +19,11 @@
 # include <lexer/lexer.h>
 # include <ast/ast.h>
 # include <array/array.h>
+# include <signals/signals.h>
+# include <stdio.h>
+# include <ftprintf.h>
+# include <core/progname.h>
+# include <fcntl.h>
 
 #define START 1
 #define END 0
@@ -51,5 +56,10 @@ void	manage_close(t_list *fds[5]);
 void	exec_list_mouv(t_list **dest, t_list **src);
 int		sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds);
 
+pid_t sh_fork(t_pid_type type);
+int		sh_pipe(int tube[2]);
+int		sh_open_exec(t_btree *ast);
+int		sh_open(char *file, int flags);
+int		sh_ret(int status);
 
 #endif

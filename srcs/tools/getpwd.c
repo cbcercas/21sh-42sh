@@ -1,8 +1,7 @@
+//TODO: HEADER
 
+#include <tools/tools.h>
 
-#include <environ/getter_env.h>
-#include <sys/stat.h>
-#include <environ/env_utils.h>
 
 char	*get_pwd(void)
 {

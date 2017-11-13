@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_fork.c                                          :+:      :+:    :+:   */
+/*   sh_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/29 13:22:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/29 13:24:09 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/29 13:20:29 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/29 13:22:06 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <tools/tools.h>
-# include <signals/signals.h>
-#include <unistd.h>
-#include <libft.h>
-#include <logger.h>
+#include <exec/exec.h>
 
-pid_t sh_fork(t_pid_type type)
+int sh_pipe(int tube[2])
 {
-	pid_t	pid;
-	t_pids	save_pid;
-
-	if ((pid = fork()) == -1)
-		ft_putstr_fd("fork error\n", 2);
-	if (pid > 0)
-	{
-		save_pid.pid = pid;
-		log_dbg1("SH_FORK: Save pid_child %d", pid);
-		array_push(get_pids_child(), &save_pid);
-	}
-  return (pid);
+  if(pipe(tube) != 0)
+  {
+    ft_putstr_fd("Error creation of pipe.\n", 2);
+    return (EXIT_FAILURE);
+  }
+  return(EXIT_SUCCESS);
 }

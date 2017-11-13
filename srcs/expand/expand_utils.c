@@ -14,7 +14,7 @@
 #include <expand/expand.h>
 #include <logger.h>
 #include <ftprintf.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 
 t_array	*expand_init(t_array *expand_array)
 {

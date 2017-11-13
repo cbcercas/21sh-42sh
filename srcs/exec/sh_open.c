@@ -10,11 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <btree/ft_btree.h>
-#include <ast/ast.h>
-#include <fcntl.h>
-#include <ftprintf.h>
-#include <core/progname.h>
+#include <exec/exec.h>
+
 
 BOOL			check_fd(int fd)
 {

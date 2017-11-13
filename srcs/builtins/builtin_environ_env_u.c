@@ -13,7 +13,7 @@
 #include <environ/env_list_utils.h>
 #include <array/array.h>
 #include <logger.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 #include <ftprintf.h>
 #include <environ/env_utils.h>
 #include <environ/modif_env.h>

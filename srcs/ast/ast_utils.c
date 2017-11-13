@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <ast/ast.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 #include <ftprintf.h>
 
 /**

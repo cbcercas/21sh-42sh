@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <types/bool.h>
-#include <parser/enum.h>
+#include <tools/tools.h>
+
 
 BOOL  is_white(int c)
 {

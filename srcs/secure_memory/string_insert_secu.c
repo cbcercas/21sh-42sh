@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tools/tools.h>
+#include <secure_memory/ft_secu_malloc.h>
 
 t_string	*string_insert_secu(t_string *string, const char *str, size_t pos, size_t lvl)
 {

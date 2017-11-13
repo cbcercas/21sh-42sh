@@ -36,16 +36,13 @@ SRCS			+= builtin_chdir.c builtin_chdir_expand.c builtin_echo.c\
 SRC_SUBDIR		+= exec
 SRCS			+= check_path.c exec_tlist.c manage.c sh_exec.c\
 					sh_exec_local_var.c sh_exec_pipe.c sh_exec_redir2.c\
-					sh_exec_redir.c sh_heradoc.c sh_process_exec.c
+					sh_exec_redir.c sh_heradoc.c sh_process_exec.c sh_fork.c\
+					sh_open.c sh_pipe.c
 
 
 SRC_SUBDIR		+= tools
-SRCS			+= ft_isdigit_str.c ft_strdblfree.c ft_strdup_secu.c\
-					ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c\
-					ft_strsplit_secu.c ft_strsub_secu.c getpwd.c is.c\
-					is_printstr.c sh_fork.c sh_open.c sh_pipe.c sh_ret.c\
-					sh_test_access.c string_dup_secu.c string_growth_secu.c\
-					string_insert_secu.c string_secu.c
+SRCS			+= ft_isdigit_str.c getpwd.c is.c\
+					is_printstr.c sh_ret.c sh_test_access.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c lexer_utils.c
@@ -101,9 +98,13 @@ SRCS			+= autocomplete_is.c autocomplete_get_words.c\
 					autocomplete_utils.c autocomplete_sort.c\
 					autocomplete_display_cols.c
 
-SRC_SUBDIR		+= ft_secu_malloc
+SRC_SUBDIR		+= secure_memory
 SRCS			+= ft_secu_free_all.c ft_secu_free.c ft_secu_malloc.c\
-				ft_secu_malloc_get.c ft_secu_malloc_lvl.c ft_secu_free_lvl.c
+				ft_secu_malloc_get.c ft_secu_malloc_lvl.c ft_secu_free_lvl.c\
+				string_dup_secu.c string_growth_secu.c string_insert_secu.c\
+				string_secu.c ft_strdblfree.c ft_strdup_secu.c\
+				ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c\
+				ft_strsplit_secu.c ft_strsub_secu.c
 
 ###############################################################################
 #                                 CONFIG                                      #

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <tools/tools.h>
 
 BOOL  ft_isdigit_str(char *str)
 {

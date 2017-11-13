@@ -14,6 +14,7 @@
 # define ft_secu_malloc_H
 
 # include <stdlib.h>
+#include <string/ft_string.h>
 
 # define MALLOC_LVL_DEFAULT 0
 # define M_LVL_FUNCT 1
@@ -47,7 +48,23 @@ void ft_secu_free_lvl(size_t lvl);
 void *secu_malloc(size_t size);
 void ft_secu_free(void *ptr);
 void ft_secu_free_all(void);
-
+t_string	*string_create_secu(size_t lvl);
+t_string	*string_growth_cap_secu(t_string *string, size_t cap, size_t lvl);
+t_string	*string_growth_secu(t_string *string, size_t lvl);
+t_string	*string_init_cap_secu(t_string *string, size_t cap, size_t lvl);
+t_string	*string_create_cap_secu(size_t cap, size_t lvl);
+t_string	*string_insert_secu(t_string *string, const char *str, size_t pos, size_t lvl);
+t_string	*string_insert_front_secu(t_string *string, const char *str, size_t lvl);
+t_string	*string_insert_back_secu(t_string *string, const char *str, size_t lvl);
+t_string	*string_ndup_secu(const char *str, size_t n, size_t lvl);
+t_string	*string_dup_secu(const char *str, size_t lvl);
+char	*ft_strnew_secu(size_t size, size_t lvl);
+char		*ft_strsub_secu(char const *s, unsigned int start, size_t len, size_t lvl);
+char		**ft_strsplit_secu(char const *s, char c, size_t lvl);
+char	*ft_strdup_secu(char const *src, size_t lvl);
+char	*ft_strjoincl_secu(char *s1, char *s2, int free, size_t lvl);
+char	*ft_str_insert_secu(char *src1, char *src2, int index, size_t lvl);
+void	ft_strdblfree(char **strdb);
 # define MALLOC(x) ft_secure_malloc(x)
 # define FREE(x) ft_secure_free(x)
 # define FREE_LVL(x) ft_secure_free_lvl(x)

@@ -12,7 +12,7 @@
 
 #include <btree/ft_btree.h>
 #include <stdlib.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <secure_memory/ft_secu_malloc.h>
 
 t_btree	*btree_create_node(void *item)
 {

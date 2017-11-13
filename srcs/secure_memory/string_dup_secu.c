@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tools/tools.h>
+#include <secure_memory/ft_secu_malloc.h>
+
 
 t_string	*string_dup_secu(const char *str, size_t lvl)
 {

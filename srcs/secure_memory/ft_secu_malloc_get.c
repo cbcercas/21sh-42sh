@@ -1,25 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strsub_secu.c                                   :+:      :+:    :+:   */
+/*   ft_secu_malloc_get.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/08/01 10:08:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/08/01 10:13:27 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/07/20 19:49:44 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/10/04 17:39:45 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tools/tools.h>
+#include <secure_memory/ft_secu_malloc.h>
 
-char		*ft_strsub_secu(char const *s, unsigned int start, size_t len, size_t lvl)
+t_mem	*get_mem(void)
 {
-	char	*str;
+	static t_mem *mem = NULL;
 
-	if (len <= 0)
-		return (ft_strnew_secu(0, lvl));
-	str = ft_strnew_secu(len, lvl);
-	if (s && str && ft_strlen(s) >= len)
-		str = ft_strncpy(str, &s[start], len);
-	return (str);
+	if (mem == NULL)
+	{
+		if (!(mem = (t_mem *)malloc(sizeof(t_mem))))
+		{
+			ft_putstr_fd("ERROR: Malloc\n", 2);
+			return (NULL);
+		}
+		ft_bzero(mem, sizeof(t_mem));
+		mem->first = NULL;
+		mem->last = NULL;
+	}
+	return (mem);
 }
