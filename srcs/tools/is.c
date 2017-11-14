@@ -29,7 +29,7 @@ BOOL  is_str_car(const char *buff)
 
 BOOL  is_redirect(int c)
 {
-	if (c == E_TOKEN_LESSGREAT || c == E_TOKEN_DLESS || c == E_TOKEN_DGREAT ||\
+	if (c == E_TOKEN_LESSGREAT || c == E_TOKEN_DLESS || c == E_TOKEN_DGREAT ||
 				c == E_TOKEN_DGREAT || c == E_TOKEN_GREATAND || c == E_TOKEN_LESSAND)
 		return (true);
 	return (false);
@@ -37,7 +37,8 @@ BOOL  is_redirect(int c)
 
 BOOL  is_sepa(int c)
 {
-	if (c == E_TOKEN_SEMI || c == E_TOKEN_AND_IF || c == E_TOKEN_OR_IF)
+	if (c == E_TOKEN_SEMI || c == E_TOKEN_AND_IF || c == E_TOKEN_OR_IF
+		|| c == E_TOKEN_NEWLINE)
 	return (true);
 return (false);
 }

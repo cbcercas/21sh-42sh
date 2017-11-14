@@ -50,7 +50,21 @@ static t_token_type	g_grammar2[19][19][1] =
 	},
 	[E_TOKEN_NEWLINE] =
 	{
-		[E_TOKEN_NONE] = {1}
+			[E_TOKEN_BLANK] = {1},
+			[E_TOKEN_NEWLINE] = {1},
+			[E_TOKEN_WORD] = {1},
+			[E_TOKEN_SQUOTE] = {1},
+			[E_TOKEN_BQUOTE] = {1},
+			[E_TOKEN_DQUOTE] = {1},
+			[E_TOKEN_LESSGREAT] = {1},
+			[E_TOKEN_SEMI] = {1},
+			[E_TOKEN_IO_NUMBER] = {1},
+			[E_TOKEN_DLESS] = {1},
+			[E_TOKEN_DGREAT] = {1},
+			[E_TOKEN_OR_IF] = {1},
+			[E_TOKEN_AND_IF] = {1},
+			[E_TOKEN_LESSAND] = {1},
+			[E_TOKEN_GREATAND] = {1}
 	},
 	[E_TOKEN_WORD] =
 	{
