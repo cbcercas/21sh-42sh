@@ -10,11 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/return.h>
-#include <btree/ft_btree.h>
-#include <array/array.h>
+
 #include <ast/ast.h>
-#include <logger.h>
 
 /**
  * \fn t_btree	*ast_create(t_array *expands)

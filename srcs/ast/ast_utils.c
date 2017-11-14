@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include <ast/ast.h>
-#include <secure_memory/ft_secu_malloc.h>
-#include <ftprintf.h>
 
 /**
  * \fn void		ast_del_cmd(t_cmd *cmd)

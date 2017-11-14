@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <ast/ast.h>
-#include <tools/tools.h>
 
 /**
  * \fn static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
