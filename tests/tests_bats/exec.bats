@@ -506,3 +506,43 @@ check_leaks_function exec
 }
 ######################################################################
 ######################################################################
+
+@test "EXEC: Testing [Built/Env] with 'env -i clear'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'env -i clear'
+  echo "ERROR:"
+    display_line_output
+  echo "$name_exec EXPECTED ->TERM environment variable not set."
+  [ "${output}" = "TERM environment variable not set." ]
+  [ "$status" -eq 0 ]
+  check_leaks_function exec
+}
+
+@test "EXEC: Testing [IN CORRECTION] with 'echo    ls |    cat -e'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo    ls |    cat -e'
+  echo "ERROR:"
+    display_line_output
+  echo "$name_exec EXPECTED ->ls$"
+  [ "${output}" = "ls$" ]
+  [ "$status" -eq 0 ]
+  check_leaks_function exec
+}
+
+@test "EXEC: Testing [IN CORRECTION] with '          '" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c '          '
+  echo "ERROR:"
+    display_line_output
+  echo "$name_exec EXPECTED ->"
+  [ "${output}" = "" ]
+  [ "$status" -eq 0 ]
+  check_leaks_function exec
+}
+
+@test "EXEC: Testing [IN CORRECTION] with ''" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c ''
+  echo "ERROR:"
+    display_line_output
+  echo "$name_exec EXPECTED ->"
+  [ "${output}" = "" ]
+  [ "$status" -eq 0 ]
+  check_leaks_function exec
+}
