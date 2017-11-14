@@ -60,7 +60,7 @@ load test_helper
 }
 
 
-@test "BUILTINS: Testing [Buitin PWD] for 'pwd /doesnt/exists'" {
+@test "BUILTINS: Testing [Builtin PWD] for 'pwd /doesnt/exists'" {
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'pwd /doesnt/exists'
 	echo "ERROR:"
 	display_line_output
@@ -284,6 +284,30 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->unset: not enough arguments"
 	[ "${lines[0]}" = "unset: not enough arguments" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+
+@test "BUILTINS: Testing [Builtin Local Var] for 'toto=tata; env; export toto; env'" {
+	run $val_cmd env -i ${BATS_TEST_DIRNAME}/../../$name_exec -c 'toto=tata; env; export toto; env'
+	echo "ERROR:"
+	display_line_output
+	echo -e "$name_exec EXPECTED ->\033[94mtoto\033[0m=tata"
+	result=`echo -e "\033[94mtoto\033[0m=tata"`
+	[ "${lines[0]}" = "$result" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+
+@test "BUILTINS: Testing [Builtin Local Var] for 'tata=tete=titi=toto=tutu=tyty; env; export tata; env'" {
+	run $val_cmd env -i ${BATS_TEST_DIRNAME}/../../$name_exec -c 'tata=tete=titi=toto=tutu=tyty; env; export tata; env'
+	echo "ERROR:"
+	display_line_output
+	echo -e "$name_exec EXPECTED ->\033[94mtata\033[0m=tete=titi=toto=tutu=tyty"
+	result=`echo -e "\033[94mtata\033[0m=tete=titi=toto=tutu=tyty"`
+	[ "${lines[0]}" = "$result" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
