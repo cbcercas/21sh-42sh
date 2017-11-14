@@ -3,7 +3,7 @@
 load test_helper
 
 ####start####
-@test "BUILTINS: Testing [] for ''" {
+@test "BUILTINS: Testing [NULL] for '' (Empty string)" {
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c ''
 	echo "ERROR:"
 	display_line_output
@@ -264,4 +264,26 @@ load test_helper
 	check_leaks_function exec
 }
 
-#TODO: des HOME PWD OLDPWD Bizzares et des //././/.//.////.../////
+################################################################################
+#                               Testing LOCAL VAR                              #
+################################################################################
+
+@test "BUILTINS: Testing [Builtin Local Var] for 'unset'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unset'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->unset: not enough arguments"
+	[ "${lines[0]}" = "unset: not enough arguments" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTINS: Testing [Builtin Local Var] for 'unset'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unset'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->unset: not enough arguments"
+	[ "${lines[0]}" = "unset: not enough arguments" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
