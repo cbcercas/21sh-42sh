@@ -27,6 +27,8 @@
 t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 		size_t cnt)
 {
+	if (type == E_TOKEN_NEWLINE)
+		return (E_TOKEN_SEMI);
 	if (prio == 5)
 		return (E_TOKEN_WORD);
 	if (prio != 3)

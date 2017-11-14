@@ -27,6 +27,9 @@ static char		*str_from_input(void)
 	{
 		if (!(line = ft_strjoincl(line, input->str->s, 1)))
 			return (NULL);
+		if (input->next && input->str->s[input->str->len - 1] != '\\'
+			&& !(line = ft_strjoincl(line, "\n", 1)))
+			return (NULL);
 		input = input->next;
 	}
 	return (line);
