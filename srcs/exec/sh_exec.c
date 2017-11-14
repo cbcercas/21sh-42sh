@@ -11,14 +11,6 @@
 /* ************************************************************************** */
 
 #include <exec/exec.h>
-#include <tools/tools.h>
-#include <core/prompt.h>
-#include <environ/environ.h>
-#include <environ/env_utils.h>
-#include <exec/check_path.h>
-#include <signals/signals.h>
-#include <builtins/builtin_utils.h>
-#include <signal.h>
 
 static int sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 {

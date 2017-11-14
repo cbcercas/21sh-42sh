@@ -2,8 +2,16 @@
 #ifndef SIGNALS_H
 # define SIGNALS_H
 
+#include <ftprintf.h>
+#include <logger.h>
 #include <signal.h>
-#include <libft.h>
+#include <history/history.h>
+#include <stdio.h>
+#include <environ/env_utils.h>
+#include <environ/getter_env.h>
+#include <core/tcaps.h>
+#include <core/prompt.h>
+#include <builtins/builtin_exit.h>
 
 typedef enum e_pid_type		t_pid_type;
 

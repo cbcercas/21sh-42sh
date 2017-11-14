@@ -13,17 +13,12 @@
 #ifndef COMMAND_H
 # define COMMAND_H
 
-# include <core/data.h>
-# include <libft.h>
-# include <btree/ft_btree.h>
-# include <lexer/lexer.h>
-# include <ast/ast.h>
-# include <array/array.h>
-# include <signals/signals.h>
-# include <stdio.h>
-# include <ftprintf.h>
-# include <core/progname.h>
-# include <fcntl.h>
+
+#include <signals/signals.h>
+#include <ast/ast.h>
+#include <environ/environ.h>
+#include <builtins/builtin_utils.h>
+#include <environ/modif_env.h>
 
 #define START 1
 #define END 0

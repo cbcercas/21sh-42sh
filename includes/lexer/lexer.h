@@ -13,11 +13,11 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-# include <stdlib.h>
+# include <types/bool.h>
 # include <parser/enum.h>
-# include <tests/ast_tests.h>
 # include <automaton/automaton.h>
 # include <core/return.h>
+# include <core/progname.h>
 
 typedef struct s_token	t_token;
 typedef struct s_lexer_data	t_lexer_data;

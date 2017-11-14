@@ -13,9 +13,13 @@
 #ifndef EXPAND_H
 # define EXPAND_H
 
-# include <string/ft_string.h>
-# include <core/return.h>
+# include <array/array.h>
 # include <lexer/lexer.h>
+# include <string/ft_string.h>
+# include <environ/env_utils.h>
+# include <environ/getter_env.h>
+# include <core/input.h>
+# include <history/history.h>
 
 typedef struct 			s_exp
 {

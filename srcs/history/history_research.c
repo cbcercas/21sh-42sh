@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <types/bool.h>
-#include <libft.h>
 #include <history/history.h>
-#include <tools/tools.h>
 
 /*char	*history_research_delete(char *line)
 {

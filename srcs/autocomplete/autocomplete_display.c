@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include <autocomplete/autocomplete.h>
-#include <core/tcaps.h>
-#include <core/prompt.h>
 
 //TODO Refactor with new input design (draw_input())
 void		autocomplete_display(t_array *content)

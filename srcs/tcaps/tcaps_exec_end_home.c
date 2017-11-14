@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/input.h>
 
 // TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_end(const t_key *key, t_input *input)

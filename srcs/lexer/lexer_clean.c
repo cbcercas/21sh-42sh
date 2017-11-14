@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
 #include <lexer/lexer.h>
 
 void	lexer_clean_tokens(t_array *tokens)

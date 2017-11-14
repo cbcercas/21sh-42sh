@@ -1,6 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tcaps_exec_alt_c.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/11 09:42:42 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/07/13 14:44:37 by gpouyat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <core/tcaps.h>
-#include <core/input.h>
-#include <history/history.h>
 
 static	void	alt_c_end(t_input *tmp, char *str, size_t start, size_t end)
 {

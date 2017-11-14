@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <history/history.h>
-#include <core/prompt.h>
 
 /*
 **BOOL	exec_arrow_right(const t_key *key, t_input *input)

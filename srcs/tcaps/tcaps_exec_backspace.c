@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/input.h>
 
 BOOL	exec_backspace(const t_key *key, t_input *input)
 {

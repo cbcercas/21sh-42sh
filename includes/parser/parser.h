@@ -13,9 +13,11 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+# include <parser/enum.h>
 # include <core/return.h>
-# include <array/array.h>
-# include "enum.h"
+# include <lexer/lexer.h>
+# include <core/progname.h>
+# include <stdio.h>
 
 t_return	parser_parse(t_array *tokens);
 

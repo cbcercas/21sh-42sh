@@ -14,7 +14,10 @@
 # define TCAPS_H
 
 # include <libtcaps.h>
-# include "input.h"
+# include <core/init.h>
+# include <history/history.h>
+# include <core/prompt.h>
+# include <autocomplete/autocomplete.h>
 
 typedef struct	s_key_exec
 {

@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <automaton/automaton.h>
-#include <logger.h>
-#include <ftprintf.h>
+# include <automaton/automaton.h>
 
 t_automaton		*automaton_init(t_automaton *automaton)
 {

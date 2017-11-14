@@ -10,9 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tools/tools.h>
-#include <secure_memory/ft_secu_malloc.h>
-#include <dirent.h>
 #include <autocomplete/autocomplete.h>
 
 char		*autocomplete_get_path(char *s)

@@ -1,7 +1,4 @@
 # include <exec/exec.h>
-#include <environ/modif_env.h>
-#include <environ/env_utils.h>
-#include <environ/getter_env.h>
 
 static BOOL	is_only_set(char **s)
 {

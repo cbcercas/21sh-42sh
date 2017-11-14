@@ -13,9 +13,15 @@
 #ifndef HISTORY_H
 # define HISTORY_H
 
-# include <types/bool.h>
 # include <array/array.h>
+# include <logger.h>
+# include <ftprintf.h>
+# include <fcntl.h>
+# include <secure_memory/ft_secu_malloc.h>
+# include <environ/env_utils.h>
+# include <environ/getter_env.h>
 # include <core/input.h>
+#include <core/tcaps.h>
 
 # define HISTORY_FILE ".21sh_history"
 # define HISTORY_FILE_MAX 10000

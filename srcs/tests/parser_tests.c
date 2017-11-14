@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <automaton/automaton.h>
-#include <lexer/lexer.h>
-#include <ftprintf.h>
-#include <parser/parser.h>
-
+#include <tests/sh_tests.h>
 
 void	sh_testing_parser(char *const *av)
 {

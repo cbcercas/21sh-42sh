@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tools/tools.h>
-#include <core/input.h>
-#include <secure_memory/ft_secu_malloc.h>
+#include <autocomplete/autocomplete.h>
 
 int		nb_of_word(char *s)
 {

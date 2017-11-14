@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <expand/expand.h>
 
 static int		ft_replace_init(char *src1, size_t index, int size)
 {
