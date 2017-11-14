@@ -1,7 +1,4 @@
-#include <libft.h>
-#include <environ/modif_env.h>
-#include <environ/env_utils.h>
-#include <environ/environ.h>
+#include <tests/sh_tests.h>
 
 void	testing_local_vars_set(char *const *av)
 {

@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include <exec/exec.h>
-#include <ast/ast.h>
-#include <core/prompt.h>
-#include <signals/signals.h>
 
 /*
  ** @brief         handle ast before exec

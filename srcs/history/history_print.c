@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
 #include <history/history.h>
-#include <ftprintf.h>
-#include <logger.h>
-#include <libtcaps.h>
 
 void sh_history_print(void)
 {

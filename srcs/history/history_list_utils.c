@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 
 #include <history/history.h>
-#include <tools/tools.h>
-#include <logger.h>
-#include <ftprintf.h>
-#include <secure_memory/ft_secu_malloc.h>
 
 t_hist	*sh_history_new(char *cmd)
 {

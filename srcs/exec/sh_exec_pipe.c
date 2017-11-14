@@ -11,12 +11,6 @@
 /* ************************************************************************** */
 
 # include <exec/exec.h>
-#include <btree/ft_btree.h>
-#include <ast/ast.h>
-#include <tools/tools.h>
-#include <signals/signals.h>
-#include <core/prompt.h>
-#include <signal.h>
 
 static void sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds, int
 *pipe)

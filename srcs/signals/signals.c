@@ -1,10 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   signals.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/10/11 15:39:25 by gpouyat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <signals/signals.h>
-#include <signal.h>
-#include <logger.h>
-#include <sys/wait.h>
-#include <ftprintf.h>
-#include <history/history.h>
 
 void    init_signals(void *handler)
 {

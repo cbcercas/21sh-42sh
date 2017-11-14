@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <exec/exec.h>
-#include <tools/tools.h>
 
 BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5])
 {

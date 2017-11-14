@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/prompt.h>
-#include <history/history.h>
 
 static BOOL		exec_ctrl_j2(t_input *input)
 {

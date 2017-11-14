@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/input.h>
-#include <history/history.h>
 
 void	reset_select_pos(void)
 {

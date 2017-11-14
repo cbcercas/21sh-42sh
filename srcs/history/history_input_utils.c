@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/input.h>
+#include <history/history.h>
 
 char	*input_to_history(t_input *input)
 {

@@ -211,7 +211,7 @@ $(NAME): $(OBJS)
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 		# Add dependency as prerequisites
-		-include $(DEPS)
+		@-include $(DEPS)
 		@$(CC) $(LDFLAGS) $(CFLAGS) $(INC) -o $@ -c $<
 		$(eval COUNT_OBJ=$(shell echo $$(($(COUNT_OBJ)+1))))
 		$(eval PERCENT=$(shell echo $$((($(COUNT_OBJ) * 100 )/$(TOTAL)))))

@@ -13,6 +13,8 @@
 #ifndef FT_BTREE_H
 # define FT_BTREE_H
 
+#include <secure_memory/ft_secu_malloc.h>
+
 /**
  * @struct s_btree
  *

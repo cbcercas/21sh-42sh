@@ -12,24 +12,17 @@
 
 #include <core/init.h>
 #include <libft.h>
-#include <tests/test.h>
-#include <tests/lexer_tests.h>
-#include <tests/parser_tests.h>
-#include <tests/expand_tests.h>
-#include <ftprintf.h>
+#include <tests/sh_tests.h>
+#include <tests/sh_tests.h>
 #include <core/help.h>
 #include <unistd/ft_unistd.h>
-#include <logger.h>
 #include <core/progname.h>
 #include <environ/environ.h>
-#include <builtins/builtin_utils.h>
-#include <history/history.h>
 #include <signals/signals.h>
 #include <sys/param.h>
 #include <core/deinit.h>
 #include <environ/env_utils.h>
 #include <environ/getter_env.h>
-#include <environ/modif_env.h>
 #include <term.h>
 #include <builtins/builtin_exit.h>
 

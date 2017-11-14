@@ -1,10 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_pid_childs.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/10/11 15:39:25 by gpouyat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <signals/signals.h>
-#include <ftprintf.h>
-#include <logger.h>
-#include <array/array.h>
-#include <signal.h>
-#include <environ/getter_env.h>
-#include <environ/env_utils.h>
 
 pid_t get_pid_child(pid_t pid_op)
 {

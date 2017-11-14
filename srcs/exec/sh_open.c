@@ -12,7 +12,6 @@
 
 #include <exec/exec.h>
 
-
 BOOL			check_fd(int fd)
 {
 	if (fd <= STDERR_FILENO && fd >= 0)

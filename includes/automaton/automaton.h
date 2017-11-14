@@ -13,8 +13,9 @@
 #ifndef AUTOMATON_H
 #define AUTOMATON_H
 
-# include <inttypes.h>
 # include <types/stack.h>
+# include <logger.h>
+# include <ftprintf.h>
 
 /**
  * @enum   e_stack_state

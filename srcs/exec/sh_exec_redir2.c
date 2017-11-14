@@ -11,13 +11,6 @@
 /* ************************************************************************** */
 
 #include <exec/exec.h>
-#include <tools/tools.h>
-#include <fcntl.h>
-#include <ftprintf.h>
-#include <core/progname.h>
-#include <core/prompt.h>
-#include <signal.h>
-#include <signals/signals.h>
 
 static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 {

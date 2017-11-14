@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parser/enum.h>
-#include <core/return.h>
-#include <lexer/lexer.h>
-#include <ftprintf.h>
-#include <unistd.h>
-#include <core/progname.h>
-#include <array/array.h>
+#include <parser/parser.h>
 
 static t_token_type	g_grammar2[19][19][1] =
 {

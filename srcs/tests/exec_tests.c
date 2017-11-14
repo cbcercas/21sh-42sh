@@ -10,19 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
-#include <automaton/automaton.h>
-#include <lexer/lexer.h>
-#include <ftprintf.h>
-#include <btree/ft_btree.h>
-#include <environ/environ.h>
-#include <builtins/builtin_utils.h>
-#include <history/history.h>
-#include <expand/expand.h>
-#include <ast/ast.h>
-#include <exec/exec.h>
-#include <secure_memory/ft_secu_malloc.h>
-
+#include <tests/sh_tests.h>
 
 t_array init_tests_exec(char *input)
 {

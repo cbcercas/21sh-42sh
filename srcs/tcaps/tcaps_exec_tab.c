@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <autocomplete/autocomplete.h>
 
 BOOL	exec_tab(const t_key *key, t_input *input)
 {

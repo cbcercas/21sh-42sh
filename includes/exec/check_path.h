@@ -13,13 +13,12 @@
 #ifndef CHECK_PATH_H
 #define CHECK_PATH_H
 
-#include <secure_memory/ft_secu_malloc.h>
-#include <environ/getter_env.h>
-#include <environ/env_utils.h>
+#include <libft.h>
 #include <tools/tools.h>
+#include <secure_memory/ft_secu_malloc.h>
 #include <ftprintf.h>
-#include <stdio.h>
 #include <core/progname.h>
+#include <stdio.h>
 
 char	*sh_check_path(char const *cmd_name);
 char *get_filename(char *av);

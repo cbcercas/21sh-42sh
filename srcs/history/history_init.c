@@ -1,9 +1,16 @@
-#include <array/array.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/07/20 16:14:17 by gpouyat          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <history/history.h>
-#include <core/progname.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <sys/stat.h>
 
 int		sh_history_init_one(t_array *hists, int fd)
 {

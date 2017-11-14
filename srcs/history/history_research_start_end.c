@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <types/bool.h>
-#include <core/input.h>
 #include <history/history.h>
-#include <core/prompt.h>
-#include <core/tcaps.h>
 
 void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 {

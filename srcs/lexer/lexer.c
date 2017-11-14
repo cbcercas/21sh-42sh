@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <inttypes.h>
 #include <lexer/lexer.h>
-#include <automaton/automaton.h>
-#include <core/return.h>
-#include <ftprintf.h>
-#include <core/progname.h>
-
 
 static const uint32_t g_char_type[129] = {
 [0] = E_CHAR_TYPE_NONE,
