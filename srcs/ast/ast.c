@@ -13,15 +13,15 @@
 
 #include <ast/ast.h>
 
-/**
- * \fn t_btree	*ast_create(t_array *expands)
- *
- * \brief create ast
- *
- * \param expands is token arrays
- *
- * \return ast.
- */
+/*
+** \fn t_btree	*ast_create(t_array *expands)
+**
+** \brief create ast
+**
+** \param expands is token arrays
+**
+** \return ast.
+*/
 t_return	ast_create(t_btree		**ast, t_array *expands)
 {
 	t_lim		lim;

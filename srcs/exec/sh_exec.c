@@ -26,13 +26,13 @@ static int sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 }
 
 /*
- ** @brief          exec a system command
- **
- ** @param  data    The data of shell
- ** @param  item    The item in AST
- **
- ** @return         status set by wait
- */
+*** @brief          exec a system command
+***
+*** @param  data    The data of shell
+*** @param  item    The item in AST
+***
+*** @return         status set by wait
+*/
 
 static int sh_exec(t_cmd *item, t_list **fds)
 {
@@ -62,13 +62,13 @@ static int sh_exec(t_cmd *item, t_list **fds)
 }
 
 /*
- ** @brief          exec a builtin command
- **
- ** @param  data    The data of shell
- ** @param  item    The item in AST
- **
- ** @return         result of builtin
- */
+*** @brief          exec a builtin command
+***
+*** @param  data    The data of shell
+*** @param  item    The item in AST
+***
+*** @return         result of builtin
+*/
 
 static int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 {
@@ -98,13 +98,13 @@ static int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 }
 
 /*
- ** @brief          call sh_exec_builtin or sh_exec
- **
- ** @param  data    The data of shell
- ** @param  item    The item in AST
- **
- ** @return         result of sh_exec_builtin or sh_exec
- */
+*** @brief          call sh_exec_builtin or sh_exec
+***
+*** @param  data    The data of shell
+*** @param  item    The item in AST
+***
+*** @return         result of sh_exec_builtin or sh_exec
+*/
 
 int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 {

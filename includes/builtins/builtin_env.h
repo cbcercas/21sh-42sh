@@ -15,44 +15,44 @@
 
 # include <core/data.h>
 
-/**
- * @file   builtin_environ.c
- *
- * @brief  Contains the functions for setenv and unsetenv builtins
- */
+/*
+** @file   builtin_environ.c
+**
+** @brief  Contains the functions for setenv and unsetenv builtins
+*/
 
 int     sh_builtin_setenv(t_sh_data *data, char **args);
 int     sh_builtin_unsetenv(t_sh_data *data, char **args);
 
-/**
- * @file   builtin_environ_env.c
- *
- * @brief  Contains the functions for env builtin
- */
+/*
+** @file   builtin_environ_env.c
+**
+** @brief  Contains the functions for env builtin
+*/
 
 int		sh_builtin_env(t_sh_data *data, char **args);
 
-/**
- * @file   builtin_environ_env_u.c
- *
- * @brief  ???
- */
+/*
+** @file   builtin_environ_env_u.c
+**
+** @brief  ???
+*/
 
 t_array *sh_builtin_env_u(t_array *tmp, char **argv);
 
-/**
- * @file   builtin_environ_env_i.c
- *
- * @brief  ???
- */
+/*
+** @file   builtin_environ_env_i.c
+**
+** @brief  ???
+*/
 
 t_array *sh_builtin_env_add(t_array *tmp, char **argv);
 
-/**
- * @file   builtin_environ_env_exec.c
- *
- * @brief  Call the functions to execute the env
- */
+/*
+** @file   builtin_environ_env_exec.c
+**
+** @brief  Call the functions to execute the env
+*/
 
 int sh_builtin_env_exec(char **av, t_array *envs);
 

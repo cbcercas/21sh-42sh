@@ -15,11 +15,11 @@
 
 # include <core/data.h>
 
-/**
- * @file   builtin_exit.c
- *
- * @brief  Contains the functions for the exit builtin
- */
+/*
+** @file   builtin_exit.c
+**
+** @brief  Contains the functions for the exit builtin
+*/
 
 int	sh_exit(t_sh_data *data, char **arg);
 int builtin_exit(t_sh_data *data, char **arg);

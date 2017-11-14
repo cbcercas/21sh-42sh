@@ -13,8 +13,8 @@
 #include <core/sh_loop.h>
 
 /*
- **reset les arrays
- */
+***reset les arrays
+*/
 
 void				sh_arrays_reset(t_array *tokens, t_array *expands)
 {
@@ -26,8 +26,8 @@ void				sh_arrays_reset(t_array *tokens, t_array *expands)
 }
 
 /*
- **lex, pars, expand, et build ast, il retourn l'ast
- */
+***lex, pars, expand, et build ast, il retourn l'ast
+*/
 
 static t_return		sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 	char *line)

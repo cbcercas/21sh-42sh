@@ -17,11 +17,11 @@
 # include <logger.h>
 # include <ftprintf.h>
 
-/**
- * @enum   e_stack_state
- *
- * @brief  Contains all the automaton states
- */
+/*
+** @enum   e_stack_state
+**
+** @brief  Contains all the automaton states
+*/
 
 enum	e_stack_state
 {
@@ -52,11 +52,11 @@ enum	e_stack_state
 typedef uint32_t	t_stack_state;
 typedef uint32_t	t_automaton_step;
 
-/**
- * @enum   e_automaton_step
- *
- * @brief  Contains all the automaton steps
- */
+/*
+** @enum   e_automaton_step
+**
+** @brief  Contains all the automaton steps
+*/
 
 enum 	e_automaton_step
 {
@@ -65,14 +65,14 @@ enum 	e_automaton_step
 	E_PUSH
 };
 
-/**
- * @struct   s_automaton
- *
- * @param    stack      Stack for automaton
- * @param    cur_state  Current state of automaton
- *
- * @brief    Contains all the automaton variables
- */
+/*
+** @struct   s_automaton
+**
+** @param    stack      Stack for automaton
+** @param    cur_state  Current state of automaton
+**
+** @brief    Contains all the automaton variables
+*/
 
 struct	s_automaton
 {
@@ -82,11 +82,11 @@ struct	s_automaton
 
 typedef struct s_automaton	t_automaton;
 
-/**
- * @file   automaton.c
- *
- * @brief  Contains all the automaton functions
- */
+/*
+** @file   automaton.c
+**
+** @brief  Contains all the automaton functions
+*/
 
 t_automaton *automaton_init(t_automaton *automaton);
 t_automaton *automaton_reset(t_automaton *automaton);

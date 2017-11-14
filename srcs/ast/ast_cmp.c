@@ -12,18 +12,18 @@
 
 #include <ast/ast.h>
 
-/**
- * \fn t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
- *                             size_t cnt)
- * \brief get type of token.
- *
- * \param expands is token arrays
- * \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
- * \param cnt is position of the current token
- * \param type is the type of current token
- *
- * \return the token type.
- */
+/*
+** \fn t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
+**                             size_t cnt)
+** \brief get type of token.
+**
+** \param expands is token arrays
+** \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
+** \param cnt is position of the current token
+** \param type is the type of current token
+**
+** \return the token type.
+*/
 t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 		size_t cnt)
 {
@@ -40,18 +40,18 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 	return (type);
 }
 
-/**
- * \fn BOOL	ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
- *
- * \brief associate priority and token.
- *
- * \param cnt is position of the current token
- * \param expands is token arrays
- * \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
- * \param type is the type of current token
- *
- * \return true if token and prio is associate else false.
- */
+/*
+** \fn BOOL	ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
+**
+** \brief associate priority and token.
+**
+** \param cnt is position of the current token
+** \param expands is token arrays
+** \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
+** \param type is the type of current token
+**
+** \return true if token and prio is associate else false.
+*/
 BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 {
 	if (prio == 1 && (is_sepa(type)))
@@ -68,15 +68,15 @@ BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 	return (false);
 }
 
-/**
- * \fn static int		ast_val_cmp(t_token_type type)
- *
- * \brief return number of prio for ast_cmp.
- *
- * \param type is the type of current token
- *
- * \return number of prio for ast_cmp.
- */
+/*
+** \fn static int		ast_val_cmp(t_token_type type)
+**
+** \brief return number of prio for ast_cmp.
+**
+** \param type is the type of current token
+**
+** \return number of prio for ast_cmp.
+*/
 static int		ast_val_cmp(t_token_type type)
 {
 	if (is_sepa(type))
@@ -92,15 +92,15 @@ static int		ast_val_cmp(t_token_type type)
 	return (6);
 }
 
-/**
- * \fn static int		ast_val_cmp(t_token_type type)
- *
- * \brief return number of prio for ast_cmp.
- *
- * \param s1 is pointer
- *
- * \return 0 if s1 is less than s2 else -1.
- */
+/*
+** \fn static int		ast_val_cmp(t_token_type type)
+**
+** \brief return number of prio for ast_cmp.
+**
+** \param s1 is pointer
+**
+** \return 0 if s1 is less than s2 else -1.
+*/
 int		ast_cmp(t_cmd *s1, t_cmd *s2)
 {
 	if (ast_val_cmp(s1->type) <= ast_val_cmp(s2->type))

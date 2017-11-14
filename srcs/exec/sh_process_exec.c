@@ -13,18 +13,18 @@
 #include <exec/exec.h>
 
 /*
- ** @brief         handle ast before exec
- **                it is recurcive function
- **                fisrt is ast->left (branch left of binary tree AST)
- **                if it is WORD so execute "normal"
- **                if OR it is: "normal" OR "normal"
- **                etc
- **
- ** @param  data    The data of shell
- ** @param  ast     The AST (Analyse Syntax Tree[binary])
- **
- ** @return     -1 on error or unknow TOKEN
- */
+*** @brief         handle ast before exec
+***                it is recurcive function
+***                fisrt is ast->left (branch left of binary tree AST)
+***                if it is WORD so execute "normal"
+***                if OR it is: "normal" OR "normal"
+***                etc
+***
+*** @param  data    The data of shell
+*** @param  ast     The AST (Analyse Syntax Tree[binary])
+***
+*** @return     -1 on error or unknow TOKEN
+*/
 
 int sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 {

@@ -15,11 +15,11 @@
 
 # include <core/data.h>
 
-/**
- * @file   builtin_echo.c
- *
- * @brief  Contains the functions for the builtin echo
- */
+/*
+** @file   builtin_echo.c
+**
+** @brief  Contains the functions for the builtin echo
+*/
 
 int	sh_echo(t_sh_data *data, char **arg);
 

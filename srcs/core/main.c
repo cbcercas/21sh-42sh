@@ -21,31 +21,31 @@
 #include <core/main.h>
 
 /*! @mainpage 21-42sh Documentation
- *
- * @section intro_sec Introduction
- *
- * Welcome to the (doxygen-generated) documentation for 21-42sh \n
- * You'll find in here all the documentation, man pages and info about
- * our wonderful project started on Jan 15 2017 by *Christopher Bravo Cercas* \n
- * and later joined
- * by *Jules Lasne*, *Guillaume Pouyat* and *Mathieu Leroy*
- *
- * @section install_sec Installation
- *
- * First, you'll need to clone the repository with all the submodules
- *
- * `git clone --recursive https://github.com/cbcercas/21-42sh.git 21-42sh`
- *
- * Then just `cd` in the directory and `make`
- *
- * @subsection step1 Step 1: Opening the box
- *
- * WIP *Need to add all the instructions here and add them on README.md to*
- */
+**
+** @section intro_sec Introduction
+**
+** Welcome to the (doxygen-generated) documentation for 21-42sh \n
+** You'll find in here all the documentation, man pages and info about
+** our wonderful project started on Jan 15 2017 by *Christopher Bravo Cercas* \n
+** and later joined
+** by *Jules Lasne*, *Guillaume Pouyat* and *Mathieu Leroy*
+**
+** @section install_sec Installation
+**
+** First, you'll need to clone the repository with all the submodules
+**
+** `git clone --recursive https://github.com/cbcercas/21-42sh.git 21-42sh`
+**
+** Then just `cd` in the directory and `make`
+**
+** @subsection step1 Step 1: Opening the box
+**
+** WIP *Need to add all the instructions here and add them on README.md to*
+*/
 
 /*
- **init tout les arrays qu'on a besoins
- */
+***init tout les arrays qu'on a besoins
+*/
 void			sh_arrays_init(t_array *tokens, t_array *expand)
 {
 	if (lexer_init(tokens) == NULL)

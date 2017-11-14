@@ -12,16 +12,16 @@
 
 #include <ast/ast.h>
 
-/**
- * \fn static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
- * \brief Change lim.cnt to knonw the number of token in redirection.
- * ">" = one token, "2>" = two tokens, "2> file" = tree tokens
- *
- * \param expands is token arrays
- * \param lim contains cnt
- *
- * \return struct lim.
- */
+/*
+** \fn static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
+** \brief Change lim.cnt to knonw the number of token in redirection.
+** ">" = one token, "2>" = two tokens, "2> file" = tree tokens
+**
+** \param expands is token arrays
+** \param lim contains cnt
+**
+** \return struct lim.
+*/
 static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
 {
 	t_exp	*exp;
@@ -44,16 +44,16 @@ static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
 	return (lim);
 }
 
-/**
- * \fn static t_lim	ast_built_word_plus(t_array *expands, t_lim lim)
- * \brief Change lim.cnt to knonw the number of token in redirection.
- * "ls" = one token, "ls -l" = two tokens, "ls -l /foo/bar" = tree tokens
- *
- * \param expands is token arrays
- * \param lim contains cnt
- *
- * \return struct lim.
- */
+/*
+** \fn static t_lim	ast_built_word_plus(t_array *expands, t_lim lim)
+** \brief Change lim.cnt to knonw the number of token in redirection.
+** "ls" = one token, "ls -l" = two tokens, "ls -l /foo/bar" = tree tokens
+**
+** \param expands is token arrays
+** \param lim contains cnt
+**
+** \return struct lim.
+*/
 static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 {
 	t_exp	*exp;
@@ -71,17 +71,17 @@ static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 	return (lim);
 }
 
-/**
- * \fn t_btree	*ast_built2(t_btree *ast, t_array *expands, t_lim lim, int prio)
- * \brief ast_built2 is like ast_built but don't push in right in ast.
- *
- * \param ast is abstrac syntax tree
- * \param expands is token arrays
- * \param lim virtual limit, and start
- * \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
+/*
+** \fn t_btree	*ast_built2(t_btree *ast, t_array *expands, t_lim lim, int prio)
+** \brief ast_built2 is like ast_built but don't push in right in ast.
+**
+** \param ast is abstrac syntax tree
+** \param expands is token arrays
+** \param lim virtual limit, and start
+** \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
 
- * \return ast abstrac syntax tree.
- */
+** \return ast abstrac syntax tree.
+*/
 static t_btree			*ast_built2(t_btree **ast, t_array *expands, t_lim lim, int prio)
 {
 	t_exp	*exp;
@@ -103,17 +103,17 @@ static t_btree			*ast_built2(t_btree **ast, t_array *expands, t_lim lim, int pri
 	return (*ast);
 }
 
-/**
- * \fn t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
- * \brief built ast. it is recurcif function.
- *
- * \param ast is abstrac syntax tree
- * \param expands is token arrays
- * \param lim virtual limit, and start
- * \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
+/*
+** \fn t_btree	*ast_built(t_btree *ast, t_array *expands, t_lim lim, int prio)
+** \brief built ast. it is recurcif function.
+**
+** \param ast is abstrac syntax tree
+** \param expands is token arrays
+** \param lim virtual limit, and start
+** \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
 
- * \return ast abstrac syntax tree.
- */
+** \return ast abstrac syntax tree.
+*/
 t_btree			*ast_built(t_btree **ast, t_array *expands, t_lim lim, int prio)
 {
 	t_exp	*exp;

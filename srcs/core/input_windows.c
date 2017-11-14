@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_windows.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
+/*   Updated: 2017/10/17 14:08:48 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <core/input.h>
 
 t_window	*get_windows2(t_window *wd, int rst)
@@ -15,22 +27,22 @@ t_window	*get_windows2(t_window *wd, int rst)
 	return (wd);
 }
 /*
- * @brief		Create and manage windows data
- * @param[in]	rst		the reset byte
- * @details		rst can be a byte or an addition of byte like that
- *				40	reset h_complet
- * 				20	hard reset current input
- * 				10	destroy saved input
- * 				4	reset the selection data
- * 				2	reset history level
- * 				1	reset windows size
- * 				example:
- * 				to reset current and save input and history level:
- * 				rst = 32 = 20 + 10 + 2
- * 				to reset everything:
- * 				rst = 37 = 20 + 10 + 4 + 2 + 1
- * @return
- */
+** @brief		Create and manage windows data
+** @param[in]	rst		the reset byte
+** @details		rst can be a byte or an addition of byte like that
+**				40	reset h_complet
+** 				20	hard reset current input
+** 				10	destroy saved input
+** 				4	reset the selection data
+** 				2	reset history level
+** 				1	reset windows size
+** 				example:
+** 				to reset current and save input and history level:
+** 				rst = 32 = 20 + 10 + 2
+** 				to reset everything:
+** 				rst = 37 = 20 + 10 + 4 + 2 + 1
+** @return
+*/
 
 t_window	*get_windows(int rst)
 {

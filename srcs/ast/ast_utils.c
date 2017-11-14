@@ -12,15 +12,15 @@
 
 #include <ast/ast.h>
 
-/**
- * \fn void		ast_del_cmd(t_cmd *cmd)
- *
- * \brief free cmd content and cmd
- *
- * \param cmd
- *
- * \return void.
- */
+/*
+** \fn void		ast_del_cmd(t_cmd *cmd)
+**
+** \brief free cmd content and cmd
+**
+** \param cmd
+**
+** \return void.
+*/
 void		ast_del_cmd(t_cmd *cmd)
 {
 	if (cmd == NULL)
@@ -34,15 +34,15 @@ void		ast_del_cmd(t_cmd *cmd)
 	cmd = NULL;
 }
 
-/**
- * \fn char		*ast_aff(t_cmd *cmd)
- *
- * \brief display content of cmd
- *
- * \param cmd struct command
- *
- * \return return "" or NULL.
- */
+/*
+** \fn char		*ast_aff(t_cmd *cmd)
+**
+** \brief display content of cmd
+**
+** \param cmd struct command
+**
+** \return return "" or NULL.
+*/
 char		*ast_aff(t_cmd *cmd)
 {
 	int i;
@@ -60,17 +60,17 @@ char		*ast_aff(t_cmd *cmd)
 	return ("");
 }
 
-/**
- * \fn t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
- *
- * \brief search next token with prio param
- *
- * \param expands is token arrays
- * \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
- * \param lim virtual limit
- *
- * \return token or NULL.
- */
+/*
+** \fn t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
+**
+** \brief search next token with prio param
+**
+** \param expands is token arrays
+** \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
+** \param lim virtual limit
+**
+** \return token or NULL.
+*/
 t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 {
 	t_exp		*exp;
@@ -85,19 +85,19 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 	return (exp);
 }
 
-/**
- * \fn t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
- *							                           t_token_type type)
- *
- * \brief creat and malloc a new cmd
- *
- * \param expands is token arrays
- * \param start is positon of first token
- * \param end is positon of last token
- * \param type is the type of current token
- *
- * \return new cmd or NULL
- */
+/*
+** \fn t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
+**							                           t_token_type type)
+**
+** \brief creat and malloc a new cmd
+**
+** \param expands is token arrays
+** \param start is positon of first token
+** \param end is positon of last token
+** \param type is the type of current token
+**
+** \return new cmd or NULL
+*/
 t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 		t_token_type type)
 {

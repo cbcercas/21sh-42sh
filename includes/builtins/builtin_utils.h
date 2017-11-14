@@ -17,27 +17,27 @@
 # include <stdlib.h>
 # include <array/array.h>
 
-/**
- * @typedef  XXX
- *
- * @brief    TODO
- */
+/*
+** @typedef  XXX
+**
+** @brief    TODO
+*/
 
 typedef 	int (*t_builtin_fn)(t_sh_data *data, char **arg);
 
-/**
- * @typedef  t_builtin
- *
- * @brief    TODO
- */
+/*
+** @typedef  t_builtin
+**
+** @brief    TODO
+*/
 
-/**
- * @struct  s_builtin
- *
- * @param   fn    function pointer
- * @param   name  builtin name
- * @param   len   builtin size
- */
+/*
+** @struct  s_builtin
+**
+** @param   fn    function pointer
+** @param   name  builtin name
+** @param   len   builtin size
+*/
 
 typedef struct			s_builtin
 {
@@ -46,22 +46,22 @@ typedef struct			s_builtin
 	size_t				len;
 }						t_builtin;
 
-/**
- * @file   builtins_utils.c
- *
- * @brief  This contains all the utility functions for the builtins
- */
+/*
+** @file   builtins_utils.c
+**
+** @brief  This contains all the utility functions for the builtins
+*/
 
 t_array		    *get_builtins(void);
 t_builtin	    *sh_new_builtin(char *name, t_builtin_fn fn);
 t_array*ms_add_builtin(char *name, t_builtin_fn fn);
 t_array			*sh_builtins_init(void);
 
-/**
- * @file   builtins_utils2.c
- *
- * @brief  This contains all the utility functions for the builtins
- */
+/*
+** @file   builtins_utils2.c
+**
+** @brief  This contains all the utility functions for the builtins
+*/
 
 t_builtin	    *get_builtin(char *name);
 char	        *sh_find_quote_end(char *arg);

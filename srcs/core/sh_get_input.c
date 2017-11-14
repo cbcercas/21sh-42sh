@@ -36,8 +36,8 @@ static char		*str_from_input(void)
 }
 
 /*
- **récupère l'input en fonction d'isatty
- */
+***récupère l'input en fonction d'isatty
+*/
 
 static char		*sh_get_input_no_tty(void)
 {
