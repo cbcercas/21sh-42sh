@@ -2,6 +2,55 @@
 #include <core/input.h>
 #include <history/history.h>
 
+static BOOL	alt_v_limit_len(char *save)
+{
+	int		len;
+	char	*tmp;
+
+	len = 0;
+	tmp = save;
+	while (save[len] && save[len] != '\\')
+		len ++;
+	if ((len + input_get_cur()->str->len) >= MAX_LEN_INPUT)
+		return (true);
+	while (save)
+	{
+		tmp = save;
+		save = ft_strchr(save, '\n');
+		save++;
+	}
+	if ((input_get_last(input_get_cur())->str->len + ft_strlen(tmp)) >= MAX_LEN_INPUT)
+		return (true);
+	return (false);
+}
+
+static BOOL	alt_v_limit_nb(char *save)
+{
+	int		count;
+
+	count = 0;
+	if (!save)
+		return (true);
+	while ((save = ft_strchr(save, '\n')))
+	{
+		count++;
+		save++;
+	}
+	if (MAX_NB_INPUT >= count)
+		return (true);
+	return (false);
+}
+
+static BOOL	alt_v_check_limit(char *save)
+{
+	if (alt_v_limit_nb(save) || alt_v_limit_len(save))
+	{
+		tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
+		tcaps_bell();
+		return (false);
+	}
+	return (true);
+}
 
 static void	exec_alt_v_multi(t_input *input, char *save)
 {
@@ -40,6 +89,8 @@ BOOL	exec_alt_v(const t_key *key, t_input *input)
 	if (get_select()->is || !input || !input->str || !get_select()->str)
 		return (false);
 	save = get_select()->str;
+	if (!alt_v_check_limit(save)) //TODO a checker sur les mac les limit d'input avec alt-v
+		return (false);
 	if (ft_strchr(get_select()->str, '\\'))
 	{
 		log_dbg3("copy multi");

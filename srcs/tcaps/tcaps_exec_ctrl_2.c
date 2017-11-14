@@ -14,23 +14,32 @@
 #include <core/prompt.h>
 #include <history/history.h>
 
+static BOOL		exec_ctrl_j2(t_input *input)
+{
+	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+	tputs("\n", 0, &ft_putchar2);
+	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	input->lock = true;
+	input_add_new(input);
+	get_windows(0)->cur = input->next;
+	sh_print_prompt(input->next, NULL, E_RET_LEXER_PIPE);
+	return (false);
+}
+
 BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {
 	(void)key;
 	if (get_select()->is)
 		return (false);
-	if (pos_in_str(input) == input->str->len && input->str->len
-		&& input->str->s[input->str->len - 1] == '\\' && !input->next)
+	if (MAX_NB_INPUT < count_nb_input(input_get_cur_head()))
 	{
-		tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-		tputs("\n", 0, &ft_putchar2);
-		tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-		input->lock = true;
-		input_add_new(input);
-		get_windows(0)->cur = input->next;
-		sh_print_prompt(input->next, NULL, E_RET_LEXER_PIPE);
+		tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
+		tcaps_bell();
 		return (false);
 	}
+	if (pos_in_str(input) == input->str->len && input->str->len
+		&& input->str->s[input->str->len - 1] == '\\' && !input->next)
+		return (exec_ctrl_j2(input));
 	while (input->next)
 	{
 		tputs(tgetstr("do", NULL), 0, &ft_putchar2);

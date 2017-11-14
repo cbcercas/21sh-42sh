@@ -58,3 +58,23 @@ t_input	*input_from_save(t_input **to_destroy)
 	w->cur = new_inp;
 	return (new_inp);
 }
+
+int		count_nb_input(t_input *input)
+{
+	int		nb;
+	t_input	*tmp;
+
+	nb = 0;
+	tmp = input;
+	while (input && input->next)
+	{
+		nb++;
+		input = input->next;
+	}
+	while (tmp && tmp->prev)
+	{
+		nb++;
+		tmp = tmp->prev;
+	}
+	return (nb);
+}

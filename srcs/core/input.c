@@ -73,7 +73,12 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_OTHER))
 			stop = key_exec(&key, input);
-		else if (is_printstr(buff) && !get_select()->is)
+		else if (MAX_LEN_INPUT <= input->str->len)
+		{
+			tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
+			tcaps_bell();
+		}
+		else if (is_printstr(buff) && !get_select()->is && !ft_strchr(buff, '\n'))
 		{
 			if (!string_insert(input->str, key.key, pos_in_str(input)))
 				return (NULL);
