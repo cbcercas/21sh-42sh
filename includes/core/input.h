@@ -18,6 +18,9 @@
 #include "data.h"
 #include "return.h"
 
+#define MAX_LEN_INPUT 1000
+#define MAX_NB_INPUT 100
+
 typedef struct s_select	t_select;
 struct					s_select
 {
@@ -87,6 +90,7 @@ t_cpos					input_get_last_pos(t_input *input);
 */
 void					input_to_save(t_input **to_save, t_input *new_inp);
 t_input					*input_from_save(t_input **to_destroy);
+int						count_nb_input(t_input *input);
 
 /*
 **
