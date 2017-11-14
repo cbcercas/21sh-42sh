@@ -249,7 +249,7 @@ ifndef DOXYGEN
 		@echo $(DOXYGEN)
 		@echo "Please install doxygen and graphviz first (brew install doxygen graphviz)."
 else
-	@doxygen Doxyfile
+	/bin/bash scripts/DCG.sh && doxygen Doxyfile && /bin/bash scripts/NCG.sh
 	@$(ECHOLOR) "[\033[35m--------------------------\033[0m]"
 	@$(ECHOLOR) "[\033[36m------ Documentation -----\033[0m]"
 	@$(ECHOLOR) "[\033[36m------   generated   -----\033[0m]"
