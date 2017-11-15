@@ -22,8 +22,8 @@
 ** @return returns the found value (TODO)
 */
 
-void	*btree_search_item(t_btree *root, void *data_ref,
-                           int (*cmpf)(void *, void *))
+void		*btree_search_item(t_btree *root, void *data_ref,
+							int (*cmpf)(void *, void *))
 {
 	if (root == NULL)
 		return (0);
@@ -46,7 +46,7 @@ void	*btree_search_item(t_btree *root, void *data_ref,
 ** @return void
 */
 
-void	btree_destroy(t_btree **root, void (*del)(void *))
+void		btree_destroy(t_btree **root, void (*del)(void *))
 {
 	if (!root || !(*root))
 		return ;
@@ -72,7 +72,7 @@ void	btree_destroy(t_btree **root, void (*del)(void *))
 ** @return Returns the biggest
 */
 
-int	ft_max(int left, int right)
+int			ft_max(int left, int right)
 {
 	if (left > right)
 		return (left);
@@ -86,10 +86,10 @@ int	ft_max(int left, int right)
 ** @return (TODO)
 */
 
-int	btree_level_count(t_btree *root)
+int			btree_level_count(t_btree *root)
 {
 	if (!root)
 		return (0);
 	return (ft_max(btree_level_count(root->left),
-	               btree_level_count(root->right)) + 1);
+					btree_level_count(root->right)) + 1);
 }

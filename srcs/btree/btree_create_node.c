@@ -12,7 +12,6 @@
 
 #include <btree/ft_btree.h>
 
-
 /*
 ** @brief Creates a node for the btree using the item
 **
