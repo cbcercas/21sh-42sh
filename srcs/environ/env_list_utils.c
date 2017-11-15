@@ -35,7 +35,7 @@ char	*split_var_value(char const *env)
 	return (value);
 }
 
-t_env *var_new(char *name, char *value, BOOL is_export)
+t_env	*var_new(char *name, char *value, BOOL is_export)
 {
 	t_env	*e;
 
@@ -60,7 +60,6 @@ t_env *var_new(char *name, char *value, BOOL is_export)
 	return (e);
 }
 
-//TODO check usage and remove it
 void	del_env(void *e)
 {
 	ft_strdel(&((t_env *)e)->name);

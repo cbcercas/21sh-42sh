@@ -15,7 +15,7 @@
 #include <ftprintf.h>
 #include <logger.h>
 
-void print_vars(t_array *vars)
+void		print_vars(t_array *vars)
 {
 	t_env	*e;
 	size_t	i;
@@ -25,7 +25,7 @@ void print_vars(t_array *vars)
 		return ;
 	while (i < vars->used)
 	{
-		e = (t_env *) array_get_at(vars, i);
+		e = (t_env *)array_get_at(vars, i);
 		ft_printf("\033[94m%s\033[0m=%s\n", e->name, e->value);
 		i++;
 	}
@@ -57,14 +57,14 @@ t_array		*get_vars(void)
 		if ((e = array_create(sizeof(t_env))) == NULL)
 		{
 			log_fatal("Variables: can't initialise variable array");
-			ft_dprintf(STDERR_FILENO, "Variables: can't initialise variables\n");
+			ft_dprintf(2, "Variables: can't initialise variables\n");
 			exit(1);
 		}
 	}
 	return (e);
 }
 
-t_array			*clone_vars(t_array *vars, t_array *tmp)
+t_array		*clone_vars(t_array *vars, t_array *tmp)
 {
 	t_env	*var;
 	size_t	i;

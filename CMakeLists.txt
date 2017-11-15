@@ -50,8 +50,10 @@ set(SOURCE_FILES
 		srcs/builtins/builtin_local_var.c
 		srcs/builtins/builtin_help_3.c
 
+		srcs/core/input_get.c
+		srcs/core/sh_option.c
 		srcs/core/sh_loop.c
-        srcs/core/sh_get_input.c
+		srcs/core/sh_get_input.c
 		srcs/core/init.c
 		srcs/core/deinit.c
 		srcs/core/input.c
@@ -62,7 +64,7 @@ set(SOURCE_FILES
 		srcs/core/prompt.c
 		srcs/core/input_windows.c
 		srcs/core/input_draw.c
-        srcs/core/input_move.c
+		srcs/core/input_move.c
 
 		srcs/environ/env_list_utils.c
 		srcs/environ/environ.c
@@ -117,7 +119,7 @@ set(SOURCE_FILES
 		srcs/history/history.c
 		srcs/history/history_list_utils.c
 		srcs/history/history_getter.c
-        srcs/history/history_getter_2.c
+		srcs/history/history_getter_2.c
 		srcs/history/history_print.c
 		srcs/history/history_arrow.c
 		srcs/history/history_research.c
@@ -159,7 +161,7 @@ set(SOURCE_FILES
 		srcs/tools/is_printstr.c
 		srcs/tools/sh_test_access.c
 		srcs/tools/is.c
-        srcs/tools/getpwd.c
+		srcs/tools/getpwd.c
 		srcs/tools/sh_ret.c
 
 		srcs/tests/lexer_tests.c

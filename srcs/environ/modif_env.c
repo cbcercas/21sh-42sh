@@ -15,9 +15,8 @@
 #include <environ/getter_env.h>
 #include <logger.h>
 
-
-t_env *set_var(t_array *vars, char const *name, char const *value, BOOL
-is_export)
+t_env	*set_var(t_array *vars, char const *name, char const *value,
+				BOOL is_export)
 {
 	t_env	*env;
 
@@ -28,7 +27,8 @@ is_export)
 	}
 	else
 	{
-		if ((env = var_new(ft_strdup(name), ft_strdup(value), is_export)) != NULL)
+		if ((env = var_new(ft_strdup(name), ft_strdup(value),
+						is_export)) != NULL)
 		{
 			array_push(vars, (void *)env);
 			ft_memdel((void**)&env);
@@ -37,7 +37,7 @@ is_export)
 	return (NULL);
 }
 
-t_env *del_var(t_array *vars, char const *name)
+t_env	*del_var(t_array *vars, char const *name)
 {
 	t_env		*e;
 	size_t		i;
