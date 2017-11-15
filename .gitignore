@@ -52,3 +52,5 @@ CMakeFiles/
 make_install.cmake
 tests/ressources/parser/output
 *.swp
+
+*.c___jb_old___

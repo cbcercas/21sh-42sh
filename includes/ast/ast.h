@@ -23,6 +23,16 @@
 # include <ftprintf.h>
 
 /*
+** @file ast.h
+**
+** @brief Function prototypes for the abstract syntax tree
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
 ** @struct s_info
 **
 ** @brief  struct containing return value for exec.
@@ -30,8 +40,6 @@
 
 struct								s_info
 {
-	//int 								redir_fd_in;
-	//int 								redir_fd_out;
 	int 								ret;
 };
 
@@ -40,12 +48,11 @@ typedef struct s_info	t_info;
 /*
 ** @struct s_cmd
 **
-** @brief  node for the AST tree
+** @brief node of the AST tree
 **
-** @param  a char ** for execve
-** @param  a type for process exec
-** @param  struct info
-**
+** @param  av    a char tab for execve containing the args for the cmd executed
+** @param  type  a type for process exec
+** @param  info  struct info
 */
 
 struct 								s_cmd
@@ -75,7 +82,7 @@ typedef struct s_lim	t_lim;
 /*
 ** @file       ast.c
 **
-** @brief      Main functions for the ast
+** @brief      Main functions of the ast
 */
 
 t_return								ast_create(t_btree **ast, t_array *tokens);
@@ -83,7 +90,7 @@ t_return								ast_create(t_btree **ast, t_array *tokens);
 /*
 ** @file       ast_built.c
 **
-** @brief      Contains function used to build the ast
+** @brief      Contains functions used to build the ast
 */
 
 t_btree								*ast_built(t_btree **ast, t_array *expands, t_lim lim,\

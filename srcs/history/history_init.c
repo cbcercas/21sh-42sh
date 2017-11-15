@@ -56,7 +56,7 @@ void	sh_history_print_choice(int limit)
 			"\t (2): Save the file somewhere and create a new file\n\n"
 			"\t ### DANGEROUS CHOICES ###\n"
 			"\t (3): Force load, save the current file and create a new one\n"
-			"\t (4): Force load and delete\n \t (5)Force load\n\n"
+			"\t (4): Force load and delete\n \t (5): Force load\n\n"
 			"\t (?): Default: (1)\n", PROGNAME, limit, HISTORY_FILE_MAX);
 }
 

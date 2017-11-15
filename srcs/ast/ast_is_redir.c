@@ -13,16 +13,17 @@
 #include <ast/ast.h>
 
 /*
-** \fn static t_token_type ast_return_type_redir_front(t_array *expands,\
-**																											size_t cnt)
+** @brief Checks if the next token is a redirect.
 **
-** \brief looks at the next token and returns its type if it's a redirect.
+** If the next token is a redirection, it will return it's type.\n
+** Otherwise, this function will return a E_TOKEN_NONE
 **
-** \param cnt is position of the current token
-** \param expands is token arrays
+** @param cnt Contains current position in the token array
+** @param expands Contains the token array
 **
-** \return type if next token is redirect else return E_TOKEN_NONE.
+** @return Returns token's type if next token is a redirect.
 */
+
 static t_token_type	ast_return_type_redir_front(t_array *expands, size_t cnt)
 {
 	t_exp		*exp;
@@ -34,16 +35,17 @@ static t_token_type	ast_return_type_redir_front(t_array *expands, size_t cnt)
 }
 
 /*
-** \fn static t_token_type	ast_return_type_redir_back(t_array *expands,\
-**																											size_t cnt)
+** @brief Checks if the preceding token is a redirect.
 **
-** \brief looks at the before tokens and returns its type if it's a redirect.
+** If the prededing token is a redirection, it will return it's type.\n
+** Otherwise, this function will return a E_TOKEN_NONE
 **
-** \param cnt is position of the current token
-** \param expands is token arrays
+** @param cnt Contains current position in the token array
+** @param expands Contains the token array
 **
-** \return type if before tokenss is redirect else return E_TOKEN_NONE.
+** @return Returns token's type if preceding token is a redirect.
 */
+
 static t_token_type	ast_return_type_redir_back(t_array *expands, size_t cnt)
 {
 	t_exp		*exp;
@@ -62,17 +64,18 @@ static t_token_type	ast_return_type_redir_back(t_array *expands, size_t cnt)
 }
 
 /*
-** \fn t_token_type	ast_return_type_redir(t_array *expands, size_t cnt,\
-** 																									t_token_type type)
+** @brief Checks if the current token is a redirect.
 **
-** \brief return type if current token is redirect else E_TOKEN_NONE.
+** If the current token is a redirection, it will return it's type.\n
+** Otherwise, this function will return a E_TOKEN_NONE
 **
-** \param cnt is position of the current token
-** \param expands is token arrays
-** \param type is the type of current token
+** @param cnt Contains current position in the token array
+** @param expands Contains the token array
+** @param type Contains the type of the current token
 **
-** \return return type if current token is redirect, else E_TOKEN_NONE.
+** @return Returns type if current token is a redirect.
 */
+
 t_token_type	ast_return_type_redir(t_array *expands, size_t cnt, t_token_type type)
 {
 	t_token_type	ret;
@@ -91,17 +94,15 @@ t_token_type	ast_return_type_redir(t_array *expands, size_t cnt, t_token_type ty
 }
 
 /*
-** \fn t_token_type	ast_is_redir(t_array *expands, size_t cnt,\
-** 																									t_token_type type)
+** @brief Tests if current token is a redirect.
 **
-** \brief test if current token is redirect.
+** @param cnt Contains current position in the token array
+** @param expands Contains the token array
+** @param type Contains the type of the current token
 **
-** \param cnt is position of the current token
-** \param expands is token arrays
-** \param type is the type of current token
-**
-** \return return true if current token is redirect else flase.
+** @return Returns true if current token is a redirect else will return false.
 */
+
 BOOL ast_is_redir(t_array *expands, size_t cnt, t_token_type type)
 {
 	if (ast_return_type_redir(expands, cnt, type) == E_TOKEN_NONE)

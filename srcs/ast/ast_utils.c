@@ -13,14 +13,13 @@
 #include <ast/ast.h>
 
 /*
-** \fn void		ast_del_cmd(t_cmd *cmd)
+** @brief Frees cmd content and cmd
 **
-** \brief free cmd content and cmd
+** @param cmd the cmd to be freed and deleted
 **
-** \param cmd
-**
-** \return void.
+** @return void
 */
+
 void		ast_del_cmd(t_cmd *cmd)
 {
 	if (cmd == NULL)

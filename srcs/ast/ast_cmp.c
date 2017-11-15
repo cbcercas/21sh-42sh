@@ -13,17 +13,26 @@
 #include <ast/ast.h>
 
 /*
-** \fn t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
-**                             size_t cnt)
-** \brief get type of token.
+** @brief Finds and returns the type of given token
 **
-** \param expands is token arrays
-** \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
-** \param cnt is position of the current token
-** \param type is the type of current token
+** Compares priorities and returns appropriate type
 **
-** \return the token type.
+** @param expands Contains the token array
+** @param prio Priority for tokens
+**
+** 1 = ";" or "||" or "&&",\n
+** 2 = "|",\n
+** 3 = redirections,\n
+** 4 = "&".
+**
+** @param cnt Contains the position of the current token
+** @param type Contains the current token's type
+**
+** @return Returns the token type
+**
+** Return values can be any token type defined in lexer.h
 */
+
 t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 		size_t cnt)
 {
@@ -41,17 +50,25 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 }
 
 /*
-** \fn BOOL	ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
+** @brief Associates priorities and tokens
 **
-** \brief associate priority and token.
+** This will test possible matches between priorities and tokens, and will
+** then return true if they match
 **
-** \param cnt is position of the current token
-** \param expands is token arrays
-** \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
-** \param type is the type of current token
+** @param cnt Contains position of the current token
+** @param expands Contains the token array
+** @param prio Priority for tokens
 **
-** \return true if token and prio is associate else false.
+** 1 = ";" or "||" or "&&",\n
+** 2 = "|",\n
+** 3 = redirections,\n
+** 4 = "&".
+**
+** @param type Contains the type of current token
+**
+** @return Returns true if token and priority match, else returns false
 */
+
 BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 {
 	if (prio == 1 && (is_sepa(type)))
@@ -69,14 +86,13 @@ BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
 }
 
 /*
-** \fn static int		ast_val_cmp(t_token_type type)
+** @brief Compares given token type and returns appropriate priority for the ast
 **
-** \brief return number of prio for ast_cmp.
+** @param type Contains current token's type
 **
-** \param type is the type of current token
-**
-** \return number of prio for ast_cmp.
+** @return Returns the priority
 */
+
 static int		ast_val_cmp(t_token_type type)
 {
 	if (is_sepa(type))
@@ -93,14 +109,14 @@ static int		ast_val_cmp(t_token_type type)
 }
 
 /*
-** \fn static int		ast_val_cmp(t_token_type type)
+** @brief Returns priority between two commands
 **
-** \brief return number of prio for ast_cmp.
+** @param s1 First command to compare
+** @param s2 Second command to compare
 **
-** \param s1 is pointer
-**
-** \return 0 if s1 is less than s2 else -1.
+** @return Returns 0 if s1 is less than s2, else it will return -1.
 */
+
 int		ast_cmp(t_cmd *s1, t_cmd *s2)
 {
 	if (ast_val_cmp(s1->type) <= ast_val_cmp(s2->type))
