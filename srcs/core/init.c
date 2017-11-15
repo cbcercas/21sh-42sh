@@ -125,18 +125,17 @@ static void	sh_multi_init(t_sh_data *data, int ac, char *const *av, char **envir
 
 char		*sh_check_env(char **environ)
 {
-	char cwd[1024];
+	char	cwd[1024];
 	char	*tmp;
 
 	tmp = NULL;
 	if (!environ || !environ[0])
 	{
 		ft_printf("%s: %sWarning%s, Starting %s without env may cause some "
-											"feature to not work proprelly.\n",
-											PROGNAME, CL_RED, C_NONE, PROGNAME);
+						  "feature to not work proprelly.\n", PROGNAME, CL_RED, C_NONE, PROGNAME);
 		ft_printf("Please refer to the man for more information\n");
 		log_warn("%s was launched without an env provided. Using default.\n",
-																	 PROGNAME);
+		PROGNAME);
 		set_var(get_envs(), "TERM", ft_strdup("xterm"), true);
 		set_var(get_envs(), "USER", ft_strdup("Marvin"), true);
 		set_var(get_envs(), "USERNAME", ft_strdup("Marvin"), true);
@@ -145,19 +144,17 @@ char		*sh_check_env(char **environ)
 	}
 	if (!(get_var(get_envs(), "SHLVL")) ||
 							ft_strequ(get_var_value(get_envs(), "SHLVL"), ""))
-		set_var(get_envs(), "SHLVL", ft_strdup("1"), true);
+		set_var(get_envs(), "SHLVL", ft_strdup("1"), true);//<================= dup :wink:
 	else
 	{
 		tmp = ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1);
-		set_var(get_envs(), "SHLVL", ft_strdup(tmp), true);
+		set_var(get_envs(), "SHLVL", tmp, true);//<============================ pas besoins de dup puisque itoa le fait
 	}
-
 	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var_value(get_envs(), "TERM"), ""))
-		set_var(get_envs(), "TERM", ft_strdup("xterm"), true);
+	set_var(get_envs(), "TERM", ft_strdup("xterm"), true);
 	return (tmp);
 }
-
-t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
+t_sh_data    *sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 {
 	char *tmp;
 
@@ -165,7 +162,7 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
 		ft_dprintf(2, "%s: Error when getting current working directory\n",\
-																	PROGNAME);
+		PROGNAME);
 		sh_deinit(data);
 		exit(1);
 	}
@@ -177,7 +174,7 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		exit(1);
 	}
 	log_info("INIT: initialized correctly. SHLVL is set to %s", tmp);
-	ft_strdel(&tmp);
+	//    ft_strdel(&tmp); <=============== plus besoins
 	return (data);
 }
 
