@@ -49,8 +49,10 @@ void sh_testing_exec(char *const *av, char **environ)
 
 	ast = NULL;
 	init_environ(environ);
-  	sh_builtins_init();
+	init_local_var();
+	sh_builtins_init();
 	sh_history_init(sh_history_get());
+	sh_check_env(environ);
 	tokens = init_tests_exec(av[2]);
 	if (expand_init(&expands) == NULL)
 		exit (1);
