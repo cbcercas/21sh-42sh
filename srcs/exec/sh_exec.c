@@ -19,8 +19,9 @@ static int sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 	manage_fds(pipe, fds);
 	if (!multi_close(pipe, fds, END))
 		return (EXIT_FAILURE);
+	if (path)
+		*get_cmd_ret() = sh_ret(sh_wait(pid, 0));
 	ft_strdel(&path);
-	*get_cmd_ret() = sh_ret(sh_wait(pid, 0)); // TODO a mettre dans
 	signal(SIGWINCH, signals_handler);
 	return (*get_cmd_ret());
 }

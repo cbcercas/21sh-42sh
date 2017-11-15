@@ -117,12 +117,14 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	log_dbg1("exec arrow up.");
 	if (!(new_inp = sh_history_up(input)))
 		return (false);
-	input = input_back_to_origin(input);
+	log_dbg1("SALUT");
+	input = input_back_to_writable(input);
 	input_to_save(&input, new_inp);
-	new_inp = input_draw(new_inp);
-	if (new_inp->prev)
-		new_inp = input_back_to_origin(new_inp);
-	input_goto_line_end(new_inp);
+	input = new_inp;
+	input = input_draw(input);
+	input = input_back_to_writable(input);
+	input_goto_line_end(input);
+	get_windows(0)->cur = input;
 	return (false);
 }
 
@@ -135,7 +137,7 @@ BOOL	exec_arrow_down(const t_key *key, t_input *input)
 	if (!(new_inp = sh_history_down(input)))
 		return (false);
 	new_inp = input_draw(new_inp);
-	new_inp = new_inp->prev ? input_back_to_origin(new_inp) : new_inp;
+	new_inp = new_inp->prev ? input_back_to_writable(new_inp) : new_inp;
 	input_goto_line_end(new_inp);
 	return (false);
 }

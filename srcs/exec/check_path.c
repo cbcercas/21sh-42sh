@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <exec/check_path.h>
+#include <core/input.h>
 
 char		*makefilepath(char const *path, char const *filename)
 {
@@ -35,6 +36,25 @@ char		*makefilepath(char const *path, char const *filename)
 ** return string malloc filename with path
 */
 
+static		char **get_env_path(void)
+{
+	char	**env_path;
+
+	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':', M_LVL_FUNCT);
+	if (env_path)
+		return (env_path);
+	return (ft_strsplit_secu(get_var_value(get_vars(), "PATH"), ':', M_LVL_FUNCT));
+}
+
+static		void sh_check_path_print_err(int ret, char const *cmd_name)
+{
+	if (ret == -1)
+		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n", PROGNAME, cmd_name);
+	else if (ret == 0)
+		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", PROGNAME, cmd_name);
+	*get_cmd_ret() = 1;
+}
+
 char	*sh_check_path(char const *cmd_name)
 {
 	char	**env_path;
@@ -42,8 +62,8 @@ char	*sh_check_path(char const *cmd_name)
 	int		ret;
 	int		tmp;
 
-	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':', M_LVL_FUNCT); //TODO check if PATH is in envs or in local var
 	ret = 0;
+	env_path = get_env_path();
 	while (env_path && *env_path)
 	{
 		if (!(file = makefilepath(*env_path, cmd_name)))
@@ -55,10 +75,7 @@ char	*sh_check_path(char const *cmd_name)
 		ft_strdel(&file);
 		env_path++;
 	}
-	if (ret == -1)
-		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n", PROGNAME, cmd_name); //TODO : Fix #64
-	else if (ret == 0)
-		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", PROGNAME, cmd_name);
+	sh_check_path_print_err(ret, cmd_name);
 	ft_secu_free_lvl(M_LVL_FUNCT);
 	return (NULL);
 }
