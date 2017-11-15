@@ -12,6 +12,15 @@
 
 #include <btree/ft_btree.h>
 
+
+/*
+** @brief Creates a node for the btree using the item
+**
+** @param item item that will be stored in the new node of the btree
+**
+** @return Returns the btree with the new node containing item in it
+*/
+
 t_btree	*btree_create_node(void *item)
 {
 	t_btree	*btree;
@@ -25,6 +34,15 @@ t_btree	*btree_create_node(void *item)
 	btree->item = item;
 	return (btree);
 }
+
+/*
+** @brief Inserts data
+** @param root The btree
+** @param item Item to be inserted ? (TODO)
+** @param cmpf (TODO)
+**
+** @return void
+*/
 
 void	btree_insert_data(t_btree **root, void *item,\
 													int (*cmpf)(void *, void *))

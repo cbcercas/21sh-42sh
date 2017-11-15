@@ -12,6 +12,15 @@
 
 #include <btree/ft_btree.h>
 
+/*
+** @brief Applies a function to the infix of the btree node
+**
+** @param root The btree (?TODO)
+** @param applyf Function to be applied to the infix
+**
+** @return Returns void
+*/
+
 void	btree_apply_infix(t_btree *root, void (*applyf)(void *))
 {
 	if (!root)
@@ -23,6 +32,15 @@ void	btree_apply_infix(t_btree *root, void (*applyf)(void *))
 		btree_apply_infix(root->right, applyf);
 }
 
+/*
+** @brief Applies a function to the prefix of the btree node
+**
+** @param root The btree (?TODO)
+** @param applyf Function to be applied to the prefix
+**
+** @return Returns void
+*/
+
 void	btree_apply_prefix(t_btree *root, void (*applyf)(void *))
 {
 	if (!root)
@@ -33,6 +51,15 @@ void	btree_apply_prefix(t_btree *root, void (*applyf)(void *))
 	if (root->right != NULL)
 		btree_apply_prefix(root->right, applyf);
 }
+
+/*
+** @brief Applies a function to the suffix of the btree node
+**
+** @param root The btree (?TODO)
+** @param applyf Function to be applied to the suffix
+**
+** @return Returns void
+*/
 
 void	btree_apply_suffix(t_btree *root, void (*applyf)(void *))
 {

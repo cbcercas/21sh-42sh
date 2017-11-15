@@ -16,6 +16,16 @@
 #include <secure_memory/ft_secu_malloc.h>
 
 /*
+** @file ft_btree.h
+**
+** @brief Function prototypes for the binary trees
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
 ** @struct s_btree
 **
 ** @param  parent  Contains the parent btree node
@@ -23,6 +33,7 @@
 ** @param  right   Contains the right btree node
 ** @param  item    Contains the item in the node
 */
+
 
 typedef struct		s_btree
 {

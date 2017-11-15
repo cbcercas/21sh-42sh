@@ -12,6 +12,16 @@
 
 #include <btree/ft_btree.h>
 
+/*
+** @brief Searches for an item in the btre
+**
+** @param root The btree to search
+** @param data_ref The reference data to search (?TODO)
+** @param cmpf (TODO)
+**
+** @return returns the found value (TODO)
+*/
+
 void	*btree_search_item(t_btree *root, void *data_ref,
                            int (*cmpf)(void *, void *))
 {
@@ -26,6 +36,15 @@ void	*btree_search_item(t_btree *root, void *data_ref,
 	else
 		return (0);
 }
+
+/*
+** @brief Destroys the btree
+**
+** @param root The btree to be destroyed
+** @param del The function used to del (TODO?)
+**
+** @return void
+*/
 
 void	btree_destroy(t_btree **root, void (*del)(void *))
 {
@@ -46,6 +65,13 @@ void	btree_destroy(t_btree **root, void (*del)(void *))
 	(*root) = NULL;
 }
 
+/*
+** @brief Returns the biggest integer
+** @param left First integer to test
+** @param right Second integet to test
+** @return Returns the biggest
+*/
+
 int	ft_max(int left, int right)
 {
 	if (left > right)
@@ -53,6 +79,12 @@ int	ft_max(int left, int right)
 	else
 		return (right);
 }
+
+/*
+** @brief (TODO)
+** @param root The btree
+** @return (TODO)
+*/
 
 int	btree_level_count(t_btree *root)
 {
