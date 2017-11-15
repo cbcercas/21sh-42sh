@@ -12,6 +12,13 @@
 
 #include <core/input.h>
 
+/*
+** @brief Helper for get_windows
+** @param wd TODO
+** @param rst TODO
+** @return TODO
+*/
+
 static t_window	*get_windows2(t_window *wd, int rst)
 {
 	if ((rst %= 10) && rst >= 4)

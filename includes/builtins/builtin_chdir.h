@@ -40,6 +40,15 @@
 */
 
 int		sh_chdir(t_sh_data *data, char **arg);
+
+/*
+** @file   builtin_chdir_expand.c
+**
+** @brief  Contains the functions for the expand part of chdir (cd)
+*/
 char	*expand_path(char **path);
+
+
+
 
 #endif

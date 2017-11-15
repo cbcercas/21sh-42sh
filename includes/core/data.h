@@ -16,8 +16,25 @@
 # include <logger.h>
 # include <types/bool.h>
 
+/*
+** @file data.h
+**
+** @brief Contains the data structure used throughout the program
+**
+** This contains eventually any macros, constants,
+** or global variables you will need.
+*/
+
 typedef struct s_sh_opt		t_sh_opt;
 typedef struct s_sh_data	t_sh_data;
+
+/*
+** @struct sh_sh_opt
+**
+** @brief TODO
+**
+** @param TODO
+*/
 
 struct						s_sh_opt
 {
@@ -27,6 +44,14 @@ struct						s_sh_opt
 	//TODO remove tcaps;
 	BOOL			tcaps;
 };
+
+/*
+** @struct s_sh_data
+**
+** @brief TODO
+**
+** @param TODO
+*/
 
 struct						s_sh_data
 {

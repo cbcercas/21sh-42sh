@@ -13,7 +13,10 @@
 #include <core/sh_loop.h>
 
 /*
-** reset les arrays
+** @brief Resets the given arrays
+**
+** @param tokens Token array to be reset
+** @param expands Expand array to be reset
 */
 
 void				sh_arrays_reset(t_array *tokens, t_array *expands)
@@ -26,7 +29,14 @@ void				sh_arrays_reset(t_array *tokens, t_array *expands)
 }
 
 /*
-** lex, pars, expand, et build ast, il retourn l'ast
+** @brief Lexes, parses, expands then builds the ast and returns it
+**
+** @param ast The ast to be returned
+** @param expands The expand
+** @param tokens The lexer tokens
+** @param line The line to process
+**
+** @return Returns the ast once built
 */
 
 static t_return		sh_process(t_btree **ast, t_array *expands, t_array *tokens,
@@ -58,6 +68,16 @@ static t_return		sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 		ret = E_RET_LEXER_PIPE;
 	return (ret);
 }
+
+/*
+** @brief Processes each line of input and executes it
+**
+** @param data Shell's data used and accessed throughout the program
+** @param exec_dat TODO
+** @param ret The return value
+**
+** @return TODO
+*/
 
 BOOL				sh_loop(t_sh_data data, struct s_exec_data *exec_dat,
 							t_return *ret)

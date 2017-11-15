@@ -22,6 +22,12 @@
 #include <core/return.h>
 #include <tools/tools.h>
 
+/*
+** @brief Prints the prompt
+**
+** @return Returns the size of the prompt
+*/
+
 static size_t		get_prompt(void)
 {
 	char		*user;
@@ -43,6 +49,12 @@ static size_t		get_prompt(void)
 	return (len);
 }
 
+/*
+** @brief Prints the prompt and sets the variables
+**
+** @param inp TODO
+*/
+
 void				prompt_normal(t_input *inp)
 {
 	inp->prompt_type = E_RET_NEW_PROMPT;
@@ -52,6 +64,13 @@ void				prompt_normal(t_input *inp)
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
 }
+
+/*
+** @brief TODO
+** @param inp TODO
+** @param prompt TODO
+** @param ret TODO
+*/
 
 void				prompt_perso(t_input *inp, const char *prompt, t_return ret)
 {
@@ -70,6 +89,15 @@ void				prompt_perso(t_input *inp, const char *prompt, t_return ret)
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
 }
+
+/*
+** @brief Calls the other functions to print the prompt and set the
+** approriate variables
+**
+** @param input The current input
+** @param prompt The prompt string
+** @param ret The last ret value
+*/
 
 void				sh_print_prompt(t_input *input, const char *prompt,
 									t_return ret)

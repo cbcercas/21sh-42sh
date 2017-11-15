@@ -87,6 +87,14 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 	sh_store_tattr(data);
 }
 
+/*
+** @brief checks if the env is empty or missing a key value
+**
+** @param __p__environ The environ passed to the program when started
+**
+** @return void
+*/
+
 void				sh_check_env(char **environ)
 {
 	if (!environ || !environ[0])
@@ -111,6 +119,17 @@ void				sh_check_env(char **environ)
 							ft_strequ(get_var_value(get_envs(), "TERM"), ""))
 		set_var(get_envs(), "TERM", "xterm", true);
 }
+
+/*
+** @brief     Initializes the program
+**
+** @param[in] data     Contains data such as options and env
+** @param[in] ac       Argument count for av
+** @param[in] av       Contains the arguments
+** @param[in] environ  Contains the env
+**
+** @return    the modified t_sh_data
+*/
 
 t_sh_data			*sh_init(t_sh_data *data, int ac, char *const *av,
 							char **environ)

@@ -15,7 +15,18 @@
 
 # include "data.h"
 
-# define NOTATTY 1
+# define NOTATTY 1 //TODO: Used ?
+
+
+/*
+** @file   init.h
+**
+** @brief  Function prototypes for the program initialisation
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
 
 /*
 ** @file       init.c
@@ -27,8 +38,15 @@ t_sh_data		*sh_init(t_sh_data *data, int ac, char *const *av,
 						char **environ);
 void			sh_store_tattr(t_sh_data *data);
 void			sh_check_env(char **environ);
+void			sh_testing(const char *arg, char *const *av, char **environ);
+
+/*
+** @file sh_option.c
+**
+** @brief Parses the options given to the program
+*/
+
 void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 						char **environ);
-void			sh_testing(const char *arg, char *const *av, char **environ);
 
 #endif

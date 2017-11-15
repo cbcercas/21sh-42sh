@@ -59,7 +59,10 @@
 */
 
 /*
-** init tout les arrays qu'on a besoins
+** @brief Initializes all the arrays needed
+**
+** @param tokens The token array to initialize
+** @param expand The expand array to initialize
 */
 
 void			sh_arrays_init(t_array *tokens, t_array *expand)
@@ -69,6 +72,16 @@ void			sh_arrays_init(t_array *tokens, t_array *expand)
 	if (expand_init(expand) == NULL)
 		exit(EXIT_FAILURE);
 }
+
+/*
+** @brief Main function. Everything starts here
+**
+** @param ac The argument count
+** @param av The argument array
+** @param __p__environ The environment
+**
+** @return Returns a value based on successful exit or not
+*/
 
 int				main(int ac, char *const *av, char **environ)
 {

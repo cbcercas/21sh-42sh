@@ -13,6 +13,12 @@
 #ifndef RETURN_H
 # define RETURN_H
 
+/*
+** @file return.h
+**
+** @brief contains the return values enum
+*/
+
 typedef enum e_return	t_return;
 
 enum	e_return

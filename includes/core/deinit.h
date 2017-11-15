@@ -16,10 +16,21 @@
 # include "data.h"
 
 /*
+** @file   deinit.h
+**
+** @brief  Function prototypes for the deinit part of the program
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
 ** @file       deinit.c
 **
 ** @brief      Functions to uninitialize the program before exiting it
 */
+
 
 int		sh_restore_tattr(struct termios *tattr);
 void	sh_deinit(t_sh_data *data);

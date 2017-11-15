@@ -16,6 +16,22 @@
 # include "input.h"
 # include "return.h"
 
+/*
+** @file   prompt.h
+**
+** @brief  Function prototypes for the prompt
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file prompt.c
+**
+** @brief Functions to print the prompt
+*/
+
 void	sh_print_prompt(t_input *input, const char *prompt, t_return ret);
 size_t	sh_len_prompt(void);
 
