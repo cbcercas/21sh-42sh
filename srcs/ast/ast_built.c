@@ -40,7 +40,7 @@ static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
 		if (exp->type == E_TOKEN_WORD)
 		{
 			lim.cnt++;
-			break;
+			break ;
 		}
 	}
 	lim.cnt--;
@@ -98,7 +98,8 @@ static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 ** @return Returns the Abstract Syntax Tree
 */
 
-static t_btree			*ast_built2(t_btree **ast, t_array *expands, t_lim lim, int prio)
+static t_btree			*ast_built2(t_btree **ast, t_array *expands,
+						t_lim lim, int prio)
 {
 	t_exp	*exp;
 	t_lim	lim_left;
@@ -135,7 +136,8 @@ static t_btree			*ast_built2(t_btree **ast, t_array *expands, t_lim lim, int pri
 ** @return Returns the Abstract Syntax Tree
 */
 
-t_btree			*ast_built(t_btree **ast, t_array *expands, t_lim lim, int prio)
+t_btree					*ast_built(t_btree **ast,
+						t_array *expands, t_lim lim, int prio)
 {
 	t_exp	*exp;
 	t_lim	lim_left;
@@ -153,7 +155,8 @@ t_btree			*ast_built(t_btree **ast, t_array *expands, t_lim lim, int prio)
 					return_type(prio, exp->type, expands, lim_left.lim)), \
 				(int (*)(void*, void*))&ast_cmp);
 		if (prio != 5 && prio != 3)
-			(*ast)->left = ast_built(&(*ast)->left, expands, lim_left, prio + 1);
+			(*ast)->left = ast_built(&(*ast)->left, expands,
+									lim_left, prio + 1);
 		if (prio != 5 && prio != 3)
 			(*ast)->right = ast_built(&(*ast)->right, expands, lim, prio);
 	}

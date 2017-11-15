@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <ast/ast.h>
 
 /*
@@ -29,7 +28,7 @@
 ** Or whatever else may happen down the chain. (cf. ast_built)
 */
 
-t_return	ast_create(t_btree		**ast, t_array *expands)
+t_return		ast_create(t_btree **ast, t_array *expands)
 {
 	t_lim		lim;
 
