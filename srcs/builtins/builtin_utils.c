@@ -10,20 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
-#include <environ/env_list_utils.h>
-#include <logger.h>
-#include <ftprintf.h>
 #include <builtins/builtin_utils.h>
-#include <core/progname.h>
-#include <builtins/builtin_echo.h>
-#include <builtins/builtin_history.h>
-#include <builtins/builtin_chdir.h>
-#include <builtins/builtin_pwd.h>
-#include <builtins/builtin_help.h>
-#include <builtins/builtin_env.h>
-#include <builtins/builtin_local_var.h>
-#include <builtins/builtin_exit.h>
 
 t_array		*get_builtins(void)
 {

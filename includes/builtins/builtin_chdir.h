@@ -13,6 +13,15 @@
 # define CHDIR_H
 
 # include <core/data.h>
+# include <libft.h>
+# include <builtins/builtin_exit.h>
+# include <tools/tools.h>
+# include <ftprintf.h>
+# include <core/input.h>
+# include <core/progname.h>
+# include <environ/modif_env.h>
+# include <unistd/ft_unistd.h>
+# include <builtins/builtin_echo.h>
 
 /*
 ** @file   builtin_chdir.c

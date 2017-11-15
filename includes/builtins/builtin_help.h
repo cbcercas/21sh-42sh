@@ -13,10 +13,11 @@
 #ifndef BUILTIN_HELP_H
 # define BUILTIN_HELP_H
 
-# include <core/progname.h>
 # include <ftprintf.h>
-# include <libft.h>
 # include <core/data.h>
+# include <core/color.h>
+# include <core/progname.h>
+# include <libft.h>
 
 /*
 ** @file builtin_help.h

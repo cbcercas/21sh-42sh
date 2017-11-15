@@ -10,11 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/data.h>
-#include <history/history.h>
-#include <core/deinit.h>
-#include <core/tcaps.h>
-#include <signals/signals.h>
+#include <builtins/builtin_exit.h>
 
 int	sh_exit(t_sh_data *data, char **arg)
 {

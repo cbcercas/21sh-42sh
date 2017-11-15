@@ -13,9 +13,12 @@
 #ifndef BUILTINS_UTILS_H
 # define BUILTINS_UTILS_H
 
-# include <core/data.h>
-# include <stdlib.h>
-# include <array/array.h>
+
+#include <builtins/builtin_local_var.h>
+#include <builtins/builtin_env.h>
+#include <builtins/builtin_pwd.h>
+#include <builtins/builtin_chdir.h>
+#include <builtins/builtin_history.h>
 
 /*
 ** @typedef  XXX

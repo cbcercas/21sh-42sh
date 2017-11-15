@@ -14,6 +14,9 @@
 #define BUILTIN_HISTORY_H
 
 # include <core/data.h>
+# include <ftprintf.h>
+# include <unistd/ft_unistd.h>
+# include <history/history.h>
 
 /*
 ** @file   builtin_history.c

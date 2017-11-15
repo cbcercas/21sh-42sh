@@ -11,10 +11,6 @@
 /* ************************************************************************** */
 
 #include <builtins/builtin_chdir.h>
-#include <libft.h>
-#include <tools/tools.h>
-#include <builtins/builtin_exit.h>
-#include <sys/stat.h>
 
 static char 	*find_start_ddots(char *path)
 {

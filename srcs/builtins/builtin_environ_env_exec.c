@@ -10,14 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
-#include <environ/env_list_utils.h>
-#include <environ/environ.h>
-#include <exec/check_path.h>
-#include <tools/tools.h>
-#include <signals/signals.h>
-#include <core/input.h>
-
+#include <builtins/builtin_env.h>
 
 int		sh_builtin_env_exec(char **av, t_array *envs)
 {

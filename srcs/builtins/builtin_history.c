@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ftprintf.h>
-#include <core/data.h>
 #include <builtins/builtin_history.h>
-#include <unistd/ft_unistd.h>
 
 extern char const	*g_optarg;
 extern int			g_optind;

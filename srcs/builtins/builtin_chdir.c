@@ -10,18 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <ftprintf.h>
-#include <core/progname.h>
-#include <environ/getter_env.h>
-#include <environ/env_utils.h>
-#include <core/prompt.h>
-#include <environ/modif_env.h>
-#include <unistd/ft_unistd.h>
-#include <builtins/builtin_echo.h>
-#include <tools/tools.h>
 #include <builtins/builtin_chdir.h>
 
 static	BOOL	sh_test_path(char *path)

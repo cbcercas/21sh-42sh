@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <history/history.h>
-#include <fcntl.h>
+#include <builtins/builtin_history.h>
 
 void		sh_history_builtin_r(char *path)
 {

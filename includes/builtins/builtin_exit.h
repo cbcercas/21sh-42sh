@@ -14,6 +14,9 @@
 # define EXIT_H
 
 # include <core/data.h>
+# include <history/history.h>
+# include <core/deinit.h>
+# include <signals/signals.h>
 
 /*
 ** @file   builtin_exit.c

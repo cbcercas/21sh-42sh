@@ -10,10 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <ftprintf.h>
-#include <core/data.h>
-#include <unistd/ft_unistd.h>
+#include <builtins/builtin_echo.h>
 
 extern int g_optind;
 

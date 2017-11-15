@@ -14,6 +14,18 @@
 #define BUILTIN_ENVIRON_H
 
 # include <core/data.h>
+# include <builtins/builtin_help.h>
+# include <environ/env_list_utils.h>
+# include <environ/env_utils.h>
+# include <environ/modif_env.h>
+# include <unistd/ft_unistd.h>
+# include <stdio.h>
+# include <environ/environ.h>
+# include <core/input.h>
+# include <exec/check_path.h>
+# include <signal.h>
+# include <signals/signals.h>
+# include <exec/exec.h>
 
 /*
 ** @file   builtin_environ.c

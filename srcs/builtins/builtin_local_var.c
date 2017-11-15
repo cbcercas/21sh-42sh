@@ -10,13 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/data.h>
-#include <environ/environ.h>
-#include <unistd/ft_unistd.h>
-#include <environ/modif_env.h>
-#include <environ/env_utils.h>
-#include <environ/getter_env.h>
-#include <ftprintf.h>
+#include <builtins/builtin_local_var.h>
 
 extern char const	*g_optarg;
 

@@ -14,6 +14,9 @@
 # define ECHO_H
 
 # include <core/data.h>
+# include <libft.h>
+# include <unistd/ft_unistd.h>
+# include <ftprintf.h>
 
 /*
 ** @file   builtin_echo.c

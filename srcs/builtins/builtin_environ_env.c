@@ -10,10 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
-#include <environ/env_utils.h>
-#include <unistd/ft_unistd.h>
-#include <ftprintf.h>
 #include <builtins/builtin_env.h>
 
 extern int g_optind;

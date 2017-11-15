@@ -14,6 +14,11 @@
 #define PWD_H
 
 # include <core/data.h>
+# include <stdio.h>
+# include <sys/stat.h>
+# include <environ/env_utils.h>
+# include <environ/getter_env.h>
+# include <unistd/ft_unistd.h>
 
 /*
 ** @file   builtin_pwd.c

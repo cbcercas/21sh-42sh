@@ -11,15 +11,6 @@
 /* ************************************************************************** */
 
 #include <builtins/builtin_pwd.h>
-#include <unistd/ft_unistd.h>
-#include <tools/tools.h>
-#include <environ/getter_env.h>
-#include <core/data.h>
-#include <stdlib.h>
-#include <ftprintf.h>
-#include <unistd.h>
-#include <sys/stat.h>
-#include <environ/env_utils.h>
 
 extern int			g_optind;
 
