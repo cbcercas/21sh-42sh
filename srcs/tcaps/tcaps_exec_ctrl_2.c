@@ -14,6 +14,16 @@
 
 static BOOL		exec_ctrl_j2(t_input *input)
 {
+	t_cpos		dest;
+
+	while (input && input->next)
+	{
+		dest = input_get_first_pos(input);
+		move_cursor_to(&dest, &input->cpos, get_ts());
+		tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+		input->lock = true;
+		input = input->next;
+	}
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
@@ -26,6 +36,8 @@ static BOOL		exec_ctrl_j2(t_input *input)
 
 BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 {
+	t_input		*tmp;
+
 	(void)key;
 	if (get_select()->is)
 		return (false);
@@ -35,8 +47,8 @@ BOOL	exec_ctrl_j(const t_key *key, t_input *input)
 		tcaps_bell();
 		return (false);
 	}
-	if (pos_in_str(input) == input->str->len && input->str->len
-		&& input->str->s[input->str->len - 1] == '\\' && !input->next)
+	tmp = input_get_last(input);
+	if (tmp->str && tmp->str->len && tmp->str->s[tmp->str->len - 1] == '\\')
 		return (exec_ctrl_j2(input));
 	while (input->next)
 	{

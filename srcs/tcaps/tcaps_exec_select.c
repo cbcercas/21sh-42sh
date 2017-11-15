@@ -29,24 +29,27 @@ void	reset_select_pos(void)
 static void		exec_select_off(t_input *input)
 {
 	size_t		pos_str;
+	t_cpos		dest;
 
 	input = input_back_to_origin(input);
+	redraw_input(input);
 	while (input && !input->select_pos.is_set)
 	{
-
-		input_goto_line_end(input);
+		dest = input_get_first_pos(input);
+		move_cursor_to(&dest, &input->cpos, get_ts());
 		tputs(tgetstr("do", NULL), 1, &ft_putchar2);
+		dest = input_get_first_pos(input);
+		move_cursor_to(&dest, &input->cpos, get_ts());
 		input = input->next;
 	}
-	redraw_input(input);
 	pos_str = (input->select_pos.cur_start > input->select_pos.cur_end) ?
 			  input->select_pos.cur_end : input->select_pos.cur_start;
 	input_goto_line_end(input);
 	while (pos_in_str(input) != pos_str && pos_in_str(input))
 		move_cursor_left(&input->cpos, get_ts());
+	reset_select_pos();
 	get_select()->is = false;
 	get_windows(0)->cur = input;
-	reset_select_pos();
 }
 
 BOOL	exec_select(const t_key *key, t_input *input)
