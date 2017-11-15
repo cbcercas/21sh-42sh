@@ -12,7 +12,7 @@
 
 #include <exec/exec.h>
 
-static int sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
+static int	sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 {
 	if (!multi_close(pipe, fds, START))
 		return (EXIT_FAILURE);
@@ -35,7 +35,7 @@ static int sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 *** @return         status set by wait
 */
 
-static int sh_exec(t_cmd *item, t_list **fds)
+static int	sh_exec(t_cmd *item, t_list **fds)
 {
 	char	*path;
 	int		pipe[3][2];
@@ -46,7 +46,7 @@ static int sh_exec(t_cmd *item, t_list **fds)
 	{
 		if (!manage_create_pipe(pipe, fds))
 			return (EXIT_FAILURE);
-		if((pid = sh_fork(E_PID_CMD)) == -1)
+		if ((pid = sh_fork(E_PID_CMD)) == -1)
 			return (EXIT_FAILURE);
 		signal(SIGWINCH, NULL);
 		if (!pid)
@@ -71,10 +71,10 @@ static int sh_exec(t_cmd *item, t_list **fds)
 *** @return         result of builtin
 */
 
-static int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
+static int	sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 {
-	t_builtin *builtin;
-	int		pipe[3][2];
+	t_builtin	*builtin;
+	int			pipe[3][2];
 
 	if (!manage_create_pipe(pipe, fds))
 		return (EXIT_FAILURE);
@@ -107,21 +107,22 @@ static int sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 *** @return         result of sh_exec_builtin or sh_exec
 */
 
-int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
+int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 {
 	int ret;
 
 	ret = 1;
 	log_info("EXEC: %s", item->av[0]);
-	if(fds[PIPE_OUT])
+	if (fds[PIPE_OUT])
 		dup2((int)fds[PIPE_OUT]->content_size, STDOUT_FILENO);
-	if(fds[PIPE_IN])
+	if (fds[PIPE_IN])
 		dup2((int)fds[PIPE_IN]->content_size, STDIN_FILENO);
-	if (item && item->av && ft_strchr(item->av[0], '=') && ft_strlen(item->av[0]) != 1)
+	if (item && item->av && ft_strchr(item->av[0], '=') &&
+			ft_strlen(item->av[0]) != 1)
 		sh_exec_local_var(data, item, fds);
 	else if (sh_is_builtin(item->av[0]))
 		ret = sh_exec_builtin(data, item, fds);
 	else
 		ret = sh_exec(item, fds);
-	return(ret);
+	return (ret);
 }

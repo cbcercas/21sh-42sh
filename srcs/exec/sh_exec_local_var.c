@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <exec/exec.h>
+#include <exec/exec.h>
 
 static BOOL	is_only_set(char **s)
 {
@@ -26,7 +26,7 @@ static BOOL	is_only_set(char **s)
 	return (true);
 }
 
-static int sh_exec_local_var_ret(t_array *env_save, char **tmp, int i, int ret)
+static int	sh_exec_local_var_ret(t_array *env_save, char **tmp, int i, int ret)
 {
 	t_env	*var;
 	char	*name;
@@ -35,7 +35,8 @@ static int sh_exec_local_var_ret(t_array *env_save, char **tmp, int i, int ret)
 		i--;
 	while (i >= 0)
 	{
-		var = get_var(get_envs(), (name = split_var_name(tmp[i])));
+		name = split_var_name(tmp[i]);
+		var = get_var(get_envs(), name);
 		if (var && !var->is_export)
 			del_var(get_envs(), name);
 		else
@@ -51,7 +52,7 @@ static int sh_exec_local_var_ret(t_array *env_save, char **tmp, int i, int ret)
 	return (ret);
 }
 
-static void 	sh_exec_local_set(BOOL only_set, t_cmd *item, int i)
+static void	sh_exec_local_set(BOOL only_set, t_cmd *item, int i)
 {
 	char	*name;
 	char	*value;
@@ -67,10 +68,10 @@ static void 	sh_exec_local_set(BOOL only_set, t_cmd *item, int i)
 	ft_strdel(&value);
 }
 
-int		sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds)
+int			sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds)
 {
-	int		i;
-	BOOL	only_set;
+	int			i;
+	BOOL		only_set;
 	t_array		*env_save;
 	char		**tmp;
 
@@ -91,5 +92,5 @@ int		sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds)
 	}
 	item->av = &item->av[i];
 	return (sh_exec_local_var_ret(env_save, tmp, i,
-	                              sh_exec_simple(data, item, fds)));
+								sh_exec_simple(data, item, fds)));
 }

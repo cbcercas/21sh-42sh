@@ -12,29 +12,7 @@
 
 #include <exec/exec.h>
 
-static void	mini_input(char *end, int pipe_fd)
-{
-	char *line;
-
-	if (!end)
-	{
-		ft_dprintf(2, "%s: exec parser error \\n\n", PROGNAME);
-		return ;
-	}
-	ft_putstr("heredoc>");
-	log_info("EXEC: HEREDOC word end = (%s)", end);
-	while (get_next_line(0, &line))
-	{
-		if (line && ft_strequ(line, end))
-			break ;
-		ft_putendl_fd(line, pipe_fd);
-		ft_strdel(&line);
-		ft_putstr("heredoc>");
-	}
-	ft_strdel(&line);
-}
-
-static BOOL	sh_heredoc_get_fd(t_cmd *item, int *fd)
+static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
@@ -48,28 +26,37 @@ static BOOL	sh_heredoc_get_fd(t_cmd *item, int *fd)
 	return (true);
 }
 
-static int heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
+static int		heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
 {
 	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), fd))
 		return ((*get_cmd_ret() = EXIT_FAILURE));
-	if(sh_pipe(pipe) != 0)
-		return((*get_cmd_ret() = EXIT_FAILURE));
+	if (sh_pipe(pipe) != 0)
+		return ((*get_cmd_ret() = EXIT_FAILURE));
 	signal(SIGWINCH, SIG_IGN);
-	if((*pid = sh_fork(E_PID_HERE)) == -1)
-		return((*get_cmd_ret() = EXIT_FAILURE));
+	if ((*pid = sh_fork(E_PID_HERE)) == -1)
+		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (!*pid)
 		signal(SIGINT, SIG_IGN);
 	return (EXIT_SUCCESS);
 }
 
-static char	*sh_heredoc_search_end(t_cmd *item)
+static char		*sh_heredoc_search_end(t_cmd *item)
 {
 	if (ft_isdigit(item->av[0][0]))
 		return (item->av[2]);
 	return (item->av[1]);
 }
 
-int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
+static int		sh_heredoc_father(int pipe[2])
+{
+	sh_wait(0, 0);
+	signal(SIGWINCH, signals_handler);
+	close(pipe[END]);
+	kill(0, SIGUSR2);
+	return (*get_cmd_ret());
+}
+
+int				sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	int		fd;
 	int		pipe[2];
@@ -92,9 +79,5 @@ int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 		sh_process_exec(data, ast->left, fds);
 		exit(EXIT_FAILURE);
 	}
-	sh_wait(0, 0);
-	signal(SIGWINCH, signals_handler);
-	close(pipe[END]);
-	kill(0, SIGUSR2);
-	return (*get_cmd_ret());
+	return (sh_heredoc_father(pipe));
 }

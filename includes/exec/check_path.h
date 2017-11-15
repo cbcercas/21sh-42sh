@@ -11,17 +11,17 @@
 /* ************************************************************************** */
 
 #ifndef CHECK_PATH_H
-#define CHECK_PATH_H
+# define CHECK_PATH_H
 
-#include <libft.h>
-#include <tools/tools.h>
-#include <secure_memory/ft_secu_malloc.h>
-#include <ftprintf.h>
-#include <core/progname.h>
-#include <stdio.h>
+# include <libft.h>
+# include <tools/tools.h>
+# include <secure_memory/ft_secu_malloc.h>
+# include <ftprintf.h>
+# include <core/progname.h>
+# include <stdio.h>
 
 char	*sh_check_path(char const *cmd_name);
-char *get_filename(char *av);
-char		*makefilepath(char const *path, char const *filename);
+char	*get_filename(char *av);
+char	*makefilepath(char const *path, char const *filename);
 
 #endif

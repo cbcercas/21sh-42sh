@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <exec/exec.h>
+#include <exec/exec.h>
 
-static void sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds, int
-*pipe)
+static void		sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds,
+								int *pipe)
 {
 	close(pipe[START]);
-	//dup2(pipe[END], STDIN_FILENO);
 	if (fds[PIPE_IN])
 		ft_lstdel(&fds[PIPE_IN], &exec_list_nothing);
 	exec_list_push(&fds[PIPE_IN], pipe[END]);
@@ -24,44 +23,44 @@ static void sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds, int
 	exit(EXIT_SUCCESS);
 }
 
-static void sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds, int
-*pipe)
+static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds,
+								int *pipe)
 {
 	close(pipe[END]);
 	exec_list_push(&fds[PIPE_OUT], pipe[START]);
-	//dup2(pipe[START], STDOUT_FILENO);
 	sh_process_exec(data, ast->left, fds);
 	exit(EXIT_SUCCESS);
 }
 
-static t_list *sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
+static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 {
-	int 	pid;
-	int		pipe[2];
+	int					pid;
+	int					pipe[2];
 	static t_list		*pids = NULL;
 
-	if(sh_pipe(pipe) != 0)
+	if (sh_pipe(pipe) != 0)
 		return (NULL);
-	if((pid = sh_fork(E_PID_PIPE)) == -1)
+	if ((pid = sh_fork(E_PID_PIPE)) == -1)
 		return (NULL);
 	*get_stop() = true;
-	if(pid == 0)
+	if (pid == 0)
 		sh_pipe_left(data, ast, fds, pipe);
 	exec_list_push(&pids, pid);
 	while (ast->left && ast->left->item &&
 			((t_cmd *)(ast->left->item))->type == E_TOKEN_DLESS && *get_stop())
-			;
+		;
 	*get_stop() = true;
-	if((pid = sh_fork(E_PID_PIPE)) == -1)
+	if ((pid = sh_fork(E_PID_PIPE)) == -1)
 		return (NULL);
-	if(pid == 0)
+	if (pid == 0)
 		sh_pipe_right(data, ast, fds, pipe);
 	exec_list_push(&pids, pid);
 	close(pipe[START]);
 	close(pipe[END]);
-	return(pids);
+	return (pids);
 }
-int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
+
+int				sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	t_list		*pids;
 
@@ -74,5 +73,5 @@ int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 		pids = pids->next;
 	}
 	signal(SIGWINCH, signals_handler);
-	return(*get_cmd_ret());
+	return (*get_cmd_ret());
 }

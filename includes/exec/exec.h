@@ -10,37 +10,37 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMMAND_H
-# define COMMAND_H
+#ifndef EXEC_H
+# define EXEC_H
 
+# include <signals/signals.h>
+# include <ast/ast.h>
+# include <environ/environ.h>
+# include <builtins/builtin_utils.h>
+# include <environ/modif_env.h>
 
-#include <signals/signals.h>
-#include <ast/ast.h>
-#include <environ/environ.h>
-#include <builtins/builtin_utils.h>
-#include <environ/modif_env.h>
-
-#define START 1
-#define END 0
-#define CLOSE 3
-#define PIPE_OUT 4
-#define PIPE_IN 5
+# define START 1
+# define END 0
+# define CLOSE 3
+# define PIPE_OUT 4
+# define PIPE_IN 5
 
 void	exec_list_push(t_list **head, size_t fd);
 void	exec_list_nothing(void *no, size_t thing);
 int		exec_exec(t_sh_data *data, t_btree *ast);
 void	exec_list_pop(t_list **head);
-int sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds);
-int sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds);
+int		sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds);
+int		sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds);
 
-int
-sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds);
-int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds);
+int		sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds);
+int		sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds);
+void	sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
+									t_list **fds);
 
-int
-sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds);
+int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds);
 
-int sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds);
+int		sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds);
+void	mini_input(char *end, int pipe_fd);
 
 BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5]);
 BOOL	manage_dup2(int pipe[3][2], t_list *fds[5]);
@@ -51,7 +51,7 @@ void	manage_close(t_list *fds[5]);
 void	exec_list_mouv(t_list **dest, t_list **src);
 int		sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds);
 
-pid_t sh_fork(t_pid_type type);
+pid_t	sh_fork(t_pid_type type);
 int		sh_pipe(int tube[2]);
 int		sh_open_exec(t_btree *ast);
 int		sh_open(char *file, int flags);

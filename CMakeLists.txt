@@ -72,6 +72,7 @@ set(SOURCE_FILES
 		srcs/environ/env_utils.c
 		srcs/environ/modif_env.c
 
+		srcs/exec/sh_heredoc_input.c
 		srcs/exec/check_path.c
 		srcs/exec/sh_process_exec.c
 		srcs/exec/sh_exec.c
@@ -81,6 +82,7 @@ set(SOURCE_FILES
 		srcs/exec/exec_tlist.c
 		srcs/exec/manage.c
 		srcs/exec/sh_exec_redir2.c
+		srcs/exec/sh_exec_redir3.c
 		srcs/exec/sh_exec_local_var.c
 		srcs/exec/sh_fork.c
 		srcs/exec/sh_pipe.c
