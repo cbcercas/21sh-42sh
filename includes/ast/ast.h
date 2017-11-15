@@ -38,9 +38,9 @@
 ** @brief  struct containing return value for exec.
 */
 
-struct								s_info
+struct					s_info
 {
-	int 								ret;
+	int					ret;
 };
 
 typedef struct s_info	t_info;
@@ -55,15 +55,14 @@ typedef struct s_info	t_info;
 ** @param  info  struct info
 */
 
-struct 								s_cmd
+struct					s_cmd
 {
-	char								**av;
-	t_token_type				type;
-	t_info							info;
+	char				**av;
+	t_token_type		type;
+	t_info				info;
 };
 
 typedef struct s_cmd	t_cmd;
-
 
 /*
 ** @struct s_lim
@@ -71,10 +70,10 @@ typedef struct s_cmd	t_cmd;
 ** @brief virtual limit for ast_built/ast_built2
 */
 
-struct 								s_lim
+struct					s_lim
 {
-	size_t							cnt;
-	size_t							lim;
+	size_t				cnt;
+	size_t				lim;
 };
 
 typedef struct s_lim	t_lim;
@@ -85,7 +84,7 @@ typedef struct s_lim	t_lim;
 ** @brief      Main functions of the ast
 */
 
-t_return								ast_create(t_btree **ast, t_array *tokens);
+t_return				ast_create(t_btree **ast, t_array *tokens);
 
 /*
 ** @file       ast_built.c
@@ -93,8 +92,8 @@ t_return								ast_create(t_btree **ast, t_array *tokens);
 ** @brief      Contains functions used to build the ast
 */
 
-t_btree								*ast_built(t_btree **ast, t_array *expands, t_lim lim,\
-	 																int prio);
+t_btree					*ast_built(t_btree **ast, t_array *expands, t_lim lim,
+									int prio);
 
 /*
 ** @file       ast_cmp.c
@@ -102,11 +101,11 @@ t_btree								*ast_built(t_btree **ast, t_array *expands, t_lim lim,\
 ** @brief      Functions to compare the ast nodes to one another
 */
 
-t_token_type					return_type(int prio, t_token_type type,\
-	 																	t_array *expands, size_t cnt);
-BOOL									ast_prio(t_token_type type, int prio, size_t cnt,\
-	 																t_array *expands);
-int										ast_cmp(t_cmd *s1, t_cmd *s2);
+t_token_type			return_type(int prio, t_token_type type,\
+									t_array *expands, size_t cnt);
+BOOL					ast_prio(t_token_type type, int prio, size_t cnt,\
+								t_array *expands);
+int						ast_cmp(t_cmd *s1, t_cmd *s2);
 
 /*
 ** @file       ast_is_redir.c
@@ -114,10 +113,10 @@ int										ast_cmp(t_cmd *s1, t_cmd *s2);
 ** @brief      Functions to test ast nodes return types
 */
 
-t_token_type					ast_return_type_redir(t_array *expands,\
-	 																						size_t cnt, t_token_type type);
-BOOL									ast_is_redir(t_array *expands, size_t cnt,\
-	 																									t_token_type type);
+t_token_type			ast_return_type_redir(t_array *expands,\
+											size_t cnt, t_token_type type);
+BOOL					ast_is_redir(t_array *expands, size_t cnt,\
+									t_token_type type);
 
 /*
 ** @file       ast_utils.c
@@ -125,9 +124,9 @@ BOOL									ast_is_redir(t_array *expands, size_t cnt,\
 ** @brief      Utility functions for the ast module
 */
 
-void									ast_del_cmd(t_cmd *cmd);
-char									*ast_aff(t_cmd *cmd);
-t_exp									*ast_search(t_array *expands, t_lim *lim, int prio);
-t_cmd									*ast_new_cmd(t_array *expands, int start,\
-	 																			int end, t_token_type type);
+void					ast_del_cmd(t_cmd *cmd);
+char					*ast_aff(t_cmd *cmd);
+t_exp					*ast_search(t_array *expands, t_lim *lim, int prio);
+t_cmd					*ast_new_cmd(t_array *expands, int start,\
+									int end, t_token_type type);
 #endif
