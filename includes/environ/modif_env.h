@@ -16,6 +16,23 @@
 # include <array/array.h>
 # include "env_list_utils.h"
 
+/*
+** @file   modif_env.h
+**
+** @brief  Function prototypes to modify the env
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file   modif_env.c
+**
+** @brief  Functions used to modify the env
+*/
+
+
 t_env	*del_var(t_array *vars, char const *name);
 t_env	*set_var(t_array *vars, char const *name,
 				char const *value, BOOL is_export);

@@ -17,6 +17,14 @@
 #include <environ/getter_env.h>
 #include <environ/modif_env.h>
 
+/*
+** @brief Initializes the environnement
+**
+** @param __p__environ The environment given to main
+**
+** @return Returns a t_array containing the env values and names
+*/
+
 t_array		*init_environ(char **environ)
 {
 	t_array	*envs;
@@ -39,6 +47,12 @@ t_array		*init_environ(char **environ)
 	return (envs);
 }
 
+/*
+** @brief Initializes the local variables
+**
+** @return Returns a t_array containing local variables
+*/
+
 t_array		*init_local_var(void)
 {
 	t_array	*vars;
@@ -55,6 +69,14 @@ t_array		*init_local_var(void)
 	log_info("Local variables initialized");
 	return (vars);
 }
+
+/*
+** @brief Splits a t_array into a char**
+**
+** @param vars t_array to be splitted
+**
+** @return Returns a char** containing the t_array
+*/
 
 char		**var_to_tab(t_array *vars)
 {

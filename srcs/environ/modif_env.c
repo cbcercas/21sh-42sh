@@ -15,6 +15,17 @@
 #include <environ/getter_env.h>
 #include <logger.h>
 
+/*
+** @brief Changes or creates a var with name `name` and value `value`
+**
+** @param vars The t_array containing the vars
+** @param name The name to create/modify
+** @param value The value to add/modify
+** @param is_export Always set to true (TODO?)
+**
+** @return Returns the new t_env
+*/
+
 t_env	*set_var(t_array *vars, char const *name, char const *value,
 				BOOL is_export)
 {
@@ -36,6 +47,13 @@ t_env	*set_var(t_array *vars, char const *name, char const *value,
 	}
 	return (NULL);
 }
+
+/*
+** @brief Deletes a var from the given t_env
+** @param vars The t_array to delete from
+** @param name The name to be removed
+** @return The new t_env without the var
+*/
 
 t_env	*del_var(t_array *vars, char const *name)
 {

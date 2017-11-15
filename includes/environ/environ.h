@@ -15,6 +15,23 @@
 
 # include <array/array.h>
 
+/*
+** @file   environ.h
+**
+** @brief  Function prototypes for the environ module
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file   environ.c
+**
+** @brief  Functions for the environ module
+*/
+
+
 t_array	*init_environ(char **environ);
 t_array	*init_local_var(void);
 char	**var_to_tab(t_array *vars);

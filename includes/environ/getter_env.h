@@ -16,6 +16,22 @@
 # include <array/array.h>
 # include "env_list_utils.h"
 
+/*
+** @file   getter_env.h
+**
+** @brief  Function prototypes to get the env
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file   getter_env.c
+**
+** @brief  Functions used to get the env
+*/
+
 char	*get_var_value(t_array *vars, const char *name);
 t_env	*get_var(t_array *vars, const char *name);
 

@@ -15,6 +15,12 @@
 #include <ftprintf.h>
 #include <logger.h>
 
+/*
+** @brief Prints all the vars (env or local)
+**
+** @param vars Vars to be printed (env or local)
+*/
+
 void		print_vars(t_array *vars)
 {
 	t_env	*e;
@@ -30,6 +36,12 @@ void		print_vars(t_array *vars)
 		i++;
 	}
 }
+
+/*
+** @brief Gets the env
+**
+** @return Returns a t_array containing the env
+*/
 
 t_array		*get_envs(void)
 {
@@ -48,6 +60,11 @@ t_array		*get_envs(void)
 	return (e);
 }
 
+/*
+** @brief Gets the local var
+** @return Returns a t_array containing the local vars
+*/
+
 t_array		*get_vars(void)
 {
 	static t_array	*e = NULL;
@@ -63,6 +80,13 @@ t_array		*get_vars(void)
 	}
 	return (e);
 }
+
+/*
+** @brief Clones two t_arrays
+** @param vars TODO
+** @param tmp TODO
+** @return Returns the cloned t_array
+*/
 
 t_array		*clone_vars(t_array *vars, t_array *tmp)
 {

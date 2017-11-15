@@ -15,6 +15,21 @@
 
 # include <libft.h>
 
+/*
+** @file   builtin_env_utils.h
+**
+** @brief  Function prototypes for the env utility things
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @brief TODO
+** @arg TODO
+*/
+
 typedef struct		s_env
 {
 	struct s_env	*next;
@@ -22,6 +37,12 @@ typedef struct		s_env
 	char			*value;
 	BOOL			is_export;
 }					t_env;
+
+/*
+** @file   builtin_env_utils.c
+**
+** @brief  Utility functions for the env
+*/
 
 char				*split_var_name(char const *env);
 char				*split_var_value(char const *env);

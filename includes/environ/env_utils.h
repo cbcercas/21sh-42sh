@@ -16,6 +16,22 @@
 # include <array/array.h>
 # include "env_list_utils.h"
 
+/*
+** @file   env_list_utils.h
+**
+** @brief  Function prototypes for the env lists
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/**
+** @file env_utils.c
+**
+** @brief Utility functions for the env module
+*/
+
 void		print_vars(t_array *vars);
 t_array		*get_envs(void);
 t_array		*get_vars(void);
