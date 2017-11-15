@@ -20,6 +20,22 @@
 # include <core/progname.h>
 # include <stdio.h>
 
+/*
+** @file   check_path.h
+**
+** @brief  Function prototypes to check the path
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file   check_path.c
+**
+** @brief  Functions to check the path and parse it
+*/
+
 char	*sh_check_path(char const *cmd_name);
 char	*get_filename(char *av);
 char	*makefilepath(char const *path, char const *filename);

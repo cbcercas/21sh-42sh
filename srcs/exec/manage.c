@@ -12,6 +12,15 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief Creates pipes and tests for success
+**
+** @param pipe contains pipes
+** @param fds Contains fds
+**
+** @return Returns true if successful or false if pipe failed
+*/
+
 BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5])
 {
 	if (fds[STDOUT_FILENO] && sh_pipe(pipe[STDOUT_FILENO]) == EXIT_FAILURE)
@@ -22,6 +31,13 @@ BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5])
 		return (false);
 	return (true);
 }
+
+/*
+** @brief TODO
+** @param pipe TODO
+** @param fds TODO
+** @return TODO
+*/
 
 BOOL	manage_dup2(int pipe[3][2], t_list *fds[5])
 {
@@ -37,6 +53,14 @@ BOOL	manage_dup2(int pipe[3][2], t_list *fds[5])
 	return (true);
 }
 
+/*
+** @brief TODO
+** @param pipe TODO
+** @param fds TODO
+** @param pos TODO
+** @return TODO
+*/
+
 BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos)
 {
 	if (fds[STDOUT_FILENO] && close(pipe[STDOUT_FILENO][pos]))
@@ -47,6 +71,12 @@ BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos)
 		return (false);
 	return (true);
 }
+
+/*
+** @brief TODO
+** @param pipe TODO
+** @param fds TODO
+*/
 
 void	manage_fds(int pipe[3][2], t_list *fds[5])
 {
@@ -70,6 +100,11 @@ void	manage_fds(int pipe[3][2], t_list *fds[5])
 		}
 	}
 }
+
+/*
+** @brief TODO
+** @param fds TODO
+*/
 
 void	manage_close(t_list *fds[5])
 {

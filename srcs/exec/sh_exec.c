@@ -12,6 +12,17 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief Executes the parent process (?TODO)
+**
+** @param fds TODO
+** @param path TODO
+** @param pipe TODO
+** @param pid TODO
+**
+** @return Returns the ret value based on success or not
+*/
+
 static int	sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 {
 	if (!multi_close(pipe, fds, START))

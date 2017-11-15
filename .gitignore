@@ -54,3 +54,5 @@ tests/ressources/parser/output
 *.swp
 
 *.c___jb_old___
+
+codealike\.json

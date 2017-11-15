@@ -30,7 +30,7 @@ set(SOURCE_FILES
 
 		srcs/builtins/builtin_local_var.c
 		srcs/builtins/builtin_utils.c
-		srcs/builtins/builtins_utils2.c
+        srcs/builtins/builtin_utils2.c
 		srcs/builtins/builtin_chdir.c
 		srcs/builtins/builtin_chdir_expand.c
 		srcs/builtins/builtin_echo.c

@@ -12,6 +12,14 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief Checks if value is set
+**
+** @param s vars
+**
+** @return TODO?
+*/
+
 static BOOL	is_only_set(char **s)
 {
 	int		i;
@@ -25,6 +33,15 @@ static BOOL	is_only_set(char **s)
 	}
 	return (true);
 }
+
+/*
+** @brief TODO
+** @param env_save TODO
+** @param tmp TODO
+** @param i TODO
+** @param ret The return value
+** @return The return value
+*/
 
 static int	sh_exec_local_var_ret(t_array *env_save, char **tmp, int i, int ret)
 {
@@ -52,6 +69,13 @@ static int	sh_exec_local_var_ret(t_array *env_save, char **tmp, int i, int ret)
 	return (ret);
 }
 
+/*
+** @brief TODO
+** @param only_set TODO
+** @param item TODO
+** @param i TODO
+*/
+
 static void	sh_exec_local_set(BOOL only_set, t_cmd *item, int i)
 {
 	char	*name;
@@ -67,6 +91,14 @@ static void	sh_exec_local_set(BOOL only_set, t_cmd *item, int i)
 	ft_strdel(&name);
 	ft_strdel(&value);
 }
+
+/*
+** @brief Executes local var functions
+** @param data TODO
+** @param item TODO
+** @param fds TODO
+** @return Return value based on success or failure
+*/
 
 int			sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds)
 {

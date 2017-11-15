@@ -22,7 +22,7 @@
 
 
 /*
-** @file builtins_utils.h
+** @file builtin_utils.h
 **
 ** @brief Function prototypes for the builtins
 **
@@ -61,7 +61,7 @@ typedef struct			s_builtin
 }						t_builtin;
 
 /*
-** @file   builtins_utils.c
+** @file   builtin_utils.c
 **
 ** @brief  This contains all the utility functions for the builtins
 */
@@ -72,7 +72,7 @@ t_array*sh_add_builtin(char *name, t_builtin_fn fn);
 t_array			*sh_builtins_init(void);
 
 /*
-** @file   builtins_utils2.c
+** @file   builtin_utils2.c
 **
 ** @brief  This contains all the utility functions for the builtins
 */

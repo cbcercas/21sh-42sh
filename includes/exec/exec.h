@@ -25,22 +25,98 @@
 # define PIPE_OUT 4
 # define PIPE_IN 5
 
+/*
+** @file   exec.h
+**
+** @brief  Function prototypes for the exec
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file   exec_tlist.c
+**
+** @brief  Functions to execute the tlist (?TODO)
+*/
+
 void	exec_list_push(t_list **head, size_t fd);
 void	exec_list_nothing(void *no, size_t thing);
+
+/*
+** @file   sh_process_exec.c
+**
+** @brief  Functions to process the exec
+*/
+
 int		exec_exec(t_sh_data *data, t_btree *ast);
-void	exec_list_pop(t_list **head);
+int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds);
+
+//void	exec_list_pop(t_list **head);
+
+/*
+** @file   sh_exec.c
+**
+** @brief  Functions for main exec handling
+*/
+
 int		sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds);
+
+/*
+** @file sh_exec_pipe.c
+**
+** @brief Functions to exec pipes
+*/
+
 int		sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds);
 
-int		sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds);
+/*
+** @file   sh_exec_redir.c
+**
+** @brief  Functions to execute redirections
+*/
+
 int		sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds);
+
+/*
+** @file   sh_exec_redir2.c
+**
+** @brief  Functions to execute greatand
+*/
+
+int		sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds);
+
+/*
+** @file   sh_exec_redir3.c
+**
+** @brief  Functions to execute greatand and dup (TODO)
+*/
+
 void	sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
 									t_list **fds);
 
-int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds);
+/*
+** @file   sh_heradoc.c
+**
+** @brief  Functions to execute heradoc
+*/
 
 int		sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds);
+
+/*
+** @file   sh_heredoc_input.c
+**
+** @brief  Functions to execute the input from heradoc
+*/
+
 void	mini_input(char *end, int pipe_fd);
+
+/*
+** @file   manage.c
+**
+** @brief  Functions to manage FDs etc
+*/
 
 BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5]);
 BOOL	manage_dup2(int pipe[3][2], t_list *fds[5]);
@@ -48,13 +124,48 @@ void	manage_fds(int pipe[3][2], t_list *fds[5]);
 BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos);
 void	manage_close(t_list *fds[5]);
 
-void	exec_list_mouv(t_list **dest, t_list **src);
+//void	exec_list_mouv(t_list **dest, t_list **src);
+
+/*
+** @file   sh_exec_local_var.c
+**
+** @brief  Functions to execute the local vars
+*/
+
 int		sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds);
 
+/*
+** @file   sh_fork.c
+**
+** @brief  Functions to forks
+*/
+
 pid_t	sh_fork(t_pid_type type);
+
+/*
+** @file   sh_pipe.c
+**
+** @brief  Functions to execute pipes
+*/
+
 int		sh_pipe(int tube[2]);
+
+/*
+** @file   sh_open.c
+**
+** @brief  TODO
+*/
+
 int		sh_open_exec(t_btree *ast);
-int		sh_open(char *file, int flags);
+
+//int		sh_open(char *file, int flags);
+
+/*
+** @file   sh_ret.c
+**
+** @brief  Functions to handle ret values
+*/
+
 int		sh_ret(int status);
 
 #endif

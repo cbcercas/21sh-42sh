@@ -12,6 +12,12 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief TODO
+** @param head TODO
+** @param fd  TODO
+*/
+
 void	exec_list_push(t_list **head, size_t fd)
 {
 	t_list	*elem;
@@ -24,6 +30,12 @@ void	exec_list_push(t_list **head, size_t fd)
 	elem->next = NULL;
 	ft_lstpush_back(head, elem);
 }
+
+/*
+** @brief Useless function ? TODO
+** @param no Useless ?
+** @param thing Useless ?
+*/
 
 void	exec_list_nothing(void *no, size_t thing)
 {

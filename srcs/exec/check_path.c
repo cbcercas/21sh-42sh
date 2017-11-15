@@ -13,6 +13,15 @@
 #include <exec/check_path.h>
 #include <core/input.h>
 
+/*
+** @brief Creates a filepath from a `path` and a `filename`
+**
+** @param path The path to use
+** @param filename The filename to use
+**
+** @return Returns the filename (`path` + `filename`)
+*/
+
 char			*makefilepath(char const *path, char const *filename)
 {
 	char	*filepath;
@@ -33,7 +42,9 @@ char			*makefilepath(char const *path, char const *filename)
 }
 
 /*
-** return string malloc filename with path
+** @brief Returns a malloc string containing the path
+**
+** @return Returns a malloc string containing the path
 */
 
 static char		**get_env_path(void)
@@ -48,6 +59,13 @@ static char		**get_env_path(void)
 				M_LVL_FUNCT));
 }
 
+/*
+** @brief Checks the ret value and prints an error accordingly
+**
+** @param ret The error value
+** @param cmd_name The cmd executed that errored
+*/
+
 static void		sh_check_path_print_err(int ret, char const *cmd_name)
 {
 	if (ret == -1)
@@ -58,6 +76,14 @@ static void		sh_check_path_print_err(int ret, char const *cmd_name)
 				PROGNAME, cmd_name);
 	*get_cmd_ret() = 1;
 }
+
+/*
+** @brief Checks the path for a given command name (`cmd_name`)
+**
+** @param cmd_name Command name to be checked
+**
+** @return Returns the filename or NULL (? TODO)
+*/
 
 char			*sh_check_path(char const *cmd_name)
 {
@@ -85,7 +111,9 @@ char			*sh_check_path(char const *cmd_name)
 }
 
 /*
-** return string malloc filename
+** @brief TODO
+** @param av TODO
+** @return TODO
 */
 
 char			*get_filename(char *av)
