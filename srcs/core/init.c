@@ -144,7 +144,7 @@ char		*sh_check_env(char **environ)
 	}
 	if (!(get_var(get_envs(), "SHLVL")) ||
 							ft_strequ(get_var_value(get_envs(), "SHLVL"), ""))
-		set_var(get_envs(), "SHLVL", ft_strdup("1"), true);//<================= dup :wink:
+		set_var(get_envs(), "SHLVL", "1", true);//<================= dup :wink:
 	else
 	{
 		tmp = ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1);
