@@ -136,22 +136,22 @@ char		*sh_check_env(char **environ)
 		ft_printf("Please refer to the man for more information\n");
 		log_warn("%s was launched without an env provided. Using default.\n",
 		PROGNAME);
-		set_var(get_envs(), "TERM", ft_strdup("xterm"), true);
-		set_var(get_envs(), "USER", ft_strdup("Marvin"), true);
-		set_var(get_envs(), "USERNAME", ft_strdup("Marvin"), true);
+		set_var(get_envs(), "TERM", "xterm", true);
+		set_var(get_envs(), "USER", "Marvin", true);
+		set_var(get_envs(), "USERNAME", "Marvin", true);
 		getcwd(cwd, sizeof(cwd));
-		set_var(get_envs(), "PWD", ft_strdup(cwd), true);
+		set_var(get_envs(), "PWD", cwd, true);
 	}
 	if (!(get_var(get_envs(), "SHLVL")) ||
 							ft_strequ(get_var_value(get_envs(), "SHLVL"), ""))
-		set_var(get_envs(), "SHLVL", "1", true);//<================= dup :wink:
+		set_var(get_envs(), "SHLVL", "1", true);
 	else
 	{
 		tmp = ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1);
-		set_var(get_envs(), "SHLVL", tmp, true);//<============================ pas besoins de dup puisque itoa le fait
+		set_var(get_envs(), "SHLVL", tmp, true);
 	}
 	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var_value(get_envs(), "TERM"), ""))
-	set_var(get_envs(), "TERM", ft_strdup("xterm"), true);
+	set_var(get_envs(), "TERM", "xterm", true);
 	return (tmp);
 }
 t_sh_data    *sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
@@ -174,7 +174,6 @@ t_sh_data    *sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		exit(1);
 	}
 	log_info("INIT: initialized correctly. SHLVL is set to %s", tmp);
-	//    ft_strdel(&tmp); <=============== plus besoins
 	return (data);
 }
 
