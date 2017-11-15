@@ -19,24 +19,28 @@ static BOOL	alt_v_limit_len(char *save)
 
 	len = 0;
 	tmp = save;
+	if (!tmp)
+		return (true);
 	while (save[len] && save[len] != '\\')
 		len ++;
 	if ((len + input_get_cur()->str->len) >= MAX_LEN_INPUT)
-		return (true);
+		return (false);
 	while (save)
 	{
 		tmp = save;
 		save = ft_strchr(save, '\n');
-		save++;
+		if (save)
+			save++;
 	}
 	if ((input_get_last(input_get_cur())->str->len + ft_strlen(tmp)) >= MAX_LEN_INPUT)
-		return (true);
-	return (false);
+		return (false);
+	return (true);
 }
 
 static BOOL	alt_v_limit_nb(char *save)
 {
 	int		count;
+	t_input		*tmp;
 
 	count = 0;
 	if (!save)
@@ -46,6 +50,14 @@ static BOOL	alt_v_limit_nb(char *save)
 		count++;
 		save++;
 	}
+	if (MAX_NB_INPUT < count)
+		return (false);
+	tmp = get_windows(0)->cur_head;
+	while (tmp)
+	{
+		count++;
+		tmp = tmp->next;
+	}
 	if (MAX_NB_INPUT >= count)
 		return (true);
 	return (false);
@@ -53,7 +65,7 @@ static BOOL	alt_v_limit_nb(char *save)
 
 static BOOL	alt_v_check_limit(char *save)
 {
-	if (alt_v_limit_nb(save) || alt_v_limit_len(save))
+	if (!alt_v_limit_nb(save) || !alt_v_limit_len(save))
 	{
 		tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
 		tcaps_bell();
