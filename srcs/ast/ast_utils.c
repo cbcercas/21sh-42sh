@@ -34,14 +34,13 @@ void		ast_del_cmd(t_cmd *cmd)
 }
 
 /*
-** \fn char		*ast_aff(t_cmd *cmd)
+** @brief Displays content of cmd
 **
-** \brief display content of cmd
+** @param cmd Command struct containing cmd to be displayed
 **
-** \param cmd struct command
-**
-** \return return "" or NULL.
+** @return Returns "" or NULL.
 */
+
 char		*ast_aff(t_cmd *cmd)
 {
 	int i;
@@ -59,17 +58,22 @@ char		*ast_aff(t_cmd *cmd)
 	return ("");
 }
 
+
 /*
-** \fn t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
+** @brief Searches for the next token with greater priority (?TODO gpouyat)
 **
-** \brief search next token with prio param
+** @param expands Contains the token array
+** @param prio Priority for tokens
 **
-** \param expands is token arrays
-** \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
-** \param lim virtual limit
+** 1 = ";" or "||" or "&&",\n
+** 2 = "|",\n
+** 3 = redirections,\n
+** 4 = "&".
+** @param lim Contains the virtual limit
 **
-** \return token or NULL.
+** @return Returns token or NULL.
 */
+
 t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 {
 	t_exp		*exp;
@@ -85,18 +89,17 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 }
 
 /*
-** \fn t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
-**							                           t_token_type type)
+** @brief Creates and allocates a new cmd struct
 **
-** \brief creat and malloc a new cmd
+** @param expands Contains the token array
+** @param start Contains position of the first token
+** @param end Contains position of the last token
+** @param type Contains the type of current token
 **
-** \param expands is token arrays
-** \param start is positon of first token
-** \param end is positon of last token
-** \param type is the type of current token
-**
-** \return new cmd or NULL
+** @return Returns new cmd or NULL TODO NORM HERE
 */
+
+
 t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 		t_token_type type)
 {
