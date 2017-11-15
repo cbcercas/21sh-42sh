@@ -51,13 +51,13 @@ int		get_history_init_choice(int choice)
 
 void	sh_history_print_choice(int limit)
 {
-	ft_dprintf(STDERR_FILENO, "%s the history file is too long (%d/%d octets)\n"
-			"\t (1): delete and create a new\n"
-			"\t (2): save the file and create a new file\n\n"
-			"\t ### WARNING CHOICE ###\n"
-			"\t (3): force upload, save the file and create a new\n"
-			"\t (4): force upload and delete\n \t (5)force upload\n\n"
-			"\t (?): default: (1)\n", PROGNAME, limit, HISTORY_FILE_MAX);
+	ft_dprintf(STDERR_FILENO, "%s: The history file is too big (%d/%d bytes)\n"
+			"\t (1): Delete and create a new one\n"
+			"\t (2): Save the file somewhere and create a new file\n\n"
+			"\t ### DANGEROUS CHOICES ###\n"
+			"\t (3): Force load, save the current file and create a new one\n"
+			"\t (4): Force load and delete\n \t (5)Force load\n\n"
+			"\t (?): Default: (1)\n", PROGNAME, limit, HISTORY_FILE_MAX);
 }
 
 int		sh_history_init_choice(int fd, int limit)
@@ -76,11 +76,11 @@ int		sh_history_init_choice(int fd, int limit)
 		while (42)
 		{
 			ft_strdel(&line);
-			ft_putstr("path ? (q == exit): ");
+			ft_putstr("Ppath ? (q == exit): ");
 			get_next_line(0, &line);
 			if (ft_strequ(line, "q") || !rename(history_get_path(NULL), line)) // fonctions interdites mais man 2 + on gère la save de l'history
 				break ;
-			ft_putstr("WRONG path\n");
+			ft_putstr("This path doesn't exists\n");
 		}
 	}
 	ft_strdel(&line);

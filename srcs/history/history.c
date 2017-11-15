@@ -54,7 +54,7 @@ void	sh_history_save(void)
 
 	if ((fd = open(history_get_path(NULL), O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
 	{
-		log_warn("History: History was not save FAIL open");
+		log_warn("History: History was not saved, Failed open");
 		ft_putstr_fd("\nHistory wasn't saved\n", 2);
 		return ;
 	}
