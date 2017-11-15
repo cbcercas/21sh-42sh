@@ -12,7 +12,7 @@
 
 #include <core/input.h>
 
-t_window	*get_windows2(t_window *wd, int rst)
+static t_window	*get_windows2(t_window *wd, int rst)
 {
 	if ((rst %= 10) && rst >= 4)
 	{
@@ -21,11 +21,11 @@ t_window	*get_windows2(t_window *wd, int rst)
 	}
 	if ((rst %= 4) && rst >= 2)
 		wd->h_lvl = -1;
-
 	if ((rst %= 2) && rst == 1)
 		ioctl(STDOUT_FILENO, TIOCGWINSZ, &wd->ts);
 	return (wd);
 }
+
 /*
 ** @brief		Create and manage windows data
 ** @param[in]	rst		the reset byte
@@ -44,7 +44,7 @@ t_window	*get_windows2(t_window *wd, int rst)
 ** @return
 */
 
-t_window	*get_windows(int rst)
+t_window		*get_windows(int rst)
 {
 	static	t_window	*wd = NULL;
 
@@ -67,38 +67,4 @@ t_window	*get_windows(int rst)
 	if ((rst %= 20) && rst >= 10)
 		input_destroy(&wd->save);
 	return (get_windows2(wd, rst));
-}
-
-t_select	*get_select(void)
-{
-	return (&(get_windows(0))->select);
-}
-
-struct winsize	*get_ts(void)
-{
-	return (&(get_windows(0))->ts);
-}
-
-t_input	*input_get_cur_head(void)
-{
-	t_window	*w;
-
-	w = get_windows(0);
-	return (w->cur_head);
-}
-
-t_input	*input_get_cur(void)
-{
-	t_window	*w;
-
-	w = get_windows(0);
-	return (w->cur);
-}
-
-int		*get_cmd_ret(void)
-{
-	t_window	*w;
-
-	w = get_windows(0);
-	return(&w->cmd_ret);
 }

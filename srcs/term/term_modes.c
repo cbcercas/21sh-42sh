@@ -40,3 +40,29 @@ void	default_terminal_mode(void)
 
 	return;
 }
+
+/*
+** @brief         Stores the attributes to be restored later
+**
+** @param[in,out] data  Struct that will contain the data
+**
+** @return        void
+*/
+
+void				sh_store_tattr(t_sh_data *data)
+{
+	int				ttydevice;
+	struct termios	save_tattr;
+
+	ttydevice = STDOUT_FILENO;
+	if (tcgetattr(ttydevice, &save_tattr) != 0)
+	{
+		ft_printf("%s: tcgetattr error when trying", PROGNAME);
+		ft_printf(" to save terminal attributes\n");
+		data->tattr = NULL;
+		return ;
+	}
+	else if ((data->tattr = (struct termios*)malloc(sizeof(struct termios))))
+		ft_memcpy(data->tattr, &save_tattr, sizeof(struct termios));
+	return ;
+}

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <core/data.h>
 #include <termios.h>
 #include <stdlib.h>
@@ -54,7 +53,7 @@ int			sh_restore_tattr(struct termios *tattr)
 	struct termios term;
 
 	term = *tattr;
-	free(tattr); //TODO use ft_memdel()
+	ft_memdel((void **)&tattr);
 	tattr = NULL;
 	if (isatty(0) && tcsetattr(STDIN_FILENO, TCSAFLUSH, &term) < 0)
 	{
@@ -80,18 +79,5 @@ int			sh_restore_tattr(struct termios *tattr)
 void		sh_deinit(t_sh_data *data)
 {
 	sh_restore_tattr(data->tattr);
-	//ft_putstr("\033[?1049l");
 	sh_data_free(data);
 }
-
-
-
-
-
-/*
-** @brief
-**
-** @param[in]
-**
-** @return
-*/

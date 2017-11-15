@@ -13,7 +13,7 @@
 #include <core/input.h>
 #include <core/tcaps.h>
 
-void	draw_char(t_input *input, char *c)
+void		draw_char(t_input *input, char *c)
 {
 	int	len;
 
@@ -25,9 +25,12 @@ void	draw_char(t_input *input, char *c)
 		exec_arrow_right(NULL, input);
 }
 
-//TODO add suport of input > ts.ws_line
-//draw input from cursor to the end
-t_input	*input_draw(t_input *input)
+/*
+** TODO add suport of input > ts.ws_line
+** draw input from cursor to the end
+*/
+
+t_input		*input_draw(t_input *input)
 {
 	while (input)
 	{
@@ -38,14 +41,18 @@ t_input	*input_draw(t_input *input)
 			tputs(tgetstr("do", NULL), 0, &ft_putchar2);
 			tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 			input = input->next;
-		}else
-			break;
+		}
+		else
+			break ;
 	}
 	return (input);
 }
 
-//TODO add suport of input > ts.ws_line
-void	redraw_input(t_input *input)
+/*
+** TODO add suport of input > ts.ws_line
+*/
+
+void		redraw_input(t_input *input)
 {
 	t_input	*tmp;
 	t_input	*prev;
@@ -54,7 +61,6 @@ void	redraw_input(t_input *input)
 	prev = input->prev;
 	input->prev = NULL;
 	ft_memmove(&cpos, &input->cpos, sizeof(cpos));
-
 	tmp = input_draw(input);
 	if (tmp != input)
 	{

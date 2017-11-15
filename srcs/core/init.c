@@ -34,12 +34,13 @@ extern char const	*g_optarg;
 **
 ** @param[in] arg      Contains the module name to be tested
 ** @param[in] av       Contains the parameters needed for the test function
-** @param[in] environ  Contains the env (Used when needed by the testing functions)
+** @param[in] environ  Contains the env (Used when needed by the testing\
+**                                        functions)
 **
 ** @return    void
 */
 
-void		sh_testing(const char *arg, char *const *av, char **environ)
+void				sh_testing(const char *arg, char *const *av, char **environ)
 {
 	if (ft_strequ(arg, "env"))
 		sh_testing_env(av, environ);
@@ -61,45 +62,6 @@ void		sh_testing(const char *arg, char *const *av, char **environ)
 }
 
 /*
-** @brief     Handles the options passed to the program
-**
-** @param[in,out] opts     Contains the options passed by the user
-** @param[in] ac       Argument count for av
-** @param[in] av       Contains the arguments
-** @param[in] environ  Contains the env
-**
-** @return    void
-*/
-
-static void	sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
-{
-	int opt;
-
-	opts->tcaps = true;
-	while ((opt = ft_getopt(ac, av, "chvd:t:l")) >= 0)
-	{
-		if (opt == 'v')
-			opts->verbose = 1;
-		else if (opt == 'd')
-			if (ft_atoi(g_optarg) >= 0 && ft_atoi(g_optarg) <= 7)
-				logger_init(ft_atoi(g_optarg), PROGNAME, "sh.log");
-			else
-			{
-				ft_printf("%s: Invalid debug level.\n", PROGNAME);
-				sh_usage_help_exit();
-			}
-		else if (opt == 'h' || opt == '?')
-			sh_usage_help_exit();
-		else if (opt == 't')
-			sh_testing(g_optarg, av, environ);
-		else if (opt == 'l')
-			opts->tcaps = false;
-		else if (opt == 'c')
-			sh_testing_exec(av, environ);
-	}
-}
-
-/*
 ** @brief     Initializes the program
 **
 ** @param[in] data     Contains data such as options and env
@@ -109,7 +71,9 @@ static void	sh_options(t_sh_opt *opts, int ac, char *const *av, char **environ)
 **
 ** @return    the modified t_sh_data
 */
-static void	sh_multi_init(t_sh_data *data, int ac, char *const *av, char **environ)
+
+static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
+									char **environ)
 {
 	if (!data)
 		sh_exit(NULL, NULL);
@@ -123,41 +87,34 @@ static void	sh_multi_init(t_sh_data *data, int ac, char *const *av, char **envir
 	sh_store_tattr(data);
 }
 
-char		*sh_check_env(char **environ)
+void				sh_check_env(char **environ)
 {
-	char	cwd[1024];
-	char	*tmp;
-
-	tmp = NULL;
 	if (!environ || !environ[0])
 	{
-		ft_printf("%s: %sWarning%s, Starting %s without env may cause some "
-						  "feature to not work proprelly.\n", PROGNAME, CL_RED, C_NONE, PROGNAME);
+		ft_dprintf(2, "%s: %sWarning%s, Starting %s without env may cause some "
+						"feature to not work proprelly.\n",
+				PROGNAME, CL_RED, C_NONE, PROGNAME);
 		ft_printf("Please refer to the man for more information\n");
-		log_warn("%s was launched without an env provided. Using default.\n",
-		PROGNAME);
+		log_warn("was launched without an env provided. Using default.\n");
 		set_var(get_envs(), "TERM", "xterm", true);
 		set_var(get_envs(), "USER", "Marvin", true);
 		set_var(get_envs(), "USERNAME", "Marvin", true);
-		getcwd(cwd, sizeof(cwd));
-		set_var(get_envs(), "PWD", cwd, true);
+		set_var(get_envs(), "PWD", getcwd(NULL, 0), true);
 	}
 	if (!(get_var(get_envs(), "SHLVL")) ||
 							ft_strequ(get_var_value(get_envs(), "SHLVL"), ""))
 		set_var(get_envs(), "SHLVL", "1", true);
 	else
-	{
-		tmp = ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1);
-		set_var(get_envs(), "SHLVL", tmp, true);
-	}
-	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var_value(get_envs(), "TERM"), ""))
-	set_var(get_envs(), "TERM", "xterm", true);
-	return (tmp);
+		set_var(get_envs(), "SHLVL",
+				ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1), true);
+	if (!(get_var(get_envs(), "TERM")) ||
+							ft_strequ(get_var_value(get_envs(), "TERM"), ""))
+		set_var(get_envs(), "TERM", "xterm", true);
 }
-t_sh_data    *sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
-{
-	char *tmp;
 
+t_sh_data			*sh_init(t_sh_data *data, int ac, char *const *av,
+							char **environ)
+{
 	sh_multi_init(data, ac, av, environ);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
 	{
@@ -166,39 +123,12 @@ t_sh_data    *sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		sh_deinit(data);
 		exit(1);
 	}
-	tmp = sh_check_env(environ);
-	if ((tgetent(0, get_var_value(get_envs(),"TERM"))) != 1)
+	sh_check_env(environ);
+	if ((tgetent(0, get_var_value(get_envs(), "TERM"))) != 1)
 	{
 		ft_dprintf(2, "%s: Error on tgetent\n", PROGNAME);
 		sh_deinit(data);
 		exit(1);
 	}
-	log_info("INIT: initialized correctly. SHLVL is set to %s", tmp);
 	return (data);
-}
-
-/*
-** @brief         Stores the attributes to be restored later
-**
-** @param[in,out] data  Struct that will contain the data
-**
-** @return        void
-*/
-
-void		sh_store_tattr(t_sh_data *data)
-{
-	int				ttydevice;
-	struct termios	save_tattr;
-
-	ttydevice = STDOUT_FILENO;
-	if (tcgetattr(ttydevice, &save_tattr) != 0)
-	{
-		ft_printf("%s: tcgetattr error when trying", PROGNAME);
-		ft_printf(" to save terminal attributes\n");
-		data->tattr = NULL;
-		return ;
-	}
-	else if ((data->tattr = (struct termios*)malloc(sizeof(struct termios))))
-		ft_memcpy(data->tattr, &save_tattr, sizeof(struct termios));
-	return ;
 }

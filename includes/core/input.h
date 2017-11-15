@@ -13,13 +13,13 @@
 #ifndef INPUT_H
 # define INPUT_H
 
-#include <string/ft_string.h>
-#include <libtcaps.h>
-#include "data.h"
-#include "return.h"
+# include <string/ft_string.h>
+# include <libtcaps.h>
+# include "data.h"
+# include "return.h"
 
-#define MAX_LEN_INPUT 1000
-#define MAX_NB_INPUT 100
+# define MAX_LEN_INPUT 1000
+# define MAX_NB_INPUT 100
 
 typedef struct s_select	t_select;
 struct					s_select
@@ -53,12 +53,12 @@ struct					s_input
 };
 
 typedef struct s_window	t_window;
-struct 					s_window
+struct					s_window
 {
 	t_input				*cur_head;
 	t_input				*cur;
 	t_input				*save;
-	ssize_t 			h_lvl;
+	ssize_t				h_lvl;
 	BOOL				h_complet;
 	struct winsize		ts;
 	int					cmd_ret;
@@ -92,11 +92,9 @@ void					input_to_save(t_input **to_save, t_input *new_inp);
 t_input					*input_from_save(t_input **to_destroy);
 int						count_nb_input(t_input *input);
 
-/*
-**
-*/
-int * get_cmd_ret(void);
 t_window				*get_windows(int rst);
+
+int						*get_cmd_ret(void);
 t_select				*get_select(void);
 struct winsize			*get_ts(void);
 t_input					*input_get_cur_head(void);

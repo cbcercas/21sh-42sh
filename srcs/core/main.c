@@ -61,6 +61,7 @@
 /*
 ***init tout les arrays qu'on a besoins
 */
+
 void			sh_arrays_init(t_array *tokens, t_array *expand)
 {
 	if (lexer_init(tokens) == NULL)
