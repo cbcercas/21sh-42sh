@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <automaton/automaton.h>
+#include <automaton/automaton.h>
 
 /*
 ** @brief Initializes the automaton
@@ -33,7 +33,6 @@ t_automaton		*automaton_init(t_automaton *automaton)
 	}
 	automaton->cur_state = E_STATE_START;
 	log_info("Automaton: Initialization done");
-
 	return (automaton);
 }
 
