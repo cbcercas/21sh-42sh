@@ -14,6 +14,17 @@
 
 extern int g_optind;
 
+/*
+** @brief Replaces in src1 from index until size with scr2
+**
+** @param src1 String to modify
+** @param src2 String used to modify
+** @param index Where to start
+** @param size how long should it replace for (TODO: Rephrase that)
+**
+** @return Returns the modified string
+*/
+
 char	*ft_replace(char *src1, char *src2, int index, int size)
 {
 	char	*begin;
@@ -29,6 +40,13 @@ char	*ft_replace(char *src1, char *src2, int index, int size)
 	free(src1);
 	return (ret);
 }
+
+/*
+** @brief (TODO)
+** @param big (TODO)
+** @param little (TODO)
+** @return (TODO)
+*/
 
 int		ft_index_strstr(const char *big, const char *little)
 {
@@ -57,6 +75,12 @@ int		ft_index_strstr(const char *big, const char *little)
 	return (-1);
 }
 
+/*
+** @brief Parses the \\ something for echo
+** @param src The string to parse
+** @return Returns the parsed string
+*/
+
 char	*echo_parse(const char *src)
 {
 	char		*ret;
@@ -76,6 +100,15 @@ char	*echo_parse(const char *src)
 	}
 	return (ret);
 }
+
+/*
+** @brief Prints what the user asked
+**
+** @param arg The args passed to echo
+** @param flag (TODO)
+**
+** @return Void
+*/
 
 void	echo_print(char **arg, char flag[2])
 {
@@ -98,6 +131,14 @@ void	echo_print(char **arg, char flag[2])
 			ft_printf("%s", " ");
 	}
 }
+
+/*
+** @brief The function called when echo is executed
+** @param data The shell data used throughout the program
+** @param argv The args passed to echo
+**
+** @return Returns the ret value of echo
+*/
 
 int		sh_echo(t_sh_data *data, char **argv)
 {

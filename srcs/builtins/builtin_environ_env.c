@@ -14,11 +14,28 @@
 
 extern int g_optind;
 
+/*
+** @brief Destroys the array containing the env
+**
+** @param env_local The env to be destroyed
+** @param ret The return value
+**
+** @return Returns the return value ret
+*/
+
 int		builtins_env_over(t_array *env_local, int ret)
 {
 	array_destroy(&env_local, del_env);//(void (*)(void*))&sh_free_elem_env);
 	return (ret);
 }
+
+/*
+** @brief Handles the options for the env builtin
+**
+** @param argv The parameters passed to env
+**
+** @return Returns the return value of env based on success of operation or not
+*/
 
 int		builtin_env_opt(char **argv)
 {
@@ -48,6 +65,15 @@ int		builtin_env_opt(char **argv)
 	return (opt);
 }
 
+/*
+** @brief Calls for the appropriate option
+**
+** @param opt Options passed to env
+** @param argv The options passed to env under string form
+**
+** @return Returns the env
+*/
+
 t_array	*sh_get_env_builtins(int opt, char **argv)
 {
 	t_array *tmp;
@@ -65,6 +91,15 @@ t_array	*sh_get_env_builtins(int opt, char **argv)
 	else
 		return (sh_builtin_env_add(clone_vars(get_envs(), tmp), argv));
 }
+
+/*
+** @brief Main env builtin function
+**
+** @param data Shell data passed throughout the program
+** @param argv The args passed to env
+**
+** @return Returns the ret value based on a successful operation or not
+*/
 
 int		sh_builtin_env(t_sh_data *data, char **argv)
 {

@@ -12,6 +12,11 @@
 
 #include <builtins/builtin_history.h>
 
+/*
+** @brief TODO
+** @param path TODO
+*/
+
 void		sh_history_builtin_r(char *path)
 {
 	t_array	*hists;
@@ -39,6 +44,11 @@ void		sh_history_builtin_r(char *path)
 	close(fd);
 	return ;
 }
+
+/*
+** @brief TODO
+** @param path TODO
+*/
 
 void		sh_history_builtin_n(char *path)
 {
@@ -68,6 +78,13 @@ void		sh_history_builtin_n(char *path)
 	return ;
 }
 
+/*
+** @brief TODO
+** @param result TODO
+** @param index TODO
+** @param arg TODO
+*/
+
 static void	sh_history_builtin_p_helper(char *result, int index, char **arg)
 {
 	if (result)
@@ -80,6 +97,11 @@ static void	sh_history_builtin_p_helper(char *result, int index, char **arg)
 		index++;
 	}
 }
+
+/*
+** @brief TODO
+** @param arg TODO
+*/
 
 void		sh_history_builtin_p(char **arg)
 {

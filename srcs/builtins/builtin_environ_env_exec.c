@@ -12,6 +12,13 @@
 
 #include <builtins/builtin_env.h>
 
+/*
+** @brief Executes what is passed through env -i
+** @param av The command to be executed and its args
+** @param envs The env
+** @return Returns the return value of the executed command
+*/
+
 int		sh_builtin_env_exec(char **av, t_array *envs)
 {
 	char	*cmd;

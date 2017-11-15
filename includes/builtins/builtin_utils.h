@@ -20,6 +20,17 @@
 #include <builtins/builtin_chdir.h>
 #include <builtins/builtin_history.h>
 
+
+/*
+** @file builtins_utils.h
+**
+** @brief Function prototypes for the builtins
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
 /*
 ** @typedef  XXX
 **
@@ -57,7 +68,7 @@ typedef struct			s_builtin
 
 t_array		    *get_builtins(void);
 t_builtin	    *sh_new_builtin(char *name, t_builtin_fn fn);
-t_array*ms_add_builtin(char *name, t_builtin_fn fn);
+t_array*sh_add_builtin(char *name, t_builtin_fn fn);
 t_array			*sh_builtins_init(void);
 
 /*

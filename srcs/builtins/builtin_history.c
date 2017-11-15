@@ -15,12 +15,23 @@
 extern char const	*g_optarg;
 extern int			g_optind;
 
-void		sh_history_help(char *arg)
+/*
+** @brief Displays help for the history
+*/
+
+static void sh_history_help(void)
 {
-	(void)arg;
 	ft_printf("history: usage: history [-c] [-d offset] [n] or history");
 	ft_printf("-awrn [filename] or history -ps arg [arg...]\n");
 }
+
+/*
+** @brief Handles the options
+** @param data The shell's data used across the program
+** @param argv The options in string form
+** @param opt The options
+** @return Returns 1 if failed, 0 otherwise
+*/
 
 static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 {
@@ -31,11 +42,18 @@ static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 		sh_history_builtin_print(argv[g_optind]);
 	else if (opt == '?')
 	{
-		sh_history_help(argv[1]);
+		sh_history_help();
 		return (1);
 	}
 	return (0);
 }
+
+/*
+** @brief Main function for the history builtin
+** @param data The shell's data used across the program
+** @param argv The arguments passed to history
+** @return Returns a ret status upon success or failure
+*/
 
 int			sh_history(t_sh_data *data, char **argv)
 {

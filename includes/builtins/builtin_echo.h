@@ -19,6 +19,16 @@
 # include <ftprintf.h>
 
 /*
+** @file builtin_echo.h
+**
+** @brief Function prototypes for the echo builtin
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
 ** @file   builtin_echo.c
 **
 ** @brief  Contains the functions for the builtin echo

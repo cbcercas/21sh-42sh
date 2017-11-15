@@ -14,6 +14,13 @@
 
 extern int g_optind;
 
+/*
+** @brief Adds into the env a value
+** @param tmp The current env
+** @param argv Contains the args to be splitted
+** @return Returns the modified env
+*/
+
 t_array	*sh_builtin_env_add(t_array *tmp, char **argv)
 {
 	char	*name;

@@ -14,6 +14,13 @@
 
 extern int g_optind;
 
+/*
+** @brief Removed a value from the env
+** @param tmp The current environment
+** @param argv Contains the values to be removed
+** @return Returns the modified env
+*/
+
 t_array			*sh_builtin_env_u(t_array *tmp, char **argv)
 {
 	if (tmp == NULL)

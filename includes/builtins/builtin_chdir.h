@@ -24,6 +24,16 @@
 # include <builtins/builtin_echo.h>
 
 /*
+** @file builtin_chdir.h
+**
+** @brief Function prototypes for
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
 ** @file   builtin_chdir.c
 **
 ** @brief  Contains the functions for chdir (cd)

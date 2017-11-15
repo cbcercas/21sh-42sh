@@ -12,13 +12,15 @@
 
 #include <history/history.h>
 
-/*char	*history_research_delete(char *line)
+/*
+char	*history_research_delete(char *line)
 {
 	//clean_term();
 	if (line && ft_strlen(line))
 		line[ft_strlen(line) - 1] = 0;
 	return (line);
-}*/
+}
+*/
 
 void		history_research_prompt(char *buff, char *result, BOOL fail)
 {

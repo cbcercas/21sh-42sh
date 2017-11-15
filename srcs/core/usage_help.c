@@ -17,7 +17,7 @@
 #include <core/progname.h>
 
 /*
-**permet de destroy, de print un messages, et d'exit
+** permet de destroy, de print un messages, et d'exit
 */
 
 void		sh_over(char *mess, t_automaton *automat, t_array *array,\

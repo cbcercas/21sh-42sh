@@ -14,6 +14,11 @@
 
 extern char const	*g_optarg;
 
+/*
+** @brief Prints the exported value and name
+** @param vars The local env
+*/
+
 static void builtin_export_print(t_array *vars)
 {
 	t_env	*e;
@@ -31,6 +36,13 @@ static void builtin_export_print(t_array *vars)
 		i++;
 	}
 }
+
+/*
+** @brief Unsets a name and value from the local env
+** @param data The shell's data used across the program
+** @param argv Args passed to unset builtin
+** @return Returns a ret value
+*/
 
 int	builtin_unset(t_sh_data *data, char **argv)
 {
@@ -53,6 +65,12 @@ int	builtin_unset(t_sh_data *data, char **argv)
 	}
 	return (0);
 }
+
+/*
+** @brief Exports a variable in the local var
+** @param argv The arguments used to export
+** @return Returns a ret value
+*/
 
 int		builtin_export_var(char **argv)
 {
@@ -82,6 +100,13 @@ int		builtin_export_var(char **argv)
 	}
 	return (0);
 }
+
+/*
+** @brief Exports a value in the local env
+** @param data The shell's data used across the program
+** @param argv The args used
+** @return Returns a ret value based on success or failure
+*/
 
 int	builtin_export(t_sh_data *data, char **argv)
 {

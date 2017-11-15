@@ -12,6 +12,11 @@
 
 #include <builtins/builtin_utils.h>
 
+/*
+** @brief Gets all the builtins in a t_array
+** @return Returns the t_array list of builtins
+*/
+
 t_array		*get_builtins(void)
 {
 	static t_array	*e = NULL;
@@ -27,6 +32,13 @@ t_array		*get_builtins(void)
 	}
 	return (e);
 }
+
+/*
+** @brief Creates a new builtin in the array
+** @param name The builtin name
+** @param fn The builtins function
+** @return The builtin array
+*/
 
 t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 {
@@ -44,7 +56,14 @@ t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 	return (e);
 }
 
-t_array		*ms_add_builtin(char *name, t_builtin_fn fn)
+/*
+** @brief Adds a new builtin in the array
+** @param name The builtin name
+** @param fn The builtins function
+** @return The builtin array
+*/
+
+t_array		*sh_add_builtin(char *name, t_builtin_fn fn)
 {
 	t_array		*builtins;
 	t_builtin	*builtin;
@@ -56,42 +75,47 @@ t_array		*ms_add_builtin(char *name, t_builtin_fn fn)
 	return (builtins);
 }
 
+/*
+** @brief Initializes all the builtins and adds them to the array
+** @return Returns the builtin array
+*/
+
 t_array		*sh_builtins_init(void)
 {
 	t_array	*builtins;
 
 	builtins = get_builtins();
-	if (!ms_add_builtin("echo", sh_echo))
+	if (!sh_add_builtin("echo", sh_echo))
 		return (NULL);
-	if (!ms_add_builtin("history", sh_history))
+	if (!sh_add_builtin("history", sh_history))
 		return (NULL);
-	if (!ms_add_builtin("cd", sh_chdir))
+	if (!sh_add_builtin("cd", sh_chdir))
 		return (NULL);
-	if (!ms_add_builtin("pwd", sh_builtin_pwd))
+	if (!sh_add_builtin("pwd", sh_builtin_pwd))
 		return (NULL);
-	if (!ms_add_builtin("help", sh_builtin_help))
+	if (!sh_add_builtin("help", sh_builtin_help))
 		return (NULL);
-	if (!ms_add_builtin("setenv", sh_builtin_setenv))
+	if (!sh_add_builtin("setenv", sh_builtin_setenv))
 		return (NULL);
-	if (!ms_add_builtin("unsetenv", sh_builtin_unsetenv))
+	if (!sh_add_builtin("unsetenv", sh_builtin_unsetenv))
 		return (NULL);
-	if (!ms_add_builtin("env", sh_builtin_env))
+	if (!sh_add_builtin("env", sh_builtin_env))
 		return (NULL);
-	if (!ms_add_builtin("unset", builtin_unset))
+	if (!sh_add_builtin("unset", builtin_unset))
 		return (NULL);
-	if (!ms_add_builtin("export", builtin_export))
+	if (!sh_add_builtin("export", builtin_export))
 		return (NULL);
-	if (!ms_add_builtin("exit", builtin_exit))
+	if (!sh_add_builtin("exit", builtin_exit))
 		return (NULL);
 	return (builtins);
 }
 
-/*
+/*TODO?
 **if (!ms_add_builtin("exit", sh_exit))
 **return (NULL);
 */
 
-/*
+/*TODO?
 **if (!ms_add_builtin("cd", sh_chdir))
 **return (NULL);
 **if (!ms_add_builtin("chdir", sh_chdir))

@@ -19,6 +19,16 @@
 # include <history/history.h>
 
 /*
+** @file builtin_history.h
+**
+** @brief Function prototypes for the history builtin
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
 ** @file   builtin_history.c
 **
 ** @brief  Contains the main history function

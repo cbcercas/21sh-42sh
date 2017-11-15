@@ -21,6 +21,16 @@
 # include <unistd/ft_unistd.h>
 
 /*
+** @file builtin_pwd.h
+**
+** @brief Function prototypes for the pwd builtin
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
 ** @file   builtin_pwd.c
 **
 ** @brief  This file contains the functions for the pwd builtin

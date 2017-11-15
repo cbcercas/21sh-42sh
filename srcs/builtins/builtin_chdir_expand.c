@@ -12,6 +12,14 @@
 
 #include <builtins/builtin_chdir.h>
 
+/*
+** @brief Finds the starting '..' (TODO)
+**
+** @param path The path string to search
+**
+** @return Returns the pointer to the '..' (?)
+*/
+
 static char 	*find_start_ddots(char *path)
 {
 	char	*start;
@@ -27,6 +35,14 @@ static char 	*find_start_ddots(char *path)
 	}
 	return (start);
 }
+
+/*
+** @brief Removes the extraenous dots for given path
+**
+** @param path Path to search
+**
+** @return Returns the path without the extraenous dots
+*/
 
 static	char	*remove_dots(char *path)
 {
@@ -49,6 +65,14 @@ static	char	*remove_dots(char *path)
 	return (path);
 }
 
+/*
+** @brief Removes the extraneous backslashes from a given path
+**
+** @param path String from which to remove the extraenous backslashes
+**
+** @return The path modified without the backslashes
+*/
+
 static	char	*remove_backslash(char *path)
 {
 	char	*start;
@@ -59,6 +83,12 @@ static	char	*remove_backslash(char *path)
 		path[ft_strlen(path) - 1] = 0;
 	return (path);
 }
+
+/*
+** @brief Expands the path
+** @param path (TODO)
+** @return (TODO)
+*/
 
 char	*expand_path(char **path)
 {

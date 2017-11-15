@@ -12,7 +12,15 @@
 
 #include <builtins/builtin_exit.h>
 
-int	sh_exit(t_sh_data *data, char **arg)
+/*
+** @brief Exits the program properly with a given status
+**
+** @param data The shell's data
+**
+** @param arg The status
+*/
+
+void sh_exit(t_sh_data *data, char **arg)
 {
 	int		status;
 
@@ -28,11 +36,15 @@ int	sh_exit(t_sh_data *data, char **arg)
 	exit(status);
 }
 
-int builtin_exit(t_sh_data *data, char **arg)
-{
-	return (sh_exit(data, arg));
-}
-
 /*
-**ft_putstr("\033[?1049l");
+** @brief Calls sh_exit()
+**
+** @param data The shell data used across the program
+**
+** @param arg The args passed to exit (The exit status)
 */
+
+void builtin_exit(t_sh_data *data, char **arg)
+{
+	sh_exit(data, arg);
+}

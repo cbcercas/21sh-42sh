@@ -21,6 +21,22 @@
 # include <unistd/ft_unistd.h>
 # include <environ/getter_env.h>
 
+/*
+** @file builtin_local_var.h
+**
+** @brief Function prototypes for the local var builtin
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file   builtin_local_var.c
+**
+** @brief  Contains the main local var function
+*/
+
 int	builtin_unset(t_sh_data *data, char **argv);
 int	builtin_export(t_sh_data *data, char **argv);
 

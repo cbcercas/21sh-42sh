@@ -28,6 +28,16 @@
 # include <exec/exec.h>
 
 /*
+** @file builtin_env.h
+**
+** @brief Function prototypes for the env builtin
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
 ** @file   builtin_environ.c
 **
 ** @brief  Contains the functions for setenv and unsetenv builtins
@@ -47,7 +57,7 @@ int		sh_builtin_env(t_sh_data *data, char **args);
 /*
 ** @file   builtin_environ_env_u.c
 **
-** @brief  ???
+** @brief  TODO
 */
 
 t_array *sh_builtin_env_u(t_array *tmp, char **argv);
@@ -55,7 +65,7 @@ t_array *sh_builtin_env_u(t_array *tmp, char **argv);
 /*
 ** @file   builtin_environ_env_i.c
 **
-** @brief  ???
+** @brief  TODO
 */
 
 t_array *sh_builtin_env_add(t_array *tmp, char **argv);

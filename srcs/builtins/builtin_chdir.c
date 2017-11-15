@@ -12,6 +12,14 @@
 
 #include <builtins/builtin_chdir.h>
 
+/*
+** @brief Tests the path, to check if the user has the permission to cd in it.
+**
+** @param path The path to be tested
+**
+** @return Returns true if everything is ok. False otherwise
+*/
+
 static	BOOL	sh_test_path(char *path)
 {
 	struct stat	bufstat;
@@ -29,6 +37,14 @@ static	BOOL	sh_test_path(char *path)
 	ft_dprintf(2, "cd: no such file or directory: %s\n", path);
 	return (false);
 }
+
+/*
+** @brief Gets the path
+**
+** @param arg The arg passed at cd
+**
+** @return Returns the path to cd into
+*/
 
 static	char	*sh_get_path(char *arg)
 {
@@ -50,6 +66,13 @@ static	char	*sh_get_path(char *arg)
 		path = arg;
 	return (path);
 }
+
+/*
+** @brief This function is the one that does the chdir and does all the tests
+** @param arg The args passed at cd
+** @param opt The options
+** @return Returns the status of cd
+*/
 
 static int		sh_do_chdir(char *arg, int opt)
 {
@@ -77,6 +100,13 @@ static int		sh_do_chdir(char *arg, int opt)
 	ft_strdel(&cur);
 	return ((*get_cmd_ret() = 0));
 }
+
+/*
+** @brief The function called when cd is typed.
+** @param data The shell data used throughout the program
+** @param arg The args passed to cd
+** @return Returns the ret value of cd
+*/
 
 int				sh_chdir(t_sh_data *data, char **arg)
 {

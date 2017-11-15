@@ -14,12 +14,23 @@
 
 extern int			g_optind;
 
-static int usage(void)
+/*
+** @brief Prints the pwd usage
+** @return Returns 1
+*/
+
+static int pwd_usage(void)
 {
 
 	ft_putendl_fd("usage: pwd [-L | -P]", STDERR_FILENO);
 	return (1);
 }
+
+/*
+** @brief TODO
+** @param pwd_err TODO
+** @return TODO
+*/
 
 static char *getcwd_logical(BOOL *pwd_err)
 {
@@ -37,6 +48,12 @@ static char *getcwd_logical(BOOL *pwd_err)
 	*pwd_err = true;
 	return (NULL);
 }
+
+/*
+** @brief Prints the pwd if everything is ok
+** @param physical Is the pwd from a function or from the env
+** @return Returns a ret value
+*/
 
 static int do_builtin_pwd(BOOL physical)
 {
@@ -56,6 +73,13 @@ static int do_builtin_pwd(BOOL physical)
 		ft_strdel(&pwd);
 	return (0);
 }
+
+/*
+** @brief Main functions for the pwd builtin
+** @param data The shell's data used across the program
+** @param argv The args passed to pwd
+** @return Returns a ret value based on its success or not
+*/
 
 int	sh_builtin_pwd(t_sh_data *data, char **argv)
 {
@@ -78,9 +102,9 @@ int	sh_builtin_pwd(t_sh_data *data, char **argv)
 			break;
 		}
 		else
-			return (usage());
+			return (pwd_usage());
 	}
 	if (argv[g_optind])
-		return (usage());
+		return (pwd_usage());
 	return (do_builtin_pwd(physical));
 }

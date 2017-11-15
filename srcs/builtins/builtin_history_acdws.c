@@ -12,6 +12,10 @@
 
 #include <builtins/builtin_history.h>
 
+/*
+** @brief (TODO)
+** @param str TODO
+*/
 
 void	sh_history_builtin_a(char *str)
 {
@@ -40,6 +44,10 @@ void	sh_history_builtin_a(char *str)
 	sh_history_var_session_reset();
 }
 
+/*
+** @brief TODO
+*/
+
 void	sh_history_builtin_c(void)
 {
 	t_array		*hist;
@@ -49,6 +57,11 @@ void	sh_history_builtin_c(void)
 	while (hist && hist->used)
 		hist = array_pop(hist, NULL);
 }
+
+/*
+** @brief TODO
+** @param arg TOOD
+*/
 
 void	sh_history_builtin_d(const char *arg)
 {
@@ -62,6 +75,11 @@ void	sh_history_builtin_d(const char *arg)
 	if (nb == -1 || array_remove_at(hists, nb, NULL) == NULL)
 		ft_printf("%s: history: %s: history position out of range\n", PROGNAME, arg);
 }
+
+/*
+** @brief TODO
+** @param path TODO
+*/
 
 void	sh_history_builtin_w(char *path)
 {
@@ -87,6 +105,12 @@ void	sh_history_builtin_w(char *path)
 	}
 	close(fd);
 }
+
+/*
+** @brief TODO
+** @param argv TODO
+** @param index TODO
+*/
 
 void	sh_history_builtin_s(char **argv, int index)
 {

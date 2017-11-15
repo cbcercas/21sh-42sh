@@ -12,6 +12,10 @@
 
 #include <builtins/builtin_history.h>
 
+/*
+** @brief TODO
+** @param nb TODO
+*/
 
 void	sh_history_builtin_print2(int nb)
 {
@@ -28,6 +32,11 @@ void	sh_history_builtin_print2(int nb)
 		i++;
 	}
 }
+
+/*
+** @brief Prints the history
+** @param arg TODO
+*/
 
 void	sh_history_builtin_print(const char *arg)
 {

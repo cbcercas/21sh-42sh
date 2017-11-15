@@ -13,25 +13,25 @@
 #include <core/tcaps.h>
 
 /*
-**BOOL	exec_arrow_right(const t_key *key, t_input *input)
-**{
-**	struct winsize	*ts;
-**	t_select		*sel;
-**
-**	log_dbg1("exec arrow right.");
-**	ts = get_ts();
-**	sel = get_select();
-**	if (((size_t) (input->cpos.cp_col + (input->offset_line  * ts->ws_col) - input->offset_col) + input->offset_len) < input->str->len)
-**	{
-**		exec_select_arrows(key, input, "right");
-**		if (input->cpos.cp_col + 1 == ts->ws_col)
-**			input->offset_line += 1;
-**		move_cursor_right(&input->cpos, ts);
-**		if (sel->is)
-**			sel->cur_end = pos_in_str(input);
-**	}
-**	return (false);
-**}
+ BOOL	exec_arrow_right(const t_key *key, t_input *input)
+ {
+ 	struct winsize	*ts;
+ 	t_select		*sel;
+
+ 	log_dbg1("exec arrow right.");
+ 	ts = get_ts();
+ 	sel = get_select();
+ 	if (((size_t) (input->cpos.cp_col + (input->offset_line  * ts->ws_col) - input->offset_col) + input->offset_len) < input->str->len)
+ 	{
+ 		exec_select_arrows(key, input, "right");
+ 		if (input->cpos.cp_col + 1 == ts->ws_col)
+ 			input->offset_line += 1;
+ 		move_cursor_right(&input->cpos, ts);
+ 		if (sel->is)
+ 			sel->cur_end = pos_in_str(input);
+ 	}
+ 	return (false);
+ }
 */
 
 BOOL	exec_arrow_right(const t_key *key, t_input *input)

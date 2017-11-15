@@ -68,7 +68,8 @@ int	sh_open_exec(t_btree *ast)
 	return (fd);
 }
 
-/*int sh_open_exec(t_btree *ast)
+/*
+int sh_open_exec(t_btree *ast)
 {
   t_cmd *item;
   t_cmd	*redir;
@@ -89,7 +90,8 @@ int	sh_open_exec(t_btree *ast)
   if (fd == -1)
     ft_dprintf(2, "Error: to open file: %s\n", item->av[0]);
   return (fd);
-}*/
+}
+*/
 
 
 int   sh_open(char *file, int flags)

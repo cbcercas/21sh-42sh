@@ -12,6 +12,12 @@
 
 #include <builtins/builtin_utils.h>
 
+/*
+** @brief Gets a builtin by its name from the array
+** @param name The builtin's name
+** @return Returns the array containing the builtin's info
+*/
+
 t_builtin	*get_builtin(char *name)
 {
 	t_array		*builtins;
@@ -29,6 +35,12 @@ t_builtin	*get_builtin(char *name)
 	}
 	return (NULL);
 }
+
+/*
+** @brief TODO
+** @param arg TODO
+** @return TODO
+*/
 
 char		*sh_find_quote_end(char *arg)
 {
@@ -58,6 +70,12 @@ char		*sh_find_quote_end(char *arg)
 	return ((*arg) ? arg : NULL);
 }
 
+/*
+** @brief TODO
+** @param arg TODO
+** @return TODO
+*/
+
 char		*sh_extract_str(char *arg)
 {
 	char	*str;
@@ -67,6 +85,14 @@ char		*sh_extract_str(char *arg)
 	str = ft_strsub(arg, 1, q_end - arg - 1);
 	return (str);
 }
+
+/*
+** @brief Checks if given name is a builtin
+**
+** @param name Name to be checked
+**
+** @return Returns `true` if name is a builtin, `false` otherwise
+*/
 
 BOOL		sh_is_builtin(char *name)
 {
