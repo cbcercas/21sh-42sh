@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sh_get_line.h                                      :+:      :+:    :+:   */
+/*   sh_get_input.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,6 +12,22 @@
 
 #ifndef SH_GET_LINE_H
 # define SH_GET_LINE_H
+
+/*
+** @file   sh_get_input.h
+**
+** @brief  Function prototypes to get the input
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file sh_get_input.c
+**
+** @brief Gets the input
+*/
 
 char		*sh_get_input(t_sh_data *data, char *prompt, t_return ret);
 

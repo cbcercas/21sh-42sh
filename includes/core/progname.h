@@ -13,6 +13,11 @@
 #ifndef PROGNAME_H
 # define PROGNAME_H
 
+/*
+** @file progname.h
+** @brief Contains the PROGNAME macro
+*/
+
 # define PROGNAME "21sh"
 
 #endif

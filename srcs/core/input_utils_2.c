@@ -12,6 +12,14 @@
 
 #include <core/input.h>
 
+/*
+** @brief Copies the input data
+**
+** @param cpy t_input to copy into
+**
+** @param ori Original t_input
+*/
+
 static void		cpy_input_data(t_input *cpy, t_input *ori)
 {
 	cpy->prompt_type = ori->prompt_type;
@@ -19,6 +27,14 @@ static void		cpy_input_data(t_input *cpy, t_input *ori)
 	cpy->offset_col = ori->offset_col;
 	ft_memmove(&cpy->cpos, &ori->cpos, sizeof(ori->cpos));
 }
+
+/*
+** @brief Saves the input into another t_input
+**
+** @param to_save The input to save
+**
+** @param new_inp The newly saved input
+*/
 
 void			input_to_save(t_input **to_save, t_input *new_inp)
 {
@@ -37,6 +53,12 @@ void			input_to_save(t_input **to_save, t_input *new_inp)
 	new_inp->prev = w->save->prev;
 	w->cur = new_inp;
 }
+
+/*
+** @brief TODO
+** @param to_destroy TODO
+** @return TODO
+*/
 
 t_input			*input_from_save(t_input **to_destroy)
 {
@@ -59,6 +81,12 @@ t_input			*input_from_save(t_input **to_destroy)
 	return (new_inp);
 }
 
+/*
+** @brief TODO
+** @param input TODO
+** @return TODO
+*/
+
 int				count_nb_input(t_input *input)
 {
 	int		nb;
@@ -78,6 +106,12 @@ int				count_nb_input(t_input *input)
 	}
 	return (nb);
 }
+
+/*
+** @brief TODO
+** @param input TODO
+** @return TODO
+*/
 
 t_input			*input_get_last(t_input *input)
 {

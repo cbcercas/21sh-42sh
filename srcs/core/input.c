@@ -14,6 +14,12 @@
 #include <core/tcaps.h>
 #include <tools/tools.h>
 
+/*
+** @brief Creates a new t_input
+**
+** @return Returns the new t_input
+*/
+
 t_input			*input_new(void)
 {
 	t_input	*input;
@@ -28,12 +34,26 @@ t_input			*input_new(void)
 	return (input);
 }
 
+/*
+** @brief Resests the input by destroying it and creating a new one
+**
+** @param input The t_input to be `reseted`
+**
+** @return Returns the new input
+*/
+
 t_input			*input_hard_reset(t_input **input)
 {
 	input_destroy(input);
 	*input = input_new();
 	return (*input);
 }
+
+/*
+** @brief TODO
+** @param input TODO
+** @return TODO
+*/
 
 t_input			*input_add_new(t_input *input)
 {
@@ -51,6 +71,13 @@ t_input			*input_add_new(t_input *input)
 	return (input->next);
 }
 
+/*
+** @brief TODO
+** @param input TODO
+** @param key TODO
+** @return TODO
+*/
+
 static BOOL		sh_get_line_insert(t_input *input, t_key key)
 {
 	if (!string_insert(input->str, key.key, pos_in_str(input)))
@@ -59,6 +86,13 @@ static BOOL		sh_get_line_insert(t_input *input, t_key key)
 	draw_char(input, key.key);
 	return (true);
 }
+
+/*
+** @brief Gets the line that the user is typing
+** @param input The t_input (TODO)
+** @param opts The options (?TODO)
+** @return Returns The input
+*/
 
 char			*sh_get_line(t_input *input, t_sh_opt *opts)
 {

@@ -16,6 +16,22 @@
 # include <array/array.h>
 # include <btree/ft_btree.h>
 
+/*
+** @file   main.h
+**
+** @brief  Includes everything needed in the main()
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file main.c
+**
+** @brief Contains the main function
+*/
+
 struct			s_exec_data
 {
 	t_array		tokens;

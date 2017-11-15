@@ -14,6 +14,11 @@
 #include <core/input.h>
 #include <core/prompt.h>
 
+/*
+** @brief TODO
+** @return TODO
+*/
+
 static char		*str_from_input(void)
 {
 	t_input	*input;
@@ -36,7 +41,9 @@ static char		*str_from_input(void)
 }
 
 /*
-** récupère l'input en fonction d'isatty
+** @brief Gets the input from isatty
+**
+** @return Returns the input
 */
 
 static char		*sh_get_input_no_tty(void)
@@ -56,6 +63,16 @@ static char		*sh_get_input_no_tty(void)
 	}
 	return (str_from_input());
 }
+
+/*
+** @brief Gets the input
+**
+** @param data The shell's data used across the program
+** @param prompt The prompt string
+** @param ret The last return value
+**
+** @return Returns the input string
+*/
 
 char			*sh_get_input(t_sh_data *data, char *prompt, t_return ret)
 {

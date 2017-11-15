@@ -13,6 +13,11 @@
 #ifndef MACRO_COMPIL_H
 # define MACRO_COMPIL_H
 
+/*
+** @file macro_compil.h
+** @brief Contains compilation macros
+*/
+
 # define UNUSED __attribute__ ((unused))
 
 #endif

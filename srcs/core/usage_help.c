@@ -15,7 +15,11 @@
 #include <core/progname.h>
 
 /*
-** permet de destroy, de print un messages, et d'exit
+** @brief Destroy what needs to be detroyed, prints a message and exits
+** @param mess The message to be printed
+** @param automat The t_automaton to be destroyed
+** @param array The t_array to be detroyed
+** @param fn TODO
 */
 
 void		sh_over(char *mess, t_automaton *automat, t_array *array,\
@@ -29,6 +33,10 @@ void		sh_over(char *mess, t_automaton *automat, t_array *array,\
 		array_destroy(&array, fn);
 	exit(EXIT_FAILURE);
 }
+
+/*
+** @brief Prints the help when using a wrong option
+*/
 
 void		sh_usage_help(void)
 {
@@ -51,6 +59,10 @@ void		sh_usage_help(void)
 }
 
 //TODO: Add -c
+
+/*
+** @brief Prints the usage and exits
+*/
 
 void		sh_usage_help_exit(void)
 {

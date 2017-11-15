@@ -19,9 +19,26 @@
 # include <exec/exec.h>
 # include <history/history.h>
 # include <parser/parser.h>
-# include <core/sh_get_line.h>
+# include <core/sh_get_input.h>
 # include <secure_memory/ft_secu_malloc.h>
 # include <core/progname.h>
+
+/*
+** @file   sh_loop.h
+**
+** @brief  Function prototypes for the main loop
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file sh_loop.c
+**
+** @brief The main loop for the program
+*/
+
 
 void			sh_arrays_reset(t_array *tokens, t_array *expands);
 BOOL			sh_loop(t_sh_data data, struct s_exec_data *exec_dat,

@@ -12,15 +12,35 @@
 
 #include <core/input.h>
 
+/*
+** @brief Returns the value select
+**
+** @return Returns the value select
+*/
+
 t_select		*get_select(void)
 {
 	return (&(get_windows(0))->select);
 }
 
+/*
+** @brief Returns the value ts
+**
+** @return Returns the value ts
+*/
+
+
 struct winsize	*get_ts(void)
 {
 	return (&(get_windows(0))->ts);
 }
+
+/*
+** @brief Returns the value cur_head
+**
+** @return Returns the value cur_head
+*/
+
 
 t_input			*input_get_cur_head(void)
 {
@@ -30,6 +50,13 @@ t_input			*input_get_cur_head(void)
 	return (w->cur_head);
 }
 
+/*
+** @brief Returns the value cur
+**
+** @return Returns the value cur
+*/
+
+
 t_input			*input_get_cur(void)
 {
 	t_window	*w;
@@ -37,6 +64,13 @@ t_input			*input_get_cur(void)
 	w = get_windows(0);
 	return (w->cur);
 }
+
+/*
+** @brief Returns the value cmd_ret
+**
+** @return Returns the value cmd_ret
+*/
+
 
 int				*get_cmd_ret(void)
 {

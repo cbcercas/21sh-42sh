@@ -12,7 +12,12 @@
 
 #include <core/input.h>
 #include <sys/ioctl.h>
-#include <automaton/automaton.h>
+
+/*
+** @brief Resets the given input
+**
+** @param input The input to be reset
+*/
 
 void	reset_input(t_input *input)
 {
@@ -30,6 +35,12 @@ void	reset_input(t_input *input)
 	input->next = NULL;
 }
 
+/*
+** @brief Destroys the given input
+**
+** @param input The input to be destroyed
+*/
+
 void	input_destroy(t_input **input)
 {
 	if (*input)
@@ -41,6 +52,13 @@ void	input_destroy(t_input **input)
 		ft_memdel((void **)input);
 	}
 }
+
+/*
+** @brief Resets the given input
+** TODO: difference entre input_reset et reset_input
+**
+** @param input The input to be reset
+*/
 
 void	input_reset(t_input *input)
 {
@@ -58,6 +76,14 @@ void	input_reset(t_input *input)
 	input->select_pos.cur_start = 0;
 }
 
+/*
+** @brief Gets the pos in the string
+**
+** @param input The current input
+**
+** @return Returns the position
+*/
+
 size_t	pos_in_str(t_input *input)
 {
 	size_t			ret;
@@ -68,6 +94,14 @@ size_t	pos_in_str(t_input *input)
 		+ (input->cpos.cp_line * ts->ws_col);
 	return (ret);
 }
+
+/*
+** @brief TODO
+**
+** @param input TODO
+**
+** @return TODO
+*/
 
 t_input	*input_get_writable(t_input *input)
 {

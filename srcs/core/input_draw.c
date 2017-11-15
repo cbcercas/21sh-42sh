@@ -13,6 +13,12 @@
 #include <core/input.h>
 #include <core/tcaps.h>
 
+/*
+** @brief TODO
+** @param input TODO
+** @param c TODO
+*/
+
 void		draw_char(t_input *input, char *c)
 {
 	int	len;
@@ -28,6 +34,12 @@ void		draw_char(t_input *input, char *c)
 /*
 ** TODO add suport of input > ts.ws_line
 ** draw input from cursor to the end
+*/
+
+/*
+** @brief TODO
+** @param input TODO
+** @return TODO
 */
 
 t_input		*input_draw(t_input *input)
@@ -50,6 +62,11 @@ t_input		*input_draw(t_input *input)
 
 /*
 ** TODO add suport of input > ts.ws_line
+*/
+
+/*
+** @brief TODO
+** @param input TODO
 */
 
 void		redraw_input(t_input *input)
