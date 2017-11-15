@@ -74,13 +74,13 @@ t_input	*sh_history_down(t_input *input)
 	if (get_windows(0)->h_lvl >= 1
 			&& (new_inp = input_from_history(history_get_next(tmp))))
 	{
-		input = input_back_to_origin(input);
+		input = input_back_to_writable(input);
 		input_to_save(&input, new_inp);
 	}
 	else if (get_windows(0)->save && !new_inp)
 	{
 		get_windows(0)->h_lvl -= 1;
-		input = input_back_to_origin(input);
+		input = input_back_to_writable(input);
 		new_inp = input_from_save(&input);
 	}
 	if (!new_inp)

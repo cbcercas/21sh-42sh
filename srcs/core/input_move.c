@@ -65,3 +65,33 @@ t_cpos	input_get_last_pos(t_input *input)
 								   % input->ts->ws_col);
 	return (cpos);
 }
+
+t_input	*input_back_to_writable(t_input *input)
+{
+	t_cpos	*save;
+	t_cpos	dest;
+
+	save	= NULL;
+	if (!input)
+		return (input);
+	dest = input_get_first_pos(input);
+	move_cursor_to(&dest, &input->cpos, get_ts());
+	while (input && !input->lock)
+	{
+		if (save)
+		{
+			input->cpos.cp_col = save->cp_col;
+			input->cpos.cp_line = (unsigned short)(
+					(input->offset_col + input->str->len) / input->ts->ws_col);
+		}
+		dest = input_get_first_pos(input);
+		move_cursor_to(&dest, &input->cpos, get_ts());
+		if (input->prev && !input->prev->lock)
+			tputs(tgetstr("up",NULL), 0,&ft_putchar2);
+		else
+			break;
+		save = &input->cpos;
+		input = input->prev;
+	}
+	return (input);
+}

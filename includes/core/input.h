@@ -113,6 +113,7 @@ t_input					*input_draw(t_input *input);
 ** input_move.c
 */
 t_input					*input_back_to_origin(t_input *input);
+t_input					*input_back_to_writable(t_input *input);
 void					input_goto_line_end(t_input *input);
 
 #endif
