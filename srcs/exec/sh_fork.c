@@ -12,7 +12,7 @@
 
 #include <exec/exec.h>
 
-pid_t sh_fork(t_pid_type type)
+pid_t	sh_fork(t_pid_type type)
 {
 	pid_t	pid;
 	t_pids	save_pid;
@@ -22,8 +22,9 @@ pid_t sh_fork(t_pid_type type)
 	if (pid > 0)
 	{
 		save_pid.pid = pid;
+		save_pid.type = type;
 		log_dbg1("SH_FORK: Save pid_child %d", pid);
 		array_push(get_pids_child(), &save_pid);
 	}
-  return (pid);
+	return (pid);
 }

@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/15 14:01:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/15 14:01:28 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/15 18:31:43 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5])
 BOOL	manage_dup2(int pipe[3][2], t_list *fds[5])
 {
 	if (fds[STDOUT_FILENO] && (dup2(pipe[STDOUT_FILENO][START],
-									STDOUT_FILENO) == -1))
+					STDOUT_FILENO) == -1))
 		return (false);
 	if (fds[STDIN_FILENO] && (dup2(pipe[STDIN_FILENO][START],
-									STDIN_FILENO) == -1))
+					STDIN_FILENO) == -1))
 		return (false);
 	if (fds[STDERR_FILENO] && (dup2(pipe[STDERR_FILENO][START],
-									STDERR_FILENO) == -1))
+					STDERR_FILENO) == -1))
 		return (false);
 	return (true);
 }
@@ -50,25 +50,25 @@ BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos)
 
 void	manage_fds(int pipe[3][2], t_list *fds[5])
 {
-	t_list *tmp;
-	char buf[1];
-	int i;
-	ssize_t ret;
+	t_list	*tmp;
+	char	buf[1];
+	int		i;
+	ssize_t	ret;
 
 	i = CLOSE;
 	log_info("EXEC manage_fds");
-		while (i--)
+	while (i--)
+	{
+		while (fds[i] && (ret = read(pipe[i][END], buf, 1)) && ret != -1)
 		{
-			while (fds[i] && (ret = read(pipe[i][END], buf, 1)) && ret != -1)
+			tmp = fds[i];
+			while (tmp)
 			{
-				tmp = fds[i];
-				while (tmp)
-				{
-					write(tmp->content_size, buf, 1);
-					tmp = tmp->next;
-				}
+				write(tmp->content_size, buf, 1);
+				tmp = tmp->next;
 			}
 		}
+	}
 }
 
 void	manage_close(t_list *fds[5])

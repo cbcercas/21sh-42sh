@@ -66,7 +66,8 @@ BOOL				sh_loop(t_sh_data data, struct s_exec_data *exec_dat,
 
 	if (!(line = sh_get_input(&data, NULL, *ret)))
 		return (true);
-	*ret = sh_process(&exec_dat->ast, &exec_dat->expand, &exec_dat->tokens, line);
+	*ret = sh_process(&exec_dat->ast, &exec_dat->expand,
+					&exec_dat->tokens, line);
 	if (*ret == E_RET_AST_OK)
 	{
 		exec_exec(&data, exec_dat->ast);

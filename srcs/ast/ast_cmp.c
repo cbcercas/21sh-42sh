@@ -69,7 +69,8 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 ** @return Returns true if token and priority match, else returns false
 */
 
-BOOL		ast_prio(t_token_type type, int prio, size_t cnt, t_array *expands)
+BOOL			ast_prio(t_token_type type, int prio, size_t cnt,
+						t_array *expands)
 {
 	if (prio == 1 && (is_sepa(type)))
 		return (true);
@@ -117,7 +118,7 @@ static int		ast_val_cmp(t_token_type type)
 ** @return Returns 0 if s1 is less than s2, else it will return -1.
 */
 
-int		ast_cmp(t_cmd *s1, t_cmd *s2)
+int				ast_cmp(t_cmd *s1, t_cmd *s2)
 {
 	if (ast_val_cmp(s1->type) <= ast_val_cmp(s2->type))
 		return (0);

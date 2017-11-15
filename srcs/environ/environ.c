@@ -17,7 +17,7 @@
 #include <environ/getter_env.h>
 #include <environ/modif_env.h>
 
-t_array	*init_environ(char **environ)
+t_array		*init_environ(char **environ)
 {
 	t_array	*envs;
 	t_env	*env;
@@ -27,7 +27,7 @@ t_array	*init_environ(char **environ)
 		while (*environ)
 		{
 			if ((env = var_new(split_var_name(*environ),
-							   split_var_value(*environ), true)) != NULL)
+							split_var_value(*environ), true)) != NULL)
 			{
 				array_push(envs, (void *)env);
 				ft_memdel((void **)&env);
@@ -39,7 +39,7 @@ t_array	*init_environ(char **environ)
 	return (envs);
 }
 
-t_array *init_local_var(void)
+t_array		*init_local_var(void)
 {
 	t_array	*vars;
 
@@ -56,7 +56,7 @@ t_array *init_local_var(void)
 	return (vars);
 }
 
-char **var_to_tab(t_array *vars)
+char		**var_to_tab(t_array *vars)
 {
 	t_env	*env;
 	char	**env_tab;

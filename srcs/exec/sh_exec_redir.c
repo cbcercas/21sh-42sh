@@ -12,7 +12,7 @@
 
 #include <exec/exec.h>
 
-static	void	redir_great(t_cmd *item, t_list **fds, int fd)
+static void		redir_great(t_cmd *item, t_list **fds, int fd)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
@@ -20,9 +20,11 @@ static	void	redir_great(t_cmd *item, t_list **fds, int fd)
 		{
 			fds[ft_atoi(item->av[0])] = NULL;
 			exec_list_push(&fds[ft_atoi(item->av[0])], fd);
-		} else
+		}
+		else
 			exit(EXIT_FAILURE);
-	} else
+	}
+	else
 	{
 		fds[STDOUT_FILENO] = NULL;
 		exec_list_push(&fds[STDOUT_FILENO], fd);
@@ -42,17 +44,29 @@ static void		redir_less(t_cmd *item, int fd)
 		dup2(fd, STDIN_FILENO);
 }
 
-int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
+static BOOL		sh_exec_redir_init(t_btree *ast, t_cmd **item, int *fd)
+{
+	if (!ast)
+	{
+		return (false);
+	}
+	*item = (t_cmd *)ast->item;
+	if ((*fd = sh_open_exec(ast)) == -1)
+	{
+		*get_cmd_ret() = EXIT_FAILURE;
+		return (false);
+	}
+	signal(SIGWINCH, SIG_IGN);
+	return (true);
+}
+
+int				sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	int		fd;
 	t_cmd	*item;
 
-	if (!ast)
+	if (!sh_exec_redir_init(ast, &item, &fd))
 		return (*get_cmd_ret());
-	item = (t_cmd *)ast->item;
-	if ((fd = sh_open_exec(ast)) == -1)
-		return((*get_cmd_ret() = EXIT_FAILURE));
-	signal(SIGWINCH, SIG_IGN);
 	if (sh_fork(E_PID_REDIR) == 0)
 	{
 		if (fd != -1)
@@ -69,6 +83,5 @@ int sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 	sh_wait(0, 0);
 	signal(SIGWINCH, signals_handler);
 	close(fd);
-	return(*get_cmd_ret());
+	return (*get_cmd_ret());
 }
-

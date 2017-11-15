@@ -17,7 +17,7 @@ t_input	*input_back_to_origin(t_input *input)
 	t_cpos	*save;
 	t_cpos	dest;
 
-	save	= NULL;
+	save = NULL;
 	while (input)
 	{
 		if (save)
@@ -29,9 +29,9 @@ t_input	*input_back_to_origin(t_input *input)
 		dest = input_get_first_pos(input);
 		move_cursor_to(&dest, &input->cpos, get_ts());
 		if (input->prev)
-			tputs(tgetstr("up",NULL), 0,&ft_putchar2);
+			tputs(tgetstr("up", NULL), 0, &ft_putchar2);
 		else
-			break;
+			break ;
 		save = &input->cpos;
 		input = input->prev;
 	}
@@ -50,7 +50,7 @@ t_cpos	input_get_first_pos(t_input *input)
 {
 	t_cpos cpos;
 
-	cpos.cp_col = (unsigned short) input->offset_col;
+	cpos.cp_col = input->offset_col;
 	cpos.cp_line = 0;
 	return (cpos);
 }
@@ -62,7 +62,7 @@ t_cpos	input_get_last_pos(t_input *input)
 	cpos.cp_line = (unsigned short)((input->offset_col + input->str->len)
 									/ input->ts->ws_col);
 	cpos.cp_col = (unsigned short)((input->offset_col + input->str->len)
-								   % input->ts->ws_col);
+								% input->ts->ws_col);
 	return (cpos);
 }
 
@@ -71,13 +71,11 @@ t_input	*input_back_to_writable(t_input *input)
 	t_cpos	*save;
 	t_cpos	dest;
 
-	save	= NULL;
-	if (!input)
-		return (input);
-	dest = input_get_first_pos(input);
-	move_cursor_to(&dest, &input->cpos, get_ts());
+	save = NULL;
 	while (input && !input->lock)
 	{
+		dest = input_get_first_pos(input);
+		move_cursor_to(&dest, &input->cpos, get_ts());
 		if (save)
 		{
 			input->cpos.cp_col = save->cp_col;
@@ -87,9 +85,9 @@ t_input	*input_back_to_writable(t_input *input)
 		dest = input_get_first_pos(input);
 		move_cursor_to(&dest, &input->cpos, get_ts());
 		if (input->prev && !input->prev->lock)
-			tputs(tgetstr("up",NULL), 0,&ft_putchar2);
+			tputs(tgetstr("up", NULL), 0, &ft_putchar2);
 		else
-			break;
+			break ;
 		save = &input->cpos;
 		input = input->prev;
 	}

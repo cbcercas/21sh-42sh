@@ -12,7 +12,7 @@
 
 #include <environ/getter_env.h>
 
-t_env *get_var(t_array *vars, const char *name)
+t_env	*get_var(t_array *vars, const char *name)
 {
 	t_env	*e;
 	size_t	i;
@@ -28,7 +28,7 @@ t_env *get_var(t_array *vars, const char *name)
 	return (NULL);
 }
 
-char *get_var_value(t_array *vars, const char *name)
+char	*get_var_value(t_array *vars, const char *name)
 {
 	t_env	*e;
 

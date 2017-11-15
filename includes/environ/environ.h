@@ -16,7 +16,7 @@
 # include <array/array.h>
 
 t_array	*init_environ(char **environ);
-t_array *init_local_var(void);
-char **var_to_tab(t_array *vars);
+t_array	*init_local_var(void);
+char	**var_to_tab(t_array *vars);
 
 #endif

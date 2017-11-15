@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef AUTOMATON_H
-#define AUTOMATON_H
+# define AUTOMATON_H
 
 # include <types/stack.h>
 # include <logger.h>
@@ -23,7 +23,7 @@
 ** @brief  Contains all the automaton states
 */
 
-enum	e_stack_state
+enum						e_stack_state
 {
 	E_STATE_NONE,
 	E_STATE_BLANK,
@@ -49,8 +49,8 @@ enum	e_stack_state
 	E_STATE_MAX
 };
 
-typedef uint32_t	t_stack_state;
-typedef uint32_t	t_automaton_step;
+typedef uint32_t			t_stack_state;
+typedef uint32_t			t_automaton_step;
 
 /*
 ** @enum   e_automaton_step
@@ -58,7 +58,7 @@ typedef uint32_t	t_automaton_step;
 ** @brief  Contains all the automaton steps
 */
 
-enum 	e_automaton_step
+enum						e_automaton_step
 {
 	E_UNKNOWN,
 	E_POP,
@@ -74,10 +74,10 @@ enum 	e_automaton_step
 ** @brief    Contains all the automaton variables
 */
 
-struct	s_automaton
+struct						s_automaton
 {
-	t_stack *stack;
-	t_stack_state	cur_state;
+	t_stack					*stack;
+	t_stack_state			cur_state;
 };
 
 typedef struct s_automaton	t_automaton;
@@ -88,9 +88,10 @@ typedef struct s_automaton	t_automaton;
 ** @brief  Contains all the automaton functions
 */
 
-t_automaton *automaton_init(t_automaton *automaton);
-t_automaton *automaton_reset(t_automaton *automaton);
-void automaton_destroy(t_automaton **automaton);
-void automaton_step(t_automaton	*a, t_stack_state state,t_automaton_step step);
+t_automaton					*automaton_init(t_automaton *automaton);
+t_automaton					*automaton_reset(t_automaton *automaton);
+void						automaton_destroy(t_automaton **automaton);
+void						automaton_step(t_automaton *a,\
+									t_stack_state state, t_automaton_step step);
 
 #endif

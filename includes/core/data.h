@@ -33,7 +33,7 @@ struct						s_sh_data
 	t_sh_opt			opts;
 	char				*cwd;
 	struct s_builtin_e	*builtins;
-	struct termios      *tattr;
+	struct termios		*tattr;
 
 };
 

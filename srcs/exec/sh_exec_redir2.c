@@ -12,51 +12,6 @@
 
 #include <exec/exec.h>
 
-static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
-{
-	if (fd2 == -2)
-	{
-		if (fd1 != -1)
-			exec_list_push(&fds[3], fd1);
-		else
-			exec_list_push(&fds[3], STDIN_FILENO);
-		return ;
-	}
-	if (fd1 != -1)
-		dup2(fd1, fd2);
-	else
-		dup2(STDIN_FILENO, fd2);
-}
-
-static void		sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
-											 t_list **fds)
-{
-	if (item && item->type == E_TOKEN_GREATAND)
-	{
-		if (fd2 == -2)
-		{
-			if (fd1 != -1)
-				exec_list_push(&fds[3], fd1);
-			else
-				exec_list_push(&fds[3], STDOUT_FILENO);
-			return ;
-		}
-		if (fd1 != -1)
-		{
-			fds[fd1] = NULL;
-			log_info("REDIR fd =%d", fd1);
-			exec_list_push(&fds[fd1], fd2);
-		}
-		else
-		{
-			fds[STDOUT_FILENO] = NULL;
-			exec_list_push(&fds[STDOUT_FILENO], fd2);
-		}
-		return ;
-	}
-	sh_exec_greatand_push_dup2(fd1, fd2, fds);
-}
-
 static BOOL		sh_exec_greatand_open_fd1(int *fd1, t_cmd *item, int *pos)
 {
 	if (!item || ft_tablen(item->av) < 2)
@@ -97,7 +52,14 @@ static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item)
 	return (true);
 }
 
-int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
+static int		sh_exec_greatand_father(void)
+{
+	sh_wait(0, 0);
+	signal(SIGWINCH, signals_handler);
+	return (*get_cmd_ret());
+}
+
+int				sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	pid_t	pid;
 	int		fd1;
@@ -109,7 +71,8 @@ int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 	item = (t_cmd *)ast->item;
 	if (!sh_exec_greatand_open(&fd1, &fd2, item))
 		return ((*get_cmd_ret() = EXIT_FAILURE));
-	if((pid = sh_fork(E_PID_REDIR)) == -1 && signal(SIGWINCH, SIG_IGN) != SIG_ERR)
+	if ((pid = sh_fork(E_PID_REDIR)) == -1 && signal(SIGWINCH, SIG_IGN)
+											!= SIG_ERR)
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (pid == 0)
 	{
@@ -122,7 +85,5 @@ int sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 		}
 		exit(EXIT_SUCCESS);
 	}
-	sh_wait(0, 0);
-	signal(SIGWINCH, signals_handler);
-	return (*get_cmd_ret());
+	return (sh_exec_greatand_father());
 }
