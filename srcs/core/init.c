@@ -122,7 +122,17 @@ static void	sh_multi_init(t_sh_data *data, int ac, char *const *av, char **envir
 	sh_store_tattr(data);
 }
 
+void		sh_check_env(void)
+{
+	char cwd[1024];
 
+	set_var(get_envs(), "TERM", "xterm", true);
+	set_var(get_envs(), "SHLVL", "1", true);
+	set_var(get_envs(), "_", "/usr/bin/env", true);
+	getcwd(cwd, sizeof(cwd));
+	set_var(get_envs(), "PWD", cwd, true);
+	ft_secu_free(cwd);
+}
 t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 {
 	char	*tmp;
@@ -136,7 +146,12 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		exit(1);
 	}
 	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var_value(get_envs(), "TERM"), ""))
-		set_var(get_envs(), "TERM", "xterm", true);
+	{
+		sh_check_env();
+		ft_printf("No env found\n");
+		log_warn("NO ENV!!\n"); //TODO: Better display/message + make the
+		// default env var in a tab or something so it is easely changable
+	}
 	tmp = ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1);
 	set_var(get_envs(), "SHLVL", tmp, true);
 	if ((tgetent(0, get_var_value(get_envs(),"TERM"))) != 1)
