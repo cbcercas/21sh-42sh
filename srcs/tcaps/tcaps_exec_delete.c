@@ -39,8 +39,6 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 		write(1, "\a", 1);
 		return (false);
 	}
-	input_draw(input);
-	//TODO WTF really you save the history on delete? why?
-	//sh_history_insert_buf(input->str->s);
+	redraw_input(input);
 	return (false);
 }

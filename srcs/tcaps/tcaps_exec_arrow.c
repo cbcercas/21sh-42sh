@@ -117,7 +117,6 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	log_dbg1("exec arrow up.");
 	if (!(new_inp = sh_history_up(input)))
 		return (false);
-	log_dbg1("SALUT");
 	input = input_back_to_writable(input);
 	input_to_save(&input, new_inp);
 	input = new_inp;
