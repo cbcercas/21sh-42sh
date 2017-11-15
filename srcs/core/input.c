@@ -14,7 +14,7 @@
 #include <core/tcaps.h>
 #include <tools/tools.h>
 
-t_input	*input_new(void)
+t_input			*input_new(void)
 {
 	t_input	*input;
 
@@ -28,28 +28,21 @@ t_input	*input_new(void)
 	return (input);
 }
 
-t_input *input_hard_reset(t_input **input)
+t_input			*input_hard_reset(t_input **input)
 {
 	input_destroy(input);
 	*input = input_new();
 	return (*input);
 }
 
-t_input *input_get_last(t_input *input)
-{
-	while (input && input->next)
-		input = input->next;
-	return (input);
-}
-
-t_input	*input_add_new(t_input *input)
+t_input			*input_add_new(t_input *input)
 {
 	t_input	*save;
 
 	if (!input)
 		return (NULL);
 	save = input->next;
-	if((input->next = input_new()) == NULL)
+	if ((input->next = input_new()) == NULL)
 		return (NULL);
 	input->next->prev = input;
 	input->next->next = save;
@@ -58,7 +51,16 @@ t_input	*input_add_new(t_input *input)
 	return (input->next);
 }
 
-char *sh_get_line(t_input *input, t_sh_opt *opts)
+static BOOL		sh_get_line_insert(t_input *input, t_key key)
+{
+	if (!string_insert(input->str, key.key, pos_in_str(input)))
+		return (false);
+	get_windows(10)->h_complet = true;
+	draw_char(input, key.key);
+	return (true);
+}
+
+char			*sh_get_line(t_input *input, t_sh_opt *opts)
 {
 	char			buff[MAX_KEY_STRING_LEN + 1];
 	t_key			key;
@@ -74,17 +76,10 @@ char *sh_get_line(t_input *input, t_sh_opt *opts)
 		if (ft_strcmp(key.key_code, KEY_CODE_OTHER))
 			stop = key_exec(&key, input);
 		else if (MAX_LEN_INPUT <= input->str->len)
-		{
 			tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
-			tcaps_bell();
-		}
-		else if (is_printstr(buff) && !get_select()->is && !ft_strchr(buff, '\n'))
-		{
-			if (!string_insert(input->str, key.key, pos_in_str(input)))
-				return (NULL);
-			get_windows(10)->h_complet = true;
-			draw_char(input, key.key);
-		}
+		else if (is_printstr(buff) && !get_select()->is &&
+				!ft_strchr(buff, '\n') && !sh_get_line_insert(input, key))
+			return (NULL);
 		input = get_windows(0)->cur;
 		key_del(&key);
 	}

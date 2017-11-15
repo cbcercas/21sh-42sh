@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_tlist.c                                       :+:      :+:    :+:   */
+/*   sh_heredoc_input.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/13 18:45:10 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/13 19:50:04 by gpouyat          ###   ########.fr       */
+/*   Created: 2017/11/15 19:18:46 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/11/15 19:18:47 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <exec/exec.h>
 
-void	exec_list_push(t_list **head, size_t fd)
+void		mini_input(char *end, int pipe_fd)
 {
-	t_list	*elem;
+	char *line;
 
-	elem = (t_list *)ft_memalloc(sizeof(t_list));
-	if (!elem)
+	if (!end)
+	{
+		ft_dprintf(2, "%s: exec parser error \\n\n", PROGNAME);
 		return ;
-	elem->content = NULL;
-	elem->content_size = fd;
-	elem->next = NULL;
-	ft_lstpush_back(head, elem);
-}
-
-void	exec_list_nothing(void *no, size_t thing)
-{
-	(void)no;
-	(void)thing;
+	}
+	ft_putstr("heredoc>");
+	log_info("EXEC: HEREDOC word end = (%s)", end);
+	while (get_next_line(0, &line))
+	{
+		if (line && ft_strequ(line, end))
+			break ;
+		ft_putendl_fd(line, pipe_fd);
+		ft_strdel(&line);
+		ft_putstr("heredoc>");
+	}
+	ft_strdel(&line);
 }

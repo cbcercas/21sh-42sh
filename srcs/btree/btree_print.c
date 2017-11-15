@@ -13,26 +13,6 @@
 #include <btree/ft_btree.h>
 
 /*
-** @brief calculates the lenght of a string
-**
-** @param s string
-**
-** @return Seturns the lenght of s
-*/
-
-static int		btree_strlen(char *s)
-{
-	int		i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-//Euh WTF TODO why use btree_strlen() instead of strlen ??
-
-/*
 ** @brief Displays a btree item
 **
 ** @param str the btree item to display
@@ -40,14 +20,14 @@ static int		btree_strlen(char *s)
 ** @return void
 */
 
-static void		btree_display_str(char *str)
+static void			btree_display_str(char *str)
 {
 	if (!str)
 	{
 		write(1, "NULL", 4);
 		return ;
 	}
-	write(1, str, btree_strlen(str));
+	write(1, str, ft_strlen(str));
 }
 
 /*
@@ -90,7 +70,7 @@ static void			node_print(t_btree *this, int current_level, int max_level,\
 ** @param applyf (TODO)
 */
 
-void			btree_print(t_btree *this, char *(*applyf)(void *))
+void				btree_print(t_btree *this, char *(*applyf)(void *))
 {
 	if (!this)
 		return ;

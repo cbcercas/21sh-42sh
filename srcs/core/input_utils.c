@@ -38,7 +38,7 @@ void	input_destroy(t_input **input)
 			input_destroy(&(*input)->next);
 		if ((*input)->str)
 			string_del(&((*input)->str));
-		ft_memdel((void **) input);
+		ft_memdel((void **)input);
 	}
 }
 
@@ -65,13 +65,13 @@ size_t	pos_in_str(t_input *input)
 
 	ts = get_ts();
 	ret = (input->cpos.cp_col - input->offset_col)
-		  + (input->cpos.cp_line * ts->ws_col);
+		+ (input->cpos.cp_line * ts->ws_col);
 	return (ret);
 }
 
-t_input *input_get_writable(t_input *input)
+t_input	*input_get_writable(t_input *input)
 {
-	while(input && input->prev && !input->prev->lock)
+	while (input && input->prev && !input->prev->lock)
 		input = input->prev;
 	return (input);
 }

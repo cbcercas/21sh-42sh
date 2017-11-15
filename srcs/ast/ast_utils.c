@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <ast/ast.h>
+#include <builtins/builtin_exit.h>
 
 /*
 ** @brief Frees cmd content and cmd
@@ -20,7 +21,7 @@
 ** @return void
 */
 
-void		ast_del_cmd(t_cmd *cmd)
+void			ast_del_cmd(t_cmd *cmd)
 {
 	if (cmd == NULL)
 		return ;
@@ -42,7 +43,8 @@ void		ast_del_cmd(t_cmd *cmd)
 **
 ** \return return "" or NULL.
 */
-char		*ast_aff(t_cmd *cmd)
+
+char			*ast_aff(t_cmd *cmd)
 {
 	int i;
 
@@ -70,6 +72,7 @@ char		*ast_aff(t_cmd *cmd)
 **
 ** \return token or NULL.
 */
+
 t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 {
 	t_exp		*exp;
@@ -85,6 +88,34 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 }
 
 /*
+** \fn static BOOL		ast_new_init(t_array *expands, int start, int end,
+**		                                                       t_cmd **cmd)
+**
+** \brief malloc cmd and cmd->av for ast_new_cmd()
+**
+** \param expands is token arrays
+** \param start is positon of first token
+** \param end is positon of last token
+** \param cmd is the struc of command
+**
+** \return If an error has occurred, a value of false is returned
+*/
+
+static BOOL		ast_new_init(t_array *expands, int start, int end,
+		t_cmd **cmd)
+{
+	if ((end - start) < 0)
+		return (false);
+	if (!expands || !(*cmd = (t_cmd*)ft_secu_malloc_lvl(sizeof(t_cmd), 2)))
+		sh_exit(NULL, NULL);
+	ft_bzero(*cmd, sizeof(t_cmd));
+	if (!((*cmd)->av =
+				(char **)secu_malloc(sizeof(char **) * (end - start + 2))))
+		sh_exit(NULL, NULL);
+	return (true);
+}
+
+/*
 ** \fn t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 **							                           t_token_type type)
 **
@@ -97,7 +128,8 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 **
 ** \return new cmd or NULL
 */
-t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
+
+t_cmd			*ast_new_cmd(t_array *expands, int start, int end,\
 		t_token_type type)
 {
 	t_cmd	*cmd;
@@ -107,18 +139,15 @@ t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 
 	i = 0;
 	cnt = 0;
-	if ((end - start) < 0)
-		return (NULL);
-	if (!expands || !(cmd = (t_cmd*)ft_secu_malloc_lvl(sizeof(t_cmd), 2)))
-		return (NULL);
-	ft_bzero(cmd, sizeof(t_cmd));
-	if (!(cmd->av = (char **)secu_malloc(sizeof(char **) * (end - start + 2))))
+	if (!ast_new_init(expands, start, end, &cmd))
 		return (NULL);
 	cmd->type = type;
-	while (i < (end - start) && (exp = (t_exp*)array_get_at(expands, start + i)))
+	while (i < (end - start) &&
+			(exp = (t_exp*)array_get_at(expands, start + i)))
 	{
 		if (exp->str && exp->type != E_TOKEN_BLANK &&\
-				!(type == E_TOKEN_WORD && ast_is_redir(expands, start + i, exp->type)))
+				!(type == E_TOKEN_WORD &&
+				ast_is_redir(expands, start + i, exp->type)))
 			cmd->av[cnt++] = exp->str->s;
 		i++;
 	}

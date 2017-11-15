@@ -12,7 +12,7 @@
 
 #include <core/input.h>
 
-static void cpy_input_data(t_input *cpy, t_input *ori)
+static void		cpy_input_data(t_input *cpy, t_input *ori)
 {
 	cpy->prompt_type = ori->prompt_type;
 	cpy->prompt_len = ori->prompt_len;
@@ -20,7 +20,7 @@ static void cpy_input_data(t_input *cpy, t_input *ori)
 	ft_memmove(&cpy->cpos, &ori->cpos, sizeof(ori->cpos));
 }
 
-void	input_to_save(t_input **to_save, t_input *new_inp)
+void			input_to_save(t_input **to_save, t_input *new_inp)
 {
 	t_window	*w;
 
@@ -38,7 +38,7 @@ void	input_to_save(t_input **to_save, t_input *new_inp)
 	w->cur = new_inp;
 }
 
-t_input	*input_from_save(t_input **to_destroy)
+t_input			*input_from_save(t_input **to_destroy)
 {
 	t_input		*new_inp;
 	t_window	*w;
@@ -59,7 +59,7 @@ t_input	*input_from_save(t_input **to_destroy)
 	return (new_inp);
 }
 
-int		count_nb_input(t_input *input)
+int				count_nb_input(t_input *input)
 {
 	int		nb;
 	t_input	*tmp;
@@ -77,4 +77,11 @@ int		count_nb_input(t_input *input)
 		tmp = tmp->prev;
 	}
 	return (nb);
+}
+
+t_input			*input_get_last(t_input *input)
+{
+	while (input && input->next)
+		input = input->next;
+	return (input);
 }

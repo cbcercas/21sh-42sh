@@ -13,16 +13,14 @@
 #ifndef MAIN_H
 # define MAIN_H
 
-#include <array/array.h>
-#include <btree/ft_btree.h>
-//typedef struct s_array	t_array;
+# include <array/array.h>
+# include <btree/ft_btree.h>
 
-struct s_exec_data
+struct			s_exec_data
 {
 	t_array		tokens;
 	t_array		expand;
 	t_btree		*ast;
-
 };
 
 #endif
