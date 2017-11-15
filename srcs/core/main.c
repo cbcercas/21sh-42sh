@@ -20,7 +20,8 @@
 #include <core/sh_loop.h>
 #include <core/main.h>
 
-/*! @mainpage 21-42sh Documentation
+/*
+**!@mainpage 21-42sh Documentation
 **
 ** @section intro_sec Introduction
 **
@@ -39,6 +40,20 @@
 ** Then just `cd` in the directory and `make`
 **
 ** @subsection step1 Step 1: Opening the box
+**
+**
+** @subsection Environment Environment: When started without an env. These
+** are the default values
+**
+**`TERM` is set to `xterm`
+**
+**`USER` and `USERNAME` are set to `Marvin`
+**
+** `PWD` is set to the current cwd value (Gotten with getcwd())
+**
+**
+** If `SHLVL` isnt set, then it's set to `1`. Otherwise it's `+1`
+**
 **
 ** WIP *Need to add all the instructions here and add them on README.md to*
 */

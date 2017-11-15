@@ -25,6 +25,7 @@
 #include <environ/getter_env.h>
 #include <term.h>
 #include <builtins/builtin_exit.h>
+#include <core/color.h>
 
 extern char const	*g_optarg;
 
@@ -122,20 +123,43 @@ static void	sh_multi_init(t_sh_data *data, int ac, char *const *av, char **envir
 	sh_store_tattr(data);
 }
 
-void		sh_check_env(void)
+char		*sh_check_env(char **environ)
 {
 	char cwd[1024];
+	char	*tmp;
 
-	set_var(get_envs(), "TERM", "xterm", true);
-	set_var(get_envs(), "SHLVL", "1", true);
-	set_var(get_envs(), "_", "/usr/bin/env", true);
-	getcwd(cwd, sizeof(cwd));
-	set_var(get_envs(), "PWD", cwd, true);
-	ft_secu_free(cwd);
+	tmp = NULL;
+	if (!environ || !environ[0])
+	{
+		ft_printf("%s: %sWarning%s, Starting %s without env may cause some "
+											"feature to not work proprelly.\n",
+											PROGNAME, CL_RED, C_NONE, PROGNAME);
+		ft_printf("Please refer to the man for more information\n");
+		log_warn("%s was launched without an env provided. Using default.\n",
+																	 PROGNAME);
+		set_var(get_envs(), "TERM", ft_strdup("xterm"), true);
+		set_var(get_envs(), "USER", ft_strdup("Marvin"), true);
+		set_var(get_envs(), "USERNAME", ft_strdup("Marvin"), true);
+		getcwd(cwd, sizeof(cwd));
+		set_var(get_envs(), "PWD", ft_strdup(cwd), true);
+	}
+	if (!(get_var(get_envs(), "SHLVL")) ||
+							ft_strequ(get_var_value(get_envs(), "SHLVL"), ""))
+		set_var(get_envs(), "SHLVL", ft_strdup("1"), true);
+	else
+	{
+		tmp = ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1);
+		set_var(get_envs(), "SHLVL", ft_strdup(tmp), true);
+	}
+
+	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var_value(get_envs(), "TERM"), ""))
+		set_var(get_envs(), "TERM", ft_strdup("xterm"), true);
+	return (tmp);
 }
+
 t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 {
-	char	*tmp;
+	char *tmp;
 
 	sh_multi_init(data, ac, av, environ);
 	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
@@ -145,15 +169,7 @@ t_sh_data	*sh_init(t_sh_data *data, int ac, char *const *av, char **environ)
 		sh_deinit(data);
 		exit(1);
 	}
-	if (!(get_var(get_envs(), "TERM")) || ft_strequ(get_var_value(get_envs(), "TERM"), ""))
-	{
-		sh_check_env();
-		ft_printf("No env found\n");
-		log_warn("NO ENV!!\n"); //TODO: Better display/message + make the
-		// default env var in a tab or something so it is easely changable
-	}
-	tmp = ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1);
-	set_var(get_envs(), "SHLVL", tmp, true);
+	tmp = sh_check_env(environ);
 	if ((tgetent(0, get_var_value(get_envs(),"TERM"))) != 1)
 	{
 		ft_dprintf(2, "%s: Error on tgetent\n", PROGNAME);
