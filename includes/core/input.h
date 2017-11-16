@@ -165,6 +165,7 @@ t_input					*input_get_last(t_input *input);
 ** @brief Functions used to get window info
 */
 t_window				*get_windows(int rst);
+t_input					*goto_input(t_input *input, t_input *dest_inp);
 
 /*
 ** @file input_get.c

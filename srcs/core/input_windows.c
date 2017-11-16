@@ -75,3 +75,20 @@ t_window		*get_windows(int rst)
 		input_destroy(&wd->save);
 	return (get_windows2(wd, rst));
 }
+
+t_input	*goto_input(t_input *input, t_input *dest_inp)
+{
+	t_cpos	dest;
+
+	while (input && input != dest_inp)
+	{
+		dest = input_get_first_pos(input);
+		move_cursor_to(&dest, &input->cpos, get_ts());
+		if (input->next)
+			tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+		else
+			break ;
+		input = input->next;
+	}
+	return (input);
+}

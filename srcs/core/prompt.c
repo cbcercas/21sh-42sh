@@ -111,7 +111,7 @@ void				sh_print_prompt(t_input *input, const char *prompt,
 {
 	if ((input->prev == NULL && ret == E_RET_NEW_PROMPT) ||
 			(ret == E_RET_REDRAW_PROMPT &&
-					input->prompt_type == E_RET_NEW_PROMPT))
+					(input->prompt_type == E_RET_NEW_PROMPT || input->prompt_type == 0)))
 		prompt_normal(input);
 	else //if ((ret != E_RET_EMPTY_LINE && ret != E_RET_NEW_PROMPT) && (ret == E_RET_REDRAW_PROMPT && input->prompt_type != E_RET_NEW_PROMPT))
 		prompt_perso(input, prompt, ret);
