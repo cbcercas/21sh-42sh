@@ -32,32 +32,44 @@ static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds,
 	exit(EXIT_SUCCESS);
 }
 
-static void sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
+static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	int					pid;
 	int					pipe[2];
+	static t_list		*pids = NULL;
 
 	if (sh_pipe(pipe) != 0)
-		return ;
+		return (NULL);
 	if ((pid = sh_fork(E_PID_PIPE)) == -1)
-		return ;
+		return (NULL);
 	*is_in_pipe() = true;
 	if (pid == 0)
 		sh_pipe_left(data, ast, fds, pipe);
-	sh_wait(pid, 0);
+	exec_list_push(&pids, pid);
+	if (ast->left && ((t_cmd *)ast->left->item)->type == E_TOKEN_DLESS)
+		sh_wait(pid, 0);
 	if ((pid = sh_fork(E_PID_PIPE)) == -1)
-		return ;
+		return (NULL);
 	if (pid == 0)
 		sh_pipe_right(data, ast, fds, pipe);
-	sh_wait(pid, 0);
+	exec_list_push(&pids, pid);
 	close(pipe[START]);
 	close(pipe[END]);
+	return (pids);
 }
 
 int				sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 {
+	t_list		*pids;
+
 	signal(SIGWINCH, SIG_IGN);
-	sh_exec_pipe2(data, ast, fds);
+	pids = sh_exec_pipe2(data, ast, fds);
+	log_info("MULTI WAIT");
+	while (pids)
+	{
+		sh_wait(pids->content_size, 0);
+		pids = pids->next;
+	}
 	signal(SIGWINCH, signals_handler);
 	*is_in_pipe() = false;
 	return (*get_cmd_ret());
