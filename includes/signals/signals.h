@@ -55,6 +55,6 @@ void	send_kill_except(int sig, t_pid_type except);
 void	remove_useless(void);
 
 BOOL	exist_pid_type(t_pid_type type);
-BOOL	*get_stop(void);
+BOOL	*is_in_pipe(void);
 
 #endif

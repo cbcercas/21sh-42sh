@@ -16,8 +16,8 @@ static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
-		if (check_fd(atoi(item->av[0])))
-			*fd = atoi(item->av[0]);
+		if (check_fd(ft_atoi(item->av[0])))
+			*fd = ft_atoi(item->av[0]);
 		else
 			return (false);
 	}
@@ -36,7 +36,7 @@ static int		heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
 	if ((*pid = sh_fork(E_PID_HERE)) == -1)
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (!*pid)
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, SIG_DFL);
 	return (EXIT_SUCCESS);
 }
 
@@ -52,7 +52,6 @@ static int		sh_heredoc_father(int pipe[2])
 	sh_wait(0, 0);
 	signal(SIGWINCH, signals_handler);
 	close(pipe[END]);
-	kill(0, SIGUSR2);
 	return (*get_cmd_ret());
 }
 

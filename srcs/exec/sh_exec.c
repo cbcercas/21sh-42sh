@@ -30,8 +30,10 @@ static int	sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 	manage_fds(pipe, fds);
 	if (!multi_close(pipe, fds, END))
 		return (EXIT_FAILURE);
-	if (path)
+	if (path && !*is_in_pipe())
 		*get_cmd_ret() = sh_ret(sh_wait(pid, 0));
+	else if (path)
+		*get_cmd_ret() = sh_ret(sh_wait(pid, WUNTRACED));
 	ft_strdel(&path);
 	signal(SIGWINCH, signals_handler);
 	return (*get_cmd_ret());
