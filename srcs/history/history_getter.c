@@ -12,6 +12,12 @@
 
 #include <history/history.h>
 
+/*
+** @brief  Check if (TODO)
+** @param line The string to check
+** @return Returns 1 if line is a `\\ n` or NULL. Else returns 0
+*/
+
 int			sh_history_is_space_plus(char const *line)
 {
 	int		i;
@@ -27,6 +33,12 @@ int			sh_history_is_space_plus(char const *line)
 	}
 	return (1);
 }
+
+/*
+** @brief Gets the search from what the user wants
+** @param line The user search request (TODO?)
+** @return Returns the search
+*/
 
 const char	*sh_history_get_search(const char *line)
 {
@@ -50,6 +62,14 @@ const char	*sh_history_get_search(const char *line)
 	return (NULL);
 }
 
+/*
+** @brief Gets at `nb` a history entry
+**
+** @param nb What entry number to get
+**
+** @return Returns the entry numbered `nb`
+*/
+
 const char	*sh_history_get_at(ssize_t nb)
 {
 	t_array	*hists;
@@ -67,6 +87,14 @@ const char	*sh_history_get_at(ssize_t nb)
 		return ((const char *)h->cmd);
 	return (NULL);
 }
+
+/*
+** @brief Adds a new command entry to the history
+**
+** @param cmd The command to be added
+**
+** @return Returns the modified history
+*/
 
 t_hist	*sh_history_set_new(char **cmd)
 {

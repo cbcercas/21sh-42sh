@@ -12,6 +12,14 @@
 
 #include <history/history.h>
 
+/*
+** @brief Transforms the t_input input we get into a char*
+**
+** @param input The current input
+**
+** @return Returns a char* containing the current input
+*/
+
 char	*input_to_history(t_input *input)
 {
 	char	*line;
@@ -30,6 +38,12 @@ char	*input_to_history(t_input *input)
 	}
 	return (line);
 }
+
+/*
+** @brief Turns a history entry into a t_input
+** @param hist The history entry
+** @return Returns a t_input containing the history entry
+*/
 
 t_input *input_from_history(const char *hist)
 {

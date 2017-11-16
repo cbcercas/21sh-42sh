@@ -12,6 +12,14 @@
 
 #include <history/history.h>
 
+/*
+** @brief TODO
+** @param result TODO
+** @param line TODO
+** @param fail TODO
+** @param input TODO
+*/
+
 void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 {
 	unsigned int len;
@@ -32,6 +40,13 @@ void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 	while (pos_in_str(input) < input->str->len)
 		exec_arrow_right(NULL, input);
 }
+
+/*
+** @brief TODO
+** @param line TODO
+** @param result TODO
+** @param fail TODO
+*/
 
 void	history_research_start(char **line, char **result, BOOL *fail)
 {

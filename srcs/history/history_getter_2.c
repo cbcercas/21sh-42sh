@@ -12,6 +12,14 @@
 
 #include <history/history.h>
 
+/*
+** @brief Searches the history for `str` and returns the previous one (TODO?)
+**
+** @param str The string to search
+**
+** @return Returns the history entry previous to `str`
+*/
+
 const char *history_get_prev(char *str)
 {
 	t_array	*hists;
@@ -39,6 +47,14 @@ const char *history_get_prev(char *str)
 	get_windows(0)->h_lvl = lvl;
 	return (h->cmd);
 }
+
+/*
+** @brief Searches the history for `str` and returns the next one (TODO?)
+**
+** @param str The string to search
+**
+** @return Returns the history entry next to `str`
+*/
 
 const char *history_get_next(char *str)
 {

@@ -12,6 +12,11 @@
 
 #include <history/history.h>
 
+/*
+** @brief Gets the history stored in a t_array form
+** @return The t_array containing the history
+*/
+
 t_array	*sh_history_get(void)
 {
 	static t_array	*e = NULL;
@@ -28,6 +33,14 @@ t_array	*sh_history_get(void)
 	return (e);
 }
 
+/*
+** @brief Creates a string that contains the history file location
+**
+** @param str The history file name
+**
+** @return Returns a full absolute path to the history file
+*/
+
 char	*history_get_path(char *str)
 {
 	char	*home;
@@ -39,6 +52,10 @@ char	*history_get_path(char *str)
 	home = ft_strjoincl_secu(home, "/", 0, M_LVL_FUNCT);
 	return (ft_strjoincl_secu(home, HISTORY_FILE, 1, M_LVL_FUNCT));
 }
+
+/*
+** @brief Saves the history when the programs exists
+*/
 
 void	sh_history_save(void)
 {
@@ -71,6 +88,14 @@ void	sh_history_save(void)
 	array_destroy(&hists, sh_history_del);
 	close(fd);
 }
+
+/*
+** @brief Gets at the `n` entry the command stored
+**
+** @param n The entry number
+**
+** @return Returns the command `n` under char * form
+*/
 
 const char 	*history_get_n(size_t n)
 {

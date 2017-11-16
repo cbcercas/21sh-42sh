@@ -12,6 +12,14 @@
 
 #include <history/history.h>
 
+/*
+** @brief Adds a new entry from command `cmd` into the `t_hist history`
+**
+** @param cmd The command to be added into the history
+**
+** @return Returns a t_hist containing the `cmd`
+*/
+
 t_hist	*sh_history_new(char *cmd)
 {
 	t_hist	*h;
@@ -34,6 +42,12 @@ t_hist	*sh_history_new(char *cmd)
 	return (h);
 }
 
+/*
+** @brief Deletes a history entry
+**
+** @param i The entry to be destroyed
+*/
+
 void sh_history_del(void *i)
 {
 	t_hist *h;
@@ -45,6 +59,11 @@ void sh_history_del(void *i)
 		ft_secu_free(h->buf);
 	h->buf = NULL;
 }
+
+/*
+** @brief TODO
+** @param str TODO
+*/
 
 void sh_history_insert_buf(char *str)
 {
@@ -61,6 +80,10 @@ void sh_history_insert_buf(char *str)
 		}
 }
 
+/*
+** @brief Destroys the entire history once the program is done
+*/
+
 void sh_history_destroy(void)
 {
 	t_array	*hists;
@@ -68,6 +91,10 @@ void sh_history_destroy(void)
 	if ((hists = sh_history_get()) != NULL)
 		array_destroy(&hists, sh_history_del);
 }
+
+/*
+** @brief TODO
+*/
 
 void	sh_history_var_session_reset(void)
 {

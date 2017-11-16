@@ -12,6 +12,13 @@
 
 #include <history/history.h>
 
+/*
+** @brief Executes a right move when a user presses the right arrow when
+** using the history module
+** @param input The current input
+** @return Returns false
+*/
+
 BOOL	history_exec_arrow_right(t_input *input)
 {
 	//TODO REFACTOR
@@ -22,6 +29,12 @@ BOOL	history_exec_arrow_right(t_input *input)
 		write(1, "\a", 1);
 	return (false);
 }
+
+/*
+** @brief TODO
+** @param input TODO
+** @param line TODO
+*/
 
 void	sh_history_draw_line(t_input *input, const char *line)
 {
@@ -39,6 +52,15 @@ void	sh_history_draw_line(t_input *input, const char *line)
 	while(len--)
 		history_exec_arrow_right(input);
 }
+
+/*
+** @brief Called when a user presses up. Will parse the input and find
+** similar commands
+**
+** @param input The current input
+**
+** @return Returns the input once modified
+*/
 
 t_input	*sh_history_up(t_input *input)
 {
@@ -59,6 +81,16 @@ t_input	*sh_history_up(t_input *input)
 	ft_strdel(&tmp);
 	return (new_inp);
 }
+
+/*
+** @brief Called when a user presses down. Will parse the input and find
+** similar commands
+**
+** @param input The current input
+**
+** @return Returns the input once modified
+*/
+
 
 t_input	*sh_history_down(t_input *input)
 {

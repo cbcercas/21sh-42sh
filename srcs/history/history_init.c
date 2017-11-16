@@ -12,6 +12,13 @@
 
 #include <history/history.h>
 
+/*
+** @brief Helps initialize the history
+** @param hists The t_array containing the history
+** @param fd TODO
+** @return TODO
+*/
+
 int		sh_history_init_one(t_array *hists, int fd)
 {
 	t_hist	*h;
@@ -40,6 +47,15 @@ int		sh_history_init_one(t_array *hists, int fd)
 	return (ret);
 }
 
+/*
+** @brief Saves the choice you made if your history file is to big
+**
+** @param choice The number you've entered
+**
+** @return Returns a number between 1 and 5 if your choice is one of those.
+** An error will be displayed if the number isnt between 1 and 5
+*/
+
 int		get_history_init_choice(int choice)
 {
 	static int save_choice = -1;
@@ -48,6 +64,13 @@ int		get_history_init_choice(int choice)
 		save_choice = choice;
 	return (save_choice);
 }
+
+
+/*
+** @brief Prints the choice Text User Interface
+**
+** @param limit The limit in bytes
+*/
 
 void	sh_history_print_choice(int limit)
 {
@@ -59,6 +82,13 @@ void	sh_history_print_choice(int limit)
 			"\t (4): Force load and delete\n \t (5): Force load\n\n"
 			"\t (?): Default: (1)\n", PROGNAME, limit, HISTORY_FILE_MAX);
 }
+
+/*
+** @brief Initializes the history and diplay the choices
+** @param fd TODO
+** @param limit The limit in bytes
+** @return Returns the fd of the file
+*/
 
 int		sh_history_init_choice(int fd, int limit)
 {
@@ -88,6 +118,14 @@ int		sh_history_init_choice(int fd, int limit)
 		return (open(history_get_path(NULL), O_RDWR | O_CREAT | O_TRUNC, 0644));
 	return (fd);
 }
+
+/*
+** @brief Initializes the history module
+**
+** @param hists The t_array containing the history
+**
+** @return Returns the history array initialized
+*/
 
 t_array *sh_history_init(t_array *hists)
 {

@@ -22,6 +22,16 @@ char	*history_research_delete(char *line)
 }
 */
 
+/*
+** @brief Prints the search/fail messages
+**
+** @param buff Buffer containing the cmd entered by the user
+**
+** @param result The result got by the history
+**
+** @param fail Is the research failing (true/false)
+*/
+
 void		history_research_prompt(char *buff, char *result, BOOL fail)
 {
 	if (fail)
@@ -32,6 +42,16 @@ void		history_research_prompt(char *buff, char *result, BOOL fail)
 	ft_putstr("_");
 	ft_printf("  $>%s", result);
 }
+
+/*
+** @brief Researches in the history
+**
+** @param line The line entered by the user
+**
+** @param result The results
+**
+** @return Returns true if found. False otherwise
+*/
 
 BOOL	history_research_search(const char *line, char **result)
 {
@@ -61,6 +81,13 @@ BOOL	history_research_search(const char *line, char **result)
 	return (false);
 }
 
+/*
+** @brief TODO
+** @param buff TODO
+** @param line TODO
+** @return TODO
+*/
+
 static char *apply_buff(char *buff, char *line)
 {
 	/*if (buff[0] == 127 && line)
@@ -74,6 +101,11 @@ static char *apply_buff(char *buff, char *line)
 	}
 	return (line);
 }
+
+/*
+** @brief TODO
+** @param input TODO
+*/
 
 void	history_research(t_input *input)
 {

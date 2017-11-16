@@ -12,6 +12,10 @@
 
 #include <history/history.h>
 
+/*
+** @brief Prints the history entries and their number
+*/
+
 void sh_history_print(void)
 {
 	t_array	*hists;
@@ -27,6 +31,10 @@ void sh_history_print(void)
 		i++;
 	}
 }
+
+/*
+** @brief Prints the history in the log
+*/
 
 void sh_history_print_in_log(void)
 {
@@ -48,6 +56,11 @@ void sh_history_print_in_log(void)
 	log_dbg3("**************************************");
 }
 
+/*
+** @brief Clears the line
+** @param nb_of_car number of chars to clear (TODO)
+*/
+
 void	sh_history_clear_line(unsigned int nb_of_car)
 {
 	unsigned int		nb_of_ligne;
@@ -67,6 +80,13 @@ void	sh_history_clear_line(unsigned int nb_of_car)
 		nb_of_ligne--;
 	}
 }
+
+/*
+** @brief TODO
+** @param buff TODO
+** @param result TODO
+** @param fail TODO
+*/
 
 void	sh_history_clear_len(char *buff, char *result, BOOL fail)
 {
