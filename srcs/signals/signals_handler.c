@@ -33,6 +33,8 @@ void	signals_sigwinch(void)
 	//TODO REFACTOR
 	t_input	*input;
 
+	if (!isatty(STDOUT_FILENO))
+		return ;
 	// TODO need current input
 	input = input_get_cur();
 	pos = pos_in_str(input);

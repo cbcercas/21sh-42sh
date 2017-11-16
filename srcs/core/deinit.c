@@ -52,6 +52,8 @@ int			sh_restore_tattr(struct termios *tattr)
 {
 	struct termios term;
 
+	if (!tattr)
+		return (1);
 	term = *tattr;
 	ft_memdel((void **)&tattr);
 	tattr = NULL;

@@ -61,6 +61,7 @@ int		exec_exec(t_sh_data *data, t_btree *ast)
 
 	if (!ast)
 		return (-1);
+	*is_in_pipe() = false;
 	fds[STDIN_FILENO] = NULL;
 	fds[STDOUT_FILENO] = NULL;
 	fds[STDERR_FILENO] = NULL;

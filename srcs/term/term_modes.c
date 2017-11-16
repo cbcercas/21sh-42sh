@@ -55,6 +55,11 @@ void				sh_store_tattr(t_sh_data *data)
 	struct termios	save_tattr;
 
 	ttydevice = STDOUT_FILENO;
+	if (!isatty(STDOUT_FILENO))
+	{
+		data->tattr = NULL;
+		return ;
+	}
 	if (tcgetattr(ttydevice, &save_tattr) != 0)
 	{
 		ft_printf("%s: tcgetattr error when trying", PROGNAME);

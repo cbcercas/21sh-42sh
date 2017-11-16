@@ -50,7 +50,7 @@ void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 			sh_usage_help_exit();
 		else if (opt == 't')
 			sh_testing(g_optarg, av, environ);
-		else if (opt == 'l')
+		else if (opt == 'l' || !isatty(STDOUT_FILENO))
 			opts->tcaps = false;
 		else if (opt == 'c')
 			sh_testing_exec(av, environ);

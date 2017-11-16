@@ -23,6 +23,8 @@ void    init_signals(void *handler)
 	while (i++ < 32)
 		if(i != 17 && signal(i, handler) == SIG_ERR)
 			log_warn("Signal:%d no catch", i);
+	if (!isatty(STDOUT_FILENO))
+		signal(SIGINT, SIG_DFL);
 	log_info("Signal: Init success");
 }
 

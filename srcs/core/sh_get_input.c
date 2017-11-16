@@ -78,7 +78,7 @@ char			*sh_get_input(t_sh_data *data, char *prompt, t_return ret)
 {
 	t_input *input;
 
-	if (!isatty(STDIN_FILENO))
+	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
 		return (sh_get_input_no_tty());
 	else
 	{
