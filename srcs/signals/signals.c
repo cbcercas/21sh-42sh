@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <signals/signals.h>
+#include <wait.h>
 
 void    init_signals(void *handler)
 {
@@ -42,11 +43,12 @@ int sh_wait(pid_t pid, int wait_flag)
 					  sh_history_get_at(-1));
 		return (status);
 	}
-	remove_pid_child(pid);
+	if (wait_flag != WUNTRACED)
+		remove_pid_child(pid);
 	return (status);
 }
 
-BOOL	*get_stop(void)
+BOOL	*is_in_pipe(void)
 {
 	static BOOL		stop = true;
 	return (&stop);

@@ -21,6 +21,8 @@ void		mini_input(char *end, int pipe_fd)
 		ft_dprintf(2, "%s: exec parser error \\n\n", PROGNAME);
 		return ;
 	}
+	if (*is_in_pipe())
+		ft_putstr("pipe ");
 	ft_putstr("heredoc>");
 	log_info("EXEC: HEREDOC word end = (%s)", end);
 	while (get_next_line(0, &line))

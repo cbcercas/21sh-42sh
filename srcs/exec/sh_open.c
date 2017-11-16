@@ -25,7 +25,7 @@ static int		here_find_fd(t_cmd *item)
 {
 	int		fd;
 
-	fd = atoi(item->av[0]);
+	fd = ft_atoi(item->av[0]);
 	if (ft_isdigit(item->av[0][0]))
 	{
 		if (fd <= STDERR_FILENO && fd >= 0)

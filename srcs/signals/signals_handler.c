@@ -69,8 +69,8 @@ void    signals_handler(int sig)
 		sh_exit(NULL, NULL);
 	if (sig == SIGUSR2)
 	{
-		*get_stop() = false;
-		log_dbg3("SIGNAL SIGUSR1 g_stop = %d", *get_stop());
+		*is_in_pipe() = false;
+		log_dbg3("SIGNAL SIGUSR1 g_stop = %d", *is_in_pipe());
 		return ;
 	}
 	if (sig == 13)
