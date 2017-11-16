@@ -30,7 +30,7 @@ SRCS			+= builtin_chdir.c builtin_chdir_expand.c builtin_echo.c\
 					builtin_environ_env_u.c builtin_exit.c builtin_help_2.c\
 					builtin_help.c builtin_history_acdws.c builtin_history.c\
 					builtin_history_npr.c builtin_history_print.c\
-					builtin_local_var.c builtin_pwd.c builtins_utils2.c\
+					builtin_local_var.c builtin_pwd.c builtin_utils2.c\
 					builtin_utils.c builtin_help_3.c
 
 
