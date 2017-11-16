@@ -12,15 +12,15 @@
 
 #include <secure_memory/secure_memory.h>
 
-/**
- * @brief Increases the cap of a t_string securely
- *
- * @param string The t_string to increase
- * @param cap The cap TODO
- * @param lvl TODO
- *
- * @return Returns the t_string with its cap increased
- */
+/*
+** @brief Increases the cap of a t_string securely
+**
+** @param string The t_string to increase
+** @param cap The cap TODO
+** @param lvl TODO
+**
+** @return Returns the t_string with its cap increased
+*/
 
 t_string	*string_growth_cap_secu(t_string *string, size_t cap, size_t lvl)
 {
@@ -39,14 +39,14 @@ t_string	*string_growth_cap_secu(t_string *string, size_t cap, size_t lvl)
 	return (string);
 }
 
-/**
- * @brief Increases the cap of a t_string securely
- *
- * @param string The t_string to increase
- * @param lvl TODO
- *
- * @return Returns the t_string with its cap increased
- */
+/*
+** @brief Increases the cap of a t_string securely
+**
+** @param string The t_string to increase
+** @param lvl TODO
+**
+** @return Returns the t_string with its cap increased
+*/
 
 t_string	*string_growth_secu(t_string *string, size_t lvl)
 {

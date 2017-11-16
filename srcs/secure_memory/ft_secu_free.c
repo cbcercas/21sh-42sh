@@ -12,12 +12,12 @@
 
 #include <secure_memory/secure_memory.h>
 
-/**
- * @brief Searches into memory for a pointer (TODO)
- * @param ptr TOOD
- * @param mem TODO
- * @return TODO
- */
+/*
+** @brief Searches into memory for a pointer (TODO)
+** @param ptr TOOD
+** @param mem TODO
+** @return TODO
+*/
 
 static t_secu_malloc	*ft_malloc_search(void *ptr, t_mem *mem)
 {
@@ -29,11 +29,11 @@ static t_secu_malloc	*ft_malloc_search(void *ptr, t_mem *mem)
 	return (tmp);
 }
 
-/**
- * @brief Frees securely the variable passed
- *
- * @param ptr The pointer to the variable you want to free
- */
+/*
+** @brief Frees securely the variable passed
+**
+** @param ptr The pointer to the variable you want to free
+*/
 
 void					ft_secu_free(void *ptr)
 {
@@ -56,9 +56,9 @@ void					ft_secu_free(void *ptr)
 	free(secu_malloc);
 }
 
-/**
- * @brief Frees all it can find in memory
- */
+/*
+** @brief Frees all it can find in memory
+*/
 
 void	ft_secu_free_all(void)
 {
@@ -79,10 +79,10 @@ void	ft_secu_free_all(void)
 	free(mem);
 }
 
-/**
- * @brief TODO
- * @param lvl TODO
- */
+/*
+** @brief TODO
+** @param lvl TODO
+*/
 
 void	ft_secu_free_lvl(size_t lvl)
 {

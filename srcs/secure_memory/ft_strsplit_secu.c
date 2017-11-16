@@ -12,14 +12,14 @@
 
 #include <secure_memory/secure_memory.h>
 
-/**
- * @brief Securely splits a `char *` every char `c`
- * @param s String to be splitted
- * @param c Char indicating where to split
- * @param lvl TODO
- * @return Returns a `char **` which contains the string `s` split every char
- * `c`
- */
+/*
+** @brief Securely splits a `char *` every char `c`
+** @param s String to be splitted
+** @param c Char indicating where to split
+** @param lvl TODO
+** @return Returns a `char **` which contains the string `s` split every char
+** `c`
+*/
 
 char		**ft_strsplit_secu(char const *s, char c, size_t lvl)
 {

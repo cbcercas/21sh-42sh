@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 #include <secure_memory/secure_memory.h>
 
-/**
- * @brief Securely creates a new string of size `size`
- *
- * @param size Size of new string
- * @param lvl TODO
- *
- * @return Returns a newly created string of size `size` filled up with \0
- */
+/*
+** @brief Securely creates a new string of size `size`
+**
+** @param size Size of new string
+** @param lvl TODO
+**
+** @return Returns a newly created string of size `size` filled up with \0
+*/
 
 char	*ft_strnew_secu(size_t size, size_t lvl)
 {

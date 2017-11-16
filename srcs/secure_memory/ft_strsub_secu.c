@@ -12,15 +12,15 @@
 
 #include <secure_memory/secure_memory.h>
 
-/**
- * @brief Substitutes securely the string `s` from `start` until `len` is
- * reached
- * @param s String to sub
- * @param start Where to start
- * @param len Lenght to subtitute
- * @param lvl TODO
- * @return Returns the substituted string
- */
+/*
+** @brief Substitutes securely the string `s` from `start` until `len` is
+** reached
+** @param s String to sub
+** @param start Where to start
+** @param len Lenght to subtitute
+** @param lvl TODO
+** @return Returns the substituted string
+*/
 
 char		*ft_strsub_secu(char const *s, unsigned int start, size_t len, size_t lvl)
 {

@@ -12,11 +12,11 @@
 
 #include <secure_memory/secure_memory.h>
 
-/**
- * @brief TODO
- * @param secu_malloc TODO
- * @param mem TODO
- */
+/*
+** @brief TODO
+** @param secu_malloc TODO
+** @param mem TODO
+*/
 
 static void		ft_s_malloc_mouv(t_secu_malloc *secu_malloc, t_mem *mem)
 {
@@ -35,14 +35,14 @@ static void		ft_s_malloc_mouv(t_secu_malloc *secu_malloc, t_mem *mem)
 	}
 }
 
-/**
- * @brief Securely mallocs with a level ?TODO
- *
- * @param size Size to be malloced
- * @param lvl TODO
- *
- * @return Returns a pointer to the malloced area in memory
- */
+/*
+** @brief Securely mallocs with a level ?TODO
+**
+** @param size Size to be malloced
+** @param lvl TODO
+**
+** @return Returns a pointer to the malloced area in memory
+*/
 
 void			*ft_secu_malloc_lvl(size_t size, size_t lvl)
 {
@@ -65,21 +65,21 @@ void			*ft_secu_malloc_lvl(size_t size, size_t lvl)
 	return (ptr);
 }
 
-/**
- * @brief Securely allocates memoy
- * @param size Size of malloc
- * @return Pointer to the area of memory which has been allocated
- */
+/*
+** @brief Securely allocates memoy
+** @param size Size of malloc
+** @return Pointer to the area of memory which has been allocated
+*/
 
 void	*secu_malloc(size_t size)
 {
 	return (ft_secu_malloc_lvl(size, MALLOC_LVL_DEFAULT));
 }
 
-/**
- * @brief TODO
- * @return TODO
- */
+/*
+** @brief TODO
+** @return TODO
+*/
 
 t_mem	*get_mem(void)
 {

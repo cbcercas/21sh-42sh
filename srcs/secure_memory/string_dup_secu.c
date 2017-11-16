@@ -12,14 +12,14 @@
 
 #include <secure_memory/secure_memory.h>
 
-/**
- * @brief Securely duplicates a t_string
- *
- * @param str t_string to duplicate
- * @param lvl TODO
- *
- * @return Returns the duplicated t_string
- */
+/*
+** @brief Securely duplicates a t_string
+**
+** @param str t_string to duplicate
+** @param lvl TODO
+**
+** @return Returns the duplicated t_string
+*/
 
 t_string	*string_dup_secu(const char *str, size_t lvl)
 {
@@ -28,15 +28,15 @@ t_string	*string_dup_secu(const char *str, size_t lvl)
 	return (string_ndup_secu(str, ft_strlen(str), lvl));
 }
 
-/**
- * @brief Duplicated a t_string until index `n` is reached
- *
- * @param str t_string to be duplicated
- * @param n Index to where to stop
- * @param lvl TODO
- *
- * @return Returns the duplicated t_string
- */
+/*
+** @brief Duplicated a t_string until index `n` is reached
+**
+** @param str t_string to be duplicated
+** @param n Index to where to stop
+** @param lvl TODO
+**
+** @return Returns the duplicated t_string
+*/
 
 t_string	*string_ndup_secu(const char *str, size_t n, size_t lvl)
 {
