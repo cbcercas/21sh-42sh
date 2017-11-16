@@ -13,16 +13,6 @@
 #include <history/history.h>
 
 /*
-char	*history_research_delete(char *line)
-{
-	//clean_term();
-	if (line && ft_strlen(line))
-		line[ft_strlen(line) - 1] = 0;
-	return (line);
-}
-*/
-
-/*
 ** @brief Prints the search/fail messages
 **
 ** @param buff Buffer containing the cmd entered by the user
@@ -32,15 +22,20 @@ char	*history_research_delete(char *line)
 ** @param fail Is the research failing (true/false)
 */
 
-void		history_research_prompt(char *buff, char *result, BOOL fail)
+void		history_research_prompt(char *buff, t_input *result, BOOL fail)
 {
+	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
 	if (fail)
 		ft_putstr("failing ");
 	ft_putstr("bck-i-search:");
 	if (buff)
 		ft_putstr(buff);
 	ft_putstr("_");
-	ft_printf("  $>%s", result);
+	ft_printf("  $>%s");
+	if (result)
+		redraw_input(result);
+
 }
 
 /*
@@ -53,13 +48,14 @@ void		history_research_prompt(char *buff, char *result, BOOL fail)
 ** @return Returns true if found. False otherwise
 */
 
-BOOL	history_research_search(const char *line, char **result)
+BOOL	history_research_search(const char *line, t_input **result)
 {
 	t_array	*hists;
 	t_hist	*h;
 	t_hist	*first;
 
-		ft_strdel(result);
+		input_destroy(result);
+		*result = NULL;
 		if (!line || !ft_strlen(line))
 			return (true);
 		hists = sh_history_get();
@@ -74,7 +70,7 @@ BOOL	history_research_search(const char *line, char **result)
 							 	!ft_strnequ(line, h->cmd, ft_strlen(line)))
 				first->cur--;
 			if (ft_strnequ(line, h->cmd, ft_strlen(line)))
-				*result = ft_strdup(h->cmd);
+				*result = input_from_history((char *)h->cmd);
 			else
 				return (true);
 		}
@@ -90,9 +86,9 @@ BOOL	history_research_search(const char *line, char **result)
 
 static char *apply_buff(char *buff, char *line)
 {
-	/*if (buff[0] == 127 && line)
-		line = history_research_delete(line);
-	else*/ if (is_str_car(buff))
+	if (buff[0] == 127 && line && ft_strlen(line))
+		line[ft_strlen(line) - 1] = 0;
+	else if (is_str_car(buff))
 	{
 		if (line)
 			line = ft_strjoincl(line, buff, 1);
@@ -112,18 +108,17 @@ void	history_research(t_input *input)
 	char		buff[MAX_KEY_STRING_LEN];
 	BOOL		fail;
 	char		*line;
-	char		*result;
+	t_input		*result;
 
 	history_research_start(&line, &result, &fail);
 	ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
-	while (read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN) &&\
-	 					ft_strcmp(buff, "\n") && is_str_car(buff))
+	while (read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN) &&
+			ft_strcmp(buff, "\n") && (is_str_car(buff) || buff[0] == 127))
 	{
 		line = apply_buff(buff, line);
-		sh_history_clear_len(line, result, fail);
 		fail = history_research_search((const char *)line, &result);
 		history_research_prompt(line, result, fail);
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
 	}
-	history_research_exit(result, line, fail, input);
+	history_research_exit(result, line, input);
 }

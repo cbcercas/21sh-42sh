@@ -95,7 +95,6 @@ int		get_history_init_choice(int choice);
 
 void 						sh_history_print(void);
 void 						sh_history_print_in_log(void);
-void					sh_history_clear_line(unsigned int nb_of_car);
 
 /*
 ** @file history_getter.c
@@ -116,7 +115,8 @@ const char					*sh_history_get_at(ssize_t nb);
 */
 
 
-void					history_research_prompt(char *buff, char *result, BOOL fail);
+void					history_research_prompt(char *buff, t_input *result,
+												BOOL fail);
 void					history_research(t_input *input);
 
 /*
@@ -126,8 +126,9 @@ void					history_research(t_input *input);
 */
 
 
-void					history_research_exit(char *result, char *line, BOOL fail, t_input *input);
-void					history_research_start(char **line, char **result, BOOL *fail);
+void history_research_exit(t_input *result, char *line, t_input *input);
+void					history_research_start(char **line, t_input **result,
+											   BOOL *fail);
 
 /*
 ** @file history_list_utils.c
@@ -137,7 +138,6 @@ void					history_research_start(char **line, char **result, BOOL *fail);
 
 
 t_hist					*sh_history_new(char *cmd);
-void 						sh_history_del(void *h);
 void 						sh_history_insert_buf(char *str);
 void 					sh_history_destroy(void);
 void					sh_history_var_session_reset(void);

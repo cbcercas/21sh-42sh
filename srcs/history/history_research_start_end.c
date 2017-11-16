@@ -20,25 +20,25 @@
 ** @param input TODO
 */
 
-void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
+void history_research_exit(t_input *result, char *line, t_input *input)
 {
-	unsigned int len;
-	//TODO REFACTOR
-
-	len = (fail == true ? 32 : 18);
-	sh_history_clear_line(len + ft_strlen(line) + ft_strlen(result));
 	if (line)
 		ft_strdel(&line);
-	reset_input(input);
-	sh_print_prompt(input, NULL, 0);
+	default_terminal_mode();
+	if (!result)
+		ft_putendl("");
+	raw_terminal_mode();
+	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	if(result)
 	{
-		string_replace(input->str, result);
-		ft_strdel(&result);
+		input = input_back_to_writable(input);
+		input_to_save(&input, result);
+		input = result;
+		input = input_draw(input);
+		input = input_back_to_writable(input);
+		input_goto_line_end(input);
+		get_windows(0)->cur = input;
 	}
-	redraw_line(input);
-	while (pos_in_str(input) < input->str->len)
-		exec_arrow_right(NULL, input);
 }
 
 /*
@@ -48,11 +48,10 @@ void	history_research_exit(char *result, char *line, BOOL fail, t_input *input)
 ** @param fail TODO
 */
 
-void	history_research_start(char **line, char **result, BOOL *fail)
+void	history_research_start(char **line, t_input **result, BOOL *fail)
 {
 	*line = NULL;
 	*result = NULL;
 	*fail = false;
-	sh_history_clear_len(*line, *result, *fail);
-	history_research_prompt(*line, "" ,*fail);
+	history_research_prompt(*line, *result ,*fail);
 }
