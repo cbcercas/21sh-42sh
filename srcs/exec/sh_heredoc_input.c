@@ -31,6 +31,8 @@ void		mini_input(char *end, int pipe_fd)
 			break ;
 		ft_putendl_fd(line, pipe_fd);
 		ft_strdel(&line);
+		if (*is_in_pipe())
+			ft_putstr("pipe ");
 		ft_putstr("heredoc>");
 	}
 	ft_strdel(&line);
