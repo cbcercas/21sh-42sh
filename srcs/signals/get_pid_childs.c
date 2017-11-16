@@ -12,6 +12,12 @@
 
 #include <signals/signals.h>
 
+/*
+** @brief TODO
+** @param pid_op TODO
+** @return Returns the child's pid
+*/
+
 pid_t get_pid_child(pid_t pid_op)
 {
 	static	pid_t		pid = 0;
@@ -21,6 +27,11 @@ pid_t get_pid_child(pid_t pid_op)
 	return (pid);
 }
 
+/*
+** @brief Gets the pid t_array
+**
+** @return Returns the t_array containing the pids
+*/
 
 t_array		*get_pids_child(void)
 {
@@ -40,6 +51,15 @@ t_array		*get_pids_child(void)
 	return (e);
 }
 
+/*
+** @brief Kills all the child processes
+**
+** @param sig TODO
+**
+** @return Returns `EXIT_SUCCESS` if they are killed and `EXIT_FAILURE` if no
+** childs to kill
+*/
+
 int		kill_childs(int sig)
 {
 	t_array		*e;
@@ -56,6 +76,12 @@ int		kill_childs(int sig)
 	}
 	return (EXIT_SUCCESS);
 }
+
+/*
+** @brief TODO
+**
+** @param pid_child Child's pid
+*/
 
 void	remove_pid_child(int pid_child)
 {
@@ -78,6 +104,10 @@ void	remove_pid_child(int pid_child)
 		array_remove_at(e, i, NULL);
 	}
 }
+
+/*
+** @brief Kills all the useless pids (?TODO)
+*/
 
 void	remove_useless(void)
 {

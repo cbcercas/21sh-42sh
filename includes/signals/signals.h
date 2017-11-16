@@ -26,6 +26,23 @@
 
 typedef enum e_pid_type		t_pid_type;
 
+
+/*
+** @file   signals.h
+**
+** @brief  Function prototypes for the signal handler
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @enum e_pid_type
+**
+** @brief TODO
+*/
+
 enum	e_pid_type
 {
 	E_PID_NONE = 100,
@@ -36,25 +53,50 @@ enum	e_pid_type
 	E_PID_REDIR = 105
 };
 
+/*
+** @struct s_pids
+**
+** @brief TODO
+*/
+
 typedef struct		s_pids
 {
 	t_pid_type		type;
 	pid_t			pid;
 }					t_pids;
 
+/*
+** @file signals.c
+**
+** @brief Functions to initialize the signals
+*/
+
 void    init_signals(void *handler);
-void    signals_handler(int sig);
 int sh_wait(pid_t pid, int wait_flag);
+BOOL	*is_in_pipe(void);
+
+/*
+** @file signals_handler.c
+**
+** @brief Functions to handle the signals
+*/
+
+void    signals_handler(int sig);
 void	signals_sigwinch();
+
+/*
+** @file get_pid_childs.c
+**
+** @brief Functions to handle the pids and the child processes
+*/
 
 pid_t get_pid_child(pid_t pid_op);
 t_array		*get_pids_child(void);
 int		kill_childs(int sig);
 void	remove_pid_child(int pid_child);
-void	send_kill_except(int sig, t_pid_type except);
 void	remove_useless(void);
 
-BOOL	exist_pid_type(t_pid_type type);
-BOOL	*is_in_pipe(void);
+//void	send_kill_except(int sig, t_pid_type except);
+//BOOL	exist_pid_type(t_pid_type type);
 
 #endif

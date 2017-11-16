@@ -98,7 +98,7 @@ void	ft_strdblfree(char **strdb);
 char	*ft_strdup_secu(char const *src, size_t lvl);
 
 /*
-** @file ft_strjoincl_secu
+** @file ft_strjoincl_secu.c
 **
 ** @brief Functions used to join two strings together (TODO)
 */
