@@ -14,7 +14,9 @@
 
 BOOL        is_printstr(char const *line)
 {
+    if (!line)
+		return (false);
     while (line && (ft_isprint(*line) || *line == '\n' || *line == '\t'))
         line++;
-    return (*line != '\0') ? false :true; //TODO if line == NULL -> segfault
+    return (*line != '\0') ? false :true;
 }

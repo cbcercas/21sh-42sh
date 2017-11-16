@@ -111,7 +111,7 @@ BOOL	exec_alt_v(const t_key *key, t_input *input)
 	if (get_select()->is || !input || !input->str || !get_select()->str)
 		return (false);
 	save = get_select()->str;
-	if (!alt_v_check_limit(save)) //TODO a checker sur les mac les limit d'input avec alt-v
+	if (!alt_v_check_limit(save))
 		return (false);
 	if (ft_strchr(get_select()->str, '\\'))
 	{

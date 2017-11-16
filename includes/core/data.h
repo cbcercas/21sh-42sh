@@ -41,7 +41,6 @@ struct						s_sh_opt
 	unsigned		verbose:1;
 	unsigned		dbg:1;
 	enum e_d_lvl	dbg_lvl;
-	//TODO remove tcaps;
 	BOOL			tcaps;
 };
 
@@ -57,7 +56,6 @@ struct						s_sh_data
 {
 	t_sh_opt			opts;
 	char				*cwd;
-	struct s_builtin_e	*builtins;
 	struct termios		*tattr;
 
 };

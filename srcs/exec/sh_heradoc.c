@@ -73,7 +73,7 @@ int				sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	close(pipe[START]);
 	if (!sh_fork(E_PID_HERE))
 	{
-		(fds[PIPE_IN] ? ft_lstdel(&fds[PIPE_IN], &exec_list_nothing) : 0); //TODO si ft_lstdel est secure on peut remove le ternaire :D
+		(fds[PIPE_IN] ? ft_lstdel(&fds[PIPE_IN], &exec_list_nothing) : 0);
 		exec_list_push(&fds[PIPE_IN], pipe[END]);
 		sh_process_exec(data, ast->left, fds);
 		exit(EXIT_FAILURE);

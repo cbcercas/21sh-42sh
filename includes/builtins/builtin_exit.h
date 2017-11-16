@@ -36,7 +36,7 @@
 */
 
 void sh_exit(t_sh_data *data, char **arg);
-void builtin_exit(t_sh_data *data, char **arg);
+int builtin_exit(t_sh_data *data, char **arg);
 
 /*
 **builtin_exit() calls sh_exit. This is just for code understanding

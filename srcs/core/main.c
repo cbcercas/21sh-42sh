@@ -99,6 +99,8 @@ int				main(int ac, char *const *av, char **environ)
 	while (!stop)
 		stop = sh_loop(data, &exec_dat, &ret);
 	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);
+	if (ret >= E_RET_LEXER_ERROR && ret <= E_RET_LEXER_PIPE)
+		ft_dprintf(STDERR_FILENO, "%s: incomplete command\n", PROGNAME);
 	sh_exit(&data, NULL);
 	return (0);
 }

@@ -91,6 +91,8 @@ t_array		*sh_builtins_init(void)
 		return (NULL);
 	if (!sh_add_builtin("cd", sh_chdir))
 		return (NULL);
+	if (!sh_add_builtin("chdir", sh_chdir))
+		return (NULL);
 	if (!sh_add_builtin("pwd", sh_builtin_pwd))
 		return (NULL);
 	if (!sh_add_builtin("help", sh_builtin_help))
@@ -109,15 +111,3 @@ t_array		*sh_builtins_init(void)
 		return (NULL);
 	return (builtins);
 }
-
-/*TODO?
-**if (!ms_add_builtin("exit", sh_exit))
-**return (NULL);
-*/
-
-/*TODO?
-**if (!ms_add_builtin("cd", sh_chdir))
-**return (NULL);
-**if (!ms_add_builtin("chdir", sh_chdir))
-**return (NULL);
-*/

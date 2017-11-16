@@ -29,7 +29,6 @@ BOOL	exec_backspace(const t_key *key, t_input *input)
 		exec_delete(key, input->prev);
 	}
 	else
-		write(1, "\a", 1);
-	//TODO change to termcaps
+		tcaps_bell();
 	return (false);
 }

@@ -15,9 +15,6 @@
 
 # include "data.h"
 
-# define NOTATTY 1 //TODO: Used ?
-
-
 /*
 ** @file   init.h
 **

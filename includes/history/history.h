@@ -145,7 +145,7 @@ void					sh_history_var_session_reset(void);
 //void					history_mess_quit(int sig);
 
 
-//BOOL       		sh_history_is_print(char const *line);\
+//BOOL       		sh_history_is_print(char const *line);
 
 /*
 ** @file history_input_utils.c

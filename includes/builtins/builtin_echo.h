@@ -36,7 +36,5 @@
 
 int	sh_echo(t_sh_data *data, char **arg);
 
-//TODO move this to .c file
-extern int g_optind;
 
 #endif

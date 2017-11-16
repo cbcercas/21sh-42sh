@@ -40,7 +40,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 			exit(0);
 		}
 		else
-			*get_cmd_ret() = sh_ret(sh_wait(0, 0));
+			*get_cmd_ret() = sh_return_cmd(sh_wait(0, 0));
 	}
 	signal(SIGWINCH, signals_handler);
 	ft_strdel(&cmd);

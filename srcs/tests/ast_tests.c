@@ -65,7 +65,7 @@ void sh_testing_ast(char *const *av, char **environ)
 	t_array		tokens;
 	char *input;
 
-	input = ft_strclean(av[3]);//TODO à faire pour le main ;)
+	input = av[3];
 	ast = NULL;
 	init_environ(environ);
 	sh_history_init(sh_history_get());
@@ -80,7 +80,6 @@ void sh_testing_ast(char *const *av, char **environ)
 	else if (ft_strequ(av[4], "line"))
 		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
 	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
-	free(input);
 	array_reset(&expands, NULL);
 	exit (0);
 }

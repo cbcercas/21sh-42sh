@@ -12,6 +12,7 @@
 
 #include <builtins/builtin_chdir.h>
 
+extern int g_optind;
 /*
 ** @brief Tests the path, to check if the user has the permission to cd in it.
 **

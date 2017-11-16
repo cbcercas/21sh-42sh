@@ -12,8 +12,7 @@
 
 #include <tools/tools.h>
 
-//TODO Rename this
-int sh_ret(int status)
+int sh_return_cmd(int status)
 {
     if(WIFEXITED(status))
         return(WEXITSTATUS(status));

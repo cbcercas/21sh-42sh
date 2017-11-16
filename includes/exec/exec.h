@@ -166,6 +166,6 @@ int		sh_open_exec(t_btree *ast);
 ** @brief  Functions to handle ret values
 */
 
-int		sh_ret(int status);
+int		sh_return_cmd(int status);
 
 #endif

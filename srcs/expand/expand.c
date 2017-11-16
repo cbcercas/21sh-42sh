@@ -24,7 +24,7 @@ t_exp *expand_exp(t_exp *exp)
 {
   if (exp->type == E_TOKEN_WORD || exp->type == E_TOKEN_DQUOTE)
   {
-    expand_dol(exp->str);
+	  expand_dol(exp->str);
     if (expand_hist(exp) == NULL)
     {
       ft_printf("event not found\n");

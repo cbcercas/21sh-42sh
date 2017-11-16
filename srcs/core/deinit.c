@@ -19,27 +19,6 @@
 #include <libft.h>
 
 /*
-** @brief      Frees the data stored
-**             in t_sh_data *data
-**
-** @param[in]  data  The struct containing the data to be freed
-**
-** @return     void
-*/
-
-void		sh_data_free(t_sh_data *data)
-{
-	(void)data;
-	return ;
-}
-
-/*
-** sh_data_free
-**TODO: Free local and apps environment variables.
-**TODO: Free correctly data.
-*/
-
-/*
 ** @brief      Restores the terminal attributes
 **             once the program is ended
 **
@@ -53,22 +32,22 @@ int			sh_restore_tattr(struct termios *tattr)
 	struct termios term;
 
 	if (!tattr)
+	{
+		log_warn("No terminal attributes");
 		return (1);
+	}
 	term = *tattr;
 	ft_memdel((void **)&tattr);
 	tattr = NULL;
 	if (isatty(0) && tcsetattr(STDIN_FILENO, TCSAFLUSH, &term) < 0)
 	{
-		ft_printf("%s: STDIO error while", PROGNAME);
-		ft_printf(" restoring terminal attributes\n");
+		ft_dprintf(2, "%s: STDIN error while", PROGNAME);
+		ft_dprintf(2, " restoring terminal attributes\n");
+		log_warn("error while restoring terminal attributes");
 		return (1);
 	}
 	return (0);
 }
-
-/*
-** TODO: Do something with the return values + logger
-*/
 
 /*
 ** @brief      Uninitialize the program before exiting
@@ -81,5 +60,5 @@ int			sh_restore_tattr(struct termios *tattr)
 void		sh_deinit(t_sh_data *data)
 {
 	sh_restore_tattr(data->tattr);
-	sh_data_free(data);
+	ft_bzero(data, sizeof(data));
 }

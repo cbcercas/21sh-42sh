@@ -62,5 +62,7 @@ void	sh_help_unsetenv(void);
 int		sh_builtin_help_helper(char **args);
 void	sh_help_history(void);
 void	sh_help_history_helper(void);
+void	sh_help_pwd(void);
+
 
 #endif

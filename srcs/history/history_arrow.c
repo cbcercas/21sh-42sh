@@ -13,47 +13,6 @@
 #include <history/history.h>
 
 /*
-** @brief Executes a right move when a user presses the right arrow when
-** using the history module
-** @param input The current input
-** @return Returns false
-*/
-
-BOOL	history_exec_arrow_right(t_input *input)
-{
-	//TODO REFACTOR
-	(void)input;
-	if (((size_t)(input->cpos.cp_col + (input->cpos.cp_line  * input->ts->ws_col) - input->offset_col)) < input->str->len)
-		move_cursor_right(&input->cpos, input->ts);
-	else
-		write(1, "\a", 1);
-	return (false);
-}
-
-/*
-** @brief TODO
-** @param input TODO
-** @param line TODO
-*/
-
-void	sh_history_draw_line(t_input *input, const char *line)
-{
-	unsigned int len;
-	//TODO REFACTOR
-
-	log_dbg3("History: draw=\"%s\" ", line);
-	sh_history_clear_line((unsigned int)(input->prompt_len + input->str->len));
-	//reset_input(input);
-	sh_print_prompt(input, NULL, 0);
-	if(line)
-		string_replace(input->str, line);
-	len = input->str->len;
-	redraw_line(input);
-	while(len--)
-		history_exec_arrow_right(input);
-}
-
-/*
 ** @brief Called when a user presses up. Will parse the input and find
 ** similar commands
 **

@@ -30,26 +30,17 @@ void	signals_quit(int sig)
 void	signals_sigwinch(void)
 {
 	size_t 	pos;
-	//TODO REFACTOR
 	t_input	*input;
 
 	if (!isatty(STDOUT_FILENO))
 		return ;
-	// TODO need current input
 	input = input_get_cur();
 	pos = pos_in_str(input);
-
-	// reset term size
 	get_windows(1);
 	get_select()->is = false;
 	reset_select_pos();
-	//goto debut ligne
 	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
-	//TODO check when offset prompt
-	//input->cpos.cp_line = 0;
-	//input->cpos.cp_col = input->offset_col;
-	//input->select->is = false;
 	redraw_line(input);
 	//TODO refactor using tgoto
 	while (pos != pos_in_str(input))
@@ -62,7 +53,6 @@ void    signals_handler(int sig)
 	{
 		log_info("Signal: User pressed Ctrl+C.");
 		ft_putstr("\n");
-		//sh_print_prompt();
 		return;
 	}
 	if(sig == SIGWINCH)
