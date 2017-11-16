@@ -40,15 +40,14 @@ void	signals_quit(int sig)
 
 void	signals_sigwinch(void)
 {
-	t_cpos 	pos;
+	size_t 	pos;
 	t_input	*input;
 	t_input	*tmp;
 
 	if (!isatty(STDOUT_FILENO))
 		return ;
 	input = input_get_cur();
-	pos.cp_col = input->cpos.cp_col;
-	pos.cp_line = 0;
+	pos = pos_in_str(input);
 	tmp = input;
 	input = input_back_to_writable(input);
 	get_windows(1);
@@ -60,9 +59,9 @@ void	signals_sigwinch(void)
 	redraw_input(input);
 	//TODO refactor using tgoto
 	input = goto_input(input, tmp);
-	move_cursor_to(&pos, &input->cpos, get_ts());
+	while (pos != pos_in_str(input) && pos_in_str(input) < input->str->len)
+		move_cursor_right(&input->cpos, get_ts());
 	get_windows(0)->cur = input;
-
 }
 
 /*
