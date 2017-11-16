@@ -34,6 +34,7 @@ void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 	int opt;
 
 	opts->tcaps = true;
+	ft_getopt_reset();
 	while ((opt = ft_getopt(ac, av, "chvd:t:l")) >= 0)
 	{
 		if (opt == 'v')
@@ -50,9 +51,9 @@ void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 			sh_usage_help_exit();
 		else if (opt == 't')
 			sh_testing(g_optarg, av, environ);
-		else if (opt == 'l' || !isatty(STDOUT_FILENO))
-			opts->tcaps = false;
 		else if (opt == 'c')
 			sh_testing_exec(av, environ);
+		else if (opt == 'l' || !isatty(STDOUT_FILENO))
+			opts->tcaps = false;
 	}
 }
