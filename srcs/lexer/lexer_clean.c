@@ -12,6 +12,11 @@
 
 #include <lexer/lexer.h>
 
+/*
+** @brief Cleans the tokens from the t_array `tokens`
+** @param tokens The t_array to be cleaned
+*/
+
 void	lexer_clean_tokens(t_array *tokens)
 {
 	size_t	cnt;

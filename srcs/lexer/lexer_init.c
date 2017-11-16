@@ -12,6 +12,14 @@
 
 #include <lexer/lexer.h>
 
+/*
+** @brief Initializes the token t_array
+**
+** @param tokens The t_array to be initialized
+**
+** @return Returns an initialized t_array
+*/
+
 t_array	*lexer_init(t_array *tokens)
 {
 	tokens = array_init(tokens, sizeof(t_token));
