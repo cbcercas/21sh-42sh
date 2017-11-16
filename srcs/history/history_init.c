@@ -105,6 +105,8 @@ t_array *sh_history_init(t_array *hists)
 	if (fd == -1)
 		return (NULL);
 	log_dbg3("HISTORY init: choice = %d", get_history_init_choice(-1));
+	if (get_history_init_choice(-1) >= 3)
+		ft_putendl("Force load, Be patient ;)");
 	while (sh_history_init_one(hists, fd))
 	{
 		if (hists->used >= HISTORY_MAX)
