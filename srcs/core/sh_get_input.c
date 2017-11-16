@@ -56,7 +56,6 @@ static char		*sh_get_input_no_tty(void)
 		return (NULL);
 	if (line)
 	{
-		//TODO what append when lexing incomplet
 		input = input_get_cur_head();
 		string_insert(input->str, line, 0);
 		ft_strdel(&line);
@@ -91,6 +90,7 @@ char			*sh_get_input(t_sh_data *data, char *prompt, t_return ret)
 		else if (!(input = input_get_last(input_get_cur_head())))
 			return (NULL);
 		(get_windows(0))->cur = input;
+		input->prompt_type = ret;
 		sh_print_prompt(input, prompt, ret);
 		sh_get_line(input, &(data->opts));
 	}
