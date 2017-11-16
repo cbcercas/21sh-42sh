@@ -12,6 +12,11 @@
 
 #include <expand/expand.h>
 
+/*
+** @brief Prints the expand (unused)
+** @param array_exp The t_array containing the expand
+*/
+
 void expand_print(t_array *array_exp)
 {
   t_exp   *exp;
@@ -32,6 +37,11 @@ void expand_print(t_array *array_exp)
     i++;
   }
 }
+
+/*
+** @brief Prints the token for the expand
+** @param type Token type
+*/
 
 void       ft_expand_print_token(t_token_type type)
 {

@@ -12,6 +12,12 @@
 
 #include <expand/expand.h>
 
+/*
+** @brief Gets the env or local var value of a `name` named variable
+** @param name The name of the variable you want
+** @return Returns the value of var `name`
+*/
+
 char	*sh_getenv_exp(const char *name)
 {
 	char		*value;
@@ -23,10 +29,24 @@ char	*sh_getenv_exp(const char *name)
 	return (NULL);
 }
 
+/*
+** @brief Checks if `c` is a `$`, `?` or `0`
+**
+** @param c The char to check
+**
+** @return Returns 1 if `c` is any of the three char, else returns 0
+*/
+
 int ft_is_spec(int c)
 {
 	return (c == '$' || c == '?' || c == '0');
 }
+
+/*
+** @brief TODO
+** @param str TODO
+** @param i TODO
+*/
 
 void expand_dol_spec_replace(t_string *str, size_t *i)
 {
@@ -49,6 +69,14 @@ void expand_dol_spec_replace(t_string *str, size_t *i)
 	(fri && tmp) ? ft_strdel(&tmp) : 0;
 }
 
+/*
+** @brief Replaces in `str` from `i` for `len` size a variable
+**
+** @param str String to be changed
+** @param len For how long to change
+** @param i Where to start
+*/
+
 void expand_dol_replace(t_string *str, int len, size_t *i)
 {
 	char	car_tmp;
@@ -64,6 +92,11 @@ void expand_dol_replace(t_string *str, int len, size_t *i)
 		str->s = ft_replace_exp(str->s, "", *i, len + 1);
 	*i += ft_strlen(tmp);
 }
+
+/*
+** @brief Expands the $
+** @param str String to be expanded
+*/
 
 void expand_dol(t_string *str)
 {

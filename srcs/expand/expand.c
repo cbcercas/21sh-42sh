@@ -12,6 +12,14 @@
 
 #include <expand/expand.h>
 
+/*
+** @brief Expands a E_TOKEN_WORD/DQUOTE
+**
+** @param exp X to be expanded (TODO)
+**
+** @return Returns the expanded X
+*/
+
 t_exp *expand_exp(t_exp *exp)
 {
   if (exp->type == E_TOKEN_WORD || exp->type == E_TOKEN_DQUOTE)
@@ -25,6 +33,15 @@ t_exp *expand_exp(t_exp *exp)
   }
   return (exp);
 }
+
+/*
+** @brief Main expand function.
+**
+** @param tokens t_array contaning the tokens used by the expand to expand
+** @param expand The t_array used to store the expanded tokens/str
+**
+** @return Returns a E_RET_EXPAND_OK If the expand is successful
+*/
 
 t_return	expand(t_array *tokens, t_array *expand) {
 	t_exp *exp;

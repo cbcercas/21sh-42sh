@@ -12,6 +12,15 @@
 
 #include <expand/expand.h>
 
+/*
+** @brief Calculate the size of a string until a `!` is reached
+**
+** @param str The string to be measured
+**
+** @return Returns the lenght of str from begining to a `!`. If no ! is
+** found, The result returned is the full lenght of str
+*/
+
 int     ft_strlen_before(const char *str)
 {
     int     i;
@@ -21,6 +30,15 @@ int     ft_strlen_before(const char *str)
         i++;
     return (i);
 }
+
+/*
+** @brief Calculates the lenght of a number
+** Example: `10` = 2 or `1970` = 4
+**
+** @param str The number in string form
+**
+** @return Returns the number's lenght
+*/
 
 int     ft_numlen(const char *str)
 {
@@ -33,6 +51,14 @@ int     ft_numlen(const char *str)
         i++;
     return (i);
 }
+
+/*
+** @brief TODO
+** @param exp TODO
+** @param i TODO
+** @param len TODO
+** @return TODO
+*/
 
 int    expand_hist_digit(t_exp *exp, int *i, int len)
 {
@@ -54,6 +80,14 @@ int    expand_hist_digit(t_exp *exp, int *i, int len)
     }
     return (0);
 }
+
+/*
+** @brief TODO
+** @param exp TODO
+** @param i TODO
+** @param len TODO
+** @return TODO
+*/
 
 int    expand_hist_alpha(t_exp *exp, int *i, int len)
 {

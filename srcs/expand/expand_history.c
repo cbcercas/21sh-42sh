@@ -13,6 +13,12 @@
 
 #include <expand/expand.h>
 
+/*
+** @brief Expands the history
+** @param exp TODO
+** @return TODO
+*/
+
 t_exp   *expand_hist(t_exp *exp)
 {
     int i;

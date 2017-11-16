@@ -12,6 +12,14 @@
 
 #include <expand/expand.h>
 
+/*
+** @brief Initializes the expand and its array
+**
+** @param expand_array The t_array containing the expand to be initialized
+**
+** @return Returns the initialized t_array if successful, NULL otherwise
+*/
+
 t_array	*expand_init(t_array *expand_array)
 {
 	expand_array = array_init(expand_array, sizeof(t_exp));
@@ -25,6 +33,14 @@ t_array	*expand_init(t_array *expand_array)
 	return (NULL);
 }
 
+/*
+** @brief Creates a new token into the t_array expand (TODO: Check this)
+**
+** @param tok Token to be added
+**
+** @return Returns the modified expand
+*/
+
 t_exp *exp_create_new(t_token *tok)
 {
   t_exp	*exp;
@@ -36,6 +52,11 @@ t_exp *exp_create_new(t_token *tok)
   return (exp);
 }
 
+/*
+** @brief Deletes a part of the expand
+** @param i Part to be deleted
+*/
+
 void sh_exp_del(void *i)
 {
 	t_exp *exp;
@@ -44,6 +65,11 @@ void sh_exp_del(void *i)
 	if (exp && exp->str)
 		string_del(&(exp->str));
 }
+
+/*
+** @brief Destroys the expand
+** @param array_exp array containing the expand to be destroyed
+*/
 
 void sh_expand_destroy(t_array *array_exp)
 {

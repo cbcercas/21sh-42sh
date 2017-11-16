@@ -12,6 +12,12 @@
 
 #include <expand/expand.h>
 
+/*
+** @brief Searches the string `str` to find a `'` or `"`
+** @param str String to be searched
+** @return Returns the first `'` or `"` it'll find
+*/
+
 char 	find_first_quote(const char *str)
 {
 	int 	i;
@@ -26,6 +32,15 @@ char 	find_first_quote(const char *str)
 	}
 	return (0);
 }
+
+/*
+** @brief Expands the `\`
+**
+** @param string String to be expanded
+** @param type The type of the current token (?TODO)
+**
+** @return Returns true if ignored, false otherwise
+*/
 
 BOOL	expand_antislash(t_string *string, t_token_type type)
 {

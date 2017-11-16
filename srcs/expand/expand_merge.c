@@ -12,6 +12,14 @@
 
 #include <expand/expand.h>
 
+/*
+** @brief Inserts a string contained in `tm2` before `tmp1`
+** @param tmp1 t_string to instert into
+** @param tmp2 t_string to insert
+** @param array_exp TODO
+** @param i TODO
+*/
+
 void	expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp, size_t *i)
 {
 	string_insert_back(tmp1->str, tmp2->str->s);
@@ -19,6 +27,11 @@ void	expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp, size_t *i)
 	array_remove_at(array_exp, *i + 1, NULL);
 	*i = 0;
 }
+
+/*
+** @brief Merges 2 WORD tokens togethers
+** @param array_exp TODO
+*/
 
 void 	expand_merge_tokens_word(t_array *array_exp)
 {
