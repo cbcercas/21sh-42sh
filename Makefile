@@ -100,8 +100,7 @@ SRCS			+= autocomplete_is.c autocomplete_get_words.c\
 					autocomplete_display_cols.c
 
 SRC_SUBDIR		+= secure_memory
-SRCS			+= ft_secu_free_all.c ft_secu_free.c ft_secu_malloc.c\
-				ft_secu_malloc_get.c ft_secu_malloc_lvl.c ft_secu_free_lvl.c\
+SRCS			+= ft_secu_free.c ft_secu_malloc.c \
 				string_dup_secu.c string_growth_secu.c string_insert_secu.c\
 				string_secu.c ft_strdblfree.c ft_strdup_secu.c\
 				ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c\
