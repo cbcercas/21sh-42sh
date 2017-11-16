@@ -13,6 +13,12 @@
 #include <signals/signals.h>
 #include <wait.h>
 
+/*
+** @brief Initializes all the signals from 1 to 32
+**
+** @param handler The handler per signal
+*/
+
 void    init_signals(void *handler)
 {
 	int		i;
@@ -27,6 +33,15 @@ void    init_signals(void *handler)
 		signal(SIGINT, SIG_DFL);
 	log_info("Signal: Init success");
 }
+
+/*
+** @brief Waits for a process to finish (?TODO)
+**
+** @param pid TODO
+** @param wait_flag TODO
+**
+** @return Returns the exit status
+*/
 
 int sh_wait(pid_t pid, int wait_flag)
 {
@@ -49,6 +64,11 @@ int sh_wait(pid_t pid, int wait_flag)
 		remove_pid_child(pid);
 	return (status);
 }
+
+/*
+** @brief TODO
+** @return TODO
+*/
 
 BOOL	*is_in_pipe(void)
 {

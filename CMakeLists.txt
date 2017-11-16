@@ -99,11 +99,7 @@ set(SOURCE_FILES
 		srcs/expand/ft_replace.c
 
 		srcs/secure_memory/ft_secu_free.c
-		srcs/secure_memory/ft_secu_free_all.c
-		srcs/secure_memory/ft_secu_free_lvl.c
 		srcs/secure_memory/ft_secu_malloc.c
-		srcs/secure_memory/ft_secu_malloc_get.c
-		srcs/secure_memory/ft_secu_malloc_lvl.c
 		srcs/secure_memory/ft_str_insert_secu.c
 		srcs/secure_memory/ft_strdup_secu.c
 		srcs/secure_memory/ft_strjoincl_secu.c

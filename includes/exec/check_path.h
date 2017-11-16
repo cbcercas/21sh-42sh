@@ -15,7 +15,7 @@
 
 # include <libft.h>
 # include <tools/tools.h>
-# include <secure_memory/ft_secu_malloc.h>
+# include <secure_memory/secure_memory.h>
 # include <ftprintf.h>
 # include <core/progname.h>
 # include <stdio.h>

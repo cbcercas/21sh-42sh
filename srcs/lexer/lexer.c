@@ -12,6 +12,10 @@
 
 #include <lexer/lexer.h>
 
+/*
+** @brief TODO
+*/
+
 static const uint32_t g_char_type[129] = {
 [0] = E_CHAR_TYPE_NONE,
 [1] = E_CHAR_TYPE_LETTER,
@@ -142,6 +146,10 @@ static const uint32_t g_char_type[129] = {
 ['~'] = E_CHAR_TYPE_LETTER,
 [127] = E_CHAR_TYPE_LETTER,
 };
+
+/*
+** @brief
+*/
 
 static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 {
@@ -453,6 +461,10 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 	[E_STATE_ERROR] = {}
 };
 
+/*
+** @brief TODO
+*/
+
 static const uint32_t g_tok_redir[129][129] =
 {
 	['<'] =
@@ -474,6 +486,13 @@ static const uint32_t g_tok_redir[129][129] =
 		['&'] = E_TOKEN_AND_IF
 	}
 };
+
+/*
+** @brief Tokenizes one part of a string (TODO: make sure)
+** @param in TODO
+** @param toks The t_array containing the tokens
+** @param a TOOD
+*/
 
 static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 {
@@ -513,6 +532,13 @@ static void	lexer_tokenize_one(char const **in, t_array *toks, t_automaton *a)
 	array_push(toks, &tok);
 }
 
+/*
+** @brief Tokenizes the input
+** @param in The input
+** @param toks The t_array containing the tokens
+** @param a TODO
+*/
+
 static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 {
 	while (**in)
@@ -537,6 +563,14 @@ static void	lexer_tokenize(char const **in, t_array *toks, t_automaton *a)
 }
 
 
+/*
+** @brief Handles the return values
+**
+** @param cur_state The current state of the stack
+**
+** @return Returns a value based on the error or not of the lexer
+*/
+
 static t_return	lexer_get_incomplete_ret(t_stack_state cur_state)
 {
 	if (cur_state == E_STATE_SQUOTE)
@@ -548,6 +582,14 @@ static t_return	lexer_get_incomplete_ret(t_stack_state cur_state)
 	else
 		return (E_RET_LEXER_INCOMPLETE);
 }
+
+/*
+** @brief Main function for the lexer
+** @param tokens The t_array conaining the tokens. (uninitialized at
+** beginning of function)
+** @param in The input
+** @return Returns a ret value
+*/
 
 t_return lexer_lex(t_array *tokens, char const *in)
 {
@@ -578,6 +620,12 @@ t_return lexer_lex(t_array *tokens, char const *in)
 	stack_destroy(&automaton.stack, NULL);
 	return (ret);
 }
+
+/*
+** @brief Prints token type for token tok
+**
+** @param tok The token
+*/
 
 static void	lexer_print_token(t_token *tok)
 {
@@ -616,6 +664,12 @@ static void	lexer_print_token(t_token *tok)
 	else if (tok->type == E_TOKEN_IO_NUMBER)
 		ft_putstr("TOKEN_TYPE_IO_NUMBER");
 }
+
+/*
+** @brief Prints all the tokens for the given t_array
+**
+** @param toks t_array to be printed
+*/
 
 void	lexer_print_tokens(t_array *toks)
 {

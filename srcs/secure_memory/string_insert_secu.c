@@ -10,7 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <secure_memory/ft_secu_malloc.h>
+#include <secure_memory/secure_memory.h>
+
+/*
+** @brief Inserts a string securely into a t_string.
+**
+** @param string The t_string to insert into
+** @param str The string to insert
+** @param pos Where to insert
+** @param lvl TODO
+**
+** @return Returns the modified t_string
+*/
 
 t_string	*string_insert_secu(t_string *string, const char *str, size_t pos, size_t lvl)
 {
@@ -28,10 +39,30 @@ t_string	*string_insert_secu(t_string *string, const char *str, size_t pos, size
 	return (string);
 }
 
+/*
+** @brief Inserts a string securely into the front of a t_string.
+**
+** @param string The t_string to insert into
+** @param str The string to insert at the front
+** @param lvl TODO
+**
+** @return Returns the modified t_string
+*/
+
 t_string	*string_insert_front_secu(t_string *string, const char *str, size_t lvl)
 {
 	return (string_insert_secu(string, str, 0, lvl));
 }
+
+/*
+** @brief Inserts a string securely into the end of a t_string.
+**
+** @param string The t_string to insert into
+** @param str The string to insert at the end
+** @param lvl TODO
+**
+** @return Returns the modified t_string
+*/
 
 t_string	*string_insert_back_secu(t_string *string, const char *str, size_t lvl)
 {

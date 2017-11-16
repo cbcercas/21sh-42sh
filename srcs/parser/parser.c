@@ -12,6 +12,10 @@
 
 #include <parser/parser.h>
 
+/*
+** @brief TODO
+*/
+
 static t_token_type	g_grammar2[19][19][1] =
 {
 	[E_TOKEN_NONE] =
@@ -266,6 +270,10 @@ static t_token_type	g_grammar2[19][19][1] =
 	}
 };
 
+/*
+** @brief TODO
+*/
+
 static const char	*g_grammar[226] =
 {
 	[E_TOKEN_BLANK] = " ",
@@ -287,12 +295,27 @@ static const char	*g_grammar[226] =
 	[E_TOKEN_GREATAND] = ">&"
 };
 
+/*
+** @brief Returns an error and prints the appropriate message
+**
+** @param toknext The next token when the error occured
+**
+** @return Returns an error `E_RET_PARSER_ERROR`
+*/
+
 t_return						ret_parser(t_token *toknext)
 {
 	ft_dprintf(STDERR_FILENO, "%s: Parse error near `%s'\n", PROGNAME,
 			  g_grammar[toknext->type]);
 	return (E_RET_PARSER_ERROR);
 }
+
+/*
+** @brief Main function for the parser
+** @param tokens The t_array containing tokens from the lexer
+** @return Returns an error (`E_RET_PARSER_ERROR`) or a success
+** (`E_RET_PARSER_OK`)
+*/
 
 t_return						parser_parse(t_array *tokens)
 {

@@ -12,6 +12,14 @@
 
 #include <lexer/lexer.h>
 
+/*
+** @brief Checks if a given token type is a token type
+**
+** @param t The token type to check
+**
+** @return Returns true or false
+*/
+
 BOOL	is_token_type(t_token_type t)
 {
 	if (t > E_TOKEN_NONE && t < E_TOKEN_MAX)

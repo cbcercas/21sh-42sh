@@ -17,7 +17,7 @@
 # include "env_list_utils.h"
 
 /*
-** @file   env_list_utils.h
+** @file   env_utils.h
 **
 ** @brief  Function prototypes for the env lists
 **
@@ -26,7 +26,7 @@
 ** or global variables you will need.
 */
 
-/**
+/*
 ** @file env_utils.c
 **
 ** @brief Utility functions for the env module

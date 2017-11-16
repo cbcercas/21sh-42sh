@@ -10,8 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <secure_memory/ft_secu_malloc.h>
+#include <secure_memory/secure_memory.h>
 
+/*
+** @brief TODO
+** @param s1 TODO
+** @param s2 TODO
+** @param free TODO
+** @param lvl TODO
+** @return TODO
+*/
 
 char	*ft_strjoincl_secu(char *s1, char *s2, int free, size_t lvl)
 {

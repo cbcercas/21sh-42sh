@@ -20,7 +20,7 @@
 # include <libft.h>
 # include <ftprintf.h>
 # include <core/input.h>
-# include <secure_memory/ft_secu_malloc.h>
+# include <secure_memory/secure_memory.h>
 # include <history/history.h>
 # include <exec/check_path.h>
 

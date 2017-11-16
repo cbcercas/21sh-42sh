@@ -10,7 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <secure_memory/ft_secu_malloc.h>
+#include <secure_memory/secure_memory.h>
+
+/*
+** @brief Initializes securely a t_string
+**
+** @param string The t_string to be initialized
+** @param cap The size of the cap
+** @param lvl TODO
+**
+** @return Returns an initialized t_string
+*/
 
 t_string	*string_init_cap_secu(t_string *string, size_t cap, size_t lvl)
 {
@@ -22,6 +32,13 @@ t_string	*string_init_cap_secu(t_string *string, size_t cap, size_t lvl)
 	string->len = 0;
 	return (string);
 }
+
+/*
+** @brief Creates a cap for a t_string securely
+** @param cap TODO
+** @param lvl TODO
+** @return TODO
+*/
 
 t_string	*string_create_cap_secu(size_t cap, size_t lvl)
 {
@@ -38,6 +55,14 @@ t_string	*string_create_cap_secu(size_t cap, size_t lvl)
 	}
 	return (string);
 }
+
+/*
+** @brief Creates a t_string
+**
+** @param lvl TODO
+**
+** @return Returns a created and initialized t_string
+*/
 
 t_string	*string_create_secu(size_t lvl)
 {

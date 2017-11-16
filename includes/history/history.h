@@ -17,7 +17,7 @@
 # include <logger.h>
 # include <ftprintf.h>
 # include <fcntl.h>
-# include <secure_memory/ft_secu_malloc.h>
+# include <secure_memory/secure_memory.h>
 # include <environ/env_utils.h>
 # include <environ/getter_env.h>
 # include <core/input.h>

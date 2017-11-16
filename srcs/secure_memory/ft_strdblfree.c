@@ -10,7 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <secure_memory/ft_secu_malloc.h>
+#include <secure_memory/secure_memory.h>
+
+/*
+** @brief Frees securely a double string (`char **`)
+** @param strdb The double string to be freed
+*/
 
 void	ft_strdblfree(char **strdb)
 {

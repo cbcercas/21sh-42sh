@@ -10,7 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <secure_memory/ft_secu_malloc.h>
+#include <secure_memory/secure_memory.h>
+
+/*
+** @brief Duplicates securely a string (`src`)
+**
+** @param src String to be duplicated
+** @param lvl TODO
+**
+** @return Returns a duplicate of `src`
+*/
 
 char	*ft_strdup_secu(char const *src, size_t lvl)
 {

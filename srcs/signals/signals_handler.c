@@ -12,6 +12,12 @@
 
 #include <signals/signals.h>
 
+/*
+** @brief Exits the program and displays a message
+**
+** @param sig The signal you want the program to exit with
+*/
+
 void	signals_quit(int sig)
 {
 	default_terminal_mode();
@@ -25,7 +31,12 @@ void	signals_quit(int sig)
 	log_fatal("Signals: Shell quit with signal: %d", sig);
 	kill_childs(SIGTERM);
 	exit(128 + (sig % 32));
+	//TODO On free rien ici ?
 }
+
+/*
+** @brief SIGWINCH signal handler
+*/
 
 void	signals_sigwinch(void)
 {
@@ -46,6 +57,11 @@ void	signals_sigwinch(void)
 	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);
 }
+
+/*
+** @brief Signal handler for each `sig`
+** @param sig signal
+*/
 
 void    signals_handler(int sig)
 {

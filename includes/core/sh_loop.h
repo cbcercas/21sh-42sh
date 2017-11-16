@@ -20,7 +20,7 @@
 # include <history/history.h>
 # include <parser/parser.h>
 # include <core/sh_get_input.h>
-# include <secure_memory/ft_secu_malloc.h>
+# include <secure_memory/secure_memory.h>
 # include <core/progname.h>
 
 /*

@@ -10,7 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <secure_memory/ft_secu_malloc.h>
+#include <secure_memory/secure_memory.h>
+
+/*
+** @brief Inserts securely into string `src1` the string `src2` starting at
+** `index`
+** @param src1 The string to modify
+** @param src2 The string to insert
+** @param index Where to start
+** @param lvl TODO
+** @return Returns the modified string
+*/
 
 char	*ft_str_insert_secu(char *src1, char *src2, int index, size_t lvl)
 {

@@ -19,6 +19,22 @@
 # include <core/progname.h>
 # include <stdio.h>
 
+/*
+** @file   parser.h
+**
+** @brief  Function prototypes for the parser module
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file parser.c
+**
+** @brief The functions for the parser
+*/
+
 t_return	parser_parse(t_array *tokens);
 
 #endif

@@ -16,7 +16,7 @@
 # include <libft.h>
 
 /*
-** @file   builtin_env_utils.h
+** @file   env_list_utils.h
 **
 ** @brief  Function prototypes for the env utility things
 **
@@ -39,7 +39,7 @@ typedef struct		s_env
 }					t_env;
 
 /*
-** @file   builtin_env_utils.c
+** @file   env_list_utils.c
 **
 ** @brief  Utility functions for the env
 */

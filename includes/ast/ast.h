@@ -19,7 +19,7 @@
 # include <array/array.h>
 # include <logger.h>
 # include <expand/expand.h>
-# include <secure_memory/ft_secu_malloc.h>
+# include <secure_memory/secure_memory.h>
 # include <ftprintf.h>
 
 /*

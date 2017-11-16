@@ -17,6 +17,18 @@
 
 typedef uint32_t	t_token_type;
 
+/*
+** @file enum.h
+**
+** @brief contains the enum for token types
+*/
+
+/*
+** @enum TODO
+**
+** @brief TODO
+*/
+
 enum	e_token_type
 {
 	E_TOKEN_NONE,
