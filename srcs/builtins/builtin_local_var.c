@@ -11,8 +11,11 @@
 /* ************************************************************************** */
 
 #include <builtins/builtin_local_var.h>
+#include <core/progname.h>
 
 extern char const	*g_optarg;
+extern int			g_optind;
+
 
 /*
 ** @brief Prints the exported value and name
@@ -34,6 +37,24 @@ static void builtin_export_print(t_array *vars)
 			ft_printf("\033[91mexport \033[94m%s\033[0m=%s\n", e->name,
 					  e->value);
 		i++;
+	}
+}
+
+static void builtin_export_p(char **argv)
+{
+	t_env	*var;
+
+	if (!argv || !(*argv))
+		builtin_export_print(get_envs());
+	while (*argv)
+	{
+		if ((var = get_var(get_envs(), *argv)) || (var = get_var(get_vars(), *argv)))
+			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
+				var->is_export ? "export" : "typedef", var->name, var->value);
+		else
+			ft_dprintf(STDERR_FILENO,
+					"%s: export: no such variable: %s\n", PROGNAME, *argv);
+		argv++;
 	}
 }
 
@@ -116,7 +137,7 @@ int	builtin_export(t_sh_data *data, char **argv)
 	ft_getopt_reset();
 	opt = ft_getopt(ft_tablen(argv), argv, "pn:");
 	if (opt == 'p')
-		builtin_export_print(get_envs());
+		builtin_export_p(&argv[g_optind]);
 	else if (opt == 'n')
 		builtin_unset(data, argv);
 	else if (opt == '?')
