@@ -141,6 +141,7 @@ t_hist					*sh_history_new(char *cmd);
 void 						sh_history_insert_buf(char *str);
 void 					sh_history_destroy(void);
 void					sh_history_var_session_reset(void);
+void					sh_history_del(void *i);
 
 //void					history_mess_quit(int sig);
 
