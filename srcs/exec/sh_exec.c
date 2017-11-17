@@ -31,7 +31,7 @@ static int	sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 	if (!multi_close(pipe, fds, END))
 		return (EXIT_FAILURE);
 	if (path && !*is_in_pipe())
-		*get_cmd_ret() = sh_return_cmd(sh_wait(pid, 0));
+		*get_cmd_ret() = sh_return_cmd(sh_wait(pid, WSTOPPED));
 	else if (path)
 		*get_cmd_ret() = sh_return_cmd(sh_wait(pid, WUNTRACED));
 	ft_strdel(&path);

@@ -60,7 +60,9 @@ int sh_wait(pid_t pid, int wait_flag)
 					  sh_history_get_at(-1));
 		return (status);
 	}
-	if (wait_flag != WUNTRACED)
+	if (WSTOPSIG(status))
+		kill(pid, SIGKILL); // TODO marche pas
+	if (wait_flag != WUNTRACED && !WSTOPSIG(status))
 		remove_pid_child(pid);
 	return (status);
 }

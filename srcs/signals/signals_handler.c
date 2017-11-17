@@ -72,10 +72,7 @@ void	signals_sigwinch(void)
 void    signals_handler(int sig)
 {
 	if (sig == SIGTSTP)
-	{
-		ft_dprintf(2, "\nwe don't handle job control. So we kill all the processes son, even the subshells. \n");
-		kill_childs(SIGKILL);
-	}
+		tcaps_bell();
 	if(sig == SIGINT)
 	{
 		log_info("Signal: User pressed Ctrl+C.");
