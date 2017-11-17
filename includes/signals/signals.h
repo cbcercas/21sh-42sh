@@ -92,11 +92,12 @@ void	signals_sigwinch();
 
 pid_t get_pid_child(pid_t pid_op);
 t_array		*get_pids_child(void);
-int		kill_childs(int sig);
 void	remove_pid_child(int pid_child);
 void	remove_useless(void);
 
 //void	send_kill_except(int sig, t_pid_type except);
+int		kill_childs(int sig);
+//void	send_kill_only(int sig, t_pid_type only);
 //BOOL	exist_pid_type(t_pid_type type);
 
 #endif

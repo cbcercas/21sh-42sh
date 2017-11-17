@@ -46,8 +46,8 @@ BOOL	exec_ctrl_z(const t_key *key, t_input *input)
 	(void)input;
 	if (get_select()->is)
 		return (false);
-	write(1, "User pressed CTRL+Z\n", 20);
-	exec_ctrl_c(key, input);
+	tcaps_bell();
+	tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
 	return (false);
 }
 

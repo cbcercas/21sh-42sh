@@ -26,5 +26,7 @@ pid_t	sh_fork(t_pid_type type)
 		log_dbg1("SH_FORK: Save pid_child %d", pid);
 		array_push(get_pids_child(), &save_pid);
 	}
+	else
+		signal(SIGTSTP, SIG_DFL);
 	return (pid);
 }
