@@ -42,6 +42,7 @@ struct						s_sh_opt
 	unsigned		dbg:1;
 	enum e_d_lvl	dbg_lvl;
 	BOOL			tcaps;
+	BOOL			color;
 };
 
 /*

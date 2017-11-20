@@ -16,6 +16,7 @@
 #include <core/help.h>
 
 extern char const	*g_optarg;
+extern int			g_optind;
 
 /*
 ** @brief     Handles the options passed to the program
@@ -34,8 +35,9 @@ void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 	int opt;
 
 	opts->tcaps = true;
+	opts->color = false;
 	ft_getopt_reset();
-	while ((opt = ft_getopt(ac, av, "chvd:t:l")) >= 0)
+	while ((opt = ft_getopt(ac, av, "chvd:t:lC")) >= 0)
 	{
 		if (opt == 'v')
 			opts->verbose = 1;
@@ -47,12 +49,14 @@ void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 				ft_printf("%s: Invalid debug level.\n", PROGNAME);
 				sh_usage_help_exit();
 			}
+		else if (opt == 'C')
+			opts->color = true;
 		else if (opt == 'h' || opt == '?')
 			sh_usage_help_exit();
 		else if (opt == 't')
-			sh_testing(g_optarg, av, environ);
+			sh_testing(g_optarg, &av[g_optind], environ);
 		else if (opt == 'c')
-			sh_testing_exec(av, environ);
+			sh_testing_exec(&av[g_optind], environ);
 		else if (opt == 'l' || !isatty(STDOUT_FILENO))
 			opts->tcaps = false;
 	}

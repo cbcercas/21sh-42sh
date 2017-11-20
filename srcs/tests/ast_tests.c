@@ -86,7 +86,7 @@ void sh_testing_ast(char *const *av, char **environ)
 	t_array		tokens;
 	char *input;
 
-	input = av[3];
+	input = *av;
 	ast = NULL;
 	init_environ(environ);
 	sh_history_init(sh_history_get());
@@ -96,9 +96,9 @@ void sh_testing_ast(char *const *av, char **environ)
 	expand(&tokens, &expands);
 	if ((ast_create(&ast, &expands) != E_RET_AST_OK ))
 		ft_printf("AST NULL\n");
-	else if (!av[4] || ft_strequ(av[4], "tree"))
+	else if (!av[1] || ft_strequ(av[4], "tree"))
 		btree_print(ast, (char * (*)(void*))&ast_aff);
-	else if (ft_strequ(av[4], "line"))
+	else if (ft_strequ(av[1], "line"))
 		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
 	btree_destroy(&ast, (void (*) (void*))&ast_del_cmd);
 	array_reset(&expands, NULL);

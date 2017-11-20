@@ -58,6 +58,9 @@ void		sh_usage_help(void)
 	ft_printf("\t\t\t     expand: test expand module\n");
 	ft_printf("\t-c [string]\t\t If the -c option is present, then commands"
 					" are read from string.\n");
+	ft_printf("\t-C allows color in builtins. default in testing is true,"
+					" otherwise by default is false\n");
+
 }
 
 /*

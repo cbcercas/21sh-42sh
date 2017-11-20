@@ -21,7 +21,7 @@
 ** @param vars Vars to be printed (env or local)
 */
 
-void		print_vars(t_array *vars)
+void print_vars(t_array *vars, BOOL color)
 {
 	t_env	*e;
 	size_t	i;
@@ -32,7 +32,10 @@ void		print_vars(t_array *vars)
 	while (i < vars->used)
 	{
 		e = (t_env *)array_get_at(vars, i);
-		ft_printf("\033[94m%s\033[0m=%s\n", e->name, e->value);
+		if (color)
+			ft_printf("\033[94m%s\033[0m=%s\n", e->name, e->value);
+		else
+			ft_printf("%s=%s\n", e->name, e->value);
 		i++;
 	}
 }

@@ -109,7 +109,7 @@ int		sh_builtin_env(t_sh_data *data, char **argv)
 	(void)data;
 	if (!argv[1])
 	{
-		print_vars(get_envs());
+		print_vars(get_envs(), data->opts.color);
 		return (0);
 	}
 	opt = builtin_env_opt(argv);
@@ -118,7 +118,7 @@ int		sh_builtin_env(t_sh_data *data, char **argv)
 	if (g_optind != -1 && sh_builtin_env_exec(&argv[g_optind], env_local))
 		return (builtins_env_over(env_local, 1));
 	if (g_optind != -1 && !argv[g_optind])
-		print_vars(env_local);
+		print_vars(env_local, data->opts.color);
 	ft_getopt_reset();
 	return (builtins_env_over(env_local, 0));
 }

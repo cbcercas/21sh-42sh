@@ -59,10 +59,10 @@ void	sh_testing_env_del(char *const *av)
 void sh_testing_env(char *const *av, char **environ)
 {
 	init_environ(environ);
-	if (av[3] && (ft_strequ(av[3], "set")))
+	if (av[0] && (ft_strequ(av[0], "set")))
 		sh_testing_env_set(av);
-	else if (av[3] && (ft_strequ(av[3], "del")))
+	else if (av[0] && (ft_strequ(av[0], "del")))
 		sh_testing_env_del(av);
-	print_vars(get_envs());
+	print_vars(get_envs(), true);
 	exit(0);
 }

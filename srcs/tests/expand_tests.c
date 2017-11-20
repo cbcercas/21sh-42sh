@@ -85,7 +85,7 @@ void sh_testing_expand(char *const *av, char **environ)
   init_environ(environ);
   set_var(get_envs(), "HOME", "/tmp", true);
 	sh_history_init(sh_history_get());
-	tokens = init_tests_exp(av[3]);
+	tokens = init_tests_exp(av[0]);
   if (expand_init(&expand_array) == NULL)
 		exit (1);
   if (expand(&tokens, &expand_array) == E_RET_EXPAND_OK)

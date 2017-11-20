@@ -61,11 +61,11 @@ void	testing_local_vars(char *const *av, char **environ)
 {
 	init_environ(environ);
 	init_local_var();
-	if (av[3] && (ft_strequ(av[3], "set")))
+	if (av[0] && (ft_strequ(av[0], "set")))
 		testing_local_vars_set(av);
-	else if (av[3] && (ft_strequ(av[3], "del")))
+	else if (av[0] && (ft_strequ(av[0], "del")))
 		testing_local_vars_del(av);
-	print_vars(get_envs());
-	print_vars(get_vars());
+	print_vars(get_envs(), false);
+	print_vars(get_vars(), false);
 	exit(0);
 }

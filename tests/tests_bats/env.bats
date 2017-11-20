@@ -7,7 +7,7 @@ load test_helper
 #######################################################################
 
 @test "ENV: Testing [get/display] with 'NULL'" {
-  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env
+  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env
   echo "ERROR:"
 	display_line_output
 	echo
@@ -18,7 +18,7 @@ load test_helper
 }
 
 @test "ENV: Testing [get/display] with vars simple and short" {
-  run env -i 1VAR=1 2VAR=2 3VAR=3 ${BATS_TEST_DIRNAME}/../../$name_exec -t env
+  run env -i 1VAR=1 2VAR=2 3VAR=3 ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env
   echo "ERROR:"
 	display_line_output
 	echo
@@ -32,7 +32,7 @@ load test_helper
 }
 
 @test "ENV: Testing [get/display] with var simple and long" {
-  run env -i 1VAR="ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:" ${BATS_TEST_DIRNAME}/../../$name_exec -t env
+  run env -i 1VAR="ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:ItIsALongVariableVeryLongI'mBoringSoLoop:" ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env
   echo "ERROR:"
 	display_line_output
 	echo
@@ -43,7 +43,7 @@ load test_helper
 }
 
 @test "ENV: Testing [get/display] with vars complex and short" {
-  run env -i 1VAR=1=1=1=1======1 2VAR=2=two=deux:,%= 3VAR='3=3=3===hl0=?\(\)#' 4VAR= ${BATS_TEST_DIRNAME}/../../$name_exec -t env
+  run env -i 1VAR=1=1=1=1======1 2VAR=2=two=deux:,%= 3VAR='3=3=3===hl0=?\(\)#' 4VAR= ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env
   echo "ERROR:"
 	display_line_output
 	echo
@@ -68,7 +68,7 @@ load test_helper
     vars+=$var$i"VAR=$i "
     i=`expr $i + 1`
   done
-  run env -i $vars ${BATS_TEST_DIRNAME}/../../$name_exec -t env $vars
+  run env -i $vars ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env $vars
   i=0
   vars=""
   while [ $i != 100 ]
@@ -96,7 +96,7 @@ load test_helper
 #                            SET VAR ENV                              #
 #######################################################################
 @test "ENV: Testing [set] vars with new vars simple in env NULL" {
-  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" 1VAR=1 2VAR=2
+  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env "set" 1VAR=1 2VAR=2
   echo "ERROR:"
 	display_line_output
 	echo
@@ -109,7 +109,7 @@ load test_helper
 }
 
 @test "ENV: Testing [set] vars with new vars simple and short" {
-  run env -i 1VAR=1 2VAR=2 ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" 3VAR=3 4VAR=4
+  run env -i 1VAR=1 2VAR=2 ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env "set" 3VAR=3 4VAR=4
   echo "ERROR:"
 	display_line_output
 	echo
@@ -126,7 +126,7 @@ load test_helper
 }
 
 @test "ENV: Testing [set] twice the same var in env NULL" {
-  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" 1VAR=1 1VAR=1 2VAR=2
+  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env "set" 1VAR=1 1VAR=1 2VAR=2
   echo "ERROR:"
 	display_line_output
 	echo
@@ -139,7 +139,7 @@ load test_helper
 }
 
 @test "ENV: Testing [set] twice the same var not env NULL" {
-  run env -i 1VAR=1 2VAR=2 ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" 3VAR=3 1VAR=1 3VAR=3
+  run env -i 1VAR=1 2VAR=2 ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env "set" 3VAR=3 1VAR=1 3VAR=3
   echo "ERROR:"
 	display_line_output
 	echo
@@ -154,7 +154,7 @@ load test_helper
 }
 
 @test "ENV: Testing [set] already exist var in env NULL 1" {
-  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" 1VAR=1 1VAR=modif
+  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env "set" 1VAR=1 1VAR=modif
   echo "ERROR:"
 	display_line_output
 	echo
@@ -165,7 +165,7 @@ load test_helper
 }
 
 @test "ENV: Testing [set] already exist var in env NULL 2" {
-  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" 1VAR=1 1VAR=modif 1VAR=
+  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env "set" 1VAR=1 1VAR=modif 1VAR=
   echo "ERROR:"
 	display_line_output
 	echo
@@ -176,7 +176,7 @@ load test_helper
 }
 
 @test "ENV: Testing [set] already exist vars not env NULL" {
-  run env -i  1VAR=1 3VAR=3 2VAR=2 ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" 1VAR=1 1VAR=modif 2VAR=3 3VAR=toto
+  run env -i  1VAR=1 3VAR=3 2VAR=2 ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env "set" 1VAR=1 1VAR=modif 2VAR=3 3VAR=toto
   echo "ERROR:"
 	display_line_output
 	echo
@@ -199,7 +199,7 @@ load test_helper
     vars+=$var$i"VAR=$i "
     i=`expr $i + 1`
   done
-  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env "set" $vars
+  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env "set" $vars
   i=0
   vars=""
   while [ $i != 100 ]
@@ -228,7 +228,7 @@ load test_helper
 ######################################################################
 
 @test "ENV: Testing [del] supress variables does not exist with env NULL" {
-  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -t env del supress this please
+  run env -i ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env del supress this please
   echo "ERROR:"
 	display_line_output
 	echo
@@ -239,7 +239,7 @@ load test_helper
 }
 
 @test "ENV: Testing [del] supress variables does not exist with env not NULL" {
-  run env -i 1VAR=1 2VAR=2 3VAR=3 ${BATS_TEST_DIRNAME}/../../$name_exec -t env del supress this please
+  run env -i 1VAR=1 2VAR=2 3VAR=3 ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env del supress this please
   echo "ERROR:"
 	display_line_output
 	echo
@@ -254,7 +254,7 @@ load test_helper
 }
 
 @test "ENV: Testing [del] supress twice same variable 1" {
-  run env -i 1VAR=1 ${BATS_TEST_DIRNAME}/../../$name_exec -t env del 1VAR 1VAR
+  run env -i 1VAR=1 ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env del 1VAR 1VAR
   echo "ERROR:"
 	display_line_output
 	echo
@@ -265,7 +265,7 @@ load test_helper
 }
 
 @test "ENV: Testing [del] supress twice same variable 2" {
-  run env -i 1VAR=1 2VAR=2 ${BATS_TEST_DIRNAME}/../../$name_exec -t env del 1VAR 1VAR
+  run env -i 1VAR=1 2VAR=2 ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env del 1VAR 1VAR
   echo "ERROR:"
 	display_line_output
 	echo
@@ -276,7 +276,7 @@ load test_helper
 }
 
 @test "ENV: Testing [del] 1 var in env with 4 vars " {
-  run env -i 1VAR=1 VARTOSUPRESS=plouf 2VAR=2 3VAR=3 ${BATS_TEST_DIRNAME}/../../$name_exec -t env del VARTOSUPRESS
+  run env -i 1VAR=1 VARTOSUPRESS=plouf 2VAR=2 3VAR=3 ${BATS_TEST_DIRNAME}/../../$name_exec -C -t env del VARTOSUPRESS
   echo "ERROR:"
 	display_line_output
 	echo

@@ -32,7 +32,7 @@
 ** @brief Utility functions for the env module
 */
 
-void		print_vars(t_array *vars);
+void print_vars(t_array *vars, BOOL color);
 t_array		*get_envs(void);
 t_array		*get_vars(void);
 void		sh_free_elem_env(t_env *elem);
