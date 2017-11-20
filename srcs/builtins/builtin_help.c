@@ -69,14 +69,21 @@ void	sh_help_echo(void)
 void	sh_help_bonus(void)
 {
 	ft_printf("\n\t%sBONUS - Bonuses for %s%s\n", C_UNDER, PROGNAME, C_NONE);
-	ft_printf("\t\t%s*Builtin help\n", C_YELLOW);
 	ft_printf("\t\t%s%s*Dynamique Prompt ! 🚀%s\n", C_BOLD, C_GREEN, C_NONE);
 	ft_printf("\t\t\t%s%s-With Super Smiley ! (^_^)%s\n",
 			C_BOLD, C_GREEN, C_NONE);
 	ft_printf("\t\t%s*Tests with Bats Frameworks!\n", CL_BLUE);
-	ft_printf("\t\t%s*multi lignes even in history!!\n", C_YELLOW);
+	ft_printf("\t\t%s*multi lignes even in history!!\n", C_CYAN);
 	ft_printf("\t\t%s*history backup!!\n", C_CYAN);
+	ft_printf("\t\t%s*history autocomplete!!\n", C_CYAN);
+	ft_printf("\t\t%s*ctrl-R!!\n", C_CYAN);
+	ft_printf("\t\t%s*21sh mod debug with log and lvl (-d)!!\n", C_YELLOW);
+	ft_printf("\t\t%s*mode testing (-t)!!\n",  C_YELLOW);
+	ft_printf("\t\t%s*the option -c!!\n",  C_YELLOW);
+	ft_printf("\t\t%s*-h!!\n",  C_YELLOW);
+	ft_printf("\t\t%s*-v mode verbose!!\n",  C_YELLOW);
 	ft_printf("\t\t%s*builtins chdir ;) \n", C_GREEN);
+	ft_printf("\t\t%s*Builtin help\n", C_GREEN);
 	ft_printf("\t\t%s*MANY COLORS(Make, Prompt, env, help, export)\n", CL_RED);
 }
 
