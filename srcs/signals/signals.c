@@ -19,19 +19,30 @@
 ** @param handler The handler per signal
 */
 
-void    init_signals(void *handler)
+void init_signals(void *handler)
 {
 	int		i;
+	struct	sigaction act;
 
 	i = 1;
 	if (!handler)
 		return ;
-	while (i++ < 32)
-		if(i != 17 && signal(i, handler) == SIG_ERR)
-			log_warn("Signal:%d no catch", i);
-	if (!isatty(STDOUT_FILENO))
-		signal(SIGINT, SIG_DFL);
-	log_info("Signal: Init success");
+	while (++i <= SIGUNUSED)
+	{
+		if (sigaction(i, NULL, &act) < 0)
+			log_warn("Signal: can't change handler signal: %d", i);
+		if (!isatty(STDOUT_FILENO) && i == SIGINT)
+			continue;
+		ft_bzero(&act.sa_mask, sizeof(act.sa_mask));
+		act.sa_flags = SA_RESTART;
+		if (i == SIGTSTP || i == SIGCONT)
+			act.sa_handler = SIG_IGN;
+		else
+			act.sa_handler = handler;
+		if (sigaction(i, &act, NULL) == -1)
+			log_warn("Signal: can't change handler signal: %d", i);
+	}
+	log_info("Signal: Init finish");
 }
 
 /*
@@ -60,8 +71,6 @@ int sh_wait(pid_t pid, int wait_flag)
 					  sh_history_get_at(-1));
 		return (status);
 	}
-	if (WSTOPSIG(status))
-		kill(pid, SIGKILL); // TODO marche pas
 	if (wait_flag != WUNTRACED && !WSTOPSIG(status))
 		remove_pid_child(pid);
 	return (status);
@@ -72,8 +81,24 @@ int sh_wait(pid_t pid, int wait_flag)
 ** @return TODO
 */
 
-BOOL	*is_in_pipe(void)
+BOOL signals(int sig, void (*handler)(int))
 {
-	static BOOL		stop = true;
-	return (&stop);
+	struct	sigaction act;
+
+	if (sigaction(sig, NULL, &act) < 0)
+		return (true);
+	act.sa_handler = handler;
+	if (sigaction(sig, &act, NULL) == -1)
+		return (true);
+	return (false);
+}
+
+BOOL ignore_sigwinch(void)
+{
+	return (signals(SIGWINCH, SIG_IGN));
+}
+
+BOOL restore_sigwinch(void)
+{
+	return (signals(SIGWINCH, &signals_handler));
 }

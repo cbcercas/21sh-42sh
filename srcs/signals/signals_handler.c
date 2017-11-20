@@ -38,7 +38,7 @@ void	signals_quit(int sig)
 ** @brief SIGWINCH signal handler
 */
 
-void	signals_sigwinch(void)
+void signals_sigwinch(void)
 {
 	size_t 	pos;
 	t_input	*input;
@@ -71,12 +71,13 @@ void	signals_sigwinch(void)
 
 void    signals_handler(int sig)
 {
+	log_info("Signals:Shell cath signal:%d", sig);
 	if (sig == SIGTSTP)
 		tcaps_bell();
 	if(sig == SIGINT)
 	{
+		ft_putchar('\n');
 		log_info("Signal: User pressed Ctrl+C.");
-		ft_putstr("\n");
 		return;
 	}
 	if(sig == SIGWINCH)
@@ -95,8 +96,13 @@ void    signals_handler(int sig)
 			kill(get_pid_child(-1), SIGKILL);
 		exit(EXIT_SUCCESS);
 	}
-	else if (((sig >= 1 && sig <= 17) || sig == 23 || sig == 24 ||\
+	else if (((sig >= 1 && sig < 17) || sig == 23 || sig == 24 ||\
 					(sig >= 26 && sig <= 31)) && sig != SIGWINCH && sig != 28)
 		signals_quit(sig);
-	log_info("Signals:Shell cath signal:%d", sig);
+}
+
+BOOL	*is_in_pipe(void)
+{
+	static BOOL		stop = true;
+	return (&stop);
 }

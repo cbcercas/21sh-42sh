@@ -56,7 +56,7 @@ static BOOL		sh_exec_redir_init(t_btree *ast, t_cmd **item, int *fd)
 		*get_cmd_ret() = EXIT_FAILURE;
 		return (false);
 	}
-	signal(SIGWINCH, SIG_IGN);
+	ignore_sigwinch();
 	return (true);
 }
 
@@ -81,7 +81,7 @@ int				sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 		exit(EXIT_SUCCESS);
 	}
 	sh_wait(0, 0);
-	signal(SIGWINCH, signals_handler);
+	restore_sigwinch();
 	close(fd);
 	return (*get_cmd_ret());
 }

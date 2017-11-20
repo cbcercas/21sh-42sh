@@ -31,11 +31,11 @@ static int	sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 	if (!multi_close(pipe, fds, END))
 		return (EXIT_FAILURE);
 	if (path && !*is_in_pipe())
-		*get_cmd_ret() = sh_return_cmd(sh_wait(pid, WSTOPPED));
+		*get_cmd_ret() = sh_return_cmd(sh_wait(pid, 0));
 	else if (path)
 		*get_cmd_ret() = sh_return_cmd(sh_wait(pid, WUNTRACED));
 	ft_strdel(&path);
-	signal(SIGWINCH, signals_handler);
+	restore_sigwinch();
 	return (*get_cmd_ret());
 }
 
@@ -61,7 +61,7 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 			return (EXIT_FAILURE);
 		if ((pid = sh_fork(E_PID_CMD)) == -1)
 			return (EXIT_FAILURE);
-		signal(SIGWINCH, NULL);
+		ignore_sigwinch();
 		if (!pid)
 		{
 			if (!manage_dup2(pipe, fds))

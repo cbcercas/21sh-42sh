@@ -55,7 +55,7 @@ static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item)
 static int		sh_exec_greatand_father(void)
 {
 	sh_wait(0, 0);
-	signal(SIGWINCH, signals_handler);
+	restore_sigwinch();
 	return (*get_cmd_ret());
 }
 
@@ -71,8 +71,7 @@ int				sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 	item = (t_cmd *)ast->item;
 	if (!sh_exec_greatand_open(&fd1, &fd2, item))
 		return ((*get_cmd_ret() = EXIT_FAILURE));
-	if ((pid = sh_fork(E_PID_REDIR)) == -1 && signal(SIGWINCH, SIG_IGN)
-											!= SIG_ERR)
+	if ((pid = sh_fork(E_PID_REDIR)) == -1 && !ignore_sigwinch())
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (pid == 0)
 	{

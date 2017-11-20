@@ -32,11 +32,11 @@ static int		heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (sh_pipe(pipe) != 0)
 		return ((*get_cmd_ret() = EXIT_FAILURE));
-	signal(SIGWINCH, SIG_IGN);
+	ignore_sigwinch();
 	if ((*pid = sh_fork(E_PID_HERE)) == -1)
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (!*pid)
-		signal(SIGINT, SIG_DFL);
+		signals(SIGINT, SIG_DFL);
 	return (EXIT_SUCCESS);
 }
 
@@ -50,7 +50,7 @@ static char		*sh_heredoc_search_end(t_cmd *item)
 static int		sh_heredoc_father(int pipe[2])
 {
 	sh_wait(0, 0);
-	signal(SIGWINCH, signals_handler);
+	restore_sigwinch();
 	close(pipe[END]);
 	return (*get_cmd_ret());
 }

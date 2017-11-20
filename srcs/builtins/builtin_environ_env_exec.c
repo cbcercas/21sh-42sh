@@ -32,7 +32,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 	*get_cmd_ret() = 2;
 	if ((cmd = get_filename(av[0])))
 	{
-		signal(SIGWINCH, SIG_IGN);
+		ignore_sigwinch();
 		pid = sh_fork(E_PID_CMD);
 		if (pid == 0)
 		{
@@ -42,7 +42,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 		else
 			*get_cmd_ret() = sh_return_cmd(sh_wait(0, 0));
 	}
-	signal(SIGWINCH, signals_handler);
+	restore_sigwinch();
 	ft_strdel(&cmd);
 	ft_freetab(envtab, ft_tablen(envtab));
 	return (*get_cmd_ret());

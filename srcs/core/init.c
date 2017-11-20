@@ -83,7 +83,7 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 	init_local_var();
 	sh_builtins_init();
 	sh_history_init(sh_history_get());
-	init_signals(signals_handler);
+	init_signals(&signals_handler);
 	sh_store_tattr(data);
 }
 

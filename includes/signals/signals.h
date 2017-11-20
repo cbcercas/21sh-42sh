@@ -71,7 +71,7 @@ typedef struct		s_pids
 ** @brief Functions to initialize the signals
 */
 
-void    init_signals(void *handler);
+void init_signals(void *handler);
 int sh_wait(pid_t pid, int wait_flag);
 BOOL	*is_in_pipe(void);
 
@@ -82,7 +82,11 @@ BOOL	*is_in_pipe(void);
 */
 
 void    signals_handler(int sig);
-void	signals_sigwinch();
+void signals_sigwinch(void);
+
+BOOL signals(int sig, void (*handler)(int));
+BOOL restore_sigwinch(void);
+BOOL ignore_sigwinch(void);
 
 /*
 ** @file get_pid_childs.c
