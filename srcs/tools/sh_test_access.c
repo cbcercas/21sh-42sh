@@ -12,6 +12,14 @@
 
 #include <tools/tools.h>
 
+/*
+** @brief Tests the access for a given path/filename
+**
+** @param filename Filename/path to be tested
+**
+** @return Returns TODO
+*/
+
 int	sh_test_access(char const *filename)
 {
 	struct stat buf;

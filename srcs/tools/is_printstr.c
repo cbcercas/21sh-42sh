@@ -12,6 +12,14 @@
 
 #include <tools/tools.h>
 
+/*
+** @brief Checks if a given string is printable
+**
+** @param line String to be checked
+**
+** @return Returns true if the string is printable, false otherwise
+*/
+
 BOOL        is_printstr(char const *line)
 {
     if (!line)

@@ -12,6 +12,11 @@
 
 #include <tests/sh_tests.h>
 
+/*
+** @brief Prints the expanded input
+** @param array_exp The t_array (TODO)
+*/
+
 void expand_print_test(t_array *array_exp)
 {
   t_exp   *exp;
@@ -28,6 +33,14 @@ void expand_print_test(t_array *array_exp)
     i++;
   }
 }
+
+/*
+** @brief Initializes the lexer and automaton for the test and tokenizes the
+** input
+** @param input The input sent to the test module
+**
+** @return Returns the lexed input in a t_array form
+*/
 
 t_array init_tests_exp(char *input)
 {
@@ -56,6 +69,13 @@ t_array init_tests_exp(char *input)
 		exit (1);
 	}
 }
+
+/*
+** @brief Main function to test the expand module
+**
+** @param av The arguments passed to the test module
+** @param __p__environ The current environ
+*/
 
 void sh_testing_expand(char *const *av, char **environ)
 {

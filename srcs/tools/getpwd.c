@@ -12,6 +12,11 @@
 
 #include <tools/tools.h>
 
+/*
+** @brief Gets the current pwd
+**
+** @return Returns the current pwd
+*/
 
 char	*get_pwd(void)
 {

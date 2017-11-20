@@ -12,6 +12,12 @@
 
 #include <tests/sh_tests.h>
 
+/*
+** @brief Function to test the set module for the env
+**
+** @param av The arguments passsed to the test module
+*/
+
 void	sh_testing_env_set(char *const *av)
 {
 	int		i;
@@ -25,6 +31,12 @@ void	sh_testing_env_set(char *const *av)
 	}
 }
 
+/*
+** @brief Function to test the del function for the env
+**
+** @param av The arguments passsed to the test module
+*/
+
 void	sh_testing_env_del(char *const *av)
 {
 	int		i;
@@ -36,6 +48,13 @@ void	sh_testing_env_del(char *const *av)
 		i++;
 	}
 }
+
+/*
+** @brief Main funtion used to test the env module
+**
+** @param av The arguments passed to the test module
+** @param __p__environ The current environ
+*/
 
 void sh_testing_env(char *const *av, char **environ)
 {

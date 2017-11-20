@@ -157,6 +157,7 @@ int		sh_pipe(int tube[2]);
 */
 
 int		sh_open_exec(t_btree *ast);
+BOOL	check_fd(int fd);;
 
 //int		sh_open(char *file, int flags);
 

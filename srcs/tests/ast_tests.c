@@ -12,6 +12,12 @@
 
 #include <tests/sh_tests.h>
 
+/*
+** @brief Displays the ast for the test script to check
+**
+** @param cmd The ast to be displayed
+*/
+
 void test_aff(t_cmd *cmd)
 {
 	static int 	i = 0;
@@ -29,6 +35,14 @@ void test_aff(t_cmd *cmd)
 	ft_putstr("} ");
 	i++;
 }
+
+/*
+** @brief Initializes the ast and lexer before the test starts
+**
+** @param input The input to be tested with the ast module
+**
+** @return Returns the token t_array containing the lexed input
+*/
 
 t_array init_tests_ast(char *input)
 {
@@ -57,6 +71,13 @@ t_array init_tests_ast(char *input)
 		exit (1);
 	}
 }
+
+/*
+** @brief Main function to test the ast.
+**
+** @param av The args passed to the ast test
+** @param __p__environ The environ passed to the program
+*/
 
 void sh_testing_ast(char *const *av, char **environ)
 {

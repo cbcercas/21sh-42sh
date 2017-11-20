@@ -12,6 +12,12 @@
 
 #include <tests/sh_tests.h>
 
+/*
+** @brief Tests the set module for the local vars
+**
+** @param av Arguments passed to the module
+*/
+
 void	testing_local_vars_set(char *const *av)
 {
 	int		i;
@@ -25,6 +31,13 @@ void	testing_local_vars_set(char *const *av)
 	}
 }
 
+/*
+** @brief Tests the del module for the local vars
+**
+** @param av Arguments passed to the module
+*/
+
+
 void	testing_local_vars_del(char *const *av)
 {
 	int		i;
@@ -36,6 +49,13 @@ void	testing_local_vars_del(char *const *av)
 		i++;
 	}
 }
+
+/*
+** @brief Main function to test the local var module
+**
+** @param av The arguments passed to the local var testing module
+** @param __p__environ The current environ
+*/
 
 void	testing_local_vars(char *const *av, char **environ)
 {

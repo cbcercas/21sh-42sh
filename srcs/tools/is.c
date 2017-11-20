@@ -12,6 +12,13 @@
 
 #include <tools/tools.h>
 
+/*
+** @brief Checks if a char is a space or a tab
+**
+** @param c Char to be checked
+**
+** @return Returns true if `c` is a tab or a space, false otherwise
+*/
 
 BOOL  is_white(int c)
 {
@@ -20,12 +27,24 @@ BOOL  is_white(int c)
 	return (false);
 }
 
+/*
+** @brief Checks the first and only letter of the string buff for a char
+** @param buff string containing a char to be tester
+** @return Returns true if buff[0] contains a letter, false otherwise
+*/
+
 BOOL  is_str_car(const char *buff)
 {
   if (buff[0] > 31 && buff[0] < 127 && buff[1] == 0)
     return (true);
   return (false);
 }
+
+/*
+** @brief Checks if the token `c` is a redirection
+** @param c Token to be checked
+** @return Returns true if `c` is a redirection token or false otherwise
+*/
 
 BOOL  is_redirect(int c)
 {
@@ -34,6 +53,12 @@ BOOL  is_redirect(int c)
 		return (true);
 	return (false);
 }
+
+/*
+** @brief Checks if the token `c` is a separator
+** @param c Token to be checked
+** @return Returns true if `c` is a separator token or false otherwise
+*/
 
 BOOL  is_sepa(int c)
 {

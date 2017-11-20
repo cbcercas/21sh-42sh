@@ -12,6 +12,12 @@
 
 #include <tests/sh_tests.h>
 
+/*
+** @brief Function used to test the lexer
+**
+** @param av The arguments passed to the test module
+*/
+
 void sh_testing_lexer(char *const *av)
 {
     t_automaton	automaton;

@@ -12,6 +12,12 @@
 
 #include <tests/sh_tests.h>
 
+/*
+** @brief Main function to test the parser.
+**
+** @param av The input sent to the testing module
+*/
+
 void	sh_testing_parser(char *const *av)
 {
 	t_automaton	automaton;

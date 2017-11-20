@@ -12,6 +12,14 @@
 
 #include <tests/sh_tests.h>
 
+/*
+** @brief Initialized the exec test module
+**
+** @param input The input sent by the user
+**
+** @return Returns the input once lexed by the lexer
+*/
+
 t_array init_tests_exec(char *input)
 {
 	t_automaton	automaton;
@@ -40,6 +48,13 @@ t_array init_tests_exec(char *input)
 		exit (1);
 	}
 }
+
+/*
+** @brief Main function to test the exec module
+**
+** @param av The arguments passed to the test module
+** @param __p__environ The current environ
+*/
 
 void sh_testing_exec(char *const *av, char **environ)
 {

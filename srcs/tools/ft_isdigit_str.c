@@ -12,6 +12,15 @@
 
 #include <tools/tools.h>
 
+/*
+** @brief Checks if a string is made entirely of digits
+**
+** @param str String to be checked
+**
+** @return Returns true if the string is made entirely of digits. False
+** otherwise
+*/
+
 BOOL  ft_isdigit_str(char *str)
 {
   int i;

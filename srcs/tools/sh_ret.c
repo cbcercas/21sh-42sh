@@ -12,6 +12,12 @@
 
 #include <tools/tools.h>
 
+/*
+** @brief TODO
+** @param status TODO
+** @return TODO
+*/
+
 int sh_return_cmd(int status)
 {
     if(WIFEXITED(status))
