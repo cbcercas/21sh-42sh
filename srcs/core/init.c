@@ -97,27 +97,32 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 
 void				sh_check_env(char **environ)
 {
+	char	*tmp;
+
+	tmp = NULL;
 	if (!environ || !environ[0])
 	{
 		ft_dprintf(2, "%s: %sWarning%s, Starting %s without env may cause some "
 						"feature to not work proprelly.\n",
 				PROGNAME, CL_RED, C_NONE, PROGNAME);
-		ft_printf("Please refer to the man for more information\n");
 		log_warn("was launched without an env provided. Using default.\n");
 		set_var(get_envs(), "TERM", "xterm", true);
 		set_var(get_envs(), "USER", "Marvin", true);
 		set_var(get_envs(), "USERNAME", "Marvin", true);
-		set_var(get_envs(), "PWD", getcwd(NULL, 0), true);
+		set_var(get_envs(), "PWD", (tmp = get_pwd()), true);
+		ft_strdel(&tmp);
 	}
 	if (!(get_var(get_envs(), "SHLVL")) ||
 							ft_strequ(get_var_value(get_envs(), "SHLVL"), ""))
 		set_var(get_envs(), "SHLVL", "1", true);
 	else
 		set_var(get_envs(), "SHLVL",
-				ft_itoa(ft_atoi(get_var_value(get_envs(), "SHLVL")) + 1), true);
+				(tmp = ft_itoa(ft_atoi(get_var_value(
+						get_envs(), "SHLVL")) + 1)), true);
 	if (!(get_var(get_envs(), "TERM")) ||
-							ft_strequ(get_var_value(get_envs(), "TERM"), ""))
+			ft_strequ(get_var_value(get_envs(), "TERM"), ""))
 		set_var(get_envs(), "TERM", "xterm", true);
+	ft_strdel(&tmp);
 }
 
 /*

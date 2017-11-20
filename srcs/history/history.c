@@ -53,6 +53,26 @@ char	*history_get_path(char *str)
 	return (ft_strjoincl_secu(home, HISTORY_FILE, 1, M_LVL_FUNCT));
 }
 
+static	int	history_get_fd(void)
+{
+	int		fd;
+	char	*path;
+
+	fd = -1;
+	path = history_get_path(NULL);
+	if (get_history_init_choice(-1) != 5 && get_history_init_choice(-1) != -1)
+		open(history_get_path(NULL), O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if (!path || (fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
+	{
+		log_warn("History: History was not saved, Failed open");
+		default_terminal_mode();
+		ft_putstr_fd("\nHistory wasn't saved\n", 2);
+		raw_terminal_mode();
+		return (fd);
+	}
+	return (fd);
+}
+
 /*
 ** @brief Saves the history when the programs exists
 */
@@ -65,19 +85,10 @@ void	sh_history_save(void)
 	size_t	i;
 
 	i = 0;
-
-	if (get_history_init_choice(-1) != 5 && get_history_init_choice(-1) != -1)
-		open(history_get_path(NULL), O_RDWR | O_CREAT | O_TRUNC, 0644);
-
-	if ((fd = open(history_get_path(NULL), O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
-	{
-		log_warn("History: History was not saved, Failed open");
-		ft_putstr_fd("\nHistory wasn't saved\n", 2);
-		return ;
-	}
+	fd = history_get_fd();
 	if ((hists = sh_history_get()) == NULL)
 		return ;
-	while (i < hists->used)
+	while (fd != -1 && i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
 		if(h && h->session == true)
@@ -86,26 +97,6 @@ void	sh_history_save(void)
 	}
 	sh_history_print_in_log();
 	array_destroy(&hists, sh_history_del);
-	close(fd);
-}
-
-/*
-** @brief Gets at the `n` entry the command stored
-**
-** @param n The entry number
-**
-** @return Returns the command `n` under char * form
-*/
-
-const char 	*history_get_n(size_t n)
-{
-	t_array	*hists;
-	t_hist	*h;
-
-	hists = sh_history_get();
-	if (!hists || (n >= hists->used))
-		return (NULL);
-	if (!(h = (t_hist *)array_get_at(hists, hists->used - n - 1)))
-		return (NULL);
-	return (h->cmd);
+	if (fd != -1)
+		close(fd);
 }

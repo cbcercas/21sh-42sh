@@ -44,6 +44,8 @@ int		sh_history_init_one(t_array *hists, int fd)
 		array_push(hists, (void *) h);
 		ft_memdel((void **) &h);
 	}
+	else
+		ft_strdel(&cmd);
 	return (ret);
 }
 

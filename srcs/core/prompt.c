@@ -39,13 +39,15 @@ static size_t		get_prompt(void)
 	user = get_var_value(get_envs(), "USER");
 	if (!user)
 		user = "???";
-	path = get_pwd();
+	if (!(path = get_pwd()))
+		path = "???";
 	basename = ft_basename(path);
 	retstr = (!*get_cmd_ret()) ? "\033[32m^_^" : "\033[91mX_X";
 	ft_printf("\033[0m(%s\033[0m) - %s - %s $ ",
 			retstr, user, basename);
 	len = 11 + 3 + ft_strlen(user) + ft_strlen(basename);
-	ft_strdel(&path);
+	if (*path != '?')
+		ft_strdel(&path);
 	return (len);
 }
 
