@@ -59,6 +59,66 @@ load test_helper
 	check_leaks_function exec
 }
 
+@test "BUILTINS: Testing [Builtin PWD] for 'cd -L file_link; pwd -L'" {
+		if [[ !(-e file_link) ]]; then
+    		ln -s . file_link
+    	fi
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd file_link; pwd -L'
+	expect=`cd file_link; pwd -L`
+	rm -rf file_link
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$expect"
+	[ "$output" = "$expect" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTINS: Testing [Builtin PWD] for 'cd -L file_link; pwd -P'" {
+		if [[ !(-e file_link) ]]; then
+    		ln -s . file_link
+    	fi
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd file_link; pwd -P'
+	expect=`cd file_link; pwd -P`
+	rm -rf file_link
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$expect"
+	[ "$output" = "$expect" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTINS: Testing [Builtin PWD] for 'cd -P file_link; pwd -L'" {
+		if [[ !(-e file_link) ]]; then
+    		ln -s . file_link
+    	fi
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd -P file_link; pwd -L'
+	expect=`cd -P file_link; pwd -L`
+	rm -rf file_link
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$expect"
+	[ "$output" = "$expect" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTINS: Testing [Builtin PWD] for 'cd -P file_link; pwd -P'" {
+		if [[ !(-e file_link) ]]; then
+    		ln -s . file_link
+    	fi
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd file_link; pwd -P'
+	expect=`cd -P file_link; pwd -P`
+	rm -rf file_link
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$expect"
+	[ "$output" = "$expect" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
 
 @test "BUILTINS: Testing [Builtin PWD] for 'pwd /doesnt/exists'" {
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'pwd /doesnt/exists'
@@ -70,7 +130,6 @@ load test_helper
 	check_leaks_function exec
 }
 
-#TODO: Multiple commands with cd and pwd, for example 'pwd;cd;pwd'
 
 ################################################################################
 #                                   Testing EXIT                               # 
@@ -230,6 +289,36 @@ load test_helper
 	[ "${lines[0]}" = "/tmp/nosuchdir" ]
 	[ "${lines[1]}" = "$cdnosuch: /tmp/nosuchdir" ]
 	[ "${lines[2]}" = "$pwdtest" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTINS: Testing [Builtin CD] for 'cd -L file_link;pwd;cd..;pwd'" {
+		if [[ !(-e file_link) ]]; then
+    		ln -s . file_link
+    	fi
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd -L file_link;pwd;cd ..;pwd'
+	expect=`cd -L file_link;pwd;cd ..;pwd`
+	rm -rf file_link
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$expect"
+	[ "$output" = "$expect" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTINS: Testing [Builtin CD] for 'cd -P file_link;pwd;cd ..;pwd'" {
+	if [[ !(-e file_link) ]]; then
+		ln -s . file_link
+	fi
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd -P file_link;pwd;cd ..;pwd'
+	expect=`cd -P file_link;pwd;cd ..;pwd`
+	rm -rf file_link
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$expect"
+	[ "$output" = "$expect" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
