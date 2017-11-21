@@ -15,7 +15,7 @@
 static BOOL		exec_delete2(void)
 {
 	tcaps_bell();
-	tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
+	tputs(tgetstr("vb", NULL), 0, &ft_putc_in);
 	return (false);
 }
 

@@ -23,7 +23,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 	if (pos_in_str(input) == input->str->len && input->next)
 	{
 		input = input->next;
-		tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 		input->cpos = input_get_first_pos(input);
 		move_cursor_to(&input->cpos,
 					&(t_cpos){input->prev->cpos.cp_col, 0}, ts);
@@ -52,7 +52,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 	if (pos_in_str(input) == 0 && input->prev)
 	{
 		input = input->prev;
-		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
+		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
 		input->cpos = input_get_last_pos(input);
 		move_cursor_to(&input->cpos, &(t_cpos){input->next->cpos.cp_col,
 											input->cpos.cp_line}, get_ts());

@@ -95,10 +95,10 @@ int		sh_history_init_choice(int fd, int limit)
 	char *line;
 
 	line = NULL;
-	if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
+	if (!isatty(STDIN_FILENO))
 		return (open(history_get_path(NULL), O_RDWR | O_CREAT | O_TRUNC, 0644));
 	sh_history_print_choice(limit);
-	ft_putstr(">");
+	ft_putstr_fd(">", STDIN_FILENO);
 	get_next_line(0, &line);
 	get_history_init_choice(ft_atoi(line));
 	if (ft_strequ(line, "2") || ft_strequ(line, "3"))
@@ -106,11 +106,11 @@ int		sh_history_init_choice(int fd, int limit)
 		while (42)
 		{
 			ft_strdel(&line);
-			ft_putstr("Ppath ? (q == exit): ");
+			ft_putstr_fd("Path ? (q == exit): ", STDIN_FILENO);
 			get_next_line(0, &line);
 			if (ft_strequ(line, "q") || !rename(history_get_path(NULL), line))
 				break ;
-			ft_putstr("This path doesn't exists\n");
+			ft_putstr_fd("This path doesn't exists\n", STDERR_FILENO);
 		}
 	}
 	ft_strdel(&line);
@@ -144,7 +144,7 @@ t_array	*sh_history_init(t_array *hists)
 		return (NULL);
 	log_dbg3("HISTORY init: choice = %d", get_history_init_choice(-1));
 	if (get_history_init_choice(-1) >= 3)
-		ft_putendl("Force load, Be patient ;)");
+		ft_putendl_fd("Force load, Be patient ;)", STDERR_FILENO);
 	while (sh_history_init_one(hists, fd))
 	{
 		if (hists->used >= HISTORY_MAX)

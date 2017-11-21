@@ -24,15 +24,15 @@
 
 void		history_research_prompt(char *buff, t_input *result, BOOL fail)
 {
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
+	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
 	if (fail)
-		ft_putstr("failing ");
-	ft_putstr("bck-i-search:");
+		ft_putstr_fd("failing ", STDIN_FILENO);
+	ft_putstr_fd("bck-i-search:", STDIN_FILENO);
 	if (buff)
-		ft_putstr(buff);
-	ft_putstr("_");
-	ft_printf("  $>%s");
+		ft_putstr_fd(buff, STDIN_FILENO);
+	ft_putstr_fd("_", STDIN_FILENO);
+	ft_dprintf(STDIN_FILENO, "  $>%s");
 	if (result)
 		redraw_input(result);
 }

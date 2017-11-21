@@ -49,7 +49,7 @@ void		autocomplete_display_prompt(t_input *input)
 
 void		autocomplete_display_input(t_input *input, int len)
 {
-	tputs(tgetstr("cr", NULL), 1, ft_putchar2);
+	tputs(tgetstr("cr", NULL), 1, &ft_putc_in);
 	autocomplete_display_prompt(input);
 	while (len--)
 		exec_arrow_right(NULL, input);

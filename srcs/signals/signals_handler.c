@@ -43,7 +43,7 @@ void	signals_sigwinch(void)
 	t_input	*input;
 	t_input	*tmp;
 
-	if (!isatty(STDOUT_FILENO))
+	if (!isatty(STDIN_FILENO))
 		return ;
 	input = input_get_cur();
 	pos = pos_in_str(input);
@@ -53,7 +53,7 @@ void	signals_sigwinch(void)
 	get_windows(0)->cur = input;
 	get_select()->is = false;
 	reset_select_pos();
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	redraw_input(input);
 	//TODO refactor using tgoto
@@ -75,7 +75,7 @@ void	signals_handler(int sig)
 		tcaps_bell();
 	else if (sig == SIGINT)
 	{
-		ft_putchar('\n');
+		ft_putchar_fd('\n', STDIN_FILENO);
 		log_info("Signal: User pressed Ctrl+C.");
 	}
 	else if (sig == SIGWINCH)

@@ -27,7 +27,7 @@ t_exp		*expand_exp(t_exp *exp)
 		expand_dol(exp->str);
 		if (expand_hist(exp) == NULL)
 		{
-			ft_printf("event not found\n");
+			ft_dprintf(2, "event not found\n");
 			return (NULL);
 		}
 	}

@@ -22,8 +22,8 @@ void		mini_input(char *end, int pipe_fd)
 		return ;
 	}
 	if (*is_in_pipe())
-		ft_putstr("pipe ");
-	ft_putstr("heredoc>");
+		ft_putstr_fd("pipe ", STDIN_FILENO);
+	ft_putstr_fd("heredoc>", STDIN_FILENO);
 	log_info("EXEC: HEREDOC word end = (%s)", end);
 	while (get_next_line(0, &line))
 	{
@@ -32,8 +32,8 @@ void		mini_input(char *end, int pipe_fd)
 		ft_putendl_fd(line, pipe_fd);
 		ft_strdel(&line);
 		if (*is_in_pipe())
-			ft_putstr("pipe ");
-		ft_putstr("heredoc>");
+			ft_putstr_fd("pipe ", STDIN_FILENO);
+		ft_putstr_fd("heredoc>", STDIN_FILENO);
 	}
 	ft_strdel(&line);
 }

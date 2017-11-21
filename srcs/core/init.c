@@ -152,7 +152,7 @@ t_sh_data			*sh_init(t_sh_data *data, int ac, char *const *av,
 		exit(1);
 	}
 	sh_check_env(environ);
-	if ((tgetent(0, get_var_value(get_envs(), "TERM"))) != 1)
+	if ((tgetent(STDIN_FILENO, get_var_value(get_envs(), "TERM"))) != 1)
 	{
 		ft_dprintf(2, "%s: Error on tgetent\n", PROGNAME);
 		sh_deinit(data);

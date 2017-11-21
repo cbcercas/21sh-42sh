@@ -110,7 +110,7 @@ char			*sh_get_line(t_input *input, t_sh_opt *opts)
 		if (ft_strcmp(key.key_code, KEY_CODE_OTHER))
 			stop = key_exec(&key, input);
 		else if (MAX_LEN_INPUT <= input->str->len)
-			tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
+			tputs(tgetstr("vb", NULL), 0, &ft_putc_in);
 		else if (is_printstr(buff) && !get_select()->is &&
 				!ft_strchr(buff, '\n') && !sh_get_line_insert(input, key))
 			return (NULL);

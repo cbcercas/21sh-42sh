@@ -65,7 +65,7 @@ static int			do_builtin_pwd(BOOL physical)
 		ft_putendl(pwd);
 	else
 	{
-		ft_putendl("No such file or directory: .");
+		ft_putendl_fd("No such file or directory: .", STDERR_FILENO);
 		return (1);
 	}
 	if ((physical || pwd_err == 1))

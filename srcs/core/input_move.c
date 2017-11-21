@@ -37,7 +37,7 @@ t_input	*input_back_to_origin(t_input *input)
 		dest = input_get_first_pos(input);
 		move_cursor_to(&dest, &input->cpos, get_ts());
 		if (input->prev)
-			tputs(tgetstr("up", NULL), 0, &ft_putchar2);
+			tputs(tgetstr("up", NULL), 0, &ft_putc_in);
 		else
 			break ;
 		save = &input->cpos;
@@ -120,7 +120,7 @@ t_input	*input_back_to_writable(t_input *input)
 		dest = input_get_first_pos(input);
 		move_cursor_to(&dest, &input->cpos, get_ts());
 		if (input->prev && !input->prev->lock)
-			tputs(tgetstr("up", NULL), 0, &ft_putchar2);
+			tputs(tgetstr("up", NULL), 0, &ft_putc_in);
 		else
 			break ;
 		save = &input->cpos;

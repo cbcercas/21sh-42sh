@@ -50,8 +50,8 @@ t_input		*input_draw(t_input *input)
 		if (input->next)
 		{
 			input_goto_line_end(input);
-			tputs(tgetstr("do", NULL), 0, &ft_putchar2);
-			tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+			tputs(tgetstr("do", NULL), 0, &ft_putc_in);
+			tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 			input = input->next;
 		}
 		else

@@ -39,7 +39,7 @@ void			sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
 			logger_init(ft_atoi(g_optarg), PROGNAME, "sh.log");
 		else
 		{
-			ft_printf("%s: Invalid debug level.\n", PROGNAME);
+			ft_dprintf(2, "%s: Invalid debug level.\n", PROGNAME);
 			sh_usage_help_exit();
 		}
 	else if (opt == 'C')
@@ -50,7 +50,7 @@ void			sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
 		sh_testing(g_optarg, &av[g_optind], environ);
 	else if (opt == 'c')
 		sh_testing_exec(&av[g_optind], environ);
-	else if (opt == 'l' || !isatty(STDOUT_FILENO))
+	else if (opt == 'l' || !isatty(STDIN_FILENO))
 		opts->tcaps = false;
 }
 

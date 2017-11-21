@@ -20,13 +20,13 @@ static BOOL		exec_ctrl_j2(t_input *input)
 	{
 		dest = input_get_first_pos(input);
 		move_cursor_to(&dest, &input->cpos, get_ts());
-		tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 		input->lock = true;
 		input = input->next;
 	}
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-	tputs("\n", 0, &ft_putchar2);
-	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
+	tputs("\n", 0, &ft_putc_in);
+	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
 	input->lock = true;
 	input_add_new(input);
 	get_windows(0)->cur = input->next;
@@ -43,7 +43,7 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 		return (false);
 	if (MAX_NB_INPUT < count_nb_input(input_get_cur_head()))
 	{
-		tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
+		tputs(tgetstr("vb", NULL), 0, &ft_putc_in);
 		tcaps_bell();
 		return (false);
 	}
@@ -52,12 +52,12 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 		return (exec_ctrl_j2(input));
 	while (input->next)
 	{
-		tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 		input = input->next;
 	}
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-	tputs("\n", 0, &ft_putchar2);
-	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
+	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
+	tputs("\n", 0, &ft_putc_in);
+	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
 	return (true);
 }
 
@@ -85,10 +85,10 @@ BOOL			exec_ctrl_l(const t_key *key, t_input *input)
 	input = input_back_to_writable(input);
 	get_windows(1);
 	get_windows(0)->cur = input;
-	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
+	tputs(tgetstr("cl", NULL), 0, &ft_putc_in);
 	get_select()->is = false;
 	reset_select_pos();
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	redraw_input(input);
 	//TODO refactor using tgoto

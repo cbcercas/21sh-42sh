@@ -37,7 +37,7 @@ static void		exec_select_off(t_input *input)
 	{
 		dest = input_get_first_pos(input);
 		move_cursor_to(&dest, &input->cpos, get_ts());
-		tputs(tgetstr("do", NULL), 1, &ft_putchar2);
+		tputs(tgetstr("do", NULL), 1, &ft_putc_in);
 		dest = input_get_first_pos(input);
 		move_cursor_to(&dest, &input->cpos, get_ts());
 		input = input->next;
@@ -88,11 +88,11 @@ BOOL			exec_select_arrows(const t_key *key, t_input *input)
 			(start > end && is_left_arrow(key->key)) ||
 			(start == end && start == 0 && is_right_arrow(key->key)) ||
 			(get_select()->start_abs == input && start == end))
-			tputs(tgetstr("mr", NULL), 1, &ft_putchar2);
-		ft_putchar(input->str->s[pos_in_str(input)]);
+			tputs(tgetstr("mr", NULL), 1, &ft_putc_in);
+		ft_putchar_fd(input->str->s[pos_in_str(input)], STDIN_FILENO);
 		if (input->cpos.cp_col + 1 != ts->ws_col)
-			tputs(tgetstr("le", NULL), 0, &ft_putchar2);
-		tputs(tgetstr("me", NULL), 1, &ft_putchar2);
+			tputs(tgetstr("le", NULL), 0, &ft_putc_in);
+		tputs(tgetstr("me", NULL), 1, &ft_putc_in);
 	}
 	return (false);
 }

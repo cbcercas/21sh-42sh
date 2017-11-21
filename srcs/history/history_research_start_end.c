@@ -26,7 +26,7 @@ void	history_research_exit(t_input *result, char *line, t_input *input)
 		ft_strdel(&line);
 	default_terminal_mode();
 	if (!result)
-		ft_putendl("");
+		ft_putendl_fd("", STDIN_FILENO);
 	raw_terminal_mode();
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	if (result)

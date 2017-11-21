@@ -43,7 +43,7 @@ static size_t		get_prompt(void)
 		path = "???";
 	basename = ft_basename(path);
 	retstr = (!*get_cmd_ret()) ? "\033[32m^_^" : "\033[91mX_X";
-	ft_printf("\033[0m(%s\033[0m) - %s - %s $ ",
+	ft_dprintf(STDIN_FILENO, "\033[0m(%s\033[0m) - %s - %s $ ",
 			retstr, user, basename);
 	len = 11 + 3 + ft_strlen(user) + ft_strlen(basename);
 	if (*path != '?')
@@ -65,7 +65,7 @@ void				prompt_normal(t_input *inp)
 	if (!inp->offset_col)
 	{
 		inp->offset_col++;
-		ft_putstr(" ");
+		ft_putstr_fd(" ", STDIN_FILENO);
 	}
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
@@ -87,13 +87,13 @@ void				prompt_perso(t_input *inp, const char *prompt, t_return ret)
 		ret = inp->prompt_type;
 	if (prompt == NULL)
 		prompt = p[ret - E_RET_LEXER_INCOMPLETE];
-	ft_printf("%s> ", prompt);
+	ft_dprintf(STDIN_FILENO, "%s> ", prompt);
 	inp->prompt_len = ft_strlen(prompt) + 2;
 	inp->offset_col = (unsigned short)inp->prompt_len % inp->ts->ws_col;
 	if (!inp->offset_col)
 	{
 		inp->offset_col++;
-		ft_putstr(" ");
+		ft_putstr_fd(" ", STDIN_FILENO);
 	}
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;

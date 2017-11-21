@@ -29,7 +29,7 @@ static t_window		*get_windows2(t_window *wd, int rst)
 	if ((rst %= 4) && rst >= 2)
 		wd->h_lvl = -1;
 	if ((rst %= 2) && rst == 1)
-		ioctl(STDOUT_FILENO, TIOCGWINSZ, &wd->ts);
+		ioctl(STDIN_FILENO, TIOCGWINSZ, &wd->ts);
 	return (wd);
 }
 
@@ -85,7 +85,7 @@ t_input				*goto_input(t_input *input, t_input *dest_inp)
 		dest = input_get_first_pos(input);
 		move_cursor_to(&dest, &input->cpos, get_ts());
 		if (input->next)
-			tputs(tgetstr("do", NULL), 0, &ft_putchar2);
+			tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 		else
 			break ;
 		input = input->next;

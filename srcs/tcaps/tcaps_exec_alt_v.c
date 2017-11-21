@@ -68,7 +68,7 @@ static BOOL	alt_v_check_limit(char *save)
 {
 	if (!alt_v_limit_nb(save) || !alt_v_limit_len(save))
 	{
-		tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
+		tputs(tgetstr("vb", NULL), 0, &ft_putc_in);
 		tcaps_bell();
 		return (false);
 	}

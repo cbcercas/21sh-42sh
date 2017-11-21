@@ -52,16 +52,16 @@ void		sh_store_tattr(t_sh_data *data)
 	int				ttydevice;
 	struct termios	save_tattr;
 
-	ttydevice = STDOUT_FILENO;
-	if (!isatty(STDOUT_FILENO))
+	ttydevice = STDIN_FILENO;
+	if (!isatty(STDIN_FILENO))
 	{
 		data->tattr = NULL;
 		return ;
 	}
 	if (tcgetattr(ttydevice, &save_tattr) != 0)
 	{
-		ft_printf("%s: tcgetattr error when trying", PROGNAME);
-		ft_printf(" to save terminal attributes\n");
+		ft_dprintf(2, "%s: tcgetattr error when trying", PROGNAME);
+		ft_dprintf(2, " to save terminal attributes\n");
 		data->tattr = NULL;
 		return ;
 	}
