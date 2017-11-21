@@ -27,6 +27,8 @@ void		mini_input(char *end, int pipe_fd)
 	log_info("EXEC: HEREDOC word end = (%s)", end);
 	while (get_next_line(0, &line))
 	{
+		if (line && get_data(NULL)->opts.verbose)
+			print_verb(line);
 		if (line && ft_strequ(line, end))
 			break ;
 		ft_putendl_fd(line, pipe_fd);

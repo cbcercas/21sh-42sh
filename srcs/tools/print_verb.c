@@ -12,6 +12,7 @@
 
 #include <tools/tools.h>
 #include <core/data.h>
+#include <core/color.h>
 
 void print_verb(char *line)
 {
@@ -21,10 +22,14 @@ void print_verb(char *line)
 		|| !ft_strlen(line))
 		return ;
 	tmp = ft_strrchr(line, '\n');
+	if (get_data(NULL)->opts.color)
+		ft_putstr(C_RED);
 	if (tmp && tmp[1])
 		ft_putendl_fd(&tmp[1], STDIN_FILENO);
 	else if (tmp)
 		ft_putstr_fd(tmp, STDIN_FILENO);
 	else
 		ft_putendl_fd(line, STDIN_FILENO);
+	if (get_data(NULL)->opts.color)
+		ft_putstr(C_NONE);
 }
