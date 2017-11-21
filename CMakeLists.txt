@@ -166,7 +166,7 @@ set(SOURCE_FILES
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
 		srcs/tests/local_var_tests.c
-		)
+        srcs/tools/print_verb.c)
 
 include_directories(includes)
 

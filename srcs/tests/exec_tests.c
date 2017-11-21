@@ -68,6 +68,7 @@ void		sh_testing_exec(char *const *av, char **environ)
 	sh_builtins_init();
 	sh_history_init(sh_history_get());
 	sh_check_env(environ);
+	print_verb(av[0]);
 	tokens = init_tests_exec(av[0]);
 	if (expand_init(&expands) == NULL)
 		exit(1);

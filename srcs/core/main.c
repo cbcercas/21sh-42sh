@@ -58,6 +58,15 @@
 ** WIP *Need to add all the instructions here and add them on README.md to*
 */
 
+t_sh_data			*get_data(t_sh_data *save)
+{
+	static	t_sh_data	*data = NULL;
+
+	if (save)
+		data = save;
+	return(data);
+}
+
 /*
 ** @brief Initializes all the arrays needed
 **
@@ -65,7 +74,7 @@
 ** @param expand The expand array to initialize
 */
 
-void			sh_arrays_init(t_array *tokens, t_array *expand)
+static void			sh_arrays_init(t_array *tokens, t_array *expand)
 {
 	if (lexer_init(tokens) == NULL)
 		exit(EXIT_FAILURE);
@@ -96,7 +105,8 @@ int				main(int ac, char *const *av, char **environ)
 	if (!isatty(STDIN_FILENO))
 		exit (2);
 	sh_arrays_init(&exec_dat.tokens, &exec_dat.expand);
-	if (!sh_init(&data, ac, av, environ))
+	get_data(&data);
+	if (!sh_init(get_data(NULL), ac, av, environ))
 		exit(1);
 	while (!stop)
 		stop = sh_loop(data, &exec_dat, &ret);

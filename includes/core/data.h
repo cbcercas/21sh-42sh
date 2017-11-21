@@ -61,4 +61,6 @@ struct						s_sh_data
 
 };
 
+t_sh_data			*get_data(t_sh_data *save);
+
 #endif

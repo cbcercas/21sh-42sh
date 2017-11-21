@@ -62,4 +62,6 @@ int			sh_test_access(char const *filename);
 
 BOOL		ft_isdigit_str(char *str);
 
+void print_verb(char *line);
+
 #endif

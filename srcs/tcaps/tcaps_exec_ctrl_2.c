@@ -16,6 +16,11 @@ static BOOL		exec_ctrl_j2(t_input *input)
 {
 	t_cpos		dest;
 
+	default_terminal_mode();
+	if (get_data(NULL) && get_data(NULL)->opts.verbose)
+		ft_putchar_fd('\n', STDIN_FILENO);
+	print_verb(input_get_last(input)->str->s);
+	raw_terminal_mode();
 	while (input && input->next)
 	{
 		dest = input_get_first_pos(input);
@@ -25,7 +30,8 @@ static BOOL		exec_ctrl_j2(t_input *input)
 		input = input->next;
 	}
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
-	tputs("\n", 0, &ft_putc_in);
+	if (!get_data(NULL) || !get_data(NULL)->opts.verbose)
+		tputs("\n", 0, &ft_putc_in);
 	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
 	input->lock = true;
 	input_add_new(input);

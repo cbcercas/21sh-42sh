@@ -88,6 +88,7 @@ BOOL				sh_loop(t_sh_data data, struct s_exec_data *exec_dat,
 
 	if (!(line = sh_get_input(&data, NULL, *ret)))
 		return (true);
+	print_verb(line);
 	if (input_get_cur())
 		input_get_cur()->prompt_type = *ret;
 	*ret = sh_process(&exec_dat->ast, &exec_dat->expand,
