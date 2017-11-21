@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.h                                             :+:      :+:    :+:   */
+/*   builtin_echo.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 18:31:25 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/19 21:24:57 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 08:14:22 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ECHO_H
-# define ECHO_H
+#ifndef BUILTIN_ECHO_H
+# define BUILTIN_ECHO_H
 
 # include <core/data.h>
 # include <libft.h>
@@ -35,6 +35,5 @@
 */
 
 int	sh_echo(t_sh_data *data, char **arg);
-
 
 #endif

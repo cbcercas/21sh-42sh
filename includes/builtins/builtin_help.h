@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/17 14:08:48 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/11/21 08:20:13 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ int		sh_builtin_help_helper(char **args);
 void	sh_help_history(void);
 void	sh_help_history_helper(void);
 void	sh_help_pwd(void);
-
 
 #endif

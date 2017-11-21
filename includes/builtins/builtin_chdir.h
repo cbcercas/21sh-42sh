@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chdir.h                                            :+:      :+:    :+:   */
+/*   builtin_chdir.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/19 17:34:02 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 16:47:09 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/11/21 08:13:13 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef CHDIR_H
-# define CHDIR_H
+
+#ifndef BUILTIN_CHDIR_H
+# define BUILTIN_CHDIR_H
 
 # include <core/data.h>
 # include <libft.h>
@@ -46,9 +47,7 @@ int		sh_chdir(t_sh_data *data, char **arg);
 **
 ** @brief  Contains the functions for the expand part of chdir (cd)
 */
+
 char	*expand_path(char **path);
-
-
-
 
 #endif

@@ -6,12 +6,12 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 10:54:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/10 19:15:01 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 08:18:34 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_HISTORY_H
-#define BUILTIN_HISTORY_H
+# define BUILTIN_HISTORY_H
 
 # include <core/data.h>
 # include <ftprintf.h>
@@ -64,7 +64,7 @@ void	sh_history_builtin_print2(int nb);
 */
 
 void	sh_history_builtin_r(char *path);
-void    sh_history_builtin_n(char *path);
+void	sh_history_builtin_n(char *path);
 void	sh_history_builtin_p(char **arg);
 
 #endif
