@@ -16,13 +16,12 @@
 extern char const	*g_optarg;
 extern int			g_optind;
 
-
 /*
 ** @brief Prints the exported value and name
 ** @param vars The local env
 */
 
-static void builtin_export_print(t_array *vars, BOOL color)
+static void	builtin_export_print(t_array *vars, BOOL color)
 {
 	t_env	*e;
 	size_t	i;
@@ -32,7 +31,7 @@ static void builtin_export_print(t_array *vars, BOOL color)
 		return ;
 	while (i < vars->used)
 	{
-		e = (t_env *) array_get_at(vars, i);
+		e = (t_env *)array_get_at(vars, i);
 		if (e->is_export && color)
 			ft_printf("\033[91mexport \033[94m%s\033[0m=%s\n", e->name,
 					e->value);
@@ -43,7 +42,7 @@ static void builtin_export_print(t_array *vars, BOOL color)
 	}
 }
 
-static void builtin_export_p(char **argv, BOOL color)
+static void	builtin_export_p(char **argv, BOOL color)
 {
 	t_env	*var;
 
@@ -51,15 +50,21 @@ static void builtin_export_p(char **argv, BOOL color)
 		builtin_export_print(get_envs(), color);
 	while (*argv)
 	{
-		if (((var = get_var(get_envs(), *argv)) || (var = get_var(get_vars(), *argv))) && color)
+		if ((var = get_var(get_envs(), *argv) && color))
 			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
 				var->is_export ? "export" : "typedef", var->name, var->value);
-		else if (((var = get_var(get_envs(), *argv)) || (var = get_var(get_vars(), *argv))))
+		else if ((var = get_var(get_vars(), *argv)) && color)
+			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
+				var->is_export ? "export" : "typedef", var->name, var->value);
+		else if (var = get_var(get_envs(), *argv))
 			ft_printf("%s %s=%s\n",
-					var->is_export ? "export" : "typedef", var->name, var->value);
+				var->is_export ? "export" : "typedef", var->name, var->value);
+		else if (var = get_var(get_vars(), *argv))
+			ft_printf("%s %s=%s\n",
+				var->is_export ? "export" : "typedef", var->name, var->value);
 		else
 			ft_dprintf(STDERR_FILENO,
-					"%s: export: no such variable: %s\n", PROGNAME, *argv);
+						"%s: export: no such variable: %s\n", PROGNAME, *argv);
 		argv++;
 	}
 }
@@ -71,15 +76,14 @@ static void builtin_export_p(char **argv, BOOL color)
 ** @return Returns a ret value
 */
 
-int	builtin_unset(t_sh_data *data, char **argv)
+int			builtin_unset(t_sh_data *data, char **argv)
 {
-	(void) data;
-
+	(void)data;
 	if (argv && *argv)
 		(argv)++;
 	else
 		return (1);
-	if(!(*argv))
+	if (!(*argv))
 	{
 		ft_putstr_fd("unset: not enough arguments\n", STDERR_FILENO);
 		return (1);
@@ -99,7 +103,7 @@ int	builtin_unset(t_sh_data *data, char **argv)
 ** @return Returns a ret value
 */
 
-int builtin_export_var(char **argv, BOOL color)
+int			builtin_export_var(char **argv, BOOL color)
 {
 	t_env	*var;
 	char	*name;
@@ -135,7 +139,7 @@ int builtin_export_var(char **argv, BOOL color)
 ** @return Returns a ret value based on success or failure
 */
 
-int	builtin_export(t_sh_data *data, char **argv)
+int			builtin_export(t_sh_data *data, char **argv)
 {
 	int		opt;
 

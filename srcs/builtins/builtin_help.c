@@ -21,17 +21,21 @@ void	sh_help_default(t_sh_data *data)
 	ft_printf("Type `help name' to find out more about the function `name'.\n");
 	ft_printf("\n\n%sA star%s (*) next to a name means that the command is \
 disabled.\n", C_GREEN, C_NONE);
-	ft_printf("\n%secho%s [%s-neE%s] [arg …]\n", CL_RED, C_NONE, C_CYAN, C_NONE);
+	ft_printf("\n%secho%s [%s-neE%s] [arg …]\n", CL_RED, C_NONE,
+			C_CYAN, C_NONE);
 	ft_printf("%shelp%s [pattern]\n", CL_RED, C_NONE);
 	ft_printf("%sexit%s [n]\n", CL_RED, C_NONE);
 	ft_printf("%shistory%s [n] [cdanrwps]\n", CL_RED, C_NONE, C_CYAN, C_NONE);
-	ft_printf("%scd%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN, C_NONE);
-	ft_printf("%schdir%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN, C_NONE);
-	ft_printf("%spwd%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN, C_NONE);
+	ft_printf("%scd%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN,
+			C_NONE);
+	ft_printf("%schdir%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN,
+			C_NONE);
+	ft_printf("%spwd%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN,
+			C_NONE);
 	ft_printf("%ssetenv%s [name]=[value]\n", CL_RED, C_NONE);
 	ft_printf("%sunsetenv%s [name]\n", CL_RED, C_NONE);
-	ft_printf("%senv%s [%s-i%s][name=value]...\t[utility [argument...]]\n", CL_RED,\
-			C_NONE, C_CYAN, C_NONE);
+	ft_printf("%senv%s [%s-i%s][name=value]...\t[utility [argument...]]\n",
+			CL_RED, C_NONE, C_CYAN, C_NONE);
 	ft_printf("%sbonus%s [Displays the bonuses for this project]\n", CL_RED,\
 																		C_NONE);
 }
@@ -51,8 +55,10 @@ void	sh_help_echo(void)
 	ft_printf("\t%secho%s [-neE] [arg …]\n", C_RED, C_NONE);
 	ft_printf("Output the args, separated by spaces, terminated with a ");
 	ft_printf("newline.\nThe return status is 0 unless a write error ");
-	ft_printf("occurs.\nIf %s-n%s is specified, the trailing newline is ", C_CYAN, C_NONE);
-	ft_printf("suppressed.\nIf the %s-e%s option is given, interpretation of", C_CYAN, C_NONE);
+	ft_printf("occurs.\nIf %s-n%s is specified, the trailing newline is ",
+																C_CYAN, C_NONE);
+	ft_printf("suppressed.\nIf the %s-e%s option is given, interpretation of",
+																C_CYAN, C_NONE);
 	ft_printf(" the following backslash-escaped characters is enabled.\n");
 	ft_printf("echo does not interpret -- to mean the end of options.\n");
 	ft_printf("\necho interprets the following escape sequences: \n");
@@ -78,10 +84,10 @@ void	sh_help_bonus(void)
 	ft_printf("\t\t%s*history autocomplete!!\n", C_CYAN);
 	ft_printf("\t\t%s*ctrl-R!!\n", C_CYAN);
 	ft_printf("\t\t%s*21sh mod debug with log and lvl (-d)!!\n", C_YELLOW);
-	ft_printf("\t\t%s*mode testing (-t)!!\n",  C_YELLOW);
-	ft_printf("\t\t%s*the option -c!!\n",  C_YELLOW);
-	ft_printf("\t\t%s*-h!!\n",  C_YELLOW);
-	ft_printf("\t\t%s*-v mode verbose!!\n",  C_YELLOW);
+	ft_printf("\t\t%s*mode testing (-t)!!\n", C_YELLOW);
+	ft_printf("\t\t%s*the option -c!!\n", C_YELLOW);
+	ft_printf("\t\t%s*-h!!\n", C_YELLOW);
+	ft_printf("\t\t%s*-v mode verbose!!\n", C_YELLOW);
 	ft_printf("\t\t%s*builtins chdir ;) \n", C_GREEN);
 	ft_printf("\t\t%s*Builtin help\n", C_GREEN);
 	ft_printf("\t\t%s*MANY COLORS(Make, Prompt, env, help, export)\n", CL_RED);
@@ -106,12 +112,11 @@ int		sh_builtin_help(t_sh_data *data, char **args)
 	else if (ft_strequ(args[1], "env"))
 		sh_help_env();
 	else if (ft_strequ(args[1], "pwd"))
-			sh_help_pwd();
+		sh_help_pwd();
 	else
 		return (sh_builtin_help_helper(args));
 	return (0);
 }
-
 
 /*
 **TODO: ADD MORE COLORS

@@ -19,7 +19,7 @@ extern int			g_optind;
 ** @brief Displays help for the history
 */
 
-static void sh_history_help(void)
+static void	sh_history_help(void)
 {
 	ft_printf("history: usage: history [-c] [-d offset] [n] or history");
 	ft_printf("-awrn [filename] or history -ps arg [arg...]\n");

@@ -19,9 +19,8 @@ extern int			g_optind;
 ** @return Returns 1
 */
 
-static int pwd_usage(void)
+static int			pwd_usage(void)
 {
-
 	ft_putendl_fd("usage: pwd [-L | -P]", STDERR_FILENO);
 	return (1);
 }
@@ -32,11 +31,11 @@ static int pwd_usage(void)
 ** @return TODO
 */
 
-static char *getcwd_logical(BOOL *pwd_err)
+static char			*getcwd_logical(BOOL *pwd_err)
 {
-	struct stat lg;
-	struct stat phy;
-	char *pwd;
+	struct stat	lg;
+	struct stat	phy;
+	char		*pwd;
 
 	if ((pwd = get_var_value(get_envs(), "PWD")) != NULL && *pwd == '/')
 	{
@@ -55,7 +54,7 @@ static char *getcwd_logical(BOOL *pwd_err)
 ** @return Returns a ret value
 */
 
-static int do_builtin_pwd(BOOL physical)
+static int			do_builtin_pwd(BOOL physical)
 {
 	BOOL	pwd_err;
 	char	*pwd;
@@ -81,10 +80,10 @@ static int do_builtin_pwd(BOOL physical)
 ** @return Returns a ret value based on its success or not
 */
 
-int	sh_builtin_pwd(t_sh_data *data, char **argv)
+int					sh_builtin_pwd(t_sh_data *data, char **argv)
 {
-	BOOL physical;
-	int ch;
+	BOOL	physical;
+	int		ch;
 
 	(void)data;
 	ft_getopt_reset();
@@ -94,12 +93,12 @@ int	sh_builtin_pwd(t_sh_data *data, char **argv)
 		if (ch == 'L')
 		{
 			physical = false;
-			break;
+			break ;
 		}
 		else if (ch == 'P')
 		{
 			physical = true;
-			break;
+			break ;
 		}
 		else
 			return (pwd_usage());

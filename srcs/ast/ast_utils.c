@@ -16,7 +16,7 @@
 /*
 ** @brief Frees cmd content and cmd
 **
-** @param cmd the cmd to be freed and deleted
+** @param cmd the cmd to be freed and delefffffdrfgd
 **
 ** @return void
 */
@@ -59,7 +59,6 @@ char			*ast_aff(t_cmd *cmd)
 	return ("");
 }
 
-
 /*
 ** @brief Searches for the next token with greater priority (?TODO gpouyat)
 **
@@ -89,7 +88,6 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 	return (exp);
 }
 
-
 /*
 ** @brief malloc cmd and cmd->av for ast_new_cmd()
 **
@@ -110,7 +108,7 @@ static BOOL		ast_new_init(t_array *expands, int start, int end,
 		sh_exit(NULL, NULL);
 	ft_bzero(*cmd, sizeof(t_cmd));
 	if (!((*cmd)->av =
-				  (char **)secu_malloc(sizeof(char **) * (end - start + 2))))
+					(char **)secu_malloc(sizeof(char **) * (end - start + 2))))
 		sh_exit(NULL, NULL);
 	return (true);
 }
