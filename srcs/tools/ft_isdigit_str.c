@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 18:42:01 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/31 18:42:15 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 12:08:01 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@
 ** otherwise
 */
 
-BOOL  ft_isdigit_str(char *str)
+BOOL	ft_isdigit_str(char *str)
 {
-  int i;
+	int		i;
 
-  i = 0;
-  if (!str)
-    return (false);
-  while(str[i])
-  {
-    if(!ft_isdigit(str[i]))
-      return (false);
-    i++;
-  }
-  return (true);
+	i = 0;
+	if (!str)
+		return (false);
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (false);
+		i++;
+	}
+	return (true);
 }
