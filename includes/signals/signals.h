@@ -24,8 +24,6 @@
 # include <core/prompt.h>
 # include <builtins/builtin_exit.h>
 
-# define SIGUNUSED 31
-
 typedef enum e_pid_type	t_pid_type;
 
 /*

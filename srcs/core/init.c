@@ -56,7 +56,7 @@ void				sh_testing(const char *arg, char *const *av, char **environ)
 		testing_local_vars(av, environ);
 	else
 	{
-		ft_dprintf(STDERR_FILENO, "Unknown testing arg.\n");
+		ft_dprintf(STDERR_FILENO, "Unknown testing arg. %s\n", arg);
 		sh_usage_help_exit();
 	}
 }

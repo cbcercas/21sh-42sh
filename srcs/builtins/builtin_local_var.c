@@ -50,16 +50,16 @@ static void	builtin_export_p(char **argv, BOOL color)
 		builtin_export_print(get_envs(), color);
 	while (*argv)
 	{
-		if ((var = get_var(get_envs(), *argv) && color))
+		if ((var = get_var(get_envs(), *argv)) && color)
 			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
 				var->is_export ? "export" : "typedef", var->name, var->value);
 		else if ((var = get_var(get_vars(), *argv)) && color)
 			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
 				var->is_export ? "export" : "typedef", var->name, var->value);
-		else if (var = get_var(get_envs(), *argv))
+		else if ((var = get_var(get_envs(), *argv)))
 			ft_printf("%s %s=%s\n",
 				var->is_export ? "export" : "typedef", var->name, var->value);
-		else if (var = get_var(get_vars(), *argv))
+		else if ((var = get_var(get_vars(), *argv)))
 			ft_printf("%s %s=%s\n",
 				var->is_export ? "export" : "typedef", var->name, var->value);
 		else
@@ -156,7 +156,8 @@ int			builtin_export(t_sh_data *data, char **argv)
 				"-p\n");
 		return (1);
 	}
-	else if (opt == -1 && builtin_export_var(argv, data->opts.color))
+	else if (opt == -1 && builtin_export_var(argv, data ?
+												data->opts.color : false))
 		return (1);
 	return (0);
 }

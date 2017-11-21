@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <signals/signals.h>
+#include <wait.h>
 
 /*
 ** @brief Initializes all the signals from 1 to 32
@@ -26,7 +27,7 @@ void	init_signals(void *handler)
 	i = 1;
 	if (!handler)
 		return ;
-	while (++i <= SIGUNUSED)
+	while (++i <= 31)
 	{
 		if (sigaction(i, NULL, &act) < 0)
 			log_warn("Signal: can't change handler signal: %d", i);

@@ -29,11 +29,11 @@ extern int			g_optind;
 ** @return    void
 */
 
-void			sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
-								char **environ)
+static	void	sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
+										char **environ)
 {
 	if (opt == 'v')
-		opts->verbose = 1;
+		opts->verbose = true;
 	else if (opt == 'd')
 		if (ft_atoi(g_optarg) >= 0 && ft_atoi(g_optarg) <= 7)
 			logger_init(ft_atoi(g_optarg), PROGNAME, "sh.log");
@@ -48,8 +48,6 @@ void			sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
 		sh_usage_help_exit();
 	else if (opt == 't')
 		sh_testing(g_optarg, &av[g_optind], environ);
-	else if (opt == 'c')
-		sh_testing_exec(&av[g_optind], environ);
 	else if (opt == 'l' || !isatty(STDIN_FILENO))
 		opts->tcaps = false;
 }
@@ -57,11 +55,22 @@ void			sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
 void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 						char **environ)
 {
-	int opt;
+	int		opt;
+	BOOL	ret;
 
+	ret = false;
 	opts->tcaps = true;
 	opts->color = false;
 	ft_getopt_reset();
-	while ((opt = ft_getopt(ac, av, "chvd:t:lC")) >= 0)
-		sh_options_loop(opt, opts, av, environ);
+	while ((opt = ft_getopt(ac, av, "schvd:t:lC")) >= 0)
+	{
+		if (opt == 'c')
+			ret = true;
+		else if (opt == 's')
+			ret = false;
+		else
+			sh_options_loop(opt, opts, av, environ);
+	}
+	if (ret)
+		sh_testing_exec(&av[g_optind], environ);
 }

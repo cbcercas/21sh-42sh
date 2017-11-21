@@ -36,7 +36,7 @@ void	sh_testing_lexer(char *const *av)
 	else if (lexer_lex(&tokens, av[0]) == E_RET_LEXER_OK)
 	{
 		lexer_print_tokens(&tokens);
-		exit(1);
+		exit(0);
 	}
 	else
 	{

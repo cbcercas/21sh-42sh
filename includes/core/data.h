@@ -38,7 +38,7 @@ typedef struct s_sh_data	t_sh_data;
 
 struct						s_sh_opt
 {
-	unsigned		verbose:1;
+	BOOL			verbose;
 	unsigned		dbg:1;
 	enum e_d_lvl	dbg_lvl;
 	BOOL			tcaps;
