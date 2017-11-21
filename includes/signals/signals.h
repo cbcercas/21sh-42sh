@@ -6,26 +6,27 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/17 14:08:48 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/11/21 08:25:58 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SIGNALS_H
 # define SIGNALS_H
 
-#include <ftprintf.h>
-#include <logger.h>
-#include <signal.h>
-#include <history/history.h>
-#include <stdio.h>
-#include <environ/env_utils.h>
-#include <environ/getter_env.h>
-#include <core/tcaps.h>
-#include <core/prompt.h>
-#include <builtins/builtin_exit.h>
+# include <ftprintf.h>
+# include <logger.h>
+# include <signal.h>
+# include <history/history.h>
+# include <stdio.h>
+# include <environ/env_utils.h>
+# include <environ/getter_env.h>
+# include <core/tcaps.h>
+# include <core/prompt.h>
+# include <builtins/builtin_exit.h>
+
+# define SIGUNUSED 31
 
 typedef enum e_pid_type		t_pid_type;
-
 
 /*
 ** @file   signals.h
