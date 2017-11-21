@@ -21,9 +21,9 @@
 void	signals_quit(int sig)
 {
 	default_terminal_mode();
-	if(sig == SIGSEGV)
+	if (sig == SIGSEGV)
 		ft_putstr_fd("\nShell Segfault !\n", 2);
-	else if(sig == SIGABRT)
+	else if (sig == SIGABRT)
 		ft_putstr_fd("Shell Abort", 2);
 	else
 		ft_dprintf(STDERR_FILENO, "\nShell quit with signal: %d\nGoodbye, "
@@ -31,16 +31,15 @@ void	signals_quit(int sig)
 	log_fatal("Signals: Shell quit with signal: %d", sig);
 	kill_childs(SIGTERM);
 	exit(128 + (sig % 32));
-	//TODO On free rien ici ?
 }
 
 /*
 ** @brief SIGWINCH signal handler
 */
 
-void signals_sigwinch(void)
+void	signals_sigwinch(void)
 {
-	size_t 	pos;
+	size_t	pos;
 	t_input	*input;
 	t_input	*tmp;
 
@@ -69,28 +68,21 @@ void signals_sigwinch(void)
 ** @param sig signal
 */
 
-void    signals_handler(int sig)
+void	signals_handler(int sig)
 {
 	log_info("Signals:Shell cath signal:%d", sig);
 	if (sig == SIGTSTP)
 		tcaps_bell();
-	if(sig == SIGINT)
+	else if (sig == SIGINT)
 	{
 		ft_putchar('\n');
 		log_info("Signal: User pressed Ctrl+C.");
-		return;
 	}
-	if(sig == SIGWINCH)
+	else if (sig == SIGWINCH)
 		signals_sigwinch();
-	if (sig == SIGUSR1 || sig == SIGTERM)
+	else if (sig == SIGUSR1 || sig == SIGTERM)
 		sh_exit(NULL, NULL);
-	if (sig == SIGUSR2)
-	{
-		*is_in_pipe() = false;
-		log_dbg3("SIGNAL SIGUSR1 g_stop = %d", *is_in_pipe());
-		return ;
-	}
-	if (sig == 13)
+	else if (sig == 13)
 	{
 		if (get_pid_child(-1))
 			kill(get_pid_child(-1), SIGKILL);
@@ -104,5 +96,6 @@ void    signals_handler(int sig)
 BOOL	*is_in_pipe(void)
 {
 	static BOOL		stop = true;
+
 	return (&stop);
 }
