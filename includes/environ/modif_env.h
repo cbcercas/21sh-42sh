@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/17 14:08:48 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/11/21 08:37:20 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 **
 ** @brief  Functions used to modify the env
 */
-
 
 t_env	*del_var(t_array *vars, char const *name);
 t_env	*set_var(t_array *vars, char const *name,

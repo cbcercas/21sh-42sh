@@ -6,7 +6,7 @@
 /*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
-/*   Updated: 2017/11/21 08:25:58 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/11/21 14:18:34 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define SIGUNUSED 31
 
-typedef enum e_pid_type		t_pid_type;
+typedef enum e_pid_type	t_pid_type;
 
 /*
 ** @file   signals.h
@@ -44,7 +44,7 @@ typedef enum e_pid_type		t_pid_type;
 ** @brief TODO
 */
 
-enum	e_pid_type
+enum					e_pid_type
 {
 	E_PID_NONE = 100,
 	E_PID_SHELL = 101,
@@ -60,11 +60,11 @@ enum	e_pid_type
 ** @brief TODO
 */
 
-typedef struct		s_pids
+typedef struct			s_pids
 {
-	t_pid_type		type;
-	pid_t			pid;
-}					t_pids;
+	t_pid_type			type;
+	pid_t				pid;
+}						t_pids;
 
 /*
 ** @file signals.c
@@ -72,9 +72,9 @@ typedef struct		s_pids
 ** @brief Functions to initialize the signals
 */
 
-void init_signals(void *handler);
-int sh_wait(pid_t pid, int wait_flag);
-BOOL	*is_in_pipe(void);
+void					init_signals(void *handler);
+int						sh_wait(pid_t pid, int wait_flag);
+BOOL					*is_in_pipe(void);
 
 /*
 ** @file signals_handler.c
@@ -82,12 +82,12 @@ BOOL	*is_in_pipe(void);
 ** @brief Functions to handle the signals
 */
 
-void    signals_handler(int sig);
-void signals_sigwinch(void);
+void					signals_handler(int sig);
+void					signals_sigwinch(void);
 
-BOOL signals(int sig, void (*handler)(int));
-BOOL restore_sigwinch(void);
-BOOL ignore_sigwinch(void);
+BOOL					signals(int sig, void (*handler)(int));
+BOOL					restore_sigwinch(void);
+BOOL					ignore_sigwinch(void);
 
 /*
 ** @file get_pid_childs.c
@@ -95,14 +95,10 @@ BOOL ignore_sigwinch(void);
 ** @brief Functions to handle the pids and the child processes
 */
 
-pid_t get_pid_child(pid_t pid_op);
-t_array		*get_pids_child(void);
-void	remove_pid_child(int pid_child);
-void	remove_useless(void);
-int		kill_childs(int sig);
-
-//void	send_kill_except(int sig, t_pid_type except);
-//void	send_kill_only(int sig, t_pid_type only);
-//BOOL	exist_pid_type(t_pid_type type);
+pid_t					get_pid_child(pid_t pid_op);
+t_array					*get_pids_child(void);
+void					remove_pid_child(int pid_child);
+void					remove_useless(void);
+int						kill_childs(int sig);
 
 #endif

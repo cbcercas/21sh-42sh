@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/10 19:56:40 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/11 12:46:32 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 13:44:43 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,11 @@
 # include <environ/env_utils.h>
 # include <environ/getter_env.h>
 # include <core/input.h>
-#include <core/tcaps.h>
+# include <core/tcaps.h>
 
 # define HISTORY_FILE ".21sh_history"
 # define HISTORY_FILE_MAX 10000
 # define HISTORY_MAX 500
-
 
 /*
 ** @file   history.h
@@ -44,14 +43,14 @@
 ** @arg TODO
 */
 
-typedef	struct	s_hist
+typedef	struct		s_hist
 {
 	const char		*cmd;
-	char					*buf;
-	int						cur;
-	BOOL					session;
+	char			*buf;
+	int				cur;
+	BOOL			session;
 	struct s_hist	*next;
-}								t_hist;
+}					t_hist;
 
 /*
 ** @file history.c
@@ -59,10 +58,10 @@ typedef	struct	s_hist
 ** @brief Main functions for the history module
 */
 
-t_array					*sh_history_get(void);
-char	*history_get_path(char *str);
-void						sh_history_save(void);
-const char					*history_get_n(size_t n);
+t_array				*sh_history_get(void);
+char				*history_get_path(char *str);
+void				sh_history_save(void);
+const char			*history_get_n(size_t n);
 
 /*
 ** @file history_arrow.c
@@ -70,11 +69,10 @@ const char					*history_get_n(size_t n);
 ** @brief Functions used to handle the arrows for the history module
 */
 
-
-t_input						*sh_history_up(t_input *input);
-t_input 					*sh_history_down(t_input *input);
-void						sh_history_draw_line(t_input *input, const char *line);
-void					sh_history_clear_len(char *buff, char *result, BOOL fail);
+t_input				*sh_history_up(t_input *input);
+t_input				*sh_history_down(t_input *input);
+void				sh_history_draw_line(t_input *input, const char *line);
+void				sh_history_clear_len(char *buff, char *result, BOOL fail);
 
 /*
 ** @file history_init.c
@@ -82,9 +80,8 @@ void					sh_history_clear_len(char *buff, char *result, BOOL fail);
 ** @brief Functions to initialize the history module
 */
 
-
-t_array *sh_history_init(t_array *hists);
-int		get_history_init_choice(int choice);
+t_array				*sh_history_init(t_array *hists);
+int					get_history_init_choice(int choice);
 
 /*
 ** @file history_print.c
@@ -92,9 +89,8 @@ int		get_history_init_choice(int choice);
 ** @brief Functions to print the history
 */
 
-
-void 						sh_history_print(void);
-void 						sh_history_print_in_log(void);
+void				sh_history_print(void);
+void				sh_history_print_in_log(void);
 
 /*
 ** @file history_getter.c
@@ -102,11 +98,10 @@ void 						sh_history_print_in_log(void);
 ** @brief Functions to get and parse the history
 */
 
-
-t_hist					*sh_history_set_new(char **cmd);
-int							sh_history_is_space_plus(char const *line);
-const char					*sh_history_get_search(const char *line);
-const char					*sh_history_get_at(ssize_t nb);
+t_hist				*sh_history_set_new(char **cmd);
+int					sh_history_is_space_plus(char const *line);
+const char			*sh_history_get_search(const char *line);
+const char			*sh_history_get_at(ssize_t nb);
 
 /*
 ** @file history_research.c
@@ -114,10 +109,9 @@ const char					*sh_history_get_at(ssize_t nb);
 ** @brief Functions to search the history
 */
 
-
-void					history_research_prompt(char *buff, t_input *result,
+void				history_research_prompt(char *buff, t_input *result,
 												BOOL fail);
-void					history_research(t_input *input);
+void				history_research(t_input *input);
 
 /*
 ** @file history_research_start_end.c
@@ -125,10 +119,10 @@ void					history_research(t_input *input);
 ** @brief Functions to research in the history from start or end
 */
 
-
-void history_research_exit(t_input *result, char *line, t_input *input);
-void					history_research_start(char **line, t_input **result,
-											   BOOL *fail);
+void				history_research_exit(t_input *result, char *line,
+																t_input *input);
+void				history_research_start(char **line, t_input **result,
+																	BOOL *fail);
 
 /*
 ** @file history_list_utils.c
@@ -136,17 +130,11 @@ void					history_research_start(char **line, t_input **result,
 ** @brief Utility functions used by the lists.
 */
 
-
-t_hist					*sh_history_new(char *cmd);
-void 						sh_history_insert_buf(char *str);
-void 					sh_history_destroy(void);
-void					sh_history_var_session_reset(void);
-void					sh_history_del(void *i);
-
-//void					history_mess_quit(int sig);
-
-
-//BOOL       		sh_history_is_print(char const *line);
+t_hist				*sh_history_new(char *cmd);
+void				sh_history_insert_buf(char *str);
+void				sh_history_destroy(void);
+void				sh_history_var_session_reset(void);
+void				sh_history_del(void *i);
 
 /*
 ** @file history_input_utils.c
@@ -154,9 +142,8 @@ void					sh_history_del(void *i);
 ** @brief Functions used to hande the input for history
 */
 
-
-char						*input_to_history(t_input *input);
-t_input 					*input_from_history(const char *hist);
+char				*input_to_history(t_input *input);
+t_input				*input_from_history(const char *hist);
 
 /*
 ** @file history_getter_2.c
@@ -164,7 +151,6 @@ t_input 					*input_from_history(const char *hist);
 ** @brief TODO
 */
 
-
-const char					*history_get_next(char *str);
-const char					*history_get_prev(char *str);
+const char			*history_get_next(char *str);
+const char			*history_get_prev(char *str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/17 14:26:35 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/10/14 17:54:33 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 14:21:21 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,6 @@ void	exec_list_nothing(void *no, size_t thing);
 int		exec_exec(t_sh_data *data, t_btree *ast);
 int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds);
 
-//void	exec_list_pop(t_list **head);
-
 /*
 ** @file   sh_exec.c
 **
@@ -94,7 +92,7 @@ int		sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds);
 */
 
 void	sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
-									t_list **fds);
+																t_list **fds);
 
 /*
 ** @file   sh_heradoc.c
@@ -158,8 +156,6 @@ int		sh_pipe(int tube[2]);
 
 int		sh_open_exec(t_btree *ast);
 BOOL	check_fd(int fd);;
-
-//int		sh_open(char *file, int flags);
 
 /*
 ** @file   sh_ret.c

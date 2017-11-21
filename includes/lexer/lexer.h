@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 05:59:37 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 16:49:30 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/11/21 13:46:59 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <core/return.h>
 # include <core/progname.h>
 
-typedef struct s_token	t_token;
+typedef struct s_token		t_token;
 typedef struct s_lexer_data	t_lexer_data;
 
 /*
@@ -41,28 +41,27 @@ typedef struct s_lexer_data	t_lexer_data;
 ** @arg type The token type (cf lexer.c)
 */
 
-struct s_token
+struct						s_token
 {
-	char const			*str;
-	size_t				len;
-	t_token_type		type;
+	char const				*str;
+	size_t					len;
+	t_token_type			type;
 };
 
 /*
 ** @brief TODO
 */
 
-struct s_lexer_data
+struct						s_lexer_data
 {
-	t_automaton	automaton;
-
+	t_automaton				automaton;
 };
 
 /*
 ** @brief TODO
 */
 
-enum e_char_type
+enum						e_char_type
 {
 	E_CHAR_TYPE_NONE,
 	E_CHAR_TYPE_BLANK,
@@ -86,7 +85,7 @@ enum e_char_type
 ** @brief Functions used to initialize the lexer
 */
 
-t_array	*lexer_init(t_array *toks);
+t_array						*lexer_init(t_array *toks);
 
 /*
 ** @file lexer.c
@@ -94,9 +93,8 @@ t_array	*lexer_init(t_array *toks);
 ** @brief Functions for the lexer itself
 */
 
-
-t_return lexer_lex(t_array *tokens, char const *input);
-void	lexer_print_tokens(t_array *tokens);
+t_return					lexer_lex(t_array *tokens, char const *input);
+void						lexer_print_tokens(t_array *tokens);
 
 /*
 ** @file lexer_clean.c
@@ -104,8 +102,7 @@ void	lexer_print_tokens(t_array *tokens);
 ** @brief Functions used to clear tokens (TODO)
 */
 
-
-void	lexer_clean_tokens(t_array *tokens);
+void						lexer_clean_tokens(t_array *tokens);
 
 /*
 ** @file lexer_utils.c
@@ -113,7 +110,6 @@ void	lexer_clean_tokens(t_array *tokens);
 ** @brief Utility functions for the lexer modules
 */
 
-
-t_bool	is_token_type(t_token_type t);
+t_bool						is_token_type(t_token_type t);
 
 #endif
