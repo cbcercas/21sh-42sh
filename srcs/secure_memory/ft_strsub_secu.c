@@ -22,7 +22,8 @@
 ** @return Returns the substituted string
 */
 
-char		*ft_strsub_secu(char const *s, unsigned int start, size_t len, size_t lvl)
+char		*ft_strsub_secu(char const *s, unsigned int start,
+							size_t len, size_t lvl)
 {
 	char	*str;
 

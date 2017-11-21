@@ -60,7 +60,7 @@ void					ft_secu_free(void *ptr)
 ** @brief Frees all it can find in memory
 */
 
-void	ft_secu_free_all(void)
+void					ft_secu_free_all(void)
 {
 	t_mem			*mem;
 	t_secu_malloc	*secu_malloc;
@@ -84,7 +84,7 @@ void	ft_secu_free_all(void)
 ** @param lvl TODO
 */
 
-void	ft_secu_free_lvl(size_t lvl)
+void					ft_secu_free_lvl(size_t lvl)
 {
 	t_mem			*mem;
 	t_secu_malloc	*secu_malloc;

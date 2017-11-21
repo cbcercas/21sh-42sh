@@ -110,10 +110,9 @@ set(SOURCE_FILES
 		srcs/secure_memory/ft_strnew_secu.c
 		srcs/secure_memory/ft_strsub_secu.c
 		srcs/secure_memory/ft_strsplit_secu.c
-		srcs/secure_memory/ft_strdblfree.c
 
 
-		srcs/history/history_init.c
+        srcs/history/history_init.c
 		srcs/history/history.c
 		srcs/history/history_list_utils.c
 		srcs/history/history_getter.c
