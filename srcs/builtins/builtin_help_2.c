@@ -27,7 +27,8 @@ executed.\n");
 
 void	sh_help_cd(void)
 {
-	ft_printf("%scd%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN, C_NONE);
+	ft_printf("%scd%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN,
+																		C_NONE);
 	ft_printf("Change the current working directory to directory.\n");
 	ft_printf("If directory is not supplied, the value of the HOME shell ");
 	ft_printf("variable is used.\n");
@@ -62,8 +63,8 @@ void	sh_help_unsetenv(void)
 
 void	sh_help_env(void)
 {
-	ft_printf("%senv%s [%s-i%s][name=value]...\t[utility [argument...]]\n", CL_RED,\
-			C_NONE, C_CYAN, C_NONE);
+	ft_printf("%senv%s [%s-i%s][name=value]...\t[utility [argument...]]\n",
+											CL_RED, C_NONE, C_CYAN, C_NONE);
 	ft_printf("Obtains the current environment, modify it according to its ");
 	ft_printf("arguments, \nthen invoke the utility operand with the");
 	ft_printf(" modified environment.\n");

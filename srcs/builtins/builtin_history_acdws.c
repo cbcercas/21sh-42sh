@@ -73,7 +73,8 @@ void	sh_history_builtin_d(const char *arg)
 	if (ft_isdigit(arg[0]))
 		nb = ft_atoi(arg) - 1;
 	if (nb == -1 || array_remove_at(hists, nb, NULL) == NULL)
-		ft_printf("%s: history: %s: history position out of range\n", PROGNAME, arg);
+		ft_printf("%s: history: %s: history position out of range\n",
+																PROGNAME, arg);
 }
 
 /*

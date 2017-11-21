@@ -95,6 +95,13 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 ** @return void
 */
 
+static void			sh_env_warn(void)
+{
+	ft_dprintf(2, "%s: %sWarning%s, Starting %s without env may cause some "
+	"features to not work proprelly.\n", PROGNAME, CL_RED, C_NONE, PROGNAME);
+	log_warn("was launched without an env provided. Using default.\n");
+}
+
 void				sh_check_env(char **environ)
 {
 	char	*tmp;
@@ -102,10 +109,7 @@ void				sh_check_env(char **environ)
 	tmp = NULL;
 	if (!environ || !environ[0])
 	{
-		ft_dprintf(2, "%s: %sWarning%s, Starting %s without env may cause some "
-						"feature to not work proprelly.\n",
-				PROGNAME, CL_RED, C_NONE, PROGNAME);
-		log_warn("was launched without an env provided. Using default.\n");
+		sh_env_warn();
 		set_var(get_envs(), "TERM", "xterm", true);
 		set_var(get_envs(), "USER", "Marvin", true);
 		set_var(get_envs(), "USERNAME", "Marvin", true);

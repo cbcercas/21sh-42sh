@@ -20,7 +20,7 @@
 ** @param arg The status
 */
 
-void sh_exit(t_sh_data *data, char **arg)
+void	sh_exit(t_sh_data *data, char **arg)
 {
 	int		status;
 
@@ -44,7 +44,7 @@ void sh_exit(t_sh_data *data, char **arg)
 ** @param arg The args passed to exit (The exit status)
 */
 
-int builtin_exit(t_sh_data *data, char **arg)
+int		builtin_exit(t_sh_data *data, char **arg)
 {
 	sh_exit(data, arg);
 	return (EXIT_FAILURE);

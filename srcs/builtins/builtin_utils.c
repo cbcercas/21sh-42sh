@@ -80,6 +80,19 @@ t_array		*sh_add_builtin(char *name, t_builtin_fn fn)
 ** @return Returns the builtin array
 */
 
+t_array		*sh_builtins_init_helper(t_array *builtins)
+{
+	if (!sh_add_builtin("env", sh_builtin_env))
+		return (NULL);
+	if (!sh_add_builtin("unset", builtin_unset))
+		return (NULL);
+	if (!sh_add_builtin("export", builtin_export))
+		return (NULL);
+	if (!sh_add_builtin("exit", builtin_exit))
+		return (NULL);
+	return (builtins);
+}
+
 t_array		*sh_builtins_init(void)
 {
 	t_array	*builtins;
@@ -101,13 +114,5 @@ t_array		*sh_builtins_init(void)
 		return (NULL);
 	if (!sh_add_builtin("unsetenv", sh_builtin_unsetenv))
 		return (NULL);
-	if (!sh_add_builtin("env", sh_builtin_env))
-		return (NULL);
-	if (!sh_add_builtin("unset", builtin_unset))
-		return (NULL);
-	if (!sh_add_builtin("export", builtin_export))
-		return (NULL);
-	if (!sh_add_builtin("exit", builtin_exit))
-		return (NULL);
-	return (builtins);
+	return (sh_builtins_init_helper(builtins));
 }

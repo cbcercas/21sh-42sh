@@ -12,7 +12,6 @@
 
 #include <core/sh_loop.h>
 
-
 /*
 ** @brief Resets the given arrays
 **
@@ -22,12 +21,14 @@
 
 void				sh_arrays_reset(t_array *tokens, t_array *expands)
 {
-	//TODO test reset
 	array_reset(tokens, NULL);
 	array_reset(expands, sh_exp_del);
-	//ft_secu_free_lvl(M_LVL_AST);
 	ft_secu_free_lvl(M_LVL_EXPA);
 }
+
+/*
+** TODO test reset
+*/
 
 /*
 ** @brief Lexes, parses, expands then builds the ast and returns it

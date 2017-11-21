@@ -20,7 +20,7 @@
 ** @return Returns the pointer to the '..' (?)
 */
 
-static char 	*find_start_ddots(char *path)
+static char		*find_start_ddots(char *path)
 {
 	char	*start;
 	char	*find;
@@ -57,10 +57,11 @@ static	char	*remove_dots(char *path)
 		if (start == path)
 			start++;
 		if (!*start)
-			break;
+			break ;
 		ft_memcpy(start, start2 + 3, ft_strlen(start2) - 1);
 	}
-	if (path && ft_strlen(path) > 2 && ft_strequ(&path[ft_strlen(path) - 2], "/."))
+	if (path && ft_strlen(path) > 2 &&
+									ft_strequ(&path[ft_strlen(path) - 2], "/."))
 		path[ft_strlen(path) - 1] = 0;
 	return (path);
 }
@@ -73,7 +74,7 @@ static	char	*remove_dots(char *path)
 ** @return The path modified without the backslashes
 */
 
-static	char	*remove_backslash(char *path)
+static char		*remove_backslash(char *path)
 {
 	char	*start;
 
@@ -90,7 +91,7 @@ static	char	*remove_backslash(char *path)
 ** @return (TODO)
 */
 
-char	*expand_path(char **path)
+char			*expand_path(char **path)
 {
 	char		*current;
 	char		*ret;
