@@ -15,6 +15,8 @@
 int		sh_builtin_setenv(t_sh_data *data, char **args)
 {
 	int i;
+	char	*name;
+	char	*value;
 
 	(void)data;
 	if (!args || !args[0] || !args[1] || !ft_strchr(args[1], '='))
@@ -25,8 +27,10 @@ int		sh_builtin_setenv(t_sh_data *data, char **args)
 	i = 1;
 	while (args[i] && ft_strchr(args[i], '='))
 	{
-		set_var(get_envs(), split_var_name(args[i]), split_var_value(args[i]),
+		set_var(get_envs(), (name = split_var_name(args[i])), (value = split_var_value(args[i])),
 				true);
+		ft_strdel(&name);
+		ft_strdel(&value);
 		log_dbg1("Environ set for %s", args[i]);
 		i++;
 	}

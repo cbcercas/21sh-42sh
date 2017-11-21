@@ -75,7 +75,6 @@ void		sh_testing_exec(char *const *av, char **environ)
 	expand(&tokens, &expands);
 	ast_create(&ast, &expands);
 	exec_exec(get_data(NULL), ast);
-	array_reset(&expands, NULL);
 	ft_secu_free_all();
 	exit(0);
 }
