@@ -43,7 +43,7 @@ static int		ft_replace_init(char *src1, size_t index, int size)
 ** @return Returns the mofified string
 */
 
-char	*ft_replace_exp(char *src1, char *src2, size_t index, int size)
+char			*ft_replace_exp(char *src1, char *src2, size_t index, int size)
 {
 	char	*begin;
 	char	*end;

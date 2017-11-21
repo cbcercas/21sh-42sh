@@ -20,18 +20,18 @@
 ** @return Returns the expanded X
 */
 
-t_exp *expand_exp(t_exp *exp)
+t_exp		*expand_exp(t_exp *exp)
 {
-  if (exp->type == E_TOKEN_WORD || exp->type == E_TOKEN_DQUOTE)
-  {
-	  expand_dol(exp->str);
-    if (expand_hist(exp) == NULL)
-    {
-      ft_printf("event not found\n");
-      return (NULL);
-    }
-  }
-  return (exp);
+	if (exp->type == E_TOKEN_WORD || exp->type == E_TOKEN_DQUOTE)
+	{
+		expand_dol(exp->str);
+		if (expand_hist(exp) == NULL)
+		{
+			ft_printf("event not found\n");
+			return (NULL);
+		}
+	}
+	return (exp);
 }
 
 /*
@@ -43,9 +43,10 @@ t_exp *expand_exp(t_exp *exp)
 ** @return Returns a E_RET_EXPAND_OK If the expand is successful
 */
 
-t_return	expand(t_array *tokens, t_array *expand) {
-	t_exp *exp;
-	size_t i;
+t_return	expand(t_array *tokens, t_array *expand)
+{
+	t_exp	*exp;
+	size_t	i;
 
 	i = 0;
 	if (tokens->used == 0)
@@ -57,7 +58,7 @@ t_return	expand(t_array *tokens, t_array *expand) {
 		if (!expand_exp(exp))
 			return (E_RET_EXPAND_ERROR);
 		expand_remove_quote(exp);
-		array_push(expand, (void *) exp);
+		array_push(expand, (void *)exp);
 		i++;
 	}
 	expand_merge_tokens_word(expand);

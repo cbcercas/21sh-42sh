@@ -20,7 +20,7 @@
 ** @return Returns the initialized t_array if successful, NULL otherwise
 */
 
-t_array	*expand_init(t_array *expand_array)
+t_array		*expand_init(t_array *expand_array)
 {
 	expand_array = array_init(expand_array, sizeof(t_exp));
 	if (expand_array)
@@ -41,15 +41,16 @@ t_array	*expand_init(t_array *expand_array)
 ** @return Returns the modified expand
 */
 
-t_exp *exp_create_new(t_token *tok)
+t_exp		*exp_create_new(t_token *tok)
 {
-  t_exp	*exp;
+	t_exp	*exp;
 
-  if (!tok || !tok->str || !(exp = (t_exp*)ft_secu_malloc_lvl(sizeof(t_exp), M_LVL_EXPA)))
-    return (NULL);
-  exp->type = tok->type;
-  exp->str = string_ndup(tok->str, tok->len);
-  return (exp);
+	if (!tok || !tok->str || !(exp = (t_exp*)ft_secu_malloc_lvl(sizeof(t_exp),
+																M_LVL_EXPA)))
+		return (NULL);
+	exp->type = tok->type;
+	exp->str = string_ndup(tok->str, tok->len);
+	return (exp);
 }
 
 /*
@@ -57,7 +58,7 @@ t_exp *exp_create_new(t_token *tok)
 ** @param i Part to be deleted
 */
 
-void sh_exp_del(void *i)
+void		sh_exp_del(void *i)
 {
 	t_exp *exp;
 
@@ -71,7 +72,7 @@ void sh_exp_del(void *i)
 ** @param array_exp array containing the expand to be destroyed
 */
 
-void sh_expand_destroy(t_array *array_exp)
+void		sh_expand_destroy(t_array *array_exp)
 {
 	if (array_exp)
 		array_destroy(&array_exp, sh_exp_del);

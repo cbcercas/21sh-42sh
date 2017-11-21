@@ -18,9 +18,9 @@
 ** @return Returns the value of var `name`
 */
 
-char	*sh_getenv_exp(const char *name)
+char		*sh_getenv_exp(const char *name)
 {
-	char		*value;
+	char	*value;
 
 	if ((value = get_var_value(get_envs(), name)))
 		return (value);
@@ -37,7 +37,7 @@ char	*sh_getenv_exp(const char *name)
 ** @return Returns 1 if `c` is any of the three char, else returns 0
 */
 
-int ft_is_spec(int c)
+int			ft_is_spec(int c)
 {
 	return (c == '$' || c == '?' || c == '0');
 }
@@ -48,7 +48,7 @@ int ft_is_spec(int c)
 ** @param i TODO
 */
 
-void expand_dol_spec_replace(t_string *str, size_t *i)
+void		expand_dol_spec_replace(t_string *str, size_t *i)
 {
 	char	*tmp;
 	BOOL	fri;
@@ -77,7 +77,7 @@ void expand_dol_spec_replace(t_string *str, size_t *i)
 ** @param i Where to start
 */
 
-void expand_dol_replace(t_string *str, int len, size_t *i)
+void		expand_dol_replace(t_string *str, int len, size_t *i)
 {
 	char	car_tmp;
 	char	*tmp;
@@ -98,9 +98,9 @@ void expand_dol_replace(t_string *str, int len, size_t *i)
 ** @param str String to be expanded
 */
 
-void expand_dol(t_string *str)
+void		expand_dol(t_string *str)
 {
-	size_t			i;
+	size_t		i;
 	int			len;
 	char		*tmp;
 
@@ -112,14 +112,14 @@ void expand_dol(t_string *str)
 			i += 2;
 		if (str->s[i] == '$' && str->s[i + 1])
 		{
-			while(str->s[i + 1 + len] && ft_isalnum(str->s[i + 1 + len]))
+			while (str->s[i + 1 + len] && ft_isalnum(str->s[i + 1 + len]))
 				len++;
-			ft_is_spec(str->s[i + 1])? expand_dol_spec_replace(str, &i) :
+			ft_is_spec(str->s[i + 1]) ? expand_dol_spec_replace(str, &i) :
 			expand_dol_replace(str, len, &i);
 		}
 		else if (str->s[i] == '~' && ((tmp = get_var_value(get_envs(),
-						   "HOME")) || (tmp =
-										  get_var_value(get_vars(), "HOME"))))
+						"HOME")) || (tmp =
+										get_var_value(get_vars(), "HOME"))))
 			str->s = ft_replace_exp(str->s, tmp, i, 1);
 		else
 			i++;

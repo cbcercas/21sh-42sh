@@ -89,7 +89,7 @@ char					*ft_replace_exp(char *src1, char *src2, size_t index, \
 */
 
 void					expand_print(t_array *array_exp);
-void					ft_expand_print_token(t_token_type type);
+void					expand_print_token(t_token_type type);
 
 /*
 ** @file expand_history_tools.c

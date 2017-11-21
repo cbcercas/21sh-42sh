@@ -18,9 +18,9 @@
 ** @return Returns the first `'` or `"` it'll find
 */
 
-char 	find_first_quote(const char *str)
+char	find_first_quote(const char *str)
 {
-	int 	i;
+	int		i;
 
 	i = -1;
 	while (str[++i])
@@ -44,14 +44,15 @@ char 	find_first_quote(const char *str)
 
 BOOL	expand_antislash(t_string *string, t_token_type type)
 {
-	int 	i;
+	int		i;
 	BOOL	ignore;
 
 	ignore = false;
 	i = -1;
 	while (string->s[++i])
 	{
-		if (string->s[i] == '\\' && (string->s[i + 1] == '\\' || string->s[i + 1] == '\'' || string->s[i + 1] == '\"'))
+		if (string->s[i] == '\\' && (string->s[i + 1] == '\\' ||
+						string->s[i + 1] == '\'' || string->s[i + 1] == '\"'))
 		{
 			if (string->s[i + 1] != '\\')
 				ignore = true;
@@ -65,11 +66,11 @@ BOOL	expand_antislash(t_string *string, t_token_type type)
 	return (ignore);
 }
 
-t_exp   *expand_remove_quote(t_exp *exp)
+t_exp	*expand_remove_quote(t_exp *exp)
 {
 	char		*c;
-	char 		quote;
-	BOOL 		ignore;
+	char		quote;
+	BOOL		ignore;
 
 	ignore = false;
 	if (exp->type != E_TOKEN_SQUOTE)

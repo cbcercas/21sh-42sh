@@ -21,7 +21,7 @@
 ** @param vars Vars to be printed (env or local)
 */
 
-void print_vars(t_array *vars, BOOL color)
+void		print_vars(t_array *vars, BOOL color)
 {
 	t_env	*e;
 	size_t	i;
