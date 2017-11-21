@@ -22,8 +22,8 @@ void	sh_testing_env_set(char *const *av)
 {
 	int		i;
 
-	i = 4;
-	while(av[i] && ft_strchr(av[i], '='))
+	i = 1;
+	while (av[i] && ft_strchr(av[i], '='))
 	{
 		set_var(get_envs(), split_var_name(av[i]), split_var_value(av[i]),
 				true);
@@ -41,8 +41,8 @@ void	sh_testing_env_del(char *const *av)
 {
 	int		i;
 
-	i = 4;
-	while(av[i])
+	i = 1;
+	while (av[i])
 	{
 		del_var(get_envs(), av[i]);
 		i++;
@@ -56,7 +56,7 @@ void	sh_testing_env_del(char *const *av)
 ** @param __p__environ The current environ
 */
 
-void sh_testing_env(char *const *av, char **environ)
+void	sh_testing_env(char *const *av, char **environ)
 {
 	init_environ(environ);
 	if (av[0] && (ft_strequ(av[0], "set")))

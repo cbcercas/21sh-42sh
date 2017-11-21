@@ -23,7 +23,7 @@ void	testing_local_vars_set(char *const *av)
 	int		i;
 
 	i = 4;
-	while(av[i] && ft_strchr(av[i], '='))
+	while (av[i] && ft_strchr(av[i], '='))
 	{
 		set_var(get_envs(), split_var_name(av[i]), split_var_value(av[i]),
 				true);
@@ -37,13 +37,12 @@ void	testing_local_vars_set(char *const *av)
 ** @param av Arguments passed to the module
 */
 
-
 void	testing_local_vars_del(char *const *av)
 {
 	int		i;
 
 	i = 4;
-	while(av[i])
+	while (av[i])
 	{
 		del_var(get_envs(), av[i]);
 		i++;

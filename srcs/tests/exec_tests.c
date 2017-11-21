@@ -20,7 +20,7 @@
 ** @return Returns the input once lexed by the lexer
 */
 
-t_array init_tests_exec(char *input)
+t_array		init_tests_exec(char *input)
 {
 	t_automaton	automaton;
 	t_array		tokens;
@@ -28,12 +28,12 @@ t_array init_tests_exec(char *input)
 	if (lexer_init(&tokens) == NULL)
 	{
 		ft_dprintf(2, "Error initialising tokens");
-		exit (1);
+		exit(1);
 	}
 	else if (automaton_init(&automaton) == NULL)
 	{
 		ft_dprintf(2, "Error Initialising automaton");
-		exit (1);
+		exit(1);
 	}
 	else if (lexer_lex(&tokens, input))
 	{
@@ -44,8 +44,8 @@ t_array init_tests_exec(char *input)
 	else
 	{
 		ft_dprintf(2, "Fatal -c error : Couldn't Catch the error.\n");
-    ft_dprintf(2, "Maybe arg is NULL\n");
-		exit (1);
+		ft_dprintf(2, "Maybe arg is NULL\n");
+		exit(1);
 	}
 }
 
@@ -56,7 +56,7 @@ t_array init_tests_exec(char *input)
 ** @param __p__environ The current environ
 */
 
-void sh_testing_exec(char *const *av, char **environ)
+void		sh_testing_exec(char *const *av, char **environ)
 {
 	t_array		expands;
 	t_array		tokens;
@@ -70,11 +70,11 @@ void sh_testing_exec(char *const *av, char **environ)
 	sh_check_env(environ);
 	tokens = init_tests_exec(av[0]);
 	if (expand_init(&expands) == NULL)
-		exit (1);
+		exit(1);
 	expand(&tokens, &expands);
 	ast_create(&ast, &expands);
 	exec_exec(NULL, ast);
 	array_reset(&expands, NULL);
-  ft_secu_free_all();
-	exit (0);
+	ft_secu_free_all();
+	exit(0);
 }
