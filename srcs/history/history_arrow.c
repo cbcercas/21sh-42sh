@@ -35,7 +35,7 @@ t_input	*sh_history_up(t_input *input)
 	{
 		ft_strdel(&tmp);
 		tcaps_bell();
-		return(NULL);
+		return (NULL);
 	}
 	ft_strdel(&tmp);
 	return (new_inp);
@@ -49,7 +49,6 @@ t_input	*sh_history_up(t_input *input)
 **
 ** @return Returns the input once modified
 */
-
 
 t_input	*sh_history_down(t_input *input)
 {

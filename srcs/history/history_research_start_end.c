@@ -20,7 +20,7 @@
 ** @param input TODO
 */
 
-void history_research_exit(t_input *result, char *line, t_input *input)
+void	history_research_exit(t_input *result, char *line, t_input *input)
 {
 	if (line)
 		ft_strdel(&line);
@@ -29,7 +29,7 @@ void history_research_exit(t_input *result, char *line, t_input *input)
 		ft_putendl("");
 	raw_terminal_mode();
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
-	if(result)
+	if (result)
 	{
 		input = input_back_to_writable(input);
 		input_to_save(&input, result);
@@ -53,5 +53,5 @@ void	history_research_start(char **line, t_input **result, BOOL *fail)
 	*line = NULL;
 	*result = NULL;
 	*fail = false;
-	history_research_prompt(*line, *result ,*fail);
+	history_research_prompt(*line, *result, *fail);
 }

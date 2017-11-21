@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/06 11:18:13 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/11 12:44:11 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 16:48:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void		history_research_prompt(char *buff, t_input *result, BOOL fail)
 	ft_printf("  $>%s");
 	if (result)
 		redraw_input(result);
-
 }
 
 /*
@@ -48,32 +47,32 @@ void		history_research_prompt(char *buff, t_input *result, BOOL fail)
 ** @return Returns true if found. False otherwise
 */
 
-BOOL	history_research_search(const char *line, t_input **result)
+BOOL		history_research_search(const char *line, t_input **result)
 {
 	t_array	*hists;
 	t_hist	*h;
 	t_hist	*first;
 
-		input_destroy(result);
-		*result = NULL;
-		if (!line || !ft_strlen(line))
+	input_destroy(result);
+	*result = NULL;
+	if (!line || !ft_strlen(line))
+		return (true);
+	hists = sh_history_get();
+	if ((first = (t_hist *)array_get_at(hists, 0)))
+	{
+		if (!hists->used)
 			return (true);
-		hists = sh_history_get();
-		if ((first = (t_hist *)array_get_at(hists, 0)))
-		{
-			if (!hists->used)
-				return (true);
-			if (first->cur < 0)
-				first->cur = hists->used - 1;
-			while (first->cur != -1 &&\
-				 			(h = (t_hist *)array_get_at(hists, first->cur)) &&\
-							 	!ft_strnequ(line, h->cmd, ft_strlen(line)))
-				first->cur--;
-			if (ft_strnequ(line, h->cmd, ft_strlen(line)))
-				*result = input_from_history((char *)h->cmd);
-			else
-				return (true);
-		}
+		if (first->cur < 0)
+			first->cur = hists->used - 1;
+		while (first->cur != -1 &&\
+				(h = (t_hist *)array_get_at(hists, first->cur)) &&\
+				!ft_strnequ(line, h->cmd, ft_strlen(line)))
+			first->cur--;
+		if (ft_strnequ(line, h->cmd, ft_strlen(line)))
+			*result = input_from_history((char *)h->cmd);
+		else
+			return (true);
+	}
 	return (false);
 }
 
@@ -84,7 +83,7 @@ BOOL	history_research_search(const char *line, t_input **result)
 ** @return TODO
 */
 
-static char *apply_buff(char *buff, char *line)
+static char	*apply_buff(char *buff, char *line)
 {
 	if (buff[0] == 127 && line && ft_strlen(line))
 		line[ft_strlen(line) - 1] = 0;
@@ -103,7 +102,7 @@ static char *apply_buff(char *buff, char *line)
 ** @param input TODO
 */
 
-void	history_research(t_input *input)
+void		history_research(t_input *input)
 {
 	char		buff[MAX_KEY_STRING_LEN];
 	BOOL		fail;

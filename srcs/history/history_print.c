@@ -16,7 +16,7 @@
 ** @brief Prints the history entries and their number
 */
 
-void sh_history_print(void)
+void	sh_history_print(void)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -27,7 +27,7 @@ void sh_history_print(void)
 	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
-		ft_printf("%zu %s\n", i + 1 , h->cmd);
+		ft_printf("%zu %s\n", i + 1, h->cmd);
 		i++;
 	}
 }
@@ -36,7 +36,7 @@ void sh_history_print(void)
 ** @brief Prints the history in the log
 */
 
-void sh_history_print_in_log(void)
+void	sh_history_print_in_log(void)
 {
 	t_array	*hists;
 	t_hist	*h;

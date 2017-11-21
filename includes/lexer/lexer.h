@@ -86,6 +86,7 @@ enum						e_char_type
 */
 
 t_array						*lexer_init(t_array *toks);
+t_return					lexer_get_incomplete_ret(t_stack_state cur_state);
 
 /*
 ** @file lexer.c

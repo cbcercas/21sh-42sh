@@ -20,7 +20,7 @@
 ** @return Returns a char* containing the current input
 */
 
-char	*input_to_history(t_input *input)
+char		*input_to_history(t_input *input)
 {
 	char	*line;
 
@@ -29,9 +29,9 @@ char	*input_to_history(t_input *input)
 		return (NULL);
 	while (input)
 	{
-		if(!(line = ft_strjoincl(line, input->str->s, 1)))
+		if (!(line = ft_strjoincl(line, input->str->s, 1)))
 			return (NULL);
-		if((input->next && input->next->str->len)
+		if ((input->next && input->next->str->len)
 				&& !(line = ft_strjoincl(line, "\\\n", 1)))
 			return (NULL);
 		input = input->next;
@@ -45,7 +45,7 @@ char	*input_to_history(t_input *input)
 ** @return Returns a t_input containing the history entry
 */
 
-t_input *input_from_history(const char *hist)
+t_input		*input_from_history(const char *hist)
 {
 	t_input		*input;
 	const char	*c;
