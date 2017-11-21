@@ -6,12 +6,12 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 13:30:24 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/11/10 13:30:28 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 08:30:56 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SH_GET_LINE_H
-# define SH_GET_LINE_H
+#ifndef SH_GET_INPUT_H
+# define SH_GET_INPUT_H
 
 /*
 ** @file   sh_get_input.h

@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/07/20 16:14:17 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 08:32:37 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 ** or global variables you will need.
 */
 
-
 # define MAX_LEN_INPUT 1000
 # define MAX_NB_INPUT 100
 
@@ -39,7 +38,6 @@
 **
 ** @arg TODO
 */
-
 
 typedef struct s_select	t_select;
 struct					s_select
@@ -122,7 +120,8 @@ t_input					*input_hard_reset(t_input **input);
 ** @brief      Utility functions used by the input
 */
 
-void					reset_input(t_input *input) __attribute__ ((deprecated("use input_reset instead")));
+void					reset_input(t_input *input) __attribute__
+									((deprecated("use input_reset instead")));
 size_t					pos_in_str(t_input *input);
 void					input_destroy(t_input **input);
 void					input_reset(t_input *input);
@@ -141,6 +140,7 @@ t_input					*input_from_history(const char *hist);
 **
 ** @brief Functions used to move in the input
 */
+
 t_cpos					input_get_first_pos(t_input *input);
 t_cpos					input_get_last_pos(t_input *input);
 t_input					*input_back_to_origin(t_input *input);
@@ -158,12 +158,12 @@ t_input					*input_from_save(t_input **to_destroy);
 int						count_nb_input(t_input *input);
 t_input					*input_get_last(t_input *input);
 
-
 /*
 ** @file input_windows.c
 **
 ** @brief Functions used to get window info
 */
+
 t_window				*get_windows(int rst);
 t_input					*goto_input(t_input *input, t_input *dest_inp);
 

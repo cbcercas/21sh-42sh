@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/17 18:02:09 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/09/19 11:57:55 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 08:35:59 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <history/history.h>
 # include <core/prompt.h>
 # include <autocomplete/autocomplete.h>
-
 
 /*
 ** @file   tcaps.h
@@ -59,11 +58,15 @@ BOOL			key_exec(t_key *key, t_input *input);
 ** @brief Contains the ctrl functions to be executed
 */
 
-BOOL			exec_ctrl_c(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL			exec_ctrl_d(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_ctrl_c(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
+BOOL			exec_ctrl_d(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
 BOOL			exec_ctrl_z(const t_key *key, t_input *input);
-BOOL			exec_ctrl_a(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL			exec_ctrl_e(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_ctrl_a(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
+BOOL			exec_ctrl_e(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
 BOOL			exec_ctrl_l(const t_key *key, t_input *input);
 
 /*
@@ -105,10 +108,13 @@ BOOL			exec_tab(const t_key *key, t_input *input);
 ** @brief Contains the arrow functions to be executed
 */
 
-BOOL			exec_arrow_right(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL			exec_arrow_left(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_arrow_right(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
+BOOL			exec_arrow_left(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
 BOOL			exec_arrow_up(const t_key *key, t_input *input);
-BOOL			exec_arrow_down(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_arrow_down(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
 
 /*
 ** @file tcaps_exec_alt_arrows.c
@@ -116,10 +122,14 @@ BOOL			exec_arrow_down(const t_key *key, t_input *input) __attribute__ ((depreca
 ** @brief Contains the alt arrow functions to be executed
 */
 
-BOOL			exec_alt_up(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL			exec_alt_down(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL			exec_alt_left(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL			exec_alt_right(const t_key *key, t_input *input)__attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_alt_up(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
+BOOL			exec_alt_down(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
+BOOL			exec_alt_left(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
+BOOL			exec_alt_right(const t_key *key, t_input *input)__attribute__
+							((deprecated("Todo refactor new input design")));
 
 /*
 ** @file tcaps_exec_end_home.c
@@ -127,8 +137,10 @@ BOOL			exec_alt_right(const t_key *key, t_input *input)__attribute__ ((deprecate
 ** @brief Contains the end/home functions to be executed
 */
 
-BOOL			exec_end(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
-BOOL			exec_start(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_end(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
+BOOL			exec_start(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
 
 /*
 ** @file tcaps_exec_select.c
@@ -136,9 +148,11 @@ BOOL			exec_start(const t_key *key, t_input *input) __attribute__ ((deprecated("
 ** @brief Contains the select functions to be executed
 */
 
-BOOL			exec_select(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_select(const t_key *key, t_input *input) __attribute__
+							((deprecated("Todo refactor new input design")));
 //void			draw_reverse_char(char c, BOOL is_reverse);
-BOOL			exec_select_arrows(const t_key *key, t_input *input) __attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_select_arrows(const t_key *key, t_input *input)
+				__attribute__ ((deprecated("Todo refactor new input design")));
 void			reset_select_pos(void);
 
 /*
@@ -165,8 +179,10 @@ BOOL			exec_alt_v(const t_key *key, t_input *input);
 ** @brief Contains the redraw line functions
 */
 
-void			redraw_line(t_input *input) __attribute__ ((deprecated("Use redraw_input instead")));
-void			reset_line(t_input *input) __attribute__ ((deprecated("Refactor or remove")));
+void			redraw_line(t_input *input) __attribute__
+									((deprecated("Use redraw_input instead")));
+void			reset_line(t_input *input) __attribute__
+										((deprecated("Refactor or remove")));
 
 //void			tcaps_down(t_input *input);
 
