@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/11 15:39:25 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 14:33:52 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** @return Returns the child's pid
 */
 
-pid_t get_pid_child(pid_t pid_op)
+pid_t		get_pid_child(pid_t pid_op)
 {
 	static	pid_t		pid = 0;
 
@@ -39,12 +39,11 @@ t_array		*get_pids_child(void)
 
 	if (e == NULL)
 	{
-		if ((e = array_create(sizeof(
-									  t_pids))) == NULL)
+		if ((e = array_create(sizeof(t_pids))) == NULL)
 		{
 			log_fatal("get_pids_child: can't initialise pids child array");
-			ft_dprintf(STDERR_FILENO, "get_pids_child: can't initialise pids childs\
-					variables\n");
+			ft_dprintf(STDERR_FILENO, "get_pids_child:"
+					" can't initialise pids childs variables\n");
 			exit(1);
 		}
 	}
@@ -60,7 +59,7 @@ t_array		*get_pids_child(void)
 ** childs to kill
 */
 
-int		kill_childs(int sig)
+int			kill_childs(int sig)
 {
 	t_array		*e;
 
@@ -69,8 +68,9 @@ int		kill_childs(int sig)
 		return (EXIT_FAILURE);
 	while (0 < e->used)
 	{
-		log_dbg3("kill pid = %d (SHLVL = %s)\n", ((t_pids*)array_get_at(e, 0))->pid,
-				  get_var_value(get_envs(), "SHLVL"));
+		log_dbg3("kill pid = %d (SHLVL = %s)\n",
+				((t_pids*)array_get_at(e, 0))->pid,
+				get_var_value(get_envs(), "SHLVL"));
 		kill(((t_pids*)array_get_at(e, 0))->pid, sig);
 		array_remove_at(e, 0, NULL);
 	}
@@ -83,7 +83,7 @@ int		kill_childs(int sig)
 ** @param pid_child Child's pid
 */
 
-void	remove_pid_child(int pid_child)
+void		remove_pid_child(int pid_child)
 {
 	size_t		i;
 	t_array		*e;
@@ -109,7 +109,7 @@ void	remove_pid_child(int pid_child)
 ** @brief Kills all the useless pids (?TODO)
 */
 
-void	remove_useless(void)
+void		remove_useless(void)
 {
 	size_t		i;
 	t_array		*e;

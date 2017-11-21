@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/13 16:00:25 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/13 16:19:07 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 14:56:59 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,21 +54,21 @@ static t_token_type	g_grammar2[19][19][1] =
 	},
 	[E_TOKEN_NEWLINE] =
 	{
-			[E_TOKEN_BLANK] = {1},
-			[E_TOKEN_NEWLINE] = {1},
-			[E_TOKEN_WORD] = {1},
-			[E_TOKEN_SQUOTE] = {1},
-			[E_TOKEN_BQUOTE] = {1},
-			[E_TOKEN_DQUOTE] = {1},
-			[E_TOKEN_LESSGREAT] = {1},
-			[E_TOKEN_SEMI] = {1},
-			[E_TOKEN_IO_NUMBER] = {1},
-			[E_TOKEN_DLESS] = {1},
-			[E_TOKEN_DGREAT] = {1},
-			[E_TOKEN_OR_IF] = {1},
-			[E_TOKEN_AND_IF] = {1},
-			[E_TOKEN_LESSAND] = {1},
-			[E_TOKEN_GREATAND] = {1}
+		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
+		[E_TOKEN_WORD] = {1},
+		[E_TOKEN_SQUOTE] = {1},
+		[E_TOKEN_BQUOTE] = {1},
+		[E_TOKEN_DQUOTE] = {1},
+		[E_TOKEN_LESSGREAT] = {1},
+		[E_TOKEN_SEMI] = {1},
+		[E_TOKEN_IO_NUMBER] = {1},
+		[E_TOKEN_DLESS] = {1},
+		[E_TOKEN_DGREAT] = {1},
+		[E_TOKEN_OR_IF] = {1},
+		[E_TOKEN_AND_IF] = {1},
+		[E_TOKEN_LESSAND] = {1},
+		[E_TOKEN_GREATAND] = {1}
 	},
 	[E_TOKEN_WORD] =
 	{
@@ -306,7 +306,7 @@ static const char	*g_grammar[226] =
 t_return						ret_parser(t_token *toknext)
 {
 	ft_dprintf(STDERR_FILENO, "%s: Parse error near `%s'\n", PROGNAME,
-			  g_grammar[toknext->type]);
+			g_grammar[toknext->type]);
 	return (E_RET_PARSER_ERROR);
 }
 
@@ -329,12 +329,8 @@ t_return						parser_parse(t_array *tokens)
 	tok = (t_token*)array_get_at(tokens, 0);
 	if (!g_grammar2[0][tok->type][0])
 		return (ret_parser(tok));
-	while (tokens->used > i + 1 )
+	while (tokens->used > i + 1)
 	{
-		//while (tokens->used > i + 1 && tok->type == E_TOKEN_BLANK )
-			//tok = (t_token *)array_get_at(tokens, ++i);
-		//if (tokens->used == i + 1)
-			//return (ret_parser(tok));
 		toknext = (t_token*)array_get_at(tokens, i + 1);
 		if (g_grammar2[tok->type][toknext->type][0])
 			i += 1;
@@ -342,8 +338,6 @@ t_return						parser_parse(t_array *tokens)
 			return (ret_parser(toknext));
 		tok = toknext;
 	}
-
-	//if (tokens->used == i + 1 && toknext->type == E_TOKEN_NEWLINE)
 	if (g_grammar2[tok->type][E_TOKEN_NEWLINE][0])
 		return (E_RET_PARSER_OK);
 	return (ret_parser(tok));

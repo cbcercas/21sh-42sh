@@ -23,7 +23,8 @@
 ** @return Returns the modified t_string
 */
 
-t_string	*string_insert_secu(t_string *string, const char *str, size_t pos, size_t lvl)
+t_string	*string_insert_secu(t_string *string, const char *str,
+								size_t pos, size_t lvl)
 {
 	size_t	len;
 
@@ -49,7 +50,8 @@ t_string	*string_insert_secu(t_string *string, const char *str, size_t pos, size
 ** @return Returns the modified t_string
 */
 
-t_string	*string_insert_front_secu(t_string *string, const char *str, size_t lvl)
+t_string	*string_insert_front_secu(t_string *string, const char *str,
+									size_t lvl)
 {
 	return (string_insert_secu(string, str, 0, lvl));
 }
@@ -64,7 +66,8 @@ t_string	*string_insert_front_secu(t_string *string, const char *str, size_t lvl
 ** @return Returns the modified t_string
 */
 
-t_string	*string_insert_back_secu(t_string *string, const char *str, size_t lvl)
+t_string	*string_insert_back_secu(t_string *string, const char *str,
+									size_t lvl)
 {
 	return (string_insert_secu(string, str, string->len, lvl));
 }

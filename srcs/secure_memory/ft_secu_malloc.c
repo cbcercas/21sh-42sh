@@ -50,14 +50,11 @@ void			*ft_secu_malloc_lvl(size_t size, size_t lvl)
 	t_secu_malloc	*secu_malloc;
 	void			*ptr;
 
-	ptr = NULL;
 	mem = get_mem();
-	if (!mem || !(secu_malloc = (t_secu_malloc*)ft_memalloc(sizeof
-																 (t_secu_malloc))))
+	if (!mem || !(secu_malloc =
+				(t_secu_malloc*)ft_memalloc(sizeof(t_secu_malloc))))
 		return (NULL);
-	//ft_bzero(secu_malloc, sizeof(t_secu_malloc));
 	ptr = ft_memalloc(size);
-	//ft_bzero(ptr, size);
 	secu_malloc->lvl = lvl;
 	secu_malloc->ptr = ptr;
 	secu_malloc->next = NULL;
@@ -71,7 +68,7 @@ void			*ft_secu_malloc_lvl(size_t size, size_t lvl)
 ** @return Pointer to the area of memory which has been allocated
 */
 
-void	*secu_malloc(size_t size)
+void			*secu_malloc(size_t size)
 {
 	return (ft_secu_malloc_lvl(size, MALLOC_LVL_DEFAULT));
 }
@@ -81,7 +78,7 @@ void	*secu_malloc(size_t size)
 ** @return TODO
 */
 
-t_mem	*get_mem(void)
+t_mem			*get_mem(void)
 {
 	static t_mem *mem = NULL;
 

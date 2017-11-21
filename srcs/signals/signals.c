@@ -18,10 +18,10 @@
 ** @param handler The handler per signal
 */
 
-void init_signals(void *handler)
+void	init_signals(void *handler)
 {
-	int		i;
-	struct	sigaction act;
+	int					i;
+	struct sigaction	act;
 
 	i = 1;
 	if (!handler)
@@ -53,7 +53,7 @@ void init_signals(void *handler)
 ** @return Returns the exit status
 */
 
-int sh_wait(pid_t pid, int wait_flag)
+int		sh_wait(pid_t pid, int wait_flag)
 {
 	int		status;
 	pid_t	pid_child;
@@ -67,7 +67,7 @@ int sh_wait(pid_t pid, int wait_flag)
 					"dumped)  %s\n", pid_child, sh_history_get_at(-1));
 		else if (WTERMSIG(status) == SIGBUS)
 			ft_dprintf(STDERR_FILENO, "[1]    %d bus error  %s\n", pid_child,
-					  sh_history_get_at(-1));
+					sh_history_get_at(-1));
 		return (status);
 	}
 	if (wait_flag != WUNTRACED && !WSTOPSIG(status))
@@ -80,9 +80,9 @@ int sh_wait(pid_t pid, int wait_flag)
 ** @return TODO
 */
 
-BOOL signals(int sig, void (*handler)(int))
+BOOL	signals(int sig, void (*handler)(int))
 {
-	struct	sigaction act;
+	struct sigaction	act;
 
 	if (sigaction(sig, NULL, &act) < 0)
 		return (true);
@@ -92,12 +92,12 @@ BOOL signals(int sig, void (*handler)(int))
 	return (false);
 }
 
-BOOL ignore_sigwinch(void)
+BOOL	ignore_sigwinch(void)
 {
 	return (signals(SIGWINCH, SIG_IGN));
 }
 
-BOOL restore_sigwinch(void)
+BOOL	restore_sigwinch(void)
 {
 	return (signals(SIGWINCH, &signals_handler));
 }
