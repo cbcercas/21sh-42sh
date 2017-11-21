@@ -15,7 +15,6 @@
 BOOL	exec_backspace(const t_key *key, t_input *input)
 {
 	(void)key;
-
 	log_dbg3("User pressed backspace");
 	if (input->cpos.cp_line || (input->cpos.cp_col > input->offset_col))
 	{

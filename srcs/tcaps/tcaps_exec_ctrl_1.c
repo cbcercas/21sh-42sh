@@ -21,7 +21,6 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 	tputs("\n", 0, &ft_putchar2);
 	tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
 	get_windows(0)->cur = NULL;
-	//sh_history_insert_buf(input->str->s);
 	return (true);
 }
 
@@ -64,32 +63,5 @@ BOOL	exec_ctrl_e(const t_key *key, t_input *input)
 	if (get_select()->is)
 		return (false);
 	exec_end(key, input);
-	return (false);
-}
-
-BOOL	exec_ctrl_l(const t_key *key, t_input *input)
-{
-	t_cpos		pos;
-	t_input		*tmp;
-
-	(void)key;
-	if (get_select()->is)
-		return (false);
-	pos.cp_col = input->cpos.cp_col;
-	pos.cp_line = 0;
-	tmp = input;
-	input = input_back_to_writable(input);
-	get_windows(1);
-	get_windows(0)->cur = input;
-	tputs(tgetstr("cl", NULL), 0, &ft_putchar2);
-	get_select()->is = false;
-	reset_select_pos();
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
-	redraw_input(input);
-	//TODO refactor using tgoto
-	input = goto_input(input, tmp);
-	move_cursor_to(&pos, &input->cpos, get_ts());
-	get_windows(0)->cur = input;
 	return (false);
 }

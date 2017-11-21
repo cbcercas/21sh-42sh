@@ -12,7 +12,7 @@
 
 #include <core/tcaps.h>
 
-static	void	alt_c_end(t_input *tmp, char *str, size_t start, size_t end)
+static void		alt_c_end(t_input *tmp, char *str, size_t start, size_t end)
 {
 	if (tmp && tmp->select_pos.is_set)
 	{
@@ -20,17 +20,17 @@ static	void	alt_c_end(t_input *tmp, char *str, size_t start, size_t end)
 		end = tmp->select_pos.cur_end;
 		if (start < end)
 			str = ft_strjoincl(str, ft_strsub(tmp->str->s,
-										  (unsigned int)start, end - start), 3);
+										(unsigned int)start, end - start), 3);
 		else if (start > end)
 			str = ft_strjoincl(str, ft_strsub(tmp->str->s,
-										  (unsigned int)end, start - end), 3);
+										(unsigned int)end, start - end), 3);
 	}
 	ft_strdel(&get_select()->str);
 	get_select()->str = str;
 	log_info("copie str =[%s]", str);
 }
 
-static	t_input	*alt_c_mid(t_input *tmp, char **str, size_t start, size_t end)
+static t_input	*alt_c_mid(t_input *tmp, char **str, size_t start, size_t end)
 {
 	if (tmp->next && tmp->next->select_pos.is_set && tmp->next->str->len)
 		*str = ft_strjoincl(*str, "\\\n", 1);
@@ -51,7 +51,7 @@ static	t_input	*alt_c_mid(t_input *tmp, char **str, size_t start, size_t end)
 	return (tmp);
 }
 
-BOOL	exec_alt_c(const t_key *key, t_input *input)
+BOOL			exec_alt_c(const t_key *key, t_input *input)
 {
 	t_input		*tmp;
 	char		*str;
