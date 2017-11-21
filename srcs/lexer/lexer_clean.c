@@ -24,8 +24,9 @@ void	lexer_clean_tokens(t_array *tokens)
 
 	cnt = 0;
 	if (tokens == NULL)
-		return;
-	while ((tok = (t_token *)array_get_first(tokens)) && tok->type == E_TOKEN_BLANK)
+		return ;
+	while ((tok = (t_token *)array_get_first(tokens)) &&
+			tok->type == E_TOKEN_BLANK)
 		array_remove_at(tokens, 0, NULL);
 	while (cnt < tokens->used)
 	{
