@@ -12,7 +12,7 @@
 
 #include <core/tcaps.h>
 
-void	raw_terminal_mode(void)
+void		raw_terminal_mode(void)
 {
 	struct termios	tattr;
 
@@ -23,22 +23,20 @@ void	raw_terminal_mode(void)
 	tattr.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &tattr);
 	tgetent(NULL, getenv("TERM"));
-
-	return;
+	return ;
 }
 
-void	default_terminal_mode(void)
+void		default_terminal_mode(void)
 {
 	struct termios	tattr;
-	int 			ret;
+	int				ret;
 
 	ret = tcgetattr(STDIN_FILENO, &tattr);
 	tattr.c_lflag |= (ECHO | ICANON | IEXTEN | ISIG);
-	tattr.c_oflag |= ( OPOST);
+	tattr.c_oflag |= (OPOST);
 	if (!ret)
 		tcsetattr(STDIN_FILENO, TCSADRAIN, &tattr);
-
-	return;
+	return ;
 }
 
 /*
@@ -49,7 +47,7 @@ void	default_terminal_mode(void)
 ** @return        void
 */
 
-void				sh_store_tattr(t_sh_data *data)
+void		sh_store_tattr(t_sh_data *data)
 {
 	int				ttydevice;
 	struct termios	save_tattr;
