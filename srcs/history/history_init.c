@@ -29,10 +29,9 @@ int		sh_history_init_one(t_array *hists, int fd)
 	cmd = NULL;
 	line = NULL;
 	while ((ret = get_next_line(fd, &line)) && line && ft_strlen(line) > 0
-		   && (line[ft_strlen(line) - 1] == '\\'))
+		&& (line[ft_strlen(line) - 1] == '\\'))
 	{
-		if (cmd)
-			cmd = ft_strjoincl(cmd, "\n", 1);
+		cmd = (cmd ? ft_strjoincl(cmd, "\n", 1) : cmd);
 		cmd = ft_strjoincl(cmd, line, 3);
 	}
 	if (cmd && line)
@@ -41,8 +40,8 @@ int		sh_history_init_one(t_array *hists, int fd)
 	if ((h = sh_history_new(cmd)))
 	{
 		h->session = false;
-		array_push(hists, (void *) h);
-		ft_memdel((void **) &h);
+		array_push(hists, (void *)h);
+		ft_memdel((void **)&h);
 	}
 	else
 		ft_strdel(&cmd);
@@ -66,7 +65,6 @@ int		get_history_init_choice(int choice)
 		save_choice = choice;
 	return (save_choice);
 }
-
 
 /*
 ** @brief Prints the choice Text User Interface
@@ -110,7 +108,7 @@ int		sh_history_init_choice(int fd, int limit)
 			ft_strdel(&line);
 			ft_putstr("Ppath ? (q == exit): ");
 			get_next_line(0, &line);
-			if (ft_strequ(line, "q") || !rename(history_get_path(NULL), line)) // fonctions interdites mais man 2 + on gère la save de l'history
+			if (ft_strequ(line, "q") || !rename(history_get_path(NULL), line))
 				break ;
 			ft_putstr("This path doesn't exists\n");
 		}
@@ -129,7 +127,7 @@ int		sh_history_init_choice(int fd, int limit)
 ** @return Returns the history array initialized
 */
 
-t_array *sh_history_init(t_array *hists)
+t_array	*sh_history_init(t_array *hists)
 {
 	int			fd;
 	struct stat bufstat;

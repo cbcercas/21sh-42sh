@@ -20,7 +20,7 @@
 ** @return Returns the history entry previous to `str`
 */
 
-const char *history_get_prev(char *str)
+const char	*history_get_prev(char *str)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -32,7 +32,7 @@ const char *history_get_prev(char *str)
 		return (NULL);
 	if (!get_windows(0)->h_complet)
 		h = (t_hist *)array_get_at(hists,
-								   ((hists->used - 1) - (size_t)++lvl));
+								((hists->used - 1) - (size_t)++lvl));
 	else
 	{
 		len = ft_strlen(str);
@@ -40,7 +40,7 @@ const char *history_get_prev(char *str)
 										(h = (t_hist *)array_get_at(hists,
 											((hists->used - 1) - (size_t)lvl))))
 			if (ft_strnequ(h->cmd, str, len))
-				break;
+				break ;
 	}
 	if ((ssize_t)hists->used <= lvl || !h)
 		return (NULL);
@@ -56,7 +56,7 @@ const char *history_get_prev(char *str)
 ** @return Returns the history entry next to `str`
 */
 
-const char *history_get_next(char *str)
+const char	*history_get_next(char *str)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -74,7 +74,7 @@ const char *history_get_next(char *str)
 		while ((h = (t_hist *)array_get_at(hists,
 										(size_t)((hists->used - 1) - --lvl))))
 			if (ft_strnequ(h->cmd, str, len))
-				break;
+				break ;
 	}
 	if (lvl >= 0 && h)
 	{

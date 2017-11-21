@@ -24,17 +24,17 @@ t_hist	*sh_history_new(char *cmd)
 {
 	t_hist	*h;
 
-	if(sh_history_is_space_plus(cmd) || !is_printstr(cmd))
+	if (sh_history_is_space_plus(cmd) || !is_printstr(cmd))
 		return (NULL);
 	if ((h = ft_memalloc(sizeof(*h))) == NULL)
 	{
 		log_fatal("History: can't create new history command");
-		ft_dprintf(STDERR_FILENO,"History: can't create new history command");
+		ft_dprintf(STDERR_FILENO, "History: can't create new history command");
 	}
 	else if ((h->cmd = (const char *)cmd) == NULL)
 	{
 		log_fatal("History: can't create new history command");
-		ft_dprintf(STDERR_FILENO,"History: can't create new history command");
+		ft_dprintf(STDERR_FILENO, "History: can't create new history command");
 		ft_memdel((void**)&h);
 	}
 	h->buf = NULL;
@@ -48,7 +48,7 @@ t_hist	*sh_history_new(char *cmd)
 ** @param i The entry to be destroyed
 */
 
-void sh_history_del(void *i)
+void	sh_history_del(void *i)
 {
 	t_hist *h;
 
@@ -58,38 +58,6 @@ void sh_history_del(void *i)
 	if (h->buf)
 		ft_secu_free(h->buf);
 	h->buf = NULL;
-}
-
-/*
-** @brief TODO
-** @param str TODO
-*/
-
-void sh_history_insert_buf(char *str)
-{
-	t_array	*hists;
-	t_hist	*h;
-
-	hists = sh_history_get();
-		if ((h = (t_hist *)array_get_at(hists, 0)))
-		{
-			if (h->buf)
-				ft_secu_free(h->buf);
-			h->buf = ft_strdup_secu(str, M_LVL_HIST);
-			h->cur = -1;
-		}
-}
-
-/*
-** @brief Destroys the entire history once the program is done
-*/
-
-void sh_history_destroy(void)
-{
-	t_array	*hists;
-
-	if ((hists = sh_history_get()) != NULL)
-		array_destroy(&hists, sh_history_del);
 }
 
 /*

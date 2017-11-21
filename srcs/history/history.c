@@ -17,7 +17,7 @@
 ** @return The t_array containing the history
 */
 
-t_array	*sh_history_get(void)
+t_array		*sh_history_get(void)
 {
 	static t_array	*e = NULL;
 
@@ -41,13 +41,13 @@ t_array	*sh_history_get(void)
 ** @return Returns a full absolute path to the history file
 */
 
-char	*history_get_path(char *str)
+char		*history_get_path(char *str)
 {
 	char	*home;
 
 	if (str)
 		return (str);
-	if(!(home = get_var_value(get_envs(), "HOME")))
+	if (!(home = get_var_value(get_envs(), "HOME")))
 		return (NULL);
 	home = ft_strjoincl_secu(home, "/", 0, M_LVL_FUNCT);
 	return (ft_strjoincl_secu(home, HISTORY_FILE, 1, M_LVL_FUNCT));
@@ -77,11 +77,11 @@ static	int	history_get_fd(void)
 ** @brief Saves the history when the programs exists
 */
 
-void	sh_history_save(void)
+void		sh_history_save(void)
 {
 	t_array	*hists;
 	t_hist	*h;
-	int			fd;
+	int		fd;
 	size_t	i;
 
 	i = 0;
@@ -91,7 +91,7 @@ void	sh_history_save(void)
 	while (fd != -1 && i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
-		if(h && h->session == true)
+		if (h && h->session == true)
 			ft_dprintf(fd, "%s\n", h->cmd);
 		i++;
 	}
