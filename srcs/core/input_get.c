@@ -29,7 +29,6 @@ t_select		*get_select(void)
 ** @return Returns the value ts
 */
 
-
 struct winsize	*get_ts(void)
 {
 	return (&(get_windows(0))->ts);
@@ -40,7 +39,6 @@ struct winsize	*get_ts(void)
 **
 ** @return Returns the value cur_head
 */
-
 
 t_input			*input_get_cur_head(void)
 {
@@ -56,7 +54,6 @@ t_input			*input_get_cur_head(void)
 ** @return Returns the value cur
 */
 
-
 t_input			*input_get_cur(void)
 {
 	t_window	*w;
@@ -70,7 +67,6 @@ t_input			*input_get_cur(void)
 **
 ** @return Returns the value cmd_ret
 */
-
 
 int				*get_cmd_ret(void)
 {

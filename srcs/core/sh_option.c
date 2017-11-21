@@ -29,6 +29,31 @@ extern int			g_optind;
 ** @return    void
 */
 
+void			sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
+								char **environ)
+{
+	if (opt == 'v')
+		opts->verbose = 1;
+	else if (opt == 'd')
+		if (ft_atoi(g_optarg) >= 0 && ft_atoi(g_optarg) <= 7)
+			logger_init(ft_atoi(g_optarg), PROGNAME, "sh.log");
+		else
+		{
+			ft_printf("%s: Invalid debug level.\n", PROGNAME);
+			sh_usage_help_exit();
+		}
+	else if (opt == 'C')
+		opts->color = true;
+	else if (opt == 'h' || opt == '?')
+		sh_usage_help_exit();
+	else if (opt == 't')
+		sh_testing(g_optarg, &av[g_optind], environ);
+	else if (opt == 'c')
+		sh_testing_exec(&av[g_optind], environ);
+	else if (opt == 'l' || !isatty(STDOUT_FILENO))
+		opts->tcaps = false;
+}
+
 void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 						char **environ)
 {
@@ -38,26 +63,5 @@ void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 	opts->color = false;
 	ft_getopt_reset();
 	while ((opt = ft_getopt(ac, av, "chvd:t:lC")) >= 0)
-	{
-		if (opt == 'v')
-			opts->verbose = 1;
-		else if (opt == 'd')
-			if (ft_atoi(g_optarg) >= 0 && ft_atoi(g_optarg) <= 7)
-				logger_init(ft_atoi(g_optarg), PROGNAME, "sh.log");
-			else
-			{
-				ft_printf("%s: Invalid debug level.\n", PROGNAME);
-				sh_usage_help_exit();
-			}
-		else if (opt == 'C')
-			opts->color = true;
-		else if (opt == 'h' || opt == '?')
-			sh_usage_help_exit();
-		else if (opt == 't')
-			sh_testing(g_optarg, &av[g_optind], environ);
-		else if (opt == 'c')
-			sh_testing_exec(&av[g_optind], environ);
-		else if (opt == 'l' || !isatty(STDOUT_FILENO))
-			opts->tcaps = false;
-	}
+		sh_options_loop(opt, opts, av, environ);
 }

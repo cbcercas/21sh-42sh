@@ -19,7 +19,7 @@
 ** @return TODO
 */
 
-static t_window	*get_windows2(t_window *wd, int rst)
+static t_window		*get_windows2(t_window *wd, int rst)
 {
 	if ((rst %= 10) && rst >= 4)
 	{
@@ -51,7 +51,7 @@ static t_window	*get_windows2(t_window *wd, int rst)
 ** @return
 */
 
-t_window		*get_windows(int rst)
+t_window			*get_windows(int rst)
 {
 	static	t_window	*wd = NULL;
 
@@ -76,7 +76,7 @@ t_window		*get_windows(int rst)
 	return (get_windows2(wd, rst));
 }
 
-t_input	*goto_input(t_input *input, t_input *dest_inp)
+t_input				*goto_input(t_input *input, t_input *dest_inp)
 {
 	t_cpos	dest;
 

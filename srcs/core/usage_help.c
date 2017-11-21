@@ -60,7 +60,6 @@ void		sh_usage_help(void)
 					" are read from string.\n");
 	ft_printf("\t-C allows color in builtins. default in testing is true,"
 					" otherwise by default is false\n");
-
 }
 
 /*
