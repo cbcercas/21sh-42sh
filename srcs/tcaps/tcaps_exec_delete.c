@@ -12,7 +12,14 @@
 
 #include <core/tcaps.h>
 
-BOOL	exec_delete(const t_key *key, t_input *input)
+static BOOL		exec_delete2(void)
+{
+	tcaps_bell();
+	tputs(tgetstr("vb", NULL), 0, &ft_putchar2);
+	return (false);
+}
+
+BOOL			exec_delete(const t_key *key, t_input *input)
 {
 	size_t	pos;
 	t_input	*del;
@@ -35,10 +42,7 @@ BOOL	exec_delete(const t_key *key, t_input *input)
 		input_destroy(&del);
 	}
 	else
-	{
-		write(1, "\a", 1);
-		return (false);
-	}
+		return (exec_delete2());
 	redraw_input(input);
 	return (false);
 }

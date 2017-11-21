@@ -12,7 +12,7 @@
 
 #include <core/tcaps.h>
 
-void	reset_select_pos(void)
+void			reset_select_pos(void)
 {
 	t_input		*input;
 
@@ -43,7 +43,7 @@ static void		exec_select_off(t_input *input)
 		input = input->next;
 	}
 	pos_str = (input->select_pos.cur_start > input->select_pos.cur_end) ?
-			  input->select_pos.cur_end : input->select_pos.cur_start;
+			input->select_pos.cur_end : input->select_pos.cur_start;
 	input_goto_line_end(input);
 	while (pos_in_str(input) != pos_str && pos_in_str(input))
 		move_cursor_left(&input->cpos, get_ts());
@@ -52,7 +52,7 @@ static void		exec_select_off(t_input *input)
 	get_windows(0)->cur = input;
 }
 
-BOOL	exec_select(const t_key *key, t_input *input)
+BOOL			exec_select(const t_key *key, t_input *input)
 {
 	(void)key;
 	if (!get_select()->is)
@@ -69,7 +69,7 @@ BOOL	exec_select(const t_key *key, t_input *input)
 	return (false);
 }
 
-BOOL exec_select_arrows(const t_key *key, t_input *input)
+BOOL			exec_select_arrows(const t_key *key, t_input *input)
 {
 	struct winsize	*ts;
 	size_t			start;
@@ -84,10 +84,10 @@ BOOL exec_select_arrows(const t_key *key, t_input *input)
 		start = input->select_pos.cur_start;
 		end = input->select_pos.cur_end;
 		log_dbg3("star = %d, end = %d", start, end);
-		if ( (start < end && is_right_arrow(key->key)) ||
-			 (start > end && is_left_arrow(key->key)) ||
-			 (start == end && start == 0 && is_right_arrow(key->key)) ||
-			 (get_select()->start_abs == input && start == end) )
+		if ((start < end && is_right_arrow(key->key)) ||
+			(start > end && is_left_arrow(key->key)) ||
+			(start == end && start == 0 && is_right_arrow(key->key)) ||
+			(get_select()->start_abs == input && start == end))
 			tputs(tgetstr("mr", NULL), 1, &ft_putchar2);
 		ft_putchar(input->str->s[pos_in_str(input)]);
 		if (input->cpos.cp_col + 1 != ts->ws_col)

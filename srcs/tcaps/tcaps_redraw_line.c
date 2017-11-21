@@ -30,7 +30,7 @@ void	redraw_line(t_input *input)
 	if (len > (input->ts->ws_col - input->cpos.cp_col))
 		line = (len - (input->ts->ws_col - input->cpos.cp_col))
 						/ input->ts->ws_col + ((len - (input->ts->ws_col
-							- input->cpos.cp_col)) % input->ts->ws_col? 1 : 0);
+							- input->cpos.cp_col)) % input->ts->ws_col ? 1 : 0);
 	while (line--)
 		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
 	tputs(tgetstr("cr", NULL), 0, ft_putchar2);

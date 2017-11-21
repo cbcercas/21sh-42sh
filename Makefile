@@ -77,8 +77,7 @@ SRCS			+= history_arrow.c history.c history_getter_2.c\
 
 
 SRC_SUBDIR		+= tcaps
-SRCS			+= clean_term.c get_curs_x.c get_curs_y.c\
-					tcaps_exec_alt_arrows.c tcaps_exec_alt_c.c\
+SRCS			+=	tcaps_exec_alt_arrows.c tcaps_exec_alt_c.c\
 					tcaps_exec_alt_v.c tcaps_exec_arrow.c\
 					tcaps_exec_backspace.c tcaps_exec_ctrl_1.c\
 					tcaps_exec_ctrl_2.c tcaps_exec_delete.c\

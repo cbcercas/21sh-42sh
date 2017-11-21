@@ -149,9 +149,6 @@ set(SOURCE_FILES
 		srcs/tcaps/tcaps_exec_tab.c
 		srcs/tcaps/tcaps_key_exec.c
 		srcs/tcaps/tcaps_redraw_line.c
-		srcs/tcaps/clean_term.c
-		srcs/tcaps/get_curs_x.c
-		srcs/tcaps/get_curs_y.c
 
 		srcs/term/term_modes.c
 

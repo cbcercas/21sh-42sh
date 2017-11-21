@@ -22,7 +22,7 @@ static BOOL	alt_v_limit_len(char *save)
 	if (!tmp)
 		return (true);
 	while (save[len] && save[len] != '\\')
-		len ++;
+		len++;
 	if ((len + input_get_cur()->str->len) >= MAX_LEN_INPUT)
 		return (false);
 	while (save)
@@ -32,14 +32,15 @@ static BOOL	alt_v_limit_len(char *save)
 		if (save)
 			save++;
 	}
-	if ((input_get_last(input_get_cur())->str->len + ft_strlen(tmp)) >= MAX_LEN_INPUT)
+	if ((input_get_last(input_get_cur())->str->len + ft_strlen(tmp))
+		>= MAX_LEN_INPUT)
 		return (false);
 	return (true);
 }
 
 static BOOL	alt_v_limit_nb(char *save)
 {
-	int		count;
+	int			count;
 	t_input		*tmp;
 
 	count = 0;
@@ -76,16 +77,16 @@ static BOOL	alt_v_check_limit(char *save)
 
 static void	exec_alt_v_multi(t_input *input, char *save)
 {
-	char	*tmp;
+	char		*tmp;
 	t_input		*next_save;
 	size_t		len;
 
 	len = 0;
 	get_select()->str = ft_strjoincl(get_select()->str,
-									 &input->str->s[pos_in_str(input)], 0);
+									&input->str->s[pos_in_str(input)], 0);
 	string_remove(input->str, pos_in_str(input), input->str->len);
 	while (get_select()->str[len] && get_select()->str[len] != '\\')
-		len ++;
+		len++;
 	string_insert_back(input->str, tmp = ft_strsub(get_select()->str, 0, len));
 	ft_strdel(&tmp);
 	tmp = get_select()->str;
@@ -96,14 +97,14 @@ static void	exec_alt_v_multi(t_input *input, char *save)
 		next_save->prev = input_get_last(input);
 	if (input->next)
 		input->next->prev = input;
-	input_get_last(input)-> next = next_save;
+	input_get_last(input)->next = next_save;
 	redraw_input(input);
 	ft_strdel(&tmp);
 	get_select()->str = save;
 	get_windows(0)->cur = input;
 }
 
-BOOL	exec_alt_v(const t_key *key, t_input *input)
+BOOL		exec_alt_v(const t_key *key, t_input *input)
 {
 	char	*save;
 
