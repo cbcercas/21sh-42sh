@@ -6,12 +6,12 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/23 19:16:16 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/11/21 08:25:03 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/11/22 08:05:32 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signals/signals.h>
-#include <wait.h>
+#include <sys/wait.h>
 
 /*
 ** @brief Initializes all the signals from 1 to 32
