@@ -26,7 +26,5 @@ char	*ft_strnew_secu(size_t size, size_t lvl)
 	char *str;
 
 	str = (char *)ft_secu_malloc_lvl(size + 1, lvl);
-	if (str != NULL)
-		ft_bzero(str, size + 1);
 	return (str);
 }

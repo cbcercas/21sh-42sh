@@ -90,8 +90,6 @@ void		sh_testing_expand(char *const *av, char **environ)
 		exit(1);
 	if (expand(&tokens, &expand_array) == E_RET_EXPAND_OK)
 		expand_print_test(&expand_array);
-	array_reset(&tokens, NULL);
 	sh_history_save();
-	ft_secu_free_all();
 	exit(0);
 }

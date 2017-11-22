@@ -80,18 +80,9 @@ void			*secu_malloc(size_t size)
 
 t_mem			*get_mem(void)
 {
-	static t_mem *mem = NULL;
+	static t_mem mem;
 
-	if (mem == NULL)
-	{
-		if (!(mem = (t_mem *)malloc(sizeof(t_mem))))
-		{
-			ft_putstr_fd("ERROR: Malloc\n", 2);
-			return (NULL);
-		}
-		ft_bzero(mem, sizeof(t_mem));
-		mem->first = NULL;
-		mem->last = NULL;
-	}
-	return (mem);
+		mem.first = NULL;
+		mem.last = NULL;
+	return (&mem);
 }

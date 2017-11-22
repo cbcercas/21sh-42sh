@@ -43,14 +43,20 @@ t_array		*sh_history_get(void)
 
 char		*history_get_path(char *str)
 {
-	char	*home;
+	char		*home;
+	static char	ret[PATH_MAX];
 
 	if (str)
 		return (str);
 	if (!(home = get_var_value(get_envs(), "HOME")))
 		return (NULL);
-	home = ft_strjoincl_secu(home, "/", 0, M_LVL_FUNCT);
-	return (ft_strjoincl_secu(home, HISTORY_FILE, 1, M_LVL_FUNCT));
+	ft_bzero(ret, PATH_MAX);
+	if ((ft_strlen(home) + ft_strlen(HISTORY_FILE) + 2) >= PATH_MAX)
+		return (NULL);
+	ft_strlcat(ret, home, PATH_MAX);
+	ft_strlcat(ret, "/", PATH_MAX);
+	ft_strlcat(ret, HISTORY_FILE, PATH_MAX);
+	return (ret);
 }
 
 static	int	history_get_fd(void)
@@ -59,9 +65,10 @@ static	int	history_get_fd(void)
 	char	*path;
 
 	fd = -1;
-	path = history_get_path(NULL);
+	if (!(path = history_get_path(NULL)))
+		return (fd);
 	if (get_history_init_choice(-1) != 5 && get_history_init_choice(-1) != -1)
-		open(history_get_path(NULL), O_RDWR | O_CREAT | O_TRUNC, 0644);
+		open(path, O_RDWR | O_CREAT | O_TRUNC, 0644);
 	if (!path || (fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
 	{
 		log_warn("History: History was not saved, Failed open");

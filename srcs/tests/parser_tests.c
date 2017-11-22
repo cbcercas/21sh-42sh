@@ -38,7 +38,6 @@ void			sh_testing_parser(char *const *av)
 		if (parser_parse(&tokens) == E_RET_PARSER_OK)
 		{
 			ft_printf("Parser say OK\n");
-			ft_secu_free_all();
 			exit(0);
 		}
 		exit(1);

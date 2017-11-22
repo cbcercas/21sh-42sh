@@ -66,6 +66,5 @@ void	testing_local_vars(char *const *av, char **environ)
 		testing_local_vars_del(av);
 	print_vars(get_envs(), false);
 	print_vars(get_vars(), false);
-	ft_secu_free_all();
 	exit(0);
 }

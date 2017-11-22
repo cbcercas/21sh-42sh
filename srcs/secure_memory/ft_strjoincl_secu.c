@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <secure_memory/secure_memory.h>
+#include <stdio.h>
 
 /*
 ** @brief TODO
@@ -39,12 +40,10 @@ char	*ft_strjoincl_secu(char *s1, char *s2, int free, size_t lvl)
 			if (s2)
 				ft_strlcat(s, s2, ls1 + ls2 + 1);
 		}
-		else
-			s = NULL;
 	}
 	else
-		s = NULL;
+		return (NULL);
 	((free == 1 || free == 3) && s1) ? ft_secu_free(s1) : 0;
-	((free == 2 || free == 3) && s2) ? ft_secu_free(s1) : 0;
+	((free == 2 || free == 3) && s2) ? ft_secu_free(s2) : 0;
 	return (s);
 }

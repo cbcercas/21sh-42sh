@@ -52,16 +52,16 @@ static void	builtin_export_p(char **argv, BOOL color)
 	{
 		if ((var = get_var(get_envs(), *argv)) && color)
 			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
-				var->is_export ? "export" : "typedef", var->name, var->value);
+				var->is_export ? "export" : "typeset", var->name, var->value);
 		else if ((var = get_var(get_vars(), *argv)) && color)
 			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
-				var->is_export ? "export" : "typedef", var->name, var->value);
+				var->is_export ? "export" : "typeset", var->name, var->value);
 		else if ((var = get_var(get_envs(), *argv)))
 			ft_printf("%s %s=%s\n",
-				var->is_export ? "export" : "typedef", var->name, var->value);
+				var->is_export ? "export" : "typeset", var->name, var->value);
 		else if ((var = get_var(get_vars(), *argv)))
 			ft_printf("%s %s=%s\n",
-				var->is_export ? "export" : "typedef", var->name, var->value);
+				var->is_export ? "export" : "typeset", var->name, var->value);
 		else
 			ft_dprintf(STDERR_FILENO,
 						"%s: export: no such variable: %s\n", PROGNAME, *argv);

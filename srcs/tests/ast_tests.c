@@ -100,7 +100,5 @@ void		sh_testing_ast(char *const *av, char **environ)
 		btree_print(ast, (char *(*)(void*))&ast_aff);
 	else if (ft_strequ(av[1], "line"))
 		btree_apply_prefix(ast, (void (*)(void*))&test_aff);
-	btree_destroy(&ast, (void (*)(void*))&ast_del_cmd);
-	ft_secu_free_all();
 	exit(0);
 }

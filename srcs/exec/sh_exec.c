@@ -62,6 +62,7 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 		if ((pid = sh_fork(E_PID_CMD)) == -1)
 			return (EXIT_FAILURE);
 		ignore_sigwinch();
+		set_var(get_envs(), "_", path, true);
 		if (!pid)
 		{
 			if (!manage_dup2(pipe, fds))
@@ -95,6 +96,7 @@ static int	sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 		return (EXIT_FAILURE);
 	manage_close(fds);
 	builtin = get_builtin(item->av[0]);
+	set_var(get_envs(), "_", item->av[0], true);
 	if (builtin)
 		*get_cmd_ret() = builtin->fn(data, item->av);
 	if (fds[STDOUT_FILENO])
