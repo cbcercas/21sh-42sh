@@ -139,5 +139,6 @@ int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 		ret = sh_exec_builtin(data, item, fds);
 	else
 		ret = sh_exec(item, fds);
+	log_dbg3("EXEC: %s ret = %d", item->av[0], ret);
 	return (ret);
 }

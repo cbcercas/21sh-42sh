@@ -36,11 +36,11 @@ int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 		return (sh_process_exec(data, ast->right, fds));
 	}
 	else if (((t_cmd *)ast->item)->type == E_TOKEN_AND_IF)
-		return ((sh_process_exec(data, ast->left, fds) == 0) &&
-				(sh_process_exec(data, ast->right, fds) == 0));
+		return (!((sh_process_exec(data, ast->left, fds) == 0) &&
+				(sh_process_exec(data, ast->right, fds) == 0)));
 	else if (((t_cmd *)ast->item)->type == E_TOKEN_OR_IF)
-		return ((sh_process_exec(data, ast->left, fds) == 0) ||
-				(sh_process_exec(data, ast->right, fds) == 0));
+		return (!((sh_process_exec(data, ast->left, fds) == 0) ||
+				(sh_process_exec(data, ast->right, fds) == 0)));
 	else if ((((t_cmd *)ast->item)->type == E_TOKEN_LESSGREAT) || (((t_cmd *)
 					ast->item)->type == E_TOKEN_DGREAT))
 		return (sh_exec_redir(data, ast, fds));

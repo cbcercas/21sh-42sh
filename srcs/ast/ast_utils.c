@@ -12,6 +12,7 @@
 
 #include <ast/ast.h>
 #include <builtins/builtin_exit.h>
+#include <core/color.h>
 
 /*
 ** @brief Frees cmd content and cmd
@@ -79,11 +80,12 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 	t_exp		*exp;
 
 	exp = NULL;
-	while (lim->cnt < lim->lim && lim->cnt <= expands->used &&\
-			(!exp || !(ast_prio(exp->type, prio, lim->cnt - 1, expands))))
+	while (lim->cnt >= lim->lim && lim->cnt >= 0)
 	{
-		exp = (t_exp *)array_get_at(expands, lim->cnt);
-		lim->cnt++;
+		lim->cnt--;
+		exp = (t_exp *)array_get_at(expands, (size_t)lim->cnt);
+		if (exp  && ast_prio(exp->type, prio, lim->cnt, expands))
+			break;
 	}
 	return (exp);
 }
@@ -99,7 +101,7 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 ** @return If an error has occurred, a value of false is returned
 */
 
-static BOOL		ast_new_init(t_array *expands, int start, int end,
+static BOOL		ast_new_init(t_array *expands, ssize_t start, ssize_t end,
 								t_cmd **cmd)
 {
 	if ((end - start) < 0)
@@ -124,8 +126,8 @@ static BOOL		ast_new_init(t_array *expands, int start, int end,
 ** @return Returns new cmd or NULL TODO NORM HERE
 */
 
-t_cmd			*ast_new_cmd(t_array *expands, int start, int end,\
-		t_token_type type)
+t_cmd			*ast_new_cmd(t_array *expands, ssize_t start, ssize_t end, \
+        t_token_type type)
 {
 	t_cmd	*cmd;
 	t_exp	*exp;
@@ -138,11 +140,11 @@ t_cmd			*ast_new_cmd(t_array *expands, int start, int end,\
 		return (NULL);
 	cmd->type = type;
 	while (i < (end - start) &&
-			(exp = (t_exp*)array_get_at(expands, start + i)))
+			(exp = (t_exp*)array_get_at(expands, (size_t)start + i)))
 	{
 		if (exp->str && exp->type != E_TOKEN_BLANK &&\
 				!(type == E_TOKEN_WORD &&
-				ast_is_redir(expands, start + i, exp->type)))
+				ast_is_redir(expands, (size_t)start + i, exp->type)))
 			cmd->av[cnt++] = exp->str->s;
 		i++;
 	}

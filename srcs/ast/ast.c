@@ -32,8 +32,10 @@ t_return		ast_create(t_btree **ast, t_array *expands)
 {
 	t_lim		lim;
 
-	lim.cnt = 0;
-	lim.lim = 10000;
+	if (!expands)
+		return (E_RET_AST_ERROR);
+	lim.cnt = expands->used;
+	lim.lim = -1;
 	ast_built(ast, expands, lim, 1);
 	log_dbg1("Ast created.");
 	return (E_RET_AST_OK);

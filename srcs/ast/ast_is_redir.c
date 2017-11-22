@@ -24,11 +24,11 @@
 ** @return Returns token's type if next token is a redirect.
 */
 
-static t_token_type	ast_return_type_redir_front(t_array *expands, size_t cnt)
+static t_token_type	ast_return_type_redir_front(t_array *expands, ssize_t cnt)
 {
 	t_exp		*exp;
 
-	exp = (t_exp *)array_get_at(expands, cnt + 1);
+	exp = (t_exp *)array_get_at(expands, (size_t)cnt + 1);
 	if (exp && is_redirect(exp->type))
 		return (exp->type);
 	return (E_TOKEN_NONE);
@@ -46,17 +46,17 @@ static t_token_type	ast_return_type_redir_front(t_array *expands, size_t cnt)
 ** @return Returns token's type if preceding token is a redirect.
 */
 
-static t_token_type	ast_return_type_redir_back(t_array *expands, size_t cnt)
+static t_token_type	ast_return_type_redir_back(t_array *expands, ssize_t cnt)
 {
 	t_exp		*exp;
 
-	exp = (t_exp *)array_get_at(expands, cnt - 1);
+	exp = (t_exp *)array_get_at(expands, (size_t)cnt - 1);
 	if (exp && is_redirect(exp->type))
 		return (exp->type);
 	while (exp && exp->type == E_TOKEN_BLANK)
 	{
 		cnt--;
-		exp = (t_exp *)array_get_at(expands, cnt - 1);
+		exp = (t_exp *)array_get_at(expands, (size_t)cnt - 1);
 		if (exp && is_redirect(exp->type))
 			return (exp->type);
 	}
@@ -76,8 +76,8 @@ static t_token_type	ast_return_type_redir_back(t_array *expands, size_t cnt)
 ** @return Returns type if current token is a redirect.
 */
 
-t_token_type		ast_return_type_redir(t_array *expands, size_t cnt,
-										t_token_type type)
+t_token_type		ast_return_type_redir(t_array *expands, ssize_t cnt,
+										  t_token_type type)
 {
 	t_token_type	ret;
 
@@ -105,8 +105,8 @@ t_token_type		ast_return_type_redir(t_array *expands, size_t cnt,
 ** @return Returns true if current token is a redirect else will return false.
 */
 
-BOOL				ast_is_redir(t_array *expands, size_t cnt,
-								t_token_type type)
+BOOL				ast_is_redir(t_array *expands, ssize_t cnt,
+								 t_token_type type)
 {
 	if (ast_return_type_redir(expands, cnt, type) == E_TOKEN_NONE)
 		return (false);

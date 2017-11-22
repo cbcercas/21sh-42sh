@@ -31,7 +31,7 @@ void		test_aff(t_cmd *cmd)
 		index++;
 	}
 	if (cmd->av[index])
-		ft_printf("%s", cmd->av[index]);
+		ft_printf("%s", cmd->av[index], cmd->type);
 	ft_putstr("} ");
 	i++;
 }

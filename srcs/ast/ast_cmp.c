@@ -33,8 +33,8 @@
 ** Return values can be any token type defined in lexer.h
 */
 
-t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
-		size_t cnt)
+t_token_type	return_type(int prio, t_token_type type, t_array *expands, \
+        ssize_t cnt)
 {
 	if (type == E_TOKEN_NEWLINE)
 		return (E_TOKEN_SEMI);
@@ -44,8 +44,8 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 		return (type);
 	if (type == E_TOKEN_GREATAND || type == E_TOKEN_LESSAND)
 		return (type);
-	if (ast_is_redir(expands, cnt - 1, type))
-		return (ast_return_type_redir(expands, cnt - 1, type));
+	if (ast_is_redir(expands, cnt, type))
+		return (ast_return_type_redir(expands, cnt, type));
 	return (type);
 }
 
@@ -69,8 +69,8 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands,\
 ** @return Returns true if token and priority match, else returns false
 */
 
-BOOL			ast_prio(t_token_type type, int prio, size_t cnt,
-						t_array *expands)
+BOOL			ast_prio(t_token_type type, int prio, ssize_t cnt,
+						 t_array *expands)
 {
 	if (prio == 1 && (is_sepa(type)))
 		return (true);
