@@ -2,7 +2,7 @@
 
 load test_helper
 
-####star###
+####start###
 
 @test ": Testing [] for ''" {
     skip "Template"
