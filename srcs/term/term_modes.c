@@ -22,7 +22,7 @@ void		raw_terminal_mode(void)
 	tattr.c_cc[VMIN] = 1;
 	tattr.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &tattr);
-	tgetent(NULL, getenv("TERM"));
+	tgetent(NULL, get_var_value(get_envs(), "TERM"));
 	return ;
 }
 

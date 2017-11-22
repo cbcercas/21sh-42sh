@@ -102,8 +102,6 @@ int				main(int ac, char *const *av, char **environ)
 	stop = false;
 	ret = E_RET_NEW_PROMPT;
 	exec_dat.ast = NULL;
-	if (!isatty(STDIN_FILENO))
-		exit (2);
 	sh_arrays_init(&exec_dat.tokens, &exec_dat.expand);
 	get_data(&data);
 	if (!sh_init(get_data(NULL), ac, av, environ))

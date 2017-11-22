@@ -52,7 +52,7 @@ static char		*sh_get_input_no_tty(void)
 	t_input	*input;
 
 	line = NULL;
-	if (!get_next_line(0, &line))
+	if (get_next_line(STDIN_FILENO, &line) <= 0)
 		return (NULL);
 	if (line)
 	{
