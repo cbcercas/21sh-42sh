@@ -29,6 +29,15 @@
 ** or global variables you will need.
 */
 
+/*
+** @struct s_key_exec
+**
+** @brief Struct containing info about a key and its function to be executed
+**
+** @param key_code Key code corresponding to the key pressed
+** @param f The function to be executed
+*/
+
 typedef struct	s_key_exec
 {
 	char		*key_code;

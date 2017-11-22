@@ -46,6 +46,8 @@ typedef	int	(*t_builtin_fn)(t_sh_data *data, char **arg);
 /*
 ** @struct  s_builtin
 **
+** @brief   This struct contains the info for the builtins
+**
 ** @param   fn    function pointer
 ** @param   name  builtin name
 ** @param   len   builtin size

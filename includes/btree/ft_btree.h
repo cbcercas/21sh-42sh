@@ -28,6 +28,8 @@
 /*
 ** @struct s_btree
 **
+** @brief  Contains the nodes for the btree
+**
 ** @param  parent  Contains the parent btree node
 ** @param  left    Contains the left btree node
 ** @param  right   Contains the right btree node

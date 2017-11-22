@@ -48,6 +48,7 @@ struct					s_select
 };
 
 /*
+** @struct s_select_pos
 ** @brief TODO
 **
 ** @arg TODO
@@ -85,6 +86,8 @@ struct					s_input
 };
 
 /*
+** @struct s_window
+**
 ** @brief TODO
 **
 ** @arg TODO

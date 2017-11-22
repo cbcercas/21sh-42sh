@@ -29,7 +29,7 @@ typedef struct s_sh_opt		t_sh_opt;
 typedef struct s_sh_data	t_sh_data;
 
 /*
-** @struct sh_sh_opt
+** @struct s_sh_opt
 **
 ** @brief TODO
 **

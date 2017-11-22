@@ -31,6 +31,12 @@
 ** or global variables you will need.
 */
 
+/*
+** @struct s_exp
+**
+** @brief TODO
+*/
+
 typedef struct			s_exp
 {
 	t_string			*str;

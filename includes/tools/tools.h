@@ -20,6 +20,13 @@
 # include <parser/enum.h>
 
 /*
+** @file tools.h
+**
+** @brief This file contains the prototypes of the utility tools used in the
+** program
+*/
+
+/*
 ** @file getpwd.c
 **
 ** @brief Contains functions used to get the pwd

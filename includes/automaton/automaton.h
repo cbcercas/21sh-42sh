@@ -18,6 +18,12 @@
 # include <ftprintf.h>
 
 /*
+** @file automaton.h
+**
+** @brief This file contains the prototypes for the automaton as well as emums
+*/
+
+/*
 ** @enum   e_stack_state
 **
 ** @brief  Contains all the automaton states
