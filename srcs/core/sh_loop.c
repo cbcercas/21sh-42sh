@@ -47,9 +47,8 @@ static t_return		sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 	t_return	ret;
 	char		*hline;
 
-	if ((ret = lexer_lex(tokens, line)) == E_RET_LEXER_OK
-		&& ((t_token*)array_get_at(tokens, tokens->used - 1))->type !=
-		E_TOKEN_PIPE)
+	if ((ret = lexer_lex(tokens, line)) == E_RET_LEXER_OK && tokens->used
+	&& ((t_token*)array_get_at(tokens, tokens->used - 1))->type != E_TOKEN_PIPE)
 	{
 		hline = input_to_history(input_get_cur_head());
 		sh_history_set_new(&hline);
@@ -66,7 +65,7 @@ static t_return		sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 			}
 		}
 	}
-	else if (ret == E_RET_LEXER_OK)
+	else if (ret == E_RET_LEXER_OK && tokens->used)
 		ret = E_RET_LEXER_PIPE;
 	return (ret);
 }
