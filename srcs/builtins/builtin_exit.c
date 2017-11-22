@@ -104,7 +104,8 @@ void	sh_exit(t_sh_data *data, char **arg)
 	if (arg && arg[1] && ft_isdigit(arg[1][0]))
 		status = ft_atoi(arg[1]);
 	kill_childs(SIGTERM);
-	if (data->opts.color)
+	if (data && data->opts.color && get_windows(0) &&
+			get_windows(0)->ts.ws_col >= 80)
 		sh_print_fed1();
 	exit(status);
 }
