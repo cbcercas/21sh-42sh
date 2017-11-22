@@ -119,7 +119,7 @@ int				sh_chdir(t_sh_data *data, char **arg)
 	if ((opt = ft_getopt(ft_tablen(arg), arg, "LPh")) != -1 && (opt == 'h' ||
 			opt == '?'))
 		return (ft_dprintf(2, "cd: [-L/-P] [path], use \"help cd\"\n"));
-	if ((ft_tablen(arg) > 3) || ((ft_tablen(arg) == 3) && arg[1][0] != '-'))
+	if (arg && ft_tablen(&arg[g_optind]) > 1)
 		return (ft_dprintf(2, "cd: too many arguments\n"));
 	ret = sh_do_chdir(arg[g_optind], opt);
 	ft_getopt_reset();
