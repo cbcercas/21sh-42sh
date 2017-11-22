@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export EXEC_PATH=`dirname $0` 
+export EXEC_PATH=`dirname $0`
 
 if grep -q "DCG" $EXEC_PATH/../.comment_state; then
 	echo "Comments already in Doxygen Style. Doing nothing"
@@ -11,10 +11,10 @@ echo -e "\n##################################"
 echo -e "###   Doxygen Comment Generator  ###"
 echo -e "##################################"
 
-find $EXEC_PATH/../ -iname "*.c" -o -iname "*.h" > filelist.tmp 
+find $EXEC_PATH/../ -iname "*.c" -o -iname "*.h" > filelist.tmp
 
-while read line; do  
-	sed "12,$ {s/^\/\*/\/\*\*/g;}" $line | sed "s/^\*\*/\ \*/g" | sed "s/^\*\//\ \*\//g" > tmp  
+while read line; do
+	sed "12,$ {s/^\/\*/\/\*\*/g;}" $line | sed "s/^\*\*/\ \*/g" | sed "s/^\*\//\ \*\//g" > tmp
 	cat tmp > $line
 done < filelist.tmp
 

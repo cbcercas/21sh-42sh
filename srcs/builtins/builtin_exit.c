@@ -20,6 +20,77 @@
 ** @param arg The status
 */
 
+void	sh_print_fed3(void)
+{
+	ft_printf("          ▐████   █████                                  █████`"
+					"  █████\n");
+	ft_printf("           ████▓   ▀████▄                              ▄████▀  "
+					" ▄████`\n");
+	ft_printf("            ████▓   ╙████▓                            ▓████▀   "
+					"▄████▀\n");
+	ft_printf("             █████    █████                         ,█████    "
+					"▓████▀\n");
+	ft_printf("              █████▄   ▀████▄                      ▄████▀   "
+					"▄█████,\n");
+	ft_printf("               ╙█████▄  ╙████▌                    ▓████▀  "
+					"▄█████▀\n");
+	ft_printf("                 ▀█████▓▄ █████                 ,████▀ "
+					",▓█████▀¬\n");
+	ft_printf("                   ╙█████▌ ▀████▄              4▀▀ "
+					",▄▓██████▀\n");
+	ft_printf("                      ▀████ ╙████▌           ,▄▄▓████████▀─\n");
+	ft_printf("                         └▀█▄ █████ ^████████████████▀▀\n");
+	ft_printf("                               ▀████▄ ████████▀▀▀▀─\n");
+	ft_printf("                                ╙████▌    ▄▄▄▓▓▀\n");
+	ft_printf("                                  █████  ▓████▀\n");
+	ft_printf("                                   ▀█████████\n");
+	ft_printf("                                    ╙██████▀\n");
+	ft_printf("                                      ████▀\n");
+	ft_printf("                                       ▀█\n");
+}
+
+void	sh_print_fed2(void)
+{
+	ft_printf("          ████¬ ▄                                              "
+					",█████\n");
+	ft_printf("         ▐████ ▐█▓                                            "
+					"▄████▀ ▄▌\n");
+	ft_printf("         ▐████ ╟███                                          "
+					"▓████` ██▌\n");
+	ft_printf("         j████ ▐████▄                                      "
+					"╓████▀ ▄███▌\n");
+	ft_printf("          ████▌ ╙████▓                                    "
+					"▄████▀ ╒████~\n");
+}
+
+void	sh_print_fed1(void)
+{
+	ft_printf("                                  ,,▄▄▄▄▄▄▄▄,,\n");
+	ft_printf("                           ,▄▄▓██████████████████▓▄▄,\n");
+	ft_printf("                       ,▄▓█████████▀▀▀▀▀▀▀▀▀▀██████████▄,\n");
+	ft_printf("                    .Æ███████▀▀¬                 ^▀▀██████▓,\n");
+	ft_printf(" ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄ ▀██████▄ "
+					"*▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄\n");
+	ft_printf("  ████████████████████████████████████████████████████▓▄ "
+					"▀█████▄ "
+					"▀████████████`\n");
+	ft_printf("   ▀█████▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀  "
+					"╙█████µ^▀▀▀▀█████▀\n");
+	ft_printf("    ╙█████   ▄█████                                          "
+					"▀████▌   ▄████▀\n");
+	ft_printf("      █████ ▄████▀                                             "
+					"████  ▓████`\n");
+	ft_printf("       ▀██ ▐████▀                                               "
+					"██ ,████▀\n");
+	ft_printf("        ╙▀]████▌                                                "
+					"  ▄████▀\n");
+	ft_printf("          █████                                                 "
+					" ▓████¬\n");
+	sh_print_fed2();
+	sh_print_fed3();
+	ft_printf("\t\t\t\tVive la Federation !\n");
+}
+
 void	sh_exit(t_sh_data *data, char **arg)
 {
 	int		status;
@@ -33,6 +104,7 @@ void	sh_exit(t_sh_data *data, char **arg)
 	if (arg && arg[1] && ft_isdigit(arg[1][0]))
 		status = ft_atoi(arg[1]);
 	kill_childs(SIGTERM);
+	sh_print_fed1();
 	exit(status);
 }
 
