@@ -90,6 +90,16 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 	return (exp);
 }
 
+
+t_lim		swap_lim(t_lim lim)
+{
+	t_lim	ret;
+
+	ret.lim = lim.cnt;
+	ret.cnt = lim.lim;
+	return (ret);
+}
+
 /*
 ** @brief malloc cmd and cmd->av for ast_new_cmd()
 **

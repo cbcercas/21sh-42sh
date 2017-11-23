@@ -88,7 +88,7 @@ SRC_SUBDIR		+= btree
 SRCS			+= btree_create_node.c btree_apply.c btree_print.c btree_utils.c
 
 SRC_SUBDIR      += ast
-SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c
+SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c ast_built_wr.c
 
 SRC_SUBDIR		+= autocomplete
 SRCS			+= autocomplete_is.c autocomplete_get_words.c\
