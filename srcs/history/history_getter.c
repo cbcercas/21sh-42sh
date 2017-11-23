@@ -119,7 +119,7 @@ t_hist		*sh_history_set_new(char **cmd)
 		array_push(hists, (void *)h);
 		ft_memdel((void**)&h);
 		if (hists->used >= HISTORY_MAX)
-			array_remove_at(hists, 0, NULL);
+			sh_history_remove_at(0);
 	}
 	if (*cmd)
 		ft_strdel(cmd);

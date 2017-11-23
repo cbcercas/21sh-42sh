@@ -135,6 +135,7 @@ void				sh_history_insert_buf(char *str);
 void				sh_history_destroy(void);
 void				sh_history_var_session_reset(void);
 void				sh_history_del(void *i);
+void				*sh_history_remove_at(size_t nb);
 
 /*
 ** @file history_input_utils.c

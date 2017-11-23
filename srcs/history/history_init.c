@@ -148,7 +148,7 @@ t_array	*sh_history_init(t_array *hists)
 	while (sh_history_init_one(hists, fd))
 	{
 		if (hists->used >= HISTORY_MAX)
-			array_remove_at(hists, 0, NULL);
+			sh_history_remove_at(0);
 	}
 	close(fd);
 	return (hists);

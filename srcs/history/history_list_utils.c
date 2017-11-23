@@ -79,3 +79,17 @@ void	sh_history_var_session_reset(void)
 		i++;
 	}
 }
+
+void	*sh_history_remove_at(size_t nb)
+{
+	t_hist		*h;
+	t_array		*hists;
+
+	hists = sh_history_get();
+	if (!hists)
+		return (NULL);
+	h = (t_hist *)array_get_at(hists, (size_t)nb);
+	if (h)
+		ft_strdel((char **)(&(h->cmd)));
+	return (array_remove_at(hists, nb, NULL));
+}
