@@ -29,28 +29,28 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
 
 - [x] Line editing
   - [x] Simple and advanced line editing
-	- [x] Edit the line where the cursor is positionned
-	- [x] Move cursor left or right
-	- [x] Up and Down arrows to navigate in the history
-	- [x] Copy and paste with `alt+C` `alt+v`
-	- [x] Move word per word left or right `alt+LEFT` `alt+RIGHT`
-	- [x] Go to beginning or end of a line. `home` `end`
-	- [x] Move to top or bottom line. `alt+UP` `alt+DOWN`
-	- [x] Waits for the end of a quote or double quote.
-	- [x] ctrl+D and ctrl+C usable when editing a line or in multi-line.
+  - [x] Edit the line where the cursor is positionned
+  - [x] Move cursor left or right
+  - [x] Up and Down arrows to navigate in the history
+  - [x] Copy and paste with `alt+C` `alt+v`
+  - [x] Move word per word left or right `alt+LEFT` `alt+RIGHT`
+  - [x] Go to beginning or end of a line. `home` `end`
+  - [x] Move to top or bottom line. `alt+UP` `alt+DOWN`
+  - [x] Waits for the end of a quote or double quote.
+  - [x] ctrl+D and ctrl+C usable when editing a line or in multi-line.
   - [x] Multiline line editing
   
 
 - [x] Builtins with their POSIX options
-	- [x] `cd` | `chdir`
-	- [x] `echo`
-	- [x] `exit`
-	- [x] `env`
-	- [x] `setenv`
-	- [x] `unsetenv`
-	- [x] `unset`
-	- [x] `export`
-	- [x] `history`
+  - [x] `cd` | `chdir`
+  - [x] `echo`
+  - [x] `exit`
+  - [x] `env`
+  - [x] `setenv`
+  - [x] `unsetenv`
+  - [x] `unset`
+  - [x] `export`
+  - [x] `history`
 
 - [x] Exec
   - [x] Executing commands stored in path with their parameters
@@ -62,6 +62,7 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [ ] Backquotes "‘" (TODO)
   - [x] Ihibitors """ (double quote), "’" (simple quote) et "\" (backslash).
   - [x] `;`
+  - [x] `\n` handling where `\n` can be used as a `;`. Example: `ls \n ls` == `ls ; ls`
 
 - [x] Prompt
   - [x] Multi line editing
@@ -72,8 +73,7 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [ ] TODO
 
 - [x] Signals 
-  - [x] ctrl+D
-  - [x] ctrl+C
+  - [x] We kill all childs when we get a signal that kill the program so no zombie process is left behind
   - [ ] TODO
   
 - [x] Autocompletion
@@ -95,7 +95,13 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [x] File descriptors aggregation
 
 - [x] Structure
-  - [ ] TODO (ordre dans lequel ca passe)
+  - [x] Init
+  - [x] Input
+  - [x] Lexer
+  - [x] Parser
+  - [x] Expand
+  - [x] Ast
+  - [x] Execution
 
 - [x] History
   - [x] A menu is printed when the history fil is to big
