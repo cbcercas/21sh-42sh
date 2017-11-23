@@ -1,7 +1,7 @@
 # 21-42sh [![Build Status](https://travis-ci.com/cbcercas/21-42sh.svg?token=MVpT9pWnUSbCfBPKvyfA&branch=master)](https://travis-ci.com/cbcercas/21-42sh)
 
 By *chbravo-*, *jlasne*, *gpouyat* and *mleroy*
-Final grade : To be determined
+Final grade : Not graded yet
 
 *To be put here, result of cloc*
 
@@ -51,3 +51,32 @@ Commands|Functions|
 :-:|:--
 `$> l[tab]`|Search for binary.
 `$> ls s[tab]`|Search for path/files.
+
+
+ast display possibility
+interactive autocomplete (binary search, path/file search)
+
+builtins:
+chdir (to add)
+cd (alias chdir)
+echo
+environ (env)
+exit
+help
+history
+local var
+pwd
+
+default env when started with env -i (to be customized)
+message to warn user when env -i
+
+TESTS (env lexer parser ast expand var exec)
+history, autocomplete and line editing on multiline
+Smiley en fonction de la return de la commande (^_^ ou X_X)
+Toutes les options dispo : v d t c C
+environ handling complete: setenv, unsetenv (syntaxe avec =)
+exec : heredoc, redirections, || && | > < >> <<
+expand :$ ! "" ''
+history: recherche, !, overflow du fichier, print
+logger
+doc
