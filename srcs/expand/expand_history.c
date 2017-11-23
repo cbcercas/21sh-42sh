@@ -25,7 +25,7 @@ static BOOL	expand_hist_loop(t_exp *exp, int *len, char **rep, int *i)
 		*i += 2;
 	else if (exp->str->s[*i] == '!' && exp->str->s[*i + 1] == '!')
 	{
-		if ((*rep = (char *)sh_history_get_at(-1)) != NULL)
+		if ((*rep = (char *)sh_history_get_at(-2)) != NULL)
 			exp->str->s = ft_replace_exp(exp->str->s, *rep, *len, 2);
 		*i += ft_strlen(*rep);
 	}
