@@ -80,12 +80,16 @@ t_token_type		ast_return_type_redir(t_array *expands, ssize_t cnt,
 										  t_token_type type)
 {
 	t_token_type	ret;
+	t_exp			*exp;
 
 	ret = type;
 	if (is_redirect(ret))
 		return (ret);
 	if (type != E_TOKEN_IO_NUMBER && type != E_TOKEN_WORD &&\
 			type != E_TOKEN_BLANK)
+		return (E_TOKEN_NONE);
+	if (type == E_TOKEN_IO_NUMBER &&
+			(exp = (t_exp *)array_get_at(expands, (size_t)cnt)) && exp->str->len >= 2)
 		return (E_TOKEN_NONE);
 	if (type != E_TOKEN_WORD &&
 			(ret = ast_return_type_redir_front(expands, cnt)) != E_TOKEN_NONE)

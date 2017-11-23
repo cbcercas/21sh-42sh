@@ -14,26 +14,27 @@
 
 BOOL			check_fd(int fd)
 {
-	if (fd <= STDERR_FILENO && fd >= 0)
+	struct stat test;
+
+	if (!fstat(fd, &test))
 		return (true);
-	ft_dprintf(2, "%s: '%d' ONLY stdin (0), stdout (1), stderr (2) -- file"
-			"descriptor files\n", PROGNAME, fd);
+	ft_dprintf(2, "%s: %d: bad file descriptor\n", PROGNAME, fd);
 	return (false);
 }
 
 static int		here_find_fd(t_cmd *item)
 {
 	int		fd;
+	struct stat test;
 
 	fd = ft_atoi(item->av[0]);
 	if (ft_isdigit(item->av[0][0]))
 	{
-		if (fd <= STDERR_FILENO && fd >= 0)
+		if (!fstat(fd, &test))
 			return (fd);
 		else
 		{
-			ft_dprintf(2, "%s: '%d' ONLY 0, 1 or 2 number\n", PROGNAME,
-					fd);
+			ft_dprintf(2, "%s: %d: bad file descriptor\n", PROGNAME, fd);
 			return (-1);
 		}
 	}

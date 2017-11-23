@@ -57,17 +57,18 @@ int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 
 int		exec_exec(t_sh_data *data, t_btree *ast)
 {
-	t_list	*fds[6];
+	t_list	*fds[FD_SETSIZE + 3];
+	int		cnt;
 
 	if (!ast)
 		return (-1);
+	cnt = 0;
 	*is_in_pipe() = false;
-	fds[STDIN_FILENO] = NULL;
-	fds[STDOUT_FILENO] = NULL;
-	fds[STDERR_FILENO] = NULL;
-	fds[CLOSE] = NULL;
-	fds[PIPE_OUT] = NULL;
-	fds[PIPE_IN] = NULL;
+	while (cnt < FD_SETSIZE + 3)
+	{
+		fds[cnt] = NULL;
+		cnt++;
+	}
 	remove_useless();
 	return (sh_process_exec(data, ast, fds));
 }

@@ -17,6 +17,7 @@ int	sh_pipe(int tube[2])
 	if (pipe(tube) != 0)
 	{
 		ft_putstr_fd("Error creation of pipe.\n", 2);
+		log_fatal("EXEC: ERROR, pipe file: %s");
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);

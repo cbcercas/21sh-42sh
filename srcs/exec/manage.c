@@ -21,14 +21,20 @@
 ** @return Returns true if successful or false if pipe failed
 */
 
-BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5])
+BOOL	manage_create_pipe(int pipe[FD_SETSIZE + 3][2], t_list **fds)
 {
-	if (fds[STDOUT_FILENO] && sh_pipe(pipe[STDOUT_FILENO]) == EXIT_FAILURE)
-		return (false);
-	if (fds[STDIN_FILENO] && sh_pipe(pipe[STDIN_FILENO]) == EXIT_FAILURE)
-		return (false);
-	if (fds[STDERR_FILENO] && sh_pipe(pipe[STDERR_FILENO]) == EXIT_FAILURE)
-		return (false);
+	int		cnt;
+
+	cnt = 0;
+	while (cnt < FD_SETSIZE)
+	{
+		if (fds[cnt] && sh_pipe(pipe[cnt]) == EXIT_FAILURE)
+		{
+			log_fatal("ERROR: file: %s pipe cnt", __FILE__, cnt);
+			return (false);
+		}
+		cnt++;
+	}
 	return (true);
 }
 
@@ -39,17 +45,20 @@ BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5])
 ** @return TODO
 */
 
-BOOL	manage_dup2(int pipe[3][2], t_list *fds[5])
+BOOL	manage_dup2(int pipe[FD_SETSIZE + 3][2], t_list **fds)
 {
-	if (fds[STDOUT_FILENO] && (dup2(pipe[STDOUT_FILENO][START],
-					STDOUT_FILENO) == -1))
-		return (false);
-	if (fds[STDIN_FILENO] && (dup2(pipe[STDIN_FILENO][START],
-					STDIN_FILENO) == -1))
-		return (false);
-	if (fds[STDERR_FILENO] && (dup2(pipe[STDERR_FILENO][START],
-					STDERR_FILENO) == -1))
-		return (false);
+	int		cnt;
+
+	cnt = 0;
+	while (cnt < FD_SETSIZE)
+	{
+		if (fds[cnt] && (dup2(pipe[cnt][START], cnt) == -1))
+		{
+			log_fatal("ERROR: file: %s dup2 cnt %d", __FILE__, cnt);
+			return (false);
+		}
+		cnt++;
+	}
 	return (true);
 }
 
@@ -61,14 +70,20 @@ BOOL	manage_dup2(int pipe[3][2], t_list *fds[5])
 ** @return TODO
 */
 
-BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos)
+BOOL	multi_close(int pipe[FD_SETSIZE + 3][2], t_list **fds, BOOL pos)
 {
-	if (fds[STDOUT_FILENO] && close(pipe[STDOUT_FILENO][pos]))
-		return (false);
-	if (fds[STDIN_FILENO] && close(pipe[STDIN_FILENO][pos]))
-		return (false);
-	if (fds[STDERR_FILENO] && close(pipe[STDERR_FILENO][pos]))
-		return (false);
+	int		cnt;
+
+	cnt = 0;
+	while (cnt < FD_SETSIZE)
+	{
+		if (fds[cnt] && close(pipe[cnt][pos]))
+		{
+			log_fatal("ERROR: file: %s close cnt %d", __FILE__, cnt);
+			return (false);
+		}
+		cnt++;
+	}
 	return (true);
 }
 
@@ -78,7 +93,7 @@ BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos)
 ** @param fds TODO
 */
 
-void	manage_fds(int pipe[3][2], t_list *fds[5])
+void	manage_fds(int pipe[FD_SETSIZE + 3][2], t_list **fds)
 {
 	t_list	*tmp;
 	char	buf[1];
@@ -106,7 +121,7 @@ void	manage_fds(int pipe[3][2], t_list *fds[5])
 ** @param fds TODO
 */
 
-void	manage_close(t_list *fds[5])
+void	manage_close(t_list **fds)
 {
 	t_list		*tmp;
 

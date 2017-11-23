@@ -23,7 +23,7 @@
 ** @return Returns the ret value based on success or not
 */
 
-static int	sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
+static int	sh_exec_parent(t_list **fds, char *path, int **pipe, int pid)
 {
 	if (!multi_close(pipe, fds, START))
 		return (EXIT_FAILURE);
@@ -51,7 +51,7 @@ static int	sh_exec_parent(t_list **fds, char *path, int pipe[3][2], int pid)
 static int	sh_exec(t_cmd *item, t_list **fds)
 {
 	char	*path;
-	int		pipe[3][2];
+	int		pipe[FD_SETSIZE + 3][2];
 	pid_t	pid;
 
 	pid = -1;
@@ -88,7 +88,7 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 static int	sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 {
 	t_builtin	*builtin;
-	int			pipe[3][2];
+	int			pipe[FD_SETSIZE + 3][2];
 
 	if (!manage_create_pipe(pipe, fds))
 		return (EXIT_FAILURE);

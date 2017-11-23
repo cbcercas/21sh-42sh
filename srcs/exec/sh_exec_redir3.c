@@ -17,9 +17,9 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 	if (fd2 == -2)
 	{
 		if (fd1 != -1)
-			exec_list_push(&fds[3], fd1);
+			exec_list_push(&fds[CLOSE], fd1);
 		else
-			exec_list_push(&fds[3], STDIN_FILENO);
+			exec_list_push(&fds[CLOSE], STDIN_FILENO);
 		return ;
 	}
 	if (fd1 != -1)
@@ -36,14 +36,14 @@ void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
 		if (fd2 == -2)
 		{
 			if (fd1 != -1)
-				exec_list_push(&fds[3], fd1);
+				exec_list_push(&fds[CLOSE], fd1);
 			else
-				exec_list_push(&fds[3], STDOUT_FILENO);
+				exec_list_push(&fds[CLOSE], STDOUT_FILENO);
 			return ;
 		}
 		if (fd1 != -1)
 		{
-			fds[fd1] = NULL;
+			(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
 			log_info("REDIR fd =%d", fd1);
 			exec_list_push(&fds[fd1], fd2);
 		}

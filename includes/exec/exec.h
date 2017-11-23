@@ -21,9 +21,9 @@
 
 # define START 1
 # define END 0
-# define CLOSE 3
-# define PIPE_OUT 4
-# define PIPE_IN 5
+# define CLOSE FD_SETSIZE
+# define PIPE_OUT CLOSE + 1
+# define PIPE_IN PIPE_OUT + 1
 
 /*
 ** @file   exec.h
@@ -116,11 +116,11 @@ void	mini_input(char *end, int pipe_fd);
 ** @brief  Functions to manage FDs etc
 */
 
-BOOL	manage_create_pipe(int pipe[3][2], t_list *fds[5]);
-BOOL	manage_dup2(int pipe[3][2], t_list *fds[5]);
-void	manage_fds(int pipe[3][2], t_list *fds[5]);
-BOOL	multi_close(int pipe[3][2], t_list *fds[5], BOOL pos);
-void	manage_close(t_list *fds[5]);
+BOOL	manage_create_pipe(int pipe[FD_SETSIZE + 3][2], t_list **fds);
+BOOL	manage_dup2(int pipe[FD_SETSIZE + 3][2], t_list **fds);
+void	manage_fds(int pipe[FD_SETSIZE + 3][2], t_list **fds);
+BOOL	multi_close(int pipe[FD_SETSIZE + 3][2], t_list **fds, BOOL pos);
+void	manage_close(t_list **fds);
 
 //void	exec_list_mouv(t_list **dest, t_list **src);
 

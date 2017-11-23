@@ -18,7 +18,7 @@ static void		redir_great(t_cmd *item, t_list **fds, int fd)
 	{
 		if (check_fd(ft_atoi(item->av[0])))
 		{
-			fds[ft_atoi(item->av[0])] = NULL;
+			(fds[ft_atoi(item->av[0])] ? ft_lstdel(&fds[ft_atoi(item->av[0])], &exec_list_nothing) : 0);
 			exec_list_push(&fds[ft_atoi(item->av[0])], fd);
 		}
 		else
@@ -26,7 +26,7 @@ static void		redir_great(t_cmd *item, t_list **fds, int fd)
 	}
 	else
 	{
-		fds[STDOUT_FILENO] = NULL;
+		(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing) : 0);
 		exec_list_push(&fds[STDOUT_FILENO], fd);
 	}
 }
