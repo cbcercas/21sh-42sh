@@ -53,15 +53,15 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
 	- [x] `history`
 
 - [x] Exec
-	- [x] Executing commands stored in path with their parameters
-	- [x] Error handling and return value handling
+  - [x] Executing commands stored in path with their parameters
+  - [x] Error handling and return value handling
   - [x] Smiley face based on return value from previous command (`^_^` or `X_X`)
-	- [x] Redirections handled : `>`, `<`, `<<` and `>>`
-	- [x] Pipes `|`
-	- [x] Logical operators `&&` and `||`
+  - [x] Redirections handled : `>`, `<`, `<<` and `>>`
+  - [x] Pipes `|`
+  - [x] Logical operators `&&` and `||`
   - [ ] Backquotes "‘" (TODO)
-	- [x] Ihibitors """ (double quote), "’" (simple quote) et "\" (backslash).
-	- [x] `;`
+  - [x] Ihibitors """ (double quote), "’" (simple quote) et "\" (backslash).
+  - [x] `;`
 
 - [x] Prompt
   - [x] Multi line editing
@@ -72,18 +72,18 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [ ] TODO
 
 - [x] Signals 
-	- [x] ctrl+D
-	- [x] ctrl+C
+  - [x] ctrl+D
+  - [x] ctrl+C
   - [ ] TODO
   
 - [x] Autocompletion
-	- [x] Dynamic autocompletion
+  - [x] Dynamic autocompletion
   - [x] Autocompletes binaries from `PATH`
   - [x] Autocompletes files and paths
   - [x] Autorefreshing with a new input from the user: modification of the list of possibility. TODO WIP
   
 - [x] Environ
-	- [x] Local Variables
+  - [x] Local Variables
   - [x] env
   - [x] Uses = syntax
   - [ ] `unsetenv *` TODO WIP
@@ -91,16 +91,16 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [x] Message to warn the User when **21-42sh** is started without an env
 
 - [x] Bonuses
-	- [x] Heredocs "<<".
-	- [x] File descriptors aggregation
+  - [x] Heredocs "<<".
+  - [x] File descriptors aggregation
 
 - [x] Structure
-	- [ ] TODO (ordre dans lequel ca passe)
+  - [ ] TODO (ordre dans lequel ca passe)
 
 - [x] History
   - [x] A menu is printed when the history fil is to big
   - [x] The history is printed in the log when exiting the program
-	- [x] History research `ctrl+R.`
+  - [x] History research `ctrl+R.`
   
 
 *To be put here, result of cloc*
@@ -115,6 +115,6 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [x] Tests for the local vars
 
 - [x] Miscellaneous
-  -[x] Logger
-  -[x] Doc
+  - [x] Logger
+  - [x] Doc
 
