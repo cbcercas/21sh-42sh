@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <builtins/builtin_exit.h>
+#include <core/color.h>
 
 /*
 ** @brief Exits the program properly with a given status
@@ -65,6 +66,7 @@ void	sh_print_fed2(void)
 
 void	sh_print_fed1(void)
 {
+	ft_printf("%s", C_BLUE);
 	ft_printf("                                  ,,▄▄▄▄▄▄▄▄,,\n");
 	ft_printf("                           ,▄▄▓██████████████████▓▄▄,\n");
 	ft_printf("                       ,▄▓█████████▀▀▀▀▀▀▀▀▀▀██████████▄,\n");
@@ -88,6 +90,7 @@ void	sh_print_fed1(void)
 					" ▓████¬\n");
 	sh_print_fed2();
 	sh_print_fed3();
+	ft_printf("%s", C_NONE);
 	ft_printf("\t\t\t\tVive la Federation !\n");
 }
 

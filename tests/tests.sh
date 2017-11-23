@@ -158,7 +158,7 @@ test_bats()
 		help
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/tests_expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats" $path_of_file"/tests_bats/builtins.bats" $path_of_file"/tests_bats/and_or.bats" $path_of_file"/tests_bats/builtin_cd.bats" $path_of_file"/tests_bats/simple_commands.bats" $path_of_file"/tests_bats/redirections.bats" $path_of_file"/tests_bats/pipe.bats"
+		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/tests_expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats" $path_of_file"/tests_bats/builtins.bats" $path_of_file"/tests_bats/and_or.bats" $path_of_file"/tests_bats/builtin_cd.bats" $path_of_file"/tests_bats/builtin_echo.bats" $path_of_file"/tests_bats/builtin_env.bats" $path_of_file"/tests_bats/builtin_exit.bats" $path_of_file"/tests_bats/builtin_history.bats" $path_of_file"/tests_bats/builtin_setenv.bats" $path_of_file"/tests_bats/builtin_unsetenv.bats" $path_of_file"/tests_bats/history_exp.bats" $path_of_file"/tests_bats/simple_commands.bats" $path_of_file"/tests_bats/redirections.bats" $path_of_file"/tests_bats/pipe.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -190,7 +190,7 @@ test_bats()
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "other" ] || [ $1 = "o" ]; then
-		bats $path_of_file"/tests_bats/and_or.bats" $path_of_file"/tests_bats/builtin_cd.bats" $path_of_file"/tests_bats/simple_commands.bats" $path_of_file"/tests_bats/redirections.bats" $path_of_file"/tests_bats/pipe.bats"
+		bats $path_of_file"/tests_bats/and_or.bats" $path_of_file"/tests_bats/builtin_cd.bats" $path_of_file"/tests_bats/builtin_echo.bats" $path_of_file"/tests_bats/builtin_env.bats" $path_of_file"/tests_bats/builtin_exit.bats" $path_of_file"/tests_bats/builtin_history.bats" $path_of_file"/tests_bats/builtin_setenv.bats" $path_of_file"/tests_bats/builtin_unsetenv.bats" $path_of_file"/tests_bats/history_exp.bats" $path_of_file"/tests_bats/redirections.bats" $path_of_file"/tests_bats/pipe.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	else
