@@ -61,15 +61,3 @@ load test_helper
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }
-
-@test "BUILTIN_UNSETENV: Testing [remove_all] for 'setenv test_var=abc; unsetenv * test_var does_not_exist; env; setenv test_var=def; env'" {
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv test_var=abc; unsetenv * test_var does_not_exist; env; setenv test_var=def; env'
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->test_var=def"
-    echo
-    [ "${lines[0]}" = "test_var=def" ]
-    [ "${lines[1]}" = "" ]
-    [ "$status" -eq 0 ]
-    check_leaks_function exec
-}
