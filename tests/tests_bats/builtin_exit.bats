@@ -142,7 +142,7 @@ load test_helper
     echo
     [ "${lines[0]}" = "aaa" ]
     [ "${lines[1]}" = "exit" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 42 ]
     check_leaks_function exec
 }
 
