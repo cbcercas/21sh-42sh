@@ -175,16 +175,9 @@ C_B = \033[1;34m
 C_C = \033[1;36m
 C_R = \033[1;31m
 C_P = \033[1;35m
+
 DOXYGEN = $(shell doxygen -v dot 2> /dev/null)
 
-UNAME_S := $(shell uname -s)
-
-ifeq ($(UNAME_S), Linux)
-	ECHOLOR = echo -e
-endif
-ifeq ($(UNAME_S), Darwin)
-	ECHOLOR = echo
-endif
 
 ###############################################################################
 #                           DOT NOT EDIT BELOW                                #
@@ -201,11 +194,11 @@ all: $(DEPS) lib $(NAME)
 
 $(NAME): $(OBJS)
 		@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBS) $(INC)
-		@$(ECHOLOR) "$(C_G)🎩🎩🎩$(C_NO) ALL LINKED $(C_G)🎩🎩🎩$(C_NO)"
-		@$(ECHOLOR) "INFO: Flags: $(CFLAGS)"
-		@$(ECHOLOR) "[\033[35m---------------------------------\033[0m]"
-		@$(ECHOLOR) "[\033[36m---------- 21sh Done ! ----------\033[0m]"
-		@$(ECHOLOR) "[\033[35m---------------------------------\033[0m]"
+		@printf "$(C_G)-->$(C_NO) ALL LINKED $(C_G)<--$(C_NO)\n"
+		@printf "INFO: Flags: $(CFLAGS)\n"
+		@printf "[\033[35m---------------------------------\033[0m]\n"
+		@printf "[\033[36m---------- 21sh Done ! ----------\033[0m]\n"
+		@printf "[\033[35m---------------------------------\033[0m]\n"
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
 		# Add dependency as prerequisites
@@ -227,14 +220,14 @@ lib:
 re: fclean $(DEPS) lib $(NAME)
 
 clean:
-	@$(ECHOLOR) "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]"
+	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]\n"
 	@$(RM) $(OBJS_DIR)
-	@$(ECHOLOR) "\033[35m21sh  :\033[0m [\033[31mSuppression des .d\033[0m]"
+	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .d\033[0m]\n"
 	@$(RM) $(DEPS_DIR)
 	@make clean -C $(LIB_CBC_DIR)
 
 fclean: clean
-	@$(ECHOLOR) "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]"
+	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]\n"
 	@$(RM) $(NAME)
 	@make fclean -C $(LIB_CBC_DIR)
 	@rm -rf DOC
@@ -248,10 +241,10 @@ ifndef DOXYGEN
 		@echo "Please install doxygen and graphviz first (brew install doxygen graphviz)."
 else
 	/bin/bash scripts/DCG.sh && doxygen Doxyfile && /bin/bash scripts/NCG.sh
-	@$(ECHOLOR) "[\033[35m--------------------------\033[0m]"
-	@$(ECHOLOR) "[\033[36m------ Documentation -----\033[0m]"
-	@$(ECHOLOR) "[\033[36m------   generated   -----\033[0m]"
-	@$(ECHOLOR) "[\033[35m--------------------------\033[0m]"
+	@printf "[\033[35m--------------------------\033[0m]\n"
+	@printf "[\033[36m------ Documentation -----\033[0m]\n"
+	@printf "[\033[36m------   generated   -----\033[0m]\n"
+	@printf "[\033[35m--------------------------\033[0m]\n"
 endif
 
 .PHONY: re clean fclean all lib doc dev
