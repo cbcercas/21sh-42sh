@@ -161,7 +161,7 @@ int		sh_echo(t_sh_data *data, char **argv)
 	}
 	if (opt != '?')
 		echo_print(&argv[g_optind], flag);
-	if (!(flag[0] && opt != '?'))
+	if (!(flag[0] && opt != '?') && opt != '?')
 		ft_putstr("\n");
 	ft_getopt_reset();
 	return (((opt != '?') ? 0 : 1));
