@@ -217,7 +217,7 @@ $(BUILD_DIR):
 lib:
 		@make -C $(LIB_CBC_DIR)
 
-re: fclean $(DEPS) lib $(NAME)
+re: fclean all
 
 clean:
 	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]\n"
