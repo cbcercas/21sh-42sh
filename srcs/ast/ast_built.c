@@ -38,6 +38,7 @@ t_btree					*ast_built(t_btree **ast,
 
 	lim_left = lim;
 	exp = NULL;
+	log_dbg1("AST: BUILT-START prio:%d cnt:%d lim:%d", prio, lim.cnt, lim.lim);
 	if (prio != 4 && prio != 3)
 		exp = ast_search(expands, &lim, prio);
 	else
@@ -56,5 +57,6 @@ t_btree					*ast_built(t_btree **ast,
 	}
 	else if (prio != 4)
 		*ast = ast_built(ast, expands, lim_left, prio + 1);
+	log_dbg1("AST: BUILT-END prio:%d cnt:%d lim:%d", prio, lim.cnt, lim.lim);
 	return (*ast);
 }
