@@ -48,7 +48,7 @@ int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 				ast->item)->type == E_TOKEN_LESSAND)
 		return (sh_exec_greatand(data, ast, fds));
 	else if (((t_cmd *)ast->item)->type == E_TOKEN_DLESS)
-		return (sh_heredoc(data, ast, fds));
+		return (sh_exec_heredoc(data, ast, fds));
 	else if (((t_cmd *)ast->item)->type == E_TOKEN_PIPE)
 		return (sh_exec_pipe(data, ast, fds));
 	else
@@ -57,18 +57,20 @@ int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 
 int		exec_exec(t_sh_data *data, t_btree *ast)
 {
-	t_list	*fds[FD_SETSIZE + 3];
+	t_list	*fds[FD_SETSIZE + 1];
 	int		cnt;
 
 	if (!ast)
 		return (-1);
 	cnt = 0;
 	*is_in_pipe() = false;
-	while (cnt < FD_SETSIZE + 3)
+	while (cnt < FD_SETSIZE + 1)
 	{
 		fds[cnt] = NULL;
 		cnt++;
 	}
 	remove_useless();
-	return (sh_process_exec(data, ast, fds));
+	*get_cmd_ret() = sh_process_exec(data, ast, fds);
+	exec_list_fd_destroy(fds);
+	return (*get_cmd_ret());
 }

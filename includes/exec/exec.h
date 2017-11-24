@@ -100,7 +100,7 @@ void	sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
 ** @brief  Functions to execute heradoc
 */
 
-int		sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds);
+int		sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds);
 
 /*
 ** @file   sh_heredoc_input.c
@@ -111,18 +111,22 @@ int		sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds);
 void	mini_input(char *end, int pipe_fd);
 
 /*
-** @file   manage.c
+** @file   sh_exec_list_fd.c
 **
 ** @brief  Functions to manage FDs etc
 */
 
-BOOL	manage_create_pipe(int pipe[FD_SETSIZE + 3][2], t_list **fds);
-BOOL	manage_dup2(int pipe[FD_SETSIZE + 3][2], t_list **fds);
-void	manage_fds(int pipe[FD_SETSIZE + 3][2], t_list **fds);
-BOOL	multi_close(int pipe[FD_SETSIZE + 3][2], t_list **fds, BOOL pos);
-void	manage_close(t_list **fds);
+void	exec_list_fd_close(t_list **fds);
+BOOL	exec_list_fd_dup(t_list **fds);
+void	exec_list_fd_destroy(t_list **fds);
+void	exec_list_fd_all_close(t_list **fds);
 
-//void	exec_list_mouv(t_list **dest, t_list **src);
+/*
+** @file   sh_exec_builtin.c
+**
+** @brief  Functions to manage FDs etc
+*/
+int	sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds);
 
 /*
 ** @file   sh_exec_local_var.c

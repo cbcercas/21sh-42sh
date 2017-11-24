@@ -16,9 +16,9 @@ static void		sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds,
 								int *pipe)
 {
 	close(pipe[START]);
-	if (fds[PIPE_IN])
-		ft_lstdel(&fds[PIPE_IN], &exec_list_nothing);
-	exec_list_push(&fds[PIPE_IN], pipe[END]);
+	if (fds[STDIN_FILENO])
+		ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing);
+	exec_list_push(&fds[STDIN_FILENO], pipe[END]);
 	sh_process_exec(data, ast->right, fds);
 	exit(EXIT_SUCCESS);
 }
@@ -27,7 +27,9 @@ static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds,
 								int *pipe)
 {
 	close(pipe[END]);
-	exec_list_push(&fds[PIPE_OUT], pipe[START]);
+	if (fds[STDOUT_FILENO])
+		ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing);
+	exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
 	sh_process_exec(data, ast->left, fds);
 	exit(EXIT_SUCCESS);
 }

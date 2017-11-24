@@ -55,7 +55,7 @@ static int		sh_heredoc_father(int pipe[2])
 	return (*get_cmd_ret());
 }
 
-int				sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
+int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	int		fd;
 	int		pipe[2];
@@ -73,8 +73,8 @@ int				sh_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	close(pipe[START]);
 	if (!sh_fork(E_PID_HERE))
 	{
-		(fds[PIPE_IN] ? ft_lstdel(&fds[PIPE_IN], &exec_list_nothing) : 0);
-		exec_list_push(&fds[PIPE_IN], pipe[END]);
+		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing) : 0);
+		exec_list_push(&fds[STDIN_FILENO], pipe[END]);
 		sh_process_exec(data, ast->left, fds);
 		exit(EXIT_FAILURE);
 	}

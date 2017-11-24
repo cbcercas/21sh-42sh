@@ -17,15 +17,23 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 	if (fd2 == -2)
 	{
 		if (fd1 != -1)
-			exec_list_push(&fds[CLOSE], fd1);
+			exec_list_push(&fds[CLOSE], (size_t)fd1);
 		else
 			exec_list_push(&fds[CLOSE], STDIN_FILENO);
 		return ;
 	}
 	if (fd1 != -1)
-		dup2(fd1, fd2);
+	{
+		(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
+		exec_list_push(&fds[fd1], (size_t)fd2);
+		fds[fd1]->content = (void *)true;
+	}
 	else
-		dup2(STDIN_FILENO, fd2);
+	{
+		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing) : 0);
+		exec_list_push(&fds[STDIN_FILENO], (size_t)fd2);
+		fds[STDIN_FILENO]->content = (void *)true;
+	}
 }
 
 void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
@@ -36,7 +44,7 @@ void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
 		if (fd2 == -2)
 		{
 			if (fd1 != -1)
-				exec_list_push(&fds[CLOSE], fd1);
+				exec_list_push(&fds[CLOSE], (size_t)fd1);
 			else
 				exec_list_push(&fds[CLOSE], STDOUT_FILENO);
 			return ;
@@ -44,13 +52,12 @@ void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
 		if (fd1 != -1)
 		{
 			(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
-			log_info("REDIR fd =%d", fd1);
-			exec_list_push(&fds[fd1], fd2);
+			exec_list_push(&fds[fd1], (size_t)fd2);
 		}
 		else
 		{
-			fds[STDOUT_FILENO] = NULL;
-			exec_list_push(&fds[STDOUT_FILENO], fd2);
+			(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing) : 0);
+			exec_list_push(&fds[STDOUT_FILENO], (size_t)fd2);
 		}
 		return ;
 	}
