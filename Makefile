@@ -19,29 +19,29 @@ SRCS			+= sh_get_input.c main.c prompt.c init.c input.c usage_help.c \
  					input_get.c
 
 SRC_SUBDIR		+= environ
-SRCS			+= environ.c env_list_utils.c getter_env.c env_utils.c\
+SRCS			+= environ.c env_list_utils.c getter_env.c env_utils.c \
 					modif_env.c
 
 SRC_SUBDIR		+= builtins
-SRCS			+= builtin_chdir.c builtin_chdir_expand.c builtin_echo.c\
-					builtin_environ.c builtin_environ_env.c\
-					builtin_environ_env_exec.c builtin_environ_env_i.c\
-					builtin_environ_env_u.c builtin_exit.c builtin_help_2.c\
-					builtin_help.c builtin_history_acdws.c builtin_history.c\
-					builtin_history_npr.c builtin_history_print.c\
-					builtin_local_var.c builtin_pwd.c builtin_utils2.c\
+SRCS			+= builtin_chdir.c builtin_chdir_expand.c builtin_echo.c \
+					builtin_environ.c builtin_environ_env.c \
+					builtin_environ_env_exec.c builtin_environ_env_i.c \
+					builtin_environ_env_u.c builtin_exit.c builtin_help_2.c \
+					builtin_help.c builtin_history_acdws.c builtin_history.c \
+					builtin_history_npr.c builtin_history_print.c \
+					builtin_local_var.c builtin_pwd.c builtin_utils2.c \
 					builtin_utils.c builtin_help_3.c
 
 
 SRC_SUBDIR		+= exec
-SRCS			+= check_path.c exec_tlist.c manage.c sh_exec.c\
-					sh_exec_local_var.c sh_exec_pipe.c sh_exec_redir2.c\
-					sh_exec_redir.c sh_heradoc.c sh_process_exec.c sh_fork.c\
+SRCS			+= check_path.c exec_tlist.c manage.c sh_exec.c \
+					sh_exec_local_var.c sh_exec_pipe.c sh_exec_redir2.c \
+					sh_exec_redir.c sh_heradoc.c sh_process_exec.c sh_fork.c \
 					sh_open.c sh_pipe.c sh_exec_redir3.c sh_heredoc_input.c
 
 
 SRC_SUBDIR		+= tools
-SRCS			+= ft_isdigit_str.c getpwd.c is.c\
+SRCS			+= ft_isdigit_str.c getpwd.c is.c \
 					is_printstr.c sh_ret.c sh_test_access.c print_verb.c
 
 SRC_SUBDIR		+= lexer
@@ -57,12 +57,12 @@ SRC_SUBDIR		+= parser
 SRCS			+= parser.c
 
 SRC_SUBDIR		+= expand
-SRCS			+= expand.c expand_dol.c expand_history.c\
-					expand_history_tools.c expand_merge.c expand_print.c\
+SRCS			+= expand.c expand_dol.c expand_history.c \
+					expand_history_tools.c expand_merge.c expand_print.c \
 					expand_quote.c expand_utils.c ft_replace.c
 
 SRC_SUBDIR		+= tests
-SRCS			+= ast_tests.c env_tests.c exec_tests.c expand_tests.c\
+SRCS			+= ast_tests.c env_tests.c exec_tests.c expand_tests.c \
 					lexer_tests.c local_var_tests.c parser_tests.c
 
 
@@ -70,18 +70,18 @@ SRC_SUBDIR		+= term
 SRCS			+= term_modes.c
 
 SRC_SUBDIR		+= history
-SRCS			+= history_arrow.c history.c history_getter_2.c\
-					history_getter.c history_input_utils.c history_list_utils.c\
-					history_print.c history_research.c\
+SRCS			+= history_arrow.c history.c history_getter_2.c \
+					history_getter.c history_input_utils.c \
+					history_list_utils.c history_print.c history_research.c \
 					history_research_start_end.c history_init.c
 
 
 SRC_SUBDIR		+= tcaps
-SRCS			+=	tcaps_exec_alt_arrows.c tcaps_exec_alt_c.c\
-					tcaps_exec_alt_v.c tcaps_exec_arrow.c\
-					tcaps_exec_backspace.c tcaps_exec_ctrl_1.c\
-					tcaps_exec_ctrl_2.c tcaps_exec_delete.c\
-					tcaps_exec_end_home.c tcaps_exec_select.c tcaps_exec_tab.c\
+SRCS			+=	tcaps_exec_alt_arrows.c tcaps_exec_alt_c.c \
+					tcaps_exec_alt_v.c tcaps_exec_arrow.c \
+					tcaps_exec_backspace.c tcaps_exec_ctrl_1.c \
+					tcaps_exec_ctrl_2.c tcaps_exec_delete.c \
+					tcaps_exec_end_home.c tcaps_exec_select.c tcaps_exec_tab.c \
 					tcaps_key_exec.c tcaps_redraw_line.c
 
 SRC_SUBDIR		+= btree
@@ -91,17 +91,17 @@ SRC_SUBDIR      += ast
 SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c
 
 SRC_SUBDIR		+= autocomplete
-SRCS			+= autocomplete_is.c autocomplete_get_words.c\
-					autocomplete_get_path.c autocomplete.c\
-					autocomplete_display.c autocomplete_get_bin.c\
-					autocomplete_utils.c autocomplete_sort.c\
+SRCS			+= autocomplete_is.c autocomplete_get_words.c \
+					autocomplete_get_path.c autocomplete.c \
+					autocomplete_display.c autocomplete_get_bin.c \
+					autocomplete_utils.c autocomplete_sort.c \
 					autocomplete_display_cols.c
 
 SRC_SUBDIR		+= secure_memory
 SRCS			+= ft_secu_free.c ft_secu_malloc.c \
-				string_dup_secu.c string_growth_secu.c string_insert_secu.c\
-				string_secu.c ft_strdup_secu.c\
-				ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c\
+				string_dup_secu.c string_growth_secu.c string_insert_secu.c \
+				string_secu.c ft_strdup_secu.c \
+				ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c \
 				ft_strsplit_secu.c ft_strsub_secu.c
 
 ###############################################################################
