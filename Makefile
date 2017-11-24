@@ -217,6 +217,9 @@ endif
 
 $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 		@$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
+		$(eval COUNT_DEP=$(shell echo $$(($(COUNT_DEP)+1))))
+		$(eval PERCENT=$(shell echo $$((($(COUNT_DEP) * 100 )/$(TOTAL)))))
+		@printf "$(C_B)%-8s $(C_G) $@$(C_NO)\n" "[$(PERCENT)%]"
 
 $(BUILD_DIR):
 		@$(MKDIR) -p $@
