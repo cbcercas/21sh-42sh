@@ -201,12 +201,19 @@ $(NAME): $(OBJS)
 		@printf "[\033[35m---------------------------------\033[0m]\n"
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-		# Add dependency as prerequisites
-		@-include $(DEPS)
 		@$(CC) $(LDFLAGS) $(CFLAGS) $(INC) -o $@ -c $<
 		$(eval COUNT_OBJ=$(shell echo $$(($(COUNT_OBJ)+1))))
 		$(eval PERCENT=$(shell echo $$((($(COUNT_OBJ) * 100 )/$(TOTAL)))))
 		@printf "$(C_B)%-8s $(C_P) $<$(C_NO)\n" "[$(PERCENT)%]"
+
+# Add dependency as prerequisites
+ifneq ($(MAKECMDGOALS),clean)
+ ifneq ($(MAKECMDGOALS),fclean)
+  ifneq ($(MAKECMDGOALS),doc)
+   -include $(DEPS)
+  endif
+ endif
+endif
 
 $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 		@$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
