@@ -58,7 +58,6 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 		if (!pid)
 		{
 			exec_list_fd_dup(fds);
-			exec_list_fd_close(fds);
 			execve(path, item->av, var_to_tab(get_envs()));
 			exit(EXIT_FAILURE);
 		}
@@ -66,7 +65,6 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 	get_pid_child(pid);
 	return (sh_exec_parent(path, pid));
 }
-
 
 /*
 ** @brief          call sh_exec_builtin or sh_exec
@@ -80,9 +78,16 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 {
 	int ret;
+	t_list	*backup[FD_SETSIZE];
+	int		cnt;
 
+	cnt = 0;
+	while (cnt < FD_SETSIZE)
+		backup[cnt++] = NULL;
 	ret = 1;
 	log_info("EXEC: %s", item->av[0]);
+	sh_exex_creat_backup_fd_close(backup, fds);
+	exec_list_fd_close(fds);
 	if (item && item->av && ft_strchr(item->av[0], '=') &&
 			ft_strlen(item->av[0]) != 1)
 		sh_exec_local_var(data, item, fds);
@@ -92,6 +97,7 @@ int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 		ret = sh_exec(item, fds);
 	exec_list_fd_all_close(fds);
 	exec_list_fd_destroy(fds);
+	sh_exec_restore_fd(backup);
 	log_dbg3("EXEC: %s ret = %d", item->av[0], ret);
 	return (ret);
 }

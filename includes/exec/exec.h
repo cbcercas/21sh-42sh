@@ -169,4 +169,8 @@ BOOL	check_fd(int fd);;
 
 int		sh_return_cmd(int status);
 
+BOOL	sh_exex_creat_backup_fd(t_list **backup, t_list **fds);
+BOOL	sh_exec_restore_fd(t_list **backup);
+BOOL	sh_exex_creat_backup_fd_close(t_list **backup, t_list **fds);
+
 #endif
