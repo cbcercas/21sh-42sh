@@ -34,10 +34,11 @@ SRCS			+= builtin_chdir.c builtin_chdir_expand.c builtin_echo.c \
 
 
 SRC_SUBDIR		+= exec
-SRCS			+= check_path.c exec_tlist.c manage.c sh_exec.c \
-					sh_exec_local_var.c sh_exec_pipe.c sh_exec_redir2.c \
-					sh_exec_redir.c sh_heradoc.c sh_process_exec.c sh_fork.c \
-					sh_open.c sh_pipe.c sh_exec_redir3.c sh_heredoc_input.c
+SRCS			+= check_path.c exec_tlist.c sh_exec_list_fd.c sh_exec.c\
+					sh_exec_local_var.c sh_exec_pipe.c sh_exec_redir2.c\
+					sh_exec_redir.c sh_heradoc.c sh_process_exec.c sh_fork.c\
+					sh_open.c sh_pipe.c sh_exec_redir3.c sh_heredoc_input.c\
+					sh_exec_builtin.c sh_exec_backup_fd.c
 
 
 SRC_SUBDIR		+= tools
@@ -88,7 +89,7 @@ SRC_SUBDIR		+= btree
 SRCS			+= btree_create_node.c btree_apply.c btree_print.c btree_utils.c
 
 SRC_SUBDIR      += ast
-SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c
+SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c ast_built_wr.c
 
 SRC_SUBDIR		+= autocomplete
 SRCS			+= autocomplete_is.c autocomplete_get_words.c \

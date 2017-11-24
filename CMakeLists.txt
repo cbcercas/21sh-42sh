@@ -80,7 +80,7 @@ set(SOURCE_FILES
 		srcs/exec/sh_exec_redir.c
 		srcs/exec/sh_heradoc.c
 		srcs/exec/exec_tlist.c
-		srcs/exec/manage.c
+		srcs/exec/sh_exec_list_fd.c
 		srcs/exec/sh_exec_redir2.c
 		srcs/exec/sh_exec_redir3.c
 		srcs/exec/sh_exec_local_var.c
@@ -166,7 +166,7 @@ set(SOURCE_FILES
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
 		srcs/tests/local_var_tests.c
-        srcs/tools/print_verb.c)
+        srcs/tools/print_verb.c srcs/ast/ast_built_wr.c srcs/exec/sh_exec_builtin.c srcs/exec/sh_exec_backup_fd.c)
 
 include_directories(includes)
 

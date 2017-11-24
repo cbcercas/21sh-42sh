@@ -129,4 +129,7 @@ char					*ast_aff(t_cmd *cmd);
 t_exp					*ast_search(t_array *expands, t_lim *lim, int prio);
 t_cmd					*ast_new_cmd(t_array *expands, ssize_t start, \
                                     ssize_t end, t_token_type type);
+t_lim		swap_lim(t_lim lim);
+t_btree			*ast_built2(t_btree **ast, t_array *expands,
+							   t_lim lim, int prio);
 #endif

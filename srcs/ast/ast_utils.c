@@ -90,6 +90,16 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 	return (exp);
 }
 
+
+t_lim		swap_lim(t_lim lim)
+{
+	t_lim	ret;
+
+	ret.lim = lim.cnt;
+	ret.cnt = lim.lim;
+	return (ret);
+}
+
 /*
 ** @brief malloc cmd and cmd->av for ast_new_cmd()
 **
@@ -106,12 +116,19 @@ static BOOL		ast_new_init(t_array *expands, ssize_t start, ssize_t end,
 {
 	if ((end - start) < 0)
 		return (false);
+	log_dbg1("AST: CREATION ONE start_cnt: %d end_cnt: %d", start, end);
 	if (!expands || !(*cmd = (t_cmd*)ft_secu_malloc_lvl(sizeof(t_cmd), 2)))
-		sh_exit(NULL, NULL);
+	{
+		ft_dprintf(STDERR_FILENO, "Malloc ERROR\n");
+		sh_exit(get_data(NULL), NULL);
+	}
 	ft_bzero(*cmd, sizeof(t_cmd));
 	if (!((*cmd)->av =
 					(char **)secu_malloc(sizeof(char **) * (end - start + 2))))
-		sh_exit(NULL, NULL);
+	{
+		ft_dprintf(STDERR_FILENO, "Malloc ERROR\n");
+		sh_exit(get_data(NULL), NULL);
+	}
 	return (true);
 }
 

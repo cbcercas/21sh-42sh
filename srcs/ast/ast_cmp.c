@@ -38,7 +38,7 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands, \
 {
 	if (type == E_TOKEN_NEWLINE)
 		return (E_TOKEN_SEMI);
-	if (prio == 5)
+	if (prio == 4)
 		return (E_TOKEN_WORD);
 	if (prio != 3)
 		return (type);
@@ -78,9 +78,7 @@ BOOL			ast_prio(t_token_type type, int prio, ssize_t cnt,
 		return (true);
 	if (prio == 3 && (ast_is_redir(expands, cnt, type)))
 		return (true);
-	if (prio == 4 && type == E_TOKEN_AND)
-		return (true);
-	if (prio == 5 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER) &&\
+	if (prio == 4 && (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER) &&\
 			!ast_is_redir(expands, cnt, type))
 		return (true);
 	return (false);
@@ -102,11 +100,9 @@ static int		ast_val_cmp(t_token_type type)
 		return (2);
 	if (is_redirect(type))
 		return (3);
-	if (type == E_TOKEN_AND)
-		return (4);
 	if (type == E_TOKEN_WORD || type == E_TOKEN_IO_NUMBER)
-		return (5);
-	return (6);
+		return (4);
+	return (5);
 }
 
 /*

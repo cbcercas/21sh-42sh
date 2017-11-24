@@ -31,32 +31,37 @@ static void		redir_great(t_cmd *item, t_list **fds, int fd)
 	}
 }
 
-static void		redir_less(t_cmd *item, int fd)
+static void		redir_less(t_cmd *item, int fd, t_list **fds)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
 		if (check_fd(ft_atoi(item->av[0])))
-			dup2(fd, ft_atoi(item->av[0]));
+		{
+			(fds[fd] ? ft_lstdel(&fds[fd], &exec_list_nothing) : 0);
+			exec_list_push(&fds[fd], (size_t)ft_atoi(item->av[0]));
+			fds[fd]->content = (void *)true;
+		}
 		else
 			exit(EXIT_FAILURE);
 	}
 	else
-		dup2(fd, STDIN_FILENO);
+	{
+		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing) : 0);
+		exec_list_push(&fds[STDIN_FILENO], (size_t) fd);
+		fds[STDIN_FILENO]->content = (void *) true;
+	}
 }
 
 static BOOL		sh_exec_redir_init(t_btree *ast, t_cmd **item, int *fd)
 {
 	if (!ast)
-	{
 		return (false);
-	}
 	*item = (t_cmd *)ast->item;
 	if ((*fd = sh_open_exec(ast)) == -1)
 	{
 		*get_cmd_ret() = EXIT_FAILURE;
 		return (false);
 	}
-	ignore_sigwinch();
 	return (true);
 }
 
@@ -67,21 +72,12 @@ int				sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 
 	if (!sh_exec_redir_init(ast, &item, &fd))
 		return (*get_cmd_ret());
-	if (sh_fork(E_PID_REDIR) == 0)
-	{
-		if (fd != -1)
-		{
-			if (item->type == E_TOKEN_DGREAT || ft_strequ(item->av[0], ">")
-				|| ft_strequ(item->av[1], ">"))
-				redir_great(item, fds, fd);
-			else
-				redir_less(item, fd);
-			sh_process_exec(data, ast->left, fds);
-		}
-		exit(EXIT_SUCCESS);
-	}
-	sh_wait(0, 0);
-	restore_sigwinch();
-	close(fd);
+	if (item->type == E_TOKEN_DGREAT || ft_strequ(item->av[0], ">")
+		|| ft_strequ(item->av[1], ">"))
+		redir_great(item, fds, fd);
+	else
+		redir_less(item, fd, fds);
+	log_info("REDIR SIMPLE fd = %d", fd);
+	sh_process_exec(data, ast->left, fds);
 	return (*get_cmd_ret());
 }

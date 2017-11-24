@@ -23,13 +23,8 @@
 ** @return Returns the ret value based on success or not
 */
 
-static int	sh_exec_parent(t_list **fds, char *path, int **pipe, int pid)
+static int	sh_exec_parent(char *path, int pid)
 {
-	if (!multi_close(pipe, fds, START))
-		return (EXIT_FAILURE);
-	manage_fds(pipe, fds);
-	if (!multi_close(pipe, fds, END))
-		return (EXIT_FAILURE);
 	if (path && !*is_in_pipe())
 		*get_cmd_ret() = sh_return_cmd(sh_wait(pid, 0));
 	else if (path)
@@ -51,66 +46,24 @@ static int	sh_exec_parent(t_list **fds, char *path, int **pipe, int pid)
 static int	sh_exec(t_cmd *item, t_list **fds)
 {
 	char	*path;
-	int		pipe[FD_SETSIZE + 3][2];
 	pid_t	pid;
 
 	pid = -1;
 	if ((path = get_filename(item->av[0])))
 	{
-		if (!manage_create_pipe(pipe, fds))
-			return (EXIT_FAILURE);
 		if ((pid = sh_fork(E_PID_CMD)) == -1)
 			return (EXIT_FAILURE);
 		ignore_sigwinch();
 		set_var(get_envs(), "_", path, true);
 		if (!pid)
 		{
-			if (!manage_dup2(pipe, fds))
-				exit(EXIT_FAILURE);
-			manage_close(fds);
+			exec_list_fd_dup(fds);
 			execve(path, item->av, var_to_tab(get_envs()));
 			exit(EXIT_FAILURE);
 		}
 	}
 	get_pid_child(pid);
-	return (sh_exec_parent(fds, path, pipe, pid));
-}
-
-/*
-** @brief          exec a builtin command
-**
-** @param  data    The data of shell
-** @param  item    The item in AST
-**
-** @return         result of builtin
-*/
-
-static int	sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
-{
-	t_builtin	*builtin;
-	int			pipe[FD_SETSIZE + 3][2];
-
-	if (!manage_create_pipe(pipe, fds))
-		return (EXIT_FAILURE);
-	if (!manage_dup2(pipe, fds))
-		return (EXIT_FAILURE);
-	manage_close(fds);
-	builtin = get_builtin(item->av[0]);
-	set_var(get_envs(), "_", item->av[0], true);
-	if (builtin)
-		*get_cmd_ret() = builtin->fn(data, item->av);
-	if (fds[STDOUT_FILENO])
-		close(STDOUT_FILENO);
-	if (fds[STDIN_FILENO])
-		close(STDIN_FILENO);
-	if (fds[STDERR_FILENO])
-		close(STDERR_FILENO);
-	if (!multi_close(pipe, fds, START))
-		return (EXIT_FAILURE);
-	manage_fds(pipe, fds);
-	if (!multi_close(pipe, fds, END))
-		return (EXIT_FAILURE);
-	return (*get_cmd_ret());
+	return (sh_exec_parent(path, pid));
 }
 
 /*
@@ -125,13 +78,16 @@ static int	sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 {
 	int ret;
+	t_list	*backup[FD_SETSIZE];
+	int		cnt;
 
+	cnt = 0;
+	while (cnt < FD_SETSIZE)
+		backup[cnt++] = NULL;
 	ret = 1;
 	log_info("EXEC: %s", item->av[0]);
-	if (fds[PIPE_OUT])
-		dup2((int)fds[PIPE_OUT]->content_size, STDOUT_FILENO);
-	if (fds[PIPE_IN])
-		dup2((int)fds[PIPE_IN]->content_size, STDIN_FILENO);
+	sh_exex_creat_backup_fd_close(backup, fds);
+	exec_list_fd_close(fds);
 	if (item && item->av && ft_strchr(item->av[0], '=') &&
 			ft_strlen(item->av[0]) != 1)
 		sh_exec_local_var(data, item, fds);
@@ -139,6 +95,9 @@ int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 		ret = sh_exec_builtin(data, item, fds);
 	else
 		ret = sh_exec(item, fds);
+	exec_list_fd_all_close(fds);
+	exec_list_fd_destroy(fds);
+	sh_exec_restore_fd(backup);
 	log_dbg3("EXEC: %s ret = %d", item->av[0], ret);
 	return (ret);
 }
