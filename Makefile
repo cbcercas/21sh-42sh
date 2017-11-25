@@ -23,8 +23,8 @@ SRCS			+= environ.c env_list_utils.c getter_env.c env_utils.c \
 					modif_env.c
 
 SRC_SUBDIR		+= builtins
-SRCS			+= builtin_chdir.c builtin_chdir_expand.c builtin_echo.c \
-					builtin_environ.c builtin_environ_env.c \
+SRCS			+= builtin_chdir.c builtin_chdir_abs.c builtin_chdir_expand.c \
+					builtin_environ.c builtin_environ_env.c builtin_echo.c \
 					builtin_environ_env_exec.c builtin_environ_env_i.c \
 					builtin_environ_env_u.c builtin_exit.c builtin_help_2.c \
 					builtin_help.c builtin_history_acdws.c builtin_history.c \

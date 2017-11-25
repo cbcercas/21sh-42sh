@@ -21,21 +21,24 @@ extern int g_optind;
 ** @return Returns true if everything is ok. False otherwise
 */
 
-static	BOOL	sh_test_path(char *path)
+static t_bool sh_test_path(char **dir, char *arg)
 {
 	struct stat	bufstat;
 
-	if (!lstat(path, &bufstat) && !stat(path, &bufstat))
+	if (!arg)
+		arg = *dir;
+	if (!stat(*dir, &bufstat))
 	{
 		if (bufstat.st_mode & S_IXUSR && S_ISDIR(bufstat.st_mode))
 			return (true);
 		else if (S_ISDIR(bufstat.st_mode))
-			ft_dprintf(2, "cd: permission denied: %s\n", path);
+			ft_dprintf(2, "cd: permission denied: %s\n", arg);
 		else
-			ft_dprintf(2, "cd: not a directory: %s\n", path);
-		return (false);
+			ft_dprintf(2, "cd: not a directory: %s\n", arg);
 	}
-	ft_dprintf(2, "cd: no such file or directory: %s\n", path);
+	else
+		ft_dprintf(2, "cd: no such file or directory: %s\n", arg);
+	ft_strdel(dir);
 	return (false);
 }
 
@@ -47,27 +50,52 @@ static	BOOL	sh_test_path(char *path)
 ** @return Returns the path to cd into
 */
 
-static	char	*sh_get_path(char *arg)
+static	BOOL	sh_get_path(char *arg, char **dir, BOOL *disp)
 {
-	char		*path;
-
 	if (!arg)
 	{
-		if (!(path = get_var_value(get_envs(), "HOME")))
+		if (!(*dir = get_var_value(get_envs(), "HOME")))
 			ft_dprintf(2, "%s: cd: HOME not set\n", PROGNAME);
 	}
 	else if (ft_strequ(arg, "-"))
 	{
-		if (!(path = get_var_value(get_envs(), "OLDPWD")))
+		if (!(*dir = get_var_value(get_envs(), "OLDPWD")))
 			ft_dprintf(2, "%s: cd: OLDPWD not set\n", PROGNAME);
 		else
-			ft_putendl(path);
+			*disp = true;
 	}
 	else
-		path = arg;
-	return (path);
+		*dir = arg;
+	if (*dir)
+		return (true);
+	return (false);
 }
 
+
+static char *sh_do_chdir_init(char *arg)
+{
+	BOOL	disp;
+	char	*dir;
+
+	disp = false;
+	if (!sh_get_path(arg, &dir, &disp))
+		return (NULL);
+	dir = ft_strdup(dir);
+	if (!change_in_abs(&dir, &disp))
+	{
+		ft_strdel(&dir);
+		return (NULL);
+	}
+	if (!sh_test_path(&dir, arg))
+	{
+		ft_strdel(&dir);
+		return (NULL);
+	}
+	expand_path(&dir);
+	if (disp)
+		ft_putendl(dir);
+	return (dir);
+}
 /*
 ** @brief This function is the one that does the chdir and does all the tests
 ** @param arg The args passed at cd
@@ -77,27 +105,24 @@ static	char	*sh_get_path(char *arg)
 
 static int		sh_do_chdir(char *arg, int opt)
 {
-	char	*path;
+	char	*dir;
 	char	*cur;
 
-	if (!(path = sh_get_path(arg)))
+	if (!(dir = sh_do_chdir_init(arg)))
 		return ((*get_cmd_ret() = 1));
-	if (!sh_test_path(path))
-		return ((*get_cmd_ret() = 1));
-	expand_path(&path);
 	set_var(get_envs(), "OLDPWD", (cur = get_pwd()), true);
 	ft_strdel(&cur);
-	if (chdir(path) == -1)
+	if (chdir(dir) == -1)
 	{
-		ft_dprintf(2, "cd: can't cd with: %s\n", path);
-		ft_strdel(&path);
+		ft_dprintf(2, "cd: can't cd with: %s\n", dir);
+		ft_strdel(&dir);
 		return ((*get_cmd_ret() = 1));
 	}
 	if (opt == 'P')
 		set_var(get_envs(), "PWD", (cur = getcwd(NULL, 0)), true);
 	else
-		set_var(get_envs(), "PWD", path, true);
-	ft_strdel(&path);
+		set_var(get_envs(), "PWD", dir, true);
+	ft_strdel(&dir);
 	ft_strdel(&cur);
 	return ((*get_cmd_ret() = 0));
 }
@@ -117,7 +142,7 @@ int				sh_chdir(t_sh_data *data, char **arg)
 	(void)data;
 	ft_getopt_reset();
 	if ((opt = ft_getopt(ft_tablen(arg), arg, "LPh")) != -1 && (opt == 'h' ||
-			opt == '?'))
+																opt == '?'))
 		return (ft_dprintf(2, "cd: [-L/-P] [path], use \"help cd\"\n"));
 	if (arg && ft_tablen(&arg[g_optind]) > 1)
 		return (ft_dprintf(2, "cd: too many arguments\n"));

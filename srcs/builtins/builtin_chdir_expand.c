@@ -80,7 +80,7 @@ static char		*remove_backslash(char *path)
 
 	while ((start = ft_strstr(path, "//")) && ft_strlen(start + 2))
 		ft_memcpy(start + 1, start + 2, ft_strlen(start + 1));
-	if (path && ft_strlen(path) > 1 && path[ft_strlen(path) - 1] == '/')
+	while (path && ft_strlen(path) > 1 && path[ft_strlen(path) - 1] == '/')
 		path[ft_strlen(path) - 1] = 0;
 	return (path);
 }
@@ -95,15 +95,10 @@ char			*expand_path(char **path)
 {
 	char		*current;
 	char		*ret;
-	struct stat	bufstat;
 
-	if (!path || !*path || stat(*path, &bufstat) || lstat(*path, &bufstat)
-		|| !(current = get_pwd()))
+	if (!path || !*path || !(current = get_pwd()))
 		return (NULL);
-	ret = ft_strdup(*path);
-	if (*path[0] != '/' && (!(current = ft_strjoincl(current, "/", 1)) ||
-							!(ret = ft_strjoincl(current, ret, 2))))
-		sh_exit(NULL, NULL);
+	ret = *path;
 	ret = remove_dots(ret);
 	ret = remove_backslash(ret);
 	if (ft_strstr(ret, "./") || ft_strstr(ret, "/.") || ft_strstr(ret, "//"))

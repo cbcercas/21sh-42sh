@@ -50,4 +50,6 @@ int		sh_chdir(t_sh_data *data, char **arg);
 
 char	*expand_path(char **path);
 
+BOOL change_in_abs(char **dir, BOOL *disp);
+
 #endif
