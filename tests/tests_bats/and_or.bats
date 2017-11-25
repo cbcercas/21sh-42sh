@@ -70,17 +70,15 @@ load test_helper
 }
 
 @test "AND_OR: Testing [sequence_spec] for 'echo lol | cat -e ;echo lol > /tmp/test_sequence_file && cat /tmp/test_sequence_file;cat < /tmp/test_sequence_file; rm -f /tmp/test_sequence_file'" {
+	expect=`echo lol | cat -e ;echo lol > /tmp/test_sequence_file && cat /tmp/test_sequence_file;cat < /tmp/test_sequence_file; rm -f /tmp/test_sequence_file`
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo lol | cat -e ;echo lol > /tmp/test_sequence_file && cat /tmp/test_sequence_file;cat < /tmp/test_sequence_file; rm -f /tmp/test_sequence_file'
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->lol$"
-    echo "                      lol"
-    echo "                      lol"
-	[ "${lines[0]}" = "lol$" ]
-	[ "${lines[1]}" = "lol" ]
-	[ "${lines[2]}" = "lol" ]
-	[ "$status" -eq 0 ]
-	check_leaks_function exec
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
+    check_leaks_function exec
 }
 
 @test "AND_OR: Testing [subshell_and] for '(false)&&echo a&&echo b'" {
