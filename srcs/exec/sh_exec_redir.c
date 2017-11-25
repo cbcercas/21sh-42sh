@@ -12,7 +12,7 @@
 
 #include <exec/exec.h>
 
-static void		redir_great(t_cmd *item, t_list **fds, int fd)
+static BOOL		redir_great(t_cmd *item, t_list **fds, int fd)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
@@ -22,16 +22,17 @@ static void		redir_great(t_cmd *item, t_list **fds, int fd)
 			exec_list_push(&fds[ft_atoi(item->av[0])], fd);
 		}
 		else
-			exit(EXIT_FAILURE);
+			return (false);
 	}
 	else
 	{
 		(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing) : 0);
 		exec_list_push(&fds[STDOUT_FILENO], fd);
 	}
+	return (true);
 }
 
-static void		redir_less(t_cmd *item, int fd, t_list **fds)
+static BOOL		redir_less(t_cmd *item, int fd, t_list **fds)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
@@ -42,7 +43,7 @@ static void		redir_less(t_cmd *item, int fd, t_list **fds)
 			fds[fd]->content = (void *)true;
 		}
 		else
-			exit(EXIT_FAILURE);
+			return (false);
 	}
 	else
 	{
@@ -50,6 +51,7 @@ static void		redir_less(t_cmd *item, int fd, t_list **fds)
 		exec_list_push(&fds[STDIN_FILENO], (size_t) fd);
 		fds[STDIN_FILENO]->content = (void *) true;
 	}
+	return (true);
 }
 
 static BOOL		sh_exec_redir_init(t_btree *ast, t_cmd **item, int *fd)
@@ -74,10 +76,12 @@ int				sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 		return (*get_cmd_ret());
 	if (item->type == E_TOKEN_DGREAT || ft_strequ(item->av[0], ">")
 		|| ft_strequ(item->av[1], ">"))
-		redir_great(item, fds, fd);
-	else
-		redir_less(item, fd, fds);
-	log_info("REDIR SIMPLE fd = %d", fd);
+	{
+		if (!redir_great(item, fds, fd))
+			return (*get_cmd_ret() = 2);
+	}
+	else if (!redir_less(item, fd, fds))
+		return (*get_cmd_ret() = 2);
 	sh_process_exec(data, ast->left, fds);
 	return (*get_cmd_ret());
 }

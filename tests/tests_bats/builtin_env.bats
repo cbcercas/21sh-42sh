@@ -201,18 +201,6 @@ load test_helper
     check_leaks_function exec
 }
 
-@test "BUILTIN_ENV: Testing [with_variable_assign_and_expan_spec] for 'setenv myvar=456; env myvar=123 bash -c \'echo \$myvar\''" {
-    expect=`export myvar=456; env myvar=123 bash -c "echo $myvar"`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv myvar=456; env myvar=123 bash -c "echo $myvar"'
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->$expect"
-    echo
-    [ "${lines[0]}" = "$expect" ]
-    [ "$status" -eq 0 ]
-    check_leaks_function exec
-}
-
 @test "BUILTIN_ENV: Testing [with_variable_assign_spec] for 'setenv env_test_var=456; env env_test_var=123 bash -c \'env | grep env_test_var\''" {
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv env_test_var=456; env env_test_var=123 bash -c "env | grep env_test_var"'
     echo "ERROR:"

@@ -47,7 +47,10 @@ void	sh_help_cd(void)
 
 void	sh_help_setenv(void)
 {
-	ft_printf("%ssetenv%s [name]=[value]\n", CL_RED, C_NONE);
+	if (get_data(NULL) && get_data(NULL)->opts.color)
+		ft_printf("%ssetenv%s [name]=[value]\n", CL_RED, C_NONE);
+	else
+		ft_printf("setenv [name]=[value]\n", CL_RED, C_NONE);
 	ft_printf("Sets the environment variable name with value value\n");
 	ft_printf("If name already has a value, then it is replaced with the \
 new one\n");
@@ -55,7 +58,10 @@ new one\n");
 
 void	sh_help_unsetenv(void)
 {
-	ft_printf("%sunsetenv%s [name]\n", CL_RED, C_NONE);
+	if (get_data(NULL) && get_data(NULL)->opts.color)
+		ft_printf("%sunsetenv%s [name]\n", CL_RED, C_NONE);
+	else
+		ft_printf("unsetenv [name]\n");
 	ft_printf("Deletes the environment variable name from local env\n");
 	ft_printf("If name doesnt exists, nothing happens\n");
 	ft_printf("Optional arguments shall be passed to utility.\n");

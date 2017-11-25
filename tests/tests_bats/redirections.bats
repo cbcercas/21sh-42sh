@@ -4,24 +4,6 @@ load test_helper
 
 ####star###
 
-@test "REDIRECTIONS: Testing [] for ''" {
-    skip "Template"
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c ''
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->"
-    echo "                      "
-    echo "                      "
-    echo "                      "
-	[ "${lines[0]}" = "" ]
-	[ "${lines[1]}" = "" ]
-	[ "${lines[2]}" = "" ]
-	[ "${lines[3]}" = "" ]
-	[ "$status" -eq 0 ]
-	check_leaks_function exec
-}
-
-
 @test "REDIRECTIONS: Testing [aggregate_builtin] for '>&2 echo "error" && echo "msg"; >&2 echo "check stderr restored"; echo "check stdout restored"'" {
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c '>&2 echo "error" && echo "msg"; >&2 echo "check stderr restored"; echo "check stdout restored"'
 	expect=`bash -c '>&2 echo "error" && echo "msg"; >&2 echo "check stderr restored"; echo "check stdout restored"'`
@@ -72,16 +54,14 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->111"
     echo "                      $name_exec: 42: bad file descriptor"
-    echo "                      $name_exec: 42: bad file descriptor"
     echo "                      abcd 10"
-    echo "                      $name_exec: 42: bad file descriptor"
+    echo "                      $name_exec: 10: bad file descriptor"
     echo "                      222"
 	[ "${lines[0]}" = "111" ]
 	[ "${lines[1]}" = "$name_exec: 42: bad file descriptor" ]
-	[ "${lines[2]}" = "$name_exec: 42: bad file descriptor" ]
-	[ "${lines[3]}" = "abcd 10" ]
-	[ "${lines[4]}" = "$name_exec: 42: bad file descriptor" ]
-	[ "${lines[5]}" = "222" ]
+	[ "${lines[2]}" = "abcd 10" ]
+	[ "${lines[3]}" = "$name_exec: 10: bad file descriptor" ]
+	[ "${lines[4]}" = "222" ]
 
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
@@ -99,8 +79,8 @@ load test_helper
 }
 
 
-@test "REDIRECTIONS: Testing [dup_to_stdin] for 'echo merde > /tmp/redir_echo_in; cat 3</tmp/redir_echo_in <&3; rm -f /tmp/redir_echo_in'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo merde > /tmp/redir_echo_in; cat 3</tmp/redir_echo_in <&3; rm -f /tmp/redir_echo_in'
+@test "REDIRECTIONS: Testing [dup_to_stdin] for 'echo merde > /tmp/redir_echo_in; cat 4</tmp/redir_echo_in <&4; rm -f /tmp/redir_echo_in'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo merde > /tmp/redir_echo_in; cat 4</tmp/redir_echo_in <&4; rm -f /tmp/redir_echo_in'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->merde"
@@ -144,40 +124,46 @@ load test_helper
 
 
 @test "REDIRECTIONS: Testing [fd_above_limit] for 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'" {
+	expect=`zsh -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'`
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->ghi 10$"
-	[ "${lines[0]}" = "ghi 10$" ]
-	[ "$status" -eq 0 ]
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
 	check_leaks_function exec
 }
 
 
 @test "REDIRECTIONS: Testing [great_less_bigfile] for 'man tar > /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'" {
+	skip ""
+	expect=`bash -c 'man tar > /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'`
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'man tar > /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->   4052   20284  172464"
-	[ "${lines[0]}" = "   4052   20284  172464" ]
-	[ "$status" -eq 0 ]
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
 	check_leaks_function exec
 }
 
 
-@test "REDIRECTIONS: Testing [greatand_great_devnull] for '2>&1 >/dev/null ls DOES_NOT_EXIST /; >/dev/null ls 2>&1 DOES_NOT_EXIST /'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c '2>&1 >/dev/null ls DOES_NOT_EXIST /; >/dev/null ls 2>&1 DOES_NOT_EXIST /'
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->ls: cannot access 'DOES_NOT_EXIST': No such file or directory"
-	[ "${lines[0]}" = "ls: cannot access 'DOES_NOT_EXIST': No such file or directory" ]
-	[ "$status" -eq 0 ]
+@test "REDIRECTIONS: Testing [great_less_bigfile] for 'man tar > /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'" {
+	expect=`bash -c 'man tar > /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'`
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'man tar > /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
 	check_leaks_function exec
 }
 
-
-@test "REDIRECTIONS: Testing [lessgreat_input] for 'echo 'abc' > /tmp/redir_lessgreat_file; /bin/cat 3<>/tmp/redir_lessgreat_file <&3 -e'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo 'abc' > /tmp/redir_lessgreat_file; /bin/cat 3<>/tmp/redir_lessgreat_file <&3 -e'
+@test "REDIRECTIONS: Testing [lessgreat_input] for 'echo 'abc' > /tmp/redir_lessgreat_file; /bin/cat 4<>/tmp/redir_lessgreat_file <&4 -e'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo 'abc' > /tmp/redir_lessgreat_file; /bin/cat 4<>/tmp/redir_lessgreat_file <&4 -e'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->abc$"
@@ -187,15 +173,15 @@ load test_helper
 }
 
 
-@test "REDIRECTIONS: Testing [lessgreatr_output] for 'echo 'def' | cat 3<>/tmp/redir_lessgreat_file >&3 -e; /bin/cat -e /tmp/redir_lessgreat_file'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo 'def' | cat 3<>/tmp/redir_lessgreat_file >&3 -e; /bin/cat -e /tmp/redir_lessgreat_file'
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->"
-    echo "                      def$$"
-	[ "${lines[0]}" = "" ]
-	[ "${lines[1]}" = "def$$" ]
-	[ "$status" -eq 0 ]
+@test "REDIRECTIONS: Testing [lessgreatr_output] for 'echo 'def' | cat 5<>/tmp/redir_lessgreat_file >&5 -e; /bin/cat -e /tmp/redir_lessgreat_file'" {
+	expect=`echo 'def' | cat 5<>/tmp/redir_lessgreat_file >&5 -e; /bin/cat -e /tmp/redir_lessgreat_file`
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo 'def' | cat 5<>/tmp/redir_lessgreat_file >&5 -e; /bin/cat -e /tmp/redir_lessgreat_file'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
 	check_leaks_function exec
 }
 
@@ -208,28 +194,6 @@ load test_helper
     echo "                      /tmp/redir_multi_op_dgreat: ASCII text"
 	[ "${lines[0]}" = "/tmp/redir_multi_op_great: empty" ]
 	[ "${lines[1]}" = "/tmp/redir_multi_op_dgreat: ASCII text" ]
-	[ "$status" -eq 0 ]
-	check_leaks_function exec
-}
-
-
-@test "REDIRECTIONS: Testing [] for 'echo 'def' > /tmp/redir_one_to_all; cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 <&3; rm -f /tmp/redir_one_to_all'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c "echo 'def' > /tmp/redir_one_to_all; cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 <&3; rm -f /tmp/redir_one_to_all"
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->def$"
-	[ "${lines[0]}" = "def$" ]
-	[ "$status" -eq 0 ]
-	check_leaks_function exec
-}
-
-
-@test "REDIRECTIONS: Testing [] for 'echo def > /tmp/redir_one_to_all; cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 2<&3 1<&2 <&1; rm -f /tmp/redir_one_to_all'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo def > /tmp/redir_one_to_all; cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 2<&3 1<&2 <&1; rm -f /tmp/redir_one_to_all'
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->"
-	[ "${lines[0]}" = "" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
@@ -255,10 +219,10 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->cat: gnuk: No such file or directory"
     echo "                      cat: gnuk: No such file or directory$"
-    echo "                      cat: bouh: No such file or directory$"
+    echo "                      cat: bouh: No such file or directory"
 	[ "${lines[0]}" = "cat: gnuk: No such file or directory" ]
 	[ "${lines[1]}" = "cat: gnuk: No such file or directory$" ]
-	[ "${lines[2]}" = "cat: bouh: No such file or directory$" ]
+	[ "${lines[2]}" = "cat: bouh: No such file or directory" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
@@ -303,12 +267,12 @@ load test_helper
 }
 
 
-@test "REDIRECTIONS: Testing [two_to_one] for 'ls this_file_does_not_exist 2>&1 > /tmp/redir_test_file; rm -f /tmp/redir_test_file'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls this_file_does_not_exist 2>&1 > /tmp/redir_test_file; rm -f /tmp/redir_test_file'
+@test "REDIRECTIONS: Testing [two_to_one] for 'ls this_file_does_not_exist 1>&2 2> /tmp/redir_test_file; rm -f /tmp/redir_test_file'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls this_file_does_not_exist 1>&2 2> /tmp/redir_test_file; rm -f /tmp/redir_test_file'
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->ls: cannot access 'this_file_does_not_exist': No such file or directory"
-	[ "${lines[0]}" = "ls: cannot access 'this_file_does_not_exist': No such file or directory" ]
+	echo "$name_exec EXPECTED -"
+	[ "${lines[0]}" = "" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
