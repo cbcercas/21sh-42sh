@@ -126,33 +126,9 @@ load test_helper
     check_leaks_function exec
 }
 
-@test "BUILTIN_ECHO: Testing [escapes_sequences_NOLOAD] for 'echo '\a\b\c\f\n\r\t\v\\''" {
-    expect=`bash -c 'echo '\a\b\c\f\n\r\t\v\\''`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo '\a\b\c\f\n\r\t\v\\''
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->$expect"
-    echo
-    [ "${lines[0]}" = "$expect" ]
-    [ "$status" -eq 0 ]
-    check_leaks_function exec
-}
-
-@test "BUILTIN_ECHO: Testing [escapes_sequences_NOLOAD] for 'echo "\a\b\c\f\n\r\t\v\\"'" {
-    expect=`bash -c 'echo "\a\b\c\f\n\r\t\v\\"'`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "\a\b\c\f\n\r\t\v\\"'
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->$expect"
-    echo
-    [ "${lines[0]}" = "$expect" ]
-    [ "$status" -eq 0 ]
-    check_leaks_function exec
-}
-
-@test "BUILTIN_ECHO: Testing [escapes_sequences_NOLOAD] for 'echo \a\b\c\f\n\r\t\v\\'" {
-    expect=`bash -c 'echo \a\b\c\f\n\r\t\v\\'`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo \a\b\c\f\n\r\t\v\\'
+@test "BUILTIN_ECHO: Testing [escapes_sequences_NOLOAD] for 'echo '\a\b\c\f\n\r\t\v''" {
+    expect=`bash -c 'echo '\a\b\c\f\n\r\t\v''`
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo '\a\b\c\f\n\r\t\v''
     echo "ERROR:"
     display_line_output
     echo "$name_exec EXPECTED ->$expect"
@@ -199,25 +175,23 @@ load test_helper
 }
 
 @test "BUILTIN_ECHO: Testing [opt_invalid] for 'echo -a abc | cat -e'" {
-    expect=`bash -c 'echo -a abc | cat -e'`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -a abc | cat -e'
     echo "ERROR:"
     display_line_output
-    echo "$name_exec EXPECTED ->$expect"
+    echo "$name_exec EXPECTED ->echo: invalid option -- 'a'"
     echo
-    [ "${lines[0]}" = "$expect" ]
+    [ "${lines[0]}" = "echo: invalid option -- 'a'" ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }
 
 @test "BUILTIN_ECHO: Testing [opt_invalid] for 'echo -x abc | cat -e'" {
-    expect=`bash -c 'echo -x abc | cat -e'`
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -x abc | cat -e'
     echo "ERROR:"
     display_line_output
-    echo "$name_exec EXPECTED ->$expect"
+    echo "$name_exec EXPECTED ->echo: invalid option -- 'x'"
     echo
-    [ "${lines[0]}" = "$expect" ]
+    [ "${lines[0]}" = "echo: invalid option -- 'x'" ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }
@@ -246,3 +220,100 @@ load test_helper
     check_leaks_function exec
 }
 
+@test "BUILTIN_ECHO: Testing [simple] for 'echo -e \"toto\ntata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -e "toto\ntata"'
+  echo
+	display_line_output
+	echo
+  ret=$( bash -c 'echo -e "toto\ntata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+  [ "$status" -eq 0 ]
+check_leaks_function exec
+}
+
+@test "BUILTIN_ECHO: Testing [simple] for 'echo -e \"toto\\atata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "toto\\atata"'
+  echo
+	display_line_output
+	echo
+  ret=$( bash -c 'echo -e "toto\\atata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "BUILTIN_ECHO: Testing [simple] for 'echo -e toto\\btata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -e toto\\btata'
+  echo
+	display_line_output
+	echo
+  ret=$( bash -c 'echo -e toto\\btata' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "BUILTIN_ECHO: Testing [simple] for 'echo -e \"toto\\atata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "toto\\atata"'
+  echo
+	display_line_output
+	echo
+  ret=$( bash -c 'echo -e "toto\\atata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "BUILTIN_ECHO: Testing [simple] for 'echo -E \"toto\ntata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -E "toto\ntata"'
+  echo
+	display_line_output
+	echo
+  ret=$( bash -c 'echo -E "toto\ntata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+  [ "$status" -eq 0 ]
+check_leaks_function exec
+}
+
+@test "BUILTIN_ECHO: Testing [simple] for 'echo -E \"toto\\atata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo "toto\\atata"'
+  echo
+	display_line_output
+	echo
+  ret=$( bash -c 'echo -E "toto\\atata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "BUILTIN_ECHO: Testing [simple] for 'echo -E toto\\btata'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -E toto\\btata'
+  echo
+	display_line_output
+	echo
+  ret=$( bash -c 'echo -E toto\\btata' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
+
+@test "BUILTIN_ECHO: Testing [simple] for 'echo -E \"toto\\atata\"'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo -E "toto\\atata"'
+  echo
+	display_line_output
+	echo
+  ret=$( bash -c 'echo -E "toto\\atata"' )
+  echo "$name_exec EXPECTED ->$ret"
+  echo
+  [ "${output}" = "$ret" ]
+check_leaks_function exec
+}
