@@ -271,8 +271,29 @@ load test_helper
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls this_file_does_not_exist 1>&2 2> /tmp/redir_test_file; rm -f /tmp/redir_test_file'
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED -"
+	echo "$name_exec EXPECTED ->"
 	[ "${lines[0]}" = "" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
+}
+
+@test "REDIRECTIONS: Testing [] for 'echo 'def' > /tmp/redir_one_to_all; cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 <&3; rm -f /tmp/redir_one_to_all'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c "echo 'def' > /tmp/redir_one_to_all; cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 <&3; rm -f /tmp/redir_one_to_all"
+  echo "ERROR:"
+  display_line_output
+  echo "$name_exec EXPECTED ->def$"
+  [ "${lines[0]}" = "def$" ]
+  [ "$status" -eq 0 ]
+  check_leaks_function exec
+}
+
+
+@test "REDIRECTIONS: Testing [] for 'echo def > /tmp/redir_one_to_all; cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 2<&3 1<&2 <&1; rm -f /tmp/redir_one_to_all'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo def > /tmp/redir_one_to_all; cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 2<&3 1<&2 <&1; rm -f /tmp/redir_one_to_all'
+  echo "ERROR:"
+  display_line_output
+  echo "$name_exec EXPECTED ->"
+  [ "${lines[0]}" = "" ]
+  [ "$status" -eq 0 ]
+  check_leaks_function exec
 }

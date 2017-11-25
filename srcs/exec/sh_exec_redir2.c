@@ -19,7 +19,7 @@ static BOOL		sh_exec_greatand_open_fd1(int *fd1, t_cmd *item, int *pos)
 	if (ft_isdigit(item->av[0][0]))
 	{
 		*pos = *pos + 1;
-		if (check_fd(ft_atoi(item->av[0])))
+		if (ft_isdigit(item->av[0][0]) && ft_strlen(item->av[0]) == 1)
 			*fd1 = ft_atoi(item->av[0]);
 		else
 			return (false);
