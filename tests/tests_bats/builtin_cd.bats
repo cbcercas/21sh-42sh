@@ -248,3 +248,129 @@ load test_helper
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
+
+@test "BUILTIN_CD: Testing [simple] for 'cd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->"
+	[ "${lines[0]}" = "" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'cd&&pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd&&pwd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$HOME"
+	[ "${lines[0]}" = "$HOME" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'cd && pwd && cd -'" {
+	oldpwd_test=$PWD
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd && pwd && cd -'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$HOME"
+	echo "					$oldpwd_test"
+	[ "${lines[0]}" = "$HOME" ]
+	[ "${lines[1]}" = "$oldpwd_test" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'cd ////./////.////// && pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd ////./////.////// && pwd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->/"
+	[ "${lines[0]}" = "/" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'cd /this/doesnt/exists'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /this/doesnt/exists'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$cdnosuch: /this/doesnt/exists"
+	[ "${lines[0]}" = "$cdnosuch: /this/doesnt/exists" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'touch notadir && cd notadir ; rm notadir'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'touch notadir && cd notadir ; rm notadir'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->cd: not a directory: notadir"
+	[ "${lines[0]}" = "cd: not a directory: notadir" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'setenv HOME=/tmp && cd && pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv HOME=/tmp && cd && pwd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->/tmp"
+	[ "${lines[0]}" = "/tmp" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'setenv HOME=/tmp/nosuch && cd; pwd'" {
+	pwdtest="$PWD"
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'setenv HOME=/tmp/nosuch && cd; pwd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$cdnosuch: /tmp/nosuch"
+	echo "						$pwdtest"
+	[ "${lines[0]}" = "$cdnosuch: /tmp/nosuch" ]
+	[ "${lines[1]}" = "$pwdtest" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'cd -L file_link;pwd;cd..;pwd'" {
+		if [[ !(-e file_link) ]]; then
+    		ln -s . file_link
+    	fi
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd -L file_link;pwd;cd ..;pwd'
+	expect=`cd -L file_link;pwd;cd ..;pwd`
+	rm -rf file_link
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$expect"
+	[ "$output" = "$expect" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'cd -P file_link;pwd;cd ..;pwd'" {
+	if [[ !(-e file_link) ]]; then
+		ln -s . file_link
+	fi
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd -P file_link;pwd;cd ..;pwd'
+	expect=`cd -P file_link;pwd;cd ..;pwd`
+	rm -rf file_link
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$expect"
+	[ "$output" = "$expect" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
+
+@test "BUILTIN_CD: Testing [simple] for 'cd ////////.//////.//////...//////// && pwd'" {
+	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd ////////.//////./////...//////// && pwd'
+	echo "ERROR:"
+	display_line_output
+	echo "$name_exec EXPECTED ->$cdnosuch: ////////.//////./////...////////"
+	[ "${lines[0]}" = "$cdnosuch: ////////.//////./////...////////" ]
+	[ "$status" -eq 0 ]
+	check_leaks_function exec
+}
