@@ -106,6 +106,11 @@ void	sh_exit(t_sh_data *data, char **arg)
 	ft_printf("exit\n");
 	if (arg && arg[1] && ft_isdigit(arg[1][0]))
 		status = ft_atoi(arg[1]);
+	else if (arg && arg[1] && ft_isalpha(arg[1][0]))
+	{
+		ft_dprintf(2, "%s: exit: %s: numeric argument required\n", PROGNAME, arg[1]);
+		status = 2;
+	}
 	kill_childs(SIGTERM);
 	if (data && data->opts.color && get_windows(0) &&
 			get_windows(0)->ts.ws_col >= 80)
