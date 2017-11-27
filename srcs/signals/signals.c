@@ -24,13 +24,16 @@ void	init_signals(void *handler)
 	int					i;
 	struct sigaction	act;
 
-	i = 1;
+	i = 0;
 	if (!handler)
 		return ;
 	while (++i <= 31)
 	{
+		if (i == SIGKILL || i == SIGSTOP)
+			continue ;
 		if (sigaction(i, NULL, &act) < 0)
 			log_warn("Signal: can't change handler signal: %d", i);
+		signal_save_old(act, i);
 		ft_bzero(&act.sa_mask, sizeof(act.sa_mask));
 		act.sa_flags = SA_RESTART;
 		if (i == SIGTSTP || i == SIGCONT)

@@ -99,4 +99,7 @@ void					remove_pid_child(int pid_child);
 void					remove_useless(void);
 int						kill_childs(int sig);
 
+void					signal_save_old(struct sigaction save, int sig);
+void					signal_restore(void);
+
 #endif

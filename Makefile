@@ -49,7 +49,7 @@ SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c lexer_utils.c
 
 SRC_SUBDIR		+= signals
-SRCS			+= signals.c signals_handler.c get_pid_childs.c
+SRCS			+= signals.c signals_handler.c get_pid_childs.c signal_restore.c
 
 SRC_SUBDIR		+= automaton
 SRCS			+= automaton.c

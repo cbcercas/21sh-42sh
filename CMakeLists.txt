@@ -166,7 +166,7 @@ set(SOURCE_FILES
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
 		srcs/tests/local_var_tests.c
-        srcs/tools/print_verb.c srcs/ast/ast_built_wr.c srcs/exec/sh_exec_builtin.c srcs/exec/sh_exec_backup_fd.c srcs/builtins/builtin_chdir_abs.c)
+        srcs/tools/print_verb.c srcs/ast/ast_built_wr.c srcs/exec/sh_exec_builtin.c srcs/exec/sh_exec_backup_fd.c srcs/builtins/builtin_chdir_abs.c srcs/signals/signal_restore.c)
 
 include_directories(includes)
 
