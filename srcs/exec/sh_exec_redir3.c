@@ -30,7 +30,8 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 	}
 	else
 	{
-		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing) : 0);
+		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing)
+						: 0);
 		exec_list_push(&fds[STDIN_FILENO], (size_t)fd2);
 	}
 }
@@ -56,7 +57,8 @@ void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
 		}
 		else
 		{
-			(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing) : 0);
+			(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO],
+											&exec_list_nothing) : 0);
 			exec_list_push(&fds[STDOUT_FILENO], (size_t)fd2);
 		}
 		return ;

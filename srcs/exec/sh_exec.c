@@ -77,7 +77,7 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 
 int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 {
-	int ret;
+	int		ret;
 	t_list	*backup[FD_SETSIZE];
 	int		cnt;
 

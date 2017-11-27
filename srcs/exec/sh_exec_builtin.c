@@ -24,8 +24,8 @@
 int	sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds)
 {
 	t_builtin	*builtin;
-	t_list	*backup[FD_SETSIZE];
-	int		cnt;
+	t_list		*backup[FD_SETSIZE];
+	int			cnt;
 
 	cnt = 0;
 	while (cnt < FD_SETSIZE)

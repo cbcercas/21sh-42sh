@@ -20,7 +20,7 @@ static BOOL	sh_exex_creat_backup_fd_error(t_list **fds, int cnt)
 	return (true);
 }
 
-BOOL	sh_exex_creat_backup_fd(t_list **backup, t_list **fds)
+BOOL		sh_exex_creat_backup_fd(t_list **backup, t_list **fds)
 {
 	int		cnt;
 	int		fd_back;
@@ -32,8 +32,9 @@ BOOL	sh_exex_creat_backup_fd(t_list **backup, t_list **fds)
 		if (fds[cnt] && (fd_back = dup(cnt)) != -1)
 		{
 			exec_list_push(&backup[cnt], (size_t)fd_back);
-			if((fd_back = dup(cnt)) != -1)
-				exec_list_push(&backup[(int)fds[cnt]->content_size], (size_t)fd_back);
+			if ((fd_back = dup(cnt)) != -1)
+				exec_list_push(&backup[(int)fds[cnt]->content_size],
+							(size_t)fd_back);
 			else
 				return (sh_exex_creat_backup_fd_error(fds, cnt));
 		}
@@ -44,7 +45,7 @@ BOOL	sh_exex_creat_backup_fd(t_list **backup, t_list **fds)
 	return (false);
 }
 
-BOOL	sh_exec_restore_fd(t_list **backup)
+BOOL		sh_exec_restore_fd(t_list **backup)
 {
 	int		cnt;
 	t_list	*tmp;
@@ -59,7 +60,7 @@ BOOL	sh_exec_restore_fd(t_list **backup)
 				if (dup2((int)tmp->content_size, cnt) == -1)
 				{
 					ft_dprintf(STDERR_FILENO, "%s: Error dup", PROGNAME);
-					log_fatal("Error dup dup(%d, %d)",(int)tmp->content_size, cnt);
+					log_fatal("Error dup dup(%d, %d)", tmp->content_size, cnt);
 					return (true);
 				}
 				log_info("RESTORE = %d => %d", cnt, (int)tmp->content_size);
@@ -70,10 +71,10 @@ BOOL	sh_exec_restore_fd(t_list **backup)
 			ft_lstdel(&backup[cnt], &exec_list_nothing);
 		cnt++;
 	}
-	return(false);
+	return (false);
 }
 
-BOOL	sh_exex_creat_backup_fd_close(t_list **backup, t_list **fds)
+BOOL		sh_exex_creat_backup_fd_close(t_list **backup, t_list **fds)
 {
 	int		fd_back;
 	t_list	*tmp;

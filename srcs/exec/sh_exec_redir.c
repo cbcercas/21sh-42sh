@@ -19,7 +19,8 @@ static BOOL		redir_great(t_cmd *item, t_list **fds, int fd)
 		if (ft_isdigit(item->av[0][0]) && ft_strlen(item->av[0]) == 1)
 		{
 			dup2(fd, ft_atoi(item->av[0]));
-			(fds[ft_atoi(item->av[0])] ? ft_lstdel(&fds[ft_atoi(item->av[0])], &exec_list_nothing) : 0);
+			(fds[ft_atoi(item->av[0])] ? ft_lstdel(&fds[ft_atoi(item->av[0])],
+												&exec_list_nothing) : 0);
 			exec_list_push(&fds[ft_atoi(item->av[0])], fd);
 		}
 		else
@@ -27,7 +28,8 @@ static BOOL		redir_great(t_cmd *item, t_list **fds, int fd)
 	}
 	else
 	{
-		(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing) : 0);
+		(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO],
+										&exec_list_nothing) : 0);
 		exec_list_push(&fds[STDOUT_FILENO], fd);
 	}
 	return (true);
@@ -48,8 +50,9 @@ static BOOL		redir_less(t_cmd *item, int fd, t_list **fds)
 	}
 	else
 	{
-		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing) : 0);
-		exec_list_push(&fds[STDIN_FILENO], (size_t) fd);
+		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing)
+						: 0);
+		exec_list_push(&fds[STDIN_FILENO], (size_t)fd);
 		fds[STDIN_FILENO]->content = (void *)true;
 	}
 	return (true);

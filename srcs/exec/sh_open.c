@@ -24,8 +24,8 @@ BOOL			check_fd(int fd)
 
 static int		here_find_fd(t_cmd *item)
 {
-	int		fd;
-	struct stat test;
+	int			fd;
+	struct stat	test;
 
 	fd = ft_atoi(item->av[0]);
 	if (ft_isdigit(item->av[0][0]))

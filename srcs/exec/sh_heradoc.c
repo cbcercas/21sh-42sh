@@ -73,7 +73,8 @@ int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	close(pipe[START]);
 	if (!sh_fork(E_PID_HERE))
 	{
-		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing) : 0);
+		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing)
+						: 0);
 		exec_list_push(&fds[STDIN_FILENO], pipe[END]);
 		sh_process_exec(data, ast->left, fds);
 		exit(EXIT_FAILURE);
