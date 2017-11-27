@@ -92,7 +92,7 @@ int		sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds);
 */
 
 void	sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
-																t_list **fds);
+								t_list **fds);
 
 /*
 ** @file   sh_heradoc.c
@@ -126,7 +126,7 @@ void	exec_list_fd_all_close(t_list **fds);
 **
 ** @brief  Functions to manage FDs etc
 */
-int	sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds);
+int		sh_exec_builtin(t_sh_data *data, t_cmd *item, t_list **fds);
 
 /*
 ** @file   sh_exec_local_var.c
@@ -159,7 +159,7 @@ int		sh_pipe(int tube[2]);
 */
 
 int		sh_open_exec(t_btree *ast);
-BOOL	check_fd(int fd);;
+BOOL	check_fd(int fd);
 
 /*
 ** @file   sh_ret.c

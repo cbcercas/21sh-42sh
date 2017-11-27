@@ -14,7 +14,7 @@
 #include <core/data.h>
 #include <core/color.h>
 
-void print_verb(char *line)
+void	print_verb(char *line)
 {
 	char	*tmp;
 

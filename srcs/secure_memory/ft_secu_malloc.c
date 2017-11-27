@@ -93,6 +93,5 @@ t_mem			*get_mem(void)
 		mem->first = NULL;
 		mem->last = NULL;
 	}
-
 	return (mem);
 }
