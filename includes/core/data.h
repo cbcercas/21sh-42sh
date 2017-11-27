@@ -38,11 +38,11 @@ typedef struct s_sh_data	t_sh_data;
 
 struct						s_sh_opt
 {
-	BOOL			verbose;
-	unsigned		dbg:1;
-	enum e_d_lvl	dbg_lvl;
-	BOOL			tcaps;
-	BOOL			color;
+	BOOL					verbose;
+	unsigned				dbg:1;
+	enum e_d_lvl			dbg_lvl;
+	BOOL					tcaps;
+	BOOL					color;
 };
 
 /*
@@ -55,12 +55,12 @@ struct						s_sh_opt
 
 struct						s_sh_data
 {
-	t_sh_opt			opts;
-	char				*cwd;
-	struct termios		*tattr;
+	t_sh_opt				opts;
+	char					*cwd;
+	struct termios			*tattr;
 
 };
 
-t_sh_data			*get_data(t_sh_data *save);
+t_sh_data					*get_data(t_sh_data *save);
 
 #endif

@@ -64,7 +64,7 @@ t_sh_data			*get_data(t_sh_data *save)
 
 	if (save)
 		data = save;
-	return(data);
+	return (data);
 }
 
 /*
@@ -92,7 +92,7 @@ static void			sh_arrays_init(t_array *tokens, t_array *expand)
 ** @return Returns a value based on successful exit or not
 */
 
-int				main(int ac, char *const *av, char **environ)
+int					main(int ac, char *const *av, char **environ)
 {
 	t_sh_data			data;
 	struct s_exec_data	exec_dat;
