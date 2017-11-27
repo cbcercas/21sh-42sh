@@ -21,7 +21,7 @@ extern int g_optind;
 ** @return Returns true if everything is ok. False otherwise
 */
 
-static t_bool sh_test_path(char **dir, char *arg)
+static t_bool	sh_test_path(char **dir, char *arg)
 {
 	struct stat	bufstat;
 
@@ -71,8 +71,7 @@ static	BOOL	sh_get_path(char *arg, char **dir, BOOL *disp)
 	return (false);
 }
 
-
-static char *sh_do_chdir_init(char *arg)
+static char		*sh_do_chdir_init(char *arg)
 {
 	BOOL	disp;
 	char	*dir;
@@ -96,6 +95,7 @@ static char *sh_do_chdir_init(char *arg)
 		ft_putendl(dir);
 	return (dir);
 }
+
 /*
 ** @brief This function is the one that does the chdir and does all the tests
 ** @param arg The args passed at cd

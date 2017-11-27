@@ -90,8 +90,7 @@ void	sh_print_fed1(void)
 					" ▓████¬\n");
 	sh_print_fed2();
 	sh_print_fed3();
-	ft_printf("%s", C_NONE);
-	ft_printf("\t\t\t\tVive la Federation !\n");
+	ft_printf("%s\t\t\t\tVive la Federation !\n", C_NONE);
 }
 
 void	sh_exit(t_sh_data *data, char **arg)
@@ -108,7 +107,8 @@ void	sh_exit(t_sh_data *data, char **arg)
 		status = ft_atoi(arg[1]);
 	else if (arg && arg[1] && ft_isalpha(arg[1][0]))
 	{
-		ft_dprintf(2, "%s: exit: %s: numeric argument required\n", PROGNAME, arg[1]);
+		ft_dprintf(2, "%s: exit: %s: numeric argument required\n",
+				PROGNAME, arg[1]);
 		status = 2;
 	}
 	kill_childs(SIGTERM);

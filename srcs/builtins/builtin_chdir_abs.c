@@ -18,20 +18,19 @@ static void		join_current(char **dir)
 
 	if (**dir != '/')
 	{
-
 		current = get_pwd();
 		current = ft_strjoincl(current, "/", 1);
 		*dir = ft_strjoincl(current, *dir, 3);
 	}
 }
 
-static t_bool change_in_abs_loop(char **cdpath, char **dir, BOOL *disp)
+static BOOL		change_in_abs_loop(char **cdpath, char **dir, BOOL *disp)
 {
 	char		tmp[PATH_MAX + 1];
 	struct stat	buff;
 
 	ft_bzero(tmp, PATH_MAX + 1);
-	if(**cdpath == '/' || **cdpath == '.')
+	if (**cdpath == '/' || **cdpath == '.')
 	{
 		ft_strlcat(tmp, *cdpath, PATH_MAX);
 		ft_strlcat(tmp, "/", PATH_MAX);
@@ -47,7 +46,7 @@ static t_bool change_in_abs_loop(char **cdpath, char **dir, BOOL *disp)
 	return (false);
 }
 
-BOOL change_in_abs(char **dir, BOOL *disp)
+BOOL			change_in_abs(char **dir, BOOL *disp)
 {
 	char	**cdpath;
 	char	**tmp_cdpath;

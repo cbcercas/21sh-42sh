@@ -14,7 +14,7 @@
 
 int		sh_builtin_setenv(t_sh_data *data, char **args)
 {
-	int i;
+	int		i;
 	char	*name;
 	char	*value;
 
@@ -27,7 +27,8 @@ int		sh_builtin_setenv(t_sh_data *data, char **args)
 	i = 1;
 	while (args[i] && ft_strchr(args[i], '='))
 	{
-		set_var(get_envs(), (name = split_var_name(args[i])), (value = split_var_value(args[i])),
+		name = split_var_name(args[i]);
+		set_var(get_envs(), name, (value = split_var_value(args[i])),
 				true);
 		ft_strdel(&name);
 		ft_strdel(&value);

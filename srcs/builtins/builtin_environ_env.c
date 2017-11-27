@@ -62,8 +62,7 @@ int		builtin_env_opt(char **argv)
 		opt = 'i';
 	else if (opt == '?')
 		opt = -1;
-	if (ft_strequ(argv[g_optind], "--"))
-		g_optind++;
+	g_optind = (ft_strequ(argv[g_optind], "--") ? g_optind + 1 : g_optind);
 	return (opt);
 }
 
