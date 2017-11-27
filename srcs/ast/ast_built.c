@@ -13,6 +13,14 @@
 #include <ast/ast.h>
 #include <core/color.h>
 
+static t_lim			swap_lim(t_lim lim)
+{
+	t_lim	ret;
+
+	ret.lim = lim.cnt;
+	ret.cnt = lim.lim;
+	return (ret);
+}
 
 /*
 ** @brief ast_built Builds the ast recursively
@@ -49,11 +57,10 @@ t_btree					*ast_built(t_btree **ast,
 		btree_insert_data(ast, ast_new_cmd(expands, lim.cnt, lim_left.lim + 1,\
 					return_type(prio, exp->type, expands, lim_left.lim)), \
 				(int (*)(void*, void*))&ast_cmp);
-		if (prio != 4 && prio != 3)
-			(*ast)->left = ast_built(&(*ast)->left, expands,
-									lim, prio);
-		if (prio != 4 && prio != 3 && lim.cnt >= 0)
-			(*ast)->right = ast_built(&(*ast)->right, expands, lim_left, prio + 1);
+		(*ast)->left = ast_built(&(*ast)->left, expands, lim, prio);
+		if (lim.cnt >= 0)
+			(*ast)->right = ast_built(&(*ast)->right, expands,
+									lim_left, prio + 1);
 	}
 	else if (prio != 4)
 		*ast = ast_built(ast, expands, lim_left, prio + 1);

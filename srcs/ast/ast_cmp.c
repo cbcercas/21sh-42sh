@@ -34,7 +34,7 @@
 */
 
 t_token_type	return_type(int prio, t_token_type type, t_array *expands, \
-        ssize_t cnt)
+								ssize_t cnt)
 {
 	if (type == E_TOKEN_NEWLINE)
 		return (E_TOKEN_SEMI);
@@ -70,7 +70,7 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands, \
 */
 
 BOOL			ast_prio(t_token_type type, int prio, ssize_t cnt,
-						 t_array *expands)
+						t_array *expands)
 {
 	if (prio == 1 && (is_sepa(type)))
 		return (true);

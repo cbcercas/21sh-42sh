@@ -12,7 +12,7 @@
 
 #include <ast/ast.h>
 
-t_exp			*ast_search2(t_array *expands, t_lim *lim, int prio)
+t_exp				*ast_search2(t_array *expands, t_lim *lim, int prio)
 {
 	t_exp		*exp;
 
@@ -46,8 +46,7 @@ t_exp			*ast_search2(t_array *expands, t_lim *lim, int prio)
 ** @return Returns struct lim, containing number of tokens in given redirection
 */
 
-
-static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
+static t_lim		ast_built_redir_plus(t_array *expands, t_lim lim)
 {
 	t_exp	*exp;
 
@@ -83,7 +82,7 @@ static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
 ** @return Returns struct lim, containing number of tokens in a 'word' command.
 */
 
-static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
+static t_lim		ast_built_word_plus(t_array *expands, t_lim lim)
 {
 	t_exp	*exp;
 
@@ -101,8 +100,8 @@ static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 	return (lim);
 }
 
-t_btree			*ast_built2(t_btree **ast, t_array *expands,
-									  t_lim lim, int prio)
+t_btree				*ast_built2(t_btree **ast, t_array *expands,
+									t_lim lim, int prio)
 {
 	t_exp	*exp;
 	t_lim	lim_left;

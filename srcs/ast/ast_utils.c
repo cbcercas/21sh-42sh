@@ -84,20 +84,10 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 	{
 		lim->cnt--;
 		exp = (t_exp *)array_get_at(expands, (size_t)lim->cnt);
-		if (exp  && ast_prio(exp->type, prio, lim->cnt, expands))
-			break;
+		if (exp && ast_prio(exp->type, prio, lim->cnt, expands))
+			break ;
 	}
 	return (exp);
-}
-
-
-t_lim		swap_lim(t_lim lim)
-{
-	t_lim	ret;
-
-	ret.lim = lim.cnt;
-	ret.cnt = lim.lim;
-	return (ret);
 }
 
 /*
@@ -143,8 +133,8 @@ static BOOL		ast_new_init(t_array *expands, ssize_t start, ssize_t end,
 ** @return Returns new cmd or NULL TODO NORM HERE
 */
 
-t_cmd			*ast_new_cmd(t_array *expands, ssize_t start, ssize_t end, \
-        t_token_type type)
+t_cmd			*ast_new_cmd(t_array *expands, ssize_t start, ssize_t end,
+								t_token_type type)
 {
 	t_cmd	*cmd;
 	t_exp	*exp;
