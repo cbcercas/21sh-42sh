@@ -124,25 +124,26 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
 - [x] Miscellaneous
   - [x] Logger
   - [x] Doc
-  
-- [x] Options available
-  - [x] `-h` Used to display help about the options
-  - [x] `-v` Verbose mode, displays what was typed. Displayed in red when c
-  - [x] `-d [0-7]` Starts a debug mode (need debug level):
-   - [x] 0: no log
-   - [x] 1: fatal
-   - [x] 2: error
-   - [x] 3: warning
-   - [x] 4: info
-   - [x] 5: debug level 1
-   - [x] 6: debug level 2
-   - [x] 7: debug level 3
-  - [x] `-t [module]` testing mode:
-   - [x] env: test env module
-    - [x] set VAR=value ... : set variable(s) and displayenv
-    - [x] del VAR ... : delete variable(s) and display env
-   - [x] lexer: test lexer module
-   - [x] parser: test parser module
-   - [x] expand: test expand module
-  - [x] -c [string]		 If the -c option is present, then commands are read from string.
-  - [x] -C allows color in builtins. default in testing is true, otherwise by default is false
+
+```
+	-h Used to display help about the options
+  	-v Verbose mode, displays what the user typed. Displayed in red when the -C option is given to (-Cv or -C -v)
+	-d [0-7] Debug mode (need debug level):
+			0: no log
+			1: fatal
+			2: error
+			3: warning
+			4: info
+			5: debug level 1
+			6: debug level 2
+			7: debug level 3
+	-t Testing mode:
+		env: test env module
+			set VAR=value ... : set variable(s) and displayenv
+			del VAR ... : delete variable(s) and display env
+		lexer: test lexer module
+		parser: test parser module
+		expand: test expand module
+	-c [string] If the -c option is present, then commands are read from string.
+	-C Allows color in builtins. default in testing is true, otherwise by default is false
+```
