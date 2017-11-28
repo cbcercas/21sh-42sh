@@ -68,32 +68,6 @@ load test_helper
   check_leaks_function ast
 }
 
-@test "AST: Testing [SIMPLE] for 'ls -l | sort | cat -e'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l | sort | cat -e"
-  echo "ERROR:"
-  display_line_output
-  echo "$name_exec EXPECTED ->[--- Display tree ---]"
-  echo "                        cat -e"
-  echo "                    |"
-  echo "                        sort"
-  echo "                |"
-  echo "                        .."
-  echo "                    ls -l"
-  echo "                        .."
-  echo
-
-  [ "${lines[0]}" = "[--- Display tree ---]" ]
-  [ "${lines[1]}" = "        cat -e" ]
-  [ "${lines[2]}" = "    |" ]
-  [ "${lines[3]}" = "        sort" ]
-  [ "${lines[4]}" = "|" ]
-  [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    ls -l" ]
-  [ "${lines[7]}" = "        .." ]
-  [ "$status" -eq 0 ]
-  check_leaks_function ast
-}
-
 @test "AST: Testing [SIMPLE] for 'ls ; ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls ; ls"
   echo "ERROR:"
@@ -109,31 +83,7 @@ load test_helper
   check_leaks_function ast
 }
 
-@test "AST: Testing [SIMPLE] for 'ls -l ; echo ; cat'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l ; echo ; cat"
-  echo "ERROR:"
-  display_line_output
-  echo "$name_exec EXPECTED ->[--- Display tree ---]"
-  echo "                        cat"
-  echo "                    ;"
-  echo "                        echo"
-  echo "                ;"
-  echo "                        .."
-  echo "                    ls -l"
-  echo "                        .."
-  echo
 
-  [ "${lines[0]}" = "[--- Display tree ---]" ]
-  [ "${lines[1]}" = "        cat" ]
-  [ "${lines[2]}" = "    ;" ]
-  [ "${lines[3]}" = "        echo" ]
-  [ "${lines[4]}" = ";" ]
-  [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    ls -l" ]
-  [ "${lines[7]}" = "        .." ]
-  [ "$status" -eq 0 ]
-  check_leaks_function ast
-}
 
 @test "AST: Testing [SIMPLE] for 'ls || ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls || ls"
@@ -150,32 +100,6 @@ load test_helper
   check_leaks_function ast
 }
 
-@test "AST: Testing [SIMPLE] for 'ls -l || echo || cat'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l || echo || cat"
-  echo "ERROR:"
-  display_line_output
-  echo "$name_exec EXPECTED ->[--- Display tree ---]"
-  echo "                        cat"
-  echo "                    ||"
-  echo "                        echo"
-  echo "                ||"
-  echo "                        .."
-  echo "                    ls -l"
-  echo "                        .."
-  echo
-
-  [ "${lines[0]}" = "[--- Display tree ---]" ]
-  [ "${lines[1]}" = "        cat" ]
-  [ "${lines[2]}" = "    ||" ]
-  [ "${lines[3]}" = "        echo" ]
-  [ "${lines[4]}" = "||" ]
-  [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    ls -l" ]
-  [ "${lines[7]}" = "        .." ]
-  [ "$status" -eq 0 ]
-  check_leaks_function ast
-}
-
 @test "AST: Testing [SIMPLE] for 'ls && ls'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls && ls"
   echo "ERROR:"
@@ -187,32 +111,6 @@ load test_helper
   echo "                    ls"
   echo
   [ "$output" = "$expect" ]
-  [ "$status" -eq 0 ]
-  check_leaks_function ast
-}
-
-@test "AST: Testing [SIMPLE] for 'ls -l && echo && cat'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l && echo && cat"
-  echo "ERROR:"
-  display_line_output
-  echo "$name_exec EXPECTED ->[--- Display tree ---]"
-  echo "                        cat"
-  echo "                    &&"
-  echo "                        echo"
-  echo "                &&"
-  echo "                        .."
-  echo "                    ls -l"
-  echo "                        .."
-  echo
-
-  [ "${lines[0]}" = "[--- Display tree ---]" ]
-  [ "${lines[1]}" = "        cat" ]
-  [ "${lines[2]}" = "    &&" ]
-  [ "${lines[3]}" = "        echo" ]
-  [ "${lines[4]}" = "&&" ]
-  [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    ls -l" ]
-  [ "${lines[7]}" = "        .." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }
@@ -251,32 +149,6 @@ load test_helper
   echo "                    ls"
   echo
   [ "$output" = "$expect" ]
-  [ "$status" -eq 0 ]
-  check_leaks_function ast
-}
-
-@test "AST: Testing [SIMPLE] for 'ls -l || echo || cat'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l || echo || cat"
-  echo "ERROR:"
-  display_line_output
-  echo "$name_exec EXPECTED ->[--- Display tree ---]"
-  echo "                        cat"
-  echo "                    ||"
-  echo "                        echo"
-  echo "                ||"
-  echo "                        .."
-  echo "                    ls -l"
-  echo "                        .."
-  echo
-
-  [ "${lines[0]}" = "[--- Display tree ---]" ]
-  [ "${lines[1]}" = "        cat" ]
-  [ "${lines[2]}" = "    ||" ]
-  [ "${lines[3]}" = "        echo" ]
-  [ "${lines[4]}" = "||" ]
-  [ "${lines[5]}" = "        .." ]
-  [ "${lines[6]}" = "    ls -l" ]
-  [ "${lines[7]}" = "        .." ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }
@@ -430,16 +302,6 @@ load test_helper
 #                            MIX                                   #
 #######################################################################
 
-@test "AST: Testing [MIX] for 'ls -l| cat -e; cat -e< lol; ls> toto.txt; rm toto.txt;'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l| cat -e; cat -e< lol; ls> toto.txt; rm toto.txt;" line
-  echo "ERROR:"
-  display_line_output
-  echo "$name_exec EXPECTED ->[0]{;} [1]{|} [2]{ls -l} [3]{cat -e} [4]{;} [5]{< lol} [6]{cat -e} [7]{;} [8]{> toto.txt} [9]{ls} [10]{;} [11]{rm toto.txt} "
-  echo
-  [ "$output" = "[0]{;} [1]{|} [2]{ls -l} [3]{cat -e} [4]{;} [5]{< lol} [6]{cat -e} [7]{;} [8]{> toto.txt} [9]{ls} [10]{;} [11]{rm toto.txt} " ]
-  [ "$status" -eq 0 ]
-  check_leaks_function ast
-}
 
 @test "AST: Testing [MIX] for 'ls -l |echo && cat'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l|echo&& cat"
@@ -467,25 +329,15 @@ load test_helper
   check_leaks_function ast
 }
 
-@test "AST: Testing [MIX] for 'ls -l| cat -e; cat -e< lol; toto&& tata< ta> toto.txt; rm toto'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "ls -l| cat -e; cat -e< lol; toto&& tata< ta> toto.txt; rm toto" line
-  echo "ERROR:"
-  display_line_output
-    echo "$name_exec EXPECTED ->[0]{;} [1]{|} [2]{ls -l} [3]{cat -e} [4]{;} [5]{< lol} [6]{cat -e} [7]{&&} [8]{toto} [9]{;} [10]{< ta} [11]{> toto.txt} [12]{tata} [13]{rm toto} "
-  echo
-  [ "${lines[0]}" = "[0]{;} [1]{|} [2]{ls -l} [3]{cat -e} [4]{;} [5]{< lol} [6]{cat -e} [7]{&&} [8]{toto} [9]{;} [10]{< ta} [11]{> toto.txt} [12]{tata} [13]{rm toto} " ]
-  [ "$status" -eq 0 ]
-  check_leaks_function ast
-}
 
 @test "AST: Testing [MIX] for 'mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi" {
   #skip "because there is no expand yet"
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi" line
   echo "ERROR:"
   display_line_output
-    echo "$name_exec EXPECTED ->[0]{;} [1]{mkdir test} [2]{;} [3]{cd test} [4]{;} [5]{ls -a} [6]{;} [7]{|} [8]{ls} [9]{|} [10]{cat} [11]{> fifi} [12]{wc -c} [13]{cat fifi} "
+    echo "$name_exec EXPECTED ->[0]{;} [1]{;} [2]{;} [3]{;} [4]{mkdir test} [5]{cd test} [6]{ls -a} [7]{|} [8]{|} [9]{ls} [10]{cat} [11]{> fifi} [12]{wc -c} [13]{cat fifi} "
   echo
-  [ "${lines[0]}" = "[0]{;} [1]{mkdir test} [2]{;} [3]{cd test} [4]{;} [5]{ls -a} [6]{;} [7]{|} [8]{ls} [9]{|} [10]{cat} [11]{> fifi} [12]{wc -c} [13]{cat fifi} " ]
+  [ "${lines[0]}" = "[0]{;} [1]{;} [2]{;} [3]{;} [4]{mkdir test} [5]{cd test} [6]{ls -a} [7]{|} [8]{|} [9]{ls} [10]{cat} [11]{> fifi} [12]{wc -c} [13]{cat fifi} " ]
   [ "$status" -eq 0 ]
   check_leaks_function ast
 }
