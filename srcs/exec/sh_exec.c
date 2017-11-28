@@ -90,7 +90,7 @@ int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 	log_info("EXEC: %s", item->av[0]);
 	sh_exex_creat_backup_fd_close(backup, fds);
 	exec_list_fd_close(fds);
-	if (item && item->av && ft_strchr(item->av[0], '=') &&
+	if (item && item->av && item->av[0] && ft_strchr(item->av[0], '=') &&
 			ft_strlen(item->av[0]) != 1)
 		sh_exec_local_var(data, item, fds);
 	else if (sh_is_builtin(item->av[0]))

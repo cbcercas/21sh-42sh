@@ -45,7 +45,7 @@ static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item, t_list **fds
 		else
 			return (false);
 	}
-	else if (ft_atoi(item->av[0]) == 1 || pos == 0)
+	else if (item->av[0] && (ft_atoi(item->av[0]) == 1 || pos == 0))
 		*fd2 = open(item->av[pos + 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 	else
 		ft_dprintf(2, "%s: %s ambiguous redirect\n", PROGNAME,
