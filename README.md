@@ -32,6 +32,7 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [x] Edit the line where the cursor is positionned
   - [x] Move cursor left or right
   - [x] Up and Down arrows to navigate in the history
+  - [x] Enter Insert mode with `alt+i` and exit it with `alt+i`
   - [x] Copy and paste with `alt+C` `alt+v`
   - [x] Move word per word left or right `alt+LEFT` `alt+RIGHT`
   - [x] Go to beginning or end of a line. `home` `end`
