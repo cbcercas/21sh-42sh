@@ -32,6 +32,7 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [x] Edit the line where the cursor is positionned
   - [x] Move cursor left or right
   - [x] Up and Down arrows to navigate in the history
+  - [x] Enter Insert mode with `alt+i` and exit it with `alt+i`
   - [x] Copy and paste with `alt+C` `alt+v`
   - [x] Move word per word left or right `alt+LEFT` `alt+RIGHT`
   - [x] Go to beginning or end of a line. `home` `end`
@@ -124,5 +125,25 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [x] Logger
   - [x] Doc
 
-Use `./21sh -h` for help
-
+```
+	-h Used to display help about the options
+  	-v Verbose mode, displays what the user typed. Displayed in red when the -C option is given to (-Cv or -C -v)
+	-d [0-7] Debug mode (need debug level):
+			0: no log
+			1: fatal
+			2: error
+			3: warning
+			4: info
+			5: debug level 1
+			6: debug level 2
+			7: debug level 3
+	-t Testing mode:
+		env: test env module
+			set VAR=value ... : set variable(s) and displayenv
+			del VAR ... : delete variable(s) and display env
+		lexer: test lexer module
+		parser: test parser module
+		expand: test expand module
+	-c [string] If the -c option is present, then commands are read from string.
+	-C Allows color in builtins. default in testing is true, otherwise by default is false
+```
