@@ -57,7 +57,6 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 		set_var(get_envs(), "_", path, true);
 		if (!pid)
 		{
-			signal_restore();
 			exec_list_fd_dup(fds);
 			execve(path, item->av, var_to_tab(get_envs()));
 			ft_dprintf(2, "%s: error exec(): %s\n", PROGNAME, path);

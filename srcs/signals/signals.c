@@ -33,7 +33,8 @@ void	init_signals(void *handler)
 			continue ;
 		if (sigaction(i, NULL, &act) < 0)
 			log_warn("Signal: can't change handler signal: %d", i);
-		signal_save_old(act, i);
+		if (act.sa_handler == SIG_IGN)
+			continue ;
 		ft_bzero(&act.sa_mask, sizeof(act.sa_mask));
 		act.sa_flags = SA_RESTART;
 		if (i == SIGTSTP || i == SIGCONT)
