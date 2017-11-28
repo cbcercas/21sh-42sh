@@ -124,3 +124,5 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [x] Logger
   - [x] Doc
 
+Use `./21sh -h` for help
+
