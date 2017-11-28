@@ -36,6 +36,7 @@ static BOOL		exec_ctrl_j2(t_input *input)
 	input->lock = true;
 	input_add_new(input);
 	get_windows(0)->cur = input->next;
+	get_windows(0)->cur->prompt_type = E_RET_LEXER_PIPE;
 	sh_print_prompt(input->next, NULL, E_RET_LEXER_PIPE);
 	return (false);
 }
