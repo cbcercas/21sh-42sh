@@ -24,7 +24,6 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 	}
 	if (fd1 != -1)
 	{
-		dup2(fd2, fd1);
 		(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
 		exec_list_push(&fds[fd1], (size_t)fd2);
 	}
@@ -51,7 +50,6 @@ void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
 		}
 		if (fd1 != -1)
 		{
-			dup2(fd2, fd1);
 			(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
 			exec_list_push(&fds[fd1], (size_t)fd2);
 		}

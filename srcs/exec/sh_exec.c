@@ -60,6 +60,7 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 			signal_restore();
 			exec_list_fd_dup(fds);
 			execve(path, item->av, var_to_tab(get_envs()));
+			ft_dprintf(2, "%s: error exec(): %s\n", PROGNAME, path);
 			exit(EXIT_FAILURE);
 		}
 	}

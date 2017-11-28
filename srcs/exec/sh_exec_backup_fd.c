@@ -87,6 +87,7 @@ BOOL		sh_exex_creat_backup_fd_close(t_list **backup, t_list **fds)
 			exec_list_push(&backup[(int)tmp->content_size], (size_t)fd_back);
 		else
 			return (sh_exex_creat_backup_fd_error(fds, (int)tmp->content_size));
+		log_dbg1("CREATE back : %d = (%d)", tmp->content_size, fd_back);
 		tmp = tmp->next;
 	}
 	return (false);

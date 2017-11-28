@@ -159,7 +159,8 @@ int		sh_pipe(int tube[2]);
 */
 
 int		sh_open_exec(t_btree *ast);
-BOOL	check_fd(int fd);
+
+BOOL check_fd(int fd, t_list **fds);
 
 /*
 ** @file   sh_ret.c

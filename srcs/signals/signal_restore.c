@@ -39,7 +39,7 @@ void					signal_restore(void)
 	log_info("SIGNAL: restore old");
 	while (++i <= 31)
 	{
-		if (i == SIGKILL || i == SIGSTOP)
+		if (i == SIGKILL || i == SIGSTOP || i == SIGTSTP || i == SIGCONT)
 			continue ;
 		if (sigaction(i, &(old[i]), NULL) == -1)
 			log_warn("Signal: can't change restore signal: %d", i);

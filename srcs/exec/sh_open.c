@@ -12,11 +12,27 @@
 
 #include <exec/exec.h>
 
-BOOL			check_fd(int fd)
+BOOL			check_fd_search(t_list **fds, int fd_search)
+{
+	int		cnt;
+
+	cnt = 0;
+	log_info("EXEC: sh_exec_restore_fd");
+	while (cnt < FD_SETSIZE)
+	{
+		if ((cnt == fd_search && fds[cnt]) ||\
+		(fds[cnt] && (int)fds[cnt]->content_size == fd_search))
+			return (true);
+		cnt++;
+	}
+	return (false);
+}
+
+BOOL			check_fd(int fd, t_list **fds)
 {
 	struct stat test;
 
-	if (!fstat(fd, &test))
+	if (!fstat(fd, &test) || check_fd_search(fds, fd))
 		return (true);
 	ft_dprintf(2, "%s: %d: bad file descriptor\n", PROGNAME, fd);
 	return (false);

@@ -27,7 +27,7 @@ static BOOL		sh_exec_greatand_open_fd1(int *fd1, t_cmd *item, int *pos)
 	return (true);
 }
 
-static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item)
+static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item, t_list **fds)
 {
 	int		pos;
 
@@ -40,7 +40,7 @@ static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item)
 		*fd2 = -2;
 	else if (ft_isdigit_str(item->av[pos + 1]))
 	{
-		if (check_fd(ft_atoi(item->av[pos + 1])))
+		if (check_fd(ft_atoi(item->av[pos + 1]), fds))
 			*fd2 = ft_atoi(item->av[pos + 1]);
 		else
 			return (false);
@@ -62,7 +62,7 @@ int				sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 	if (!ast)
 		return (*get_cmd_ret());
 	item = (t_cmd *)ast->item;
-	if (!sh_exec_greatand_open(&fd1, &fd2, item))
+	if (!sh_exec_greatand_open(&fd1, &fd2, item, fds))
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (fd2 != -1)
 	{

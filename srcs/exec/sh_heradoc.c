@@ -12,11 +12,11 @@
 
 #include <exec/exec.h>
 
-static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd)
+static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd, t_list **fds)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
-		if (check_fd(ft_atoi(item->av[0])))
+		if (check_fd(ft_atoi(item->av[0]), fds))
 			*fd = ft_atoi(item->av[0]);
 		else
 			return (false);
@@ -26,10 +26,8 @@ static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd)
 	return (true);
 }
 
-static int		heredoc_init(t_btree *ast, int *fd, int pipe[2], int *pid)
+static int		heredoc_init(int pipe[2], int *pid)
 {
-	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), fd))
-		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (sh_pipe(pipe) != 0)
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	ignore_sigwinch();
@@ -61,8 +59,10 @@ int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	int		pipe[2];
 	int		pid;
 
-	if (!ast || heredoc_init(ast, &fd, pipe, &pid) == EXIT_FAILURE)
+	if (!ast || heredoc_init(pipe, &pid) == EXIT_FAILURE)
 		return (*get_cmd_ret());
+	if (!sh_heredoc_get_fd(((t_cmd *) ast->item), &fd, NULL))
+		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (!pid)
 	{
 		close(pipe[END]);
