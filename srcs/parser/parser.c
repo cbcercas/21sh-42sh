@@ -331,7 +331,10 @@ t_return						parser_parse(t_array *tokens)
 		return (ret_parser(tok));
 	while (tokens->used > i + 1)
 	{
-		toknext = (t_token*)array_get_at(tokens, i + 1);
+		while (tokens->used > i + 1 &&
+				(toknext = ((t_token*)array_get_at(tokens, i + 1)))->type
+				== E_TOKEN_BLANK)
+			i += 1;
 		if (g_grammar2[tok->type][toknext->type][0])
 			i += 1;
 		else
