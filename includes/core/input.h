@@ -111,7 +111,7 @@ struct					s_window
 **
 ** @brief      Main functions to read the input
 */
-
+BOOL					sh_get_char(char *buff);
 char					*sh_get_line(t_input *input, t_sh_opt *opts);
 t_input					*input_new(void);
 t_input					*input_add_new(t_input *input);
