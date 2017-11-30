@@ -219,4 +219,6 @@ int				get_curs_y(void);
 
 int				get_curs_x(void);
 
+BOOL			exec_escape_enter(const t_key *key, t_input *input);
+
 #endif

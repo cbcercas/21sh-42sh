@@ -15,7 +15,9 @@
 
 static BOOL		read_error(void)
 {
+	default_terminal_mode();
 	ft_dprintf(STDERR_FILENO, "%s: read error\n", PROGNAME);
+	raw_terminal_mode();
 	return (false);
 }
 
@@ -23,25 +25,23 @@ BOOL			sh_get_char(char *buff)
 {
 	char		tmp;
 	int			cnt;
+	int			ret;
 
 	cnt = 0;
 	if (read(STDIN_FILENO, &tmp, 1) == -1)
 		return (read_error());
-	ft_strncpy(buff, &tmp, 1);
-	buff++;
+	ft_strncpy(buff++, &tmp, 1);
 	if (tmp == 27)
 	{
-		while (cnt < 4 && read(STDIN_FILENO, &tmp, 1) != -1  &&
-			   tmp != '\n' && !ft_isalpha((int)tmp))
+		while (cnt < 4 && (ret = read(STDIN_FILENO, &tmp, 1) != -1)  &&
+			tmp != '\n' && !ft_isalpha((int)tmp))
 		{
-			log_dbg1("capt %c", tmp);
-			ft_strncpy(buff, &tmp, 1);
-			buff++;
+			ft_strncpy(buff++, &tmp, 1);
 			cnt++;
 		}
-		if (cnt < 4 && tmp != '\n')
+		if (cnt < 4)
 			ft_strncpy(buff, &tmp, 1);
-		else if (!ft_isalpha((int) tmp))
+		else if (ret == -1)
 			return (read_error());
 	}
 	return (true);
