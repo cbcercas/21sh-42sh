@@ -21,6 +21,7 @@ static t_token_type	g_grammar2[19][19][1] =
 	[E_TOKEN_NONE] =
 	{
 		[E_TOKEN_BLANK] = {1},
+		[E_TOKEN_NEWLINE] = {1},
 		[E_TOKEN_WORD] = {1},
 		[E_TOKEN_SQUOTE] = {1},
 		[E_TOKEN_BQUOTE] = {1},
