@@ -15,7 +15,8 @@
 BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 {
 	(void)key;
-	(void)input;
+	while (input && (input = input->next))
+		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 	get_windows(72);
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	tputs("\n", 0, &ft_putc_in);

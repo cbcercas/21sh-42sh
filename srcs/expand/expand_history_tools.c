@@ -12,21 +12,14 @@
 
 #include <expand/expand.h>
 
-/*
-** @brief Calculate the size of a string until a `!` is reached
-**
-** @param str The string to be measured
-**
-** @return Returns the lenght of str from begining to a `!`. If no ! is
-** found, The result returned is the full lenght of str
-*/
-
-int			ft_strlen_before(const char *str)
+static size_t strlen_alpha_after(const char *str)
 {
-	int		i;
+	size_t		i;
 
 	i = 0;
-	while (str[i] && str[i] != '!')
+	if (*str != '!')
+		return (0);
+	while (str[i] && (str[i] != ' ' || ( i != 0 && str[i - 1] == '\\')))
 		i++;
 	return (i);
 }
@@ -40,9 +33,9 @@ int			ft_strlen_before(const char *str)
 ** @return Returns the number's lenght
 */
 
-int			ft_numlen(const char *str)
+size_t			ft_numlen(const char *str)
 {
-	int		i;
+	size_t		i;
 
 	i = 0;
 	if (str[i] == '-')
@@ -60,23 +53,19 @@ int			ft_numlen(const char *str)
 ** @return TODO
 */
 
-int			expand_hist_digit(t_exp *exp, int *i, int len)
+BOOL expand_hist_digit(t_input *inp, size_t *i)
 {
-	int		nb;
-	int		size;
-	char	*rep;
+	int			nb;
+	size_t		size;
 
-	size = ft_numlen(&exp->str->s[*i + 1]);
-	if ((nb = ft_atoi(&exp->str->s[*i + 1])) != 0)
+	size = ft_numlen(&inp->str->s[*i + 1]);
+	if ((nb = ft_atoi(&inp->str->s[*i + 1])) != 0)
 	{
-		if ((rep = (char *)sh_history_get_at(nb)) != NULL)
-		{
-			exp->str->s = ft_replace_exp(exp->str->s, rep, len, size + 1);
-			*i += ft_strlen(rep);
-			return (1);
-		}
+		if (expand_hist_replace(inp, (char *)sh_history_get_at(nb), i, size + 1))
+			return (true);
+		ft_dprintf(STDERR_FILENO, "\n%s: !%d: event not found\n", PROGNAME, nb);
 	}
-	return (0);
+	return (false);
 }
 
 /*
@@ -87,18 +76,50 @@ int			expand_hist_digit(t_exp *exp, int *i, int len)
 ** @return TODO
 */
 
-int			expand_hist_alpha(t_exp *exp, int *i, int len)
+BOOL expand_hist_alpha(t_input *inp, size_t *i)
 {
-	char	*hist;
-	int		nb;
+	size_t		len;
+	char		*search;
 
-	nb = ft_strlen(&exp->str->s[*i + 1]) + 1;
-	hist = NULL;
-	if ((hist = (char *)sh_history_get_search(&exp->str->s[*i + 1])) != NULL)
+	len = strlen_alpha_after(&inp->str->s[*i]);
+	if ((search = ft_strsub(&inp->str->s[*i], 1, len)))
 	{
-		exp->str->s = ft_replace_exp(exp->str->s, hist, len, nb);
-		*i += ft_strlen(hist);
-		return (1);
+		if (expand_hist_replace(inp, (char *) sh_history_get_search(search), i,
+								len + 1))
+		{
+			ft_strdel(&search);
+			return (true);
+		}
+		ft_dprintf(STDERR_FILENO, "\n%s: !%s: event not found\n", PROGNAME,
+				search);
 	}
-	return (0);
+	ft_strdel(&search);
+	return (false);
+}
+
+t_input *expand_hist_find(t_input *input, size_t *i)
+{
+	while (input)
+	{
+		if (!input->str)
+		{
+			input = input->next;
+			continue ;
+		}
+		*i = 0;
+		while (input->str->s[*i] && (input->str->s[*i] != '!' ||
+				(*i != 0 && input->str->s[(*i - 1)] == '\\') ||
+				!input->str->s[*i + 1]))
+		{
+			if (input->str->s[*i] == '\'')
+				*i = find_last_quote(&input->str->s[*i]) + *i;
+			else
+				*i = *i + 1;
+		}
+		if (*i != input->str->len)
+			return (input);
+		input = input->next;
+	}
+	*i = 0;
+	return (NULL);
 }

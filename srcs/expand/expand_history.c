@@ -12,31 +12,44 @@
 
 #include <expand/expand.h>
 
+size_t		find_last_quote(char *s)
+{
+	size_t		i;
+
+	i = 0;
+	if (!s || !*s)
+		return (0);
+	i++;
+	while(s[i] && s[i] != '\'')
+		i++;
+	if (s[i])
+		i++;
+	return (i);
+}
+
 /*
 ** @brief Expands the history
 ** @param exp TODO
 ** @return TODO
 */
 
-static BOOL	expand_hist_loop(t_exp *exp, int *len, char **rep, int *i)
+static BOOL expand_hist_loop(size_t *i, t_input *inp)
 {
-	*len = ft_strlen_before(exp->str->s);
-	if (exp->str->s[*i] == '\\')
+	if (inp->str->s[*i] == '\\')
 		*i += 2;
-	else if (exp->str->s[*i] == '!' && exp->str->s[*i + 1] == '!')
+	else if (inp->str->s[*i] == '!' && inp->str->s[*i + 1] == '!')
 	{
-		if ((*rep = (char *)sh_history_get_at(-2)) != NULL)
-			exp->str->s = ft_replace_exp(exp->str->s, *rep, *len, 2);
-		*i += ft_strlen(*rep);
-	}
-	else if (exp->str->s[*i] == '!' && (ft_atoi(&exp->str->s[*i + 1]) != 0))
-	{
-		if (expand_hist_digit(exp, i, *len) == 0)
+		if (!expand_hist_replace(inp, (char *)sh_history_get_at(-1), i, 2))
 			return (false);
 	}
-	else if (exp->str->s[*i] == '!' && ft_isalpha(exp->str->s[*i + 1]))
+	else if (inp->str->s[*i] == '!' && (ft_atoi(&inp->str->s[*i + 1]) != 0))
 	{
-		if (expand_hist_alpha(exp, i, *len) == 0)
+		if (!expand_hist_digit(inp, i))
+			return (false);
+	}
+	else if (inp->str->s[*i] == '!' && ft_isalpha(inp->str->s[*i + 1]))
+	{
+		if (!expand_hist_alpha(inp, i))
 			return (false);
 	}
 	else
@@ -44,17 +57,24 @@ static BOOL	expand_hist_loop(t_exp *exp, int *len, char **rep, int *i)
 	return (true);
 }
 
-t_exp		*expand_hist(t_exp *exp)
-{
-	int		i;
-	int		len;
-	char	*rep;
 
-	i = 0;
-	while (exp->str->s[i])
+BOOL	expand_hist(t_input *input)
+{
+	size_t	i;
+
+	while (input)
 	{
-		if (!expand_hist_loop(exp, &len, &rep, &i))
-			return (NULL);
+		i = 0;
+		if (!(input = expand_hist_find(input, &i)))
+			break;
+		while (input->str->s[i])
+		{
+			if (input->str->s[i] == '\'')
+				i = find_last_quote(&input->str->s[i]) + i;
+			else if (input->str && !expand_hist_loop(&i, input))
+				return (false);
+		}
+		input = input->next;
 	}
-	return (exp);
+	return (true);
 }

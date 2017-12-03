@@ -44,20 +44,19 @@ const char	*sh_history_get_search(const char *line)
 {
 	t_array	*hists;
 	t_hist	*h;
-	int		search;
+	ssize_t	search;
 
 	if (!line || !ft_strlen(line) || !(hists = sh_history_get())
 		|| !hists->used)
 		return (NULL);
 	if ((t_hist *)array_get_at(hists, 0))
 	{
-		log_info("Hist");
 		if (!(search = hists->used - 1))
 			return (NULL);
-		while (search != -1 && (h = (t_hist *)array_get_at(hists, search))
+		while (search != -1 && (h = (t_hist *)array_get_at(hists, (size_t)search))
 			&& !ft_strnequ(line, h->cmd, ft_strlen(line)))
 			search--;
-		if (h && ft_strnequ(line, h->cmd, ft_strlen(line)))
+		if (h && (search != -1))
 			return (h->cmd);
 	}
 	return (NULL);

@@ -77,7 +77,8 @@ void					sh_expand_destroy(t_array *array_exp);
 ** @brief Functions used to expand history (!1 for example)
 */
 
-t_exp					*expand_hist(t_exp *exp);
+BOOL		expand_hist(t_input *str);
+size_t		find_last_quote(char *s);
 
 /*
 ** @file ft_replace.c
@@ -103,10 +104,13 @@ void					expand_print_token(t_token_type type);
 ** @brief Tools used by the expand module for the history
 */
 
-int						ft_strlen_before(const char *str);
-int						ft_numlen(const char *str);
-int						expand_hist_digit(t_exp *exp, int *i, int len);
-int						expand_hist_alpha(t_exp *exp, int *i, int len);
+size_t ft_strlen_before(const char *str);
+size_t						ft_numlen(const char *str);
+
+t_bool expand_hist_digit(t_input *str, size_t *i);
+
+BOOL expand_hist_alpha(t_input *inp, size_t *i);
+t_input					*expand_hist_find(t_input *input, size_t *i);
 
 /*
 ** @file expand_quote.c
@@ -126,5 +130,8 @@ BOOL					expand_antislash(t_string *string, t_token_type type);
 void					expand_merge_tokens_word(t_array *array_exp);
 void					expand_merge_now(t_exp *tmp1, t_exp *tmp2,
 												t_array *array_exp, size_t *i);
+
+BOOL					expand_hist_replace(t_input *input, char *hist,
+											size_t *index, size_t len_rep);
 
 #endif

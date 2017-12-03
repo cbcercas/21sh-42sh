@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
+#include <expand/expand.h>
 
 static BOOL		exec_ctrl_j2(t_input *input)
 {
@@ -41,13 +42,29 @@ static BOOL		exec_ctrl_j2(t_input *input)
 	return (false);
 }
 
+static BOOL			exec_ctr_j_hist(t_input *input)
+{
+	while (input->prev && !input->prev->lock)
+		input = input->prev;
+	default_terminal_mode();
+	if (!expand_hist(input))
+		get_windows(72);
+	return (true);
+}
+
 BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 {
 	t_input		*tmp;
+	size_t		tmp_i;
 
 	(void)key;
 	if (get_select()->is)
 		return (false);
+	while (input && (input = input->next))
+		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
+	input = get_windows(0)->cur;
+	if (expand_hist_find(input_back_to_writable(input), &tmp_i))
+		return (exec_ctr_j_hist(input));
 	if (MAX_NB_INPUT < count_nb_input(input_get_cur_head()))
 	{
 		tputs(tgetstr("vb", NULL), 0, &ft_putc_in);
@@ -55,13 +72,8 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 		return (false);
 	}
 	tmp = input_get_last(input);
-	if (tmp->str && tmp->str->len && tmp->str->s[tmp->str->len - 1] == '\\')
+	if (tmp && tmp->str && tmp->str->len && tmp->str->s[tmp->str->len - 1] == '\\')
 		return (exec_ctrl_j2(input));
-	while (input->next)
-	{
-		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
-		input = input->next;
-	}
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	tputs("\n", 0, &ft_putc_in);
 	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
