@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <expand/expand.h>
+#include <core/color.h>
 
 size_t		find_last_quote(char *s)
 {
@@ -57,6 +58,23 @@ static BOOL expand_hist_loop(size_t *i, t_input *inp)
 	return (true);
 }
 
+static void		expand_hist_aff(void)
+{
+	t_input		*inp;
+
+	inp = input_get_cur_head();
+	while (inp)
+	{
+		if (inp->str)
+		{
+			if (get_data(NULL) && get_data(NULL)->opts.color)
+				ft_dprintf(STDIN_FILENO, "%s%s%s\n", C_YELLOW, inp->str->s, C_NONE);
+			else
+				ft_dprintf(STDIN_FILENO, "%s\n", inp->str->s);
+		}
+		inp = inp->next;
+	}
+}
 
 BOOL	expand_hist(t_input *input)
 {
@@ -76,5 +94,6 @@ BOOL	expand_hist(t_input *input)
 		}
 		input = input->next;
 	}
+	expand_hist_aff();
 	return (true);
 }
