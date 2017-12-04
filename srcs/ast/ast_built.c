@@ -13,6 +13,14 @@
 #include <ast/ast.h>
 #include <core/color.h>
 
+/*
+** @brief swap_lim swap limits
+**
+** @param lim Contains virtual limit and start pos
+**
+** @return Returns the Abstract Syntax Tree
+*/
+
 static t_lim			swap_lim(t_lim lim)
 {
 	t_lim	ret;
@@ -42,28 +50,28 @@ t_btree					*ast_built(t_btree **ast,
 						t_array *expands, t_lim lim, int prio)
 {
 	t_exp	*exp;
-	t_lim	lim_left;
+	t_lim	lim_right;
 
-	lim_left = lim;
+	lim_right = lim;
 	exp = NULL;
 	log_dbg1("AST: BUILT-START prio:%d cnt:%d lim:%d", prio, lim.cnt, lim.lim);
 	if (prio != 4 && prio != 3)
 		exp = ast_search(expands, &lim, prio);
 	else
-		*ast = ast_built2(ast, expands, swap_lim(lim_left), prio);
+		*ast = ast_built2(ast, expands, swap_lim(lim_right), prio);
 	if (lim.cnt >= 0 && exp && lim.cnt > lim.lim)
 	{
-		lim_left.lim = lim.cnt;
-		btree_insert_data(ast, ast_new_cmd(expands, lim.cnt, lim_left.lim + 1,\
-					return_type(prio, exp->type, expands, lim_left.lim)), \
+		lim_right.lim = lim.cnt;
+		btree_insert_data(ast, ast_new_cmd(expands, lim.cnt, lim_right.lim + 1,\
+					return_type(prio, exp->type, expands, lim_right.lim)), \
 				(int (*)(void*, void*))&ast_cmp);
 		(*ast)->left = ast_built(&(*ast)->left, expands, lim, prio);
 		if (lim.cnt >= 0)
 			(*ast)->right = ast_built(&(*ast)->right, expands,
-									lim_left, prio + 1);
+									lim_right, prio + 1);
 	}
 	else if (prio != 4)
-		*ast = ast_built(ast, expands, lim_left, prio + 1);
+		*ast = ast_built(ast, expands, lim_right, prio + 1);
 	log_dbg1("AST: BUILT-END prio:%d cnt:%d lim:%d", prio, lim.cnt, lim.lim);
 	return (*ast);
 }

@@ -12,6 +12,21 @@
 
 #include <ast/ast.h>
 
+/*
+** @brief ast_search2 Searches for the next token with priority
+**
+** @param expands Contains the token array
+** @param prio Priority for tokens
+**
+** 1 = ";" or "||" or "&&",\n
+** 2 = "|",\n
+** 3 = redirections,\n
+** 4 = "&".
+** @param lim Contains the virtual limit
+**
+** @return Returns token or NULL.
+*/
+
 t_exp				*ast_search2(t_array *expands, t_lim *lim, int prio)
 {
 	t_exp		*exp;
@@ -23,12 +38,12 @@ t_exp				*ast_search2(t_array *expands, t_lim *lim, int prio)
 		lim->cnt++;
 		if (lim->cnt < (ssize_t)expands->used)
 			exp = (t_exp *)array_get_at(expands, (size_t)lim->cnt);
-		if (exp && ast_prio(exp->type, prio, lim->cnt, expands))
+		if (exp && ast_associate_prio(exp->type, prio, lim->cnt, expands))
 			break ;
 	}
 	if (exp && exp->str)
 		log_dbg1("AST: SEARCH: find: cnt(%d)(%s)", lim->cnt, exp->str->s);
-	if (exp && !(ast_prio(exp->type, prio, lim->cnt, expands)))
+	if (exp && !(ast_associate_prio(exp->type, prio, lim->cnt, expands)))
 		return (NULL);
 	return (exp);
 }
@@ -99,6 +114,22 @@ static t_lim		ast_built_word_plus(t_array *expands, t_lim lim)
 		lim.cnt--;
 	return (lim);
 }
+
+/*
+** @brief ast_built2 Builds the ast recursively for word and redirection
+**
+** @param ast Contains the abstract syntax tree
+** @param expands Contains the token array
+** @param lim Contains virtual limit and start pos
+** @param prio Priority for tokens
+**
+** 1 = ";" or "||" or "&&",\n
+** 2 = "|",\n
+** 3 = redirections,\n
+** 4 = "&".
+**
+** @return Returns the Abstract Syntax Tree
+*/
 
 t_btree				*ast_built2(t_btree **ast, t_array *expands,
 									t_lim lim, int prio)

@@ -17,7 +17,7 @@
 /*
 ** @brief Frees cmd content and cmd
 **
-** @param cmd the cmd to be freed and delefffffdrfgd
+** @param cmd the cmd to be freed and deleted
 **
 ** @return void
 */
@@ -32,7 +32,6 @@ void			ast_del_cmd(t_cmd *cmd)
 		cmd->av = NULL;
 	}
 	ft_secu_free(cmd);
-	cmd = NULL;
 }
 
 /*
@@ -61,7 +60,7 @@ char			*ast_aff(t_cmd *cmd)
 }
 
 /*
-** @brief Searches for the next token with greater priority (?TODO gpouyat)
+** @brief Searches for the previous token with greater priority
 **
 ** @param expands Contains the token array
 ** @param prio Priority for tokens
@@ -84,7 +83,7 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 	{
 		lim->cnt--;
 		exp = (t_exp *)array_get_at(expands, (size_t)lim->cnt);
-		if (exp && ast_prio(exp->type, prio, lim->cnt, expands))
+		if (exp && ast_associate_prio(exp->type, prio, lim->cnt, expands))
 			break ;
 	}
 	return (exp);
@@ -130,7 +129,7 @@ static BOOL		ast_new_init(t_array *expands, ssize_t start, ssize_t end,
 ** @param end Contains position of the last token
 ** @param type Contains the type of current token
 **
-** @return Returns new cmd or NULL TODO NORM HERE
+** @return Returns new cmd or NULL
 */
 
 t_cmd			*ast_new_cmd(t_array *expands, ssize_t start, ssize_t end,

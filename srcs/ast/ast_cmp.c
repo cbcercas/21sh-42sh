@@ -33,7 +33,7 @@
 ** Return values can be any token type defined in lexer.h
 */
 
-t_token_type	return_type(int prio, t_token_type type, t_array *expands, \
+t_token_type	return_type(int prio, t_token_type type, t_array *expands,
 								ssize_t cnt)
 {
 	if (type == E_TOKEN_NEWLINE)
@@ -69,8 +69,8 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands, \
 ** @return Returns true if token and priority match, else returns false
 */
 
-BOOL			ast_prio(t_token_type type, int prio, ssize_t cnt,
-						t_array *expands)
+BOOL			ast_associate_prio(t_token_type type, int prio, ssize_t cnt,
+								t_array *expands)
 {
 	if (prio == 1 && (is_sepa(type)))
 		return (true);
@@ -92,7 +92,7 @@ BOOL			ast_prio(t_token_type type, int prio, ssize_t cnt,
 ** @return Returns the priority
 */
 
-static int		ast_val_cmp(t_token_type type)
+static int		ast_get_prio(t_token_type type)
 {
 	if (is_sepa(type))
 		return (1);
@@ -116,7 +116,7 @@ static int		ast_val_cmp(t_token_type type)
 
 int				ast_cmp(t_cmd *s1, t_cmd *s2)
 {
-	if (ast_val_cmp(s1->type) <= ast_val_cmp(s2->type))
+	if (ast_get_prio(s1->type) <= ast_get_prio(s2->type))
 		return (0);
 	return (-1);
 }

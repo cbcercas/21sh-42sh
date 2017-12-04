@@ -103,8 +103,8 @@ t_btree					*ast_built(t_btree **ast, t_array *expands, t_lim lim,
 
 t_token_type			return_type(int prio, t_token_type type,
 									t_array *expands, ssize_t cnt);
-BOOL					ast_prio(t_token_type type, int prio, ssize_t cnt,
-								t_array *expands);
+BOOL					ast_associate_prio(t_token_type type, int prio,
+										ssize_t cnt, t_array *expands);
 int						ast_cmp(t_cmd *s1, t_cmd *s2);
 
 /*
