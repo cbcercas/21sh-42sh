@@ -85,9 +85,9 @@ t_array		*get_vars(void)
 }
 
 /*
-** @brief Clones two t_arrays
-** @param vars TODO
-** @param tmp TODO
+** @brief Clones two t_array vars
+** @param vars source
+** @param tmp destination
 ** @return Returns the cloned t_array
 */
 

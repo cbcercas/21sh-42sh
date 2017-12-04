@@ -62,7 +62,7 @@ char	*split_var_value(char const *env)
 **
 ** @param name Name of entry
 ** @param value Value of entry
-** @param is_export Always set to true (?TODO)
+** @param is_export if is tmp var is_export is false, true otherwise
 **
 ** @return Returns the t_env modified
 */

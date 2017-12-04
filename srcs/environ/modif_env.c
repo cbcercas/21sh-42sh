@@ -21,7 +21,7 @@
 ** @param vars The t_array containing the vars
 ** @param name The name to create/modify
 ** @param value The value to add/modify
-** @param is_export Always set to true (TODO?)
+** @param is_export if is tmp var is_export is false, true otherwise
 **
 ** @return Returns the new t_env
 */
@@ -61,6 +61,9 @@ t_env	*del_var(t_array *vars, char const *name)
 	size_t		i;
 
 	i = 0;
+	e = NULL;
+	if (!vars)
+		return (NULL);
 	while (i < vars->used)
 	{
 		e = (t_env *)array_get_at(vars, i);
@@ -70,7 +73,7 @@ t_env	*del_var(t_array *vars, char const *name)
 	}
 	if (i >= vars->used)
 		log_warn("Environ: can't find \"%s\" variables ", name);
-	else
+	else if (e)
 	{
 		ft_strdel(&e->name);
 		ft_strdel(&e->value);
