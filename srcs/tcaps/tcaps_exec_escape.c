@@ -52,7 +52,7 @@ BOOL exec_escape(const t_key *key, t_input *input)
 	(void)input;
 	if (!(wd = get_windows(0)))
 		return (false);
-	if ((wd->autocomp && wd->autocomp->active))
+	if (wd->autocomp)
 		return (exec_escape_select());
 	return (false);
 }
