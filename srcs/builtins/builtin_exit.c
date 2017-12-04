@@ -14,14 +14,10 @@
 #include <core/color.h>
 
 /*
-** @brief Exits the program properly with a given status
-**
-** @param data The shell's data
-**
-** @param arg The status
+** @brief display logo of Federation coalition
 */
 
-void	sh_print_fed3(void)
+static void	sh_print_fed3(void)
 {
 	ft_printf("          ▐████   █████                                  █████`"
 					"  █████\n");
@@ -50,7 +46,11 @@ void	sh_print_fed3(void)
 	ft_printf("                                       ▀█\n");
 }
 
-void	sh_print_fed2(void)
+/*
+** @brief display logo of Federation coalition
+*/
+
+static void	sh_print_fed2(void)
 {
 	ft_printf("          ████¬ ▄                                              "
 					",█████\n");
@@ -64,7 +64,11 @@ void	sh_print_fed2(void)
 					"▄████▀ ╒████~\n");
 }
 
-void	sh_print_fed1(void)
+/*
+** @brief display logo of Federation coalition
+*/
+
+static void	sh_print_fed1(void)
 {
 	ft_printf("%s", C_BLUE);
 	ft_printf("                                  ,,▄▄▄▄▄▄▄▄,,\n");
@@ -90,10 +94,18 @@ void	sh_print_fed1(void)
 					" ▓████¬\n");
 	sh_print_fed2();
 	sh_print_fed3();
-	ft_printf("%s\t\t\t\tVive la Federation !\n", C_NONE);
+	ft_printf("%s\t\t\t\tGlory to the Federation !\n", C_NONE);
 }
 
-void	sh_exit(t_sh_data *data, char **arg)
+/*
+** @brief Exits the program properly with a given status
+**
+** @param data The shell's data
+**
+** @param arg The status
+*/
+
+void		sh_exit(t_sh_data *data, char **arg)
 {
 	int		status;
 
@@ -126,7 +138,7 @@ void	sh_exit(t_sh_data *data, char **arg)
 ** @param arg The args passed to exit (The exit status)
 */
 
-int		builtin_exit(t_sh_data *data, char **arg)
+int			builtin_exit(t_sh_data *data, char **arg)
 {
 	sh_exit(data, arg);
 	return (EXIT_FAILURE);

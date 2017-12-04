@@ -139,7 +139,7 @@ t_array	*sh_history_init(t_array *hists)
 	if (stat(history_get_path(NULL), &bufstat))
 		return (NULL);
 	if (bufstat.st_size >= HISTORY_FILE_MAX)
-		fd = sh_history_init_choice(fd, bufstat.st_size);
+		fd = sh_history_init_choice(fd, (int)bufstat.st_size);
 	if (fd == -1)
 		return (NULL);
 	log_dbg3("HISTORY init: choice = %d", get_history_init_choice(-1));

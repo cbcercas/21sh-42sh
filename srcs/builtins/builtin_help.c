@@ -12,6 +12,13 @@
 
 #include <builtins/builtin_help.h>
 
+/*
+** @brief The function display default help
+** @param data The shell data used throughout the program
+**
+** @return Returns the ret value of echo
+*/
+
 void	sh_help_default(t_sh_data *data)
 {
 	(void)data;
@@ -40,6 +47,10 @@ disabled.\n", C_GREEN, C_NONE);
 																		C_NONE);
 }
 
+/*
+** @brief The function display help of help (Inception help!!)
+*/
+
 void	sh_help_help(void)
 {
 	ft_printf("%shelp%s [pattern]\n", CL_RED, C_NONE);
@@ -49,6 +60,10 @@ void	sh_help_help(void)
 	ft_printf(" matching");
 	ft_printf(" pattern,\notherwise a list of the builtins is printed.\n");
 }
+
+/*
+** @brief The function display help of echo
+*/
 
 void	sh_help_echo(void)
 {
@@ -72,6 +87,10 @@ void	sh_help_echo(void)
 	ft_printf("%s\\\\%s\tbackslash\n", C_RED, C_NONE);
 }
 
+/*
+** @brief The function display bonus
+*/
+
 void	sh_help_bonus(void)
 {
 	ft_printf("\n\t%sBONUS - Bonuses for %s%s\n", C_UNDER, PROGNAME, C_NONE);
@@ -90,8 +109,17 @@ void	sh_help_bonus(void)
 	ft_printf("\t\t%s*-v mode verbose!!\n", C_YELLOW);
 	ft_printf("\t\t%s*builtins chdir ;) \n", C_GREEN);
 	ft_printf("\t\t%s*Builtin help\n", C_GREEN);
-	ft_printf("\t\t%s*MANY COLORS(Make, Prompt, env, help, export)\n", CL_RED);
+	ft_printf("\t\t%s*MANY COLORS(Make, Prompt, env, help, export, verb, hist)"
+					"\n", CL_RED);
 }
+
+/*
+** @brief The function called when help is executed
+** @param data The shell data used throughout the program
+** @param argv The args passed to help
+**
+** @return Returns the ret value of help
+*/
 
 int		sh_builtin_help(t_sh_data *data, char **args)
 {

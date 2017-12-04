@@ -12,6 +12,14 @@
 
 #include <builtins/builtin_chdir.h>
 
+/*
+** @brief join current path with dir not absolute
+**
+** @param dir The path not absolute
+**
+** @return
+*/
+
 static void		join_current(char **dir)
 {
 	char	*current;
@@ -23,6 +31,16 @@ static void		join_current(char **dir)
 		*dir = ft_strjoincl(current, *dir, 3);
 	}
 }
+
+/*
+** @brief function check path for CDPATH
+**
+** @param cdpath is the cdpath environ variable
+** @param dir The path not absolute
+** @param indicator whether or not the path is displayed.
+**
+** @return Returns true if everything is ok. False otherwise
+*/
 
 static BOOL		change_in_abs_loop(char **cdpath, char **dir, BOOL *disp)
 {
@@ -45,6 +63,15 @@ static BOOL		change_in_abs_loop(char **cdpath, char **dir, BOOL *disp)
 	}
 	return (false);
 }
+
+/*
+** @brief change path to the absolute path
+**
+** @param dir The path not absolute
+** @param disp indicator whether or not the path is displayed.
+**
+** @return Returns true if everything is ok. False otherwise
+*/
 
 BOOL			change_in_abs(char **dir, BOOL *disp)
 {

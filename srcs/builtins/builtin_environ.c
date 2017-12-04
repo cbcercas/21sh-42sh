@@ -12,6 +12,14 @@
 
 #include <builtins/builtin_env.h>
 
+/*
+** @brief The function called when setenv is executed
+** @param data The shell data used throughout the program
+** @param argv The args passed to echo
+**
+** @return Returns the ret value of echo
+*/
+
 int		sh_builtin_setenv(t_sh_data *data, char **args)
 {
 	int		i;
@@ -37,6 +45,14 @@ int		sh_builtin_setenv(t_sh_data *data, char **args)
 	}
 	return (0);
 }
+
+/*
+** @brief The function called when unsetenv is executed
+** @param data The shell data used throughout the program
+** @param argv The args passed to echo
+**
+** @return Returns the ret value of echo
+*/
 
 int		sh_builtin_unsetenv(t_sh_data *data, char **args)
 {

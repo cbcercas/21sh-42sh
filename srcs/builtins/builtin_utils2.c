@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_utils.c                                   :+:      :+:    :+:   */
+/*   builtins_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -37,11 +37,6 @@ t_builtin	*get_builtin(char *name)
 }
 
 /*
-** @brief TODO
-** @param arg TODO
-** @return TODO
-*/
-
 char		*sh_find_quote_end(char *arg)
 {
 	int		lvl;
@@ -56,7 +51,7 @@ char		*sh_find_quote_end(char *arg)
 		{
 			lvl -= 1;
 			if (lvl)
-				cur_q = (cur_q == '"') ? '`' : '"';
+				cur_q = (cur_q == '"') ? (char)'`' : (char)'"';
 		}
 		else if ((*arg == '"' || *arg == '`') && lvl)
 		{
@@ -70,12 +65,6 @@ char		*sh_find_quote_end(char *arg)
 	return ((*arg) ? arg : NULL);
 }
 
-/*
-** @brief TODO
-** @param arg TODO
-** @return TODO
-*/
-
 char		*sh_extract_str(char *arg)
 {
 	char	*str;
@@ -84,7 +73,7 @@ char		*sh_extract_str(char *arg)
 	q_end = sh_find_quote_end(arg);
 	str = ft_strsub(arg, 1, q_end - arg - 1);
 	return (str);
-}
+}*/
 
 /*
 ** @brief Checks if given name is a builtin

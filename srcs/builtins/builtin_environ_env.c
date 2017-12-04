@@ -23,7 +23,7 @@ extern int g_optind;
 ** @return Returns the return value ret
 */
 
-int		builtins_env_over(t_array *env_local, int ret)
+int				builtins_env_over(t_array *env_local, int ret)
 {
 	array_destroy(&env_local, del_env);
 	return (ret);
@@ -37,14 +37,14 @@ int		builtins_env_over(t_array *env_local, int ret)
 ** @return Returns the return value of env based on success of operation or not
 */
 
-int		builtin_env_opt(char **argv)
+static int		builtin_env_opt(char **argv)
 {
 	int opt;
 	int tmp;
 
 	ft_getopt_reset();
 	tmp = 0;
-	while ((opt = ft_getopt(ft_tablen(argv), argv, "ui")) != -1)
+	while ((opt = ft_getopt(((int)ft_tablen(argv)), argv, "ui")) != -1)
 	{
 		if (opt == 'u')
 			break ;
@@ -67,7 +67,7 @@ int		builtin_env_opt(char **argv)
 }
 
 /*
-** @brief Calls for the appropriate option
+** @brief create new local env
 **
 ** @param opt Options passed to env
 ** @param argv The options passed to env under string form
@@ -75,14 +75,14 @@ int		builtin_env_opt(char **argv)
 ** @return Returns the env
 */
 
-t_array	*sh_get_env_builtins(int opt, char **argv)
+static t_array	*sh_get_env_builtins(int opt, char **argv)
 {
 	t_array *tmp;
 
 	if ((tmp = array_create(sizeof(t_env))) == NULL)
 	{
-		ft_dprintf(STDERR_FILENO, "Environ: can't initialise local environment\
-				variables\n");
+		ft_dprintf(STDERR_FILENO, "Environ: can't initialise local environment"
+				"variables\n");
 		exit(EXIT_FAILURE);
 	}
 	if (opt == 'i')
@@ -102,7 +102,7 @@ t_array	*sh_get_env_builtins(int opt, char **argv)
 ** @return Returns the ret value based on a successful operation or not
 */
 
-int		sh_builtin_env(t_sh_data *data, char **argv)
+int				sh_builtin_env(t_sh_data *data, char **argv)
 {
 	int		opt;
 	t_array *env_local;

@@ -21,7 +21,7 @@ extern int g_optind;
 ** @return Returns true if everything is ok. False otherwise
 */
 
-static t_bool	sh_test_path(char **dir, char *arg)
+static BOOL	sh_test_path(char **dir, char *arg)
 {
 	struct stat	bufstat;
 
@@ -46,11 +46,13 @@ static t_bool	sh_test_path(char **dir, char *arg)
 ** @brief Gets the path
 **
 ** @param arg The arg passed at cd
+** @param dir The path
+** @param disp indicator whether or not the path is displayed.
 **
-** @return Returns the path to cd into
+** @return Returns true if everything is ok. False otherwise
 */
 
-static	BOOL	sh_get_path(char *arg, char **dir, BOOL *disp)
+static BOOL	sh_get_dir(char *arg, char **dir, BOOL *disp)
 {
 	if (!arg)
 	{
@@ -71,13 +73,22 @@ static	BOOL	sh_get_path(char *arg, char **dir, BOOL *disp)
 	return (false);
 }
 
-static char		*sh_do_chdir_init(char *arg)
+/*
+** @brief This function get dir, change in absolute path, test right and
+** expands dots
+**
+** @param arg The args passed at cd
+**
+** @return Returns dir or NULL otherwise
+*/
+
+static char	*sh_do_chdir_init(char *arg)
 {
 	BOOL	disp;
 	char	*dir;
 
 	disp = false;
-	if (!sh_get_path(arg, &dir, &disp))
+	if (!sh_get_dir(arg, &dir, &disp))
 		return (NULL);
 	dir = ft_strdup(dir);
 	if (!change_in_abs(&dir, &disp))
@@ -97,13 +108,15 @@ static char		*sh_do_chdir_init(char *arg)
 }
 
 /*
-** @brief This function is the one that does the chdir and does all the tests
+** @brief This function is the one that does the chdir
+**
 ** @param arg The args passed at cd
 ** @param opt The options
+**
 ** @return Returns the status of cd
 */
 
-static int		sh_do_chdir(char *arg, int opt)
+static int	sh_do_chdir(char *arg, int opt)
 {
 	char	*dir;
 	char	*cur;
@@ -128,13 +141,15 @@ static int		sh_do_chdir(char *arg, int opt)
 }
 
 /*
-** @brief The function called when cd is typed.
+** @brief The function called when cd is typed. it handler options
+**
 ** @param data The shell data used throughout the program
 ** @param arg The args passed to cd
+**
 ** @return Returns the ret value of cd
 */
 
-int				sh_chdir(t_sh_data *data, char **arg)
+int			sh_chdir(t_sh_data *data, char **arg)
 {
 	int		opt;
 	int		ret;

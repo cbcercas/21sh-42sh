@@ -20,19 +20,19 @@ extern int g_optind;
 ** @param src1 String to modify
 ** @param src2 String used to modify
 ** @param index Where to start
-** @param size how long should it replace for (TODO: Rephrase that)
+** @param size how long should it replace
 **
 ** @return Returns the modified string
 */
 
-char	*ft_replace(char *src1, char *src2, int index, int size)
+static char	*ft_replace(char *src1, char *src2, int index, int size)
 {
 	char	*begin;
 	char	*end;
 	char	*ret;
 
-	begin = ft_strnew(index);
-	begin = ft_strncpy(begin, src1, index);
+	begin = ft_strnew((size_t)index);
+	begin = ft_strncpy(begin, src1, (size_t)index);
 	end = ft_strjoin(src2, &src1[index + size]);
 	ret = ft_strjoin(begin, end);
 	free(begin);
@@ -42,13 +42,13 @@ char	*ft_replace(char *src1, char *src2, int index, int size)
 }
 
 /*
-** @brief (TODO)
-** @param big (TODO)
-** @param little (TODO)
-** @return (TODO)
+** @brief search occurence (little) in string (big)
+** @param big string where this function search
+** @param little is the occurence
+** @return index of big where start little
 */
 
-int		ft_index_strstr(const char *big, const char *little)
+static int	ft_index_strstr(const char *big, const char *little)
 {
 	unsigned int	i;
 	unsigned int	j;
@@ -81,7 +81,7 @@ int		ft_index_strstr(const char *big, const char *little)
 ** @return Returns the parsed string
 */
 
-char	*echo_parse(const char *src)
+static char	*echo_parse(const char *src)
 {
 	char		*ret;
 	int			index;
@@ -105,12 +105,15 @@ char	*echo_parse(const char *src)
 ** @brief Prints what the user asked
 **
 ** @param arg The args passed to echo
-** @param flag (TODO)
+** @param flag is option
+** -n flag[0] = 1 , 0 otherwise
+** -e flag[1] = 1 , 0 or 2 otherwise
+** -E flag[1] = 2 , 0 or 1 otherwise
 **
 ** @return Void
 */
 
-void	echo_print(char **arg, char flag[2])
+static void	echo_print(char **arg, const char flag[2])
 {
 	unsigned int	i;
 	char			*tmp;
@@ -140,7 +143,7 @@ void	echo_print(char **arg, char flag[2])
 ** @return Returns the ret value of echo
 */
 
-int		sh_echo(t_sh_data *data, char **argv)
+int			sh_echo(t_sh_data *data, char **argv)
 {
 	int		opt;
 	char	flag[2];
@@ -148,7 +151,7 @@ int		sh_echo(t_sh_data *data, char **argv)
 	(void)data;
 	ft_bzero(flag, 2);
 	ft_getopt_reset();
-	while ((opt = ft_getopt(ft_tablen(argv), argv, "Een")) != -1)
+	while ((opt = ft_getopt(((int)ft_tablen(argv)), argv, "Een")) != -1)
 	{
 		if (opt == 'n')
 			flag[0] = 1;
@@ -166,7 +169,3 @@ int		sh_echo(t_sh_data *data, char **argv)
 	ft_getopt_reset();
 	return (((opt != '?') ? 0 : 1));
 }
-/*
-**For flag var in function sh_echo
-**0 => n,  1 => e
-*/

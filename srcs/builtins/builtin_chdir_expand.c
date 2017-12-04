@@ -13,11 +13,11 @@
 #include <builtins/builtin_chdir.h>
 
 /*
-** @brief Finds the starting '..' (TODO)
+** @brief Finds the starting '..'
 **
 ** @param path The path string to search
 **
-** @return Returns the pointer to the '..' (?)
+** @return Returns the pointer to the '..'
 */
 
 static char		*find_start_ddots(char *path)
@@ -87,8 +87,10 @@ static char		*remove_backslash(char *path)
 
 /*
 ** @brief Expands the path
-** @param path (TODO)
-** @return (TODO)
+**
+** @param path not expand
+**
+** @return path expand
 */
 
 char			*expand_path(char **path)

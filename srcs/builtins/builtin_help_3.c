@@ -12,6 +12,13 @@
 
 #include <builtins/builtin_help.h>
 
+/*
+** @brief The function called when help is the next of sh_builtin_help()
+** @param argv The args passed to help
+**
+** @return Returns the ret value of help
+*/
+
 int			sh_builtin_help_helper(char **args)
 {
 	if (ft_strequ(args[1], "bonus"))
@@ -26,6 +33,10 @@ int			sh_builtin_help_helper(char **args)
 	}
 	return (0);
 }
+
+/*
+** @brief The function display help history
+*/
 
 void		sh_help_history(void)
 {
@@ -54,6 +65,10 @@ void		sh_help_history(void)
 	sh_help_history_helper();
 }
 
+/*
+** @brief The function display help history following
+*/
+
 void		sh_help_history_helper(void)
 {
 	ft_printf("\tAppend the history lines not already read from the history "
@@ -78,6 +93,10 @@ void		sh_help_history_helper(void)
 					". If not, then the value of the HISTFILE variable is "
 					"used.\n");
 }
+
+/*
+** @brief The function display help pwd
+*/
 
 void		sh_help_pwd(void)
 {

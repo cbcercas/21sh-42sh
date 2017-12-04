@@ -13,7 +13,7 @@
 #include <builtins/builtin_help.h>
 
 /*
-**TODO: ADD MORE COLORS
+** @brief The function display help exit
 */
 
 void	sh_help_exit(void)
@@ -24,6 +24,10 @@ void	sh_help_exit(void)
 executed.\n");
 	ft_printf("A trap on EXIT is executed before the shell terminates.\n");
 }
+
+/*
+** @brief The function display help cd
+*/
 
 void	sh_help_cd(void)
 {
@@ -45,6 +49,10 @@ void	sh_help_cd(void)
 	ft_printf("changed, non-zero otherwise.\n");
 }
 
+/*
+** @brief The function display help setenv
+*/
+
 void	sh_help_setenv(void)
 {
 	if (get_data(NULL) && get_data(NULL)->opts.color)
@@ -56,6 +64,10 @@ void	sh_help_setenv(void)
 new one\n");
 }
 
+/*
+** @brief The function display help unsetenv
+*/
+
 void	sh_help_unsetenv(void)
 {
 	if (get_data(NULL) && get_data(NULL)->opts.color)
@@ -66,6 +78,10 @@ void	sh_help_unsetenv(void)
 	ft_printf("If name doesnt exists, nothing happens\n");
 	ft_printf("Optional arguments shall be passed to utility.\n");
 }
+
+/*
+** @brief The function display help env
+*/
 
 void	sh_help_env(void)
 {

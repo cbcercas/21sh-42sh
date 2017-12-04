@@ -42,6 +42,12 @@ static void	builtin_export_print(t_array *vars, BOOL color)
 	}
 }
 
+/*
+** @brief execute option -p
+** @param vars The local env
+** @param color is indicator, if it's true the color is print
+*/
+
 static void	builtin_export_p(char **argv, BOOL color)
 {
 	t_env	*var;
@@ -145,7 +151,7 @@ int			builtin_export(t_sh_data *data, char **argv)
 
 	(void)data;
 	ft_getopt_reset();
-	opt = ft_getopt(ft_tablen(argv), argv, "pn:");
+	opt = ft_getopt(((int)ft_tablen(argv)), argv, "pn:");
 	if (opt == 'p')
 		builtin_export_p(&argv[g_optind], data->opts.color);
 	else if (opt == 'n')

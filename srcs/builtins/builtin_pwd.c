@@ -26,9 +26,9 @@ static int			pwd_usage(void)
 }
 
 /*
-** @brief TODO
-** @param pwd_err TODO
-** @return TODO
+** @brief get the path logical
+** @param pwd_err is set to true, if there is something wrong
+** @return path logical
 */
 
 static char			*getcwd_logical(BOOL *pwd_err)
@@ -50,7 +50,7 @@ static char			*getcwd_logical(BOOL *pwd_err)
 
 /*
 ** @brief Prints the pwd if everything is ok
-** @param physical Is the pwd from a function or from the env
+** @param physical Is true if -P otherwise is false
 ** @return Returns a ret value
 */
 
@@ -88,7 +88,7 @@ int					sh_builtin_pwd(t_sh_data *data, char **argv)
 	(void)data;
 	ft_getopt_reset();
 	physical = false;
-	while ((ch = ft_getopt(ft_tablen(argv), argv, "LPh")) != -1)
+	while ((ch = ft_getopt(((int)ft_tablen(argv)), argv, "LPh")) != -1)
 	{
 		if (ch == 'L')
 		{

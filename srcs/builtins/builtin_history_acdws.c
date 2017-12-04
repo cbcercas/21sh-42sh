@@ -13,8 +13,11 @@
 #include <builtins/builtin_history.h>
 
 /*
-** @brief (TODO)
-** @param str TODO
+** @brief th option -a  Append the ``new'' history lines
+**(history lines entered since the beginning
+**of the current bash session) to the history file.
+**
+** @param str is filename
 */
 
 void	sh_history_builtin_a(char *str)
@@ -45,7 +48,7 @@ void	sh_history_builtin_a(char *str)
 }
 
 /*
-** @brief TODO
+** @brief Clear the history list by deleting all the entries.
 */
 
 void	sh_history_builtin_c(void)
@@ -59,8 +62,9 @@ void	sh_history_builtin_c(void)
 }
 
 /*
-** @brief TODO
-** @param arg TOOD
+** @brief th option -d Delete the history entry at position offset.
+**
+** @param arg The args passed to history (offset)
 */
 
 void	sh_history_builtin_d(const char *arg)
@@ -74,14 +78,16 @@ void	sh_history_builtin_d(const char *arg)
 		return ;
 	if (ft_isdigit(arg[0]))
 		nb = ft_atoi(arg) - 1;
-	if (nb == -1 || sh_history_remove_at(nb) == NULL)
+	if (nb == -1 || sh_history_remove_at((size_t)nb) == NULL)
 		ft_printf("%s: history: %s: history position out of range\n",
 																PROGNAME, arg);
 }
 
 /*
-** @brief TODO
-** @param path TODO
+** @brief th option -w  Write the current history to the history file,
+** overwriting the historyfile's contents.
+**
+** @param path is filename
 */
 
 void	sh_history_builtin_w(char *path)
@@ -110,25 +116,35 @@ void	sh_history_builtin_w(char *path)
 }
 
 /*
-** @brief TODO
-** @param argv TODO
-** @param index TODO
+** @brief th option -s Store the args in the history list as a single entry.
+** The last  command in the history list is removed before the args are added.
+**
+** @param path is filename
 */
 
 void	sh_history_builtin_s(char **argv, int index)
 {
-	char *cmd_join;
+	char	*cmd_join;
+	char	*tmp;
 
 	cmd_join = NULL;
 	while (argv[index] && ft_isalnum(argv[index][0]))
 	{
-		if (cmd_join)
-			cmd_join = ft_strjoincl(cmd_join, " ", 1);
-		cmd_join = ft_strjoincl(cmd_join, argv[index], 1);
+		if (cmd_join && !(cmd_join = ft_strjoincl(cmd_join, " ", 1)))
+			exit(EXIT_FAILURE);
+		if ((tmp = ft_strchr(argv[index], '\n')))
+		{
+			*tmp = 0;
+			cmd_join = ft_strjoincl(cmd_join, argv[index], 1);
+			cmd_join = ft_strjoincl(cmd_join, "\\\n", 1);
+			tmp++;
+			cmd_join = ft_strjoincl(cmd_join, tmp, 1);
+		}
+		else
+			cmd_join = ft_strjoincl(cmd_join, argv[index], 1);
 		index++;
 	}
-	if (cmd_join)
-	{
-		sh_history_set_new(&cmd_join);
-	}
+	if (cmd_join && sh_history_get())
+		sh_history_remove_at(sh_history_get()->used - 1);
+	sh_history_set_new(&cmd_join);
 }

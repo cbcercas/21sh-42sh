@@ -81,6 +81,7 @@ void				sh_history_clear_len(char *buff, char *result, BOOL fail);
 */
 
 t_array				*sh_history_init(t_array *hists);
+int					sh_history_init_one(t_array *hists, int fd);
 int					get_history_init_choice(int choice);
 
 /*

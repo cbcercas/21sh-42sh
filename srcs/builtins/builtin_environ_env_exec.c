@@ -28,7 +28,6 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 	if (!av || !av[0])
 		return (0);
 	envtab = var_to_tab(envs);
-	cmd = NULL;
 	*get_cmd_ret() = 2;
 	if ((cmd = get_filename(av[0])))
 	{

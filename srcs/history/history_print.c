@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <history/history.h>
+#include <core/color.h>
 
 /*
 ** @brief Prints the history entries and their number
@@ -27,7 +28,10 @@ void	sh_history_print(void)
 	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
-		ft_printf("%zu %s\n", i + 1, h->cmd);
+		if (get_data(NULL) && get_data(NULL)->opts.color)
+			ft_printf("%s %zu %s %s\n", C_MAGENTA, i + 1, C_NONE, h->cmd);
+		else
+			ft_printf("%zu %s\n", i + 1, h->cmd);
 		i++;
 	}
 }

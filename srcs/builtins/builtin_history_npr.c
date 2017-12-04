@@ -11,50 +11,48 @@
 /* ************************************************************************** */
 
 #include <builtins/builtin_history.h>
+#include <core/color.h>
 
 /*
-** @brief TODO
-** @param path TODO
+** @brief th option -r Read the contents of the history
+** file and use them as the current history.
+**
+** @param path is filename
 */
 
 void		sh_history_builtin_r(char *path)
 {
 	t_array	*hists;
 	t_hist	*h;
-	char	*line;
 	int		fd;
-	size_t	i;
 
-	i = 0;
 	if ((fd = open(history_get_path(path), O_RDWR | O_CREAT, 0644)) == -1)
 		return ;
 	if ((hists = sh_history_get()) != NULL)
 	{
-		while (get_next_line(fd, &line) && i < 1000)
+		while (sh_history_init_one(hists, fd))
 		{
-			if ((h = sh_history_new(line)))
-			{
-				h->session = true;
-				array_push(hists, (void *)h);
-				ft_memdel((void **)&h);
-			}
-			i++;
+			h = (t_hist *)array_get_at(hists, hists->used - 1);
+			h->session = true;
+			if (hists->used >= HISTORY_MAX)
+				sh_history_remove_at(0);
 		}
 	}
 	close(fd);
-	return ;
 }
 
 /*
-** @brief TODO
-** @param path TODO
+** @brief th option -n read the history lines not already read from the history
+** file into the current history list. These are lines appended to the history
+** file since the beginning of the current session.
+**
+** @param path is filename
 */
 
 void		sh_history_builtin_n(char *path)
 {
 	t_array	*hists;
 	t_hist	*h;
-	char	*line;
 	int		fd;
 	size_t	i;
 
@@ -63,33 +61,26 @@ void		sh_history_builtin_n(char *path)
 		return ;
 	if ((hists = sh_history_get()) != NULL)
 	{
-		while (get_next_line(fd, &line) && i < 1000)
+		while (fd != -1 && i < hists->used)
 		{
-			if (i >= hists->used && (h = sh_history_new(line)))
-			{
-				h->session = true;
-				array_push(hists, (void *)h);
-				ft_memdel((void **)&h);
-			}
+			h = (t_hist *)array_get_at(hists, i);
+			if (h && h->session == true)
+				ft_dprintf(fd, "%s\n", h->cmd);
 			i++;
 		}
 	}
 	close(fd);
-	return ;
 }
 
 /*
-** @brief TODO
-** @param result TODO
-** @param index TODO
-** @param arg TODO
+** @brief Display -p option ret
+** @param result result of history -p
+** @param index index in arg
+** @param arg passed at history -p
 */
 
-static void	sh_history_builtin_p_helper(char *result, int index, char **arg)
+static void	sh_history_builtin_p_helper(int index, char **arg)
 {
-	if (result)
-		ft_printf("%s\n", result);
-	ft_strdel(&result);
 	index = 2;
 	while (arg && arg[index])
 	{
@@ -99,31 +90,29 @@ static void	sh_history_builtin_p_helper(char *result, int index, char **arg)
 }
 
 /*
-** @brief TODO
-** @param arg TODO
+** @brief th option -p Perform history substitution on the following args
+** and display the result on the standard output.
+** Does not store the results in the history list.
+** Each arg must be quoted to disable normal history expansion.
+**
+** @param arg passed at history -p
 */
 
 void		sh_history_builtin_p(char **arg)
 {
 	int		index;
-	char	*result;
 
 	index = 0;
-	result = NULL;
-	array_pop(sh_history_get(), NULL);
+	if (sh_history_get())
+		sh_history_remove_at(sh_history_get()->used - 1);
 	while (arg && arg[index])
 	{
 		if (arg[index][0] == '!' && arg[index][1])
 		{
-			ft_strdel(&result);
 			ft_printf("%s: event not found\n", arg[index]);
 			return ;
 		}
-		if (result)
-			result = ft_strjoincl(result, " ", 1);
-		result = ft_strjoincl(result, arg[index], 1);
 		index++;
 	}
-	sh_history_builtin_p_helper(result, index, arg);
-	return ;
+	sh_history_builtin_p_helper(index, arg);
 }

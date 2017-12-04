@@ -63,7 +63,7 @@ int			sh_history(t_sh_data *data, char **argv)
 	(void)data;
 	ret = 0;
 	ft_getopt_reset();
-	opt = ft_getopt(ft_tablen(argv), argv, "cd:arwsnp");
+	opt = ft_getopt(((int)ft_tablen(argv)), argv, "cd:arwsnp");
 	if (opt == 'c')
 		sh_history_builtin_c();
 	else if (opt == 'd')
