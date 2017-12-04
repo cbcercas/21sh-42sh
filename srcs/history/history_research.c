@@ -32,7 +32,7 @@ void		history_research_prompt(char *buff, t_input *result, BOOL fail)
 	if (buff)
 		ft_putstr_fd(buff, STDIN_FILENO);
 	ft_putstr_fd("_", STDIN_FILENO);
-	ft_putstr_fd("  $>%s", STDIN_FILENO);
+	ft_putstr_fd("  $>", STDIN_FILENO);
 	if (result)
 		redraw_input(result);
 }
