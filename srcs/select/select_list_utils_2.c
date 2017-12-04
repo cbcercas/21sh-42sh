@@ -38,7 +38,7 @@ t_sel_word	*word_get_current(void)
 	if (!word)
 	{
 		word = data->words;
-		word->cursor = true;
+		word->cursor = true; // TODO if data->word existe pas ?
 	}
 	return (word);
 }
