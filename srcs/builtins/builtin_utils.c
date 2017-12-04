@@ -27,7 +27,7 @@ t_array		*get_builtins(void)
 		{
 			log_fatal("Builtins: Can't initialise builtins array");
 			ft_dprintf(STDERR_FILENO, "Builtins: Can't initialize Builtins");
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (e);

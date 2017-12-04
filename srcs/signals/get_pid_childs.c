@@ -44,7 +44,7 @@ t_array		*get_pids_child(void)
 			log_fatal("get_pids_child: can't initialise pids child array");
 			ft_dprintf(STDERR_FILENO, "get_pids_child:"
 					" can't initialise pids childs variables\n");
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (e);

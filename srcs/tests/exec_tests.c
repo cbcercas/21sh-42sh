@@ -28,12 +28,12 @@ t_array		init_tests_exec(char *input)
 	if (lexer_init(&tokens) == NULL)
 	{
 		ft_dprintf(2, "Error initialising tokens");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	else if (automaton_init(&automaton) == NULL)
 	{
 		ft_dprintf(2, "Error Initialising automaton");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	else if (lexer_lex(&tokens, input))
 	{
@@ -45,7 +45,7 @@ t_array		init_tests_exec(char *input)
 	{
 		ft_dprintf(2, "Fatal -c error : Couldn't Catch the error.\n");
 		ft_dprintf(2, "Maybe arg is NULL\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -71,7 +71,7 @@ void		sh_testing_exec(char *const *av, char **environ)
 	print_verb(av[0]);
 	tokens = init_tests_exec(av[0]);
 	if (expand_init(&expands) == NULL)
-		exit(1);
+		exit(EXIT_FAILURE);
 	expand(&tokens, &expands);
 	ast_create(&ast, &expands);
 	exec_exec(get_data(NULL), ast);

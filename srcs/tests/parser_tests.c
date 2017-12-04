@@ -40,7 +40,7 @@ void			sh_testing_parser(char *const *av)
 			ft_printf("Parser say OK\n");
 			exit(0);
 		}
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	else
 		print_exit_error("Fatal testing error: Couldn't catch the error.", 1);

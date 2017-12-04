@@ -57,7 +57,7 @@ t_array		*get_envs(void)
 			log_fatal("Environ: can't initialise environment array");
 			ft_dprintf(STDERR_FILENO, "Environ: can't initialise environment\
 					variables\n");
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (e);
@@ -78,7 +78,7 @@ t_array		*get_vars(void)
 		{
 			log_fatal("Variables: can't initialise variable array");
 			ft_dprintf(2, "Variables: can't initialise variables\n");
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (e);

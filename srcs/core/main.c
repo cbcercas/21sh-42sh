@@ -105,7 +105,7 @@ int					main(int ac, char *const *av, char **environ)
 	sh_arrays_init(&exec_dat.tokens, &exec_dat.expand);
 	get_data(&data);
 	if (!sh_init(get_data(NULL), ac, av, environ))
-		exit(1);
+		exit(EXIT_FAILURE);
 	while (!stop)
 		stop = sh_loop(data, &exec_dat, &ret);
 	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);

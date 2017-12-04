@@ -83,7 +83,7 @@ t_array	*sh_get_env_builtins(int opt, char **argv)
 	{
 		ft_dprintf(STDERR_FILENO, "Environ: can't initialise local environment\
 				variables\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	if (opt == 'i')
 		return (sh_builtin_env_add(tmp, argv));

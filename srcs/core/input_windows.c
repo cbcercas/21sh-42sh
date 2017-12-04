@@ -60,7 +60,7 @@ t_window			*get_windows(int rst)
 	if (!(wd))
 	{
 		if (!(wd = ft_memalloc(sizeof(*wd))))
-			exit(1);
+			exit(EXIT_FAILURE);
 		rst = 77;
 	}
 	if (rst >= 40)

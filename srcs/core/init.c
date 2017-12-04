@@ -149,14 +149,14 @@ t_sh_data			*sh_init(t_sh_data *data, int ac, char *const *av,
 		ft_dprintf(2, "%s: Error when getting current working directory\n",\
 		PROGNAME);
 		sh_deinit(data);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	sh_check_env(environ);
 	if ((tgetent(STDIN_FILENO, get_var_value(get_envs(), "TERM"))) != 1)
 	{
 		ft_dprintf(2, "%s: Error on tgetent\n", PROGNAME);
 		sh_deinit(data);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	return (data);
 }

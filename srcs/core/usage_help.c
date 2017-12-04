@@ -69,5 +69,5 @@ void		sh_usage_help(void)
 void		sh_usage_help_exit(void)
 {
 	sh_usage_help();
-	exit(1);
+	exit(EXIT_FAILURE);
 }

@@ -50,12 +50,12 @@ t_array		init_tests_exp(char *input)
 	if (lexer_init(&tokens) == NULL)
 	{
 		ft_dprintf(2, "Error initialising tokens");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	else if (automaton_init(&automaton) == NULL)
 	{
 		ft_dprintf(2, "Error Initialising automaton");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	else if (lexer_lex(&tokens, input) == E_RET_LEXER_OK)
 	{
@@ -66,7 +66,7 @@ t_array		init_tests_exp(char *input)
 	else
 	{
 		ft_dprintf(2, "Fatal testing error: Couldn't catch the error.");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -87,7 +87,7 @@ void		sh_testing_expand(char *const *av, char **environ)
 	sh_history_init(sh_history_get());
 	tokens = init_tests_exp(av[0]);
 	if (expand_init(&expand_array) == NULL)
-		exit(1);
+		exit(EXIT_FAILURE);
 	if (expand(&tokens, &expand_array) == E_RET_EXPAND_OK)
 		expand_print_test(&expand_array);
 	sh_history_save();

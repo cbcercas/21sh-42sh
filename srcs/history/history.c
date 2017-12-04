@@ -27,7 +27,7 @@ t_array		*sh_history_get(void)
 		{
 			log_fatal("Environ: can't initialise history array");
 			ft_dprintf(STDERR_FILENO, "Environ: can't initialise hsitory");
-			exit(1);
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (e);
