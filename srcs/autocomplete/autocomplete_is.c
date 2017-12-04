@@ -55,7 +55,7 @@ BOOL	autocomplete_is_path(t_input *input)
 	if (!input || !input->str || !input->str->s)
 		return (false);
 	tmp = find_word_cur(input);
-	if (tmp && ft_strchr(tmp, '/'))
+	if (tmp && (ft_strchr(tmp, '/') || *tmp == '.'))
 		return (true);
 	if (autocomplete_is_command(input) == true)
 		return (false);
