@@ -12,6 +12,16 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief   push fd in fd list (less)
+** @param  item    struct of command
+** @param  fds     The list of fd
+** @param  fd1      the first fd
+** @param  fd2      the second fd
+**
+** @return
+*/
+
 static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 {
 	if (fd2 == -2)
@@ -34,6 +44,16 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 		exec_list_push(&fds[STDIN_FILENO], (size_t)fd2);
 	}
 }
+
+/*
+** @brief   push fd in fd list
+** @param  item    struct of command
+** @param  fds     The list of fd
+** @param  fd1      the first fd
+** @param  fd2      the second fd
+**
+** @return
+*/
 
 void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
 											t_list **fds)

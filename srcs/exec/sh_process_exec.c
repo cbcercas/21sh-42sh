@@ -22,6 +22,7 @@
 **
 ** @param  data    The data of shell
 ** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     the list of fd
 **
 ** @return     -1 on error or unknow TOKEN
 */
@@ -54,6 +55,15 @@ int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 	else
 		return (sh_exec_simple(data, ((t_cmd *)ast->item), fds));
 }
+
+/*
+** @brief         create and initialize list of fd
+**
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+**
+** @return     -1 on error or unknow TOKEN
+*/
 
 int		exec_exec(t_sh_data *data, t_btree *ast)
 {

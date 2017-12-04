@@ -12,6 +12,14 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief   create pipe and display if there is error
+**
+** @param  tube   the pipe
+**
+** @return EXIT_SUCCESS if everything is ok, EXIT_FAILURE otherwise
+*/
+
 int	sh_pipe(int tube[2])
 {
 	if (pipe(tube) != 0)

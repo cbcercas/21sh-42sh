@@ -155,12 +155,12 @@ int		sh_pipe(int tube[2]);
 /*
 ** @file   sh_open.c
 **
-** @brief  TODO
+** @brief  functions to open in exec redirection
 */
 
 int		sh_open_exec(t_btree *ast);
 
-BOOL check_fd(int fd, t_list **fds);
+BOOL	check_fd(int fd, t_list **fds);
 
 /*
 ** @file   sh_ret.c

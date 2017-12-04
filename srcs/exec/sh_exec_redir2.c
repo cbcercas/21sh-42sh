@@ -12,6 +12,15 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief   find and open first fd
+** @param  fd1      the first fd
+** @param  pos      index arguments
+** @param  item    struct of command
+**
+** @return true if everything is ok, false otherwise
+*/
+
 static BOOL		sh_exec_greatand_open_fd1(int *fd1, t_cmd *item, int *pos)
 {
 	if (!item || ft_tablen(item->av) < 2)
@@ -27,7 +36,18 @@ static BOOL		sh_exec_greatand_open_fd1(int *fd1, t_cmd *item, int *pos)
 	return (true);
 }
 
-static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item, t_list **fds)
+/*
+** @brief   find, test and add the second fd in fd list
+** @param  item    struct of command
+** @param  fds     The list of fd
+** @param  fd1      the first fd
+** @param  fd2      the second fd
+**
+** @return true if everything is ok, false otherwise
+*/
+
+static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item,
+										t_list **fds)
 {
 	int		pos;
 
@@ -52,6 +72,15 @@ static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item, t_list **fds
 				item->av[pos + 1]);
 	return (true);
 }
+
+/*
+** @brief   push fd in fd list and execute
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+**
+** @return ret of exec
+*/
 
 int				sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
 {

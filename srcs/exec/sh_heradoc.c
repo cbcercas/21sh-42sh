@@ -12,6 +12,15 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief   find fd
+** @param  item is the struct of commands
+** @param  fds     The list of fd
+** @param  fd      the fd
+**
+** @return true if everything is ok, false otherwise
+*/
+
 static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd, t_list **fds)
 {
 	if (ft_isdigit(item->av[0][0]))
@@ -26,6 +35,14 @@ static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd, t_list **fds)
 	return (true);
 }
 
+/*
+** @brief   init heredoc, create pipe and fork
+** @param  pipe     the pipe
+** @param  pid      the pid of fork
+**
+** @return return the word
+*/
+
 static int		heredoc_init(int pipe[2], int *pid)
 {
 	if (sh_pipe(pipe) != 0)
@@ -38,12 +55,26 @@ static int		heredoc_init(int pipe[2], int *pid)
 	return (EXIT_SUCCESS);
 }
 
+/*
+** @brief   find the word "stop"
+** @param  item is the struct of commands
+**
+** @return return the word
+*/
+
 static char		*sh_heredoc_search_end(t_cmd *item)
 {
 	if (ft_isdigit(item->av[0][0]))
 		return (item->av[2]);
 	return (item->av[1]);
 }
+
+/*
+** @brief   wait, restore signal, and close pipe
+** @param  pipe     the pipe
+**
+** @return ret of exec
+*/
 
 static int		sh_heredoc_father(int pipe[2])
 {
@@ -53,6 +84,15 @@ static int		sh_heredoc_father(int pipe[2])
 	return (*get_cmd_ret());
 }
 
+/*
+** @brief   exec heredoc
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+**
+** @return ret of exec
+*/
+
 int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	int		fd;
@@ -61,7 +101,7 @@ int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 
 	if (!ast || heredoc_init(pipe, &pid) == EXIT_FAILURE)
 		return (*get_cmd_ret());
-	if (!sh_heredoc_get_fd(((t_cmd *) ast->item), &fd, NULL))
+	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), &fd, NULL))
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (!pid)
 	{
@@ -75,7 +115,7 @@ int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	{
 		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing)
 						: 0);
-		exec_list_push(&fds[STDIN_FILENO], pipe[END]);
+		exec_list_push(&fds[STDIN_FILENO], (size_t)pipe[END]);
 		sh_process_exec(data, ast->left, fds);
 		exit(EXIT_FAILURE);
 	}

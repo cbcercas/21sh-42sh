@@ -12,6 +12,15 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief          display error of sh_exex_creat_backup_fd
+**
+** @param  fds     the list of fd
+** @param  cnt     the index in the list fd
+**
+** @return         true
+*/
+
 static BOOL	sh_exex_creat_backup_fd_error(t_list **fds, int cnt)
 {
 	ft_dprintf(STDERR_FILENO, "%s: Error dup", PROGNAME);
@@ -19,6 +28,15 @@ static BOOL	sh_exex_creat_backup_fd_error(t_list **fds, int cnt)
 		log_fatal("Error dup dup(%d)", (int)fds[cnt]->content_size);
 	return (true);
 }
+
+/*
+** @brief          create list of backup fd expect close fd
+**
+** @param  fds     the list of fd
+** @param  backup  the list of fd backup
+**
+** @return         false if everything is ok, false otherwise
+*/
 
 BOOL		sh_exex_creat_backup_fd(t_list **backup, t_list **fds)
 {
@@ -44,6 +62,14 @@ BOOL		sh_exex_creat_backup_fd(t_list **backup, t_list **fds)
 	}
 	return (false);
 }
+
+/*
+** @brief          restore fd from fd backup
+**
+** @param  backup  the list of fd backup
+**
+** @return         false if everything is ok, false otherwise
+*/
 
 BOOL		sh_exec_restore_fd(t_list **backup)
 {
@@ -73,6 +99,15 @@ BOOL		sh_exec_restore_fd(t_list **backup)
 	}
 	return (false);
 }
+
+/*
+** @brief          create list of backup fd only for close fd
+**
+** @param  fds     the list of fd
+** @param  backup  the list of fd backup
+**
+** @return         false if everything is ok, false otherwise
+*/
 
 BOOL		sh_exex_creat_backup_fd_close(t_list **backup, t_list **fds)
 {

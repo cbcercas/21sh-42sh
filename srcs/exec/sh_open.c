@@ -12,7 +12,15 @@
 
 #include <exec/exec.h>
 
-BOOL			check_fd_search(t_list **fds, int fd_search)
+/*
+** @brief   search fd in fd list
+** @param  fd_search   The fd to look for
+** @param  fds         the list of fd
+**
+** @return true if fd_search is find, false otherwise
+*/
+
+static BOOL		check_fd_search(t_list **fds, int fd_search)
 {
 	int		cnt;
 
@@ -28,6 +36,14 @@ BOOL			check_fd_search(t_list **fds, int fd_search)
 	return (false);
 }
 
+/*
+** @brief   check if fd is open or if fd is on fds list + print errror
+** @param  fd_search   The fd to look for
+** @param  fds         the list of fd
+**
+** @return true if fd is open, false otherwise
+*/
+
 BOOL			check_fd(int fd, t_list **fds)
 {
 	struct stat test;
@@ -37,6 +53,13 @@ BOOL			check_fd(int fd, t_list **fds)
 	ft_dprintf(2, "%s: %d: bad file descriptor\n", PROGNAME, fd);
 	return (false);
 }
+
+/*
+** @brief   find fd in heredoc
+** @param item   The struct of command
+**
+** @return true return fd find
+*/
 
 static int		here_find_fd(t_cmd *item)
 {
@@ -56,6 +79,14 @@ static int		here_find_fd(t_cmd *item)
 	}
 	return (STDOUT_FILENO);
 }
+
+/*
+** @brief   open fd for exec redirection
+**
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+**
+** @return fd find
+*/
 
 int				sh_open_exec(t_btree *ast)
 {

@@ -13,9 +13,9 @@
 #include <exec/exec.h>
 
 /*
-** @brief TODO
-** @param head TODO
-** @param fd  TODO
+** @brief Add new fd in list
+** @param head the head of the list
+** @param fd  fd to be store
 */
 
 void	exec_list_push(t_list **head, size_t fd)
@@ -32,9 +32,7 @@ void	exec_list_push(t_list **head, size_t fd)
 }
 
 /*
-** @brief Useless function ? TODO
-** @param no Useless ?
-** @param thing Useless ?
+** @brief function for ft_lstdel
 */
 
 void	exec_list_nothing(void *no, size_t thing)

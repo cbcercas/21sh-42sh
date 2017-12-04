@@ -13,11 +13,11 @@
 #include <exec/exec.h>
 
 /*
-** @brief Checks if value is set
+** @brief Checks if arg is set only
 **
 ** @param s vars
 **
-** @return TODO?
+** @return true if is only set or false otherwise
 */
 
 static BOOL	is_only_set(char **s)
@@ -35,11 +35,12 @@ static BOOL	is_only_set(char **s)
 }
 
 /*
-** @brief TODO
-** @param env_save TODO
-** @param tmp TODO
-** @param i TODO
-** @param ret The return value
+** @brief restore env
+** @param env_save the tmp env
+** @param tmp arguments passed by user
+** @param i index in arguments (tmp)
+** @param ret The return value of exec
+**
 ** @return The return value
 */
 
@@ -70,10 +71,10 @@ static int	sh_exec_local_var_ret(t_array *env_save, char **tmp, int i, int ret)
 }
 
 /*
-** @brief TODO
-** @param only_set TODO
-** @param item TODO
-** @param i TODO
+** @brief set the env
+** @param only_set if it is true the env is only set not exec
+** @param item struct of commands
+** @param i index in arguments
 */
 
 static void	sh_exec_local_set(BOOL only_set, t_cmd *item, int i)
@@ -93,10 +94,10 @@ static void	sh_exec_local_set(BOOL only_set, t_cmd *item, int i)
 }
 
 /*
-** @brief Executes local var functions
-** @param data TODO
-** @param item TODO
-** @param fds TODO
+** @brief Executes local var
+** @param  data    The data of shell
+** @param item struct of command
+** @param fds list of fd
 ** @return Return value based on success or failure
 */
 

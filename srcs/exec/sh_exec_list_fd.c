@@ -13,10 +13,9 @@
 #include <exec/exec.h>
 
 /*
-** @brief TODO
-** @param pipe TODO
-** @param fds TODO
-** @return TODO
+** @brief manage fd from list, do dup
+** @param fds list of fd
+** @return true if everything is ok, false otherwise
 */
 
 BOOL	exec_list_fd_dup(t_list **fds)
@@ -37,10 +36,9 @@ BOOL	exec_list_fd_dup(t_list **fds)
 }
 
 /*
-** @brief TODO
-** @param pipe TODO
-** @param fds TODO
-** @return TODO
+** @brief destroy all list
+** @param fds list of fd
+** @return
 */
 
 void	exec_list_fd_destroy(t_list **fds)
@@ -57,8 +55,9 @@ void	exec_list_fd_destroy(t_list **fds)
 }
 
 /*
-** @brief TODO
-** @param fds TODO
+** @brief manage fd from list, do close
+** @param fds list of fd
+** @return
 */
 
 void	exec_list_fd_close(t_list **fds)
@@ -74,6 +73,12 @@ void	exec_list_fd_close(t_list **fds)
 		tmp = tmp->next;
 	}
 }
+
+/*
+** @brief close all fd from list
+** @param fds list of fd
+** @return
+*/
 
 void	exec_list_fd_all_close(t_list **fds)
 {

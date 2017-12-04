@@ -12,6 +12,13 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief   call fork and store pid in pid list
+** @param  type     the type of fork
+**
+** @return same return of fork
+*/
+
 pid_t	sh_fork(t_pid_type type)
 {
 	pid_t	pid;

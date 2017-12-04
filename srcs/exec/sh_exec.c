@@ -13,12 +13,10 @@
 #include <exec/exec.h>
 
 /*
-** @brief Executes the parent process (?TODO)
+** @brief Executes the parent process
 **
-** @param fds TODO
-** @param path TODO
-** @param pipe TODO
-** @param pid TODO
+** @param path is the absolute path of bin or NULL otherwise
+** @param pid the pid of command or -1 otherwise
 **
 ** @return Returns the ret value based on success or not
 */
@@ -37,8 +35,8 @@ static int	sh_exec_parent(char *path, int pid)
 /*
 ** @brief          exec a system command
 **
-** @param  data    The data of shell
-** @param  item    The item in AST
+** @param  item    the struct of commande
+** @param  fds     the list of fd
 **
 ** @return         status set by wait
 */

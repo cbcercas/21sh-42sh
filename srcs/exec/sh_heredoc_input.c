@@ -12,6 +12,14 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief   input for heredoc
+** @param  end   The word "stop"
+** @param  pipe_fd     The fd of pipe
+**
+** @return ret of exec
+*/
+
 void		mini_input(char *end, int pipe_fd)
 {
 	char *line;

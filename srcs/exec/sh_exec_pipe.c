@@ -12,16 +12,36 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief execute pipe in the right hand side of the ast.
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+** @param pipe     The pipe between left and right
+**
+** @return
+*/
+
 static void		sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds,
 								int *pipe)
 {
 	close(pipe[START]);
 	if (fds[STDIN_FILENO])
 		ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing);
-	exec_list_push(&fds[STDIN_FILENO], pipe[END]);
+	exec_list_push(&fds[STDIN_FILENO], (size_t)pipe[END]);
 	sh_process_exec(data, ast->right, fds);
 	exit(EXIT_SUCCESS);
 }
+
+/*
+** @brief execute pipe in the left hand side of the ast.
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+** @param pipe     The pipe between left and right
+**
+** @return
+*/
 
 static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds,
 								int *pipe)
@@ -29,10 +49,19 @@ static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds,
 	close(pipe[END]);
 	if (fds[STDOUT_FILENO])
 		ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing);
-	exec_list_push(&fds[STDOUT_FILENO], pipe[START]);
+	exec_list_push(&fds[STDOUT_FILENO], (size_t)pipe[START]);
 	sh_process_exec(data, ast->left, fds);
 	exit(EXIT_SUCCESS);
 }
+
+/*
+** @brief execute pipe
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+**
+** @return The list of pid's fork
+*/
 
 static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 {
@@ -60,6 +89,15 @@ static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 	return (pids);
 }
 
+/*
+** @brief call sh_exec_pipe2 and wait pid
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+**
+** @return The return of commands
+*/
+
 int				sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 {
 	t_list		*pids;
@@ -69,7 +107,7 @@ int				sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
 	log_info("MULTI WAIT");
 	while (pids)
 	{
-		sh_wait(pids->content_size, 0);
+		sh_wait((int)pids->content_size, 0);
 		pids = pids->next;
 	}
 	restore_sigwinch();

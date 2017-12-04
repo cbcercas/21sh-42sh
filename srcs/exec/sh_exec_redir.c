@@ -12,6 +12,15 @@
 
 #include <exec/exec.h>
 
+/*
+** @brief   find, test and add the second fd in fd list (redir great)
+** @param  item    struct of command
+** @param  fds     The list of fd
+** @param  fd      the first fd
+**
+** @return true if everything is ok, false otherwise
+*/
+
 static BOOL		redir_great(t_cmd *item, t_list **fds, int fd)
 {
 	if (ft_isdigit(item->av[0][0]))
@@ -20,7 +29,7 @@ static BOOL		redir_great(t_cmd *item, t_list **fds, int fd)
 		{
 			(fds[ft_atoi(item->av[0])] ? ft_lstdel(&fds[ft_atoi(item->av[0])],
 												&exec_list_nothing) : 0);
-			exec_list_push(&fds[ft_atoi(item->av[0])], fd);
+			exec_list_push(&fds[ft_atoi(item->av[0])], (size_t)fd);
 		}
 		else
 			return (false);
@@ -29,10 +38,19 @@ static BOOL		redir_great(t_cmd *item, t_list **fds, int fd)
 	{
 		(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO],
 										&exec_list_nothing) : 0);
-		exec_list_push(&fds[STDOUT_FILENO], fd);
+		exec_list_push(&fds[STDOUT_FILENO], (size_t)fd);
 	}
 	return (true);
 }
+
+/*
+** @brief   find, test and add the second fd in fd list (redir less)
+** @param  item    struct of command
+** @param  fds     The list of fd
+** @param  fd      the first fd
+**
+** @return true if everything is ok, false otherwise
+*/
 
 static BOOL		redir_less(t_cmd *item, int fd, t_list **fds)
 {
@@ -56,6 +74,15 @@ static BOOL		redir_less(t_cmd *item, int fd, t_list **fds)
 	return (true);
 }
 
+/*
+** @brief   init redir, find and open first fd
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  item    struct of command
+** @param  fd      the first fd
+**
+** @return true if everything is ok, false otherwise
+*/
+
 static BOOL		sh_exec_redir_init(t_btree *ast, t_cmd **item, int *fd)
 {
 	if (!ast)
@@ -68,6 +95,15 @@ static BOOL		sh_exec_redir_init(t_btree *ast, t_cmd **item, int *fd)
 	}
 	return (true);
 }
+
+/*
+** @brief   push fd in fd list and execute
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+**
+** @return ret of exec
+*/
 
 int				sh_exec_redir(t_sh_data *data, t_btree *ast, t_list **fds)
 {

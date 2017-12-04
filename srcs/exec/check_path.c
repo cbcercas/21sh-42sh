@@ -82,7 +82,7 @@ static void		sh_check_path_print_err(int ret, char const *cmd_name)
 **
 ** @param cmd_name Command name to be checked
 **
-** @return Returns the filename or NULL (? TODO)
+** @return Returns the filename or NULL otherwise
 */
 
 char			*sh_check_path(char const *cmd_name)
@@ -111,9 +111,9 @@ char			*sh_check_path(char const *cmd_name)
 }
 
 /*
-** @brief TODO
-** @param av TODO
-** @return TODO
+** @brief get path of bin or test absolute path
+** @param av arguments exec
+** @return the absolute pathof bin or NULL otherwise
 */
 
 char			*get_filename(char *av)
