@@ -35,11 +35,13 @@ static void		expand_aff_multi(char *hist)
 			expand_hist_aff(disp->str->s);
 		disp = disp->next;
 	}
-	if (disp->str)
+	if (disp && disp->str)
 		expand_hist_aff(disp->str->s);
-	while(disp->prev)
+	while(disp && disp->prev)
 		disp = disp->prev;
-	input_destroy(&disp);
+	ft_putc_in('\n');
+	if (disp)
+		input_destroy(&disp);
 }
 
 static BOOL expand_hist_replace_multi(t_input *input, char *hist, size_t index)
@@ -82,6 +84,7 @@ BOOL expand_hist_replace(t_input *input, char *hist, size_t *index, size_t len)
 		string_insert(input->str, hist, *index);
 		*index += (size_t)ft_strlen(hist);
 		expand_hist_aff(hist);
+		ft_putc_in('\n');
 		return (true);
 	}
 	ret = expand_hist_replace_multi(input, hist, *index);

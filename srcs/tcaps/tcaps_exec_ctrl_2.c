@@ -60,8 +60,6 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 	(void)key;
 	if (get_select()->is)
 		return (false);
-	while (input && (input = input->next))
-		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 	input = get_windows(0)->cur;
 	if (expand_hist_find(input_back_to_writable(input), &tmp_i))
 		return (exec_ctr_j_hist(input));
