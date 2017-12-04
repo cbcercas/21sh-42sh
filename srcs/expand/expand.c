@@ -15,7 +15,7 @@
 /*
 ** @brief Expands a E_TOKEN_WORD/DQUOTE
 **
-** @param exp X to be expanded (TODO)
+** @param exp X to be expanded
 **
 ** @return Returns the expanded X
 */

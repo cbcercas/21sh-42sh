@@ -37,7 +37,7 @@ char	find_first_quote(const char *str)
 ** @brief Expands the `\`
 **
 ** @param string String to be expanded
-** @param type The type of the current token (?TODO)
+** @param type The type of the current token
 **
 ** @return Returns true if ignored, false otherwise
 */
@@ -56,12 +56,12 @@ BOOL	expand_antislash(t_string *string, t_token_type type)
 		{
 			if (string->s[i + 1] != '\\')
 				ignore = true;
-			string_remove_char(string, i);
+			string_remove_char(string, (size_t)i);
 			i++;
 		}
 		if (type == E_TOKEN_WORD)
 			if (string->s[i] == '\\' && string->s[i + 1] != '\\')
-				string_remove_char(string, i);
+				string_remove_char(string, (size_t)i);
 	}
 	return (ignore);
 }

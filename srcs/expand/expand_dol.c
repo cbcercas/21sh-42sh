@@ -18,7 +18,7 @@
 ** @return Returns the value of var `name`
 */
 
-char		*sh_getenv_exp(const char *name)
+static char		*sh_getenv_exp(const char *name)
 {
 	char	*value;
 
@@ -37,18 +37,18 @@ char		*sh_getenv_exp(const char *name)
 ** @return Returns 1 if `c` is any of the three char, else returns 0
 */
 
-int			ft_is_spec(int c)
+int				ft_is_spec(int c)
 {
 	return (c == '$' || c == '?' || c == '0');
 }
 
 /*
-** @brief TODO
-** @param str TODO
-** @param i TODO
+** @brief Replaces in `str` from `i` the special $
+** @param str String to be changed
+** @param i Where to start
 */
 
-void		expand_dol_spec_replace(t_string *str, size_t *i)
+static void		expand_dol_spec_replace(t_string *str, size_t *i)
 {
 	char	*tmp;
 	BOOL	fri;
@@ -77,7 +77,7 @@ void		expand_dol_spec_replace(t_string *str, size_t *i)
 ** @param i Where to start
 */
 
-void		expand_dol_replace(t_string *str, int len, size_t *i)
+static void		expand_dol_replace(t_string *str, int len, size_t *i)
 {
 	char	car_tmp;
 	char	*tmp;
@@ -98,7 +98,7 @@ void		expand_dol_replace(t_string *str, int len, size_t *i)
 ** @param str String to be expanded
 */
 
-void		expand_dol(t_string *str)
+void			expand_dol(t_string *str)
 {
 	size_t		i;
 	int			len;

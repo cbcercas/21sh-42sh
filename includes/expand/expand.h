@@ -77,8 +77,8 @@ void					sh_expand_destroy(t_array *array_exp);
 ** @brief Functions used to expand history (!1 for example)
 */
 
-BOOL		expand_hist(t_input *str);
-size_t		find_last_quote(char *s);
+BOOL					expand_hist(t_input *str);
+size_t					find_last_quote(const char *s);
 
 /*
 ** @file ft_replace.c
@@ -104,12 +104,12 @@ void					expand_print_token(t_token_type type);
 ** @brief Tools used by the expand module for the history
 */
 
-size_t ft_strlen_before(const char *str);
-size_t						ft_numlen(const char *str);
+size_t					ft_strlen_before(const char *str);
+size_t					ft_numlen(const char *str);
 
-t_bool expand_hist_digit(t_input *str, size_t *i);
+BOOL					expand_hist_digit(t_input *str, size_t *i);
 
-BOOL expand_hist_alpha(t_input *inp, size_t *i);
+BOOL					expand_hist_alpha(t_input *inp, size_t *i);
 t_input					*expand_hist_find(t_input *input, size_t *i);
 
 /*

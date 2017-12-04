@@ -12,14 +12,20 @@
 
 #include <expand/expand.h>
 
-static size_t strlen_alpha_after(const char *str)
+/*
+** @brief the len of occurence `!toto` = 5
+** @param str The occurence in string form
+** @return the len of occurence
+*/
+
+static size_t	strlen_alpha_after(const char *str)
 {
 	size_t		i;
 
 	i = 0;
 	if (*str != '!')
 		return (0);
-	while (str[i] && (str[i] != ' ' || ( i != 0 && str[i - 1] == '\\')))
+	while (str[i] && (str[i] != ' ' || (i != 0 && str[i - 1] == '\\')))
 		i++;
 	return (i);
 }
@@ -46,14 +52,13 @@ size_t			ft_numlen(const char *str)
 }
 
 /*
-** @brief TODO
-** @param exp TODO
-** @param i TODO
-** @param len TODO
-** @return TODO
+** @brief expand history for digit occurence like '!2'
+** @param i index in str
+** @param inp current input
+** @return true if everything is ok, false otherwise
 */
 
-BOOL expand_hist_digit(t_input *inp, size_t *i)
+BOOL			expand_hist_digit(t_input *inp, size_t *i)
 {
 	int			nb;
 	size_t		size;
@@ -61,7 +66,8 @@ BOOL expand_hist_digit(t_input *inp, size_t *i)
 	size = ft_numlen(&inp->str->s[*i + 1]);
 	if ((nb = ft_atoi(&inp->str->s[*i + 1])) != 0)
 	{
-		if (expand_hist_replace(inp, (char *)sh_history_get_at(nb), i, size + 1))
+		if (expand_hist_replace(inp, (char *)sh_history_get_at(nb), i,
+								size + 1))
 			return (true);
 		ft_dprintf(STDERR_FILENO, "\n%s: !%d: event not found\n", PROGNAME, nb);
 	}
@@ -69,14 +75,13 @@ BOOL expand_hist_digit(t_input *inp, size_t *i)
 }
 
 /*
-** @brief TODO
-** @param exp TODO
-** @param i TODO
-** @param len TODO
-** @return TODO
+** @brief expand history for alpha occurence like '!toto'
+** @param i index in str
+** @param inp current input
+** @return true if everything is ok, false otherwise
 */
 
-BOOL expand_hist_alpha(t_input *inp, size_t *i)
+BOOL			expand_hist_alpha(t_input *inp, size_t *i)
 {
 	size_t		len;
 	char		*search;
@@ -84,7 +89,7 @@ BOOL expand_hist_alpha(t_input *inp, size_t *i)
 	len = strlen_alpha_after(&inp->str->s[*i]);
 	if ((search = ft_strsub(&inp->str->s[*i], 1, len)))
 	{
-		if (expand_hist_replace(inp, (char *) sh_history_get_search(search), i,
+		if (expand_hist_replace(inp, (char *)sh_history_get_search(search), i,
 								len + 1))
 		{
 			ft_strdel(&search);
@@ -97,7 +102,14 @@ BOOL expand_hist_alpha(t_input *inp, size_t *i)
 	return (false);
 }
 
-t_input *expand_hist_find(t_input *input, size_t *i)
+/*
+** @brief find the first occurence
+** @param i index in str
+** @param inp current input
+** @return input where is the first occurence
+*/
+
+t_input			*expand_hist_find(t_input *input, size_t *i)
 {
 	while (input)
 	{

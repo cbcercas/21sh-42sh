@@ -34,11 +34,11 @@ t_array		*expand_init(t_array *expand_array)
 }
 
 /*
-** @brief Creates a new token into the t_array expand (TODO: Check this)
+** @brief Creates a new token with the same t_string
 **
-** @param tok Token to be added
+** @param tok Token source
 **
-** @return Returns the modified expand
+** @return Returns the new token
 */
 
 t_exp		*exp_create_new(t_token *tok)

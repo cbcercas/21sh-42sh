@@ -13,7 +13,7 @@
 #include <expand/expand.h>
 #include <core/color.h>
 
-size_t		find_last_quote(char *s)
+size_t			find_last_quote(const char *s)
 {
 	size_t		i;
 
@@ -21,7 +21,7 @@ size_t		find_last_quote(char *s)
 	if (!s || !*s)
 		return (0);
 	i++;
-	while(s[i] && s[i] != '\'')
+	while (s[i] && s[i] != '\'')
 		i++;
 	if (s[i])
 		i++;
@@ -29,12 +29,13 @@ size_t		find_last_quote(char *s)
 }
 
 /*
-** @brief Expands the history
-** @param exp TODO
-** @return TODO
+** @brief find '!' and call the good function
+** @param i index in str
+** @param inp current input
+** @return true if everything is ok, false otherwise
 */
 
-static BOOL expand_hist_loop(size_t *i, t_input *inp)
+static BOOL		expand_hist_loop(size_t *i, t_input *inp)
 {
 	if (inp->str->s[*i] == '\\')
 		*i += 2;
@@ -58,6 +59,10 @@ static BOOL expand_hist_loop(size_t *i, t_input *inp)
 	return (true);
 }
 
+/*
+** @brief display expand
+*/
+
 static void		expand_hist_aff(void)
 {
 	t_input		*inp;
@@ -68,7 +73,8 @@ static void		expand_hist_aff(void)
 		if (inp->str)
 		{
 			if (get_data(NULL) && get_data(NULL)->opts.color)
-				ft_dprintf(STDIN_FILENO, "%s%s%s\n", C_YELLOW, inp->str->s, C_NONE);
+				ft_dprintf(STDIN_FILENO, "%s%s%s\n", C_YELLOW, inp->str->s,
+						C_NONE);
 			else
 				ft_dprintf(STDIN_FILENO, "%s\n", inp->str->s);
 		}
@@ -76,7 +82,13 @@ static void		expand_hist_aff(void)
 	}
 }
 
-BOOL	expand_hist(t_input *input)
+/*
+** @brief the main function to expand history
+** @param input current input
+** @return true if everything is ok, false otherwise
+*/
+
+BOOL			expand_hist(t_input *input)
 {
 	size_t	i;
 
@@ -84,7 +96,7 @@ BOOL	expand_hist(t_input *input)
 	{
 		i = 0;
 		if (!(input = expand_hist_find(input, &i)))
-			break;
+			break ;
 		while (input->str->s[i])
 		{
 			if (input->str->s[i] == '\'')

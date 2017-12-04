@@ -12,7 +12,16 @@
 
 #include <expand/expand.h>
 
-static BOOL expand_hist_replace_multi(t_input *input, char *hist, size_t index)
+/*
+** @brief replace the '!' occurence by history in multi input
+** @param input current input
+** @param hist the replacement str
+** @param index is where the replacement is
+** @return true if everything is ok, false otherwise
+*/
+
+static BOOL		expand_hist_replace_multi(t_input *input, char *hist,
+											size_t index)
 {
 	char		*tmp;
 	t_input		*next_save;
@@ -41,7 +50,17 @@ static BOOL expand_hist_replace_multi(t_input *input, char *hist, size_t index)
 	return (true);
 }
 
-BOOL expand_hist_replace(t_input *input, char *hist, size_t *index, size_t len)
+/*
+** @brief replace the '!' occurence by history
+** @param input current input
+** @param hist the replacement str
+** @param index is where the replacement is
+** @param len the len of occurence
+** @return true if everything is ok, false otherwise
+*/
+
+BOOL			expand_hist_replace(t_input *input, char *hist, size_t *index,
+									size_t len)
 {
 	BOOL	ret;
 

@@ -16,8 +16,8 @@
 ** @brief Inserts a string contained in `tm2` before `tmp1`
 ** @param tmp1 t_string to instert into
 ** @param tmp2 t_string to insert
-** @param array_exp TODO
-** @param i TODO
+** @param array_exp t_array of token
+** @param i index of tmp2
 */
 
 void	expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp,
@@ -31,7 +31,7 @@ void	expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp,
 
 /*
 ** @brief Merges 2 WORD tokens togethers
-** @param array_exp TODO
+** @param array_exp array of token
 */
 
 void	expand_merge_tokens_word(t_array *array_exp)
