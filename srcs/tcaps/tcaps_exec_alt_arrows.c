@@ -37,7 +37,7 @@ BOOL	exec_alt_input(const t_key *key, t_input *input, unsigned short x)
 		input->cpos.cp_col = x;
 	move_cursor_to(&input->cpos
 			, &(t_cpos){input->cpos.cp_col, input->cpos.cp_line}, get_ts());
-	get_windows(0)->cur = input;
+	get_windows(0) ? get_windows(0)->cur = input : 0;
 	return (false);
 }
 

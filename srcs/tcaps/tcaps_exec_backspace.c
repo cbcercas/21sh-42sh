@@ -24,7 +24,7 @@ BOOL	exec_backspace(const t_key *key, t_input *input)
 	else if (input->prev)
 	{
 		exec_arrow_left(key, input);
-		get_windows(0)->cur = input->prev;
+		get_windows(0) ? get_windows(0)->cur = input->prev : 0;
 		exec_delete(key, input->prev);
 	}
 	else

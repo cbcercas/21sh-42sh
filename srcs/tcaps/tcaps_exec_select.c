@@ -16,7 +16,7 @@ void			reset_select_pos(void)
 {
 	t_input		*input;
 
-	input = get_windows(0)->cur_head;
+	input = input_get_cur_head();
 	while (input)
 	{
 		input->select_pos.cur_start = 0;
@@ -49,7 +49,7 @@ static void		exec_select_off(t_input *input)
 		move_cursor_left(&input->cpos, get_ts());
 	reset_select_pos();
 	get_select()->is = false;
-	get_windows(0)->cur = input;
+	get_windows(0) ? get_windows(0)->cur = input : 0;
 }
 
 BOOL			exec_select(const t_key *key, t_input *input)

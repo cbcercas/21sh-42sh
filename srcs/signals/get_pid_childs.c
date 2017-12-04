@@ -90,6 +90,8 @@ void		remove_pid_child(int pid_child)
 
 	i = 0;
 	e = get_pids_child();
+	if (!e)
+		return ;
 	while (i < e->used)
 	{
 		if (((t_pids*)array_get_at(e, 0))->pid == pid_child)

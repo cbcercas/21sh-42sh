@@ -20,7 +20,12 @@
 
 t_select		*get_select(void)
 {
-	return (&(get_windows(0))->select);
+	t_window	*w;
+
+	w = get_windows(0);
+	if (w)
+		return (&(w)->select);
+	return (NULL);
 }
 
 /*
@@ -31,7 +36,12 @@ t_select		*get_select(void)
 
 struct winsize	*get_ts(void)
 {
-	return (&(get_windows(0))->ts);
+	t_window	*w;
+
+	w = get_windows(0);
+	if (w)
+		return (&(w)->ts);
+	return (NULL);
 }
 
 /*
@@ -45,7 +55,9 @@ t_input			*input_get_cur_head(void)
 	t_window	*w;
 
 	w = get_windows(0);
-	return (w->cur_head);
+	if (w)
+		return (w->cur_head);
+	return (NULL);
 }
 
 /*
@@ -58,8 +70,9 @@ t_input			*input_get_cur(void)
 {
 	t_window	*w;
 
-	w = get_windows(0);
-	return (w->cur);
+	if ((w = get_windows(0)))
+		return (w->cur);
+	return (NULL);
 }
 
 /*
@@ -72,6 +85,7 @@ int				*get_cmd_ret(void)
 {
 	t_window	*w;
 
-	w = get_windows(0);
-	return (&w->cmd_ret);
+	if ((w = get_windows(0)))
+		return (&w->cmd_ret);
+	return (NULL);
 }

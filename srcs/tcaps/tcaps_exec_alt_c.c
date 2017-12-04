@@ -63,7 +63,7 @@ BOOL			exec_alt_c(const t_key *key, t_input *input)
 	str = NULL;
 	if (!get_select()->is)
 		return (false);
-	tmp = get_windows(0)->cur_head;
+	tmp = input_get_cur_head();
 	while (tmp && !tmp->select_pos.is_set)
 		tmp = tmp->next;
 	if (!tmp)

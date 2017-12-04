@@ -36,8 +36,8 @@ static BOOL		exec_ctrl_j2(t_input *input)
 	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
 	input->lock = true;
 	input_add_new(input);
-	get_windows(0)->cur = input->next;
-	get_windows(0)->cur->prompt_type = E_RET_LEXER_PIPE;
+	get_windows(0) ? get_windows(0)->cur = input->next : 0;
+	input_get_cur()->prompt_type = E_RET_LEXER_PIPE;
 	sh_print_prompt(input->next, NULL, E_RET_LEXER_PIPE);
 	return (false);
 }
@@ -60,7 +60,7 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 	(void)key;
 	if (get_select()->is)
 		return (false);
-	input = get_windows(0)->cur;
+	input = input_get_cur();
 	if (expand_hist_find(input_back_to_writable(input), &tmp_i))
 		return (exec_ctr_j_hist(input));
 	if (MAX_NB_INPUT < count_nb_input(input_get_cur_head()))
@@ -101,7 +101,7 @@ BOOL			exec_ctrl_l(const t_key *key, t_input *input)
 	tmp = input;
 	input = input_back_to_writable(input);
 	get_windows(1);
-	get_windows(0)->cur = input;
+	get_windows(0) ? get_windows(0)->cur = input : 0;
 	tputs(tgetstr("cl", NULL), 0, &ft_putc_in);
 	get_select()->is = false;
 	reset_select_pos();
@@ -111,6 +111,6 @@ BOOL			exec_ctrl_l(const t_key *key, t_input *input)
 	//TODO refactor using tgoto
 	input = goto_input(input, tmp);
 	move_cursor_to(&pos, &input->cpos, get_ts());
-	get_windows(0)->cur = input;
+	get_windows(0) ? get_windows(0)->cur = input : 0;
 	return (false);
 }

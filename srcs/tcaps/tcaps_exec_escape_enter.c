@@ -15,7 +15,6 @@
 BOOL	exec_escape_enter(const t_key *key, t_input *input)
 {
 	char	*after_cur;
-	t_cpos		dest;
 
 	if (!input || get_windows(0)->select.is)
 		return (false);
@@ -31,10 +30,13 @@ BOOL	exec_escape_enter(const t_key *key, t_input *input)
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
 	input_add_new(input);
-	get_windows(0)->cur = input->next;
-	get_windows(0)->cur->prompt_type = input->prompt_type;
-	string_insert_back(get_windows(0)->cur->str, after_cur);
-	ft_strdel(&after_cur);
-	input_draw(get_windows(0)->cur);
+	get_windows(0) ? get_windows(0)->cur = input->next : 0;
+	if (input_get_cur())
+	{
+		input_get_cur()->prompt_type = input->prompt_type;
+		string_insert_back(input_get_cur()->str, after_cur);
+		ft_strdel(&after_cur);
+		input_draw(input_get_cur());
+	}
 	return (false);
 }

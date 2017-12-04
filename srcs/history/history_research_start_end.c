@@ -37,7 +37,8 @@ void	history_research_exit(t_input *result, char *line, t_input *input)
 		input = input_draw(input);
 		input = input_back_to_writable(input);
 		input_goto_line_end(input);
-		get_windows(0)->cur = input;
+		if (get_windows(0))
+			get_windows(0)->cur = input;
 	}
 }
 

@@ -115,7 +115,7 @@ char			*sh_get_line(t_input *input, t_sh_opt *opts)
 		else if (is_printstr(buff) && !get_select()->is &&
 				!ft_strchr(buff, '\n') && !sh_get_line_insert(input, key))
 			return (NULL);
-		input = get_windows(0)->cur;
+		input = input_get_cur();
 		key_del(&key);
 	}
 	default_terminal_mode();

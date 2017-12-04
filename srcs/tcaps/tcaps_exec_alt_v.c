@@ -53,7 +53,7 @@ static BOOL	alt_v_limit_nb(char *save)
 	}
 	if (MAX_NB_INPUT < count)
 		return (false);
-	tmp = get_windows(0)->cur_head;
+	tmp = input_get_cur_head();
 	while (tmp)
 	{
 		count++;
@@ -101,7 +101,7 @@ static void	exec_alt_v_multi(t_input *input, char *save)
 	redraw_input(input);
 	ft_strdel(&tmp);
 	get_select()->str = save;
-	get_windows(0)->cur = input;
+	get_windows(0) ? get_windows(0)->cur = input : 0;
 }
 
 BOOL		exec_alt_v(const t_key *key, t_input *input)

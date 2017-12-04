@@ -21,7 +21,7 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	tputs("\n", 0, &ft_putc_in);
 	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
-	get_windows(0)->cur = NULL;
+	get_windows(0) ? get_windows(0)->cur = NULL : 0;
 	return (true);
 }
 

@@ -67,7 +67,8 @@ static BOOL expand_hist_replace_multi(t_input *input, char *hist, size_t index)
 		next_save->prev = input_get_last(input);
 	if (input->next)
 		input->next->prev = input;
-	input_get_last(input)->next = next_save;
+	if (input_get_last(input))
+		input_get_last(input)->next = next_save;
 	ft_strdel(&tmp);
 	return (true);
 }

@@ -27,7 +27,7 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 		input->cpos = input_get_first_pos(input);
 		move_cursor_to(&input->cpos,
 					&(t_cpos){input->prev->cpos.cp_col, 0}, ts);
-		get_windows(0)->cur = input;
+		get_windows(0) ? get_windows(0)->cur = input : 0;
 		if (!input->select_pos.is_set)
 		{
 			input->select_pos.is_set = true;
@@ -56,7 +56,7 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 		input->cpos = input_get_last_pos(input);
 		move_cursor_to(&input->cpos, &(t_cpos){input->next->cpos.cp_col,
 											input->cpos.cp_line}, get_ts());
-		get_windows(0)->cur = input;
+		get_windows(0) ? get_windows(0)->cur = input : 0;
 		if (!input->select_pos.is_set)
 		{
 			input->select_pos.is_set = true;
@@ -84,7 +84,7 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	input = input_draw(input);
 	input = input_back_to_writable(input);
 	input_goto_line_end(input);
-	get_windows(0)->cur = input;
+	get_windows(0) ? get_windows(0)->cur = input : 0;
 	return (false);
 }
 
