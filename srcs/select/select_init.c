@@ -22,7 +22,7 @@ void			*select_init(t_sel_data *data, t_array *array)
 
 void			select_deinit(t_sel_data **data)
 {
-	if ((*data)->words)
+	if (data && *data && (*data)->words)
 		word_list_destroy(&(*data)->words);
 	//TODO remove t_array
 	ft_memdel((void **)data);

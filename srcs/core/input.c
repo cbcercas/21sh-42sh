@@ -82,7 +82,7 @@ static BOOL		sh_get_line_insert(t_input *input, t_key key)
 {
 	if (!string_insert(input->str, key.key, pos_in_str(input)))
 		return (false);
- 	get_windows(10)->h_complet = true;
+ 	get_windows(110)->h_complet = true;
 	draw_char(input, key.key);
 	return (true);
 }
