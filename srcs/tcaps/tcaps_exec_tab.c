@@ -21,14 +21,14 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 
 	(void) key;
 	wd = get_windows(0);
-	if (get_select()->is)
+	if (get_select()->is) // TODO secure
 		return (false);
 	if (wd->autocomp)
 	{
 		if (!wd->autocomp->active)
 		{
-			get_windows(0)->autocomp->active = true;
-			select_get_data()->disp.first->prev->cursor = true;
+			get_windows(0)->autocomp->active = true;//TODO secure
+			select_get_data()->disp.first->prev->cursor = true;//TODO secure
 			tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 			tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 		}

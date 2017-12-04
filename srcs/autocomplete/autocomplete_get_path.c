@@ -44,6 +44,11 @@ static t_string	*make_content_path(t_array *content, char *path,
 	content->used += (tmp) ? 1 : 0;
 	if (!tmp)
 		string_clear(array_get_at(content, content->used));
+	if (tmp && (!tmp->s || !tmp->len))
+	{
+		array_pop(content, NULL);
+		string_clear(tmp);
+	}
 	return (tmp);
 }
 
