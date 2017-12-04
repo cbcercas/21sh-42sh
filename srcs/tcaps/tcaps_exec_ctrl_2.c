@@ -44,8 +44,13 @@ static BOOL		exec_ctrl_j2(t_input *input)
 BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 {
 	t_input		*tmp;
+	t_window	*wd;
 
 	(void)key;
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (exec_ctrl_j_select(input));
 	if (get_select()->is)
 		return (false);
 	if (MAX_NB_INPUT < count_nb_input(input_get_cur_head()))
@@ -70,8 +75,14 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 
 BOOL			exec_ctrl_r(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	(void)key;
 	(void)input;
+
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
 	if (get_select()->is)
 		return (false);
 	history_research(input);
@@ -80,10 +91,15 @@ BOOL			exec_ctrl_r(const t_key *key, t_input *input)
 
 BOOL			exec_ctrl_l(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	t_cpos		pos;
 	t_input		*tmp;
 
 	(void)key;
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
 	if (get_select()->is)
 		return (false);
 	pos.cp_col = input->cpos.cp_col;

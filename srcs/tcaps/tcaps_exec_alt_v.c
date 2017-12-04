@@ -106,9 +106,12 @@ static void	exec_alt_v_multi(t_input *input, char *save)
 
 BOOL		exec_alt_v(const t_key *key, t_input *input)
 {
-	char	*save;
+	char		*save;
+	t_sel_data	*sdata;
 
 	(void)key;
+	if ((sdata = select_get_data()) && sdata->active)
+		return (false);
 	if (get_select()->is || !input || !input->str || !get_select()->str)
 		return (false);
 	save = get_select()->str;

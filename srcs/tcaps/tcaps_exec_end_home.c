@@ -15,9 +15,14 @@
 // TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_end(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	t_cpos	dest;
 
 	(void)key;
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
 	if (get_select()->is)
 		return (false);
 	dest = input_get_last_pos(input);
@@ -28,9 +33,14 @@ BOOL	exec_end(const t_key *key, t_input *input)
 // TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_start(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	t_cpos	dest;
 
 	(void)key;
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
 	if (get_select()->is)
 		return (false);
 	dest = input_get_first_pos(input);

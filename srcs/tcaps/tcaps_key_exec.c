@@ -20,8 +20,10 @@ static void		init_key_exec_3(t_key_exec *fn_exec)
 	fn_exec[26].f = &exec_alt_v;
 	fn_exec[27].key_code = KEY_CODE_HOME;
 	fn_exec[27].f = &exec_start;
-	fn_exec[28].key_code = KEY_CODE_NONE;
-	fn_exec[28].f = NULL;
+	fn_exec[28].key_code = KEY_CODE_ESC;
+	fn_exec[28].f = &exec_escape;
+	fn_exec[29].key_code = KEY_CODE_NONE;
+	fn_exec[29].f = NULL;
 }
 
 static void		init_key_exec_2(t_key_exec *fn_exec)
@@ -84,7 +86,7 @@ static void		init_key_exec(t_key_exec *fn_exec)
 
 BOOL			key_exec(t_key *key, t_input *input)
 {
-	static t_key_exec	fn_exec[28];
+	static t_key_exec	fn_exec[29];
 	static t_key_exec	*init = NULL;
 	int					i;
 

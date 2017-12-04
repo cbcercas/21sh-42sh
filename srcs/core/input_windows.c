@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/input.h>
+#include <core/select.h>
 
 /*
 ** @brief Helper for get_windows
@@ -37,7 +38,8 @@ static t_window		*get_windows2(t_window *wd, int rst)
 ** @brief		Create and manage windows data
 ** @param[in]	rst		the reset byte
 ** @details		rst can be a byte or an addition of byte like that
-**				40	reset h_complet
+** 				100 reset autocomple select data
+**				40	reset history complet
 ** 				20	hard reset current input
 ** 				10	destroy saved input
 ** 				4	reset the selection data
@@ -63,7 +65,9 @@ t_window			*get_windows(int rst)
 			exit(1);
 		rst = 77;
 	}
-	if (rst >= 40)
+	if (rst >= 100)
+		select_deinit(&wd->autocomp);
+	if ((rst %= 100) && rst >= 40)
 		wd->h_complet = false;
 	if ((rst %= 40) && rst >= 20)
 	{

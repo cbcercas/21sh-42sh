@@ -88,6 +88,15 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input);
 BOOL			exec_ctrl_r(const t_key *key, t_input *input);
 
 /*
+** @file tcaps_exec_ctrl_select.c
+**
+** @brief Contains the ctrl functions to be executed in autocomplet mode
+*/
+
+BOOL			exec_ctrl_j_select(t_input *input);
+
+
+/*
 ** @file tcaps_exec_backspace.c
 **
 ** @brief Contains the backspace functions to be executed
@@ -124,6 +133,44 @@ BOOL			exec_arrow_left(const t_key *key, t_input *input) __attribute__
 BOOL			exec_arrow_up(const t_key *key, t_input *input);
 BOOL			exec_arrow_down(const t_key *key, t_input *input) __attribute__
 							((deprecated("Todo refactor new input design")));
+
+/*
+** @file tcaps_exec_arrow_select.c
+**
+** @brief Contains the arrow functions to be executed for normal mode
+*/
+
+BOOL			exec_arrow_right_normal(t_input *input);
+BOOL			exec_arrow_left_normal(t_input *input);
+
+/*
+** @file tcaps_exec_arrow_select.c
+**
+** @brief Contains the arrow functions to be executed for autocompletion mode
+*/
+
+BOOL			exec_arrow_right_select(t_sel_data *data);
+BOOL			exec_arrow_left_select(t_sel_data *data);
+BOOL			exec_arrow_up_select(t_sel_data *data);
+BOOL			exec_arrow_down_select(t_sel_data *data);
+
+
+/*
+** @file tcaps_exec_escape.c
+**
+** @brief Contains the escape functions to be executed
+*/
+
+BOOL 			exec_escape(const t_key *key, t_input *input);
+
+/*
+** @file tcaps_exec_escape.c
+**
+** @brief Contains the escape functions to be executed when in autocomplet mode
+*/
+
+BOOL			exec_escape_select(void);
+
 
 /*
 ** @file tcaps_exec_alt_arrows.c

@@ -11,19 +11,37 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
+#include <core/select.h>
 
 BOOL	exec_tab(const t_key *key, t_input *input)
 {
-	char *current;
+	char	*current;
+	t_array	*arr;
+	t_window	*wd;
 
+	(void) key;
+	wd = get_windows(0);
 	if (get_select()->is)
 		return (false);
-	/*current = find_word_cur(input);
-	(void) key;
-		if (autocomplete_is_path(input))
-			input = autocomplete(autocomplete_get_content_paths(autocomplete_get_path(current)), input);
-		else
-			input = autocomplete(autocomplete_get_bin(current), input);
-		ft_secu_free_lvl(M_LVL_AUTOC);*/
+	if (wd->autocomp)
+	{
+		if (!wd->autocomp->active)
+		{
+			get_windows(0)->autocomp->active = true;
+			select_get_data()->disp.first->prev->cursor = true;
+			tputs(tgetstr("do", NULL), 0, &ft_putc_in);
+			tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
+		}
+		exec_arrow_right_select(select_get_data());
 		return (false);
+	}
+	current = find_word_cur(input);
+	if (autocomplete_is_path(input))
+		arr = autocomplete_get_content_paths(autocomplete_get_path(current));
+	else
+		arr = autocomplete_get_bin(current);
+	arr = autocomplete(arr, input);
+	if (arr)
+		select_select(1, get_data(NULL)->opts.color, arr);
+	return (false);
 }

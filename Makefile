@@ -43,7 +43,8 @@ SRCS			+= check_path.c exec_tlist.c sh_exec_list_fd.c sh_exec.c\
 
 SRC_SUBDIR		+= tools
 SRCS			+= ft_isdigit_str.c getpwd.c is.c \
-					is_printstr.c sh_ret.c sh_test_access.c print_verb.c
+					is_printstr.c sh_ret.c sh_test_access.c print_verb.c \
+					array_free_elem.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c lexer_utils.c
@@ -83,7 +84,9 @@ SRCS			+=	tcaps_exec_alt_arrows.c tcaps_exec_alt_c.c \
 					tcaps_exec_backspace.c tcaps_exec_ctrl_1.c \
 					tcaps_exec_ctrl_2.c tcaps_exec_delete.c \
 					tcaps_exec_end_home.c tcaps_exec_select.c tcaps_exec_tab.c \
-					tcaps_key_exec.c tcaps_redraw_line.c
+					tcaps_key_exec.c tcaps_redraw_line.c \
+					tcaps_exec_arrow_normal.c tcaps_exec_arrow_select.c \
+					tcaps_exec_escape.c tcaps_exec_ctrl_select.c
 
 SRC_SUBDIR		+= btree
 SRCS			+= btree_create_node.c btree_apply.c btree_print.c btree_utils.c
@@ -104,6 +107,12 @@ SRCS			+= ft_secu_free.c ft_secu_malloc.c \
 				string_secu.c ft_strdup_secu.c \
 				ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c \
 				ft_strsplit_secu.c ft_strsub_secu.c
+
+SRC_SUBDIR		+= select
+SRCS			+= select.c select_data.c select_display.c \
+				select_display_init.c select_display_utils.c select_exit.c \
+				select_init.c select_list_utils.c \
+				select_list_utils_2.c
 
 ###############################################################################
 #                                 CONFIG                                      #

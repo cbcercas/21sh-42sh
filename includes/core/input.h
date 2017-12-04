@@ -17,6 +17,7 @@
 # include <libtcaps.h>
 # include "data.h"
 # include "return.h"
+# include "select.h"
 
 /*
 ** @file   input.h
@@ -91,6 +92,8 @@ struct					s_input
 ** @brief TODO
 **
 ** @arg TODO
+ *
+** h_complet lock history completion
 */
 
 typedef struct s_window	t_window;
@@ -104,6 +107,7 @@ struct					s_window
 	struct winsize		ts;
 	int					cmd_ret;
 	t_select			select;
+	t_sel_data		*autocomp;
 };
 
 /*

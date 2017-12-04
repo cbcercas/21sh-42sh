@@ -111,6 +111,15 @@ set(SOURCE_FILES
 		srcs/secure_memory/ft_strsub_secu.c
 		srcs/secure_memory/ft_strsplit_secu.c
 
+		srcs/select/select.c
+		srcs/select/select_data.c
+		srcs/select/select_display.c
+		srcs/select/select_display_init.c
+		srcs/select/select_display_utils.c
+		srcs/select/select_exit.c
+		srcs/select/select_init.c
+		srcs/select/select_list_utils.c
+		srcs/select/select_list_utils_2.c
 
         srcs/history/history_init.c
 		srcs/history/history.c
@@ -139,13 +148,17 @@ set(SOURCE_FILES
 		srcs/tcaps/tcaps_exec_alt_v.c
 		srcs/tcaps/tcaps_exec_alt_arrows.c
 		srcs/tcaps/tcaps_exec_arrow.c
+		srcs/tcaps/tcaps_exec_arrow_normal.c
+		srcs/tcaps/tcaps_exec_arrow_select.c
 		srcs/tcaps/tcaps_exec_backspace.c
 		srcs/tcaps/tcaps_exec_ctrl_1.c
+		srcs/tcaps/tcaps_exec_ctrl_select.c
 		srcs/tcaps/tcaps_exec_ctrl_2.c
 		srcs/tcaps/tcaps_exec_delete.c
 		srcs/tcaps/tcaps_exec_end_home.c
 		srcs/tcaps/tcaps_exec_select.c
 		srcs/tcaps/tcaps_exec_tab.c
+		srcs/tcaps/tcaps_exec_escape.c
 		srcs/tcaps/tcaps_key_exec.c
 		srcs/tcaps/tcaps_redraw_line.c
 
@@ -157,6 +170,7 @@ set(SOURCE_FILES
 		srcs/tools/is.c
 		srcs/tools/getpwd.c
 		srcs/tools/sh_ret.c
+		srcs/tools/array_free_elem.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c

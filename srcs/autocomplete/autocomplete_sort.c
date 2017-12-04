@@ -51,6 +51,6 @@ t_array	*autocomplete_sort_content(t_array *content)
 		tmp_pos = 0;
 		tmp = (t_string *)array_get_at(content, tmp_pos);
 	}
-	array_destroy(&content, NULL);
+	array_destroy(&content, &string_clear);
 	return (clone);
 }

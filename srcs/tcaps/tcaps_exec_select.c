@@ -69,6 +69,7 @@ BOOL			exec_select(const t_key *key, t_input *input)
 	return (false);
 }
 
+//TODO rename
 BOOL			exec_select_arrows(const t_key *key, t_input *input)
 {
 	struct winsize	*ts;

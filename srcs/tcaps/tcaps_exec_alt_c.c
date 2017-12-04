@@ -57,9 +57,12 @@ BOOL			exec_alt_c(const t_key *key, t_input *input)
 	char		*str;
 	size_t		start;
 	size_t		end;
+	t_window	*wd;
 
 	(void)input;
 	(void)key;
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
 	str = NULL;
 	if (!get_select()->is)
 		return (false);

@@ -21,10 +21,15 @@ static BOOL		exec_delete2(void)
 
 BOOL			exec_delete(const t_key *key, t_input *input)
 {
-	size_t	pos;
-	t_input	*del;
+	t_window	*wd;
+	size_t		pos;
+	t_input		*del;
 
 	(void)key;
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
 	if (get_select()->is)
 		return (false);
 	log_dbg1("exec delete.");

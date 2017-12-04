@@ -14,8 +14,12 @@
 
 BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 {
+	t_window	*wd;
+
 	(void)key;
 	(void)input;
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
 	get_windows(72);
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	tputs("\n", 0, &ft_putc_in);
@@ -26,6 +30,10 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 {
+	t_window	*wd;
+
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
 	if (get_select()->is)
 		return (false);
 	if (input->str->len == 0)
@@ -41,8 +49,12 @@ BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_z(const t_key *key, t_input *input)
 {
+	t_window	*wd;
+
 	(void)key;
 	(void)input;
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
 	if (get_select()->is)
 		return (false);
 	tcaps_bell();
@@ -52,7 +64,10 @@ BOOL	exec_ctrl_z(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_a(const t_key *key, t_input *input)
 {
-	if (get_select()->is)
+	t_window	*wd;
+
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);	if (get_select()->is)
 		return (false);
 	exec_start(key, input);
 	return (false);
@@ -60,6 +75,10 @@ BOOL	exec_ctrl_a(const t_key *key, t_input *input)
 
 BOOL	exec_ctrl_e(const t_key *key, t_input *input)
 {
+	t_window	*wd;
+
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
 	if (get_select()->is)
 		return (false);
 	exec_end(key, input);
