@@ -35,16 +35,17 @@ t_btree	*btree_create_node(void *item)
 }
 
 /*
-** @brief Inserts data
+** @brief Inserts data depending on cmpf (left or right)
 ** @param root The btree
-** @param item Item to be inserted ? (TODO)
-** @param cmpf (TODO)
+** @param item Item to be inserted
+** @param cmpf function for comparing elements.
+** It allows the element to be well positioned.
 **
 ** @return void
 */
 
-void	btree_insert_data(t_btree **root, void *item,\
-													int (*cmpf)(void *, void *))
+void	btree_insert_data(t_btree **root, void *item,
+						int (*cmpf)(void *, void *))
 {
 	if (!root)
 		return ;

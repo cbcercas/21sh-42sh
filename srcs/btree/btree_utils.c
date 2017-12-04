@@ -16,10 +16,10 @@
 ** @brief Searches for an item in the btre
 **
 ** @param root The btree to search
-** @param data_ref The reference data to search (?TODO)
-** @param cmpf (TODO)
+** @param data_ref The reference data to search
+** @param cmpf function for compare the item in node with data_ref
 **
-** @return returns the found value (TODO)
+** @return returns the found item
 */
 
 void		*btree_search_item(t_btree *root, void *data_ref,
@@ -41,7 +41,7 @@ void		*btree_search_item(t_btree *root, void *data_ref,
 ** @brief Destroys the btree
 **
 ** @param root The btree to be destroyed
-** @param del The function used to del (TODO?)
+** @param del The function used to del item
 **
 ** @return void
 */
@@ -81,9 +81,9 @@ int			ft_max(int left, int right)
 }
 
 /*
-** @brief (TODO)
+** @brief count the nb of level from root
 ** @param root The btree
-** @return (TODO)
+** @return nb of level
 */
 
 int			btree_level_count(t_btree *root)

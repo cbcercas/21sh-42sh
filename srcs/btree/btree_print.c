@@ -35,7 +35,7 @@ static void			btree_display_str(char *str)
 ** @param this The btree node to print
 ** @param current_level the current level in the btree
 ** @param max_level The max depth in the btree
-** @param applyf (TODO)
+** @param applyf function for display item in node
 */
 
 static void			node_print(t_btree *this, int current_level, int max_level,\
@@ -67,7 +67,7 @@ static void			node_print(t_btree *this, int current_level, int max_level,\
 /*
 ** @brief Prints the btree entirely
 ** @param this The btree to be printed
-** @param applyf (TODO)
+** @param applyf function for display item in node
 */
 
 void				btree_print(t_btree *this, char *(*applyf)(void *))
