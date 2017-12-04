@@ -50,21 +50,22 @@ fi
 check_leaks_function()
 {
 	if [[ $TESTS_CHECK_LEAKS -ne 0 ]]; then
-		leaks_direct=`grep -oP "definitely lost:\s+\K\w+" check_leaks_tmp.log`
-		leaks_indirect=`grep -oP "indirectly lost:\s+\K\w+" check_leaks_tmp.log`
-		leaks_reach=`grep -oP "still reachable:\s+\K\w+" check_leaks_tmp.log`
+		leaks_direct=$(grep "definitely lost:" check_leaks_tmp.log | grep "0 bytes in 0 blocks" | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g')
+		leaks_indirect=$(grep "indirectly lost:" check_leaks_tmp.log | grep "0 bytes in 0 blocks" | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g')
+		leaks_reach=$(grep "still reachable:" check_leaks_tmp.log | grep "0 bytes in 0 blocks" | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g')
 		display_error_leaks $1
-		if [ $leaks_direct -ne "0" ] || [ $leaks_indirect -ne "0" ]; then
+		echo "toto = |$leaks_direct|"
+		if [ "$leaks_direct" = "       No" ] || [ $leaks_indirect = "       No" ]; then
 			mkdir -p "${BATS_TEST_DIRNAME}/../valgrind_log/$1"
 			cp check_leaks_tmp.log ${BATS_TEST_DIRNAME}/../valgrind_log/$1/TEST-$BATS_TEST_NUMBER-AST.log
-		elif [ $leaks_reach -ne "0" ] && [ $TESTS_CHECK_LEAKS -eq 2 ]; then
+		elif [ "$leaks_reach" = "       No" ] && [ $TESTS_CHECK_LEAKS -eq 2 ]; then
 			echo "[-- STILL REACHABLE!! --]"
 			mkdir -p "${BATS_TEST_DIRNAME}/../valgrind_log/$1"
 			cp check_leaks_tmp.log ${BATS_TEST_DIRNAME}/../valgrind_log/$1/TEST-$BATS_TEST_NUMBER-AST.log
-			[ $leaks_reach = "0" ]
+			[ "$leaks_reach" = "       No" ]
 		fi
-		[ $leaks_direct = "0" ]
-		[ $leaks_indirect = "0" ]
+		[ "$leaks_direct" = "       Yes" ]
+		[ "$leaks_indirect" = "       Yes" ]
 	fi
 }
 

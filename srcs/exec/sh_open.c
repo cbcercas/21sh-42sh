@@ -63,7 +63,7 @@ int				sh_open_exec(t_btree *ast)
 	int		fd;
 	int		pos;
 
-	if (!ast && ast->right)
+	if (!ast || ast->right)
 		return (-1);
 	item = (t_cmd *)ast->item;
 	pos = 0;
@@ -81,7 +81,7 @@ int				sh_open_exec(t_btree *ast)
 	else if (item->type == E_TOKEN_DLESS)
 		fd = here_find_fd(item);
 	if (fd == -1)
-		ft_dprintf(2, "%s: no such file or directory: %s\n", PROGNAME,
+		ft_dprintf(2, "%s: %s: No such file or directory\n", PROGNAME,
 				item->av[pos + 1]);
 	return (fd);
 }

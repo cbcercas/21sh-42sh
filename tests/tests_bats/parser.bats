@@ -108,9 +108,9 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "abc; ;abc"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${okparser}"
+  echo "$name_exec EXPECTED ->${parser_error_simple_p}"
   echo
-  [ "${lines[0]}" = "${okparser}" ]
+  [ "${lines[0]}" = "${parser_error_simple_p}" ]
   [ "$status" -eq 0 ]
 check_leaks_function parser
 }

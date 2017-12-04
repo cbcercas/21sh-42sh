@@ -132,7 +132,7 @@ char			*get_filename(char *av)
 			ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n",
 					PROGNAME, av);
 		else if (err)
-			ft_dprintf(STDERR_FILENO, "%s: no such file or directory: %s\n",
+			ft_dprintf(STDERR_FILENO, "%s: %s: No such file or directory\n",
 					PROGNAME, av);
 		else if (S_ISDIR(buf.st_mode))
 			ft_dprintf(STDERR_FILENO, "%s: sh: %s: is a directory\n",
