@@ -58,6 +58,12 @@
 ** WIP *Need to add all the instructions here and add them on README.md to*
 */
 
+/*
+** @brief Singelton, save data and get data
+**
+** @return Returns data
+*/
+
 t_sh_data			*get_data(t_sh_data *save)
 {
 	static	t_sh_data	*data = NULL;

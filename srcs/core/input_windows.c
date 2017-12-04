@@ -14,9 +14,9 @@
 
 /*
 ** @brief Helper for get_windows
-** @param wd TODO
-** @param rst TODO
-** @return TODO
+** @param wd widow data
+** @param rst  the reset byte
+** @return window data
 */
 
 static t_window		*get_windows2(t_window *wd, int rst)

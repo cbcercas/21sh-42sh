@@ -74,10 +74,10 @@ static t_return		sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 ** @brief Processes each line of input and executes it
 **
 ** @param data Shell's data used and accessed throughout the program
-** @param exec_dat TODO
+** @param exec_dat is struc contains all arrays we need for exec
 ** @param ret The return value
 **
-** @return TODO
+** @return false if everthing is ok, false otherwise (false for stop shell)
 */
 
 BOOL				sh_loop(t_sh_data data, struct s_exec_data *exec_dat,

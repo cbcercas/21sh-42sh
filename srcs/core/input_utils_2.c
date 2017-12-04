@@ -55,9 +55,9 @@ void			input_to_save(t_input **to_save, t_input *new_inp)
 }
 
 /*
-** @brief TODO
-** @param to_destroy TODO
-** @return TODO
+** @brief destroy the current input and replace by save input
+** @param to_destroy input to be destroy and replace
+** @return new input from save input
 */
 
 t_input			*input_from_save(t_input **to_destroy)
@@ -82,9 +82,9 @@ t_input			*input_from_save(t_input **to_destroy)
 }
 
 /*
-** @brief TODO
-** @param input TODO
-** @return TODO
+** @brief count nb total of input
+** @param input current input
+** @return count
 */
 
 int				count_nb_input(t_input *input)
@@ -108,9 +108,9 @@ int				count_nb_input(t_input *input)
 }
 
 /*
-** @brief TODO
-** @param input TODO
-** @return TODO
+** @brief gets the last input
+** @param input current input
+** @return the last input
 */
 
 t_input			*input_get_last(t_input *input)

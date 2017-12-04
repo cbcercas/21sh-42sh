@@ -13,6 +13,10 @@
 #include <core/input.h>
 #include <core/tcaps.h>
 
+/*
+** @brief display error read
+*/
+
 static BOOL		read_error(void)
 {
 	default_terminal_mode();
@@ -20,6 +24,11 @@ static BOOL		read_error(void)
 	raw_terminal_mode();
 	return (false);
 }
+
+/*
+** @brief get char giving by user (stdin)
+** @param buff is the buffer
+*/
 
 BOOL			sh_get_char(char *buff)
 {
@@ -33,7 +42,7 @@ BOOL			sh_get_char(char *buff)
 	ft_strncpy(buff++, &tmp, 1);
 	if (tmp == 27)
 	{
-		while (cnt < 4 && (ret = read(STDIN_FILENO, &tmp, 1) != -1)  &&
+		while (cnt < 4 && (ret = read(STDIN_FILENO, &tmp, 1) != -1) &&
 			tmp != '\n' && !ft_isalpha((int)tmp))
 		{
 			ft_strncpy(buff++, &tmp, 1);

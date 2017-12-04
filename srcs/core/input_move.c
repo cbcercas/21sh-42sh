@@ -96,7 +96,7 @@ t_cpos	input_get_last_pos(t_input *input)
 }
 
 /*
-** @brief Moves the input to the writable area (?TODO)
+** @brief Moves the cursor to the first not lock input
 ** @param input The current input
 ** @return Returns the input
 */

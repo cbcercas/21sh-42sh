@@ -14,28 +14,6 @@
 #include <sys/ioctl.h>
 
 /*
-** @brief Resets the given input
-**
-** @param input The input to be reset
-*/
-
-void	reset_input(t_input *input)
-{
-	if (input->str)
-		string_reset(input->str);
-	else
-		input->str = string_create();
-	input->prompt_len = 0;
-	input->offset_col = 0;
-	input->cpos.cp_line = 0;
-	input->cpos.cp_col = 0;
-	input->select_pos.is_set = false;
-	input->select_pos.cur_end = 0;
-	input->select_pos.cur_start = 0;
-	input->next = NULL;
-}
-
-/*
 ** @brief Destroys the given input
 **
 ** @param input The input to be destroyed
@@ -55,7 +33,6 @@ void	input_destroy(t_input **input)
 
 /*
 ** @brief Resets the given input
-** TODO: difference entre input_reset et reset_input
 **
 ** @param input The input to be reset
 */
@@ -96,11 +73,11 @@ size_t	pos_in_str(t_input *input)
 }
 
 /*
-** @brief TODO
+** @brief gets the first input not lock
 **
-** @param input TODO
+** @param input current input
 **
-** @return TODO
+** @return the first input not lock
 */
 
 t_input	*input_get_writable(t_input *input)

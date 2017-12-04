@@ -54,7 +54,7 @@ static size_t		get_prompt(void)
 /*
 ** @brief Prints the prompt and sets the variables
 **
-** @param inp TODO
+** @param inp current input
 */
 
 void				prompt_normal(t_input *inp)
@@ -72,10 +72,10 @@ void				prompt_normal(t_input *inp)
 }
 
 /*
-** @brief TODO
-** @param inp TODO
-** @param prompt TODO
-** @param ret TODO
+** @brief display not useally prompt
+** @param inp current input
+** @param prompt the personalized prompt
+** @param ret the ret of the last command
 */
 
 void				prompt_perso(t_input *inp, const char *prompt, t_return ret)

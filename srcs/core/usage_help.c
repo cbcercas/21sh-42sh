@@ -15,26 +15,6 @@
 #include <core/progname.h>
 
 /*
-** @brief Destroy what needs to be detroyed, prints a message and exits
-** @param mess The message to be printed
-** @param automat The t_automaton to be destroyed
-** @param array The t_array to be detroyed
-** @param fn TODO
-*/
-
-void		sh_over(char *mess, t_automaton *automat, t_array *array,\
-															void fn(void *elem))
-{
-	if (mess)
-		ft_putendl_fd(mess, 2);
-	if (automat)
-		automaton_destroy(&automat);
-	if (array)
-		array_destroy(&array, fn);
-	exit(EXIT_FAILURE);
-}
-
-/*
 ** @brief Prints the help when using a wrong option
 */
 

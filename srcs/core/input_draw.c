@@ -14,9 +14,9 @@
 #include <core/tcaps.h>
 
 /*
-** @brief TODO
-** @param input TODO
-** @param c TODO
+** @brief display char
+** @param input  current input
+** @param c the char to be "draw"
 */
 
 void		draw_char(t_input *input, char *c)
@@ -37,9 +37,9 @@ void		draw_char(t_input *input, char *c)
 */
 
 /*
-** @brief TODO
-** @param input TODO
-** @return TODO
+** @brief display input
+** @param input start of draw
+** @return the last input draw
 */
 
 t_input		*input_draw(t_input *input)
@@ -65,8 +65,8 @@ t_input		*input_draw(t_input *input)
 */
 
 /*
-** @brief TODO
-** @param input TODO
+** @brief display input and replace cursor to the origin of input
+** @param input the current input
 */
 
 void		redraw_input(t_input *input)

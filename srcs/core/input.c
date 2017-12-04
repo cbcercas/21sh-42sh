@@ -50,9 +50,11 @@ t_input			*input_hard_reset(t_input **input)
 }
 
 /*
-** @brief TODO
-** @param input TODO
-** @return TODO
+** @brief insert new input in list of input
+**
+** @param input The t_input where the new input to be add
+**
+** @return Returns the new input
 */
 
 t_input			*input_add_new(t_input *input)
@@ -72,10 +74,10 @@ t_input			*input_add_new(t_input *input)
 }
 
 /*
-** @brief TODO
-** @param input TODO
-** @param key TODO
-** @return TODO
+** @brief Gets the line that the user is typing
+** @param input The t_input
+** @param key the char to be insert
+** @return true if everything is ok, flase otherwise
 */
 
 static BOOL		sh_get_line_insert(t_input *input, t_key key)
@@ -89,8 +91,8 @@ static BOOL		sh_get_line_insert(t_input *input, t_key key)
 
 /*
 ** @brief Gets the line that the user is typing
-** @param input The t_input (TODO)
-** @param opts The options (?TODO)
+** @param input The t_input
+** @param opts The options of shell
 ** @return Returns The input
 */
 

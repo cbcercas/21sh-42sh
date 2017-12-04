@@ -19,6 +19,12 @@
 ** @return TODO
 */
 
+/*
+** @brief Gets the str from input
+**
+** @return Returns the input
+*/
+
 static char		*str_from_input(void)
 {
 	t_input	*input;
