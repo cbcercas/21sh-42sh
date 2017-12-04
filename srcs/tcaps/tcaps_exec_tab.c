@@ -20,15 +20,17 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 	t_window	*wd;
 
 	(void) key;
-	wd = get_windows(0);
-	if (get_select()->is) // TODO secure
+	if (!(wd = get_windows(0)) || wd->select.is
+		|| !input || !input->str || !input->str->len)
 		return (false);
 	if (wd->autocomp)
 	{
 		if (!wd->autocomp->active)
 		{
-			get_windows(0)->autocomp->active = true;//TODO secure
-			select_get_data()->disp.first->prev->cursor = true;//TODO secure
+			if (get_windows(0)->autocomp)
+				get_windows(0)->autocomp->active = true;
+			if (select_get_data()->disp.first && select_get_data()->disp.first->prev)
+				select_get_data()->disp.first->prev->cursor = true;
 			tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 			tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 		}
