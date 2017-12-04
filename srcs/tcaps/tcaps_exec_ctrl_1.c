@@ -47,7 +47,6 @@ BOOL	exec_ctrl_z(const t_key *key, t_input *input)
 	if (get_select()->is)
 		return (false);
 	tcaps_bell();
-	tputs(tgetstr("vb", NULL), 0, &ft_putc_in);
 	return (false);
 }
 

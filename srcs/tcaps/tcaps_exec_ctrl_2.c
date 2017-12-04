@@ -65,7 +65,6 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 		return (exec_ctr_j_hist(input));
 	if (MAX_NB_INPUT < count_nb_input(input_get_cur_head()))
 	{
-		tputs(tgetstr("vb", NULL), 0, &ft_putc_in);
 		tcaps_bell();
 		return (false);
 	}
