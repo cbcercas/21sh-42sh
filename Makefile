@@ -119,38 +119,36 @@ SRCS			+= select.c select_data.c select_display.c \
 ###############################################################################
 
 #  Compiler
-CC                      = clang
-CFLAGS          = -g -Wall -Wextra -Werror
+CC				= clang
+CFLAGS			= -Wall -Wextra
+
+ifneq ($(NOERR),yes)
+    CFLAGS		+= -Werror
+endif
 
 ifeq ($(DEV),yes)
-		CFLAGS          += -std=c11 -pedantic -pedantic-errors
+    CFLAGS		+= -g
 endif
 
 ifeq ($(SAN),yes)
-		LDFLAGS += -fsanitize=address
-		CFLAGS += -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
-endif
-
-ifeq ($(NOERR),yes)
-    CFLAGS		= -g -Wall -Wextra -Wdeprecated-declarations
+    CFLAGS		+= -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
 endif
 
 #The Directories, Source, Includes, Objects and Libraries
-INC                     = -I includes
-SRCS_DIR        = srcs
+INC				= -I includes
+SRCS_DIR		= srcs
 vpath  %c $(addprefix $(SRCS_DIR)/,$(SRC_SUBDIR))
 
 #Objects
-OBJS_DIR        = objs
-OBJS            = $(SRCS:%.c=$(OBJS_DIR)/%.o)
+OBJS_DIR		= objs
+OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 # Dependencies
-DEPS_DIR        = .deps
-DEPS            = $(SRCS:%.c=$(DEPS_DIR)/%.d)
-BUILD_DIR       = $(OBJS_DIR) $(DEPS_DIR)
+DEPS_DIR		= .deps
+DEPS			= $(SRCS:%.c=$(DEPS_DIR)/%.d)
+BUILD_DIR		= $(OBJS_DIR) $(DEPS_DIR)
 
 # Libraries
-#LIBS_FOLDER    = lib
 ## libcbc
 LIB_CBC_DIR := libcbc
 
@@ -211,7 +209,7 @@ $(NAME): $(OBJS)
 		@printf "[\033[35m---------------------------------\033[0m]\n"
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-		@$(CC) $(LDFLAGS) $(CFLAGS) $(INC) -o $@ -c $<
+		@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 		$(eval COUNT_OBJ=$(shell echo $$(($(COUNT_OBJ)+1))))
 		$(eval PERCENT=$(shell echo $$((($(COUNT_OBJ) * 100 )/$(TOTAL)))))
 		@printf "$(C_B)%-8s $(C_P) $<$(C_NO)\n" "[$(PERCENT)%]"
@@ -235,25 +233,31 @@ $(BUILD_DIR):
 		@$(MKDIR) -p $@
 
 lib:
-		@make -C $(LIB_CBC_DIR)
+		@make -C $(LIB_CBC_DIR) NOERR=$(NOERR) DEV=$(DEV) SAN=$(SAN)
 
 re: fclean all
 
 clean:
+ifeq ($(shell [ -e $(OBJS_DIR) ] && echo 1 || echo 0),1)
 	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]\n"
 	@$(RM) $(OBJS_DIR)
+endif
+ifeq ($(shell [ -e $(DEPS_DIR) ] && echo 1 || echo 0),1)
 	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .d\033[0m]\n"
 	@$(RM) $(DEPS_DIR)
 	@make clean -C $(LIB_CBC_DIR)
+endif
 
 fclean: clean
+ifeq ($(shell [ -e $(NAME) ] && echo 1 || echo 0),1)
 	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]\n"
 	@$(RM) $(NAME)
+endif
 	@make fclean -C $(LIB_CBC_DIR)
 	@rm -rf DOC
 
 dev:
-		@make -C ./ SAN="yes" DEV="yes"
+		@make -C ./ NOERR="yes" SAN="yes" DEV="yes"
 
 doc:
 ifndef DOXYGEN
