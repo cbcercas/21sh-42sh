@@ -21,12 +21,12 @@ BOOL	exec_backspace(const t_key *key, t_input *input)
 		return (false);
 	if (input->cpos.cp_line || (input->cpos.cp_col > input->offset_col))
 	{
-		exec_arrow_left(key, input);
+		exec_arrow_left_normal(input);
 		exec_delete(key, input);
 	}
 	else if (input->prev)
 	{
-		exec_arrow_left(key, input);
+		exec_arrow_left_normal(input->prev);
 		get_windows(0)->cur = input->prev;
 		exec_delete(key, input->prev);
 	}
