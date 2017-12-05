@@ -42,8 +42,8 @@ BOOL			sh_get_char(char *buff)
 	ft_strncpy(buff++, &tmp, 1);
 	if (tmp == 27)
 	{
-		while (cnt < 4 && (ret = read(STDIN_FILENO, &tmp, 1) != -1) &&
-			tmp != '\n' && !ft_isalpha((int)tmp))
+		while (cnt < 9 && (ret = read(STDIN_FILENO, &tmp, 1) != -1) &&
+			tmp != '\n' && !ft_isalpha((int)tmp) && tmp != '~')
 		{
 			ft_strncpy(buff++, &tmp, 1);
 			cnt++;
