@@ -93,7 +93,7 @@ static void		init_key_exec(t_key_exec *fn_exec)
 
 BOOL			key_exec(t_key *key, t_input *input)
 {
-	static t_key_exec	fn_exec[29];
+	static t_key_exec	fn_exec[30];
 	static t_key_exec	*init = NULL;
 	int					i;
 
