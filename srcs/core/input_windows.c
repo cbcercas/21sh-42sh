@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <core/input.h>
+#include <tools/tools.h>
 
 /*
 ** @brief Helper for get_windows
@@ -60,7 +61,7 @@ t_window			*get_windows(int rst)
 	if (!(wd))
 	{
 		if (!(wd = ft_memalloc(sizeof(*wd))))
-			exit(EXIT_FAILURE);
+			sh_exit_error("Malloc Error");
 		rst = 77;
 	}
 	if (rst >= 40)
@@ -69,7 +70,7 @@ t_window			*get_windows(int rst)
 	{
 		get_select()->is = false;
 		if (!(input_hard_reset(&wd->cur_head)))
-			return (NULL);
+			sh_exit_error("Error Malloc hard reset");
 	}
 	if ((rst %= 20) && rst >= 10)
 		input_destroy(&wd->save);

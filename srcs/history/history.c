@@ -21,15 +21,8 @@ t_array		*sh_history_get(void)
 {
 	static t_array	*e = NULL;
 
-	if (e == NULL)
-	{
-		if ((e = array_create(sizeof(t_hist))) == NULL)
-		{
-			log_fatal("Environ: can't initialise history array");
-			ft_dprintf(STDERR_FILENO, "Environ: can't initialise hsitory");
-			exit(EXIT_FAILURE);
-		}
-	}
+	if (!e && (e = array_create(sizeof(t_hist))) == NULL)
+		sh_exit_error("Environ: can't initialise hsitory");
 	return (e);
 }
 

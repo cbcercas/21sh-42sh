@@ -43,7 +43,8 @@ SRCS			+= check_path.c exec_tlist.c sh_exec_list_fd.c sh_exec.c\
 
 SRC_SUBDIR		+= tools
 SRCS			+= ft_isdigit_str.c getpwd.c is.c \
-					is_printstr.c sh_ret.c sh_test_access.c print_verb.c
+					is_printstr.c sh_ret.c sh_test_access.c print_verb.c\
+					sh_exit_error.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c lexer_utils.c

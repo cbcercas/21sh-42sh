@@ -28,8 +28,7 @@ t_array		*expand_init(t_array *expand_array)
 		log_info("Expand: Initialization done");
 		return (expand_array);
 	}
-	log_fatal("Expand: Initialization failed");
-	ft_dprintf(2, "Expand: Initialization failed");
+	sh_exit_error("Expand: Initialization failed");
 	return (NULL);
 }
 

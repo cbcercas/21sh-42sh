@@ -14,6 +14,7 @@
 #include <environ/modif_env.h>
 #include <ftprintf.h>
 #include <logger.h>
+#include <tools/tools.h>
 
 /*
 ** @brief Prints all the vars (env or local)
@@ -50,16 +51,8 @@ t_array		*get_envs(void)
 {
 	static t_array	*e = NULL;
 
-	if (e == NULL)
-	{
-		if ((e = array_create(sizeof(t_env))) == NULL)
-		{
-			log_fatal("Environ: can't initialise environment array");
-			ft_dprintf(STDERR_FILENO, "Environ: can't initialise environment\
-					variables\n");
-			exit(EXIT_FAILURE);
-		}
-	}
+	if (!e && (e = array_create(sizeof(t_env))) == NULL)
+		sh_exit_error("Environ: can't initialise environment variables");
 	return (e);
 }
 
@@ -72,15 +65,8 @@ t_array		*get_vars(void)
 {
 	static t_array	*e = NULL;
 
-	if (e == NULL)
-	{
-		if ((e = array_create(sizeof(t_env))) == NULL)
-		{
-			log_fatal("Variables: can't initialise variable array");
-			ft_dprintf(2, "Variables: can't initialise variables\n");
-			exit(EXIT_FAILURE);
-		}
-	}
+	if (!e && (e = array_create(sizeof(t_env))) == NULL)
+		sh_exit_error("Variables: can't initialise variables");
 	return (e);
 }
 

@@ -37,16 +37,8 @@ t_array		*get_pids_child(void)
 {
 	static t_array	*e = NULL;
 
-	if (e == NULL)
-	{
-		if ((e = array_create(sizeof(t_pids))) == NULL)
-		{
-			log_fatal("get_pids_child: can't initialise pids child array");
-			ft_dprintf(STDERR_FILENO, "get_pids_child:"
-					" can't initialise pids childs variables\n");
-			exit(EXIT_FAILURE);
-		}
-	}
+	if (!e && (e = array_create(sizeof(t_pids))) == NULL)
+		sh_exit_error("get_pids_child: can't initialise pids child array");
 	return (e);
 }
 
@@ -68,9 +60,6 @@ int			kill_childs(int sig)
 		return (EXIT_FAILURE);
 	while (0 < e->used)
 	{
-		log_dbg3("kill pid = %d (SHLVL = %s)\n",
-				((t_pids*)array_get_at(e, 0))->pid,
-				get_var_value(get_envs(), "SHLVL"));
 		kill(((t_pids*)array_get_at(e, 0))->pid, sig);
 		array_remove_at(e, 0, NULL);
 	}

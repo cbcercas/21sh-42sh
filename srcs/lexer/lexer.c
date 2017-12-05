@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <lexer/lexer.h>
+#include <tools/tools.h>
 
 /*
 ** @brief TODO
@@ -596,7 +597,7 @@ t_return			lexer_lex(t_array *tokens, char const *in)
 
 	ret = E_RET_LEXER_OK;
 	if (automaton_init(&automaton) == NULL)
-		exit(EXIT_FAILURE);
+		sh_exit_error("automaton init fail");
 	if (in == NULL || !ft_strlen(in))
 	{
 		stack_destroy(&automaton.stack, NULL);

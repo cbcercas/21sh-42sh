@@ -24,23 +24,14 @@ void	sh_testing_lexer(char *const *av)
 	t_array		tokens;
 
 	if (lexer_init(&tokens) == NULL)
-	{
-		ft_dprintf(2, "Error initialising tokens");
-		exit(EXIT_FAILURE);
-	}
+		sh_exit_error("Error initialising tokens");
 	else if (automaton_init(&automaton) == NULL)
-	{
-		ft_dprintf(2, "Error Initialising automaton");
-		exit(EXIT_FAILURE);
-	}
+		sh_exit_error("Error Initialising automaton");
 	else if (lexer_lex(&tokens, av[0]) == E_RET_LEXER_OK)
 	{
 		lexer_print_tokens(&tokens);
 		exit(0);
 	}
 	else
-	{
-		ft_dprintf(2, "Fatal testing error: Couldn't catch the error.");
-		exit(EXIT_FAILURE);
-	}
+		sh_exit_error("Fatal testing error: Couldn't catch the error.");
 }

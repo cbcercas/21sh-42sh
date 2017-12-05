@@ -17,6 +17,7 @@
 **
 ** @param sig The signal you want the program to exit with
 */
+int				g_logger_fd;
 
 void	signals_quit(int sig)
 {
@@ -26,9 +27,10 @@ void	signals_quit(int sig)
 	else if (sig == SIGABRT)
 		ft_putstr_fd("Shell Abort", 2);
 	else
-		ft_dprintf(STDERR_FILENO, "\nShell quit with signal: %d\nGoodbye, "
-				"see-you! :)\n", sig);
-	log_fatal("Signals: Shell quit with signal: %d", sig);
+		sh_exit_error("The Shell Quit suddenly cause signal");
+	ft_putstr_fd("Signals: Shell quit with signal:", g_logger_fd);
+	ft_putnbr_fd(sig, g_logger_fd);
+	ft_putendl_fd("", g_logger_fd);
 	kill_childs(SIGTERM);
 	exit(128 + (sig % 32));
 }
@@ -72,7 +74,6 @@ void	signals_sigwinch(void)
 
 void	signals_handler(int sig)
 {
-	log_info("Signals:Shell cath signal:%d", sig);
 	if (sig == SIGTSTP)
 		tcaps_bell();
 	else if (sig == SIGINT)

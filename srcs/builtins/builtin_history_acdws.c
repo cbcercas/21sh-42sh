@@ -131,7 +131,7 @@ void	sh_history_builtin_s(char **argv, int index)
 	while (argv[index] && ft_isalnum(argv[index][0]))
 	{
 		if (cmd_join && !(cmd_join = ft_strjoincl(cmd_join, " ", 1)))
-			exit(EXIT_FAILURE);
+			sh_exit_error("Malloc Error");
 		if ((tmp = ft_strchr(argv[index], '\n')))
 		{
 			*tmp = 0;

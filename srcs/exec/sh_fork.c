@@ -25,7 +25,7 @@ pid_t	sh_fork(t_pid_type type)
 	t_pids	save_pid;
 
 	if ((pid = fork()) == -1)
-		ft_putstr_fd("fork error\n", 2);
+		sh_exit_error("Fork error");
 	if (pid > 0)
 	{
 		save_pid.pid = pid;

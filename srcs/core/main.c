@@ -80,9 +80,9 @@ t_sh_data			*get_data(t_sh_data *save)
 static void			sh_arrays_init(t_array *tokens, t_array *expand)
 {
 	if (lexer_init(tokens) == NULL)
-		exit(EXIT_FAILURE);
+		sh_exit_error("Lexer init");
 	if (expand_init(expand) == NULL)
-		exit(EXIT_FAILURE);
+		sh_exit_error("Expand init");
 }
 
 /*
@@ -108,7 +108,7 @@ int					main(int ac, char *const *av, char **environ)
 	sh_arrays_init(&exec_dat.tokens, &exec_dat.expand);
 	get_data(&data);
 	if (!sh_init(get_data(NULL), ac, av, environ))
-		exit(EXIT_FAILURE);
+		sh_exit_error("sh_init fail");
 	while (!stop)
 		stop = sh_loop(data, &exec_dat, &ret);
 	sh_arrays_reset(&exec_dat.tokens, &exec_dat.expand);

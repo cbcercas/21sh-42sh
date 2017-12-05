@@ -13,6 +13,7 @@
 #include <libft.h>
 #include <core/input.h>
 #include <core/prompt.h>
+#include <tools/tools.h>
 
 /*
 ** @brief TODO
@@ -37,10 +38,10 @@ static char		*str_from_input(void)
 	while (input && input->str)
 	{
 		if (!(line = ft_strjoincl(line, input->str->s, 1)))
-			return (NULL);
+			sh_exit_error("Error Malloc");
 		if (input->next && input->str->s[input->str->len - 1] != '\\'
 			&& !(line = ft_strjoincl(line, "\n", 1)))
-			return (NULL);
+			sh_exit_error("Error Malloc");
 		input = input->next;
 	}
 	return (line);

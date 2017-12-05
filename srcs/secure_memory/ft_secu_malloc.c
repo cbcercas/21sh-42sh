@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <secure_memory/secure_memory.h>
+#include <tools/tools.h>
 
 /*
 ** @brief TODO
@@ -53,7 +54,10 @@ void			*ft_secu_malloc_lvl(size_t size, size_t lvl)
 	mem = get_mem();
 	if (!mem || !(secu_malloc =
 				(t_secu_malloc*)ft_memalloc(sizeof(t_secu_malloc))))
+	{
+		sh_exit_error("Error Malloc");
 		return (NULL);
+	}
 	ptr = ft_memalloc(size);
 	secu_malloc->lvl = lvl;
 	secu_malloc->ptr = ptr;
@@ -85,10 +89,7 @@ t_mem			*get_mem(void)
 	if (mem == NULL)
 	{
 		if (!(mem = (t_mem *)malloc(sizeof(t_mem))))
-		{
-			ft_putstr_fd("ERROR: Malloc\n", 2);
-			return (NULL);
-		}
+			sh_exit_error("Error Malloc");
 		ft_bzero(mem, sizeof(t_mem));
 		mem->first = NULL;
 		mem->last = NULL;

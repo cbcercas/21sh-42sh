@@ -50,15 +50,9 @@ t_array		init_tests_ast(char *input)
 	t_array		tokens;
 
 	if (lexer_init(&tokens) == NULL)
-	{
-		ft_dprintf(2, "Error initialising tokens");
-		exit(EXIT_FAILURE);
-	}
+		sh_exit_error("Error initialising tokens");
 	else if (automaton_init(&automaton) == NULL)
-	{
-		ft_dprintf(2, "Error Initialising automaton");
-		exit(EXIT_FAILURE);
-	}
+		sh_exit_error("Error Initialising automaton");
 	else if (lexer_lex(&tokens, input))
 	{
 		if (automaton.stack)
@@ -66,10 +60,8 @@ t_array		init_tests_ast(char *input)
 		return (tokens);
 	}
 	else
-	{
-		ft_dprintf(2, "Fatal testing error : Couldn't Catch the error.");
-		exit(EXIT_FAILURE);
-	}
+		sh_exit_error("Fatal testing error : Couldn't Catch the error.");
+	return (tokens);
 }
 
 /*
@@ -92,7 +84,7 @@ void		sh_testing_ast(char *const *av, char **environ)
 	sh_history_init(sh_history_get());
 	tokens = init_tests_ast(input);
 	if (expand_init(&expands) == NULL)
-		exit(EXIT_FAILURE);
+		sh_exit_error("Expand init fail");
 	expand(&tokens, &expands);
 	if ((ast_create(&ast, &expands) != E_RET_AST_OK))
 		ft_printf("AST NULL\n");

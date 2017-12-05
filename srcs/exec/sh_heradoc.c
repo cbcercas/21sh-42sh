@@ -117,7 +117,7 @@ int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 						: 0);
 		exec_list_push(&fds[STDIN_FILENO], (size_t)pipe[END]);
 		sh_process_exec(data, ast->left, fds);
-		exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 	return (sh_heredoc_father(pipe));
 }
