@@ -26,7 +26,10 @@ void	sh_history_print(void)
 	hists = sh_history_get();
 	i = 0;
 	if (!hists || !hists->used)
+	{
 		ft_dprintf(STDERR_FILENO, "%s: history: no history (yet)", PROGNAME);
+		return ;
+	}
 	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);

@@ -157,7 +157,7 @@ int			sh_chdir(t_sh_data *data, char **arg)
 	(void)data;
 	ret = -1;
 	ft_getopt_reset();
-	while ((opt = ft_getopt(ft_tablen(arg), arg, "LPh")) != -1)
+	while ((opt = ft_getopt(((int)ft_tablen(arg)), arg, "LPh")) != -1)
 	{
 		if (opt == 'h' || opt == '?')
 			return (ft_dprintf(2, "cd: [-L/-P] [path], use \"help cd\"\n"));
@@ -169,7 +169,10 @@ int			sh_chdir(t_sh_data *data, char **arg)
 	opt = ret;
 	if (arg && ft_tablen(&arg[g_optind]) > 1)
 		return (ft_dprintf(2, "cd: too many arguments\n"));
-	ret = sh_do_chdir(arg[g_optind], opt);
+	if (arg)
+		ret = sh_do_chdir(arg[g_optind], opt);
+	else
+		ret = sh_do_chdir(NULL, opt);
 	ft_getopt_reset();
 	return (ret);
 }

@@ -36,7 +36,7 @@ static	void	sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
 		opts->verbose = true;
 	else if (opt == 'd')
 		if (ft_atoi(g_optarg) >= 0 && ft_atoi(g_optarg) <= 7)
-			logger_init(ft_atoi(g_optarg), PROGNAME, "sh.log");
+			logger_init((enum e_d_lvl)ft_atoi(g_optarg), PROGNAME, "sh.log");
 		else
 		{
 			ft_dprintf(2, "%s: Invalid debug level.\n", PROGNAME);

@@ -12,7 +12,6 @@
 
 #include <core/input.h>
 #include <core/tcaps.h>
-#include <tools/tools.h>
 
 /*
 ** @brief Creates a new t_input

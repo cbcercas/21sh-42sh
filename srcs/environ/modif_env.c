@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <environ/env_list_utils.h>
-#include <array/array.h>
 #include <environ/getter_env.h>
 #include <logger.h>
 

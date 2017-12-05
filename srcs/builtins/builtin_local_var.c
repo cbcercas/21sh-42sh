@@ -53,7 +53,7 @@ static void	builtin_export_p(char **argv, BOOL color)
 	t_env	*var;
 
 	if (!argv || !(*argv))
-		builtin_export_print(get_envs(), color);
+		return (builtin_export_print(get_envs(), color));
 	while (*argv)
 	{
 		if ((var = get_var(get_envs(), *argv)) && color)
@@ -122,7 +122,7 @@ int			builtin_export_var(char **argv, BOOL color)
 		return (1);
 	if (!argv || !(*argv))
 		builtin_export_print(get_envs(), color);
-	while (*argv)
+	while (argv && *argv)
 	{
 		name = ft_strchr(*argv, '=') ? split_var_name(*argv) : ft_strdup(*argv);
 		var = get_var(get_vars(), name);

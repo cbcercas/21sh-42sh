@@ -20,11 +20,11 @@
 ** @return Returns true if the string is printable, false otherwise
 */
 
-BOOL	is_printstr(char const *line)
+BOOL	is_printstr(char const *line) //TODO replace by ft_isprintstr
 {
 	if (!line)
 		return (false);
 	while (line && (ft_isprint(*line) || *line == '\n' || *line == '\t'))
 		line++;
-	return (*line != '\0') ? false : true;
+	return (line && *line != '\0') ? false : true;
 }

@@ -83,13 +83,12 @@ int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 	cnt = 0;
 	while (cnt < FD_SETSIZE)
 		backup[cnt++] = NULL;
-	ret = 1;
 	log_info("EXEC: %s", item->av[0]);
 	sh_exex_creat_backup_fd_close(backup, fds);
 	exec_list_fd_close(fds);
-	if (item && item->av && item->av[0] && ft_strchr(item->av[0], '=') &&
+	if (item->av && item->av[0] && ft_strchr(item->av[0], '=') &&
 			ft_strlen(item->av[0]) != 1)
-		sh_exec_local_var(data, item, fds);
+		ret = sh_exec_local_var(data, item, fds);
 	else if (sh_is_builtin(item->av[0]))
 		ret = sh_exec_builtin(data, item, fds);
 	else

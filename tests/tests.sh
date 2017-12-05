@@ -4,7 +4,7 @@
 #                              BASE FUNCTION                                   #
 ################################################################################
 
-help()
+help_usage()
 {
 	echo -e "\nUsage:  ./tests.sh [tests][module]"
 		echo -e "\t\033[1;m TESTS:\033[0m"
@@ -39,7 +39,7 @@ check_path()
 		echo -e "ERROR, Wrong directory\033[0m"
 		echo -e "You should be in .../tests/"
 		echo -e "Actualy you are: $PWD"
-		help
+		help_usage
 		exit 1;
 	else
 		echo -e "\033[1;32m info: Good directory\033[0m"
@@ -85,7 +85,7 @@ test_sh()
 {
 	test_sh_verif
 	if [ $# != 1 ]; then
-		help
+		help_usage
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
 		sh "$path_of_file/"tests_module/test_lexer.sh $name_of_exec
@@ -105,7 +105,7 @@ test_sh()
 		echo -e "###### END TESTING-LEXER ########"
 		return 0;
 	else
-		help
+		help_usage
 		exit 1;
 	fi
 }
@@ -155,7 +155,7 @@ test_bats()
 {
 	test_bats_verif
 	if [ $# != 1 ]; then
-		help
+		help_usage
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
 		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats" $path_of_file"/tests_bats/builtins.bats"
@@ -305,7 +305,7 @@ do
 			var_test_bats="$OPTARG"
 			;;
 		h)
-			help
+			help_usage
 			exit 1;
 			;;
 		v)

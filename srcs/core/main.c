@@ -13,12 +13,9 @@
 #include <array/array.h>
 #include <lexer/lexer.h>
 #include <expand/expand.h>
-#include <core/input.h>
 #include <btree/ft_btree.h>
-#include <core/init.h>
 #include <builtins/builtin_exit.h>
 #include <core/sh_loop.h>
-#include <core/main.h>
 
 /*
 **!@mainpage 21-42sh Documentation

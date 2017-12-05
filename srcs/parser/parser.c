@@ -304,7 +304,7 @@ static const char	*g_grammar[226] =
 ** @return Returns an error `E_RET_PARSER_ERROR`
 */
 
-t_return						ret_parser(t_token *toknext)
+static t_return					ret_parser(t_token *toknext)
 {
 	ft_dprintf(STDERR_FILENO, "%s: Parse error near `%s'\n", PROGNAME,
 			g_grammar[toknext->type]);

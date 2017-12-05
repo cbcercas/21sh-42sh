@@ -24,7 +24,6 @@ t_btree	*btree_create_node(void *item)
 {
 	t_btree	*btree;
 
-	btree = NULL;
 	if (!(btree = (t_btree*)ft_secu_malloc_lvl(sizeof(t_btree), 2)))
 		return (NULL);
 	btree->parent = NULL;

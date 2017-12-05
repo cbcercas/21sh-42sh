@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <ast/ast.h>
-#include <core/color.h>
 
 /*
 ** @brief swap_lim swap limits

@@ -64,8 +64,8 @@ BOOL		history_research_search(const char *line, t_input **result)
 			return (true);
 		if (first->cur < 0)
 			first->cur = hists->used - 1;
-		while (first->cur != -1 &&\
-				(h = (t_hist *)array_get_at(hists, first->cur)) &&\
+		while (first->cur != -1 && \
+				(h = (t_hist *)array_get_at(hists, (size_t)first->cur)) && \
 				!ft_strnequ(line, h->cmd, ft_strlen(line)))
 			first->cur--;
 		if (ft_strnequ(line, h->cmd, ft_strlen(line)))

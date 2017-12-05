@@ -42,6 +42,8 @@ static void		exec_select_off(t_input *input)
 		move_cursor_to(&dest, &input->cpos, get_ts());
 		input = input->next;
 	}
+	if (!input)
+		return ;
 	pos_str = (input->select_pos.cur_start > input->select_pos.cur_end) ?
 			input->select_pos.cur_end : input->select_pos.cur_start;
 	input_goto_line_end(input);

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <automaton/automaton.h>
-#include <ftprintf.h>
 #include <core/progname.h>
 
 /*

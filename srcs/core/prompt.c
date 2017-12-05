@@ -18,10 +18,6 @@
 #include <core/tcaps.h>
 #include <ft_libgen.h>
 
-#include <core/prompt.h>
-#include <core/return.h>
-#include <tools/tools.h>
-
 /*
 ** @brief Prints the prompt
 **

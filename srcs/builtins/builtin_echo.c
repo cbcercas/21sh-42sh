@@ -55,7 +55,6 @@ static int	ft_index_strstr(const char *big, const char *little)
 	unsigned int	temp;
 
 	i = 0;
-	j = 0;
 	if (little[0] == '\0')
 		return (0);
 	while (big[i])

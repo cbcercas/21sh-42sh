@@ -23,7 +23,6 @@ void		raw_terminal_mode(void)
 	tattr.c_cc[VTIME] = 0;
 	tcsetattr(STDIN_FILENO, TCSADRAIN, &tattr);
 	tgetent(NULL, get_var_value(get_envs(), "TERM"));
-	return ;
 }
 
 void		default_terminal_mode(void)
@@ -36,7 +35,6 @@ void		default_terminal_mode(void)
 	tattr.c_oflag |= (OPOST);
 	if (!ret)
 		tcsetattr(STDIN_FILENO, TCSADRAIN, &tattr);
-	return ;
 }
 
 /*
@@ -67,5 +65,4 @@ void		sh_store_tattr(t_sh_data *data)
 	}
 	else if ((data->tattr = (struct termios*)malloc(sizeof(struct termios))))
 		ft_memcpy(data->tattr, &save_tattr, sizeof(struct termios));
-	return ;
 }

@@ -69,7 +69,7 @@ static	int	history_get_fd(void)
 		return (fd);
 	if (get_history_init_choice(-1) != 5 && get_history_init_choice(-1) != -1)
 		open(path, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	if (!path || (fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
+	if ((fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
 	{
 		log_warn("History: History was not saved, Failed open");
 		default_terminal_mode();

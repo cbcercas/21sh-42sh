@@ -12,7 +12,6 @@
 
 #include <ast/ast.h>
 #include <builtins/builtin_exit.h>
-#include <core/color.h>
 
 /*
 ** @brief Frees cmd content and cmd

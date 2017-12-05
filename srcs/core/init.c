@@ -13,19 +13,8 @@
 #include <core/init.h>
 #include <libft.h>
 #include <tests/sh_tests.h>
-#include <tests/sh_tests.h>
 #include <core/help.h>
-#include <unistd/ft_unistd.h>
-#include <core/progname.h>
-#include <environ/environ.h>
-#include <signals/signals.h>
 #include <sys/param.h>
-#include <core/deinit.h>
-#include <environ/env_utils.h>
-#include <environ/getter_env.h>
-#include <term.h>
-#include <builtins/builtin_exit.h>
-#include <core/color.h>
 
 extern char const	*g_optarg;
 
@@ -76,7 +65,10 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 									char **environ)
 {
 	if (!data)
-		sh_exit(NULL, NULL);
+	{
+		ft_dprintf(STDERR_FILENO, "%s: ERROR Intern Data is Empty\n", PROGNAME);
+		return (sh_exit(NULL, NULL));
+	}
 	ft_bzero(data, sizeof(*data));
 	sh_options(&(data->opts), ac, av, environ);
 	init_environ(environ);

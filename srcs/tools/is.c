@@ -48,9 +48,8 @@ BOOL	is_str_car(const char *buff)
 
 BOOL	is_redirect(int c)
 {
-	if (c == E_TOKEN_LESSGREAT || c == E_TOKEN_DLESS || c == E_TOKEN_DGREAT ||
-			c == E_TOKEN_DGREAT || c == E_TOKEN_GREATAND ||
-			c == E_TOKEN_LESSAND)
+	if (c == E_TOKEN_LESSGREAT || c == E_TOKEN_DLESS || c == E_TOKEN_DGREAT
+		|| c == E_TOKEN_GREATAND || c == E_TOKEN_LESSAND)
 		return (true);
 	return (false);
 }

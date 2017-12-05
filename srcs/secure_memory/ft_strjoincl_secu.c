@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <secure_memory/secure_memory.h>
-#include <stdio.h>
 
 /*
 ** @brief TODO

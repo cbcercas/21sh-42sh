@@ -83,7 +83,7 @@ const char	*sh_history_get_at(ssize_t nb)
 		if ((h = (t_hist *)array_get_at(hists, hists->used + nb)))
 			return (h->cmd);
 	}
-	else if ((h = (t_hist *)array_get_at(hists, nb - 1)))
+	else if ((h = (t_hist *)array_get_at(hists, (size_t)(nb - 1))))
 		return (h->cmd);
 	return (NULL);
 }

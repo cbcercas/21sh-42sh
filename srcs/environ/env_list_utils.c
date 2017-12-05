@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <environ/env_list_utils.h>
-#include <libft.h>
 #include <logger.h>
 #include <ftprintf.h>
 

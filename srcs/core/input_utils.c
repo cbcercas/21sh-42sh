@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/input.h>
-#include <sys/ioctl.h>
 
 /*
 ** @brief Destroys the given input

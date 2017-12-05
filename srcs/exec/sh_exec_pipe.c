@@ -76,14 +76,14 @@ static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 	*is_in_pipe() = true;
 	if (pid == 0)
 		sh_pipe_left(data, ast, fds, pipe);
-	exec_list_push(&pids, pid);
+	exec_list_push(&pids, (size_t)pid);
 	if (ast->left && ((t_cmd *)ast->left->item)->type == E_TOKEN_DLESS)
 		sh_wait(pid, 0);
 	if ((pid = sh_fork(E_PID_PIPE)) == -1)
 		return (NULL);
 	if (pid == 0)
 		sh_pipe_right(data, ast, fds, pipe);
-	exec_list_push(&pids, pid);
+	exec_list_push(&pids, (size_t)pid);
 	close(pipe[START]);
 	close(pipe[END]);
 	return (pids);

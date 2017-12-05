@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <builtins/builtin_history.h>
-#include <core/color.h>
 
 /*
 ** @brief th option -r Read the contents of the history

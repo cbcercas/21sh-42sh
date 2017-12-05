@@ -90,8 +90,8 @@ void	signals_handler(int sig)
 			kill(get_pid_child(-1), SIGKILL);
 		exit(EXIT_SUCCESS);
 	}
-	else if (((sig >= 1 && sig < 17) || sig == 23 || sig == 24 ||\
-					(sig >= 26 && sig <= 31)) && sig != SIGWINCH && sig != 28)
+	else if ((sig >= 1 && sig < 17) || sig == 23 || sig == 24 ||\
+					(sig >= 26 && sig <= 31))
 		signals_quit(sig);
 }
 
