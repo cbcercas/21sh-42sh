@@ -36,13 +36,20 @@ static void		init_key_exec_2(t_key_exec *fn_exec)
 	fn_exec[15].f = &exec_delete;
 	fn_exec[16].key_code = KEY_CODE_TAB;
 	fn_exec[16].f = &exec_tab;
+#ifdef __APPLE__
 	fn_exec[17].key_code = KEY_CODE_ALT_UARROW;
-	fn_exec[17].f = &exec_alt_up;
 	fn_exec[18].key_code = KEY_CODE_ALT_DARROW;
-	fn_exec[18].f = &exec_alt_down;
 	fn_exec[19].key_code = KEY_CODE_ALT_LARROW;
-	fn_exec[19].f = &exec_alt_left;
 	fn_exec[20].key_code = KEY_CODE_ALT_RARROW;
+#else
+	fn_exec[17].key_code = KEY_CODE_CTRL_UARROW;
+	fn_exec[18].key_code = KEY_CODE_CTRL_DARROW;
+	fn_exec[19].key_code = KEY_CODE_CTRL_LARROW;
+	fn_exec[20].key_code = KEY_CODE_CTRL_RARROW;
+#endif
+	fn_exec[17].f = &exec_alt_up;
+	fn_exec[18].f = &exec_alt_down;
+	fn_exec[19].f = &exec_alt_left;
 	fn_exec[20].f = &exec_alt_right;
 	fn_exec[21].key_code = KEY_CODE_INSERT;
 	fn_exec[21].f = &exec_select;
