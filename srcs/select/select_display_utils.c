@@ -41,7 +41,11 @@ static void	display_set_color(t_sel_word *word)
 
 void	display_print_word(t_sel_word *word)
 {
-	if (select_get_data()->options.color)
+	t_sel_data	*data;
+
+	if (!(data = select_get_data()))
+		return ;
+	if (data->options.color)
 		display_set_color(word);
 	if (word->select)
 		tcaps_video_reverse();
