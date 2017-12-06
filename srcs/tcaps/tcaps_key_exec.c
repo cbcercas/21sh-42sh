@@ -12,7 +12,7 @@
 
 #include <core/tcaps.h>
 
-static t_key_exec	fn_exec[30] =
+static t_key_exec	fn_exec[] =
 	{
 		{KEY_CODE_RARROW, &exec_arrow_right},
 		{KEY_CODE_LARROW, &exec_arrow_left},
@@ -56,7 +56,7 @@ BOOL			key_exec(t_key *key, t_input *input)
 {
 	int			i;
 
-	i = 1;
+	i = 0;
 	while (fn_exec[i].f != NULL)
 	{
 		if (ft_strequ(fn_exec[i].key_code, key->key_code))
