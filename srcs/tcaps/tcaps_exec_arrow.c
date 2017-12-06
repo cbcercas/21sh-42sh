@@ -21,9 +21,13 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 	log_dbg1("dispatch arrow right.");
 	if (!(window = get_windows(0)))
 		return (false);
-	if (window->autocomp && window->autocomp->active)
-		return (exec_arrow_right_select(window->autocomp));
-	else if (window->select.is)
+	if (window->autocomp)
+	{
+		if (window->autocomp->active)
+			return (exec_arrow_right_select(window->autocomp));
+		get_windows(100);
+	}
+	if (window->select.is)
 		return (exec_select_arrows(key, input));
 	else
 		return (exec_arrow_right_normal(input));
@@ -38,9 +42,13 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 	log_dbg1("dispatch arrow left.");
 	if (!(window = get_windows(0)))
 		return (false);
-	if (window->autocomp && window->autocomp->active)
-		return (exec_arrow_left_select(window->autocomp));
-	else if (window->select.is)
+	if (window->autocomp)
+	{
+		if (window->autocomp->active)
+			return (exec_arrow_left_select(window->autocomp));
+		get_windows(100);
+	}
+	if (window->select.is)
 		return (exec_select_arrows(key, input));
 	else
 		return (exec_arrow_left_normal(input));
@@ -54,7 +62,7 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	(void)key;
 	log_dbg1("exec arrow up.");
 	if ((sdata = select_get_data()) && sdata->active)
-		return (exec_arrow_left_select(sdata));
+		return (false); // TODO add exec_arrow_up_select
 	if (!(new_inp = sh_history_up(input)))
 		return (false);
 	input = input_back_to_writable(input);
@@ -75,7 +83,7 @@ BOOL	exec_arrow_down(const t_key *key, t_input *input)
 	(void)key;
 	log_dbg1("exec arrow down.");
 	if (((sdata = select_get_data()) && sdata->active))
-		return (exec_arrow_left_select(sdata	));
+		return (false); // TODO add exec_arrow_down_select
 	if (!(new_inp = sh_history_down(input)))
 		return (false);
 	new_inp = input_draw(new_inp);

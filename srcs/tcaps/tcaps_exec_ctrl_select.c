@@ -24,6 +24,6 @@ BOOL exec_ctrl_j_select(t_input *input)
 	exec_escape_select();
 	redraw_input(input);
 	while (len--)
-		exec_arrow_right(NULL, input);
+		exec_arrow_right_normal(input);
 	return (false);
 }

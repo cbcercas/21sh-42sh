@@ -105,10 +105,9 @@ BOOL	exec_alt_left(const t_key *key, t_input *input)
 
 	if ((sdata = select_get_data()) && sdata->active)
 		return (false);
-	if (get_windows(0)->autocomp)
-		return (exec_escape_select());
+	get_windows(100);
 	log_dbg1("exec alt arrow left.");
-	exec_arrow_left(key, input);
+	exec_arrow_left_normal(input);
 	while ((pos_in_str(input) != 0) &&\
 			(pos_in_str(input) == input->str->len ||\
 			!(input->str->s[pos_in_str(input)] == ' ' &&\
@@ -124,6 +123,7 @@ BOOL	exec_alt_right(const t_key *key, t_input *input)
 	if ((sdata = select_get_data()) && sdata->active)
 		return (false);
 	log_dbg1("exec alt arrow right.");
+	get_windows(100);
 	exec_arrow_right(key, input);
 	while ((pos_in_str(input) != input->str->len) &&\
 			(pos_in_str(input) == 0 ||\

@@ -110,10 +110,11 @@ BOOL		exec_alt_v(const t_key *key, t_input *input)
 	t_sel_data	*sdata;
 
 	(void)key;
-	if ((sdata = select_get_data()) && sdata->active)
-		return (false);
 	if (get_select()->is || !input || !input->str || !get_select()->str)
 		return (false);
+	if ((sdata = select_get_data()) && sdata->active)
+		return (false);
+	get_windows(100);
 	save = get_select()->str;
 	if (!alt_v_check_limit(save))
 		return (false);

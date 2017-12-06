@@ -15,10 +15,15 @@
 BOOL	exec_backspace(const t_key *key, t_input *input)
 {
 	t_sel_data	*sdata;
+
 	(void)key;
 	log_dbg3("User pressed backspace");
-	if ((sdata = select_get_data()) && sdata->active)
-		return (false);
+	if ((sdata = select_get_data()))
+	{
+		if (sdata->active)
+			return (false);
+		get_windows(100);
+	}
 	if (input->cpos.cp_line || (input->cpos.cp_col > input->offset_col))
 	{
 		exec_arrow_left_normal(input);
