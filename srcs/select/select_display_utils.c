@@ -47,9 +47,14 @@ void	display_print_word(t_sel_word *word)
 		return ;
 	if (data->options.color)
 		display_set_color(word);
-	if (word->select)
+	if (data->options.selectable > 1 && word->select)
 		tcaps_video_reverse();
 	if (word->cursor)
-		tcaps_video_underline(true);
+	{
+		if (data->options.selectable == 1)
+			tcaps_video_reverse();
+		else
+			tcaps_video_underline(true);
+	}
 	ft_putstr_fd(word->word, STDIN_FILENO);
 }

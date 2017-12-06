@@ -36,6 +36,7 @@ BOOL exec_escape_select(void)
 		}
 		tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
 		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
+		tputs(tgetstr("ve", NULL), 0, &ft_putc_in);
 		cpos = get_windows(0)->cur->cpos;
 		cpos.cp_col = 0;
 		move_cursor_to(&get_windows(0)->cur->cpos, &cpos, &get_windows(0)->ts);
