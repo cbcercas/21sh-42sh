@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #include <core/select.h>
+#include <autocomplete/autocomplete.h>
 
 void *select_init(t_sel_data *data, t_array *array, char *cur_word)
 {
 	data->array = array;
 	if (!(data->words = word_list_create(array)))
 		return (select_exit("Word list initialisation failed."));
-	data->cur_word = ft_strlen(cur_word);
+	data->cur_word = ft_strlen(cur_word) - autocomplete_len_useless(cur_word);
 	return (dsp_init());
 }
 

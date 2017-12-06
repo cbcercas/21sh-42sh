@@ -44,5 +44,6 @@ BOOL	autocomplete_is_dots(const char *s);
 t_array	*autocomplete_sort_content(t_array *content);
 BOOL	autocomplete_get_repons(size_t possibilities);
 void	autocomplete_display_cols(t_array *content);
+size_t	autocomplete_len_useless(const char *s);
 
 #endif

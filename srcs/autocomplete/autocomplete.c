@@ -12,6 +12,21 @@
 
 #include <autocomplete/autocomplete.h>
 
+size_t autocomplete_len_useless(const char *s)
+{
+	size_t		len;
+
+	if (!s)
+		return (0);
+	len = 0;
+	while (s && ((*s == '.'  && (s[1] == '.' || s[1] == '/')) || *s == '/'))
+	{
+		len++;
+		s++;
+	}
+	return (len);
+}
+
 static t_array	*autocomplete_filter(t_array *content, t_input *input)
 {
 	size_t		i;
@@ -33,7 +48,7 @@ static t_array	*autocomplete_filter(t_array *content, t_input *input)
 		}
 		else
 		{
-			string_remove(string, 0, ft_strlen(current));
+			string_remove(string, 0, autocomplete_len_useless(current));
 			i++;
 		}
 	}
