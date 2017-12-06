@@ -37,7 +37,7 @@ static t_string	*make_content_path(t_array *content, char *path,
 	tmp = (t_string*)array_get_at(content, content->used);
 	if (!autocomplete_is_dots(file->d_name))
 		tmp = string_insert_front(tmp, file->d_name);
-	if (tmp && path && !ft_strequ(path, "."))
+	if (tmp && path && tmp->s && tmp->len && !ft_strequ(path, "."))
 		tmp = string_insert_front(tmp, path);
 	if (tmp && tmp->s && autocomplete_is_directory(tmp->s))
 		tmp = string_insert_back(tmp, "/");

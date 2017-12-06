@@ -32,7 +32,10 @@ static t_array	*autocomplete_filter(t_array *content, t_input *input)
 			string_clear(&remove);
 		}
 		else
+		{
+			string_remove(string, 0, ft_strlen(current));
 			i++;
+		}
 	}
 	return (content);
 }
