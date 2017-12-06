@@ -56,7 +56,7 @@ BOOL			key_exec(t_key *key, t_input *input)
 {
 	int			i;
 
-	i = 1;
+	i = 0;
 	while (fn_exec[i].f != NULL)
 	{
 		if (ft_strequ(fn_exec[i].key_code, key->key_code))
