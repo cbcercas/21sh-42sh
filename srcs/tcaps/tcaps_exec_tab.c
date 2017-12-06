@@ -33,6 +33,7 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 				select_get_data()->disp.first->prev->cursor = true;
 			tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 			tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
+			tputs(tgetstr("vi", NULL), 0, &ft_putc_in);
 		}
 		exec_arrow_right_select(select_get_data());
 		return (false);
