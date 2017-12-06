@@ -56,7 +56,13 @@ static void		exec_insert_off(t_input *input)
 
 BOOL			exec_insert(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	(void)key;
+
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
+	if (wd->autocomp && !wd->autocomp->active)
+		exec_escape_select();
 	if (!get_select()->is)
 	{
 		get_select()->is = true;
