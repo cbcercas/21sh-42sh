@@ -67,7 +67,8 @@ BOOL	exec_ctrl_a(const t_key *key, t_input *input)
 	t_window	*wd;
 
 	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
-		return (false);	if (get_select()->is)
+		return (false);
+	if (get_select()->is)
 		return (false);
 	exec_start(key, input);
 	return (false);
