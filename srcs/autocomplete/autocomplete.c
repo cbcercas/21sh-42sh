@@ -52,6 +52,7 @@ static t_array	*autocomplete_filter(t_array *content, t_input *input)
 			i++;
 		}
 	}
+	ft_strdel(&current);
 	return (content);
 }
 
