@@ -64,6 +64,6 @@ t_array			*autocomplete(t_array *content, t_input *input)
 		array_destroy(&content, &string_clear);
 	if (content && content->used <= 3000 && content->used != 1) //TODO : voir si on baisse la limit
 		content = autocomplete_sort_content(content);
-	ft_secu_free_lvl(M_LVL_AUTOC);
+	//ft_secu_free_lvl(M_LVL_AUTOC);
 	return (content);
 }
