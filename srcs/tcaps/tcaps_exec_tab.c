@@ -44,6 +44,7 @@ BOOL	exec_tab(const t_key *key, t_input *input)
 		arr = autocomplete_get_bin(current);
 	arr = autocomplete(arr, input);
 	if (arr)
-		select_select(1, get_data(NULL)->opts.color, arr);
+		select_select(1, get_data(NULL)->opts.color, arr, current);
+	ft_strdel(&current);
 	return (false);
 }

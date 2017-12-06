@@ -13,14 +13,14 @@
 #include <core/select.h>
 #include <core/tcaps.h>
 
-void	select_select(int selectable, BOOL color, t_array *arr)
+void	select_select(int selectable, BOOL color, t_array *arr, char *current)
 {
 	t_sel_data	*data;
 	t_cpos		cpos;
 
 	data = select_get_data();
 
-	if (!select_init(data, arr))
+	if (!select_init(data, arr, current))
 		return ;
 	select_init_opt(selectable, color);
 	if ((data->disp.word_num / data->disp.col_num) > data->disp.ts.ws_row)

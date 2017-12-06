@@ -12,17 +12,20 @@
 
 #include <core/select.h>
 
-void			*select_init(t_sel_data *data, t_array *array)
+void *select_init(t_sel_data *data, t_array *array, char *cur_word)
 {
 	data->array = array;
 	if (!(data->words = word_list_create(array)))
 		return (select_exit("Word list initialisation failed."));
+	data->cur_word = ft_strlen(cur_word);
 	return (dsp_init());
 }
 
 void			select_deinit(t_sel_data **data)
 {
-	if (data && *data && (*data)->words)
+	if (!data || !*data)
+		return;
+	if ((*data)->words)
 		word_list_destroy(&(*data)->words);
 	//TODO remove t_array
 	ft_memdel((void **)data);
