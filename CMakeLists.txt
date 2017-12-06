@@ -156,7 +156,7 @@ set(SOURCE_FILES
 		srcs/tcaps/tcaps_exec_ctrl_2.c
 		srcs/tcaps/tcaps_exec_delete.c
 		srcs/tcaps/tcaps_exec_end_home.c
-		srcs/tcaps/tcaps_exec_select.c
+		srcs/tcaps/tcaps_exec_insert.c
 		srcs/tcaps/tcaps_exec_tab.c
 		srcs/tcaps/tcaps_exec_escape.c
 		srcs/tcaps/tcaps_key_exec.c

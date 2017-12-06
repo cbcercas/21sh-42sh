@@ -41,9 +41,9 @@ static t_key_exec	fn_exec[] =
 		{KEY_CODE_CTRL_LARROW, &exec_alt_left},
 		{KEY_CODE_CTRL_RARROW, &exec_alt_right},
 #endif
-		{KEY_CODE_INSERT, &exec_select},
-		{KEY_CODE_ALT_I, &exec_select},
-		{KEY_CODE_ALT_S, &exec_select},
+		{KEY_CODE_INSERT, &exec_insert},
+		{KEY_CODE_ALT_I, &exec_insert},
+		{KEY_CODE_ALT_S, &exec_insert},
 		{KEY_CODE_END, &exec_end},
 		{KEY_CODE_ALT_C, &exec_alt_c},
 		{KEY_CODE_ALT_V, &exec_alt_v},

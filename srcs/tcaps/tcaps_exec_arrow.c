@@ -15,8 +15,6 @@
 BOOL	exec_arrow_right(const t_key *key, t_input *input)
 {
 	t_window	*window;
-	(void)key;
-	(void)input;
 
 	log_dbg1("dispatch arrow right.");
 	if (!(window = get_windows(0)))
@@ -28,16 +26,13 @@ BOOL	exec_arrow_right(const t_key *key, t_input *input)
 		get_windows(100);
 	}
 	if (window->select.is)
-		return (exec_select_arrows(key, input));
-	else
-		return (exec_arrow_right_normal(input));
+		exec_insert_arrows(key, input);
+	return (exec_arrow_right_normal(input));
 }
 
 BOOL	exec_arrow_left(const t_key *key, t_input *input)
 {
 	t_window	*window;
-	(void)key;
-	(void)input;
 
 	log_dbg1("dispatch arrow left.");
 	if (!(window = get_windows(0)))
@@ -49,9 +44,8 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 		get_windows(100);
 	}
 	if (window->select.is)
-		return (exec_select_arrows(key, input));
-	else
-		return (exec_arrow_left_normal(input));
+		exec_insert_arrows(key, input);
+	return (exec_arrow_left_normal(input));
 }
 
 BOOL	exec_arrow_up(const t_key *key, t_input *input)

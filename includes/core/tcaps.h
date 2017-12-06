@@ -204,12 +204,12 @@ BOOL			exec_start(const t_key *key, t_input *input) __attribute__
 ** @brief Contains the select functions to be executed
 */
 
-BOOL			exec_select(const t_key *key, t_input *input) __attribute__
+BOOL			exec_insert(const t_key *key, t_input *input) __attribute__
 							((deprecated("Todo refactor new input design")));
 //void			draw_reverse_char(char c, BOOL is_reverse);
-BOOL			exec_select_arrows(const t_key *key, t_input *input)
+BOOL			exec_insert_arrows(const t_key *key, t_input *input)
 				__attribute__ ((deprecated("Todo refactor new input design")));
-void			reset_select_pos(void);
+void			reset_insert_pos(void);
 
 /*
 ** @file tcaps_exec_alt_c.c
