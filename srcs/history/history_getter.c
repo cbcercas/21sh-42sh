@@ -105,12 +105,7 @@ t_hist		*sh_history_set_new(char **cmd)
 		return (NULL);
 	hists = sh_history_get();
 	if ((h = (t_hist *)array_get_at(hists, 0)))
-	{
-		if (h->buf)
-			ft_secu_free(h->buf);
-		h->buf = NULL;
 		h->cur = -1;
-	}
 	if ((hists->used < 1 || ft_strcmp(*cmd, sh_history_get_at(-1)))
 			&& ((h = sh_history_new(ft_strdup(*cmd))) != NULL))
 	{

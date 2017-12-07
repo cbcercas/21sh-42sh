@@ -53,7 +53,6 @@
 typedef	struct		s_hist
 {
 	const char		*cmd;
-	char			*buf;
 	ssize_t			cur;
 	BOOL			session;
 	struct s_hist	*next;
