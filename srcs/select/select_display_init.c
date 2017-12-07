@@ -12,7 +12,7 @@
 
 #include <core/select.h>
 
-static void *display_check(t_sel_display *disp, USHRT wlen)
+static void *display_check(t_sel_display *disp, size_t wlen)
 {
 	struct winsize	ts;
 
@@ -48,7 +48,7 @@ void		*dsp_init(void)
 	data->disp.col_size = (USHRT)wlen;
 	data->disp.word_num = data->words->prev->num + 1;
 	if (!display_check(&data->disp, wlen))
-		return NULL;
+		return (NULL);
 	data->disp.col_num = (USHRT)(data->disp.ts.ws_col / (wlen + 1));
 	ft_bzero(&data->disp.cpos, sizeof(data->disp.cpos));
 	data->disp.first = data->words;
