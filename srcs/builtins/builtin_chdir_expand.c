@@ -103,7 +103,7 @@ char			*expand_path(char **path)
 	ret = *path;
 	ret = remove_dots(ret);
 	ret = remove_backslash(ret);
-	if (ft_strstr(ret, "./") || ft_strstr(ret, "/.") || ft_strstr(ret, "//"))
+	if (ft_strstr(ret, "./") || ft_strstr(ret, "//"))
 	{
 		log_warn("CD expand PATH wrong ! (%s) so return (%s)", ret, current);
 		ft_strdel(&ret);
