@@ -31,9 +31,12 @@ typedef struct s_sh_data	t_sh_data;
 /*
 ** @struct s_sh_opt
 **
-** @brief TODO
+** @brief This structure contains all the options passed to the program once
+** parsed by ft_getopt()
 **
-** @param TODO
+** @param verbose True if the verbose option is set. False otherwise.
+** @param tcaps True by default. If set to false, tcaps are disabled `-l`
+** @param color If set to true, color will be displayed in the builtins
 */
 
 struct						s_sh_opt
@@ -48,9 +51,13 @@ struct						s_sh_opt
 /*
 ** @struct s_sh_data
 **
-** @brief TODO
+** @brief Contains all the shell's data. From the options passed to the program
+** to the current path and the terminal attributes, this structure is used
+** throughout the code
 **
-** @param TODO
+** @param opts Structure storing the options passed to the program. See above
+** @param cwd The current working directory
+** @param tattr The terminal attributes
 */
 
 struct						s_sh_data

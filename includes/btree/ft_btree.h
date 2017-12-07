@@ -28,7 +28,7 @@
 /*
 ** @struct s_btree
 **
-** @brief  Contains the nodes for the btree
+** @brief  Contains the nodes for the binary tree
 **
 ** @param  parent  Contains the parent btree node
 ** @param  left    Contains the left btree node
@@ -67,7 +67,7 @@ void				btree_insert_data(t_btree **root, void *item,
 /*
 ** @file   btree_utils.c
 **
-** @brief  Utility functions for btree
+** @brief  Utility functions for the binary tree
 */
 
 int					btree_level_count(t_btree *root);

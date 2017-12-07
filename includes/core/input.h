@@ -34,9 +34,11 @@
 /*
 ** @struct s_select
 **
-** @brief TODO
+** @brief Struct containing info about the selected choice in autocompletion
 **
-** @arg TODO
+** @param is is set to true if the word is selected
+** @param str contains the string that is displayed
+** @param start_abs
 */
 
 typedef struct s_select	t_select;
@@ -49,9 +51,11 @@ struct					s_select
 
 /*
 ** @struct s_select_pos
-** @brief TODO
+** @brief Contains info about the selection menu for the autocompletion
 **
-** @arg TODO
+** @param is_set
+** @param cur_start
+** @param cur_end
 */
 
 typedef struct s_select_pos	t_select_pos;
@@ -65,9 +69,18 @@ struct					s_select_pos
 /*
 ** @struct s_input
 **
-** @brief TODO
+** @brief Structure containing all the info about the input sent by the user
 **
-** @arg TODO
+** @param next
+** @param prev
+** @param str The full char* input sent by the user
+** @param prompt_type
+** @param promt_len The size of the prompt
+** @param offset_col
+** @param ts The struct containing info on the window
+** @param cpos Current position
+** @param select_pos The autocomplete cursor current position
+** @param lock
 */
 
 typedef struct s_input	t_input;
@@ -88,9 +101,17 @@ struct					s_input
 /*
 ** @struct s_window
 **
-** @brief TODO
+** @brief This structure contains all the information about the window and the
+** cursor
 **
-** @arg TODO
+** @param cur_head Cursor head
+** @param cur Cursor pos
+** @param save A save of the input used in history
+** @param h_lvl
+** @param h_complet
+** @param ts The structure containing info on the term window itself
+** @param cmd_ret Contains the return value of the last executed command
+** @param select
 */
 
 typedef struct s_window	t_window;
