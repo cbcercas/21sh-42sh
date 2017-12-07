@@ -69,7 +69,7 @@ static void		sh_check_path_print_err(int ret, char const *cmd_name, char **free)
 	if (ret == -1)
 		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n",
 				PROGNAME, cmd_name);
-	else if (ret == 0)
+	else if (ret == 0 || ret == 2)
 		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n",
 				PROGNAME, cmd_name);
 	*get_cmd_ret() = 1;
