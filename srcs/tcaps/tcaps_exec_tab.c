@@ -18,8 +18,8 @@ static BOOL	exec_tab_select(t_sel_data *data)
 	if (!data->active)
 	{
 		data->active = true;
-		if (data->disp.first && data->disp.first->prev)
-			data->disp.first->prev->cursor = true;
+		if (data->words && data->words->prev)
+			data->words->prev->cursor = true;
 		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 		tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 		tputs(tgetstr("vi", NULL), 0, &ft_putc_in);

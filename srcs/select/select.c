@@ -21,7 +21,7 @@ void	select_select(int selectable, BOOL color, t_array *arr, char *current)
 	data = select_get_data();
 
 	if (!select_init(data, arr, current))
-		return ;
+		return ((void)exec_escape_select());
 	select_init_opt(selectable, color);
 	if ((data->disp.word_num / data->disp.col_num) > data->disp.ts.ws_row)
 	{
