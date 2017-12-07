@@ -11,9 +11,7 @@
 /* ************************************************************************** */
 
 #include <types/bool.h>
-#include <libtcaps.h>
-#include <core/select.h>
-#include <core/input.h>
+#include <core/tcaps.h>
 
 BOOL exec_escape_select(void)
 {
@@ -47,5 +45,7 @@ BOOL exec_escape(const t_key *key, t_input *input)
 		return (false);
 	if (wd->autocomp)
 		return (exec_escape_select());
+	if (wd->select.is)
+		exec_insert_off(input);
 	return (false);
 }

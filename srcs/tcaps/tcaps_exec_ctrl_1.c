@@ -20,6 +20,11 @@ BOOL	exec_ctrl_c(const t_key *key, t_input *input)
 	(void)input;
 	if (!(wd = get_windows(0)) || wd->autocomp)
 		return (exec_escape_select());
+	if (wd->select.is)
+	{
+		exec_insert_off(input);
+		return (false);
+	}
 	get_windows(72);
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	tputs("\n", 0, &ft_putc_in);
@@ -34,8 +39,11 @@ BOOL	exec_ctrl_d(const t_key *key, t_input *input)
 
 	if (!(wd = get_windows(0)) || wd->autocomp)
 		return (exec_escape_select());
-	if (get_select()->is)
+	if (wd->select.is)
+	{
+		exec_insert_off(input);
 		return (false);
+	}
 	if (input->str->len == 0)
 	{
 		sh_history_save();

@@ -26,7 +26,7 @@ void			reset_insert_pos(void)
 	}
 }
 
-static void		exec_insert_off(t_input *input)
+void		exec_insert_off(t_input *input)
 {
 	size_t		pos_str;
 	t_cpos		dest;
