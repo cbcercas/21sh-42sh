@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
-/*   Updated: 2017/12/07 14:54:49 by mleroy           ###   ########.fr       */
+/*   Created: 2017/12/07 15:31:20 by mleroy            #+#    #+#             */
+/*   Updated: 2017/12/07 15:37:26 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ t_exp		*expand_exp(t_exp *exp)
 	if (exp->type == E_TOKEN_WORD || exp->type == E_TOKEN_DQUOTE)
 		expand_dol(exp->str);
 	else if (exp->type == E_TOKEN_BQUOTE)
-	{
-		ft_printf("str1=>%s", exp->str);
 		expand_bquote(exp->str);
-	}
 	return (exp);
 }
 

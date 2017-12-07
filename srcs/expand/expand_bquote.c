@@ -6,13 +6,14 @@
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 14:21:42 by mleroy            #+#    #+#             */
-/*   Updated: 2017/12/07 15:05:31 by mleroy           ###   ########.fr       */
+/*   Updated: 2017/12/07 15:36:42 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <expand/expand.h>
 
-void		*expand_bquote(char *str)
+void		*expand_bquote(t_string *str)
 {
-	ft_printf("str=>%s\n", str);
+	ft_putnstr(str->s, str->len);
+	ft_putchar(10);
 }
