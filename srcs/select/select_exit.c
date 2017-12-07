@@ -20,9 +20,8 @@
 void	*select_exit(const char *fmt, ...)
 {
 	va_list		list;
-	t_sel_data		*data;
+	t_window	*wd;
 
-	data = select_get_data();
 	if (fmt)
 	{
 		va_start(list, fmt);
@@ -33,10 +32,8 @@ void	*select_exit(const char *fmt, ...)
 		log_fatal(fmt, list);
 		va_end(list);
 	}
-	if (data->words)
-		word_list_destroy(&data->words);
-	array_destroy(&data->array, &string_clear);
-	get_windows(100);
+	if (!(wd = get_windows(0)) && wd->autocomp)
+		get_windows(100);
 	return (NULL);
 }
 

@@ -50,17 +50,18 @@ BOOL	exec_arrow_left(const t_key *key, t_input *input)
 
 BOOL	exec_arrow_up(const t_key *key, t_input *input)
 {
-	t_sel_data	*sdata;
+	t_window	*wd;
 	t_input		*new_inp;
 
 	(void)key;
 	log_dbg1("exec arrow up.");
-	if ((sdata = select_get_data()))
-	{
-		if (sdata->active)
-			return (exec_arrow_up_select(sdata));
+
+	if (!(wd = get_windows(0)))
+		return (false);
+	if (wd->autocomp && wd->autocomp->active)
+		return (exec_arrow_up_select(wd->autocomp));
+	else if (wd->autocomp)
 		get_windows(100);
-	}
 	if (!(new_inp = sh_history_up(input)))
 		return (false);
 	input = input_back_to_writable(input);
@@ -69,23 +70,23 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	input = input_draw(input);
 	input = input_back_to_writable(input);
 	input_goto_line_end(input);
-	get_windows(0)->cur = input;
+	wd->cur = input;
 	return (false);
 }
 
 BOOL	exec_arrow_down(const t_key *key, t_input *input)
 {
-	t_sel_data	*sdata;
+	t_window	*wd;
 	t_input *new_inp;
 
 	(void)key;
 	log_dbg1("exec arrow down.");
-	if (((sdata = select_get_data())))
-	{
-		if (sdata->active)
-			return (exec_arrow_down_select(sdata));
+	if (!(wd = get_windows(0)))
+		return (false);
+	if (wd->autocomp && wd->autocomp->active)
+		return (exec_arrow_down_select(wd->autocomp));
+	else if (wd->autocomp)
 		get_windows(100);
-	}
 	if (!(new_inp = sh_history_down(input)))
 		return (false);
 	new_inp = input_draw(new_inp);
