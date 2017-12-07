@@ -38,11 +38,10 @@ int		nb_of_word(char *s)
 char	*find_word_after(t_input *input)
 {
 	char	*tmp;
-	int		i;
-	int		end;
+	ssize_t		i;
+	ssize_t		end;
 
 	i = pos_in_str(input);
-	tmp = NULL;
 	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
 	while (is_white(input->str->s[i]) && i != 0)
@@ -51,9 +50,9 @@ char	*find_word_after(t_input *input)
 	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
 	if (!i)
-		tmp = ft_strsub_secu(input->str->s, i, end - i + 1, M_LVL_AUTOC);
+		tmp = ft_strsub(input->str->s, (unsigned int)i, (size_t)end - i + 1);
 	else
-		tmp = ft_strsub_secu(input->str->s, i + 1, end - i, M_LVL_AUTOC);
+		tmp = ft_strsub(input->str->s, (unsigned int)i + 1, (size_t)end - i);
 	return (tmp);
 }
 

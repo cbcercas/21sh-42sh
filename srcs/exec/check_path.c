@@ -51,12 +51,10 @@ static char		**get_env_path(void)
 {
 	char	**env_path;
 
-	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':',
-			M_LVL_FUNCT);
+	env_path = ft_strsplit(get_var_value(get_envs(), "PATH"), ':');
 	if (env_path)
 		return (env_path);
-	return (ft_strsplit_secu(get_var_value(get_vars(), "PATH"), ':',
-				M_LVL_FUNCT));
+	return (ft_strsplit(get_var_value(get_vars(), "PATH"), ':'));
 }
 
 /*
@@ -66,7 +64,7 @@ static char		**get_env_path(void)
 ** @param cmd_name The cmd executed that errored
 */
 
-static void		sh_check_path_print_err(int ret, char const *cmd_name)
+static void		sh_check_path_print_err(int ret, char const *cmd_name, char **free)
 {
 	if (ret == -1)
 		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n",
@@ -75,6 +73,7 @@ static void		sh_check_path_print_err(int ret, char const *cmd_name)
 		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n",
 				PROGNAME, cmd_name);
 	*get_cmd_ret() = 1;
+	ft_freetab(free, ft_tablen(free));
 }
 
 /*
@@ -88,24 +87,28 @@ static void		sh_check_path_print_err(int ret, char const *cmd_name)
 char			*sh_check_path(char const *cmd_name)
 {
 	char	**env_path;
+	char	**save;
 	char	*file;
 	int		ret;
-	int		tmp;
 
 	ret = 0;
 	env_path = get_env_path();
+	save = env_path;
 	while (env_path && *env_path)
 	{
 		if (!(file = makefilepath(*env_path, cmd_name)))
 			break ;
-		if (!(tmp = sh_test_access(file)))
+		if (!(ret = sh_test_access(file)))
+		{
+			ft_freetab(save, ft_tablen(save));
 			return (file);
-		else if (tmp == 1)
+		}
+		else if (ret == 1)
 			ret = -1;
 		ft_strdel(&file);
 		env_path++;
 	}
-	sh_check_path_print_err(ret, cmd_name);
+	sh_check_path_print_err(ret, cmd_name, save);
 	ft_secu_free_lvl(M_LVL_FUNCT);
 	return (NULL);
 }
