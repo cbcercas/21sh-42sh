@@ -34,7 +34,10 @@
 /*
 ** @struct s_exp
 **
-** @brief TODO
+** @brief This struct contains the variables used by the expand
+**
+** @param str The string to be expanded
+** @param type The token type of the string
 */
 
 typedef struct			s_exp

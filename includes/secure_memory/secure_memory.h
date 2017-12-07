@@ -38,7 +38,7 @@
 /*
 ** @struct s_secu_malloc
 **
-** @brief TOOD
+** @brief TODO
 */
 
 struct							s_secu_malloc

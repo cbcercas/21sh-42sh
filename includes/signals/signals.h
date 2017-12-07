@@ -36,12 +36,6 @@ typedef enum e_pid_type	t_pid_type;
 ** or global variables you will need.
 */
 
-/*
-** @enum e_pid_type
-**
-** @brief TODO
-*/
-
 enum					e_pid_type
 {
 	E_PID_NONE = 100,
@@ -55,7 +49,10 @@ enum					e_pid_type
 /*
 ** @struct s_pids
 **
-** @brief TODO
+** @brief Contains info on a certain pid
+**
+** @param type The type of pid
+** @param pid The pid itself
 */
 
 typedef struct			s_pids

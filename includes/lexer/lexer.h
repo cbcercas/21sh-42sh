@@ -49,17 +49,17 @@ struct						s_token
 };
 
 /*
-** @brief TODO
+** @struct s_lexer_data
+**
+** @brief Contains the lexer data by way of automaton structure
+**
+** @param automaton The structure containing the automaton info
 */
 
 struct						s_lexer_data
 {
 	t_automaton				automaton;
 };
-
-/*
-** @brief TODO
-*/
 
 enum						e_char_type
 {

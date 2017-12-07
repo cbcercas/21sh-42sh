@@ -38,9 +38,16 @@
 */
 
 /*
-** @brief TODO
+** @struct s_hist
 **
-** @arg TODO
+** @brief Contains all the info on each history entries
+**
+** @param cmd The command stored
+** @param cur The position of this command in the history
+** @param session If set to false, the cmd has been loaded from a file. If set
+** to true, the command has been added in the history from the current instance
+** of the program
+** @param next Is a pointer to the next history entry
 */
 
 typedef	struct		s_hist
