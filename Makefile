@@ -6,7 +6,7 @@
 #    By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/08 11:02:51 by chbravo-          #+#    #+#              #
-#    Updated: 2017/11/13 10:37:58 by chbravo-         ###   ########.fr        #
+#    Updated: 2017/12/07 14:42:41 by mleroy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ SRC_SUBDIR		+= parser
 SRCS			+= parser.c
 
 SRC_SUBDIR		+= expand
-SRCS			+= expand.c expand_dol.c expand_history.c \
+SRCS			+= expand_bquote.c expand.c expand_dol.c expand_history.c \
 					expand_history_tools.c expand_merge.c expand_print.c \
 					expand_quote.c expand_utils.c ft_replace.c \
 					expand_history_replace.c
