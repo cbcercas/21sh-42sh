@@ -29,16 +29,14 @@ BOOL			exec_delete(const t_key *key, t_input *input)
 	if (!(wd = get_windows(0))|| wd->select.is
 		|| (wd->autocomp && wd->autocomp->active))
 		return (false);
+	else if (wd->autocomp && !wd->autocomp->active)
+		get_windows(100);
 	log_dbg1("exec delete.");
 	pos = pos_in_str(input);
 	if (input->str->len > pos)
-	{
-		get_windows(100);
 		string_remove_char(input->str, pos);
-	}
 	else if (input->str->len == pos && input->next)
 	{
-		get_windows(100);
 		input->str = string_join_cl(&input->str, &input->next->str, true);
 		del = input->next;
 		input->next = del->next;

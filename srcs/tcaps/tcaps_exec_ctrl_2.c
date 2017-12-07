@@ -83,6 +83,8 @@ BOOL			exec_ctrl_r(const t_key *key, t_input *input)
 		return (false);
 	if ((wd->autocomp && wd->autocomp->active))
 		return (false);
+	else if (wd->autocomp && !wd->autocomp->active)
+		get_windows(100);
 	if (get_select()->is)
 		return (false);
 	history_research(input);
@@ -100,6 +102,8 @@ BOOL			exec_ctrl_l(const t_key *key, t_input *input)
 		return (false);
 	if ((wd->autocomp && wd->autocomp->active))
 		return (false);
+	else if (wd->autocomp && !wd->autocomp->active)
+		get_windows(100);
 	if (get_select()->is)
 		return (false);
 	pos.cp_col = input->cpos.cp_col;
