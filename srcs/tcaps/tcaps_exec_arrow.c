@@ -55,8 +55,12 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 
 	(void)key;
 	log_dbg1("exec arrow up.");
-	if ((sdata = select_get_data()) && sdata->active)
-		return (false); // TODO add exec_arrow_up_select
+	if ((sdata = select_get_data()))
+	{
+		if (sdata->active)
+			return (exec_arrow_up_select(sdata));
+		get_windows(100);
+	}
 	if (!(new_inp = sh_history_up(input)))
 		return (false);
 	input = input_back_to_writable(input);
@@ -76,8 +80,12 @@ BOOL	exec_arrow_down(const t_key *key, t_input *input)
 
 	(void)key;
 	log_dbg1("exec arrow down.");
-	if (((sdata = select_get_data()) && sdata->active))
-		return (false); // TODO add exec_arrow_down_select
+	if (((sdata = select_get_data())))
+	{
+		if (sdata->active)
+			return (exec_arrow_down_select(sdata));
+		get_windows(100);
+	}
 	if (!(new_inp = sh_history_down(input)))
 		return (false);
 	new_inp = input_draw(new_inp);
