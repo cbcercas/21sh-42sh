@@ -32,7 +32,7 @@ void	*select_exit(const char *fmt, ...)
 		log_fatal(fmt, list);
 		va_end(list);
 	}
-	if (!(wd = get_windows(0)) && wd->autocomp)
+	if ((wd = get_windows(0)) && wd->autocomp)
 		get_windows(100);
 	return (NULL);
 }

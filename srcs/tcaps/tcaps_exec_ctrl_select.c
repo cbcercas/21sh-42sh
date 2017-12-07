@@ -28,5 +28,6 @@ BOOL exec_ctrl_j_select(t_input *input)
 	redraw_input(input);
 	while (len--)
 		exec_arrow_right_normal(input);
+	get_windows(100);
 	return (false);
 }
