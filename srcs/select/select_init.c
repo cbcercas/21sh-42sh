@@ -28,6 +28,7 @@ void			select_deinit(t_sel_data **data)
 		return;
 	if ((*data)->words)
 		word_list_destroy(&(*data)->words);
+	redraw_input(get_windows(0)->cur);
 	//TODO remove t_array
 	ft_memdel((void **)data);
 }
