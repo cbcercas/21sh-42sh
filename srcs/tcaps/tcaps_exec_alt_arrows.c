@@ -105,7 +105,6 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 
 BOOL	exec_alt_left(const t_key *key, t_input *input)
 {
-	t_sel_data			*sdata;
 	t_window			*wd;
 
 	if (!(wd = get_windows(0)) && (wd->autocomp && wd->autocomp->active))
