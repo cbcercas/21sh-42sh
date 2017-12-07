@@ -170,7 +170,6 @@ LIBS                            += -lcurses
 RM                                      = rm -rf
 MKDIR                           = mkdir -p
 COUNT_OBJ = 0
-COUNT_DEP = 0
 TOTAL = 0
 PERCENT = 0
 $(eval TOTAL=$(shell echo $$(printf "%s" "$(SRCS)" | wc -w)))
@@ -225,9 +224,6 @@ endif
 
 $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 		@$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
-		$(eval COUNT_DEP=$(shell echo $$(($(COUNT_DEP)+1))))
-		$(eval PERCENT=$(shell echo $$((($(COUNT_DEP) * 100 )/$(TOTAL)))))
-		@printf "$(C_B)%-8s $(C_G) $@$(C_NO)\n" "[$(PERCENT)%]"
 
 $(BUILD_DIR):
 		@$(MKDIR) -p $@
