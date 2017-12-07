@@ -94,7 +94,7 @@ static void	sh_print_fed1(void)
 					" ▓████¬\n");
 	sh_print_fed2();
 	sh_print_fed3();
-	ft_printf("%s\t\t\t\tGlory to the Federation !\n", C_NONE);
+	ft_printf("%s\t\t\tAlmighty may The Federation be!\n", C_NONE);
 }
 
 /*
