@@ -14,17 +14,23 @@
 
 BOOL	exec_backspace(const t_key *key, t_input *input)
 {
+	t_window	*wd;
+
 	(void)key;
 	log_dbg3("User pressed backspace");
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+			return (false);
+	else if (wd->autocomp)
+		get_windows(100);
 	if (input->cpos.cp_line || (input->cpos.cp_col > input->offset_col))
 	{
-		exec_arrow_left(key, input);
+		exec_arrow_left_normal(input);
 		exec_delete(key, input);
 	}
 	else if (input->prev)
 	{
-		exec_arrow_left(key, input);
-		get_windows(0) ? get_windows(0)->cur = input->prev : 0;
+		exec_arrow_left_normal(input->prev);
+		wd->cur = input->prev;
 		exec_delete(key, input->prev);
 	}
 	else

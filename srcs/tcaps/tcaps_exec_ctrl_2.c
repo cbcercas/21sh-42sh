@@ -55,10 +55,15 @@ static BOOL			exec_ctr_j_hist(t_input *input)
 BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 {
 	t_input		*tmp;
+	t_window	*wd;
 	size_t		tmp_i;
 
 	(void)key;
-	if (get_select()->is)
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (exec_ctrl_j_select(input));
+	if (wd->select.is)
 		return (false);
 	input = input_get_cur();
 	if (expand_hist_find(input_back_to_writable(input), &tmp_i))
@@ -79,8 +84,16 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 
 BOOL			exec_ctrl_r(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	(void)key;
 	(void)input;
+
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
+	else if (wd->autocomp && !wd->autocomp->active)
+		get_windows(100);
 	if (get_select()->is)
 		return (false);
 	history_research(input);
@@ -89,10 +102,17 @@ BOOL			exec_ctrl_r(const t_key *key, t_input *input)
 
 BOOL			exec_ctrl_l(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	t_cpos		pos;
 	t_input		*tmp;
 
 	(void)key;
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
+	else if (wd->autocomp && !wd->autocomp->active)
+		get_windows(100);
 	if (get_select()->is)
 		return (false);
 	pos.cp_col = input->cpos.cp_col;
@@ -103,7 +123,7 @@ BOOL			exec_ctrl_l(const t_key *key, t_input *input)
 	get_windows(0) ? get_windows(0)->cur = input : 0;
 	tputs(tgetstr("cl", NULL), 0, &ft_putc_in);
 	get_select()->is = false;
-	reset_select_pos();
+	reset_insert_pos();
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	redraw_input(input);

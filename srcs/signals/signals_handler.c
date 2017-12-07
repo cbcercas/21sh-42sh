@@ -55,7 +55,7 @@ void	signals_sigwinch(void)
 	if (get_windows(0))
 		get_windows(0)->cur = input;
 	get_select()->is = false;
-	reset_select_pos();
+	reset_insert_pos();
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	redraw_input(input);

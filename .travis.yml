@@ -21,7 +21,7 @@ before_install:
     - cd .. && git clone https://github.com/sstephenson/bats.git && cd bats && export PATH=$PATH:$PWD/bin/ && cd ../21-42sh
 
 script:
-  - make
+  - make NOERR=yes
   - ./tests/tests.sh
 
 after_success:
