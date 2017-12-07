@@ -82,7 +82,7 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 /*
 ** @brief checks if the env is empty or missing a key value
 **
-** @param __p__environ The environ passed to the program when started
+** @param environ The environ passed to the program when started
 **
 ** @return void
 */

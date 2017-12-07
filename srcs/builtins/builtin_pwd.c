@@ -16,6 +16,7 @@ extern int			g_optind;
 
 /*
 ** @brief Prints the pwd usage
+**
 ** @return Returns 1
 */
 
@@ -26,9 +27,11 @@ static int			pwd_usage(void)
 }
 
 /*
-** @brief get the path logical
-** @param pwd_err is set to true, if there is something wrong
-** @return path logical
+** @brief This function will get the logical cwd (following the sym links)
+**
+** @param pwd_err This boolean will be set to true if there is something wrong
+**
+** @return Returns the logical path
 */
 
 static char			*getcwd_logical(BOOL *pwd_err)
@@ -50,8 +53,10 @@ static char			*getcwd_logical(BOOL *pwd_err)
 
 /*
 ** @brief Prints the pwd if everything is ok
-** @param physical Is true if -P otherwise is false
-** @return Returns a ret value
+**
+** @param physical This boolean is set to true if the option `-P` is passed.
+**
+** @return Returns Returns a ret value based on success of the operation
 */
 
 static int			do_builtin_pwd(BOOL physical)
@@ -75,9 +80,11 @@ static int			do_builtin_pwd(BOOL physical)
 
 /*
 ** @brief Main functions for the pwd builtin
+**
 ** @param data The shell's data used across the program
 ** @param argv The args passed to pwd
-** @return Returns a ret value based on its success or not
+**
+** @return Returns Returns a ret value based on success of the operation
 */
 
 int					sh_builtin_pwd(t_sh_data *data, char **argv)

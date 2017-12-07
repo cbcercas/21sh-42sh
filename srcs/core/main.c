@@ -18,7 +18,7 @@
 #include <core/sh_loop.h>
 
 /*
-**!@mainpage 21-42sh Documentation
+** @mainpage 21-42sh Documentation
 **
 ** @section intro_sec Introduction
 **
@@ -90,7 +90,7 @@ static void			sh_arrays_init(t_array *tokens, t_array *expand)
 **
 ** @param ac The argument count
 ** @param av The argument array
-** @param __p__environ The environment
+** @param environ The environment
 **
 ** @return Returns a value based on successful exit or not
 */

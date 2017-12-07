@@ -16,7 +16,7 @@ extern char const	*g_optarg;
 extern int			g_optind;
 
 /*
-** @brief Displays help for the history
+** @brief Displays the help for the history builtin
 */
 
 static void	sh_history_help(void)
@@ -26,11 +26,13 @@ static void	sh_history_help(void)
 }
 
 /*
-** @brief Handles the options
+** @brief Handles the options passed to the history builtin
+**
 ** @param data The shell's data used across the program
 ** @param argv The options in string form
-** @param opt The options
-** @return Returns 1 if failed, 0 otherwise
+** @param opt The options passed
+**
+** @return Returns 1 if the options given are wrong, 0 otherwise
 */
 
 static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
@@ -50,8 +52,10 @@ static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 
 /*
 ** @brief Main function for the history builtin
+**
 ** @param data The shell's data used across the program
 ** @param argv The arguments passed to history
+**
 ** @return Returns a ret status upon success or failure
 */
 

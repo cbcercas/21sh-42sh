@@ -27,6 +27,7 @@ static BOOL		read_error(void)
 
 /*
 ** @brief get char giving by user (stdin)
+**
 ** @param buff is the buffer
 */
 

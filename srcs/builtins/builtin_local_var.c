@@ -18,7 +18,9 @@ extern int			g_optind;
 
 /*
 ** @brief Prints the exported value and name
+**
 ** @param vars The local env
+** @param color If set to true then the variable will be colored. Otherwise no.
 */
 
 static void	builtin_export_print(t_array *vars, BOOL color)
@@ -43,9 +45,10 @@ static void	builtin_export_print(t_array *vars, BOOL color)
 }
 
 /*
-** @brief execute option -p
+** @brief Executes option -p
+**
 ** @param vars The local env
-** @param color is indicator, if it's true the color is print
+** @param color If set to true then the variables will be colored. Otherwise no.
 */
 
 static void	builtin_export_p(char **argv, BOOL color)
@@ -77,9 +80,11 @@ static void	builtin_export_p(char **argv, BOOL color)
 
 /*
 ** @brief Unsets a name and value from the local env
+**
 ** @param data The shell's data used across the program
-** @param argv Args passed to unset builtin
-** @return Returns a ret value
+** @param argv Arguments passed to unset builtin
+**
+** @return Returns a ret value based on success of the operation
 */
 
 int			builtin_unset(t_sh_data *data, char **argv)
@@ -105,8 +110,10 @@ int			builtin_unset(t_sh_data *data, char **argv)
 
 /*
 ** @brief Exports a variable in the local var
+**
 ** @param argv The arguments used to export
-** @return Returns a ret value
+**
+** @return Returns a ret value based on success of the operation
 */
 
 int			builtin_export_var(char **argv, BOOL color)
@@ -140,9 +147,11 @@ int			builtin_export_var(char **argv, BOOL color)
 
 /*
 ** @brief Exports a value in the local env
+**
 ** @param data The shell's data used across the program
 ** @param argv The args used
-** @return Returns a ret value based on success or failure
+**
+** @return Returns Returns a ret value based on success of the operation
 */
 
 int			builtin_export(t_sh_data *data, char **argv)

@@ -20,7 +20,7 @@
 /*
 ** @brief Initializes the environnement
 **
-** @param __p__environ The environment given to main
+** @param environ The environment given to main
 **
 ** @return Returns a t_array containing the env values and names
 */

@@ -14,7 +14,7 @@
 #include <core/color.h>
 
 /*
-** @brief display logo of Federation coalition
+** @brief Displays a piece of The Federation's logo
 */
 
 static void	sh_print_fed3(void)
@@ -47,7 +47,7 @@ static void	sh_print_fed3(void)
 }
 
 /*
-** @brief display logo of Federation coalition
+** @brief Displays a piece of The Federation's logo
 */
 
 static void	sh_print_fed2(void)
@@ -65,7 +65,7 @@ static void	sh_print_fed2(void)
 }
 
 /*
-** @brief display logo of Federation coalition
+** @brief Displays a piece of The Federation's logo along with a message
 */
 
 static void	sh_print_fed1(void)
@@ -102,7 +102,7 @@ static void	sh_print_fed1(void)
 **
 ** @param data The shell's data
 **
-** @param arg The status
+** @param arg Contains args passed to the exit builtin
 */
 
 void		sh_exit(t_sh_data *data, char **arg)
@@ -131,7 +131,7 @@ void		sh_exit(t_sh_data *data, char **arg)
 }
 
 /*
-** @brief Calls sh_exit()
+** @brief Calls sh_exit(). This is an alias to have a naming scheme on builtins
 **
 ** @param data The shell data used across the program
 **

@@ -19,12 +19,11 @@
 #include <libft.h>
 
 /*
-** @brief      Restores the terminal attributes
-**             once the program is ended
+** @brief      Restores the terminal attributes once the program is finished
 **
-** @param[in]  tattr  struct containing the current terminal attributes
+** @param[in]  tattr  Structure containing the current terminal attributes
 **
-** @return     int  Returns 0 if success and 1 otherwise
+** @return     int  Returns 0 if successful, and will return 1 otherwise.
 */
 
 int			sh_restore_tattr(struct termios *tattr)
@@ -50,11 +49,9 @@ int			sh_restore_tattr(struct termios *tattr)
 }
 
 /*
-** @brief      Uninitialize the program before exiting
+** @brief      uninitializes the program before exiting
 **
-** @param[in]  data  data needed to uninitialize
-**
-** @return     void
+** @param[in]  data  This structure contains the shell's data needed to deinit.
 */
 
 void		sh_deinit(t_sh_data *data)

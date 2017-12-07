@@ -16,11 +16,6 @@
 #include <tools/tools.h>
 
 /*
-** @brief TODO
-** @return TODO
-*/
-
-/*
 ** @brief Gets the str from input
 **
 ** @return Returns the input

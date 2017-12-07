@@ -45,7 +45,7 @@ t_array		init_tests_exec(char *input)
 ** @brief Main function to test the exec module
 **
 ** @param av The arguments passed to the test module
-** @param __p__environ The current environ
+** @param environ The current environ
 */
 
 void		sh_testing_exec(char *const *av, char **environ)

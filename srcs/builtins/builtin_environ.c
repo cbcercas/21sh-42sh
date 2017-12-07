@@ -14,10 +14,13 @@
 
 /*
 ** @brief The function called when setenv is executed
-** @param data The shell data used throughout the program
-** @param argv The args passed to echo
+** This function will parse it's arguments and if they are in the form of
+** `name=value` then they will be added int the env
 **
-** @return Returns the ret value of echo
+** @param data The shell data used throughout the program
+** @param argv The args passed to setenv
+**
+** @return Returns the return value produced by setenv
 */
 
 int		sh_builtin_setenv(t_sh_data *data, char **args)
@@ -48,10 +51,11 @@ int		sh_builtin_setenv(t_sh_data *data, char **args)
 
 /*
 ** @brief The function called when unsetenv is executed
-** @param data The shell data used throughout the program
-** @param argv The args passed to echo
 **
-** @return Returns the ret value of echo
+** @param data The shell data used throughout the program
+** @param argv The args passed to unsetenv
+**
+** @return Returns the return value produced by unsetenv
 */
 
 int		sh_builtin_unsetenv(t_sh_data *data, char **args)

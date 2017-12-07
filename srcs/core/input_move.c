@@ -48,6 +48,7 @@ t_input	*input_back_to_origin(t_input *input)
 
 /*
 ** @brief Moves the cursor to line end
+**
 ** @param input The current input
 */
 
@@ -97,7 +98,9 @@ t_cpos	input_get_last_pos(t_input *input)
 
 /*
 ** @brief Moves the cursor to the first not lock input
+**
 ** @param input The current input
+**
 ** @return Returns the input
 */
 

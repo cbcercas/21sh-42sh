@@ -13,11 +13,11 @@
 #include <builtins/builtin_history.h>
 
 /*
-** @brief th option -a  Append the ``new'' history lines
-**(history lines entered since the beginning
-**of the current bash session) to the history file.
+** @brief The option -a appends the `new` history lines
+** (history lines entered since the beginning
+** of the current shell session) to the history file.
 **
-** @param str is filename
+** @param str Contains the filename/path of the history file
 */
 
 void	sh_history_builtin_a(char *str)
@@ -48,7 +48,7 @@ void	sh_history_builtin_a(char *str)
 }
 
 /*
-** @brief Clear the history list by deleting all the entries.
+** @brief Clears the history list by deleting all the entries.
 */
 
 void	sh_history_builtin_c(void)
@@ -62,9 +62,9 @@ void	sh_history_builtin_c(void)
 }
 
 /*
-** @brief th option -d Delete the history entry at position offset.
+** @brief The option -d deletes a history entry at a given position.
 **
-** @param arg The args passed to history (offset)
+** @param arg The args passed to `history -d` (which is an offset)
 */
 
 void	sh_history_builtin_d(const char *arg)
@@ -84,10 +84,10 @@ void	sh_history_builtin_d(const char *arg)
 }
 
 /*
-** @brief th option -w  Write the current history to the history file,
-** overwriting the historyfile's contents.
+** @brief The option -w writes the current history to the history file,
+** overwriting the current history file's contents.
 **
-** @param path is filename
+** @param path Contains the filename/path of the history file
 */
 
 void	sh_history_builtin_w(char *path)
@@ -116,10 +116,11 @@ void	sh_history_builtin_w(char *path)
 }
 
 /*
-** @brief th option -s Store the args in the history list as a single entry.
-** The last  command in the history list is removed before the args are added.
+** @brief The option -s stores the args in the history list as a single entry.
+** The last command in the history list is removed before the args are added.
 **
-** @param path is filename
+** @param argv The args passed to the `history -s` command
+** @param index TODO
 */
 
 void	sh_history_builtin_s(char **argv, int index)

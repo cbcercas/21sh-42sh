@@ -13,7 +13,7 @@
 #include <ast/ast.h>
 
 /*
-** @brief swap_lim swap limits
+** @brief Swap limits
 **
 ** @param lim Contains virtual limit and start pos
 **

@@ -18,7 +18,8 @@ extern int g_optind;
 **
 ** @param path The path to be tested
 **
-** @return Returns true if everything is ok. False otherwise
+** @return Returns true if user has perm to chdir in the requested folder.
+** This function will return false by default or if permissions aren't ok.
 */
 
 static BOOL	sh_test_path(char **dir, char *arg)
@@ -45,9 +46,9 @@ static BOOL	sh_test_path(char **dir, char *arg)
 /*
 ** @brief Gets the path
 **
-** @param arg The arg passed at cd
+** @param arg The arguemnts passed to the cd builtin
 ** @param dir The path
-** @param disp indicator whether or not the path is displayed.
+** @param disp Indicator whether or not the path is displayed.
 **
 ** @return Returns true if everything is ok. False otherwise
 */
@@ -74,12 +75,12 @@ static BOOL	sh_get_dir(char *arg, char **dir, BOOL *disp)
 }
 
 /*
-** @brief This function get dir, change in absolute path, test right and
-** expands dots
+** @brief This function gets the dir, changes in absolute path, test the path
+** and expands dots for
 **
-** @param arg The args passed at cd
+** @param arg The args passed at the cd builtin
 **
-** @return Returns dir or NULL otherwise
+** @return Returns the dir if everything went well, will return NULL otherwise
 */
 
 static char	*sh_do_chdir_init(char *arg)
@@ -108,12 +109,13 @@ static char	*sh_do_chdir_init(char *arg)
 }
 
 /*
-** @brief This function is the one that does the chdir
+** @brief This function is the main function for the `chdir`/`cd` builtin.
 **
-** @param arg The args passed at cd
-** @param opt The options
+** @param arg The args passed at the cd builtin
+** @param opt The options passed to the cd builtin
 **
-** @return Returns the status of cd
+** @return Returns the status of cd. cd will return 1 if there's an error.
+** Otherwise it will return 0.
 */
 
 static int	sh_do_chdir(char *arg, int opt)

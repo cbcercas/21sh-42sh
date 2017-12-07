@@ -16,8 +16,10 @@ extern int g_optind;
 
 /*
 ** @brief Removed a value from the env
+**
 ** @param tmp The current environment
 ** @param argv Contains the values to be removed
+**
 ** @return Returns the modified env
 */
 

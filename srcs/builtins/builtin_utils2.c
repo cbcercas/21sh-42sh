@@ -14,7 +14,9 @@
 
 /*
 ** @brief Gets a builtin by its name from the array
+**
 ** @param name The builtin's name
+**
 ** @return Returns the array containing the builtin's info
 */
 
@@ -35,45 +37,6 @@ t_builtin	*get_builtin(char *name)
 	}
 	return (NULL);
 }
-
-/*
-char		*sh_find_quote_end(char *arg)
-{
-	int		lvl;
-	char	cur_q;
-
-	lvl = 1;
-	cur_q = *arg;
-	arg++;
-	while (*arg)
-	{
-		if (cur_q == *arg && lvl)
-		{
-			lvl -= 1;
-			if (lvl)
-				cur_q = (cur_q == '"') ? (char)'`' : (char)'"';
-		}
-		else if ((*arg == '"' || *arg == '`') && lvl)
-		{
-			cur_q = *arg;
-			lvl += 1;
-		}
-		if (*arg == cur_q && lvl == 0)
-			return (arg);
-		arg++;
-	}
-	return ((*arg) ? arg : NULL);
-}
-
-char		*sh_extract_str(char *arg)
-{
-	char	*str;
-	char	*q_end;
-
-	q_end = sh_find_quote_end(arg);
-	str = ft_strsub(arg, 1, q_end - arg - 1);
-	return (str);
-}*/
 
 /*
 ** @brief Checks if given name is a builtin

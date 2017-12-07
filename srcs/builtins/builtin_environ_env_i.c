@@ -16,8 +16,10 @@ extern int g_optind;
 
 /*
 ** @brief Adds into the env a value
+**
 ** @param tmp The current env
-** @param argv Contains the args to be splitted
+** @param argv Contains the args to be split
+**
 ** @return Returns the modified env
 */
 

@@ -15,6 +15,7 @@
 
 /*
 ** @brief display char
+**
 ** @param input  current input
 ** @param c the char to be "draw"
 */
@@ -38,7 +39,9 @@ void		draw_char(t_input *input, char *c)
 
 /*
 ** @brief display input
+**
 ** @param input start of draw
+**
 ** @return the last input draw
 */
 
@@ -66,6 +69,7 @@ t_input		*input_draw(t_input *input)
 
 /*
 ** @brief display input and replace cursor to the origin of input
+**
 ** @param input the current input
 */
 

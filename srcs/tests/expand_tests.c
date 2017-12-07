@@ -66,7 +66,7 @@ t_array		init_tests_exp(char *input)
 ** @brief Main function to test the expand module
 **
 ** @param av The arguments passed to the test module
-** @param __p__environ The current environ
+** @param environ The current environ
 */
 
 void		sh_testing_expand(char *const *av, char **environ)

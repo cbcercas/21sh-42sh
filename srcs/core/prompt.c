@@ -69,6 +69,7 @@ void				prompt_normal(t_input *inp)
 
 /*
 ** @brief display not useally prompt
+**
 ** @param inp current input
 ** @param prompt the personalized prompt
 ** @param ret the ret of the last command

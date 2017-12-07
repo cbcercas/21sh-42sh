@@ -42,10 +42,12 @@ static char	*ft_replace(char *src1, char *src2, int index, int size)
 }
 
 /*
-** @brief search occurence (little) in string (big)
-** @param big string where this function search
-** @param little is the occurence
-** @return index of big where start little
+** @brief Searches for occurrence of `little` in string `big`
+**
+** @param The string in which the function will search for `little`
+** @param The string to search in `big`
+**
+** @return Returns the index of where `little` starts in `big`
 */
 
 static int	ft_index_strstr(const char *big, const char *little)
@@ -75,8 +77,10 @@ static int	ft_index_strstr(const char *big, const char *little)
 }
 
 /*
-** @brief Parses the \\ something for echo
+** @brief Parses the `\\`x for echo
+**
 ** @param src The string to parse
+**
 ** @return Returns the parsed string
 */
 

@@ -14,6 +14,7 @@
 
 /*
 ** @brief Gets all the builtins in a t_array
+**
 ** @return Returns the t_array list of builtins
 */
 
@@ -35,8 +36,10 @@ t_array		*get_builtins(void)
 
 /*
 ** @brief Creates a new builtin in the array
+**
 ** @param name The builtin name
 ** @param fn The builtins function
+**
 ** @return The builtin array
 */
 
@@ -58,8 +61,10 @@ t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 
 /*
 ** @brief Adds a new builtin in the array
+**
 ** @param name The builtin name
 ** @param fn The builtins function
+**
 ** @return The builtin array
 */
 
@@ -77,6 +82,7 @@ t_array		*sh_add_builtin(char *name, t_builtin_fn fn)
 
 /*
 ** @brief Initializes all the builtins and adds them to the array
+**
 ** @return Returns the builtin array
 */
 

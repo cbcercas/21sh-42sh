@@ -13,11 +13,11 @@
 #include <builtins/builtin_chdir.h>
 
 /*
-** @brief Finds the starting '..'
+** @brief Finds the starting `..`
 **
 ** @param path The path string to search
 **
-** @return Returns the pointer to the '..'
+** @return Returns a pointer to the first `..` it'll find
 */
 
 static char		*find_start_ddots(char *path)
@@ -37,11 +37,11 @@ static char		*find_start_ddots(char *path)
 }
 
 /*
-** @brief Removes the extraenous dots for given path
+** @brief Removes the extraneous dots for given path
 **
-** @param path Path to search
+** @param path Path to search and change
 **
-** @return Returns the path without the extraenous dots
+** @return Returns the path without the extraneous dots
 */
 
 static	char	*remove_dots(char *path)
@@ -69,7 +69,7 @@ static	char	*remove_dots(char *path)
 /*
 ** @brief Removes the extraneous backslashes from a given path
 **
-** @param path String from which to remove the extraenous backslashes
+** @param path String from which to remove the extraneous backslashes
 **
 ** @return The path modified without the backslashes
 */
@@ -86,11 +86,11 @@ static char		*remove_backslash(char *path)
 }
 
 /*
-** @brief Expands the path
+** @brief Expands the path (removes extraneous dots and backslashes)
 **
-** @param path not expand
+** @param path The path not expanded and modified
 **
-** @return path expand
+** @return path Returns the modified path
 */
 
 char			*expand_path(char **path)
