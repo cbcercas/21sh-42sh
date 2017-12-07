@@ -41,6 +41,9 @@ static BOOL	exec_tab_one(char *cur, t_array *arr, t_input *input)
 	{
 		if (!string_insert(input->str, string->s + len, pos_in_str(input)))
 			return (false);
+		redraw_input(input);
+		while (len--)
+			exec_arrow_right_normal(input);
 	}
 	else
 		tcaps_bell();
