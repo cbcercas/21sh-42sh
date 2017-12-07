@@ -15,6 +15,7 @@
 
 # include <logger.h>
 # include <types/bool.h>
+#include <sys/param.h>
 
 /*
 ** @file data.h
@@ -56,7 +57,7 @@ struct						s_sh_opt
 struct						s_sh_data
 {
 	t_sh_opt				opts;
-	char					*cwd;
+	char					cwd[MAXPATHLEN];
 	struct termios			*tattr;
 
 };

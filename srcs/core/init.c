@@ -87,12 +87,6 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 ** @return void
 */
 
-static void			sh_env_warn(void)
-{
-	ft_dprintf(2, "%s: %sWarning%s, Starting %s without env may cause some "
-	"features to not work proprelly.\n", PROGNAME, CL_RED, C_NONE, PROGNAME);
-	log_warn("was launched without an env provided. Using default.\n");
-}
 
 void				sh_check_env(char **environ)
 {
@@ -101,7 +95,9 @@ void				sh_check_env(char **environ)
 	tmp = NULL;
 	if (!environ || !environ[0])
 	{
-		sh_env_warn();
+		ft_dprintf(2, "%s: %sWarning%s, Starting without env may cause some "
+		"features to not work proprelly.\n", PROGNAME, CL_RED, C_NONE);
+		log_warn("was launched without an env provided. Using default.\n");
 		set_var(get_envs(), "TERM", "xterm", true);
 		set_var(get_envs(), "USER", "Marvin", true);
 		set_var(get_envs(), "USERNAME", "Marvin", true);
@@ -121,6 +117,30 @@ void				sh_check_env(char **environ)
 	ft_strdel(&tmp);
 }
 
+static BOOL			sh_init_get_path(char *const *argv)
+{
+	char		path_save[PATH_MAX];
+	char		*p;
+	t_sh_data	*data;
+
+	if (!(data = get_data(NULL)))
+		return (false);
+	ft_bzero(data->cwd, sizeof(data->cwd));
+	if(!(p = ft_strrchr(argv[0], '/')))
+	{
+		if (!getcwd(data->cwd, sizeof(data->cwd)))
+			return (false);
+	}
+	else
+	{
+		*p = '\0';
+		if (!getcwd(path_save, sizeof(path_save)) || chdir(argv[0]) ||
+				!getcwd(data->cwd, sizeof(data->cwd)) || chdir(path_save))
+			return (false);
+	}
+	return (true);
+}
+
 /*
 ** @brief     Initializes the program
 **
@@ -136,19 +156,10 @@ t_sh_data			*sh_init(t_sh_data *data, int ac, char *const *av,
 							char **environ)
 {
 	sh_multi_init(data, ac, av, environ);
-	if ((data->cwd = getcwd(data->cwd, MAXPATHLEN + 1)) == NULL)
-	{
-		ft_dprintf(2, "%s: Error when getting current working directory\n",\
-		PROGNAME);
-		sh_deinit(data);
-		exit(EXIT_FAILURE);
-	}
+	if (!sh_init_get_path(av))
+		sh_exit_error("Error when getting current working directory");
 	sh_check_env(environ);
 	if ((tgetent(STDIN_FILENO, get_var_value(get_envs(), "TERM"))) != 1)
-	{
-		ft_dprintf(2, "%s: Error on tgetent\n", PROGNAME);
-		sh_deinit(data);
-		exit(EXIT_FAILURE);
-	}
+		sh_exit_error("Error on tgetent");
 	return (data);
 }
