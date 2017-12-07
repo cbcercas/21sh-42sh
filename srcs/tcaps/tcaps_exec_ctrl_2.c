@@ -51,7 +51,7 @@ BOOL			exec_ctrl_j(const t_key *key, t_input *input)
 		return (false);
 	if ((wd->autocomp && wd->autocomp->active))
 		return (exec_ctrl_j_select(input));
-	if (get_select()->is)
+	if (wd->select.is)
 		return (false);
 	if (MAX_NB_INPUT < count_nb_input(input_get_cur_head()))
 	{
