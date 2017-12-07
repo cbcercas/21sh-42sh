@@ -44,11 +44,13 @@ BOOL	exec_alt_input(const t_key *key, t_input *input, unsigned short x)
 BOOL	exec_alt_up(const t_key *key, t_input *input)
 {
 	unsigned short		x;
-	t_sel_data			*sdata;
+	t_window			*wd;
 
-	if ((sdata = select_get_data()) && sdata->active)
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
 		return (false);
-	if (get_select()->is)
+	else if (wd->autocomp)
+		get_windows(100);
+	if (wd->select.is)
 		return (false);
 	log_dbg1("exec alt arrow up.");
 	x = input->cpos.cp_col;
@@ -71,11 +73,13 @@ BOOL	exec_alt_up(const t_key *key, t_input *input)
 BOOL	exec_alt_down(const t_key *key, t_input *input)
 {
 	unsigned short		x;
-	t_sel_data			*sdata;
+	t_window			*wd;
 
-	if ((sdata = select_get_data()) && sdata->active)
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
 		return (false);
-	if (get_select()->is)
+	else if (wd->autocomp)
+		get_windows(100);
+	if (wd->select.is)
 		return (false);
 	log_dbg1("exec alt arrow down.");
 	if (get_select()->is || !input->next || input->next->lock)
@@ -102,10 +106,12 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 BOOL	exec_alt_left(const t_key *key, t_input *input)
 {
 	t_sel_data			*sdata;
+	t_window			*wd;
 
-	if ((sdata = select_get_data()) && sdata->active)
+	if (!(wd = get_windows(0)) && (wd->autocomp && wd->autocomp->active))
 		return (false);
-	get_windows(100);
+	else if (wd->autocomp)
+		get_windows(100);
 	log_dbg1("exec alt arrow left.");
 	exec_arrow_left_normal(input);
 	while ((pos_in_str(input) != 0) &&\
@@ -118,12 +124,13 @@ BOOL	exec_alt_left(const t_key *key, t_input *input)
 
 BOOL	exec_alt_right(const t_key *key, t_input *input)
 {
-	t_sel_data			*sdata;
+	t_window			*wd;
 
-	if ((sdata = select_get_data()) && sdata->active)
+	if (!(wd = get_windows(0)) && (wd->autocomp && wd->autocomp->active))
 		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
 	log_dbg1("exec alt arrow right.");
-	get_windows(100);
 	exec_arrow_right(key, input);
 	while ((pos_in_str(input) != input->str->len) &&\
 			(pos_in_str(input) == 0 ||\

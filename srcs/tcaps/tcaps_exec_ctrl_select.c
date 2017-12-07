@@ -14,11 +14,14 @@
 
 BOOL exec_ctrl_j_select(t_input *input)
 {
+	t_window	*wd;
 	t_sel_word	*word;
 	size_t		len;
 
+	if (!(wd = get_windows(0)))
+		return (false);
 	word = word_get_current();
-	if (!string_insert(input->str, word->word + select_get_data()->cur_word, pos_in_str(input)))
+	if (!string_insert(input->str, word->word + wd->autocomp->cur_word, pos_in_str(input)))
 		return (false);
 	len = ft_strlen(word->word);
 	exec_escape_select();
