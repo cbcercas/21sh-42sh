@@ -41,7 +41,7 @@ static BOOL		expand_hist_loop(size_t *i, t_input *inp)
 		*i += 2;
 	else if (inp->str->s[*i] == '!' && inp->str->s[*i + 1] == '!')
 	{
-		if (!expand_hist_replace(inp, (char *)sh_history_get_at(-1), i, 2))
+		if (!expand_hist_replace(inp, (char *)sh_history_get_at(-1), i, 3))
 			return (false);
 	}
 	else if (inp->str->s[*i] == '!' && (ft_atoi(&inp->str->s[*i + 1]) != 0))
