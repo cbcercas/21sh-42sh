@@ -14,68 +14,54 @@
 
 BOOL	exec_arrow_right(const t_key *key, t_input *input)
 {
-	struct winsize	*ts;
+	t_window	*window;
 
-	(void)key;
-	log_dbg1("exec arrow right.");
-	ts = get_ts();
-	exec_select_arrows(key, input);
-	if (pos_in_str(input) == input->str->len && input->next)
+	log_dbg1("dispatch arrow right.");
+	if (!(window = get_windows(0)))
+		return (false);
+	if (window->autocomp)
 	{
-		input = input->next;
-		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
-		input->cpos = input_get_first_pos(input);
-		move_cursor_to(&input->cpos,
-					&(t_cpos){input->prev->cpos.cp_col, 0}, ts);
-		get_windows(0) ? get_windows(0)->cur = input : 0;
-		if (!input->select_pos.is_set)
-		{
-			input->select_pos.is_set = true;
-			input->select_pos.cur_start = pos_in_str(input);
-		}
+		if (window->autocomp->active)
+			return (exec_arrow_right_select(window->autocomp));
+		get_windows(100);
 	}
-	else if ((unsigned)(input->cpos.cp_col + (input->cpos.cp_line * ts->ws_col)
-						- input->offset_col) < input->str->len)
-		move_cursor_right(&input->cpos, ts);
-	input->select_pos.cur_end = pos_in_str(input);
-	return (false);
+	if (window->select.is)
+		exec_insert_arrows(key, input);
+	return (exec_arrow_right_normal(input));
 }
 
 BOOL	exec_arrow_left(const t_key *key, t_input *input)
 {
-	struct winsize	*ts;
+	t_window	*window;
 
-	(void)key;
-	log_dbg1("exec arrow left.");
-	ts = get_ts();
-	exec_select_arrows(key, input);
-	if (pos_in_str(input) == 0 && input->prev)
+	log_dbg1("dispatch arrow left.");
+	if (!(window = get_windows(0)))
+		return (false);
+	if (window->autocomp)
 	{
-		input = input->prev;
-		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
-		input->cpos = input_get_last_pos(input);
-		move_cursor_to(&input->cpos, &(t_cpos){input->next->cpos.cp_col,
-											input->cpos.cp_line}, get_ts());
-		get_windows(0) ? get_windows(0)->cur = input : 0;
-		if (!input->select_pos.is_set)
-		{
-			input->select_pos.is_set = true;
-			input->select_pos.cur_start = pos_in_str(input);
-		}
+		if (window->autocomp->active)
+			return (exec_arrow_left_select(window->autocomp));
+		get_windows(100);
 	}
-	else if (((input->cpos.cp_col + (input->cpos.cp_line * ts->ws_col)
-			- input->offset_col)) > 0)
-		move_cursor_left(&input->cpos, ts);
-	input->select_pos.cur_end = pos_in_str(input);
-	return (false);
+	if (window->select.is)
+		exec_insert_arrows(key, input);
+	return (exec_arrow_left_normal(input));
 }
 
 BOOL	exec_arrow_up(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	t_input		*new_inp;
 
 	(void)key;
 	log_dbg1("exec arrow up.");
+
+	if (!(wd = get_windows(0)))
+		return (false);
+	if (wd->autocomp && wd->autocomp->active)
+		return (exec_arrow_up_select(wd->autocomp));
+	else if (wd->autocomp)
+		get_windows(100);
 	if (!(new_inp = sh_history_up(input)))
 		return (false);
 	input = input_back_to_writable(input);
@@ -84,16 +70,23 @@ BOOL	exec_arrow_up(const t_key *key, t_input *input)
 	input = input_draw(input);
 	input = input_back_to_writable(input);
 	input_goto_line_end(input);
-	get_windows(0) ? get_windows(0)->cur = input : 0;
+	wd->cur = input;
 	return (false);
 }
 
 BOOL	exec_arrow_down(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	t_input *new_inp;
 
 	(void)key;
 	log_dbg1("exec arrow down.");
+	if (!(wd = get_windows(0)))
+		return (false);
+	if (wd->autocomp && wd->autocomp->active)
+		return (exec_arrow_down_select(wd->autocomp));
+	else if (wd->autocomp)
+		get_windows(100);
 	if (!(new_inp = sh_history_down(input)))
 		return (false);
 	new_inp = input_draw(new_inp);

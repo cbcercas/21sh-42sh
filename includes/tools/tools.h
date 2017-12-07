@@ -71,4 +71,13 @@ BOOL		ft_isdigit_str(char *str);
 
 void		print_verb(char *line);
 void		sh_exit_error(const char *error);
+
+/*
+** @file array_free_elem.c
+**
+** @brief Functions used to free array elems
+*/
+
+void		string_clear(void *string);
+
 #endif

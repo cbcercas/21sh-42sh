@@ -105,9 +105,14 @@ static void	exec_alt_v_multi(t_input *input, char *save)
 
 BOOL		exec_alt_v(const t_key *key, t_input *input)
 {
-	char	*save;
+	char		*save;
+	t_window			*wd;
 
 	(void)key;
+	if (!(wd = get_windows(0)) && (wd->autocomp && wd->autocomp->active))
+		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
 	if (get_select()->is || !input || !input->str || !get_select()->str)
 		return (false);
 	save = get_select()->str;
@@ -123,7 +128,6 @@ BOOL		exec_alt_v(const t_key *key, t_input *input)
 		log_dbg3("copy simple");
 		string_insert(input->str, get_select()->str, pos_in_str(input));
 		redraw_input(input);
-		return (false);
 	}
 	return (false);
 }

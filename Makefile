@@ -44,7 +44,7 @@ SRCS			+= check_path.c exec_tlist.c sh_exec_list_fd.c sh_exec.c\
 SRC_SUBDIR		+= tools
 SRCS			+= ft_isdigit_str.c getpwd.c is.c \
 					is_printstr.c sh_ret.c sh_test_access.c print_verb.c\
-					sh_exit_error.c
+					array_free_elem.c sh_exit_error.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c lexer_utils.c
@@ -84,8 +84,11 @@ SRCS			+=	tcaps_exec_alt_arrows.c tcaps_exec_alt_c.c \
 					tcaps_exec_alt_v.c tcaps_exec_arrow.c \
 					tcaps_exec_backspace.c tcaps_exec_ctrl_1.c \
 					tcaps_exec_ctrl_2.c tcaps_exec_delete.c \
-					tcaps_exec_end_home.c tcaps_exec_select.c tcaps_exec_tab.c \
-					tcaps_key_exec.c tcaps_redraw_line.c tcaps_exec_escape_enter.c
+					tcaps_key_exec.c tcaps_redraw_line.c \
+					tcaps_exec_end_home.c tcaps_exec_insert.c tcaps_exec_tab.c \
+					tcaps_exec_escape_enter.c tcaps_exec_arrow_normal.c \
+					tcaps_exec_arrow_select.c tcaps_exec_escape.c \
+					tcaps_exec_ctrl_select.c
 
 SRC_SUBDIR		+= btree
 SRCS			+= btree_create_node.c btree_apply.c btree_print.c btree_utils.c
@@ -107,43 +110,47 @@ SRCS			+= ft_secu_free.c ft_secu_malloc.c \
 				ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c \
 				ft_strsplit_secu.c ft_strsub_secu.c
 
+SRC_SUBDIR		+= select
+SRCS			+= select.c select_data.c select_display.c \
+				select_display_init.c select_display_utils.c select_exit.c \
+				select_init.c select_list_utils.c \
+				select_list_utils_2.c
+
 ###############################################################################
 #                                 CONFIG                                      #
 ###############################################################################
 
 #  Compiler
-CC                      = clang
-CFLAGS          = -g -Wall -Wextra -Werror
+CC				= clang
+CFLAGS			= -Wall -Wextra
+
+ifneq ($(NOERR),yes)
+    CFLAGS		+= -Werror
+endif
 
 ifeq ($(DEV),yes)
-		CFLAGS          += -std=c11 -pedantic -pedantic-errors
+    CFLAGS		+= -g
 endif
 
 ifeq ($(SAN),yes)
-		LDFLAGS += -fsanitize=address
-		CFLAGS += -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
-endif
-
-ifeq ($(NOERR),yes)
-    CFLAGS		= -g -Wall -Wextra -Wdeprecated-declarations
+    CFLAGS		+= -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls
 endif
 
 #The Directories, Source, Includes, Objects and Libraries
-INC                     = -I includes
-SRCS_DIR        = srcs
+INC				= -I includes
+SRCS_DIR		= srcs
 vpath  %c $(addprefix $(SRCS_DIR)/,$(SRC_SUBDIR))
 
 #Objects
-OBJS_DIR        = objs
-OBJS            = $(SRCS:%.c=$(OBJS_DIR)/%.o)
+OBJS_DIR		= objs
+OBJS			= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 # Dependencies
-DEPS_DIR        = .deps
-DEPS            = $(SRCS:%.c=$(DEPS_DIR)/%.d)
-BUILD_DIR       = $(OBJS_DIR) $(DEPS_DIR)
+DEPS_DIR		= .deps
+DEPS			= $(SRCS:%.c=$(DEPS_DIR)/%.d)
+BUILD_DIR		= $(OBJS_DIR) $(DEPS_DIR)
 
 # Libraries
-#LIBS_FOLDER    = lib
 ## libcbc
 LIB_CBC_DIR := libcbc
 
@@ -165,7 +172,6 @@ LIBS                            += -lcurses
 RM                                      = rm -rf
 MKDIR                           = mkdir -p
 COUNT_OBJ = 0
-COUNT_DEP = 0
 TOTAL = 0
 PERCENT = 0
 $(eval TOTAL=$(shell echo $$(printf "%s" "$(SRCS)" | wc -w)))
@@ -204,7 +210,7 @@ $(NAME): $(OBJS)
 		@printf "[\033[35m---------------------------------\033[0m]\n"
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
-		@$(CC) $(LDFLAGS) $(CFLAGS) $(INC) -o $@ -c $<
+		@$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 		$(eval COUNT_OBJ=$(shell echo $$(($(COUNT_OBJ)+1))))
 		$(eval PERCENT=$(shell echo $$((($(COUNT_OBJ) * 100 )/$(TOTAL)))))
 		@printf "$(C_B)%-8s $(C_P) $<$(C_NO)\n" "[$(PERCENT)%]"
@@ -220,33 +226,36 @@ endif
 
 $(DEPS_DIR)/%.d: %.c | $(DEPS_DIR)
 		@$(CC) $(INC) -MM $< -MT $(OBJS_DIR)/$*.o -MF $@
-		$(eval COUNT_DEP=$(shell echo $$(($(COUNT_DEP)+1))))
-		$(eval PERCENT=$(shell echo $$((($(COUNT_DEP) * 100 )/$(TOTAL)))))
-		@printf "$(C_B)%-8s $(C_G) $@$(C_NO)\n" "[$(PERCENT)%]"
 
 $(BUILD_DIR):
 		@$(MKDIR) -p $@
 
 lib:
-		@make -C $(LIB_CBC_DIR)
+		@make -C $(LIB_CBC_DIR) NOERR=$(NOERR) DEV=$(DEV) SAN=$(SAN)
 
 re: fclean all
 
 clean:
+ifeq ($(shell [ -e $(OBJS_DIR) ] && echo 1 || echo 0),1)
 	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]\n"
 	@$(RM) $(OBJS_DIR)
+endif
+ifeq ($(shell [ -e $(DEPS_DIR) ] && echo 1 || echo 0),1)
 	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .d\033[0m]\n"
 	@$(RM) $(DEPS_DIR)
 	@make clean -C $(LIB_CBC_DIR)
+endif
 
 fclean: clean
+ifeq ($(shell [ -e $(NAME) ] && echo 1 || echo 0),1)
 	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]\n"
 	@$(RM) $(NAME)
+endif
 	@make fclean -C $(LIB_CBC_DIR)
 	@rm -rf DOC
 
 dev:
-		@make -C ./ SAN="yes" DEV="yes"
+		@make -C ./ NOERR="yes" SAN="yes" DEV="yes"
 
 doc:
 ifndef DOXYGEN

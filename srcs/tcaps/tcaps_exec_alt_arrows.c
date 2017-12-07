@@ -44,12 +44,15 @@ BOOL	exec_alt_input(const t_key *key, t_input *input, unsigned short x)
 BOOL	exec_alt_up(const t_key *key, t_input *input)
 {
 	unsigned short		x;
+	t_window			*wd;
 
-	if (get_select()->is)
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
+	if (wd->select.is)
 		return (false);
 	log_dbg1("exec alt arrow up.");
-	if (get_select()->is)
-		return (false);
 	x = input->cpos.cp_col;
 	if (!(input->cpos.cp_line <= 0 || (input->cpos.cp_line == 1 &&
 													x < input->offset_col)))
@@ -70,8 +73,13 @@ BOOL	exec_alt_up(const t_key *key, t_input *input)
 BOOL	exec_alt_down(const t_key *key, t_input *input)
 {
 	unsigned short		x;
+	t_window			*wd;
 
-	if (get_select()->is)
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
+	if (wd->select.is)
 		return (false);
 	log_dbg1("exec alt arrow down.");
 	if (get_select()->is || !input->next || input->next->lock)
@@ -97,7 +105,15 @@ BOOL	exec_alt_down(const t_key *key, t_input *input)
 
 BOOL	exec_alt_left(const t_key *key, t_input *input)
 {
-	exec_arrow_left(key, input);
+	t_sel_data			*sdata;
+	t_window			*wd;
+
+	if (!(wd = get_windows(0)) && (wd->autocomp && wd->autocomp->active))
+		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
+	log_dbg1("exec alt arrow left.");
+	exec_arrow_left_normal(input);
 	while ((pos_in_str(input) != 0) &&\
 			(pos_in_str(input) == input->str->len ||\
 			!(input->str->s[pos_in_str(input)] == ' ' &&\
@@ -108,6 +124,13 @@ BOOL	exec_alt_left(const t_key *key, t_input *input)
 
 BOOL	exec_alt_right(const t_key *key, t_input *input)
 {
+	t_window			*wd;
+
+	if (!(wd = get_windows(0)) && (wd->autocomp && wd->autocomp->active))
+		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
+	log_dbg1("exec alt arrow right.");
 	exec_arrow_right(key, input);
 	while ((pos_in_str(input) != input->str->len) &&\
 			(pos_in_str(input) == 0 ||\

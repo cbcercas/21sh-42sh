@@ -32,7 +32,7 @@ size_t	get_index_cur(t_input *input);
 BOOL	autocomplete_is_command(t_input *input);
 BOOL	autocomplete_is_path(t_input *input);
 t_array	*autocomplete_get_content_paths(char *path);
-t_input	*autocomplete(t_array *content, t_input *input);
+t_array	*autocomplete(t_array *content, t_input *input);
 void	autocomplete_display(t_array *content);
 t_array	*autocomplete_get_bin(char *begin);
 BOOL	autocomplete_is_directory(char *path);
@@ -44,5 +44,6 @@ BOOL	autocomplete_is_dots(const char *s);
 t_array	*autocomplete_sort_content(t_array *content);
 BOOL	autocomplete_get_repons(size_t possibilities);
 void	autocomplete_display_cols(t_array *content);
+size_t	autocomplete_len_useless(const char *s);
 
 #endif

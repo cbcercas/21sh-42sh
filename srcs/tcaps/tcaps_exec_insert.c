@@ -12,7 +12,7 @@
 
 #include <core/tcaps.h>
 
-void			reset_select_pos(void)
+void			reset_insert_pos(void)
 {
 	t_input		*input;
 
@@ -26,13 +26,14 @@ void			reset_select_pos(void)
 	}
 }
 
-static void		exec_select_off(t_input *input)
+void		exec_insert_off(t_input *input)
 {
 	size_t		pos_str;
 	t_cpos		dest;
 
 	input = input_back_to_origin(input);
 	redraw_input(input);
+	pos_str = 0;
 	while (input && !input->select_pos.is_set)
 	{
 		dest = input_get_first_pos(input);
@@ -47,31 +48,38 @@ static void		exec_select_off(t_input *input)
 	pos_str = (input->select_pos.cur_start > input->select_pos.cur_end) ?
 			input->select_pos.cur_end : input->select_pos.cur_start;
 	input_goto_line_end(input);
-	while (pos_in_str(input) != pos_str && pos_in_str(input))
+	while (input && pos_in_str(input) != pos_str && pos_in_str(input))
 		move_cursor_left(&input->cpos, get_ts());
-	reset_select_pos();
+	reset_insert_pos();
 	get_select()->is = false;
 	get_windows(0) ? get_windows(0)->cur = input : 0;
 }
 
-BOOL			exec_select(const t_key *key, t_input *input)
+BOOL			exec_insert(const t_key *key, t_input *input)
 {
+	t_window	*wd;
 	(void)key;
+
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+		return (false);
+	if (wd->autocomp && !wd->autocomp->active)
+		exec_escape_select();
 	if (!get_select()->is)
 	{
 		get_select()->is = true;
 		get_select()->start_abs = input;
-		reset_select_pos();
+		reset_insert_pos();
 		input->select_pos.is_set = true;
 		input->select_pos.cur_start = pos_in_str(input);
 		input->select_pos.cur_end = input->select_pos.cur_start;
 	}
 	else
-		exec_select_off(input);
+		exec_insert_off(input);
 	return (false);
 }
 
-BOOL			exec_select_arrows(const t_key *key, t_input *input)
+//TODO rename
+BOOL			exec_insert_arrows(const t_key *key, t_input *input)
 {
 	struct winsize	*ts;
 	size_t			start;
