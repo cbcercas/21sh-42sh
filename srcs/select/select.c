@@ -15,15 +15,18 @@
 
 void	select_select(int selectable, BOOL color, t_array *arr, char *current)
 {
-	t_sel_data	*data;
+	t_window	*wd;
 	t_cpos		cpos;
 
-	data = select_get_data();
-
-	if (!select_init(data, arr, current))
-		return ((void)exec_escape_select());
+	if (!(wd = get_windows(0)))
+		return ;
+	if (!(wd->autocomp = select_get_data()))
+		return ;
+	if (!select_init(wd->autocomp , arr, current))
+		return ((void)exec_escape_select(get_windows(0)));
 	select_init_opt(selectable, color);
-	if ((data->disp.word_num / data->disp.col_num) > data->disp.ts.ws_row)
+	if ((wd->autocomp ->disp.word_num / wd->autocomp ->disp.col_num)
+		> wd->autocomp ->disp.ts.ws_row)
 	{
 		//add display all?
 		select_exit(EXIT_SUCCESS, NULL);
@@ -31,7 +34,7 @@ void	select_select(int selectable, BOOL color, t_array *arr, char *current)
 	}
 	tputs(tgetstr("cr",NULL), 1, &ft_putc_in);
 	tputs(tgetstr("do", NULL), 0, &ft_putc_in);
-	display_list(data->words, &data->disp);
+	display_list(wd->autocomp ->words, &wd->autocomp ->disp);
 	tputs(tgetstr("up", NULL), 0, &ft_putc_in);
 	cpos = get_windows(0)->cur->cpos;
 	cpos.cp_col = 0;

@@ -52,7 +52,7 @@ static t_key_exec	fn_exec[] =
 		{KEY_CODE_NONE, NULL}
 	};
 
-BOOL			key_exec(t_key *key, t_input *input)
+BOOL			key_exec(t_key *key, t_window *window)
 {
 	int			i;
 
@@ -60,7 +60,7 @@ BOOL			key_exec(t_key *key, t_input *input)
 	while (fn_exec[i].f != NULL)
 	{
 		if (ft_strequ(fn_exec[i].key_code, key->key_code))
-			return (fn_exec[i].f(key, input));
+			return (fn_exec[i].f(key, window));
 		i++;
 	}
 	return (false);

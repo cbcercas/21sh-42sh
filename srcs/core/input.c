@@ -109,7 +109,7 @@ char			*sh_get_line(t_input *input, t_sh_opt *opts)
 		read(STDIN_FILENO, buff, (opts->tcaps) ? MAX_KEY_STRING_LEN : 1);
 		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_OTHER))
-			stop = key_exec(&key, input);
+			stop = key_exec(&key, get_windows(0));
 		else if (MAX_LEN_INPUT <= input->str->len)
 			tcaps_bell();
 		else if (is_printstr(buff) && !get_select()->is &&

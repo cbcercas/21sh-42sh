@@ -51,21 +51,20 @@ static t_input	*alt_c_mid(t_input *tmp, char **str, size_t start, size_t end)
 	return (tmp);
 }
 
-BOOL			exec_alt_c(const t_key *key, t_input *input)
+BOOL			exec_alt_c(const t_key *key, t_window *wd)
 {
 	t_input		*tmp;
 	char		*str;
 	size_t		start;
 	size_t		end;
-	t_window	*wd;
 
-	(void)input;
 	(void)key;
+	if (wd->autocomp && wd->autocomp->active)
+		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
 	if (!get_select()->is)
 		return (false);
-	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
-		return (false);
-	get_windows(100);
 	str = NULL;
 	tmp = get_windows(0)->cur_head;
 	while (tmp && !tmp->select_pos.is_set)

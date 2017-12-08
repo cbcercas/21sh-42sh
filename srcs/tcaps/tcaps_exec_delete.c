@@ -18,34 +18,32 @@ static BOOL		exec_delete2(void)
 	return (false);
 }
 
-BOOL			exec_delete(const t_key *key, t_input *input)
+BOOL			exec_delete(const t_key *key, t_window *wd)
 {
-	t_window	*wd;
 	size_t		pos;
 	t_input		*del;
 
 	(void)key;
-	if (!(wd = get_windows(0))|| wd->select.is
-		|| (wd->autocomp && wd->autocomp->active))
+	if (wd->select.is || (wd->autocomp && wd->autocomp->active))
 		return (false);
 	else if (wd->autocomp && !wd->autocomp->active)
 		get_windows(100);
 	log_dbg1("exec delete.");
-	pos = pos_in_str(input);
-	if (input->str->len > pos)
-		string_remove_char(input->str, pos);
-	else if (input->str->len == pos && input->next)
+	pos = pos_in_str(wd->cur);
+	if (wd->cur->str->len > pos)
+		string_remove_char(wd->cur->str, pos);
+	else if (wd->cur->str->len == pos && wd->cur->next)
 	{
-		input->str = string_join_cl(&input->str, &input->next->str, true);
-		del = input->next;
-		input->next = del->next;
-		if (input->next)
-			input->next->prev = input;
+		wd->cur->str = string_join_cl(&wd->cur->str, &wd->cur->next->str, true);
+		del = wd->cur->next;
+		wd->cur->next = del->next;
+		if (wd->cur->next)
+			wd->cur->next->prev = wd->cur;
 		del->next = NULL;
 		input_destroy(&del);
 	}
 	else
 		return (exec_delete2());
-	redraw_input(input);
+	redraw_input(wd->cur);
 	return (false);
 }

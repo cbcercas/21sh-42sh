@@ -12,6 +12,7 @@
 
 #include <autocomplete/autocomplete.h>
 
+/*
 //TODO Refactor with new input design (draw_input())
 void		autocomplete_display(t_array *content)
 {
@@ -54,3 +55,4 @@ void		autocomplete_display_input(t_input *input, int len)
 	while (len--)
 		exec_arrow_right(NULL, input);
 }
+*/

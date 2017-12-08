@@ -48,6 +48,7 @@ BOOL autocomplete_is_dots(const char *s)
 	return (false);
 }
 
+/*
 BOOL	autocomplete_get_repons(size_t possibilities)
 {
 	char	buff[MAX_KEY_STRING_LEN];
@@ -76,3 +77,4 @@ BOOL	autocomplete_get_repons(size_t possibilities)
 	raw_terminal_mode();
 	return (false);
 }
+*/
