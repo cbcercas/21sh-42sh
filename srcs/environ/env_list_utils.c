@@ -72,9 +72,9 @@ t_env	*var_new(char *name, char *value, BOOL is_export)
 	t_env	*e;
 
 	if ((e = ft_memalloc(sizeof(*e))) == NULL)
-		sh_exit_error("Environ: can't create new environment varibles");
+		sh_exit_error("Environ: can't create new environment variables");
 	else if ((e->name = name) == NULL)
-		sh_exit_error("Environ: can't create new environment varibles");
+		sh_exit_error("Environ: can't create new environment variables");
 	else
 	{
 		e->value = value;

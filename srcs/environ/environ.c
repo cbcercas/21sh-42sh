@@ -96,7 +96,7 @@ char		**var_to_tab(t_array *vars)
 			return (NULL);
 		if (!(env_tab[i] = ft_strjoin(env->name, "=")) && env->name)
 			sh_exit_error("Error Malloc");
-		if ((env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1)) &&
+		if (!(env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1)) &&
 				env->value && env_tab[i])
 			sh_exit_error("Error Malloc");
 		i++;

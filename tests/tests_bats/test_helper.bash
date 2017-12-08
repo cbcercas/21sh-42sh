@@ -31,7 +31,7 @@ parser_error_newline="$name_exec: Parse error near \`\n'"
 
 fatal="Fatal testing error: Couldn't catch the error."
 
-history_loc="/tmp/.21sh_history"
+history_loc="/tmp/.21sh_history.resource"
 home_tests="/tmp"
 cdnosuch="cd: no such file or directory"
 ##########################
@@ -56,11 +56,11 @@ check_leaks_function()
 		display_error_leaks $1
 		if [ "$leaks_direct" = "No" ] || [ $leaks_indirect = "No" ]; then
 			mkdir -p "${BATS_TEST_DIRNAME}/../valgrind_log/$1"
-			cp check_leaks_tmp.log ${BATS_TEST_DIRNAME}/../valgrind_log/$1/TEST-$BATS_TEST_NUMBER-AST.log
+			cp check_leaks_tmp.log ${BATS_TEST_DIRNAME}/../valgrind_log/$1/TEST-$BATS_TEST_NUMBER-MODULE.log
 		elif [ "$leaks_reach" = "No" ] && [ $TESTS_CHECK_LEAKS -eq 2 ]; then
 			echo "[-- STILL REACHABLE!! --]"
 			mkdir -p "${BATS_TEST_DIRNAME}/../valgrind_log/$1"
-			cp check_leaks_tmp.log ${BATS_TEST_DIRNAME}/../valgrind_log/$1/TEST-$BATS_TEST_NUMBER-AST.log
+			cp check_leaks_tmp.log ${BATS_TEST_DIRNAME}/../valgrind_log/$1/TEST-$BATS_TEST_NUMBER-MODULE.log
 			[ "$leaks_reach" = "No" ]
 		fi
 		[ "$leaks_direct" = "Yes" ]
@@ -75,4 +75,5 @@ display_error_leaks()
 	echo "=> check file log: [...]/valgrind_log/$1/TEST-$BATS_TEST_NUMBER-MODULE.log"
 	echo "======================================================================="
 }
+
 ##########################
