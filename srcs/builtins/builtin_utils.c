@@ -49,7 +49,7 @@ t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 
 	if (!(e = ft_memalloc(sizeof(*e))))
 	{
-		ft_dprintf(2, "%s: Builtin creation fail!\n", PROGNAME);
+		sh_exit_error("ERROR MALLOC Builtin creation fail!");
 		return (NULL);
 	}
 	(void)name;

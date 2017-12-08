@@ -37,7 +37,10 @@ static t_sel_word *word_new(const char *word)
 	struct stat st;
 
 	if (!(e = ft_memalloc(sizeof(*e))))
+	{
+		select_exit("Malloc failed... Exiting!");
 		return (NULL);
+	}
 	if(stat(word, &st) == 0)
 		ft_memmove(&e->st_mode, &st.st_mode, sizeof(st.st_mode));
 	e->word = word;

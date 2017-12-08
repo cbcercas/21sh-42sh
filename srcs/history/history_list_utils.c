@@ -27,16 +27,9 @@ t_hist	*sh_history_new(char *cmd)
 	if (sh_history_is_space_plus(cmd) || !is_printstr(cmd))
 		return (NULL);
 	if ((h = ft_memalloc(sizeof(*h))) == NULL)
-	{
-		log_fatal("History: can't create new history command");
-		ft_dprintf(STDERR_FILENO, "History: can't create new history command");
-	}
+		sh_exit_error("History: can't create new history command");
 	else if ((h->cmd = (const char *)cmd) == NULL)
-	{
-		log_fatal("History: can't create new history command");
-		ft_dprintf(STDERR_FILENO, "History: can't create new history command");
-		ft_memdel((void**)&h);
-	}
+		sh_exit_error("History: can't create new history command");
 	h->cur = -1;
 	return (h);
 }

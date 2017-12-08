@@ -54,8 +54,9 @@ t_input		*input_from_history(const char *hist)
 		return (NULL);
 	while ((c = ft_strstr(hist, "\\\n")) != NULL)
 	{
-		string_ninsert(input->str, hist, 0, c - hist);
-		hist = c + 2;
+		if (!string_ninsert(input->str, hist, 0, c - hist));
+			sh_exit_error("ERROR Malloc");
+			hist = c + 2;
 		input = input_add_new(input);
 	}
 	if (input->str->len && input->str->s[input->str->len - 1] == '\\')
