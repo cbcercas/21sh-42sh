@@ -49,4 +49,10 @@ DOC/
 CMakeCache.txt
 CMakeFiles/
 *.cbp
-cmake_install.cmake
+make_install.cmake
+tests/ressources/parser/output
+*.swp
+
+*.c___jb_old___
+
+codealike\.json

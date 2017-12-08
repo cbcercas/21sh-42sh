@@ -10,23 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ftprintf.h>
+#include <builtins/builtin_help.h>
 
 /*
-**TODO: ADD MORE COLORS
+** @brief The function display help exit
 */
 
 void	sh_help_exit(void)
 {
-	ft_printf("\texit [n]\nCause the shell to exit with a status of n.\n");
+	ft_printf("%sexit%s [n]\n", CL_RED, C_NONE);
+	ft_printf("Cause the shell to exit with a status of n.\n");
 	ft_printf("If n is omitted, the exit status is that of the last command \
 executed.\n");
 	ft_printf("A trap on EXIT is executed before the shell terminates.\n");
 }
 
+/*
+** @brief The function display help cd
+*/
+
 void	sh_help_cd(void)
 {
-	ft_printf("\tcd [-L|-P] [directory]\n");
+	ft_printf("%scd%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN,
+																		C_NONE);
 	ft_printf("Change the current working directory to directory.\n");
 	ft_printf("If directory is not supplied, the value of the HOME shell ");
 	ft_printf("variable is used.\n");
@@ -43,25 +49,44 @@ void	sh_help_cd(void)
 	ft_printf("changed, non-zero otherwise.\n");
 }
 
+/*
+** @brief The function display help setenv
+*/
+
 void	sh_help_setenv(void)
 {
-	ft_printf("\tsetenv [name]=[value]\n");
+	if (get_data(NULL) && get_data(NULL)->opts.color)
+		ft_printf("%ssetenv%s [name]=[value]\n", CL_RED, C_NONE);
+	else
+		ft_printf("setenv [name]=[value]\n", CL_RED, C_NONE);
 	ft_printf("Sets the environment variable name with value value\n");
 	ft_printf("If name already has a value, then it is replaced with the \
 new one\n");
 }
 
+/*
+** @brief The function display help unsetenv
+*/
+
 void	sh_help_unsetenv(void)
 {
-	ft_printf("\tunsetenv [name]\n");
+	if (get_data(NULL) && get_data(NULL)->opts.color)
+		ft_printf("%sunsetenv%s [name]\n", CL_RED, C_NONE);
+	else
+		ft_printf("unsetenv [name]\n");
 	ft_printf("Deletes the environment variable name from local env\n");
 	ft_printf("If name doesnt exists, nothing happens\n");
 	ft_printf("Optional arguments shall be passed to utility.\n");
 }
 
+/*
+** @brief The function display help env
+*/
+
 void	sh_help_env(void)
 {
-	ft_printf("\tenv [-i][name=value]...\t[utility [argument...]]\n");
+	ft_printf("%senv%s [%s-i%s][name=value]...\t[utility [argument...]]\n",
+											CL_RED, C_NONE, C_CYAN, C_NONE);
 	ft_printf("Obtains the current environment, modify it according to its ");
 	ft_printf("arguments, \nthen invoke the utility operand with the");
 	ft_printf(" modified environment.\n");

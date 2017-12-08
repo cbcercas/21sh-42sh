@@ -6,24 +6,33 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/31 18:42:01 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/31 18:42:15 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 12:08:01 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <tools/tools.h>
 
-BOOL  ft_isdigit_str(char *str)
+/*
+** @brief Checks if a string is made entirely of digits
+**
+** @param str String to be checked
+**
+** @return Returns true if the string is made entirely of digits. False
+** otherwise
+*/
+
+BOOL	ft_isdigit_str(char *str)
 {
-  int i;
+	int		i;
 
-  i = 0;
-  if (!str)
-    return (false);
-  while(str[i])
-  {
-    if(!ft_isdigit(str[i]))
-      return (false);
-    i++;
-  }
-  return (true);
+	i = 0;
+	if (!str)
+		return (false);
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (false);
+		i++;
+	}
+	return (true);
 }

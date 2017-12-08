@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <history/history.h>
+#include <builtins/builtin_history.h>
+#include <core/color.h>
+
+/*
+** @brief Prints the history
+**
+** @param nb Number of entries to print (? TODO CHECK)
+*/
 
 void	sh_history_builtin_print2(int nb)
 {
@@ -23,16 +30,24 @@ void	sh_history_builtin_print2(int nb)
 	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
-		ft_printf("%zu %s\n", i + 1, h->cmd);
+		if (get_data(NULL) && get_data(NULL)->opts.color)
+			ft_printf("%s %zu %s %s\n", C_MAGENTA, i + 1, C_NONE, h->cmd);
+		else
+			ft_printf("%zu %s\n", i + 1, h->cmd);
 		i++;
 	}
 }
+
+/*
+** @brief Prints the history
+**
+** @param arg Arguments passed to history
+*/
 
 void	sh_history_builtin_print(const char *arg)
 {
 	int		nb;
 
-	nb = 0;
 	if (!arg)
 	{
 		sh_history_print();
@@ -42,7 +57,8 @@ void	sh_history_builtin_print(const char *arg)
 		nb = ft_atoi(arg);
 	else
 	{
-		ft_printf("bash: history: %s: numeric argument required\n", arg);
+		ft_printf("%s: history: %s: numeric argument required\n", PROGNAME,
+				arg);
 		return ;
 	}
 	sh_history_builtin_print2(nb);

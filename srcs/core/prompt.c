@@ -11,84 +11,108 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <types/bool.h>
 #include <environ/getter_env.h>
-#include <environ/builtin_env_utils.h>
+#include <environ/env_utils.h>
 #include <ftprintf.h>
 #include <core/input.h>
 #include <core/tcaps.h>
+#include <ft_libgen.h>
 
-//TODO see todo g_ret
-#include <core/prompt.h>
-#include <core/return.h>
+/*
+** @brief Prints the prompt
+**
+** @return Returns the size of the prompt
+*/
 
-size_t		get_prompt(BOOL print)
+static size_t		get_prompt(void)
 {
+	char		*user;
 	char		*path;
-	char		*tmp;
+	const char	*basename;
+	char		*retstr;
 	size_t		len;
-	char		*ret;
 
-	path = NULL;
-	ret = (!g_ret ? "\033[92m" : "\033[91m"); // TODO g_ret really need a global
-	tmp = get_var_value(get_envs(), "USER") ? get_var_value(get_envs(), "USER") : ("???");
-	print ? ft_printf("\033[94m[%s] \033[0m", tmp) : 0;
-	len = (ft_strlen(tmp) + 3);
-	path = getcwd(path, 0);
-	tmp = (path ? ft_strrchr(path, '/') : NULL);
-	if (print && tmp && tmp[1])
-		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m  ", &tmp[1], ret);
-	else if (print && tmp)
-		ft_printf("\033[93m➜ %s\033[0m %s🎩\033[0m  ", tmp, ret);
-	else if (print)
-		ft_printf("\033[93m➜ \033[0m %s🎩\033[0m  ", ret);
-	if (ft_strequ(tmp, "/"))
-		len += 7;
-	else
-		len += (tmp ? ft_strlen(tmp) + 5 : 5);
-	ft_strdel(&path);
+	user = get_var_value(get_envs(), "USER");
+	if (!user)
+		user = "???";
+	if (!(path = get_pwd()))
+		path = "???";
+	basename = ft_basename(path);
+	retstr = (!*get_cmd_ret()) ? "\033[32m^_^" : "\033[91mX_X";
+	ft_dprintf(STDIN_FILENO, "\033[0m(%s\033[0m) - %s - %s $ ",
+			retstr, user, basename);
+	len = 11 + 3 + ft_strlen(user) + ft_strlen(basename);
+	if (*path != '?')
+		ft_strdel(&path);
 	return (len);
 }
 
-void		prompt_normal(t_input *inp)
+/*
+** @brief Prints the prompt and sets the variables
+**
+** @param inp current input
+*/
+
+void				prompt_normal(t_input *inp)
 {
-	ft_printf("Un joli prompt $ ");
-	inp->prompt_len = 17;
-	inp->offset_col = 17;
-	//TODO offset if prompt > ts
+	inp->prompt_type = E_RET_NEW_PROMPT;
+	inp->prompt_len = get_prompt();
+	inp->offset_col = (unsigned short)inp->prompt_len % inp->ts->ws_col;
+	if (!inp->offset_col)
+	{
+		inp->offset_col++;
+		ft_putstr_fd(" ", STDIN_FILENO);
+	}
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
 }
 
-void 		prompt_perso(t_input *inp, const char *prompt, t_return ret)
+/*
+** @brief display not useally prompt
+**
+** @param inp current input
+** @param prompt the personalized prompt
+** @param ret the ret of the last command
+*/
+
+void				prompt_perso(t_input *inp, const char *prompt, t_return ret)
 {
-	static char p[E_RET_LEXER_PIPE - E_RET_LEXER_INCOMPLETE + 1][8]=
-					{{""}, {"quote"}, {"bquote"}, {"dquote"}, {""}};
+	static char		p[E_RET_LEXER_PIPE - E_RET_LEXER_INCOMPLETE + 1][8] =
+	{{""}, {"quote"}, {"bquote"}, {"dquote"}, {""}};
 
 	if (ret == E_RET_REDRAW_PROMPT)
 		ret = inp->prompt_type;
 	if (prompt == NULL)
-			prompt = p[ret - E_RET_LEXER_INCOMPLETE];
-	ft_printf("%s> ", prompt);
-	inp->prompt_type = ret;
+		prompt = p[ret - E_RET_LEXER_INCOMPLETE];
+	ft_dprintf(STDIN_FILENO, "%s> ", prompt);
 	inp->prompt_len = ft_strlen(prompt) + 2;
-	//TODO offset if prompt > ts
-	inp->offset_col = (unsigned short)inp->prompt_len;
+	inp->offset_col = (unsigned short)inp->prompt_len % inp->ts->ws_col;
+	if (!inp->offset_col)
+	{
+		inp->offset_col++;
+		ft_putstr_fd(" ", STDIN_FILENO);
+	}
 	inp->cpos.cp_col = inp->offset_col;
 	inp->cpos.cp_line = 0;
 }
 
-void sh_print_prompt(t_input *input, const char *prompt, t_return ret)
+/*
+** @brief Calls the other functions to print the prompt and set the
+** approriate variables
+**
+** @param input The current input
+** @param prompt The prompt string
+** @param ret The last ret value
+*/
+
+void				sh_print_prompt(t_input *input, const char *prompt,
+									t_return ret)
 {
-	if (get_curs_x() > 1)
-	{
-		tputs(tgetstr("mr", NULL), 1, ft_putchar2);
-		ft_putendl("%");
-		tputs(tgetstr("me", NULL), 1, ft_putchar2);
-	}
-	if (input->prev == NULL)
+	if ((input->prev == NULL && ret == E_RET_NEW_PROMPT) ||
+			(ret == E_RET_REDRAW_PROMPT &&
+					(input->prompt_type == E_RET_NEW_PROMPT ||
+													input->prompt_type == 0)))
 		prompt_normal(input);
 	else
 		prompt_perso(input, prompt, ret);
 }
-

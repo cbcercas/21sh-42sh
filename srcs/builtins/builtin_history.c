@@ -10,20 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ftprintf.h>
-#include <core/data.h>
 #include <builtins/builtin_history.h>
-#include <unistd/ft_unistd.h>
 
 extern char const	*g_optarg;
 extern int			g_optind;
 
-void		sh_history_help(char *arg)
+/*
+** @brief Displays the help for the history builtin
+*/
+
+static void	sh_history_help(void)
 {
-	(void)arg;
 	ft_printf("history: usage: history [-c] [-d offset] [n] or history");
 	ft_printf("-awrn [filename] or history -ps arg [arg...]\n");
 }
+
+/*
+** @brief Handles the options passed to the history builtin
+**
+** @param data The shell's data used across the program
+** @param argv The options in string form
+** @param opt The options passed
+**
+** @return Returns 1 if the options given are wrong, 0 otherwise
+*/
 
 static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 {
@@ -34,11 +44,20 @@ static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 		sh_history_builtin_print(argv[g_optind]);
 	else if (opt == '?')
 	{
-		sh_history_help(argv[1]);
+		sh_history_help();
 		return (1);
 	}
 	return (0);
 }
+
+/*
+** @brief Main function for the history builtin
+**
+** @param data The shell's data used across the program
+** @param argv The arguments passed to history
+**
+** @return Returns a ret status upon success or failure
+*/
 
 int			sh_history(t_sh_data *data, char **argv)
 {
@@ -48,7 +67,7 @@ int			sh_history(t_sh_data *data, char **argv)
 	(void)data;
 	ret = 0;
 	ft_getopt_reset();
-	opt = ft_getopt(ft_tablen(argv), argv, "cd:arwsnp");
+	opt = ft_getopt(((int)ft_tablen(argv)), argv, "cd:arwsnp");
 	if (opt == 'c')
 		sh_history_builtin_c();
 	else if (opt == 'd')

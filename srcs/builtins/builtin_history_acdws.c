@@ -10,9 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <history/history.h>
-#include <fcntl.h>
-#include <core/progname.h>
+#include <builtins/builtin_history.h>
+
+/*
+** @brief The option -a appends the `new` history lines
+** (history lines entered since the beginning
+** of the current shell session) to the history file.
+**
+** @param str Contains the filename/path of the history file
+*/
 
 void	sh_history_builtin_a(char *str)
 {
@@ -41,6 +47,10 @@ void	sh_history_builtin_a(char *str)
 	sh_history_var_session_reset();
 }
 
+/*
+** @brief Clears the history list by deleting all the entries.
+*/
+
 void	sh_history_builtin_c(void)
 {
 	t_array		*hist;
@@ -51,6 +61,12 @@ void	sh_history_builtin_c(void)
 		hist = array_pop(hist, NULL);
 }
 
+/*
+** @brief The option -d deletes a history entry at a given position.
+**
+** @param arg The args passed to `history -d` (which is an offset)
+*/
+
 void	sh_history_builtin_d(const char *arg)
 {
 	int			nb;
@@ -58,11 +74,21 @@ void	sh_history_builtin_d(const char *arg)
 
 	nb = -1;
 	hists = sh_history_get();
+	if (!hists)
+		return ;
 	if (ft_isdigit(arg[0]))
-		nb = atoi(arg) - 1;
-	if (nb == -1 || array_remove_at(hists, nb, NULL) == NULL)
-		ft_printf("%s: history: %s: history position out of range\n", PROGNAME, arg);
+		nb = ft_atoi(arg) - 1;
+	if (nb == -1 || sh_history_remove_at((size_t)nb) == NULL)
+		ft_printf("%s: history: %s: history position out of range\n",
+																PROGNAME, arg);
 }
+
+/*
+** @brief The option -w writes the current history to the history file,
+** overwriting the current history file's contents.
+**
+** @param path Contains the filename/path of the history file
+*/
 
 void	sh_history_builtin_w(char *path)
 {
@@ -89,20 +115,37 @@ void	sh_history_builtin_w(char *path)
 	close(fd);
 }
 
+/*
+** @brief The option -s stores the args in the history list as a single entry.
+** The last command in the history list is removed before the args are added.
+**
+** @param argv The args passed to the `history -s` command
+** @param index TODO
+*/
+
 void	sh_history_builtin_s(char **argv, int index)
 {
-	char *cmd_join;
+	char	*cmd_join;
+	char	*tmp;
 
 	cmd_join = NULL;
 	while (argv[index] && ft_isalnum(argv[index][0]))
 	{
-		if (cmd_join)
-			cmd_join = ft_strjoincl(cmd_join, " ", 1);
-		cmd_join = ft_strjoincl(cmd_join, argv[index], 1);
+		if (cmd_join && !(cmd_join = ft_strjoincl(cmd_join, " ", 1)))
+			sh_exit_error("Malloc Error");
+		if ((tmp = ft_strchr(argv[index], '\n')))
+		{
+			*tmp = 0;
+			cmd_join = ft_strjoincl(cmd_join, argv[index], 1);
+			cmd_join = ft_strjoincl(cmd_join, "\\\n", 1);
+			tmp++;
+			cmd_join = ft_strjoincl(cmd_join, tmp, 1);
+		}
+		else
+			cmd_join = ft_strjoincl(cmd_join, argv[index], 1);
 		index++;
 	}
-	if (cmd_join)
-	{
-		sh_history_set_new(&cmd_join);
-	}
+	if (cmd_join && sh_history_get())
+		sh_history_remove_at(sh_history_get()->used - 1);
+	sh_history_set_new(&cmd_join);
 }

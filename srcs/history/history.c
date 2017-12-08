@@ -10,137 +10,93 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
 #include <history/history.h>
-#include <logger.h>
-#include <ftprintf.h>
-#include <environ/getter_env.h>
-#include <environ/builtin_env_utils.h>
-#include <tools/tools.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
-#include <fcntl.h>
-#include <gnl/get_next_line.h>
 
+/*
+** @brief Gets the history stored in a t_array form
+** @return The t_array containing the history
+*/
 
-t_array	*sh_history_get(void)
+t_array		*sh_history_get(void)
 {
 	static t_array	*e = NULL;
 
-	if (e == NULL)
-	{
-		if ((e = array_create(sizeof(t_hist))) == NULL)
-		{
-			log_fatal("Environ: can't initialise history array");
-			ft_dprintf(STDERR_FILENO, "Environ: can't initialise hsitory");
-			exit(1);
-		}
-	}
+	if (!e && (e = array_create(sizeof(t_hist))) == NULL)
+		sh_exit_error("Environ: can't initialise hsitory");
 	return (e);
 }
 
-/*int sh_history_open_fd(char *path, int flag)
-{
-	struct stat			type;
-	int							fd;
+/*
+** @brief Creates a string that contains the history file location
+**
+** @param str The history file name
+**
+** @return Returns a full absolute path to the history file
+*/
 
-	fd = -1;
-	if(!flag)
-		return (-1);
-	if(!path)
-		path = HISTORY_FILE;
-	if (stat("/tmp", &type) == -1 || !S_ISDIR(type.st_mode))
-	{
-		log_warn("History: stat \"tmp\" fail");
-		return (-1);
-	}
-	if ((fd = open(path, flag, 0644)) == -1)
-	{
-		log_warn("History: open \"%s\" fail", path);
-		return (-1);
-	}
-	return (fd);
-}*/
-
-char	*history_get_path(char *str)
+char		*history_get_path(char *str)
 {
-	char	*home;
+	char		*home;
+	static char	ret[PATH_MAX];
 
 	if (str)
 		return (str);
-	if(!(home = get_var_value(get_envs(), "HOME")))
+	if (!(home = get_var_value(get_envs(), "HOME")))
 		return (NULL);
-	home = ft_strjoincl_secu(home, "/", 0, M_LVL_FUNCT);
-	return (ft_strjoincl_secu(home, HISTORY_FILE, 1, M_LVL_FUNCT));
+	ft_bzero(ret, PATH_MAX);
+	if ((ft_strlen(home) + ft_strlen(HISTORY_FILE) + 2) >= PATH_MAX)
+		return (NULL);
+	ft_strlcat(ret, home, PATH_MAX);
+	ft_strlcat(ret, "/", PATH_MAX);
+	ft_strlcat(ret, HISTORY_FILE, PATH_MAX);
+	return (ret);
 }
 
-t_array *sh_history_init(t_array *hists)
+static	int	history_get_fd(void)
 {
-	t_hist	*h;
-	char	*line;
-	char	*cmd;
-	int			fd;
-	size_t	i;
+	int		fd;
+	char	*path;
 
-	i = 0;
-	cmd = NULL;
-	if ((fd = open(history_get_path(NULL), O_RDWR | O_CREAT, 0644)) == -1)
-		return (NULL);
-	if ((hists = sh_history_get()) != NULL)
+	fd = -1;
+	if (!(path = history_get_path(NULL)))
+		return (fd);
+	if (get_history_init_choice(-1) != 5 && get_history_init_choice(-1) != -1)
+		open(path, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	if ((fd = open(path, O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
 	{
-		while (i < 1000)
-		{
-			while (get_next_line(fd, &line) && (line[ft_strlen(line - 1)] == '\\'))
-				cmd = ft_strjoincl(cmd, line, 2);
-			if ((h = sh_history_new(cmd ? cmd : line)))
-			{
-				h->session = false;
-				array_push(hists, (void *)h);
-				ft_memdel((void **) &h);
-			}
-			i++;
-		}
+		log_warn("History: History was not saved, Failed open");
+		default_terminal_mode();
+		ft_putstr_fd("\nHistory wasn't saved\n", 2);
+		raw_terminal_mode();
+		return (fd);
 	}
-	close(fd);
-	return (hists);
+	return (fd);
 }
 
-void	sh_history_save(void)
+/*
+** @brief Saves the history when the programs exists
+*/
+
+void		sh_history_save(void)
 {
 	t_array	*hists;
 	t_hist	*h;
-	int			fd;
+	int		fd;
 	size_t	i;
 
 	i = 0;
-	if ((fd = open(history_get_path(NULL), O_RDWR | O_CREAT | O_APPEND, 0644)) == -1)
-	{
-		log_warn("History: History was not save FAIL open");
-		ft_putstr_fd("\nHistory was not save", 2);
-		return ;
-	}
+	fd = history_get_fd();
 	if ((hists = sh_history_get()) == NULL)
 		return ;
-	while (i < hists->used)
+	while (fd != -1 && i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
-		if(h && h->session == true)
+		if (h && h->session == true)
 			ft_dprintf(fd, "%s\n", h->cmd);
 		i++;
 	}
 	sh_history_print_in_log();
 	array_destroy(&hists, sh_history_del);
-	close(fd);
-}
-
-const char 	*history_get_n(size_t n)
-{
-	t_array	*hists;
-	t_hist	*h;
-
-	hists = sh_history_get();
-	if (!hists || (n >= hists->used))
-		return (NULL);
-	if (!(h = (t_hist *)array_get_at(hists, hists->used - n - 1)))
-		return (NULL);
-	return (h->cmd);
+	if (fd != -1)
+		close(fd);
 }

@@ -9,9 +9,9 @@ load test_helper
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t lexer ""
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->"
+  echo "$name_exec EXPECTED ->Fatal testing error: Couldn't catch the error."
   echo
-  [ "${lines[0]}" = "" ]
+  [ "${lines[0]}" = "Fatal testing error: Couldn't catch the error." ]
 check_leaks_function lexer
 }
 
@@ -499,17 +499,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED -><ls> = TOKEN_TYPE_WORD"
-	echo "                < > = TOKEN_TYPE_BLANK"
-	echo "                <&> = TOKEN_TYPE_AND"
-	echo "                < > = TOKEN_TYPE_BLANK"
-	echo "                <ls> = TOKEN_TYPE_WORD"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
 	echo
-  [ "${lines[0]}" = "<ls> = TOKEN_TYPE_WORD" ]
-	[ "${lines[1]}" = "< > = TOKEN_TYPE_BLANK" ]
-	[ "${lines[2]}" = "<&> = TOKEN_TYPE_AND" ]
-	[ "${lines[3]}" = "< > = TOKEN_TYPE_BLANK" ]
-	[ "${lines[4]}" = "<ls> = TOKEN_TYPE_WORD" ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -518,15 +510,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED -><ls> = TOKEN_TYPE_WORD"
-	echo "                < > = TOKEN_TYPE_BLANK"
-	echo "                <&> = TOKEN_TYPE_AND"
-	echo "                <ls> = TOKEN_TYPE_WORD"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
 	echo
-  [ "${lines[0]}" = "<ls> = TOKEN_TYPE_WORD" ]
-	[ "${lines[1]}" = "< > = TOKEN_TYPE_BLANK" ]
-	[ "${lines[2]}" = "<&> = TOKEN_TYPE_AND" ]
-	[ "${lines[3]}" = "<ls> = TOKEN_TYPE_WORD" ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -535,15 +521,9 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED -><ls> = TOKEN_TYPE_WORD"
-	echo "                <&> = TOKEN_TYPE_AND"
-	echo "                < > = TOKEN_TYPE_BLANK"
-	echo "                <ls> = TOKEN_TYPE_WORD"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
 	echo
-  [ "${lines[0]}" = "<ls> = TOKEN_TYPE_WORD" ]
-	[ "${lines[1]}" = "<&> = TOKEN_TYPE_AND" ]
-	[ "${lines[2]}" = "< > = TOKEN_TYPE_BLANK" ]
-	[ "${lines[3]}" = "<ls> = TOKEN_TYPE_WORD" ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
 check_leaks_function lexer
 }
 
@@ -552,12 +532,28 @@ check_leaks_function lexer
   echo "ERROR:"
 	display_line_output
 	echo
-  echo "$name_exec EXPECTED -><ls> = TOKEN_TYPE_WORD"
-	echo "                <&> = TOKEN_TYPE_AND"
-	echo "                <ls> = TOKEN_TYPE_WORD"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
 	echo
-  [ "${lines[0]}" = "<ls> = TOKEN_TYPE_WORD" ]
-	[ "${lines[1]}" = "<&> = TOKEN_TYPE_AND" ]
-	[ "${lines[2]}" = "<ls> = TOKEN_TYPE_WORD" ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
+check_leaks_function lexer
+}
+
+
+#######################################################################
+#                              Other tests                            #
+#######################################################################
+
+@test "LEXER: Testing [Other Test] for 'cd 21-42sh'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t lexer "cd 21-42sh"
+  echo "ERROR:"
+    display_line_output
+    echo
+  echo "$name_exec EXPECTED -><cd> = TOKEN_TYPE_WORD"
+	echo "                < > = TOKEN_TYPE_BLANK"
+	echo "                <21-42sh> = TOKEN_TYPE_WORD"
+    echo
+  [ "${lines[0]}" = "<cd> = TOKEN_TYPE_WORD" ]
+	[ "${lines[1]}" = "< > = TOKEN_TYPE_BLANK" ]
+	[ "${lines[2]}" = "<21-42sh> = TOKEN_TYPE_WORD" ]
 check_leaks_function lexer
 }

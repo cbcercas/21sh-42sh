@@ -6,16 +6,25 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 16:10:45 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/07/20 16:11:09 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 12:17:14 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <types/bool.h>
-#include <libft.h>
+#include <tools/tools.h>
 
-BOOL        is_printstr(char const *line)
+/*
+** @brief Checks if a given string is printable
+**
+** @param line String to be checked
+**
+** @return Returns true if the string is printable, false otherwise
+*/
+
+BOOL	is_printstr(char const *line) //TODO replace by ft_isprintstr
 {
-    while (line && (ft_isprint(*line) || *line == '\n' || *line == '\t'))
-        line++;
-    return (*line != '\0') ? false :true; //TODO if line == NULL -> segfault
+	if (!line)
+		return (false);
+	while (line && (ft_isprint(*line) || *line == '\n' || *line == '\t'))
+		line++;
+	return (line && *line != '\0') ? false : true;
 }

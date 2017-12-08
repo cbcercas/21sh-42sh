@@ -12,7 +12,14 @@
 
 #include <environ/getter_env.h>
 
-t_env *get_var(t_array *vars, const char *name)
+/*
+** @brief Gets a variable from its name
+** @param vars The t_array containing the vars
+** @param name The name you want to get the var
+** @return Returns the var
+*/
+
+t_env	*get_var(t_array *vars, const char *name)
 {
 	t_env	*e;
 	size_t	i;
@@ -28,7 +35,14 @@ t_env *get_var(t_array *vars, const char *name)
 	return (NULL);
 }
 
-char *get_var_value(t_array *vars, const char *name)
+/*
+** @brief Gets the value of a var
+** @param vars The t_array containing all the vars
+** @param name The name you want to get the value from
+** @return Returns the value of `name`
+*/
+
+char	*get_var_value(t_array *vars, const char *name)
 {
 	t_env	*e;
 

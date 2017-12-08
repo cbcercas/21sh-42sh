@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include <autocomplete/autocomplete.h>
-#include <tools/tools.h>
-#include <environ/getter_env.h>
-#include <environ/builtin_env_utils.h>
 
 //TODO check if PATH is in envs or in local var
 static void		autocomplete_push_one(t_array *content, struct dirent *file,\
@@ -22,14 +19,17 @@ static void		autocomplete_push_one(t_array *content, struct dirent *file,\
 	t_string		*tmp;
 	char			*path;
 
-	tmp = NULL;
 	path = NULL;
 	if (!autocomplete_is_dots(file->d_name) &&\
-			sh_test_access((path = makefilepath(*env_path, file->d_name))) != -1 &&\
+			!sh_test_access((path = makefilepath(*env_path, file->d_name))) &&\
 				(!begin || ft_strnequ(begin, file->d_name, ft_strlen(begin))))
 	{
-		tmp = string_dup_secu(file->d_name, M_LVL_AUTOC);
-		array_push(content, (void *)tmp);
+		if (!(content->used == content->capacity && !array_growth(content)))
+		{
+			tmp = array_get_at(content, content->used);
+			if (string_insert_front(tmp, file->d_name))
+				content->used += 1;
+		}
 	}
 	ft_strdel(&path);
 }
@@ -41,7 +41,8 @@ t_array	*autocomplete_get_bin(char *begin)
 	struct dirent	*file;
 	char			**env_path;
 
-	content = array_create(sizeof(t_string));
+	if (!(content = array_create(sizeof(t_string))))
+		return (NULL);
 	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':', M_LVL_AUTOC);
 	while (env_path && *env_path && content->used <= 3000)
 	{

@@ -9,10 +9,10 @@ load test_helper
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser ""
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${okparser}"
+  echo "$name_exec EXPECTED ->Fatal testing error: Couldn't catch the error."
   echo
-  [ "${lines[0]}" = "${okparser}" ]
-  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "Fatal testing error: Couldn't catch the error." ]
+  [ "$status" -eq 1 ]
 check_leaks_function parser
 }
 
@@ -108,9 +108,9 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "abc; ;abc"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${okparser}"
+  echo "$name_exec EXPECTED ->${parser_error_simple_p}"
   echo
-  [ "${lines[0]}" = "${okparser}" ]
+  [ "${lines[0]}" = "${parser_error_simple_p}" ]
   [ "$status" -eq 0 ]
 check_leaks_function parser
 }
@@ -170,10 +170,10 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls & ls"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${okparser}"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
   echo
-  [ "${lines[0]}" = "${okparser}" ]
-  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
+  [ "$status" -eq 1 ]
 check_leaks_function parser
 }
 
@@ -181,10 +181,10 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls & ls & ls & ls & ls"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${okparser}"
+  echo "$name_exec EXPECTED ->$name_exec: Lexer error."
   echo
-  [ "${lines[0]}" = "${okparser}" ]
-  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
+  [ "$status" -eq 1 ]
 check_leaks_function parser
 }
 
@@ -309,9 +309,9 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "&ls"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_simple_es}"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
   echo
-  [ "${lines[0]}" = "${parser_error_simple_es}" ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
@@ -320,9 +320,9 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls>"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_newline}"
+  echo "$name_exec EXPECTED ->${parser_error_redir}"
   echo
-  [ "${lines[0]}" = "${parser_error_newline}" ]
+  [ "${lines[0]}" = "${parser_error_redir}" ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
@@ -331,9 +331,9 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls>>"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_newline}"
+  echo "$name_exec EXPECTED ->${parser_error_redir_double}"
   echo
-  [ "${lines[0]}" = "${parser_error_newline}" ]
+  [ "${lines[0]}" = "${parser_error_redir_double}" ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
@@ -342,10 +342,10 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser ";ls"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_simple_pv}"
+  echo "$name_exec EXPECTED ->${okparser}"
   echo
-  [ "${lines[0]}" = "${parser_error_simple_pv}" ]
-  [ "$status" -eq 1 ]
+  [ "${lines[0]}" = "${okparser}" ]
+  [ "$status" -eq 0 ]
 check_leaks_function parser
 }
 
@@ -353,9 +353,9 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser ";;ls"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_double_pv}"
+  echo "$name_exec EXPECTED ->${parser_error_simple_pv}"
   echo
-  [ "${lines[0]}" = "${parser_error_double_pv}" ]
+  [ "${lines[0]}" = "${parser_error_simple_pv}" ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
@@ -364,15 +364,26 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser 'ls;;'
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_double_pv}"
+  echo "$name_exec EXPECTED ->${parser_error_simple_pv}"
   echo
-  [ "${lines[0]}" = "${parser_error_double_pv}" ]
+  [ "${lines[0]}" = "${parser_error_simple_pv}" ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
 
 @test "PARSER: Testing [Error] for ';'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser ";"
+  echo "ERROR:"
+  echo "$name_exec OUTPUT   ->${lines[0]}"
+  echo "$name_exec EXPECTED ->${okparser}"
+  echo
+  [ "${lines[0]}" = "${okparser}" ]
+  [ "$status" -eq 0 ]
+check_leaks_function parser
+}
+
+@test "PARSER: Testing [Error] for ';;'" {
+  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser ";;"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
   echo "$name_exec EXPECTED ->${parser_error_simple_pv}"
@@ -382,24 +393,13 @@ check_leaks_function parser
 check_leaks_function parser
 }
 
-@test "PARSER: Testing [Error] for ';;'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser ";;"
-  echo "ERROR:"
-  echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_double_pv}"
-  echo
-  [ "${lines[0]}" = "${parser_error_double_pv}" ]
-  [ "$status" -eq 1 ]
-check_leaks_function parser
-}
-
 @test "PARSER: Testing [Error] for 'abc;;abc'" {
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "abc;;abc"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_double_pv}"
+  echo "$name_exec EXPECTED ->${parser_error_simple_pv}"
   echo
-  [ "${lines[0]}" = "${parser_error_double_pv}" ]
+  [ "${lines[0]}" = "${parser_error_simple_pv}" ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
@@ -419,9 +419,9 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls |&|"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_simple_p}"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
   echo
-  [ "${lines[0]}" = "${parser_error_simple_p}" ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
@@ -430,52 +430,14 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls ||&;ls"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_simple_es}"
+  echo "$name_exec EXPECTED ->$name_exec: Lexing error."
   echo
-  [ "${lines[0]}" = "${parser_error_simple_es}" ]
-  [ "$status" -eq 1 ]
-check_leaks_function parser
-}
-######################################################################
-######################################################################
-
-
-#######################################################################
-#                            TAKSMASTER TESTS                         #
-#######################################################################
-
-@test "PARSER: Testing [OK] TASKMASTER 'ls&'" {
-  skip
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls&s"
-  [ "${lines[0]}" = "${parser_error_simple_p}" ]
-  [ "$status" -eq 1 ]
-check_leaks_function parser
-}
-######################################################################
-######################################################################
-
-
-#######################################################################
-#                            SKIP TESTS                               #
-#######################################################################
-@test "PARSER: Testing [Error] for 'sdfdsf; sfdsdf; ; sdfsdffd|| sdffd;sdfsdf '" {
-  skip
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "sdfdsf; sfdsdf; ; sdfsdffd|| sdffd;sdfsdf "
-  [ "${lines[0]}" = "${parser_error_simple_pv}" ]
-  [ "$status" -eq 1 ]
-check_leaks_function parser
-}
-
-@test "PARSER: Testing [Error] for '<<ls'" {
-  skip
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls>"
-  [ "${lines[0]}" = "${parser_error_newline}" ]
+  [ "${lines[0]}" = "$name_exec: Lexing error." ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
 
 @test "PARSER: Testing [Error] for 'ls|'" {
-  skip
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls|"
   [ "${lines[0]}" = "${parser_error_simple_p}" ]
   [ "$status" -eq 1 ]
@@ -483,25 +445,8 @@ check_leaks_function parser
 }
 
 @test "PARSER: Testing [Error] for 'ls||'" {
-  skip
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls||"
   [ "${lines[0]}" = "${parser_error_double_p}" ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
-
-@test "PARSER: Testing [Error] for 'ls&&'" {
-  run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "ls&&"
-  skip
-  echo "ERROR:"
-  echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_simple_es}"
-  echo
-  [ "${lines[0]}" = "${parser_error_simple_es}" ]
-  [ "$status" -eq 1 ]
-check_leaks_function parser
-}
-######################################################################
-######################################################################
-
-#TODO: bad fd with >& and <&

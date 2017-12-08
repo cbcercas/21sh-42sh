@@ -10,121 +10,171 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <ftprintf.h>
-#include <core/progname.h>
-#include <environ/getter_env.h>
-#include <environ/builtin_env_utils.h>
-#include <core/prompt.h>
-#include <environ/modif_env.h>
-#include <unistd/ft_unistd.h>
+#include <builtins/builtin_chdir.h>
 
 extern int g_optind;
 /*
-**TODO: j'arrive pas à forcer chdir à aller dans le lien sans le suivre
+** @brief Tests the path, to check if the user has the permission to cd in it.
+**
+** @param path The path to be tested
+**
+** @return Returns true if user has perm to chdir in the requested folder.
+** This function will return false by default or if permissions aren't ok.
 */
 
-static char		*sh_get_path_p(char *arg, char *buf)
+static BOOL	sh_test_path(char **dir, char *arg)
 {
-	ssize_t		len;
 	struct stat	bufstat;
 
-	if (lstat(arg, &bufstat) || !(bufstat.st_mode & S_IFLNK))
-		return (arg);
-	if ((len = readlink(arg, buf, sizeof(buf) - 1)) != -1)
-		buf[len] = '\0';
-	else
+	if (!arg)
+		arg = *dir;
+	if (!stat(*dir, &bufstat))
 	{
-		ft_dprintf(2, "%s : cd : Error readlink of %s\n", PROGNAME, arg);
-		buf = NULL;
+		if (bufstat.st_mode & S_IXUSR && S_ISDIR(bufstat.st_mode))
+			return (true);
+		else if (S_ISDIR(bufstat.st_mode))
+			ft_dprintf(2, "cd: permission denied: %s\n", arg);
+		else
+			ft_dprintf(2, "cd: not a directory: %s\n", arg);
 	}
-	return (buf);
+	else
+		ft_dprintf(2, "cd: no such file or directory: %s\n", arg);
+	ft_strdel(dir);
+	return (false);
 }
 
-static char		*sh_get_path(char *arg, int opt)
-{
-	char *path;
-	char buf[1024];
+/*
+** @brief Gets the path
+**
+** @param arg The arguemnts passed to the cd builtin
+** @param dir The path
+** @param disp Indicator whether or not the path is displayed.
+**
+** @return Returns true if everything is ok. False otherwise
+*/
 
-	(void)opt;
+static BOOL	sh_get_dir(char *arg, char **dir, BOOL *disp)
+{
 	if (!arg)
 	{
-		if (!(path = get_var_value(get_envs(), "HOME")))
+		if (!(*dir = get_var_value(get_envs(), "HOME")))
 			ft_dprintf(2, "%s: cd: HOME not set\n", PROGNAME);
 	}
 	else if (ft_strequ(arg, "-"))
 	{
-		if (!(path = get_var_value(get_envs(), "OLDPWD")))
+		if (!(*dir = get_var_value(get_envs(), "OLDPWD")))
 			ft_dprintf(2, "%s: cd: OLDPWD not set\n", PROGNAME);
 		else
-			ft_putendl(path);
+			*disp = true;
 	}
 	else
-		path = arg;
-	if (path && opt == 'P')
-		path = sh_get_path_p(path, buf);
-	return (path);
+		*dir = arg;
+	if (*dir)
+		return (true);
+	return (false);
 }
 
-static BOOL		sh_test_dirpath(char *path, int opt)
-{
-	struct stat	bufstat;
-	BOOL		ret;
+/*
+** @brief This function gets the dir, changes in absolute path, test the path
+** and expands dots for
+**
+** @param arg The args passed at the cd builtin
+**
+** @return Returns the dir if everything went well, will return NULL otherwise
+*/
 
-	ret = false;
-	if ((!stat(path, &bufstat) && opt == 'P') || !lstat(path, &bufstat))
+static char	*sh_do_chdir_init(char *arg)
+{
+	BOOL	disp;
+	char	*dir;
+
+	disp = false;
+	if (!sh_get_dir(arg, &dir, &disp))
+		return (NULL);
+	dir = ft_strdup(dir);
+	if (!change_in_abs(&dir, &disp))
 	{
-		if (bufstat.st_mode & S_IXUSR)
-			ret = true;
-		else
-		{
-			ret = false;
-			ft_dprintf(2, "%s: cd: permission denied: %s\n", PROGNAME, path);
-		}
+		ft_strdel(&dir);
+		return (NULL);
 	}
-	return (ret);
-}
-
-static int		sh_do_chdir(char *arg, int opt)
-{
-	char cwd[1024];
-	char *path;
-
-	path = sh_get_path(arg, opt);
-	if (!sh_test_dirpath(path, opt))
-		return ((g_ret = 1));
-	if (chdir(path) == -1)
+	if (!sh_test_path(&dir, arg))
 	{
-		ft_dprintf(2, "%s: cd: no such file or directory: %s\n",\
-																PROGNAME, path);
-		return ((g_ret = 1));
+		ft_strdel(&dir);
+		return (NULL);
 	}
-	set_var(get_envs(), get_var_value(get_envs(), "OLDPWD"), "PWD");
-	getcwd(cwd, sizeof(cwd));
-	set_var(get_envs(),"PWD", cwd);
-	return ((g_ret = 0));
+	expand_path(&dir);
+	if (disp)
+		ft_putendl(dir);
+	return (dir);
 }
 
-int				sh_chdir(t_sh_data *data, char **arg)
+/*
+** @brief This function is the main function for the `chdir`/`cd` builtin.
+**
+** @param arg The args passed at the cd builtin
+** @param opt The options passed to the cd builtin
+**
+** @return Returns the status of cd. cd will return 1 if there's an error.
+** Otherwise it will return 0.
+*/
+
+static int	sh_do_chdir(char *arg, int opt)
 {
-	int opt;
-	int ret;
+	char	*dir;
+	char	*cur;
+
+	if (!(dir = sh_do_chdir_init(arg)))
+		return ((*get_cmd_ret() = 1));
+	set_var(get_envs(), "OLDPWD", (cur = get_pwd()), true);
+	ft_strdel(&cur);
+	if (chdir(dir) == -1)
+	{
+		ft_dprintf(2, "cd: can't cd with: %s\n", dir);
+		ft_strdel(&dir);
+		return ((*get_cmd_ret() = 1));
+	}
+	if (opt == 'P')
+		set_var(get_envs(), "PWD", (cur = getcwd(NULL, 0)), true);
+	else
+		set_var(get_envs(), "PWD", dir, true);
+	ft_strdel(&dir);
+	ft_strdel(&cur);
+	return ((*get_cmd_ret() = 0));
+}
+
+/*
+** @brief The function called when cd is typed. it handler options
+**
+** @param data The shell data used throughout the program
+** @param arg The args passed to cd
+**
+** @return Returns the ret value of cd
+*/
+
+int			sh_chdir(t_sh_data *data, char **arg)
+{
+	int		opt;
+	int		ret;
 
 	(void)data;
-	ret = 0;
+	ret = -1;
 	ft_getopt_reset();
-	if ((opt = ft_getopt(ft_tablen(arg), arg, "LPh")) != -1)
+	while ((opt = ft_getopt(((int)ft_tablen(arg)), arg, "LPh")) != -1)
 	{
-		if (opt == 'h')
-			return (ft_dprintf(2, "%s: cd: [-L/-P] [path], use \"help cd\"\n",\
-																	PROGNAME));
-		else if (opt == '?')
-			return (ft_dprintf(2, "%s: cd: [-L/-P] [path], use \"help cd\"\n",\
-																	PROGNAME));
+		if (opt == 'h' || opt == '?')
+			return (ft_dprintf(2, "cd: [-L/-P] [path], use \"help cd\"\n"));
+		else if (ret == -1 && opt == 'P')
+			ret = 'P';
+		else if (ret == -1 && opt == 'L')
+			ret = 'L';
 	}
-	ret = sh_do_chdir(arg[g_optind], opt);
+	opt = ret;
+	if (arg && ft_tablen(&arg[g_optind]) > 1)
+		return (ft_dprintf(2, "cd: too many arguments\n"));
+	if (arg)
+		ret = sh_do_chdir(arg[g_optind], opt);
+	else
+		ret = sh_do_chdir(NULL, opt);
 	ft_getopt_reset();
 	return (ret);
 }

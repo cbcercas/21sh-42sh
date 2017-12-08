@@ -12,12 +12,20 @@
 
 #include <environ/environ.h>
 #include <environ/env_list_utils.h>
-#include <environ/builtin_env_utils.h>
+#include <environ/env_utils.h>
 #include <logger.h>
 #include <environ/getter_env.h>
 #include <environ/modif_env.h>
 
-t_array	*init_environ(char **environ)
+/*
+** @brief Initializes the environnement
+**
+** @param environ The environment given to main
+**
+** @return Returns a t_array containing the env values and names
+*/
+
+t_array		*init_environ(char **environ)
 {
 	t_array	*envs;
 	t_env	*env;
@@ -26,8 +34,8 @@ t_array	*init_environ(char **environ)
 	{
 		while (*environ)
 		{
-			if ((env = var_new(split_var_name(*environ), \
-                            split_var_value(*environ))) != NULL)
+			if ((env = var_new(split_var_name(*environ),
+							split_var_value(*environ), true)) != NULL)
 			{
 				array_push(envs, (void *)env);
 				ft_memdel((void **)&env);
@@ -39,7 +47,13 @@ t_array	*init_environ(char **environ)
 	return (envs);
 }
 
-t_array *init_local_var(void)
+/*
+** @brief Initializes the local variables
+**
+** @return Returns a t_array containing local variables
+*/
+
+t_array		*init_local_var(void)
 {
 	t_array	*vars;
 
@@ -47,14 +61,24 @@ t_array *init_local_var(void)
 	{
 		if (!get_var_value(get_envs(), "PATH"))
 		{
-			set_var(get_vars(), "PATH", "/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin");
+			set_var(get_vars(), "PATH",
+					"/sbin:/bin:</usr/sbin:/usr/bin:/usr/local/sbin:/usr/local"
+							"/bin", true);
 		}
 	}
 	log_info("Local variables initialized");
 	return (vars);
 }
 
-char **var_to_tab(t_array *vars)
+/*
+** @brief Splits a t_array into a char**
+**
+** @param vars t_array to be splitted
+**
+** @return Returns a char** containing the t_array
+*/
+
+char		**var_to_tab(t_array *vars)
 {
 	t_env	*env;
 	char	**env_tab;

@@ -6,48 +6,78 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 13:00:38 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/11 15:16:29 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/21 14:20:08 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TOOLS_H
 # define TOOLS_H
 
-# include <types/bool.h>
-# include <btree/ft_btree.h>
-# include <stdlib.h>
-# include <string/ft_string.h>
+# include <sys/stat.h>
+# include <libft.h>
+# include <environ/getter_env.h>
+# include <environ/env_utils.h>
+# include <parser/enum.h>
 
-void	ft_strdblfree(char **strdb);
-BOOL	is_printstr(char const *line);
-BOOL  is_white(int c);
-BOOL  is_str_car(const char *buff);
-BOOL  is_redirect(int c);
-BOOL  is_sepa(int c);
-pid_t	sh_fork(void);
-int		sh_pipe(int tube[2]);
-int		sh_open_exec(t_btree *ast);
-int		sh_open(char *file, int flags);
-int		sh_ret(int status);
-int		sh_test_access(char const *filename);
-BOOL  ft_isdigit_str(char *str);
-char	*ft_strnew_secu(size_t size, size_t lvl);
-char		*ft_strsub_secu(char const *s, unsigned int start, size_t len, size_t lvl);
-char		**ft_strsplit_secu(char const *s, char c, size_t lvl);
-char	*ft_strdup_secu(char const *src, size_t lvl);
-char	*ft_strjoincl_secu(char *s1, char *s2, int free, size_t lvl);
-char	*ft_str_insert_secu(char *src1, char *src2, int index, size_t lvl);
+/*
+** @file tools.h
+**
+** @brief This file contains the prototypes of the utility tools used in the
+** program
+*/
 
-t_string	*string_create_secu(size_t lvl);
-t_string	*string_growth_cap_secu(t_string *string, size_t cap, size_t lvl);
-t_string	*string_growth_secu(t_string *string, size_t lvl);
-t_string	*string_init_cap_secu(t_string *string, size_t cap, size_t lvl);
-t_string	*string_create_cap_secu(size_t cap, size_t lvl);
-t_string	*string_insert_secu(t_string *string, const char *str, size_t pos, size_t lvl);
-t_string	*string_insert_front_secu(t_string *string, const char *str, size_t lvl);
-t_string	*string_insert_back_secu(t_string *string, const char *str, size_t lvl);
-t_string	*string_ndup_secu(const char *str, size_t n, size_t lvl);
-t_string	*string_dup_secu(const char *str, size_t lvl);
+/*
+** @file getpwd.c
+**
+** @brief Contains functions used to get the pwd
+*/
 
+char		*get_pwd(void);
+
+/*
+** @file is_printstr.c
+**
+** @brief Contains functions to test if string is printable
+*/
+
+BOOL		is_printstr(char const *line);
+
+/*
+** @file is.c
+**
+** @brief Contains functions used to checks tokens
+*/
+
+BOOL		is_white(int c);
+BOOL		is_str_car(const char *buff);
+BOOL		is_redirect(int c);
+BOOL		is_sepa(int c);
+
+/*
+** @file sh_test_access.c
+**
+** @brief Functions used to test access to a file/path
+*/
+
+int			sh_test_access(char const *filename);
+
+/*
+** @file ft_isdigit_str.c
+**
+** @brief Functions used to test if the string is made of digits
+*/
+
+BOOL		ft_isdigit_str(char *str);
+
+void		print_verb(char *line);
+void		sh_exit_error(const char *error);
+
+/*
+** @file array_free_elem.c
+**
+** @brief Functions used to free array elems
+*/
+
+void		string_clear(void *string);
 
 #endif

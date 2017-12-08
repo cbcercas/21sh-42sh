@@ -11,67 +11,54 @@
 /* ************************************************************************** */
 
 #include <history/history.h>
-#include <tools/tools.h>
-#include <logger.h>
-#include <ftprintf.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+
+/*
+** @brief Adds a new entry from command `cmd` into the `t_hist history`
+**
+** @param cmd The command to be added into the history
+**
+** @return Returns a t_hist containing the `cmd`
+*/
 
 t_hist	*sh_history_new(char *cmd)
 {
 	t_hist	*h;
 
-	if(sh_history_is_space_plus(cmd) || !is_printstr(cmd))
+	if (sh_history_is_space_plus(cmd) || !is_printstr(cmd))
 		return (NULL);
 	if ((h = ft_memalloc(sizeof(*h))) == NULL)
 	{
 		log_fatal("History: can't create new history command");
-		ft_dprintf(STDERR_FILENO,"History: can't create new history command");
+		ft_dprintf(STDERR_FILENO, "History: can't create new history command");
 	}
 	else if ((h->cmd = (const char *)cmd) == NULL)
 	{
 		log_fatal("History: can't create new history command");
-		ft_dprintf(STDERR_FILENO,"History: can't create new history command");
+		ft_dprintf(STDERR_FILENO, "History: can't create new history command");
 		ft_memdel((void**)&h);
 	}
-	h->buf = NULL;
 	h->cur = -1;
 	return (h);
 }
 
-void sh_history_del(void *i)
+/*
+** @brief Deletes a history entry
+**
+** @param i The entry to be destroyed
+*/
+
+void	sh_history_del(void *i)
 {
 	t_hist *h;
 
 	h = (t_hist *)i;
 	if (h->cmd)
 		ft_strdel((char **)&(h->cmd));
-	if (h->buf)
-		ft_secu_free(h->buf);
-	h->buf = NULL;
 }
 
-void sh_history_insert_buf(char *str)
-{
-	t_array	*hists;
-	t_hist	*h;
-
-	hists = sh_history_get();
-		if ((h = (t_hist *)array_get_at(hists, 0)))
-		{
-			if (h->buf)
-				ft_secu_free(h->buf);
-			h->buf = ft_strdup_secu(str, M_LVL_HIST);
-			h->cur = -1;
-		}
-}
-
-void sh_history_destroy(void)
-{
-	t_array	*hists;
-
-	if ((hists = sh_history_get()) != NULL)
-		array_destroy(&hists, sh_history_del);
-}
+/*
+** @brief TODO
+*/
 
 void	sh_history_var_session_reset(void)
 {
@@ -87,4 +74,18 @@ void	sh_history_var_session_reset(void)
 		h->session = false;
 		i++;
 	}
+}
+
+void	*sh_history_remove_at(size_t nb)
+{
+	t_hist		*h;
+	t_array		*hists;
+
+	hists = sh_history_get();
+	if (!hists)
+		return (NULL);
+	h = (t_hist *)array_get_at(hists, (size_t)nb);
+	if (h)
+		ft_strdel((char **)(&(h->cmd)));
+	return (array_remove_at(hists, nb, NULL));
 }

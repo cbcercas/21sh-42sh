@@ -11,25 +11,12 @@
 /* ************************************************************************** */
 
 #include <core/input.h>
-#include <sys/ioctl.h>
-#include <automaton/automaton.h>
 
-void	reset_input(t_input *input)
-{
-	if (input->str)
-		string_reset(input->str);
-	else
-		input->str = string_create();
-	input->prompt_len = 0;
-	input->offset_col = 0;
-	input->offset_line = 0;
-	input->cpos.cp_line = 0;
-	input->cpos.cp_col = input->offset_col;
-	//ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
-	ft_strdel(&input->select->str);
-	ft_bzero(input->select, sizeof(t_select));
-	input->next = NULL;
-}
+/*
+** @brief Destroys the given input
+**
+** @param input The input to be destroyed
+*/
 
 void	input_destroy(t_input **input)
 {
@@ -37,11 +24,17 @@ void	input_destroy(t_input **input)
 	{
 		if ((*input)->next)
 			input_destroy(&(*input)->next);
-		string_del(&((*input)->str));
-		ft_strdel(&(*input)->select->str);
-		ft_memdel((void **) input);
+		if ((*input)->str)
+			string_del(&((*input)->str));
+		ft_memdel((void **)input);
 	}
 }
+
+/*
+** @brief Resets the given input
+**
+** @param input The input to be reset
+*/
 
 void	input_reset(t_input *input)
 {
@@ -51,30 +44,44 @@ void	input_reset(t_input *input)
 		input->str = string_create();
 	input->prompt_len = 0;
 	input->offset_col = 0;
-	input->offset_line = 0;
 	input->cpos.cp_line = 0;
-	input->cpos.cp_col = input->offset_col;
-	//ioctl(STDOUT_FILENO, TIOCGWINSZ, &input->ts);
-	ft_strdel(&input->select->str);
-	ft_bzero(input->select, sizeof(t_select));
-	//input->inp_save = NULL;
+	input->cpos.cp_col = 0;
+	input->lock = false;
+	input->select_pos.is_set = false;
+	input->select_pos.cur_end = 0;
+	input->select_pos.cur_start = 0;
 }
+
+/*
+** @brief Gets the pos in the string
+**
+** @param input The current input
+**
+** @return Returns the position
+*/
 
 size_t	pos_in_str(t_input *input)
 {
 	size_t			ret;
-	size_t			len_prompt;
 	struct winsize	*ts;
 
-	ret = 0;
 	ts = get_ts();
- 	len_prompt = input->prompt_len;
-	ret = input->cpos.cp_col + (input->offset_line *  ts->ws_col) - len_prompt;
+	ret = (input->cpos.cp_col - input->offset_col)
+		+ (input->cpos.cp_line * ts->ws_col);
 	return (ret);
 }
 
-void	sh_reset_line(t_automaton *automaton, t_array *tokens)
+/*
+** @brief gets the first input not lock
+**
+** @param input current input
+**
+** @return the first input not lock
+*/
+
+t_input	*input_get_writable(t_input *input)
 {
-	array_reset(tokens, NULL);
-	automaton_reset(automaton);
+	while (input && input->prev && !input->prev->lock)
+		input = input->prev;
+	return (input);
 }

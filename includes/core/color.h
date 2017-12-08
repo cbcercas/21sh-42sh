@@ -13,6 +13,12 @@
 #ifndef COLOR_H
 # define COLOR_H
 
+/*
+** @file color.h
+**
+** @brief Contains all the defines for our color usage in the program
+*/
+
 # define C_NONE     "\033[0m"
 # define C_BOLD     "\033[1m"
 # define C_UNDER  	"\033[4m"

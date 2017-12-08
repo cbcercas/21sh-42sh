@@ -1,67 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tcaps_redraw_line.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/02/17 14:41:47 by chbravo-          #+#    #+#             */
+/*   Updated: 2017/10/19 06:00:26 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <core/tcaps.h>
-#include <core/input.h>
 
 void	redraw_line(t_input *input)
 {
-	char   *tmp;
+	char	*tmp;
 	int		len;
 	int		line;
 	int		col;
 
-
-	tmp = input->str->s + ((((input->cpos.cp_col + 1) - (input->offset_col + 1)) +
-		  (input->ts->ws_col * input->offset_line)));
-	len = (int)ft_strlen(tmp);
 	line = 0;
 	col = 0;
-	// clear rest of line if needed
-	tputs(tgetstr("ce", NULL), 0, ft_putchar2);
-	if ( len + 1 > (input->ts->ws_col - input->cpos.cp_col))
-	{
-		tputs(tgetstr("do", NULL), 0, ft_putchar2);
-		tputs(tgetstr("cr", NULL), 0, ft_putchar2);
-		tputs(tgetstr("cd", NULL), 0, ft_putchar2);
-		tputs(tgetstr("up", NULL), 0, ft_putchar2);
-		while (col < input->cpos.cp_col)
-		{
-			tputs(tgetstr("nd", NULL), 0, &ft_putchar2);
-			col += 1;
-		}
-	}
-	//affiche la ligne
-	tputs(tmp, (int) len, &ft_putchar2);
-	col = input->cpos.cp_col + len;
+	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
+	if (input->str->len == 0)
+		return ;
+	tmp = input->str->s + pos_in_str(input);
+	len = (int)ft_strlen(tmp);
+	tputs(tmp, len, &ft_putc_in);
 	if (len > (input->ts->ws_col - input->cpos.cp_col))
-	{
-		line =(len - (input->ts->ws_col - input->cpos.cp_col)) / input->ts->ws_col + ((len - (input->ts->ws_col - input->cpos.cp_col)) % input->ts->ws_col? 1 : 0);
-		col  = (len - (input->ts->ws_col - input->cpos.cp_col)) % input->ts->ws_col;
-	}
-	//TODO add tcaps_up(t_input *input, int nb)
-	while (line)
-	{
-		tputs(tgetstr("up", NULL), 0, &ft_putchar2);
-		line -= 1;
-	}
-	tputs(tgetstr("cr", NULL), 0, ft_putchar2);
-	col = 0;
-	//TODO add tcaps_right(t_input *input, int nb)
-	while (col < input->cpos.cp_col)
-	{
-		tputs(tgetstr("nd", NULL), 0, &ft_putchar2);
-		col += 1;
-	}
+		line = (len - (input->ts->ws_col - input->cpos.cp_col))
+						/ input->ts->ws_col + ((len - (input->ts->ws_col
+							- input->cpos.cp_col)) % input->ts->ws_col ? 1 : 0);
+	while (line--)
+		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
+	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
+	while (col++ < input->cpos.cp_col)
+		tputs(tgetstr("nd", NULL), 0, &ft_putc_in);
 }
 
-void reset_line()
+void	reset_line(t_input *input)
 {
-	size_t 	pos;
-	size_t 	savepos;
+	size_t	pos;
+	size_t	savepos;
 
-	pos = pos_in_str(g_input);
+	pos = pos_in_str(input);
 	savepos = pos;
 	while (savepos--)
-		exec_arrow_left(NULL, g_input);
-	redraw_line(g_input);
-	while (pos != pos_in_str(g_input))
-		exec_arrow_right(NULL, g_input);
-};
+		exec_arrow_left(NULL, input);
+	redraw_line(input);
+	while (pos != pos_in_str(input))
+		exec_arrow_right(NULL, input);
+}

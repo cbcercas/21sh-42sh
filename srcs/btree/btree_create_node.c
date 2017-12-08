@@ -11,14 +11,19 @@
 /* ************************************************************************** */
 
 #include <btree/ft_btree.h>
-#include <stdlib.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+
+/*
+** @brief Creates a node for the btree using the item
+**
+** @param item item that will be stored in the new node of the btree
+**
+** @return Returns the btree with the new node containing item in it
+*/
 
 t_btree	*btree_create_node(void *item)
 {
 	t_btree	*btree;
 
-	btree = NULL;
 	if (!(btree = (t_btree*)ft_secu_malloc_lvl(sizeof(t_btree), 2)))
 		return (NULL);
 	btree->parent = NULL;
@@ -28,8 +33,18 @@ t_btree	*btree_create_node(void *item)
 	return (btree);
 }
 
-void	btree_insert_data(t_btree **root, void *item,\
-													int (*cmpf)(void *, void *))
+/*
+** @brief Inserts data depending on cmpf (left or right)
+** @param root The btree
+** @param item Item to be inserted
+** @param cmpf function for comparing elements.
+** It allows the element to be well positioned.
+**
+** @return void
+*/
+
+void	btree_insert_data(t_btree **root, void *item,
+						int (*cmpf)(void *, void *))
 {
 	if (!root)
 		return ;

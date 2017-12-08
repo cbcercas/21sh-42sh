@@ -11,19 +11,17 @@
 /* ************************************************************************** */
 
 #include <ast/ast.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
-#include <ftprintf.h>
+#include <builtins/builtin_exit.h>
 
-/**
- * \fn void		ast_del_cmd(t_cmd *cmd)
- *
- * \brief free cmd content and cmd
- *
- * \param cmd
- *
- * \return void.
- */
-void		ast_del_cmd(t_cmd *cmd)
+/*
+** @brief Frees cmd content and cmd
+**
+** @param cmd the cmd to be freed and deleted
+**
+** @return void
+*/
+
+void			ast_del_cmd(t_cmd *cmd)
 {
 	if (cmd == NULL)
 		return ;
@@ -33,19 +31,17 @@ void		ast_del_cmd(t_cmd *cmd)
 		cmd->av = NULL;
 	}
 	ft_secu_free(cmd);
-	cmd = NULL;
 }
 
-/**
- * \fn char		*ast_aff(t_cmd *cmd)
- *
- * \brief display content of cmd
- *
- * \param cmd struct command
- *
- * \return return "" or NULL.
- */
-char		*ast_aff(t_cmd *cmd)
+/*
+** @brief Displays content of cmd
+**
+** @param cmd Command struct containing cmd to be displayed
+**
+** @return Returns "" or NULL.
+*/
+
+char			*ast_aff(t_cmd *cmd)
 {
 	int i;
 
@@ -62,46 +58,75 @@ char		*ast_aff(t_cmd *cmd)
 	return ("");
 }
 
-/**
- * \fn t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
- *
- * \brief search next token with prio param
- *
- * \param expands is token arrays
- * \param prio 1 = ";" or "||" or "&&", 2 = "|", 3 = redirections, 4 = "&"
- * \param lim virtual limit
- *
- * \return token or NULL.
- */
+/*
+** @brief Searches for the previous token with greater priority
+**
+** @param expands Contains the token array
+** @param prio Priority for tokens
+**
+** 1 = ";" or "||" or "&&",\n
+** 2 = "|",\n
+** 3 = redirections,\n
+** 4 = "&".
+** @param lim Contains the virtual limit
+**
+** @return Returns token or NULL.
+*/
+
 t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 {
 	t_exp		*exp;
 
 	exp = NULL;
-	while (lim->cnt < lim->lim && lim->cnt <= expands->used &&\
-			(!exp || !(ast_prio(exp->type, prio, lim->cnt - 1, expands))))
+	while (lim->cnt >= lim->lim && lim->cnt >= 0)
 	{
-		exp = (t_exp *)array_get_at(expands, lim->cnt);
-		lim->cnt++;
+		lim->cnt--;
+		exp = (t_exp *)array_get_at(expands, (size_t)lim->cnt);
+		if (exp && ast_associate_prio(exp->type, prio, lim->cnt, expands))
+			break ;
 	}
 	return (exp);
 }
 
-/**
- * \fn t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
- *							                           t_token_type type)
- *
- * \brief creat and malloc a new cmd
- *
- * \param expands is token arrays
- * \param start is positon of first token
- * \param end is positon of last token
- * \param type is the type of current token
- *
- * \return new cmd or NULL
- */
-t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
-		t_token_type type)
+/*
+** @brief malloc cmd and cmd->av for ast_new_cmd()
+**
+** @param expands is token arrays
+** @param start is positon of first token
+** @param end is positon of last token
+** @param cmd is the struc of command
+**
+** @return If an error has occurred, a value of false is returned
+*/
+
+static BOOL		ast_new_init(t_array *expands, ssize_t start, ssize_t end,
+								t_cmd **cmd)
+{
+	if ((end - start) < 0)
+		return (false);
+	log_dbg1("AST: CREATION ONE start_cnt: %d end_cnt: %d", start, end);
+	if (!expands || !(*cmd = (t_cmd*)ft_secu_malloc_lvl(sizeof(t_cmd), 2)))
+		sh_exit_error("Malloc Error");
+	ft_bzero(*cmd, sizeof(t_cmd));
+	if (!((*cmd)->av =
+					(char **)secu_malloc(sizeof(char **) * (end - start + 2))))
+		sh_exit_error("Malloc Error");
+	return (true);
+}
+
+/*
+** @brief Creates and allocates a new cmd struct
+**
+** @param expands Contains the token array
+** @param start Contains position of the first token
+** @param end Contains position of the last token
+** @param type Contains the type of current token
+**
+** @return Returns new cmd or NULL
+*/
+
+t_cmd			*ast_new_cmd(t_array *expands, ssize_t start, ssize_t end,
+								t_token_type type)
 {
 	t_cmd	*cmd;
 	t_exp	*exp;
@@ -110,18 +135,15 @@ t_cmd		*ast_new_cmd(t_array *expands, int start, int end,\
 
 	i = 0;
 	cnt = 0;
-	if ((end - start) < 0)
-		return (NULL);
-	if (!expands || !(cmd = (t_cmd*)ft_secu_malloc_lvl(sizeof(t_cmd), 2)))
-		return (NULL);
-	ft_bzero(cmd, sizeof(t_cmd));
-	if (!(cmd->av = (char **)secu_malloc(sizeof(char **) * (end - start + 2))))
+	if (!ast_new_init(expands, start, end, &cmd))
 		return (NULL);
 	cmd->type = type;
-	while (i < (end - start) && (exp = (t_exp*)array_get_at(expands, start + i)))
+	while (i < (end - start) &&
+			(exp = (t_exp*)array_get_at(expands, (size_t)start + i)))
 	{
 		if (exp->str && exp->type != E_TOKEN_BLANK &&\
-				!(type == E_TOKEN_WORD && ast_is_redir(expands, start + i, exp->type)))
+				!(type == E_TOKEN_WORD &&
+				ast_is_redir(expands, (size_t)start + i, exp->type)))
 			cmd->av[cnt++] = exp->str->s;
 		i++;
 	}

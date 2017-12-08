@@ -10,83 +10,114 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <btree/ft_btree.h>
-#include <ast/ast.h>
 #include <exec/exec.h>
-#include <gnl/get_next_line.h>
-#include <tools/tools.h>
-#include <signals/signals.h>
 
-static void mini_input(char *end, int fd)
+/*
+** @brief   find fd
+** @param  item is the struct of commands
+** @param  fds     The list of fd
+** @param  fd      the fd
+**
+** @return true if everything is ok, false otherwise
+*/
+
+static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd, t_list **fds)
 {
-  char *line;
-
-  ft_putstr("heredoc>");
-  while (get_next_line(0, &line))
-  {
-    if (!ft_strcmp(line, end))
-      break;
-    ft_putendl_fd(line, fd);
-    ft_strdel(&line);
-    ft_putstr("heredoc>");
-  }
-  exit(EXIT_SUCCESS);
+	if (ft_isdigit(item->av[0][0]))
+	{
+		if (check_fd(ft_atoi(item->av[0]), fds))
+			*fd = ft_atoi(item->av[0]);
+		else
+			return (false);
+	}
+	else
+		*fd = STDIN_FILENO;
+	return (true);
 }
 
-static char *heradoc_find_end(t_btree *ast)
-{
-  t_cmd *item;
+/*
+** @brief   init heredoc, create pipe and fork
+** @param  pipe     the pipe
+** @param  pid      the pid of fork
+**
+** @return return the word
+*/
 
-  item = NULL;
-  if (ast && ast->right && !ast->right->left)
-    item = (t_cmd *)ast->right->item;
-  else if (ast && ast->right && ast->right->left)
-    item = (t_cmd *)ast->right->left->item;
-  if (item)
-    return (item->av[0]);
-  return (NULL);
+static int		heredoc_init(int pipe[2], int *pid)
+{
+	if (sh_pipe(pipe) != 0)
+		return ((*get_cmd_ret() = EXIT_FAILURE));
+	ignore_sigwinch();
+	if ((*pid = sh_fork(E_PID_HERE)) == -1)
+		return ((*get_cmd_ret() = EXIT_FAILURE));
+	if (!*pid)
+		signals(SIGINT, SIG_DFL);
+	return (EXIT_SUCCESS);
 }
 
-static void more_heradoc(t_btree *ast, int tube[2])
-{
-  pid_t pid;
-  t_cmd *tmp;
+/*
+** @brief   find the word "stop"
+** @param  item is the struct of commands
+**
+** @return return the word
+*/
 
-  if((pid = sh_fork()) == -1)
-    return ;
-  if (pid == 0)
-  {
-    close(tube[END]);
-    mini_input(heradoc_find_end(ast), tube[START]);
-    exit (1);
-  }
-  wait_sh();
-  if (ast->right && (tmp = (t_cmd *)ast->right->item) && tmp->type == E_TOKEN_DLESS)
-    more_heradoc(ast->right, tube);
+static char		*sh_heredoc_search_end(t_cmd *item)
+{
+	if (ft_isdigit(item->av[0][0]))
+		return (item->av[2]);
+	return (item->av[1]);
 }
 
-int   sh_heradoc(t_btree *ast, t_cmd *item, int fd)
-{
-  pid_t pid;
-  int tube[2];
-  t_cmd *tmp;
+/*
+** @brief   wait, restore signal, and close pipe
+** @param  pipe     the pipe
+**
+** @return ret of exec
+*/
 
-  (void)ast;
-  if (item->type != E_TOKEN_DLESS)
-    return (fd);
-  if((sh_pipe(tube) != 0) || ((pid = sh_fork()) == -1))
-    return (-1);
-  if (pid == 0)
-  {
-    close(tube[END]);
-    mini_input(heradoc_find_end(ast), tube[START]);
-    exit (EXIT_SUCCESS);
-  }
-  wait_sh();
-  if (ast->right && (tmp = (t_cmd *)ast->right->item) &&\
-        tmp->type == E_TOKEN_DLESS)
-    more_heradoc(ast->right, tube);
-  close(tube[START]);
-  return (tube[END]);
+static int		sh_heredoc_father(int pipe[2])
+{
+	sh_wait(0, 0);
+	restore_sigwinch();
+	close(pipe[END]);
+	return (*get_cmd_ret());
+}
+
+/*
+** @brief   exec heredoc
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+**
+** @return ret of exec
+*/
+
+int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
+{
+	int		fd;
+	int		pipe[2];
+	int		pid;
+
+	if (!ast || heredoc_init(pipe, &pid) == EXIT_FAILURE)
+		return (*get_cmd_ret());
+	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), &fd, NULL))
+		return ((*get_cmd_ret() = EXIT_FAILURE));
+	if (!pid)
+	{
+		close(pipe[END]);
+		mini_input(sh_heredoc_search_end(((t_cmd *)ast->item)), pipe[START]);
+		exit(EXIT_SUCCESS);
+	}
+	sh_wait(0, 0);
+	close(pipe[START]);
+	if (!sh_fork(E_PID_HERE))
+	{
+		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing)
+						: 0);
+		exec_list_push(&fds[STDIN_FILENO], (size_t)pipe[END]);
+		sh_process_exec(data, ast->left, fds);
+		exit(EXIT_SUCCESS);
+	}
+	return (sh_heredoc_father(pipe));
 }

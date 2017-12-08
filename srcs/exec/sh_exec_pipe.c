@@ -6,118 +6,111 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/20 10:51:28 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/09/09 15:51:44 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/10/14 12:32:26 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <exec/exec.h>
-#include <btree/ft_btree.h>
-#include <ast/ast.h>
-#include <tools/tools.h>
-#include <signals/signals.h>
-#include <core/prompt.h>
+#include <exec/exec.h>
 
 /*
-** @brief         count number of pipe
-**
-** @param  ast     The AST (Analyse Syntax Tree[binary])
-**
-** @return         number of pipe
-*/
-
-int nb_of_pipe(t_btree *ast)
-{
-  int   i;
-  t_btree *tmp;
-  t_cmd *item;
-
-  if (!ast)
-    return (-1);
-  tmp = ast;
-  i = 0;
-    item = (t_cmd *)ast->item;
-  while(tmp && item->type == E_TOKEN_PIPE)
-  {
-    i++;
-    tmp = tmp->right;
-    item = (t_cmd *)ast->item;
-  }
-  return (i);
-}
-
-/*
-** @brief         main function for execute pipe command
-**
+** @brief execute pipe in the right hand side of the ast.
 ** @param  data    The data of shell
 ** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+** @param pipe     The pipe between left and right
 **
-** @return         return of sh_exec_pipe
+** @return
 */
 
-int sh_process_pipe(t_sh_data *data, t_btree *ast)
+static void		sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds,
+								int *pipe)
 {
-  int   endfd;
-  int   ret;
-
-  endfd = -1;
-  ret = 0;
-  if (sh_fork() == 0)
-  {
-    while (nb_of_pipe(ast) >= 0)
-    {
-      if (ast->left)
-        ret = sh_exec_pipe(data, ast->left, &endfd, false);
-      else
-        ret = sh_exec_pipe(data, ast, &endfd, true);
-      ast = ast->right;
-    }
-    exit(EXIT_SUCCESS);
-  }
-  wait_sh();
-  return (ret);
-}
-
-static int sh_exec_pipe_parent(int tube[2], int *endfd, t_cmd *item, BOOL is_out)
-{
-  if (is_out)
-    item->info.ret = sh_ret(wait_sh());
-  close(tube[START]);
-  if (*endfd != -1)
-    close(*endfd);
-  *endfd = tube[END];
-  return ((g_ret = item->info.ret));
+	close(pipe[START]);
+	if (fds[STDIN_FILENO])
+		ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing);
+	exec_list_push(&fds[STDIN_FILENO], (size_t)pipe[END]);
+	sh_process_exec(data, ast->right, fds);
+	exit(EXIT_SUCCESS);
 }
 
 /*
-** @brief          create pipe, and dup STDIN_FILENO and STDOUT_FILENO in pipe
-**
+** @brief execute pipe in the left hand side of the ast.
 ** @param  data    The data of shell
 ** @param  ast     The AST (Analyse Syntax Tree[binary])
-** @param  endfd   it is end of pipe of the last pipe command
-** @param  is_out  true: last command, false: dup STDOUT
+** @param  fds     The list of fd
+** @param pipe     The pipe between left and right
 **
-** @return          return of sh_exec_pipe_parent, (the status set by wait)
+** @return
 */
 
-int sh_exec_pipe(t_sh_data *data, t_btree *ast, int *endfd, BOOL is_out)
+static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds,
+								int *pipe)
 {
-  pid_t pid;
-	int tube[2];
-  t_cmd *item;
+	close(pipe[END]);
+	if (fds[STDOUT_FILENO])
+		ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing);
+	exec_list_push(&fds[STDOUT_FILENO], (size_t)pipe[START]);
+	sh_process_exec(data, ast->left, fds);
+	exit(EXIT_SUCCESS);
+}
 
-  item = (t_cmd *)ast->item;
-	if(sh_pipe(tube) != 0)
-		return (EXIT_FAILURE);
-	 if((pid = sh_fork()) == -1)
-    return (EXIT_FAILURE);
-	if(pid == 0)
+/*
+** @brief execute pipe
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+**
+** @return The list of pid's fork
+*/
+
+static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
+{
+	int					pid;
+	int					pipe[2];
+	static t_list		*pids = NULL;
+
+	if (sh_pipe(pipe) != 0)
+		return (NULL);
+	if ((pid = sh_fork(E_PID_PIPE)) == -1)
+		return (NULL);
+	*is_in_pipe() = true;
+	if (pid == 0)
+		sh_pipe_left(data, ast, fds, pipe);
+	exec_list_push(&pids, (size_t)pid);
+	if (ast->left && ((t_cmd *)ast->left->item)->type == E_TOKEN_DLESS)
+		sh_wait(pid, 0);
+	if ((pid = sh_fork(E_PID_PIPE)) == -1)
+		return (NULL);
+	if (pid == 0)
+		sh_pipe_right(data, ast, fds, pipe);
+	exec_list_push(&pids, (size_t)pid);
+	close(pipe[START]);
+	close(pipe[END]);
+	return (pids);
+}
+
+/*
+** @brief call sh_exec_pipe2 and wait pid
+** @param  data    The data of shell
+** @param  ast     The AST (Analyse Syntax Tree[binary])
+** @param  fds     The list of fd
+**
+** @return The return of commands
+*/
+
+int				sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
+{
+	t_list		*pids;
+
+	ignore_sigwinch();
+	pids = sh_exec_pipe2(data, ast, fds);
+	log_info("MULTI WAIT");
+	while (pids)
 	{
-    ((*endfd != -1) ? dup2(*endfd, STDIN_FILENO) : 0);
-    ((!is_out) ? dup2(tube[START], STDOUT_FILENO) : 0);
-    close(tube[END]);
-    if (!sh_process_exec(data, ast))
-      exit (EXIT_SUCCESS);
-    exit (EXIT_FAILURE);
+		sh_wait((int)pids->content_size, 0);
+		pids = pids->next;
 	}
-  return(sh_exec_pipe_parent(tube, endfd, item, is_out));
+	restore_sigwinch();
+	*is_in_pipe() = false;
+	return (*get_cmd_ret());
 }

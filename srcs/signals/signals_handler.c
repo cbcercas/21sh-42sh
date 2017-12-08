@@ -11,68 +11,94 @@
 /* ************************************************************************** */
 
 #include <signals/signals.h>
-#include <sys/wait.h>
-#include <libft.h>
-#include <ftprintf.h>
-#include <logger.h>
-#include <core/input.h>
-#include <term.h>
-#include <sys/ioctl.h>
-#include <core/prompt.h>
-#include <core/tcaps.h>
+
+/*
+** @brief Exits the program and displays a message
+**
+** @param sig The signal you want the program to exit with
+*/
+int				g_logger_fd;
 
 void	signals_quit(int sig)
 {
-	if(sig == SIGSEGV)
-		ft_putstr("\nShell Segfault\n");
-	else if(sig == SIGABRT)
-		ft_putstr("Shell Abort");
+	default_terminal_mode();
+	if (sig == SIGSEGV)
+		ft_putstr_fd("\nShell Segfault !\n", 2);
+	else if (sig == SIGABRT)
+		ft_putstr_fd("Shell Abort", 2);
 	else
-		ft_printf("\nShell quit with signal: %d\nGoodbye, see-you! :)\n", sig);
-	log_fatal("Signals: Shell quit with signal: %d", sig);
-	//sh_deinit(&data);//TODO si on veut gérer il faut une global dsl mr_chapeau
+		sh_exit_error("The Shell Quit suddenly cause signal");
+	ft_putstr_fd("Signals: Shell quit with signal:", g_logger_fd);
+	ft_putnbr_fd(sig, g_logger_fd);
+	ft_putendl_fd("", g_logger_fd);
+	kill_childs(SIGTERM);
 	exit(128 + (sig % 32));
 }
 
+/*
+** @brief SIGWINCH signal handler
+*/
+
 void	signals_sigwinch(void)
 {
-	size_t 	pos;
-	//TODO REFACTOR
+	size_t	pos;
 	t_input	*input;
+	t_input	*tmp;
 
-	// TODO need current input
+	if (!isatty(STDIN_FILENO))
+		return ;
 	input = input_get_cur();
 	pos = pos_in_str(input);
-
-	// reset term size
+	tmp = input;
+	input = input_back_to_writable(input);
 	get_windows(1);
-	//goto debut ligne
-	tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
+	if (get_windows(0))
+		get_windows(0)->cur = input;
+	get_select()->is = false;
+	reset_insert_pos();
+	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
-	//TODO check when offset prompt
-	input->offset_line = 0;
-	//input->cpos.cp_line = 0;
-	//input->cpos.cp_col = input->offset_col;
-	//input->select->is = false;
-	redraw_line(input);
+	redraw_input(input);
 	//TODO refactor using tgoto
-	while (pos != pos_in_str(input))
-		exec_arrow_right(NULL, input);
+	input = goto_input(input, tmp);
+	while (pos != pos_in_str(input) && pos_in_str(input) < input->str->len)
+		move_cursor_right(&input->cpos, get_ts());
+	if (get_windows(0))
+		get_windows(0)->cur = input;
 }
 
-void    signals_handler(int sig)
+/*
+** @brief Signal handler for each `sig`
+** @param sig signal
+*/
+
+void	signals_handler(int sig)
 {
-	if(sig == SIGINT)
+	if (sig == SIGTSTP)
+		tcaps_bell();
+	else if (sig == SIGINT)
 	{
+		ft_putchar_fd('\n', STDIN_FILENO);
 		log_info("Signal: User pressed Ctrl+C.");
-		ft_putstr("\n");
-		//sh_print_prompt();
-		return;
 	}
-	if(sig == SIGWINCH)
+	else if (sig == SIGWINCH)
 		signals_sigwinch();
-	if (((sig >= 1 && sig <= 17) || sig == 23 || sig == 24 ||\
-					(sig >= 26 && sig <= 31)) && sig != SIGWINCH && sig != 28)
+	else if (sig == SIGUSR1 || sig == SIGTERM)
+		sh_exit(NULL, NULL);
+	else if (sig == 13)
+	{
+		if (get_pid_child(-1))
+			kill(get_pid_child(-1), SIGKILL);
+		exit(EXIT_SUCCESS);
+	}
+	else if ((sig >= 1 && sig < 17) || sig == 23 || sig == 24 ||\
+					(sig >= 26 && sig <= 31))
 		signals_quit(sig);
-	log_info("Signals:Shell cath signal:%d", sig);
+}
+
+BOOL	*is_in_pipe(void)
+{
+	static BOOL		stop = true;
+
+	return (&stop);
 }

@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <tools/tools.h>
-#include <core/input.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
+#include <autocomplete/autocomplete.h>
 
 int		nb_of_word(char *s)
 {
@@ -61,8 +59,8 @@ char	*find_word_after(t_input *input)
 
 char	*find_word_cur(t_input *input)
 {
-	int		i;
-	int		end;
+	size_t		i;
+	size_t		end;
 	char	*tmp;
 
 	if (!input || !input->str || !input->str->s)
@@ -76,9 +74,9 @@ char	*find_word_cur(t_input *input)
 	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
 	if (!i && (end - i) > 0)
-		tmp = ft_strsub_secu(input->str->s, i, end - i, M_LVL_AUTOC);
+		tmp = ft_strsub(input->str->s, (unsigned int)i, end - i);
 	else if ((end - i - 1) > 0)
-		tmp = ft_strsub_secu(input->str->s, i + 1, end - i - 1, M_LVL_AUTOC);
+		tmp = ft_strsub(input->str->s, (unsigned int)i + 1, end - i - 1);
 	else
 		return (NULL);
 	return (tmp);

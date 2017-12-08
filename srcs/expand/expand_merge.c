@@ -1,6 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_merge.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
+/*   Updated: 2017/10/17 14:08:48 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <expand/expand.h>
 
-void	expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp, size_t *i)
+/*
+** @brief Inserts a string contained in `tm2` before `tmp1`
+** @param tmp1 t_string to instert into
+** @param tmp2 t_string to insert
+** @param array_exp t_array of token
+** @param i index of tmp2
+*/
+
+void	expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp,
+																	size_t *i)
 {
 	string_insert_back(tmp1->str, tmp2->str->s);
 	string_del(&tmp2->str);
@@ -8,11 +29,16 @@ void	expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp, size_t *i)
 	*i = 0;
 }
 
-void 	expand_merge_tokens_word(t_array *array_exp)
+/*
+** @brief Merges 2 WORD tokens togethers
+** @param array_exp array of token
+*/
+
+void	expand_merge_tokens_word(t_array *array_exp)
 {
-	t_exp 	*tmp1;
-	t_exp 	*tmp2;
-	size_t 	i;
+	t_exp	*tmp1;
+	t_exp	*tmp2;
+	size_t	i;
 
 	i = 0;
 	while (array_exp && (i + 1 < array_exp->used))

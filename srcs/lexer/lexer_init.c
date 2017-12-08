@@ -10,10 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
 #include <lexer/lexer.h>
-#include <logger.h>
-#include <ftprintf.h>
+
+/*
+** @brief Initializes the token t_array
+**
+** @param tokens The t_array to be initialized
+**
+** @return Returns an initialized t_array
+*/
 
 t_array	*lexer_init(t_array *tokens)
 {

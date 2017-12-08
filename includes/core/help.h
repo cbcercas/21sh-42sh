@@ -15,8 +15,24 @@
 
 # include <automaton/automaton.h>
 
-void sh_usage_help(void);
-void sh_usage_help_exit(void);
+/*
+** @file   help.h
+**
+** @brief  Function prototypes for the help (-h --help)
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @file usage_help.c
+**
+** @brief Contains the functions used to display the usage help
+*/
+
+void		sh_usage_help(void);
+void		sh_usage_help_exit(void);
 void		sh_over(char *mess, t_automaton *automat, t_array *array,\
-															void fn(void *elem));
+														void fn(void *elem));
 #endif

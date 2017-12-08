@@ -1,9 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   autocomplete_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
+/*   Updated: 2017/10/17 14:08:48 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
-#include <libft.h>
-#include <libtcaps.h>
-#include <core/tcaps.h>
-#include <core/progname.h>
 #include <autocomplete/autocomplete.h>
 
 int autocomplete_case_compare(const char s1, const char s2)
@@ -66,7 +72,7 @@ BOOL	autocomplete_get_repons(size_t possibilities)
 		return (true);
 	default_terminal_mode();
 	ft_printf("\n");
-	autocomplete_display_prompt(g_input);
+	autocomplete_display_prompt(get_windows(0)->cur);
 	raw_terminal_mode();
 	return (false);
 }

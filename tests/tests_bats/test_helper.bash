@@ -15,16 +15,25 @@ display_line_output()
 
 ####message parser#########
 okparser="Parser say OK"
-parser_error_simple_pv="Parser: Syntax error near ';'"
-parser_error_double_pv="Parser: Syntax error near ';;'"
+parser_error_simple_pv="$name_exec: Parse error near \`;'"
+parser_error_double_pv="$name_exec: Parse error near \`;;'"
 
-parser_error_simple_es="Parser: Syntax error near '&'"
-parser_error_double_es="Parser: Syntax error near '&&'"
+parser_error_simple_es="$name_exec: Parse error near \`&'"
+parser_error_double_es="$name_exec: Parse error near \`&&'"
 
-parser_error_simple_p="Parser: Syntax error near '|'"
-parser_error_double_p="Parser: Syntax error near '||'"
+parser_error_simple_p="$name_exec: Parse error near \`|'"
+parser_error_double_p="$name_exec: Parse error near \`||'"
 
-parser_error_newline="Parser: Syntax error near '\n'"
+parser_error_redir="$name_exec: Parse error near \`< or >'"
+parser_error_redir_double="$name_exec: Parse error near \`>>'"
+
+parser_error_newline="$name_exec: Parse error near \`\n'"
+
+fatal="Fatal testing error: Couldn't catch the error."
+
+history_loc="/tmp/.21sh_history"
+home_tests="/tmp"
+cdnosuch="cd: no such file or directory"
 ##########################
 
 
@@ -41,21 +50,21 @@ fi
 check_leaks_function()
 {
 	if [[ $TESTS_CHECK_LEAKS -ne 0 ]]; then
-		leaks_direct=`grep -oP "definitely lost:\s+\K\w+" check_leaks_tmp.log`
-		leaks_indirect=`grep -oP "indirectly lost:\s+\K\w+" check_leaks_tmp.log`
-		leaks_reach=`grep -oP "still reachable:\s+\K\w+" check_leaks_tmp.log`
+		leaks_direct=$(grep "definitely lost:" check_leaks_tmp.log | grep "0 bytes in 0 blocks" | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g' | tr -d ' ')
+		leaks_indirect=$(grep "indirectly lost:" check_leaks_tmp.log | grep "0 bytes in 0 blocks" | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g' | tr -d ' ')
+		leaks_reach=$(grep "still reachable:" check_leaks_tmp.log | grep "0 bytes in 0 blocks" | wc -l | sed -e 's/1/Yes/g' -e 's/0/No/g' | tr -d ' ')
 		display_error_leaks $1
-		if [ $leaks_direct -ne "0" ] || [ $leaks_indirect -ne "0" ]; then
+		if [ "$leaks_direct" = "No" ] || [ $leaks_indirect = "No" ]; then
 			mkdir -p "${BATS_TEST_DIRNAME}/../valgrind_log/$1"
 			cp check_leaks_tmp.log ${BATS_TEST_DIRNAME}/../valgrind_log/$1/TEST-$BATS_TEST_NUMBER-AST.log
-		elif [ $leaks_reach -ne "0" ] && [ $TESTS_CHECK_LEAKS -eq 2 ]; then
+		elif [ "$leaks_reach" = "No" ] && [ $TESTS_CHECK_LEAKS -eq 2 ]; then
 			echo "[-- STILL REACHABLE!! --]"
 			mkdir -p "${BATS_TEST_DIRNAME}/../valgrind_log/$1"
 			cp check_leaks_tmp.log ${BATS_TEST_DIRNAME}/../valgrind_log/$1/TEST-$BATS_TEST_NUMBER-AST.log
-			[ $leaks_reach = "0" ]
+			[ "$leaks_reach" = "No" ]
 		fi
-		[ $leaks_direct = "0" ]
-		[ $leaks_indirect = "0" ]
+		[ "$leaks_direct" = "Yes" ]
+		[ "$leaks_indirect" = "Yes" ]
 	fi
 }
 

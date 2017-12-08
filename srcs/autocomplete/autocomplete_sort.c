@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string/ft_string.h>
-#include <ftprintf.h>
-#include <core/progname.h>
+#include <autocomplete/autocomplete.h>
 
 void autocomplete_sort_loop(t_string **tmp, t_array *content, size_t *tmp_pos)
 {
@@ -53,6 +51,6 @@ t_array	*autocomplete_sort_content(t_array *content)
 		tmp_pos = 0;
 		tmp = (t_string *)array_get_at(content, tmp_pos);
 	}
-	array_destroy(&content, NULL);
+	array_destroy(&content, &string_clear);
 	return (clone);
 }

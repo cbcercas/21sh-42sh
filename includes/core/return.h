@@ -6,12 +6,18 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/30 13:04:39 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/09/18 21:49:58 by chbravo-          ###   ########.fr      */
+/*   Updated: 2017/11/15 18:13:38 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RETURN_H
 # define RETURN_H
+
+/*
+** @file return.h
+**
+** @brief contains the return values enum
+*/
 
 typedef enum e_return	t_return;
 

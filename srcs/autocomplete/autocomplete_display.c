@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include <autocomplete/autocomplete.h>
-#include <core/tcaps.h>
-#include <core/prompt.h>
 
+//TODO Refactor with new input design (draw_input())
 void		autocomplete_display(t_array *content)
 {
 	if (!content || !content->used || content->used == 1)
@@ -24,11 +23,13 @@ void		autocomplete_display(t_array *content)
 	ft_putchar('\n');
 	autocomplete_display_cols(content);
 	ft_printf("\n");
-	autocomplete_display_prompt(g_input);
+	//why redraw prompt
+	autocomplete_display_prompt(get_windows(0)->cur);
 	raw_terminal_mode();
 }
 
 //TODO Refactor reset input, split history, print
+//TODO Refactor with new input design
 void		autocomplete_display_prompt(t_input *input)
 {
 	size_t	pos;
@@ -38,7 +39,7 @@ void		autocomplete_display_prompt(t_input *input)
 	//input->offset_col = sh_len_prompt();
 	//input->offset_line = 0;
 	//input->cpos.cp_line = 0;
-	input->select->is = false;
+	get_select()->is = false;
 	//input->cpos.cp_col = (unsigned short)input->offset_col;
 	sh_print_prompt(input, NULL, 0);
 	redraw_line(input);
@@ -48,7 +49,7 @@ void		autocomplete_display_prompt(t_input *input)
 
 void		autocomplete_display_input(t_input *input, int len)
 {
-	tputs(tgetstr("cr", NULL), 1, ft_putchar2);
+	tputs(tgetstr("cr", NULL), 1, &ft_putc_in);
 	autocomplete_display_prompt(input);
 	while (len--)
 		exec_arrow_right(NULL, input);

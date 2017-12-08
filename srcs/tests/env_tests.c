@@ -10,43 +10,59 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <environ/modif_env.h>
-#include <environ/builtin_env_utils.h>
-#include <environ/environ.h>
+#include <tests/sh_tests.h>
 
+/*
+** @brief Function to test the set module for the env
+**
+** @param av The arguments passsed to the test module
+*/
 
 void	sh_testing_env_set(char *const *av)
 {
 	int		i;
 
-	i = 4;
-	while(av[i] && ft_strchr(av[i], '='))
+	i = 1;
+	while (av[i] && ft_strchr(av[i], '='))
 	{
-		set_var(get_envs(), split_var_name(av[i]), split_var_value(av[i]));
+		set_var(get_envs(), split_var_name(av[i]), split_var_value(av[i]),
+				true);
 		i++;
 	}
 }
+
+/*
+** @brief Function to test the del function for the env
+**
+** @param av The arguments passsed to the test module
+*/
 
 void	sh_testing_env_del(char *const *av)
 {
 	int		i;
 
-	i = 4;
-	while(av[i])
+	i = 1;
+	while (av[i])
 	{
 		del_var(get_envs(), av[i]);
 		i++;
 	}
 }
 
-void sh_testing_env(char *const *av, char **environ)
+/*
+** @brief Main funtion used to test the env module
+**
+** @param av The arguments passed to the test module
+** @param environ The current environ
+*/
+
+void	sh_testing_env(char *const *av, char **environ)
 {
 	init_environ(environ);
-	if (av[3] && (ft_strequ(av[3], "set")))
+	if (av[0] && (ft_strequ(av[0], "set")))
 		sh_testing_env_set(av);
-	else if (av[3] && (ft_strequ(av[3], "del")))
+	else if (av[0] && (ft_strequ(av[0], "del")))
 		sh_testing_env_del(av);
-	print_vars(get_envs());
+	print_vars(get_envs(), true);
 	exit(0);
 }

@@ -10,13 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
 #include <history/history.h>
-#include <ftprintf.h>
-#include <logger.h>
-#include <libtcaps.h>
+#include <core/color.h>
 
-void sh_history_print()
+/*
+** @brief Prints the history entries and their number
+*/
+
+void	sh_history_print(void)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -24,15 +25,27 @@ void sh_history_print()
 
 	hists = sh_history_get();
 	i = 0;
+	if (!hists || !hists->used)
+	{
+		ft_dprintf(STDERR_FILENO, "%s: history: no history (yet)", PROGNAME);
+		return ;
+	}
 	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
-		ft_printf("%zu %s\n", i + 1 , h->cmd);
+		if (get_data(NULL) && get_data(NULL)->opts.color)
+			ft_printf("%s %zu %s %s\n", C_MAGENTA, i + 1, C_NONE, h->cmd);
+		else
+			ft_printf("%zu %s\n", i + 1, h->cmd);
 		i++;
 	}
 }
 
-void sh_history_print_in_log(void)
+/*
+** @brief Prints the history in the log
+*/
+
+void	sh_history_print_in_log(void)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -50,32 +63,4 @@ void sh_history_print_in_log(void)
 		i++;
 	}
 	log_dbg3("**************************************");
-}
-
-void	sh_history_clear_line(unsigned int nb_of_car)
-{
-	unsigned int		nb_of_ligne;
-	t_ts						ts;
-
-	ts = get_term_size();
-	nb_of_ligne = ((nb_of_car - 1) / ts.ts_cols) + 1;
-	if (nb_of_ligne != 1 && ((((nb_of_car - 1) % ts.ts_cols) == ts.ts_cols) ||
-					(((nb_of_car - 1) % ts.ts_cols) == 0)))
-		nb_of_ligne--;
-	while(nb_of_ligne)
-	{
-		tputs(tgetstr("cr", NULL), 0, &ft_putchar2);
-		tputs(tgetstr("cd", NULL), 0, &ft_putchar2);
-		if (nb_of_ligne > 1)
-			tputs(tgetstr("up", NULL), 0, &ft_putchar2);
-		nb_of_ligne--;
-	}
-}
-
-void	sh_history_clear_len(char *buff, char *result, BOOL fail)
-{
-	unsigned int len;
-
-	len = (fail == true ? 32 : 18);
-	sh_history_clear_line(len + ft_strlen(buff) + ft_strlen(result));
 }

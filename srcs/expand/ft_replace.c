@@ -10,9 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
+#include <expand/expand.h>
 
-int		ft_replace_init(char *src1, int index, int size)
+/*
+** @brief Checks if scr1 (The string to be modified) isnt to small compared
+** to index and size
+**
+** @param src1  String to be modified
+** @param index Where to start
+** @param size Size of the modification to be done
+**
+** @return Returns -1 on failure and 0 on success
+*/
+
+static int		ft_replace_init(char *src1, size_t index, int size)
 {
 	if (!src1 || ft_strlen(src1) < (size_t)(index + 1))
 		return (-1);
@@ -21,7 +32,18 @@ int		ft_replace_init(char *src1, int index, int size)
 	return (0);
 }
 
-char	*ft_replace_exp(char *src1, char *src2, int index, int size)
+/*
+** @brief Replaces in string `scr1` from `index` and during `size` with `scr2`
+**
+** @param src1 String to be modified
+** @param src2 String used to modify
+** @param index where to start
+** @param size For how long to modify
+**
+** @return Returns the mofified string
+*/
+
+char			*ft_replace_exp(char *src1, char *src2, size_t index, int size)
 {
 	char	*begin;
 	char	*end;

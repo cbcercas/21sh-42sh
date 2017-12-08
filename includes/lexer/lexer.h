@@ -6,35 +6,62 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/03 05:59:37 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 16:49:30 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/11/21 13:46:59 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include <stdlib.h>
+# include <types/bool.h>
 # include <parser/enum.h>
-# include <tests/ast_tests.h>
 # include <automaton/automaton.h>
 # include <core/return.h>
+# include <core/progname.h>
 
-typedef struct s_token	t_token;
+typedef struct s_token		t_token;
 typedef struct s_lexer_data	t_lexer_data;
 
-struct s_token
+/*
+** @file   lexer.h
+**
+** @brief  Function prototypes for the lexer module
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @struct s_token
+** @brief Token structure used for the lexer
+**
+** @arg str Pointer to the begining of the word in the string for this token
+** @arg len Lenght of the "word" of a token
+** @arg type The token type (cf lexer.c)
+*/
+
+struct						s_token
 {
-	char const			*str;
-	size_t				len;
-	t_token_type		type;
+	char const				*str;
+	size_t					len;
+	t_token_type			type;
 };
 
-struct s_lexer_data
-{
-	t_automaton	automaton;
+/*
+** @struct s_lexer_data
+**
+** @brief Contains the lexer data by way of automaton structure
+**
+** @param automaton The structure containing the automaton info
+*/
 
+struct						s_lexer_data
+{
+	t_automaton				automaton;
 };
-enum e_char_type
+
+enum						e_char_type
 {
 	E_CHAR_TYPE_NONE,
 	E_CHAR_TYPE_BLANK,
@@ -52,10 +79,38 @@ enum e_char_type
 	E_CHAR_TYPE_MAX
 };
 
-t_array	*lexer_init(t_array *toks);
-t_return lexer_lex(t_array *tokens, char const *input);
-void	lexer_print_tokens(t_array *tokens);
-void	lexer_clean_tokens(t_array *tokens);
-t_bool	is_token_type(t_token_type t);
+/*
+** @file lexer_init.c
+**
+** @brief Functions used to initialize the lexer
+*/
+
+t_array						*lexer_init(t_array *toks);
+t_return					lexer_get_incomplete_ret(t_stack_state cur_state);
+
+/*
+** @file lexer.c
+**
+** @brief Functions for the lexer itself
+*/
+
+t_return					lexer_lex(t_array *tokens, char const *input);
+void						lexer_print_tokens(t_array *tokens);
+
+/*
+** @file lexer_clean.c
+**
+** @brief Functions used to clear tokens (TODO)
+*/
+
+void						lexer_clean_tokens(t_array *tokens);
+
+/*
+** @file lexer_utils.c
+**
+** @brief Utility functions for the lexer modules
+*/
+
+t_bool						is_token_type(t_token_type t);
 
 #endif

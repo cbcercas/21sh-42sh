@@ -10,13 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
 #include <expand/expand.h>
-#include <logger.h>
-#include <ftprintf.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
 
-t_array	*expand_init(t_array *expand_array)
+/*
+** @brief Initializes the expand and its array
+**
+** @param expand_array The t_array containing the expand to be initialized
+**
+** @return Returns the initialized t_array if successful, NULL otherwise
+*/
+
+t_array		*expand_init(t_array *expand_array)
 {
 	expand_array = array_init(expand_array, sizeof(t_exp));
 	if (expand_array)
@@ -24,23 +28,36 @@ t_array	*expand_init(t_array *expand_array)
 		log_info("Expand: Initialization done");
 		return (expand_array);
 	}
-	log_fatal("Expand: Initialization failed");
-	ft_dprintf(2, "Expand: Initialization failed");
+	sh_exit_error("Expand: Initialization failed");
 	return (NULL);
 }
 
-t_exp *exp_create_new(t_token *tok)
-{
-  t_exp	*exp;
+/*
+** @brief Creates a new token with the same t_string
+**
+** @param tok Token source
+**
+** @return Returns the new token
+*/
 
-  if (!tok || !tok->str || !(exp = (t_exp*)ft_secu_malloc_lvl(sizeof(t_exp), M_LVL_EXPA)))
-    return (NULL);
-  exp->type = tok->type;
-  exp->str = string_ndup(tok->str, tok->len);
-  return (exp);
+t_exp		*exp_create_new(t_token *tok)
+{
+	t_exp	*exp;
+
+	if (!tok || !tok->str || !(exp = (t_exp*)ft_secu_malloc_lvl(sizeof(t_exp),
+																M_LVL_EXPA)))
+		return (NULL);
+	exp->type = tok->type;
+	exp->str = string_ndup(tok->str, tok->len);
+	return (exp);
 }
 
-void sh_exp_del(void *i)
+/*
+** @brief Deletes a part of the expand
+** @param i Part to be deleted
+*/
+
+void		sh_exp_del(void *i)
 {
 	t_exp *exp;
 
@@ -49,7 +66,12 @@ void sh_exp_del(void *i)
 		string_del(&(exp->str));
 }
 
-void sh_expand_destroy(t_array *array_exp)
+/*
+** @brief Destroys the expand
+** @param array_exp array containing the expand to be destroyed
+*/
+
+void		sh_expand_destroy(t_array *array_exp)
 {
 	if (array_exp)
 		array_destroy(&array_exp, sh_exp_del);

@@ -11,12 +11,22 @@
 /* ************************************************************************** */
 
 #include <environ/env_list_utils.h>
-#include <array/array.h>
 #include <environ/getter_env.h>
 #include <logger.h>
 
+/*
+** @brief Changes or creates a var with name `name` and value `value`
+**
+** @param vars The t_array containing the vars
+** @param name The name to create/modify
+** @param value The value to add/modify
+** @param is_export if is tmp var is_export is false, true otherwise
+**
+** @return Returns the new t_env
+*/
 
-t_env *set_var(t_array *vars, char const *name, char const *value)
+t_env	*set_var(t_array *vars, char const *name, char const *value,
+				BOOL is_export)
 {
 	t_env	*env;
 
@@ -27,7 +37,8 @@ t_env *set_var(t_array *vars, char const *name, char const *value)
 	}
 	else
 	{
-		if ((env = var_new(ft_strdup(name), ft_strdup(value))) != NULL)
+		if ((env = var_new(ft_strdup(name), ft_strdup(value),
+						is_export)) != NULL)
 		{
 			array_push(vars, (void *)env);
 			ft_memdel((void**)&env);
@@ -36,12 +47,22 @@ t_env *set_var(t_array *vars, char const *name, char const *value)
 	return (NULL);
 }
 
-t_env *del_var(t_array *vars, char const *name)
+/*
+** @brief Deletes a var from the given t_env
+** @param vars The t_array to delete from
+** @param name The name to be removed
+** @return The new t_env without the var
+*/
+
+t_env	*del_var(t_array *vars, char const *name)
 {
 	t_env		*e;
 	size_t		i;
 
 	i = 0;
+	e = NULL;
+	if (!vars)
+		return (NULL);
 	while (i < vars->used)
 	{
 		e = (t_env *)array_get_at(vars, i);
@@ -51,7 +72,11 @@ t_env *del_var(t_array *vars, char const *name)
 	}
 	if (i >= vars->used)
 		log_warn("Environ: can't find \"%s\" variables ", name);
-	else
-		vars = array_remove_at(vars, i, NULL);
+	else if (e)
+	{
+		ft_strdel(&e->name);
+		ft_strdel(&e->value);
+		array_remove_at(vars, i, NULL);
+	}
 	return (NULL);
 }

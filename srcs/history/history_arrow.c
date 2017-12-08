@@ -10,94 +10,71 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/input.h>
-#include <libtcaps.h>
 #include <history/history.h>
-#include <core/prompt.h>
-#include <core/tcaps.h>
 
-BOOL	history_exec_arrow_right(t_input *input)
+/*
+** @brief Called when a user presses up. Will parse the input and find
+** similar commands
+**
+** @param input The current input
+**
+** @return Returns the input once modified
+*/
+
+t_input	*sh_history_up(t_input *input)
 {
-	//TODO REFACTOR
-	(void)input;
-	if (((size_t)(input->cpos.cp_col + (input->offset_line  * input->ts->ws_col) - input->offset_col)) < input->str->len)
+	t_input		*new_inp;
+	t_input		*hist_inp;
+	t_window	*w;
+	char		*tmp;
+
+	w = get_windows(0);
+	hist_inp = (w->h_complet && w->save) ? w->save : input;
+	tmp = input_to_history(input_get_writable(hist_inp));
+	if (!(new_inp = input_from_history(history_get_prev(tmp))))
 	{
-		if (input->cpos.cp_col + 1 == input->ts->ws_col)
-			input->offset_line += 1;
-		move_cursor_right(&input->cpos, input->ts);
+		ft_strdel(&tmp);
+		tcaps_bell();
+		return (NULL);
 	}
-	else
-		write(1, "\a", 1);
-	return (false);
+	ft_strdel(&tmp);
+	return (new_inp);
 }
 
-void	sh_history_draw_line(t_input *input, const char *line)
+/*
+** @brief Called when a user presses down. Will parse the input and find
+** similar commands
+**
+** @param input The current input
+**
+** @return Returns the input once modified
+*/
+
+t_input	*sh_history_down(t_input *input)
 {
-	unsigned int len;
-	//TODO REFACTOR
+	t_input		*new_inp;
+	t_input		*hist_inp;
+	char		*tmp;
+	t_window	*w;
 
-	log_dbg3("History: draw=\"%s\" ", line);
-	sh_history_clear_line((unsigned int)(input->prompt_len + input->str->len));
-	//reset_input(input);
-	sh_print_prompt(input, NULL, 0);
-	if(line)
-		string_replace(input->str, line);
-	len = input->str->len;
-	redraw_line(input);
-	while(len--)
-		history_exec_arrow_right(input);
-}
-
-void	sh_history_up(t_input *input)
-{
-	t_array	*hists;
-	t_hist	*h;
-	t_hist	*first;
-	//TODO REFACTOR
-
-		hists = sh_history_get();
-		if ((first = (t_hist *)array_get_at(hists, 0)))
-		{
-			if (!hists->used)
-				return;
-			log_dbg3("History: buf=%s", first->buf);
-			log_dbg3("History: use=%d", hists->used);
-			log_dbg3("History: cur_head=%d", first->cur);
-			if (first->cur < 0)
-				first->cur = hists->used - 1;
-			else if(first->cur)
-				first->cur--;
-			if ((h = (t_hist *)array_get_at(hists, first->cur)))
-			{
-				sh_history_draw_line(input, (const char *) h->cmd);
-			}
-		}
-}
-
-void	sh_history_down(t_input *input)
-{
-	t_array	*hists;
-	t_hist	*h;
-	t_hist	*first;
-	//TODO REFACTOR
-
-		hists = sh_history_get();
-		if ((first = (t_hist *)array_get_at(hists, 0)))
-		{
-				if (!first->cur && !ft_strequ(first->cmd, input->str->s))
-					return ;
-				log_dbg3("History: buf=%s", first->buf);
-				log_dbg3("History: use=%d", hists->used);
-				log_dbg3("History: cur_head=%d", first->cur);
-				if(hists->used && (size_t)first->cur <= (hists->used - 1))
-					first->cur++;
-				if(first->cur == (int)hists->used)
-				{
-					sh_history_draw_line(input, (char *const)first->buf);
-					first->cur = -1;
-					return ;
-				}
-				if ((h = (t_hist *)array_get_at(hists, first->cur)))
-					sh_history_draw_line(input, (const char *)h->cmd);
-		}
+	w = get_windows(0);
+	new_inp = NULL;
+	hist_inp = (w->h_complet && w->save) ? w->save : input;
+	tmp = input_to_history(input_get_writable(hist_inp));
+	if (get_windows(0)->h_lvl >= 1
+			&& (new_inp = input_from_history(history_get_next(tmp))))
+	{
+		input = input_back_to_writable(input);
+		input_to_save(&input, new_inp);
+	}
+	else if (get_windows(0)->save && !new_inp)
+	{
+		get_windows(0)->h_lvl -= 1;
+		input = input_back_to_writable(input);
+		new_inp = input_from_save(&input);
+	}
+	if (!new_inp)
+		tcaps_bell();
+	ft_strdel(&tmp);
+	return (new_inp);
 }

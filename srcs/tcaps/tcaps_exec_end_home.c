@@ -11,28 +11,39 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/input.h>
 
 // TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_end(const t_key *key, t_input *input)
 {
-  size_t    i;
+	t_window	*wd;
+	t_cpos	dest;
 
-  i = 0;
 	(void)key;
-  while (input->str->len > i++)
-    exec_arrow_right(NULL, input);
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
+	if (get_select()->is)
+		return (false);
+	dest = input_get_last_pos(input);
+	move_cursor_to(&dest, &input->cpos, input->ts);
 	return (false);
 }
 
 // TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_start(const t_key *key, t_input *input)
 {
-  size_t    i;
+	t_window	*wd;
+	t_cpos	dest;
 
-  i = 0;
 	(void)key;
-  while (input->str->len > i++)
-    exec_arrow_left(NULL, input);
+	if (!(wd = get_windows(0)))
+		return (false);
+	if ((wd->autocomp && wd->autocomp->active))
+		return (false);
+	if (get_select()->is)
+		return (false);
+	dest = input_get_first_pos(input);
+	move_cursor_to(&dest, &input->cpos, input->ts);
 	return (false);
 }

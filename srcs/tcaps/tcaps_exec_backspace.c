@@ -11,20 +11,29 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/input.h>
 
 BOOL	exec_backspace(const t_key *key, t_input *input)
 {
-	(void)key;
+	t_window	*wd;
 
+	(void)key;
 	log_dbg3("User pressed backspace");
-	if (input->offset_line || (input->cpos.cp_col > input->offset_col))
+	if (!(wd = get_windows(0)) || (wd->autocomp && wd->autocomp->active))
+			return (false);
+	else if (wd->autocomp)
+		get_windows(100);
+	if (input->cpos.cp_line || (input->cpos.cp_col > input->offset_col))
 	{
-		exec_arrow_left(key, input);
+		exec_arrow_left_normal(input);
 		exec_delete(key, input);
 	}
+	else if (input->prev)
+	{
+		exec_arrow_left_normal(input->prev);
+		wd->cur = input->prev;
+		exec_delete(key, input->prev);
+	}
 	else
-		write(1, "\a", 1);
-	//TODO change to termcaps
+		tcaps_bell();
 	return (false);
 }

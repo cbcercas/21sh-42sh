@@ -11,11 +11,9 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/input.h>
 
-BOOL	key_exec(t_key *key, t_input *input)
-{
-	static t_key_exec	fn_exec[] = {
+static t_key_exec	fn_exec[] =
+	{
 		{KEY_CODE_RARROW, &exec_arrow_right},
 		{KEY_CODE_LARROW, &exec_arrow_left},
 		{KEY_CODE_DARROW, &exec_arrow_down},
@@ -27,29 +25,43 @@ BOOL	key_exec(t_key *key, t_input *input)
 		{KEY_CODE_CTRL_E, &exec_ctrl_e},
 		{KEY_CODE_CTRL_L, &exec_ctrl_l},
 		{KEY_CODE_CTRL_R, &exec_ctrl_r},
-		{KEY_CODE_ENTER, &exec_ctrl_j},
+		{KEY_CODE_ENTER,  &exec_ctrl_j},
 		{KEY_CODE_CTRL_R, &exec_ctrl_r},
 		{KEY_CODE_BACKSPACE, &exec_backspace},
 		{KEY_CODE_DELETE, &exec_delete},
 		{KEY_CODE_TAB, &exec_tab},
+#ifdef __APPLE__
 		{KEY_CODE_ALT_UARROW, &exec_alt_up},
 		{KEY_CODE_ALT_DARROW, &exec_alt_down},
 		{KEY_CODE_ALT_LARROW, &exec_alt_left},
 		{KEY_CODE_ALT_RARROW, &exec_alt_right},
-		{KEY_CODE_INSERT, &exec_select},
-		{KEY_CODE_ALT_I, &exec_select},
-		{KEY_CODE_ALT_S, &exec_select},
+#else
+		{KEY_CODE_CTRL_UARROW, &exec_alt_up},
+		{KEY_CODE_CTRL_DARROW, &exec_alt_down},
+		{KEY_CODE_CTRL_LARROW, &exec_alt_left},
+		{KEY_CODE_CTRL_RARROW, &exec_alt_right},
+#endif
+		{KEY_CODE_INSERT, &exec_insert},
+		{KEY_CODE_ALT_I, &exec_insert},
+		{KEY_CODE_ALT_S, &exec_insert},
 		{KEY_CODE_END, &exec_end},
 		{KEY_CODE_ALT_C, &exec_alt_c},
 		{KEY_CODE_ALT_V, &exec_alt_v},
 		{KEY_CODE_HOME, &exec_start},
+		{KEY_CODE_ESC, &exec_escape},
 		{KEY_CODE_NONE, NULL}
 	};
-	int				i;
 
-	i = -1;
-	while (fn_exec[++i].f != NULL)
+BOOL			key_exec(t_key *key, t_input *input)
+{
+	int			i;
+
+	i = 0;
+	while (fn_exec[i].f != NULL)
+	{
 		if (ft_strequ(fn_exec[i].key_code, key->key_code))
 			return (fn_exec[i].f(key, input));
+		i++;
+	}
 	return (false);
 }

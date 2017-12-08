@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/input.h>
 #include <autocomplete/autocomplete.h>
-#include <sys/stat.h>
 
 BOOL	autocomplete_is_directory(char *path)
 {
@@ -44,7 +42,11 @@ BOOL	autocomplete_is_command(t_input *input)
 		if (!tmp || !ft_strlen(tmp) || ft_strequ(tmp, "&&") || ft_strequ(tmp, "||")\
  || ft_strequ(tmp, ";") || ft_strequ(tmp, "|")\
  || ft_strequ(tmp, "&"))
+		{
+			ft_strdel(&tmp);
 			return (true);
+		}
+		ft_strdel(&tmp);
 	}
 	return (false);
 }
@@ -57,8 +59,12 @@ BOOL	autocomplete_is_path(t_input *input)
 	if (!input || !input->str || !input->str->s)
 		return (false);
 	tmp = find_word_cur(input);
-	if (tmp && ft_strchr(tmp, '/'))
+	if (tmp && (ft_strchr(tmp, '/') || *tmp == '.'))
+	{
+		ft_strdel(&tmp);
 		return (true);
+	}
+	ft_strdel(&tmp);
 	if (autocomplete_is_command(input) == true)
 		return (false);
 	return (true);

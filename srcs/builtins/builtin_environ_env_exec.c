@@ -10,36 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
-#include <environ/env_list_utils.h>
-#include <environ/environ.h>
-#include <exec/check_path.h>
-#include <tools/tools.h>
-#include <signals/signals.h>
+#include <builtins/builtin_env.h>
 
-extern int g_ret;
-
-char	**sh_builtin_env_to_tab(t_array *envs)
-{
-	t_env	*env;
-	char	**env_tab;
-	size_t	i;
-
-	if (!envs)
-		return (NULL);
-	env_tab = ft_memalloc(sizeof(*env_tab) * (envs->used + 2));
-	i = 0;
-	while (i < envs->used)
-	{
-		if (!(env = (t_env *)array_get_at(envs, i)))
-			return (NULL);
-		env_tab[i] = ft_strjoin(env->name, "=");
-		env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1);
-		i++;
-	}
-	env_tab[i] = NULL;
-	return (env_tab);
-}
+/*
+** @brief Executes what is passed through env -i
+** @param av The command to be executed and its args
+** @param envs The env
+** @return Returns the return value of the executed command
+*/
 
 int		sh_builtin_env_exec(char **av, t_array *envs)
 {
@@ -50,21 +28,21 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 	if (!av || !av[0])
 		return (0);
 	envtab = var_to_tab(envs);
-	cmd = NULL;
-	g_ret = 2;
+	*get_cmd_ret() = 2;
 	if ((cmd = get_filename(av[0])))
 	{
-		pid = sh_fork();
+		ignore_sigwinch();
+		pid = sh_fork(E_PID_CMD);
 		if (pid == 0)
 		{
 			execve(cmd, av, envtab);
 			exit(0);
 		}
 		else
-			g_ret = sh_ret(wait_sh());
+			*get_cmd_ret() = sh_return_cmd(sh_wait(0, 0));
 	}
+	restore_sigwinch();
 	ft_strdel(&cmd);
-	ft_freetab(envtab, sizeof(envtab));
-	envtab = NULL;
-	return (g_ret);
+	ft_freetab(envtab, ft_tablen(envtab));
+	return (*get_cmd_ret());
 }

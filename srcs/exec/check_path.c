@@ -6,19 +6,23 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/23 21:07:36 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/10/09 18:00:42 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/11/15 18:29:34 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <tools/tools.h>
-#include <environ/getter_env.h>
-#include <environ/builtin_env_utils.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
-#include <ftprintf.h>
-#include <core/progname.h>
+#include <exec/check_path.h>
+#include <core/input.h>
 
-char		*makefilepath(char const *path, char const *filename)
+/*
+** @brief Creates a filepath from a `path` and a `filename`
+**
+** @param path The path to use
+** @param filename The filename to use
+**
+** @return Returns the filename (`path` + `filename`)
+*/
+
+char			*makefilepath(char const *path, char const *filename)
 {
 	char	*filepath;
 
@@ -38,53 +42,102 @@ char		*makefilepath(char const *path, char const *filename)
 }
 
 /*
-** return string malloc filename with path
+** @brief Returns a malloc string containing the path
+**
+** @return Returns a malloc string containing the path
 */
-char	*sh_check_path(char const *cmd_name)
+
+static char		**get_env_path(void)
+{
+	char	**env_path;
+
+	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':',
+			M_LVL_FUNCT);
+	if (env_path)
+		return (env_path);
+	return (ft_strsplit_secu(get_var_value(get_vars(), "PATH"), ':',
+				M_LVL_FUNCT));
+}
+
+/*
+** @brief Checks the ret value and prints an error accordingly
+**
+** @param ret The error value
+** @param cmd_name The cmd executed that errored
+*/
+
+static void		sh_check_path_print_err(int ret, char const *cmd_name)
+{
+	if (ret == -1)
+		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n",
+				PROGNAME, cmd_name);
+	else if (ret == 0)
+		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n",
+				PROGNAME, cmd_name);
+	*get_cmd_ret() = 1;
+}
+
+/*
+** @brief Checks the path for a given command name (`cmd_name`)
+**
+** @param cmd_name Command name to be checked
+**
+** @return Returns the filename or NULL otherwise
+*/
+
+char			*sh_check_path(char const *cmd_name)
 {
 	char	**env_path;
 	char	*file;
 	int		ret;
 	int		tmp;
 
-	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':', M_LVL_FUNCT); //TODO check if PATH is in envs or in local var
 	ret = 0;
+	env_path = get_env_path();
 	while (env_path && *env_path)
 	{
 		if (!(file = makefilepath(*env_path, cmd_name)))
-			break;
-		if ((tmp = sh_test_access(file)) == 1)
+			break ;
+		if (!(tmp = sh_test_access(file)))
 			return (file);
-		else if (tmp == -1)
+		else if (tmp == 1)
 			ret = -1;
 		ft_strdel(&file);
 		env_path++;
 	}
-	if (ret == -1)
-		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n", PROGNAME, cmd_name);
-	else if (ret == 0)
-		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n", PROGNAME, cmd_name);
+	sh_check_path_print_err(ret, cmd_name);
 	ft_secu_free_lvl(M_LVL_FUNCT);
 	return (NULL);
 }
 
 /*
-** return string malloc filename
+** @brief get path of bin or test absolute path
+** @param av arguments exec
+** @return the absolute pathof bin or NULL otherwise
 */
 
-char *get_filename(char *av)
+char			*get_filename(char *av)
 {
-	int		tmp;
-	char	*ret;
+	char		*ret;
+	int			err;
+	struct stat	buf;
 
-	tmp = 0;
 	ret = NULL;
 	if (ft_strchr(av, '/'))
-		{
-			if ((tmp = sh_test_access(av)) == 1)
-				return (ft_strdup(av));
-			ft_printf("%s: permission denied: %s\n", PROGNAME, av);
-		}
+	{
+		if (!(err = lstat(av, &buf)) && buf.st_mode & S_IXUSR &&
+				!(S_ISDIR(buf.st_mode)))
+			return (ft_strdup(av));
+		if (!err && !(buf.st_mode & S_IXUSR))
+			ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n",
+					PROGNAME, av);
+		else if (err)
+			ft_dprintf(STDERR_FILENO, "%s: %s: No such file or directory\n",
+					PROGNAME, av);
+		else if (S_ISDIR(buf.st_mode))
+			ft_dprintf(STDERR_FILENO, "%s: sh: %s: is a directory\n",
+					PROGNAME, av);
+	}
 	else
 		ret = sh_check_path(av);
 	ft_secu_free_lvl(M_LVL_FUNCT);

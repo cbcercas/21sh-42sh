@@ -6,23 +6,52 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 09:27:49 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/05/17 16:49:24 by chbravo-         ###   ########.fr       */
+/*   Updated: 2017/11/15 18:23:48 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef ENV_LIST_UTILS_H
 # define ENV_LIST_UTILS_H
 
-typedef struct	s_env
+# include <libft.h>
+
+/*
+** @file   env_list_utils.h
+**
+** @brief  Function prototypes for the env utility things
+**
+** This contains the prototypes for the program,
+** and eventually any macros, constants,
+** or global variables you will need.
+*/
+
+/*
+** @brief Contains the environment
+**
+** @param next Contains a pointer to the next env value
+** @param name Contains the name of the env variable
+** @param value Contains the value of the env variable
+** @param is_export is set to true if the command is `X=Y` for example.
+*/
+
+typedef struct		s_env
 {
 	struct s_env	*next;
 	char			*name;
 	char			*value;
-}				t_env;
+	BOOL			is_export;
+}					t_env;
 
-char	*split_var_name(char const *env);
-char	*split_var_value(char const *env);
-t_env *var_new(char *name, char *value);
-void	del_env(t_env **e);
-void	sh_lst_env_del(t_env **head);
+/*
+** @file   env_list_utils.c
+**
+** @brief  Utility functions for the env
+*/
+
+char				*split_var_name(char const *env);
+char				*split_var_value(char const *env);
+t_env				*var_new(char *name, char *value, BOOL is_export);
+void				del_env(void *e);
+void				sh_lst_env_del(t_env **head);
 
 #endif

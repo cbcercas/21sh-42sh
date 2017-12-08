@@ -10,28 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include <btree/ft_btree.h>
 
-static int		btree_strlen(char *s)
-{
-	int		i;
+/*
+** @brief Displays a btree item
+**
+** @param str the btree item to display
+**
+** @return void
+*/
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-static void		btree_display_str(char *str)
+static void			btree_display_str(char *str)
 {
 	if (!str)
 	{
 		write(1, "NULL", 4);
 		return ;
 	}
-	write(1, str, btree_strlen(str));
+	write(1, str, ft_strlen(str));
 }
+
+/*
+** @brief Prints a node of the btree
+** @param this The btree node to print
+** @param current_level the current level in the btree
+** @param max_level The max depth in the btree
+** @param applyf function for display item in node
+*/
 
 static void			node_print(t_btree *this, int current_level, int max_level,\
 														char *(*applyf)(void *))
@@ -59,7 +64,13 @@ static void			node_print(t_btree *this, int current_level, int max_level,\
 	}
 }
 
-void			btree_print(t_btree *this, char *(*applyf)(void *))
+/*
+** @brief Prints the btree entirely
+** @param this The btree to be printed
+** @param applyf function for display item in node
+*/
+
+void				btree_print(t_btree *this, char *(*applyf)(void *))
 {
 	if (!this)
 		return ;

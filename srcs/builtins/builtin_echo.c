@@ -10,21 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <ftprintf.h>
-#include <core/data.h>
-#include <unistd/ft_unistd.h>
+#include <builtins/builtin_echo.h>
 
 extern int g_optind;
 
-char	*ft_replace(char *src1, char *src2, int index, int size)
+/*
+** @brief Replaces in src1 from index until size with scr2
+**
+** @param src1 String to modify
+** @param src2 String used to modify
+** @param index Where to start
+** @param size how long should it replace
+**
+** @return Returns the modified string
+*/
+
+static char	*ft_replace(char *src1, char *src2, int index, int size)
 {
 	char	*begin;
 	char	*end;
 	char	*ret;
 
-	begin = ft_strnew(index);
-	begin = ft_strncpy(begin, src1, index);
+	begin = ft_strnew((size_t)index);
+	begin = ft_strncpy(begin, src1, (size_t)index);
 	end = ft_strjoin(src2, &src1[index + size]);
 	ret = ft_strjoin(begin, end);
 	free(begin);
@@ -33,14 +41,22 @@ char	*ft_replace(char *src1, char *src2, int index, int size)
 	return (ret);
 }
 
-int		ft_index_strstr(const char *big, const char *little)
+/*
+** @brief Searches for occurrence of `little` in string `big`
+**
+** @param The string in which the function will search for `little`
+** @param The string to search in `big`
+**
+** @return Returns the index of where `little` starts in `big`
+*/
+
+static int	ft_index_strstr(const char *big, const char *little)
 {
 	unsigned int	i;
 	unsigned int	j;
 	unsigned int	temp;
 
 	i = 0;
-	j = 0;
 	if (little[0] == '\0')
 		return (0);
 	while (big[i])
@@ -60,7 +76,15 @@ int		ft_index_strstr(const char *big, const char *little)
 	return (-1);
 }
 
-char	*echo_parse(const char *src)
+/*
+** @brief Parses the `\\`x for echo
+**
+** @param src The string to parse
+**
+** @return Returns the parsed string
+*/
+
+static char	*echo_parse(const char *src)
 {
 	char		*ret;
 	int			index;
@@ -80,7 +104,19 @@ char	*echo_parse(const char *src)
 	return (ret);
 }
 
-void	echo_print(char **arg, char flag[2])
+/*
+** @brief Prints what the user asked
+**
+** @param arg The args passed to echo
+** @param flag is option
+** -n flag[0] = 1 , 0 otherwise
+** -e flag[1] = 1 , 0 or 2 otherwise
+** -E flag[1] = 2 , 0 or 1 otherwise
+**
+** @return Void
+*/
+
+static void	echo_print(char **arg, const char flag[2])
 {
 	unsigned int	i;
 	char			*tmp;
@@ -102,7 +138,15 @@ void	echo_print(char **arg, char flag[2])
 	}
 }
 
-int		sh_echo(t_sh_data *data, char **argv)
+/*
+** @brief The function called when echo is executed
+** @param data The shell data used throughout the program
+** @param argv The args passed to echo
+**
+** @return Returns the ret value of echo
+*/
+
+int			sh_echo(t_sh_data *data, char **argv)
 {
 	int		opt;
 	char	flag[2];
@@ -110,7 +154,7 @@ int		sh_echo(t_sh_data *data, char **argv)
 	(void)data;
 	ft_bzero(flag, 2);
 	ft_getopt_reset();
-	while ((opt = ft_getopt(ft_tablen(argv), argv, "Een")) != -1)
+	while ((opt = ft_getopt(((int)ft_tablen(argv)), argv, "Een")) != -1)
 	{
 		if (opt == 'n')
 			flag[0] = 1;
@@ -123,12 +167,8 @@ int		sh_echo(t_sh_data *data, char **argv)
 	}
 	if (opt != '?')
 		echo_print(&argv[g_optind], flag);
-	if (!(flag[0] && opt != '?'))
+	if (!(flag[0] && opt != '?') && opt != '?')
 		ft_putstr("\n");
 	ft_getopt_reset();
-	return (((opt != '?') ? 0 : -1));
+	return (((opt != '?') ? 0 : 1));
 }
-/*
-**For flag var in function sh_echo
-**0 => n,  1 => e
-*/

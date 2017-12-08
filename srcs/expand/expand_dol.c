@@ -10,99 +10,119 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <array/array.h>
-#include <environ/env_list_utils.h>
-#include <environ/builtin_env_utils.h>
 #include <expand/expand.h>
-#include <core/progname.h>
-#include <environ/getter_env.h>
 
+/*
+** @brief Gets the env or local var value of a `name` named variable
+** @param name The name of the variable you want
+** @return Returns the value of var `name`
+*/
 
-char	*sh_getenv_exp(const char *name)
+static char		*sh_getenv_exp(const char *name)
 {
-	t_array	*envs;
-	t_env	*e;
-	size_t	i;
+	char	*value;
 
-	i = 0;
-	envs = get_envs();
-	while (i < envs->used)
-	{
-		e = (t_env *)array_get_at(envs, i);
-		if (e->name && ft_strequ(e->name, name))
-			return (e->value);
-		i++;
-	}
+	if ((value = get_var_value(get_envs(), name)))
+		return (value);
+	if ((value = get_var_value(get_vars(), name)))
+		return (value);
 	return (NULL);
 }
 
-int ft_is_spec(int c)
+/*
+** @brief Checks if `c` is a `$`, `?` or `0`
+**
+** @param c The char to check
+**
+** @return Returns 1 if `c` is any of the three char, else returns 0
+*/
+
+int				ft_is_spec(int c)
 {
 	return (c == '$' || c == '?' || c == '0');
 }
 
-void expand_dol_spec_replace(t_exp *exp, int *i)
+/*
+** @brief Replaces in `str` from `i` the special $
+** @param str String to be changed
+** @param i Where to start
+*/
+
+static void		expand_dol_spec_replace(t_string *str, size_t *i)
 {
 	char	*tmp;
 	BOOL	fri;
 
 	fri = false;
 	tmp = NULL;
-	if (exp->str->s[*i + 1] == '?' && !(fri = false))
-		tmp = "0";// TODO: faire quand exec termine, avec global
-	else if (exp->str->s[*i + 1] == '0' && !(fri = false))
+	if (str->s[*i + 1] == '?' && (fri = true))
+		tmp = ft_itoa(*get_cmd_ret());
+	else if (str->s[*i + 1] == '0' && !(fri = false))
 		tmp = PROGNAME;
-	else if (exp->str->s[*i + 1] == '$' && (fri = true))
+	else if (str->s[*i + 1] == '$' && (fri = true))
 		tmp = ft_itoa(getpid());
 	if (tmp)
 	{
-		exp->str->s = ft_replace_exp(exp->str->s, tmp, *i, 2);
+		str->s = ft_replace_exp(str->s, tmp, *i, 2);
 		*i += ft_strlen(tmp);
 	}
-	(fri && tmp) ? ft_strdel((char **)&tmp) : 0;
+	(fri && tmp) ? ft_strdel(&tmp) : 0;
 }
 
-void expand_dol_replace(t_exp *exp, int len, int *i)
+/*
+** @brief Replaces in `str` from `i` for `len` size a variable
+**
+** @param str String to be changed
+** @param len For how long to change
+** @param i Where to start
+*/
+
+static void		expand_dol_replace(t_string *str, int len, size_t *i)
 {
 	char	car_tmp;
 	char	*tmp;
 
-	car_tmp = exp->str->s[*i + 1 + len];
-	exp->str->s[*i + 1 + len] = 0;
-	tmp = sh_getenv_exp(&exp->str->s[*i + 1]);
-	exp->str->s[*i + 1 + len] = car_tmp;
+	car_tmp = str->s[*i + 1 + len];
+	str->s[*i + 1 + len] = 0;
+	tmp = sh_getenv_exp(&str->s[*i + 1]);
+	str->s[*i + 1 + len] = car_tmp;
 	if (tmp)
-		exp->str->s = ft_replace_exp(exp->str->s, tmp, *i, len + 1);
+		str->s = ft_replace_exp(str->s, tmp, *i, len + 1);
 	else
-		exp->str->s = ft_replace_exp(exp->str->s, "", *i, len + 1);
+		str->s = ft_replace_exp(str->s, "", *i, len + 1);
 	*i += ft_strlen(tmp);
 }
 
-void expand_dol(t_exp *exp)
+/*
+** @brief Expands the $
+** @param str String to be expanded
+*/
+
+void			expand_dol(t_string *str)
 {
-	int			i;
-  int     len;
-  char    *tmp;
+	size_t		i;
+	int			len;
+	char		*tmp;
 
 	i = 0;
-  len = 0;
-  if (exp->type != E_TOKEN_WORD && exp->type != E_TOKEN_DQUOTE)
-    return ;
-	while (exp->str->s[i])
+	while (str->s[i])
 	{
-		  len = 0;
-		if (exp->str->s[i] == '$' && (ft_isalnum(exp->str->s[i + 1]) ||\
-		 ft_is_spec(exp->str->s[i + 1])) && (i == 0 || exp->str->s[i - 1] != '\\'))
+		len = 0;
+		if (str->s[i] == '\\' && str->s[i + 1])
+			i += 2;
+		if (str->s[i] == '$' && str->s[i + 1])
 		{
-      while(exp->str->s[i + 1 + len] && ft_isalnum(exp->str->s[i + 1 + len]))
-        len++;
-			(ft_is_spec(exp->str->s[i + 1])) ? expand_dol_spec_replace(exp, &i) :\
-			 expand_dol_replace(exp, len, &i);
+			while (str->s[i + 1 + len] && ft_isalnum(str->s[i + 1 + len]))
+				len++;
+			ft_is_spec(str->s[i + 1]) ? expand_dol_spec_replace(str, &i) :
+			expand_dol_replace(str, len, &i);
 		}
-		else if (exp->str->s[i] == '~' && (tmp = get_var_value(get_envs(), "HOME")) &&\
-		 				(i == 0 || exp->str->s[i - 1] != '\\') )
-			exp->str->s = ft_replace_exp(exp->str->s, tmp, i, 1);
+		else if (str->s[i] == '~' && ((tmp = get_var_value(get_envs(),
+						"HOME")) || (tmp =
+										get_var_value(get_vars(), "HOME"))))
+			str->s = ft_replace_exp(str->s, tmp, i, 1);
 		else
 			i++;
 	}
+	str->len = ft_strlen(str->s);
 }

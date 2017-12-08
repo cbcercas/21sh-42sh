@@ -1,11 +1,26 @@
-#include <types/bool.h>
-#include <string/ft_string.h>
-#include <parser/enum.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_quote.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/12 16:00:24 by jlasne            #+#    #+#             */
+/*   Updated: 2017/10/17 14:08:48 by jlasne           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <expand/expand.h>
 
-char 	find_first_quote(const char *str)
+/*
+** @brief Searches the string `str` to find a `'` or `"`
+** @param str String to be searched
+** @return Returns the first `'` or `"` it'll find
+*/
+
+char	find_first_quote(const char *str)
 {
-	int 	i;
+	int		i;
 
 	i = -1;
 	while (str[++i])
@@ -18,34 +33,44 @@ char 	find_first_quote(const char *str)
 	return (0);
 }
 
+/*
+** @brief Expands the `\`
+**
+** @param string String to be expanded
+** @param type The type of the current token
+**
+** @return Returns true if ignored, false otherwise
+*/
+
 BOOL	expand_antislash(t_string *string, t_token_type type)
 {
-	int 	i;
+	int		i;
 	BOOL	ignore;
 
 	ignore = false;
 	i = -1;
 	while (string->s[++i])
 	{
-		if (string->s[i] == '\\' && (string->s[i + 1] == '\\' || string->s[i + 1] == '\'' || string->s[i + 1] == '\"'))
+		if (string->s[i] == '\\' && (string->s[i + 1] == '\\' ||
+						string->s[i + 1] == '\'' || string->s[i + 1] == '\"'))
 		{
 			if (string->s[i + 1] != '\\')
 				ignore = true;
-			string_remove_char(string, i);
+			string_remove_char(string, (size_t)i);
 			i++;
 		}
 		if (type == E_TOKEN_WORD)
 			if (string->s[i] == '\\' && string->s[i + 1] != '\\')
-				string_remove_char(string, i);
+				string_remove_char(string, (size_t)i);
 	}
 	return (ignore);
 }
 
-t_exp   *expand_remove_quote(t_exp *exp)
+t_exp	*expand_remove_quote(t_exp *exp)
 {
 	char		*c;
-	char 		quote;
-	BOOL 		ignore;
+	char		quote;
+	BOOL		ignore;
 
 	ignore = false;
 	if (exp->type != E_TOKEN_SQUOTE)

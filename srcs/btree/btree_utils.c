@@ -11,11 +11,19 @@
 /* ************************************************************************** */
 
 #include <btree/ft_btree.h>
-#include <unistd.h>
-#include <ft_secu_malloc/ft_secu_malloc.h>
 
-void	*btree_search_item(t_btree *root, void *data_ref,
-                           int (*cmpf)(void *, void *))
+/*
+** @brief Searches for an item in the btre
+**
+** @param root The btree to search
+** @param data_ref The reference data to search
+** @param cmpf function for compare the item in node with data_ref
+**
+** @return returns the found item
+*/
+
+void		*btree_search_item(t_btree *root, void *data_ref,
+							int (*cmpf)(void *, void *))
 {
 	if (root == NULL)
 		return (0);
@@ -29,7 +37,16 @@ void	*btree_search_item(t_btree *root, void *data_ref,
 		return (0);
 }
 
-void	btree_destroy(t_btree **root, void (*del)(void *))
+/*
+** @brief Destroys the btree
+**
+** @param root The btree to be destroyed
+** @param del The function used to del item
+**
+** @return void
+*/
+
+void		btree_destroy(t_btree **root, void (*del)(void *))
 {
 	if (!root || !(*root))
 		return ;
@@ -48,7 +65,14 @@ void	btree_destroy(t_btree **root, void (*del)(void *))
 	(*root) = NULL;
 }
 
-int	ft_max(int left, int right)
+/*
+** @brief Returns the biggest integer
+** @param left First integer to test
+** @param right Second integet to test
+** @return Returns the biggest
+*/
+
+int			ft_max(int left, int right)
 {
 	if (left > right)
 		return (left);
@@ -56,10 +80,16 @@ int	ft_max(int left, int right)
 		return (right);
 }
 
-int	btree_level_count(t_btree *root)
+/*
+** @brief count the nb of level from root
+** @param root The btree
+** @return nb of level
+*/
+
+int			btree_level_count(t_btree *root)
 {
 	if (!root)
 		return (0);
 	return (ft_max(btree_level_count(root->left),
-	               btree_level_count(root->right)) + 1);
+					btree_level_count(root->right)) + 1);
 }
