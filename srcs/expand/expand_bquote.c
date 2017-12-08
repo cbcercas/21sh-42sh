@@ -6,7 +6,7 @@
 /*   By: mleroy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/07 14:21:42 by mleroy            #+#    #+#             */
-/*   Updated: 2017/12/07 16:46:53 by mleroy           ###   ########.fr       */
+/*   Updated: 2017/12/07 17:55:20 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void		*expand_bquote(t_string *str)
 	char	buffer[4096];
 
 	sh_pipe(tube);
+	// FORK here pliz
+
 	dup2(STDOUT_FILENO, tube[0]);
 	//delete//////////////////////////////////////////
 	ft_putnstr(str->s, str->len);
