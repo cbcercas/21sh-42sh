@@ -112,7 +112,7 @@ char			*sh_get_line(t_input *input, t_sh_opt *opts)
 			stop = key_exec(&key, get_windows(0));
 		else if (MAX_LEN_INPUT <= input->str->len)
 			tcaps_bell();
-		else if (ft_isprintstr(buff) && !get_select()->is &&
+		else if (is_printstr(buff) && !get_select()->is &&
 				!ft_strchr(buff, '\n') && !sh_get_line_insert(input, key))
 			return (NULL);
 		input = input_get_cur();

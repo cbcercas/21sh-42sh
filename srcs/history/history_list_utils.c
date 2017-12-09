@@ -24,7 +24,7 @@ t_hist	*sh_history_new(char *cmd)
 {
 	t_hist	*h;
 
-	if (sh_history_is_space_plus(cmd) || !ft_isprintstr(cmd))
+	if (sh_history_is_space_plus(cmd) || !is_printstr(cmd))
 		return (NULL);
 	if ((h = ft_memalloc(sizeof(*h))) == NULL)
 		sh_exit_error("History: can't create new history command");

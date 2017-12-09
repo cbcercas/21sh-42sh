@@ -102,7 +102,7 @@ t_hist		*sh_history_set_new(char **cmd)
 	t_array	*hists;
 	t_hist	*h;
 
-	if (!*cmd && (sh_history_is_space_plus(*cmd) || !ft_isprintstr(*cmd)))
+	if (!*cmd && (sh_history_is_space_plus(*cmd) || !is_printstr(*cmd)))
 		return (NULL);
 	hists = sh_history_get();
 	if ((h = (t_hist *)array_get_at(hists, 0)))

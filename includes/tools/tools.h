@@ -44,6 +44,7 @@ BOOL		is_white(int c);
 BOOL		is_str_car(const char *buff);
 BOOL		is_redirect(int c);
 BOOL		is_sepa(int c);
+BOOL		is_printstr(char const *line);
 
 /*
 ** @file sh_test_access.c

@@ -160,6 +160,7 @@ set(SOURCE_FILES
 		srcs/tools/getpwd.c
 		srcs/tools/sh_ret.c
 		srcs/tools/array_free_elem.c
+		srcs/tools/is_printstr.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c
