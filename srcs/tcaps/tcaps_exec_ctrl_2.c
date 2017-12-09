@@ -62,7 +62,7 @@ BOOL			exec_ctrl_j(const t_key *key, t_window *wd)
 		return (exec_ctrl_j_select(wd));
 	if (wd->select.is)
 		return (false);
-	if (expand_hist_find(input_back_to_writable(wd->cur), &tmp_i))
+	if (expand_hist_find(input_get_writable(wd->cur), &tmp_i))
 		return (exec_ctr_j_hist(wd->cur));
 	if (MAX_NB_INPUT < count_nb_input(input_get_cur_head()))
 	{
