@@ -50,12 +50,12 @@ static BOOL	exec_tab_one(char *cur, t_array *arr, t_window *wd)
 	return (false);
 }
 
-BOOL	exec_tab(const t_key *key, t_window *wd)
+BOOL		exec_tab(const t_key *key, t_window *wd)
 {
 	char	*current;
 	t_array	*arr;
 
-	(void) key;
+	(void)key;
 	if (wd->select.is
 		|| !wd->cur || !wd->cur->str || !wd->cur->str->len)
 		return (false);

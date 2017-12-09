@@ -17,7 +17,7 @@ BOOL	exec_backspace(const t_key *key, t_window *wd)
 	(void)key;
 	log_dbg3("User pressed backspace");
 	if (wd->autocomp && wd->autocomp->active)
-			return (false);
+		return (false);
 	else if (wd->autocomp)
 		get_windows(100);
 	if (wd->cur->cpos.cp_line || (wd->cur->cpos.cp_col > wd->cur->offset_col))

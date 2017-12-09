@@ -59,10 +59,8 @@ BOOL			exec_alt_c(const t_key *key, t_window *wd)
 	size_t		end;
 
 	(void)key;
-	if (wd->autocomp && wd->autocomp->active)
+	if (!tcaps_init(wd))
 		return (false);
-	else if (wd->autocomp)
-		get_windows(100);
 	if (!get_select()->is)
 		return (false);
 	str = NULL;

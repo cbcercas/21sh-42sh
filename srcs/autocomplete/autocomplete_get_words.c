@@ -37,7 +37,7 @@ int		nb_of_word(char *s)
 
 char	*find_word_after(t_input *input)
 {
-	char	*tmp;
+	char		*tmp;
 	ssize_t		i;
 	ssize_t		end;
 
@@ -60,7 +60,7 @@ char	*find_word_cur(t_input *input)
 {
 	size_t		i;
 	size_t		end;
-	char	*tmp;
+	char		*tmp;
 
 	if (!input || !input->str || !input->str->s)
 		return (NULL);

@@ -26,7 +26,6 @@ BOOL	exec_arrow_right(const t_key *key, t_window *wd)
 
 BOOL	exec_arrow_left(const t_key *key, t_window *wd)
 {
-
 	log_dbg1("dispatch arrow left.");
 	if (wd->autocomp && wd->autocomp->active)
 		return (exec_arrow_left_select(wd->autocomp));

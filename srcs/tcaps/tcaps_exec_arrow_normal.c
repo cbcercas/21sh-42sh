@@ -28,8 +28,9 @@ BOOL	exec_arrow_right_normal(t_window *wd)
 			wd->cur->select_pos.cur_start = pos_in_str(wd->cur);
 		}
 	}
-	else if ((unsigned)(wd->cur->cpos.cp_col + (wd->cur->cpos.cp_line * wd->ts.ws_col)
-						- wd->cur->offset_col) < wd->cur->str->len)
+	else if ((unsigned)(wd->cur->cpos.cp_col +
+			(wd->cur->cpos.cp_line * wd->ts.ws_col) -
+			wd->cur->offset_col) < wd->cur->str->len)
 		move_cursor_right(&wd->cur->cpos, &wd->ts);
 	wd->cur->select_pos.cur_end = pos_in_str(wd->cur);
 	return (false);
@@ -40,7 +41,6 @@ BOOL	exec_arrow_left_normal(t_window *wd)
 	log_dbg1("exec arrow left normal.");
 	if (pos_in_str(wd->cur) == 0 && wd->cur->prev && !wd->cur->prev->lock)
 	{
-		log_dbg1("COUCOU*************************************");
 		wd->cur = wd->cur->prev;
 		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
 		wd->cur->cpos = input_get_last_pos(wd->cur);
@@ -58,4 +58,3 @@ BOOL	exec_arrow_left_normal(t_window *wd)
 	wd->cur->select_pos.cur_end = pos_in_str(wd->cur);
 	return (false);
 }
-

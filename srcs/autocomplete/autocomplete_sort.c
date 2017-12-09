@@ -12,7 +12,8 @@
 
 #include <autocomplete/autocomplete.h>
 
-void autocomplete_sort_loop(t_string **tmp, t_array *content, size_t *tmp_pos)
+void	autocomplete_sort_loop(t_string **tmp, t_array *content,
+							size_t *tmp_pos)
 {
 	t_string	*tmp2;
 	size_t		i;

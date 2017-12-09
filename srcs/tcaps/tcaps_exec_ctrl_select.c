@@ -12,13 +12,14 @@
 
 #include <core/tcaps.h>
 
-BOOL exec_ctrl_j_select(t_window *wd)
+BOOL	exec_ctrl_j_select(t_window *wd)
 {
 	t_sel_word	*word;
 	size_t		len;
 
 	word = word_get_current();
-	if (!string_insert(wd->cur->str, word->word + wd->autocomp->cur_word, pos_in_str(wd->cur)))
+	if (!string_insert(wd->cur->str, word->word +
+			wd->autocomp->cur_word, pos_in_str(wd->cur)))
 		return (false);
 	len = ft_strlen(word->word);
 	exec_escape_select(wd);

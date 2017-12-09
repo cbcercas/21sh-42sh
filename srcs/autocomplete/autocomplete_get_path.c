@@ -12,16 +12,17 @@
 
 #include <autocomplete/autocomplete.h>
 
-char		*autocomplete_get_path(char *s)
+char			*autocomplete_get_path(char *s)
 {
 	char *ret;
 	char *tmp;
 
 	if (!s)
-		return (".");
+		return (ft_strdup("."));
 	if (ft_strchr(s, '/'))
 	{
-		ret = ft_strdup(s);
+		if (!(ret = ft_strdup(s)))
+			sh_exit_error("Malloc Error");
 		tmp = ft_strrchr(ret, '/');
 		*++tmp = 0;
 		return (ret);
@@ -30,7 +31,7 @@ char		*autocomplete_get_path(char *s)
 }
 
 static t_string	*make_content_path(t_array *content, char *path,
-									  struct dirent *file)
+									struct dirent *file)
 {
 	t_string	*tmp;
 
@@ -52,7 +53,7 @@ static t_string	*make_content_path(t_array *content, char *path,
 	return (tmp);
 }
 
-t_array		*autocomplete_get_content_paths(char *path)
+t_array			*autocomplete_get_content_paths(char *path)
 {
 	t_array			*content;
 	DIR				*dir;

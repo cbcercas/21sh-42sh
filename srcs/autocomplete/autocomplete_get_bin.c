@@ -35,7 +35,7 @@ static void		autocomplete_push_one(t_array *content, struct dirent *file,\
 	ft_strdel(&path);
 }
 
-t_array	*autocomplete_get_bin(char *begin)
+t_array			*autocomplete_get_bin(char *begin)
 {
 	t_array			*content;
 	DIR				*dir;

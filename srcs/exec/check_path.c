@@ -73,7 +73,8 @@ static void		sh_check_path_print_err(int ret, char const *cmd_name, char **free)
 		ft_dprintf(STDERR_FILENO, "%s: command not found: %s\n",
 				PROGNAME, cmd_name);
 	*get_cmd_ret() = 1;
-	ft_freetab(free, ft_tablen(free));
+	if (free)
+		ft_freetab(free, ft_tablen(free));
 }
 
 /*

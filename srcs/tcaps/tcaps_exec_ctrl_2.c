@@ -42,7 +42,7 @@ static BOOL		exec_ctrl_j2(t_window *wd)
 	return (false);
 }
 
-static BOOL			exec_ctr_j_hist(t_input *input)
+static BOOL		exec_ctr_j_hist(t_input *input)
 {
 	while (input->prev && !input->prev->lock)
 		input = input->prev;
@@ -70,7 +70,8 @@ BOOL			exec_ctrl_j(const t_key *key, t_window *wd)
 		return (false);
 	}
 	tmp = input_get_last(wd->cur);
-	if (tmp && tmp->str && tmp->str->len && tmp->str->s[tmp->str->len - 1] == '\\')
+	if (tmp && tmp->str && tmp->str->len &&
+			tmp->str->s[tmp->str->len - 1] == '\\')
 		return (exec_ctrl_j2(wd));
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	tputs("\n", 0, &ft_putc_in);
@@ -81,7 +82,6 @@ BOOL			exec_ctrl_j(const t_key *key, t_window *wd)
 BOOL			exec_ctrl_r(const t_key *key, t_window *wd)
 {
 	(void)key;
-
 	if ((wd->autocomp && wd->autocomp->active))
 		return (false);
 	else if (wd->autocomp)
@@ -115,7 +115,6 @@ BOOL			exec_ctrl_l(const t_key *key, t_window *wd)
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	sh_print_prompt(wd->cur, NULL, E_RET_REDRAW_PROMPT);
 	redraw_input(wd->cur);
-	//TODO refactor using tgoto
 	wd->cur = goto_input(wd->cur, tmp);
 	move_cursor_to(&pos, &wd->cur->cpos, get_ts());
 	return (false);

@@ -13,7 +13,7 @@
 #include <types/bool.h>
 #include <core/tcaps.h>
 
-BOOL exec_escape_select(t_window *wd)
+BOOL	exec_escape_select(t_window *wd)
 {
 	t_cpos		cpos;
 
@@ -32,7 +32,7 @@ BOOL exec_escape_select(t_window *wd)
 	return (false);
 }
 
-BOOL exec_escape(const t_key *key, t_window *wd)
+BOOL	exec_escape(const t_key *key, t_window *wd)
 {
 	(void)key;
 	if (wd->autocomp)

@@ -12,7 +12,6 @@
 
 #include <core/tcaps.h>
 
-// TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_end(const t_key *key, t_window *wd)
 {
 	t_cpos	dest;
@@ -29,7 +28,6 @@ BOOL	exec_end(const t_key *key, t_window *wd)
 	return (false);
 }
 
-// TODO rewrite using tgoto and prompt len/offset col
 BOOL	exec_start(const t_key *key, t_window *wd)
 {
 	t_cpos	dest;

@@ -12,14 +12,14 @@
 
 #include <autocomplete/autocomplete.h>
 
-size_t autocomplete_len_useless(const char *s)
+size_t			autocomplete_len_useless(const char *s)
 {
 	size_t		len;
 
 	if (!s)
 		return (0);
 	len = 0;
-	while (s && ((*s == '.'  && (s[1] == '.' || s[1] == '/')) || *s == '/'))
+	while (s && ((*s == '.' && (s[1] == '.' || s[1] == '/')) || *s == '/'))
 	{
 		len++;
 		s++;
@@ -62,8 +62,7 @@ t_array			*autocomplete(t_array *content, t_input *input)
 		content = autocomplete_filter(content, input);
 	if (content && content->used == 0)
 		array_destroy(&content, (void *(*)(void *))&string_clear);
-	if (content && content->used <= 3000 && content->used != 1) //TODO : voir si on baisse la limit
+	if (content && content->used <= 3000 && content->used != 1)
 		content = autocomplete_sort_content(content);
-	//ft_secu_free_lvl(M_LVL_AUTOC);
 	return (content);
 }

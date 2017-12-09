@@ -26,7 +26,7 @@ void			reset_insert_pos(void)
 	}
 }
 
-void		exec_insert_off(t_input *input)
+void			exec_insert_off(t_input *input)
 {
 	size_t		pos_str;
 	t_cpos		dest;
@@ -75,7 +75,6 @@ BOOL			exec_insert(const t_key *key, t_window *wd)
 	return (false);
 }
 
-//TODO rename
 BOOL			exec_insert_arrows(const t_key *key, t_window *wd)
 {
 	size_t			start;

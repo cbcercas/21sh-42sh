@@ -25,8 +25,8 @@ BOOL	autocomplete_is_directory(char *path)
 
 BOOL	autocomplete_is_command(t_input *input)
 {
-	int nb_word;
-	char *tmp;
+	int		nb_word;
+	char	*tmp;
 
 	if (!input || !input->str || !input->str->s)
 		return (true);
@@ -38,9 +38,9 @@ BOOL	autocomplete_is_command(t_input *input)
 	else if (nb_word > 1)
 	{
 		tmp = find_word_after(input);
-		if (!tmp || !ft_strlen(tmp) || ft_strequ(tmp, "&&") || ft_strequ(tmp, "||")\
- || ft_strequ(tmp, ";") || ft_strequ(tmp, "|")\
- || ft_strequ(tmp, "&"))
+		if (!tmp || !ft_strlen(tmp) || ft_strequ(tmp, "&&") ||
+				ft_strequ(tmp, "||") || ft_strequ(tmp, ";") ||
+				ft_strequ(tmp, "|") || ft_strequ(tmp, "&"))
 		{
 			ft_strdel(&tmp);
 			return (true);
@@ -49,7 +49,6 @@ BOOL	autocomplete_is_command(t_input *input)
 	}
 	return (false);
 }
-
 
 BOOL	autocomplete_is_path(t_input *input)
 {

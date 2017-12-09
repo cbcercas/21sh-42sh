@@ -108,10 +108,8 @@ BOOL		exec_alt_v(const t_key *key, t_window *wd)
 	char		*save;
 
 	(void)key;
-	if (wd->autocomp && wd->autocomp->active)
+	if (!tcaps_init(wd))
 		return (false);
-	else if (wd->autocomp)
-		get_windows(100);
 	if (get_select()->is || !wd->cur || !wd->cur->str || !get_select()->str)
 		return (false);
 	save = get_select()->str;

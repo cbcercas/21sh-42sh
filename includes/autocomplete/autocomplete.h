@@ -27,7 +27,7 @@
 int		nb_of_word(char *s);
 char	*find_word_after(t_input *input);
 char	*find_word_cur(t_input *input);
-size_t get_nb_word_cur(t_input *input);
+size_t	get_nb_word_cur(t_input *input);
 size_t	get_index_cur(t_input *input);
 BOOL	autocomplete_is_command(t_input *input);
 BOOL	autocomplete_is_path(t_input *input);

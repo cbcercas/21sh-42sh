@@ -168,7 +168,7 @@ set(SOURCE_FILES
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
 		srcs/tests/local_var_tests.c
-        srcs/tools/print_verb.c srcs/ast/ast_built_wr.c srcs/exec/sh_exec_builtin.c srcs/exec/sh_exec_backup_fd.c srcs/builtins/builtin_chdir_abs.c srcs/core/sh_get_char.c srcs/tcaps/tcaps_exec_escape_enter.c srcs/expand/expand_history_replace.c srcs/tools/sh_exit_error.c)
+        srcs/tools/print_verb.c srcs/ast/ast_built_wr.c srcs/exec/sh_exec_builtin.c srcs/exec/sh_exec_backup_fd.c srcs/builtins/builtin_chdir_abs.c srcs/core/sh_get_char.c srcs/tcaps/tcaps_exec_escape_enter.c srcs/expand/expand_history_replace.c srcs/tools/sh_exit_error.c srcs/tcaps/tcaps_exec_init.c)
 
 include_directories(includes)
 

@@ -269,4 +269,6 @@ int				get_curs_x(void);
 
 BOOL			exec_escape_enter(const t_key *key, t_input *input);
 
+BOOL			tcaps_init(t_window *wd);
+
 #endif
