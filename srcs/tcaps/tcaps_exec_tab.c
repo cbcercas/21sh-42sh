@@ -36,7 +36,7 @@ static BOOL	exec_tab_one(char *cur, t_array *arr, t_window *wd)
 	string = array_get_at(arr, 0);
 	if (!cur)
 		return (false);
-	len = ft_strlen(cur);
+	len = ft_strlen(cur) - autocomplete_len_useless(cur);
 	if (string->len > len)
 	{
 		if (!string_insert(wd->cur->str, string->s + len, pos_in_str(wd->cur)))
