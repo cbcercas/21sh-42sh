@@ -110,10 +110,8 @@ t_input	*input_back_to_writable(t_input *input)
 	t_cpos	dest;
 
 	save = NULL;
-	while (input && !input->lock)
+	while (input)
 	{
-		dest = input_get_first_pos(input);
-		move_cursor_to(&dest, &input->cpos, get_ts());
 		if (save)
 		{
 			input->cpos.cp_col = save->cp_col;

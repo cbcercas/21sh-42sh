@@ -23,12 +23,12 @@ static BOOL	exec_alt_input(const t_key *key, t_window *wd, unsigned short x)
 			, &(t_cpos){wd->cur->cpos.cp_col, wd->cur->cpos.cp_line}, get_ts());
 	if (is_alt_up_arrow(key->key))
 	{
-		exec_arrow_left(NULL, wd);
+		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
 		wd->cur = wd->cur->prev;
 	}
 	else
 	{
-		exec_arrow_right(NULL, wd);
+		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 		wd->cur = wd->cur->next;
 	}
 	if (input_get_last_pos(wd->cur).cp_col < x)

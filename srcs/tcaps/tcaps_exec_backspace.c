@@ -25,9 +25,8 @@ BOOL	exec_backspace(const t_key *key, t_window *wd)
 		exec_arrow_left_normal(wd);
 		exec_delete(key, wd);
 	}
-	else if (wd->cur->prev)
+	else if (wd->cur->prev && !wd->cur->prev->lock)
 	{
-		wd->cur = wd->cur->prev;
 		exec_arrow_left_normal(wd);
 		exec_delete(key, wd);
 	}
