@@ -14,10 +14,10 @@
 #include <core/tcaps.h>
 
 /*
-** @brief display char
+** @brief Displays a char
 **
-** @param input  current input
-** @param c the char to be "draw"
+** @param input This struct contains the current input
+** @param c The char to be "drawn"
 */
 
 void		draw_char(t_input *input, char *c)
@@ -42,7 +42,7 @@ void		draw_char(t_input *input, char *c)
 **
 ** @param input start of draw
 **
-** @return the last input draw
+** @return the last input draw (TODO)
 */
 
 t_input		*input_draw(t_input *input)

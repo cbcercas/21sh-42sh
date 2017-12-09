@@ -14,7 +14,7 @@
 #include <core/tcaps.h>
 
 /*
-** @brief display error read
+** @brief Displays a read error
 */
 
 static BOOL		read_error(void)
@@ -56,3 +56,5 @@ BOOL			sh_get_char(char *buff)
 	}
 	return (true);
 }
+
+//TODO: Need to remove this file if those functions arent used

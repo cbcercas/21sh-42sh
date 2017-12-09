@@ -19,7 +19,7 @@ extern char const	*g_optarg;
 extern int			g_optind;
 
 /*
-** @brief     Handles the options passed to the program
+** @brief     Helper to Handle the options passed to the program
 **
 ** @param[in,out] opts     Contains the options passed by the user
 ** @param[in] ac       Argument count for av
@@ -51,6 +51,17 @@ static	void	sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
 	else if (opt == 'l' || !isatty(STDIN_FILENO))
 		opts->tcaps = false;
 }
+
+/*
+** @brief Handles the options passed to the program
+**
+** @param[in,out] opts     Contains the options passed by the user
+** @param[in] ac       Argument count for av
+** @param[in] av       Contains the arguments
+** @param[in] environ  Contains the env
+**
+** @return    void
+*/
 
 void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 						char **environ)

@@ -75,8 +75,8 @@ void			select_deinit(t_sel_data **data);
 void			*select_exit(const char *fmt, ...);
 
 /*
- * Display
- */
+** Display
+*/
 void		*dsp_init(void);
 void		dsp_reinit(void);
 void		display_word(t_sel_word *word, t_sel_display *dsp);
@@ -88,8 +88,8 @@ BOOL		word_is_on_screen(t_sel_display *disp, t_sel_word *word);
 void		display_print_word(t_sel_word *word);
 
 /*
- * Word list
- */
+** Word list
+*/
 
 t_sel_word			*word_list_create(t_array *words);
 t_sel_word			*word_list_destroy(t_sel_word **list);

@@ -84,6 +84,15 @@ t_window			*get_windows(int rst)
 	return (get_windows2(wd, rst));
 }
 
+/*
+** @brief Moves the current input to the `dest_inp` destination input
+**
+** @param input The current input
+** @param dest_inp The destination of the current input
+**
+** @return Return the changed and moved input
+*/
+
 t_input				*goto_input(t_input *input, t_input *dest_inp)
 {
 	t_cpos	dest;

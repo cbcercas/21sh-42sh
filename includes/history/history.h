@@ -156,7 +156,7 @@ t_input				*input_from_history(const char *hist);
 /*
 ** @file history_getter_2.c
 **
-** @brief TODO
+** @brief Contains functions to help get the history
 */
 
 const char			*history_get_next(char *str);

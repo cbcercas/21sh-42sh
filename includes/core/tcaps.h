@@ -22,7 +22,7 @@
 /*
 ** @file   tcaps.h
 **
-** @brief  Function prototypes for the tcaps TODO: The rest of it
+** @brief  Function prototypes for the tcaps
 **
 ** This contains the prototypes for the program,
 ** and eventually any macros, constants,

@@ -15,9 +15,9 @@
 /*
 ** @brief Moves the cursor and input at the beginning
 **
-** @param input The input
+** @param input The current input
 **
-** @return Returns the new input state
+** @return Returns the new input with the cursor moved at the beginning
 */
 
 t_input	*input_back_to_origin(t_input *input)

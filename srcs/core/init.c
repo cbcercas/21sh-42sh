@@ -19,14 +19,12 @@
 extern char const	*g_optarg;
 
 /*
-** @brief     Function is called when a test is needed on one module
+** @brief     This function is called when a test is needed on one module
 **
 ** @param[in] arg      Contains the module name to be tested
 ** @param[in] av       Contains the parameters needed for the test function
 ** @param[in] environ  Contains the env (Used when needed by the testing\
 **                                        functions)
-**
-** @return    void
 */
 
 void				sh_testing(const char *arg, char *const *av, char **environ)

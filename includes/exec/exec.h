@@ -38,7 +38,7 @@
 /*
 ** @file   exec_tlist.c
 **
-** @brief  Functions to execute the tlist (?TODO)
+** @brief  Functions to handle the tlist
 */
 
 void	exec_list_push(t_list **head, size_t fd);
@@ -88,7 +88,7 @@ int		sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds);
 /*
 ** @file   sh_exec_redir3.c
 **
-** @brief  Functions to execute greatand and dup (TODO)
+** @brief  Functions to execute greatand and dup
 */
 
 void	sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
