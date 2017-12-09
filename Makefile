@@ -99,9 +99,8 @@ SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c ast_bu
 SRC_SUBDIR		+= autocomplete
 SRCS			+= autocomplete_is.c autocomplete_get_words.c \
 					autocomplete_get_path.c autocomplete.c \
-					autocomplete_display.c autocomplete_get_bin.c \
+					autocomplete_get_bin.c \
 					autocomplete_utils.c autocomplete_sort.c \
-					autocomplete_display_cols.c
 
 SRC_SUBDIR		+= secure_memory
 SRCS			+= ft_secu_free.c ft_secu_malloc.c \

@@ -22,7 +22,7 @@
 void				sh_arrays_reset(t_array *tokens, t_array *expands)
 {
 	array_reset(tokens, NULL);
-	array_reset(expands, sh_exp_del);
+	array_reset(expands, (void *(*)(void *))&sh_exp_del);
 	ft_secu_free_lvl(M_LVL_EXPA);
 }
 

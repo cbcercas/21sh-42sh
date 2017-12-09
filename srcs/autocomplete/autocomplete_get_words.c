@@ -81,10 +81,10 @@ char	*find_word_cur(t_input *input)
 	return (tmp);
 }
 
-int		get_nb_word_cur(t_input *input)
+size_t	get_nb_word_cur(t_input *input)
 {
-	int		i;
-	int		count;
+	size_t	i;
+	size_t	count;
 	char	*s;
 
 	s = input->str->s;
@@ -104,24 +104,4 @@ int		get_nb_word_cur(t_input *input)
 			i--;
 	}
 	return (count);
-}
-
-size_t	get_index_cur(t_input *input)
-{
-	size_t	i;
-
-	if (!input || !input->str || !input->str->s)
-		return (0);
-	i = pos_in_str(input);
-	if (!i || !input || !input->str || !input->str->s)
-		return (i);
-	if (is_white(input->str->s[i]) && is_white(input->str->s[i - 1]))
-		return (i);
-	if (is_white(input->str->s[i]))
-		i--;
-	while (!is_white(input->str->s[i]) && i != 0)
-		i--;
-	if (i)
-		i++;
-	return (i);
 }

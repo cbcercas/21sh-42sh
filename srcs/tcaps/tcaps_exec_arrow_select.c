@@ -28,7 +28,7 @@ BOOL exec_arrow_right_select(t_sel_data *data)
 	display_word(cur, &data->disp);
 	cur = cur->next;
 	cur->cursor = true;
-	if ((cur->num - data->disp.first->num) >= (size_t)((data->disp.ts.ws_row - 1) * data->disp.col_num))
+	if ((cur->num - data->disp.first->num) >= ((data->disp.ts.ws_row - 1) * data->disp.col_num))
 	{
 		data->disp.first = word_get_num(data->disp.first->num + data->disp.col_num);
 		tputs(tparm(tgetstr("cm", NULL), data->disp.ts.ws_row, 0), 0,

@@ -67,7 +67,7 @@ t_array		*autocomplete_get_content_paths(char *path)
 			if (!(content->used == content->capacity && !array_growth(content)))
 				if (make_content_path(content, path, file))
 					continue ;
-			array_destroy(&content, &string_clear);
+			array_destroy(&content, (void *(*)(void *))&string_clear);
 			ft_strdel(&path);
 			return (NULL);
 		}

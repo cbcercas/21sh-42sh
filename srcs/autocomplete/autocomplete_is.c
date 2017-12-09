@@ -28,7 +28,6 @@ BOOL	autocomplete_is_command(t_input *input)
 	int nb_word;
 	char *tmp;
 
-	tmp = NULL;
 	if (!input || !input->str || !input->str->s)
 		return (true);
 	if (!pos_in_str(input) || get_nb_word_cur(input) == 1)

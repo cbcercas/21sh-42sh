@@ -66,7 +66,7 @@ static int	sh_exec_local_var_ret(t_array *env_save, char **tmp, int i, int ret)
 		ft_strdel(&name);
 		i--;
 	}
-	array_destroy(&env_save, del_env);
+	array_destroy(&env_save, (void *(*)(void *))&del_env);
 	return (ret);
 }
 
@@ -120,7 +120,7 @@ int			sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds)
 	}
 	if (only_set)
 	{
-		array_destroy(&env_save, del_env);
+		array_destroy(&env_save, (void *(*)(void *))&del_env);
 		return (0);
 	}
 	item->av = &item->av[i];

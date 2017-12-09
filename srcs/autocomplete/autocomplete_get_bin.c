@@ -12,7 +12,6 @@
 
 #include <autocomplete/autocomplete.h>
 
-//TODO check if PATH is in envs or in local var
 static void		autocomplete_push_one(t_array *content, struct dirent *file,\
 											char *begin, char **env_path)
 {
@@ -29,6 +28,8 @@ static void		autocomplete_push_one(t_array *content, struct dirent *file,\
 			tmp = array_get_at(content, content->used);
 			if (string_insert_front(tmp, file->d_name))
 				content->used += 1;
+			else
+				sh_exit_error("Malloc Error");
 		}
 	}
 	ft_strdel(&path);
@@ -43,7 +44,8 @@ t_array	*autocomplete_get_bin(char *begin)
 
 	if (!(content = array_create(sizeof(t_string))))
 		return (NULL);
-	env_path = ft_strsplit(get_var_value(get_envs(), "PATH"), ':');
+	if (!(env_path = ft_strsplit(get_var_value(get_envs(), "PATH"), ':')))
+		env_path = ft_strsplit(get_var_value(get_vars(), "PATH"), ':');
 	while (env_path && *env_path && content->used <= 3000)
 	{
 		if ((dir = opendir(*env_path)) != NULL)

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/select.h>
 
 static BOOL	exec_tab_select(t_sel_data *data)
 {
@@ -47,7 +46,7 @@ static BOOL	exec_tab_one(char *cur, t_array *arr, t_window *wd)
 	}
 	else
 		tcaps_bell();
-	array_destroy(&arr, &string_clear);
+	array_destroy(&arr, (void *(*)(void *))&string_clear);
 	return (false);
 }
 

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <ast/ast.h>
-#include <builtins/builtin_exit.h>
 
 /*
 ** @brief Frees cmd content and cmd

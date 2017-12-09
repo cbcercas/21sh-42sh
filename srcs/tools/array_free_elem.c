@@ -18,5 +18,4 @@ void	string_clear(void *string)
 		return ;
 	if (((t_string*)string)->s)
 		ft_strdel(&((t_string*)string)->s);
-	return ;
 }

@@ -25,7 +25,7 @@ extern int g_optind;
 
 int				builtins_env_over(t_array *env_local, int ret)
 {
-	array_destroy(&env_local, del_env);
+	array_destroy(&env_local, (void *(*)(void *))&del_env);
 	return (ret);
 }
 

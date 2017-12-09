@@ -90,7 +90,7 @@ BOOL	word_is_on_screen(t_sel_display *disp, t_sel_word *word)
 	nb = word->num - disp->first->num;
 	if (!disp->fixed_scroll)
 		return (true);
-	else if (nb < (size_t)(disp->col_num * (disp->ts.ws_row - 1)))
+	else if (nb < (disp->col_num * (disp->ts.ws_row - 1)))
 		return (true);
 	else return (false);
 }

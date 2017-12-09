@@ -37,7 +37,6 @@ t_array	*autocomplete_sort_content(t_array *content)
 	t_string	*tmp;
 
 	tmp_pos = 0;
-	tmp = NULL;
 	if (!content || content->used <= 1)
 		return (content);
 	if (!(clone = array_create(content->elem_size)))
@@ -51,6 +50,6 @@ t_array	*autocomplete_sort_content(t_array *content)
 		tmp_pos = 0;
 		tmp = (t_string *)array_get_at(content, tmp_pos);
 	}
-	array_destroy(&content, &string_clear);
+	array_destroy(&content, (void *(*)(void *))&string_clear);
 	return (clone);
 }
