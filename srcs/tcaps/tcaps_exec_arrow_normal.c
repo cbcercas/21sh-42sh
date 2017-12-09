@@ -38,7 +38,7 @@ BOOL	exec_arrow_right_normal(t_window *wd)
 BOOL	exec_arrow_left_normal(t_window *wd)
 {
 	log_dbg1("exec arrow left normal.");
-	if (pos_in_str(wd->cur) == 0 && wd->cur->prev)
+	if (pos_in_str(wd->cur) == 0 && wd->cur->prev && !wd->cur->prev->lock)
 	{
 		wd->cur = wd->cur->prev;
 		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
