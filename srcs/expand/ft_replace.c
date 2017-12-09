@@ -51,7 +51,8 @@ char			*ft_replace_exp(char *src1, char *src2, size_t index, int size)
 
 	if (ft_replace_init(src1, index, size))
 		return (NULL);
-	begin = ft_strnew((index + 1));
+	if (!(begin = ft_strnew((index + 1))))
+		sh_exit_error("Malloc Error");
 	begin = ft_strncpy(begin, src1, index);
 	end = ft_strjoin(src2, &src1[index + size]);
 	ret = ft_strjoin(begin, end);

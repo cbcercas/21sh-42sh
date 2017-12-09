@@ -37,7 +37,10 @@ static t_sel_word *word_new(const char *word)
 	struct stat st;
 
 	if (!(e = ft_memalloc(sizeof(*e))))
+	{
+		select_exit("Malloc failed... Exiting!");
 		return (NULL);
+	}
 	if(stat(word, &st) == 0)
 		ft_memmove(&e->st_mode, &st.st_mode, sizeof(st.st_mode));
 	e->word = word;
@@ -56,34 +59,6 @@ t_sel_word			*word_list_destroy(t_sel_word **list)
 		word_list_destroy(&(*list)->next);
 	ft_memdel((void**)list);
 	return (NULL);
-}
-
-t_sel_word			*word_list_create2(char **words)
-{
-	char		*word;
-	t_sel_word	*list;
-	t_sel_word	*last;
-
-	list = NULL;
-	last = NULL;
-	while (*words)
-	{
-		if (!(word = ft_strclean(*words)))
-			return (word_list_destroy(&list));
-		if (ft_strcmp(word, ""))
-		{
-			if (!(last = word_list_add((list) ? &last : &list, word_new(*words))))
-				return (word_list_destroy(&list));
-		}
-		ft_strdel(&word);
-		words += 1;
-	}
-	if (list && last)
-	{
-		last->next = list;
-		list->prev = last;
-	}
-	return (list);
 }
 
 t_sel_word			*word_list_create(t_array *words)

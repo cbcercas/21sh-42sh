@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <core/tcaps.h>
-#include <core/select.h>
 
 static BOOL	exec_tab_select(t_sel_data *data)
 {
@@ -28,7 +27,7 @@ static BOOL	exec_tab_select(t_sel_data *data)
 	return (false);
 }
 
-static BOOL	exec_tab_one(char *cur, t_array *arr, t_input *input)
+static BOOL	exec_tab_one(char *cur, t_array *arr, t_window *wd)
 {
 	t_string	*string;
 	size_t		len;
@@ -36,43 +35,42 @@ static BOOL	exec_tab_one(char *cur, t_array *arr, t_input *input)
 	string = array_get_at(arr, 0);
 	if (!cur)
 		return (false);
-	len = ft_strlen(cur);
+	len = ft_strlen(cur) - autocomplete_len_useless(cur);
 	if (string->len > len)
 	{
-		if (!string_insert(input->str, string->s + len, pos_in_str(input)))
+		if (!string_insert(wd->cur->str, string->s + len, pos_in_str(wd->cur)))
 			return (false);
-		redraw_input(input);
+		redraw_input(wd->cur);
 		while (len--)
-			exec_arrow_right_normal(input);
+			exec_arrow_right_normal(wd);
 	}
 	else
 		tcaps_bell();
-	array_destroy(&arr, &string_clear);
+	array_destroy(&arr, (void *(*)(void *))&string_clear);
 	return (false);
 }
 
-BOOL	exec_tab(const t_key *key, t_input *input)
+BOOL		exec_tab(const t_key *key, t_window *wd)
 {
 	char	*current;
 	t_array	*arr;
-	t_window	*wd;
 
-	(void) key;
-	if (!(wd = get_windows(0)) || wd->select.is
-		|| !input || !input->str || !input->str->len)
+	(void)key;
+	if (wd->select.is
+		|| !wd->cur || !wd->cur->str || !wd->cur->str->len)
 		return (false);
 	if (wd->autocomp)
 		return (exec_tab_select(wd->autocomp));
-	current = find_word_cur(input);
-	if (autocomplete_is_path(input))
+	current = find_word_cur(wd->cur);
+	if (autocomplete_is_path(wd->cur))
 		arr = autocomplete_get_content_paths(autocomplete_get_path(current));
 	else
 		arr = autocomplete_get_bin(current);
-	arr = autocomplete(arr, input);
+	arr = autocomplete(arr, wd->cur);
 	if (arr && arr->used > 1)
 		select_select(1, get_data(NULL)->opts.color, arr, current);
 	else if (arr)
-		exec_tab_one(current, arr, input);
+		exec_tab_one(current, arr, wd);
 	else
 		tcaps_bell();
 	ft_strdel(&current);

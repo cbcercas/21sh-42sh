@@ -96,7 +96,7 @@ void		sh_history_save(void)
 		i++;
 	}
 	sh_history_print_in_log();
-	array_destroy(&hists, sh_history_del);
+	array_destroy(&hists, (void *(*)(void *))&sh_history_del);
 	if (fd != -1)
 		close(fd);
 }

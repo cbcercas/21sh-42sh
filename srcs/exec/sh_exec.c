@@ -52,9 +52,9 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 		if ((pid = sh_fork(E_PID_CMD)) == -1)
 			return (EXIT_FAILURE);
 		ignore_sigwinch();
-		set_var(get_envs(), "_", path, true);
 		if (!pid)
 		{
+			set_var(get_envs(), "_", path, true);
 			exec_list_fd_dup(fds);
 			execve(path, item->av, var_to_tab(get_envs()));
 			ft_dprintf(2, "%s: error exec(): %s\n", PROGNAME, path);

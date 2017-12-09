@@ -103,17 +103,14 @@ static void	exec_alt_v_multi(t_input *input, char *save)
 	get_windows(0) ? get_windows(0)->cur = input : 0;
 }
 
-BOOL		exec_alt_v(const t_key *key, t_input *input)
+BOOL		exec_alt_v(const t_key *key, t_window *wd)
 {
 	char		*save;
-	t_window			*wd;
 
 	(void)key;
-	if (!(wd = get_windows(0)) && (wd->autocomp && wd->autocomp->active))
+	if (!tcaps_init(wd))
 		return (false);
-	else if (wd->autocomp)
-		get_windows(100);
-	if (get_select()->is || !input || !input->str || !get_select()->str)
+	if (get_select()->is || !wd->cur || !wd->cur->str || !get_select()->str)
 		return (false);
 	save = get_select()->str;
 	if (!alt_v_check_limit(save))
@@ -121,13 +118,13 @@ BOOL		exec_alt_v(const t_key *key, t_input *input)
 	if (ft_strchr(get_select()->str, '\\'))
 	{
 		log_dbg3("copy multi");
-		exec_alt_v_multi(input, save);
+		exec_alt_v_multi(wd->cur, save);
 	}
 	else
 	{
 		log_dbg3("copy simple");
-		string_insert(input->str, get_select()->str, pos_in_str(input));
-		redraw_input(input);
+		string_insert(wd->cur->str, get_select()->str, pos_in_str(wd->cur));
+		redraw_input(wd->cur);
 	}
 	return (false);
 }

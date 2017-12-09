@@ -12,7 +12,13 @@
 
 #include <core/tcaps.h>
 
-BOOL exec_arrow_right_select(t_sel_data *data)
+static BOOL	return_bell(void)
+{
+	tcaps_bell();
+	return (false);
+}
+
+BOOL		exec_arrow_right_select(t_sel_data *data)
 {
 	t_sel_word	*cur;
 
@@ -20,19 +26,18 @@ BOOL exec_arrow_right_select(t_sel_data *data)
 	if (!(cur = word_get_current()))
 		return (true);
 	if (cur == cur->next)
-	{
-		tcaps_bell();
-		return (false);
-	}
+		return_bell();
 	cur->cursor = false;
 	display_word(cur, &data->disp);
 	cur = cur->next;
 	cur->cursor = true;
-	if ((cur->num - data->disp.first->num) >= (size_t)((data->disp.ts.ws_row - 1) * data->disp.col_num))
+	if ((cur->num - data->disp.first->num) >= ((data->disp.ts.ws_row - 1)
+											* data->disp.col_num))
 	{
-		data->disp.first = word_get_num(data->disp.first->num + data->disp.col_num);
+		data->disp.first = word_get_num(data->disp.first->num +
+												data->disp.col_num);
 		tputs(tparm(tgetstr("cm", NULL), data->disp.ts.ws_row, 0), 0,
-			  &ft_putc_in);
+			&ft_putc_in);
 		tputs(tgetstr("sf", NULL), 1, &ft_putc_in);
 		tputs(tparm(tgetstr("cm", NULL), 1, 0), 0, &ft_putc_in);
 		display_line(cur, &data->disp);
@@ -42,7 +47,7 @@ BOOL exec_arrow_right_select(t_sel_data *data)
 	return (false);
 }
 
-BOOL exec_arrow_left_select(t_sel_data *data)
+BOOL		exec_arrow_left_select(t_sel_data *data)
 {
 	t_sel_word	*cur;
 
@@ -60,14 +65,15 @@ BOOL exec_arrow_left_select(t_sel_data *data)
 	cur->cursor = true;
 	if (cur->num < data->disp.first->num)
 	{
-		data->disp.first = word_get_num(cur->num - (cur->num % data->disp.col_num));
+		data->disp.first = word_get_num(cur->num -
+										(cur->num % data->disp.col_num));
 		tputs(tgetstr("sr", NULL), 0, &ft_putc_in);
 	}
 	display_line(cur, &data->disp);
 	return (false);
 }
 
-BOOL exec_arrow_up_select(t_sel_data *data)
+BOOL		exec_arrow_up_select(t_sel_data *data)
 {
 	t_sel_word	*cur;
 
@@ -85,14 +91,15 @@ BOOL exec_arrow_up_select(t_sel_data *data)
 	cur->cursor = true;
 	if (cur->num < data->disp.first->num)
 	{
-		data->disp.first = word_get_num(data->disp.first->num - data->disp.col_num);
+		data->disp.first = word_get_num(data->disp.first->num
+										- data->disp.col_num);
 		tputs(tgetstr("sr", NULL), 0, &ft_putc_in);
 	}
 	display_line(cur, &data->disp);
 	return (false);
 }
 
-BOOL exec_arrow_down_select(t_sel_data *data)
+BOOL		exec_arrow_down_select(t_sel_data *data)
 {
 	t_sel_word	*cur;
 
@@ -100,19 +107,18 @@ BOOL exec_arrow_down_select(t_sel_data *data)
 	if (!(cur = word_get_current()))
 		return (true);
 	if ((cur->num + data->disp.col_num) >= (data->disp.word_num))
-	{
-		tcaps_bell();
-		return (false);
-	}
+		return_bell();
 	cur->cursor = false;
 	display_word(cur, &data->disp);
 	cur = word_get_num(cur->num + data->disp.col_num);
 	cur->cursor = true;
-	if (data->disp.ts.ws_row - 1 <= (USHRT)(((cur->num - data->disp.first->num) / data->disp.col_num)))
+	if (data->disp.ts.ws_row - 1 <=
+			(USHRT)(((cur->num - data->disp.first->num) / data->disp.col_num)))
 	{
-		data->disp.first = word_get_num(data->disp.first->num + data->disp.col_num);
+		data->disp.first = word_get_num(data->disp.first->num
+										+ data->disp.col_num);
 		tputs(tparm(tgetstr("cm", NULL), data->disp.ts.ws_row, 0), 0,
-			  &ft_putc_in);
+			&ft_putc_in);
 		tputs(tgetstr("sf", NULL), 1, &ft_putc_in);
 		tputs(tparm(tgetstr("cm", NULL), 1, 0), 0, &ft_putc_in);
 	}

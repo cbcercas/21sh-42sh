@@ -35,14 +35,6 @@
 char		*get_pwd(void);
 
 /*
-** @file is_printstr.c
-**
-** @brief Contains functions to test if string is printable
-*/
-
-BOOL		is_printstr(char const *line);
-
-/*
 ** @file is.c
 **
 ** @brief Contains functions used to checks tokens
@@ -52,6 +44,7 @@ BOOL		is_white(int c);
 BOOL		is_str_car(const char *buff);
 BOOL		is_redirect(int c);
 BOOL		is_sepa(int c);
+BOOL		is_printstr(char const *line);
 
 /*
 ** @file sh_test_access.c

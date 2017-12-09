@@ -14,6 +14,7 @@
 #include <libft.h>
 #include <tests/sh_tests.h>
 #include <core/help.h>
+#include <malloc_test.h>
 
 extern char const	*g_optarg;
 extern int			g_optind;
@@ -73,12 +74,14 @@ void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 	opts->tcaps = true;
 	opts->color = false;
 	ft_getopt_reset();
-	while ((opt = ft_getopt(ac, av, "schvd:t:lC")) >= 0)
+	while ((opt = ft_getopt(ac, av, "schvd:t:lCM:")) >= 0)
 	{
 		if (opt == 'c')
 			ret = true;
 		else if (opt == 's')
 			ret = false;
+		else if (opt == 'M')
+			ft_memalloc_test_init((size_t)ft_atoi(g_optarg));
 		else
 			sh_options_loop(opt, opts, av, environ);
 	}

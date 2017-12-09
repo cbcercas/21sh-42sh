@@ -43,8 +43,8 @@ SRCS			+= check_path.c exec_tlist.c sh_exec_list_fd.c sh_exec.c\
 
 SRC_SUBDIR		+= tools
 SRCS			+= ft_isdigit_str.c getpwd.c is.c \
-					is_printstr.c sh_ret.c sh_test_access.c print_verb.c\
-					array_free_elem.c sh_exit_error.c
+					sh_ret.c sh_test_access.c print_verb.c\
+					array_free_elem.c sh_exit_error.c is_printstr.c
 
 SRC_SUBDIR		+= lexer
 SRCS			+= lexer_init.c lexer.c lexer_clean.c lexer_utils.c
@@ -88,7 +88,7 @@ SRCS			+=	tcaps_exec_alt_arrows.c tcaps_exec_alt_c.c \
 					tcaps_exec_end_home.c tcaps_exec_insert.c tcaps_exec_tab.c \
 					tcaps_exec_escape_enter.c tcaps_exec_arrow_normal.c \
 					tcaps_exec_arrow_select.c tcaps_exec_escape.c \
-					tcaps_exec_ctrl_select.c
+					tcaps_exec_ctrl_select.c tcaps_exec_init.c
 
 SRC_SUBDIR		+= btree
 SRCS			+= btree_create_node.c btree_apply.c btree_print.c btree_utils.c
@@ -99,16 +99,11 @@ SRCS            += ast.c ast_utils.c ast_built.c ast_is_redir.c ast_cmp.c ast_bu
 SRC_SUBDIR		+= autocomplete
 SRCS			+= autocomplete_is.c autocomplete_get_words.c \
 					autocomplete_get_path.c autocomplete.c \
-					autocomplete_display.c autocomplete_get_bin.c \
+					autocomplete_get_bin.c \
 					autocomplete_utils.c autocomplete_sort.c \
-					autocomplete_display_cols.c
 
 SRC_SUBDIR		+= secure_memory
 SRCS			+= ft_secu_free.c ft_secu_malloc.c \
-				string_dup_secu.c string_growth_secu.c string_insert_secu.c \
-				string_secu.c ft_strdup_secu.c \
-				ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c \
-				ft_strsplit_secu.c ft_strsub_secu.c
 
 SRC_SUBDIR		+= select
 SRCS			+= select.c select_data.c select_display.c \

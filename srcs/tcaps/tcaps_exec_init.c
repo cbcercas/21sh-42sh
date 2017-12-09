@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array_free_elem.c                                  :+:      :+:    :+:   */
+/*   tcaps_exec_init.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gpouyat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/30 22:55:43 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/10/30 23:13:04 by chbravo-         ###   ########.fr       */
+/*   Created: 2017/12/09 19:11:41 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/12/09 19:11:48 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string/ft_string.h>
+#include <core/tcaps.h>
 
-void	string_clear(void *string)
+BOOL	tcaps_init(t_window *wd)
 {
-	if (!string)
-		return ;
-	if (((t_string*)string)->s)
-		ft_strdel(&((t_string*)string)->s);
+	if (!wd)
+		return (false);
+	if (wd->autocomp && wd->autocomp->active)
+		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
+	return (true);
 }

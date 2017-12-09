@@ -53,7 +53,8 @@ const char	*sh_history_get_search(const char *line)
 	{
 		if (!(search = hists->used - 1))
 			return (NULL);
-		while (search != -1 && (h = (t_hist *)array_get_at(hists, (size_t)search))
+		while (search != -1 && (h = (t_hist *)array_get_at(hists, (size_t)
+				search))
 			&& !ft_strnequ(line, h->cmd, ft_strlen(line)))
 			search--;
 		if (h && (search != -1))

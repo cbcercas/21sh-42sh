@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <signals/signals.h>
-#include <sys/wait.h>
 
 /*
 ** @brief Initializes all the signals from 1 to 32

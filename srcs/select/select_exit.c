@@ -14,7 +14,6 @@
 #include <core/select.h>
 #include <core/progname.h>
 #include <core/input.h>
-#include <tools/tools.h>
 
 
 void	*select_exit(const char *fmt, ...)

@@ -99,6 +99,14 @@ struct					s_input
 	BOOL				lock;
 };
 
+typedef enum e_mode		t_mode;
+enum 					e_mode
+{
+	E_NORMAL,
+	E_AUTOCOMP,
+	E_INSERT
+};
+
 /*
 ** @struct s_window
 **

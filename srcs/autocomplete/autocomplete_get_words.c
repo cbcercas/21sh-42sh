@@ -37,12 +37,11 @@ int		nb_of_word(char *s)
 
 char	*find_word_after(t_input *input)
 {
-	char	*tmp;
-	int		i;
-	int		end;
+	char		*tmp;
+	ssize_t		i;
+	ssize_t		end;
 
 	i = pos_in_str(input);
-	tmp = NULL;
 	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
 	while (is_white(input->str->s[i]) && i != 0)
@@ -51,9 +50,9 @@ char	*find_word_after(t_input *input)
 	while (!is_white(input->str->s[i]) && i != 0)
 		i--;
 	if (!i)
-		tmp = ft_strsub_secu(input->str->s, i, end - i + 1, M_LVL_AUTOC);
+		tmp = ft_strsub(input->str->s, (unsigned int)i, (size_t)end - i + 1);
 	else
-		tmp = ft_strsub_secu(input->str->s, i + 1, end - i, M_LVL_AUTOC);
+		tmp = ft_strsub(input->str->s, (unsigned int)i + 1, (size_t)end - i);
 	return (tmp);
 }
 
@@ -61,7 +60,7 @@ char	*find_word_cur(t_input *input)
 {
 	size_t		i;
 	size_t		end;
-	char	*tmp;
+	char		*tmp;
 
 	if (!input || !input->str || !input->str->s)
 		return (NULL);
@@ -82,10 +81,10 @@ char	*find_word_cur(t_input *input)
 	return (tmp);
 }
 
-int		get_nb_word_cur(t_input *input)
+size_t	get_nb_word_cur(t_input *input)
 {
-	int		i;
-	int		count;
+	size_t	i;
+	size_t	count;
 	char	*s;
 
 	s = input->str->s;
@@ -105,24 +104,4 @@ int		get_nb_word_cur(t_input *input)
 			i--;
 	}
 	return (count);
-}
-
-size_t	get_index_cur(t_input *input)
-{
-	size_t	i;
-
-	if (!input || !input->str || !input->str->s)
-		return (0);
-	i = pos_in_str(input);
-	if (!i || !input || !input->str || !input->str->s)
-		return (i);
-	if (is_white(input->str->s[i]) && is_white(input->str->s[i - 1]))
-		return (i);
-	if (is_white(input->str->s[i]))
-		i--;
-	while (!is_white(input->str->s[i]) && i != 0)
-		i--;
-	if (i)
-		i++;
-	return (i);
 }

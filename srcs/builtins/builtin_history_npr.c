@@ -41,9 +41,9 @@ void		sh_history_builtin_r(char *path)
 }
 
 /*
-** @brief The option -n reads the history lines not already read from the history
-** file into the current history list. These are lines appended to the history
-** file since the beginning of the current session.
+** @brief The option -n reads the history lines not already read from the
+** history file into the current history list. These are lines appended to the
+** history file since the beginning of the current session.
 **
 ** @param path Contains the filename/path of the history file
 */

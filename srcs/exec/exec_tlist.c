@@ -24,7 +24,10 @@ void	exec_list_push(t_list **head, size_t fd)
 
 	elem = (t_list *)ft_memalloc(sizeof(t_list));
 	if (!elem)
-		return ;
+	{
+		sh_exit_error("Error Malloc");
+		return;
+	}
 	elem->content = NULL;
 	elem->content_size = fd;
 	elem->next = NULL;

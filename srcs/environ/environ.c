@@ -16,6 +16,7 @@
 #include <logger.h>
 #include <environ/getter_env.h>
 #include <environ/modif_env.h>
+#include <tools/tools.h>
 
 /*
 ** @brief Initializes the environnement
@@ -86,14 +87,18 @@ char		**var_to_tab(t_array *vars)
 
 	if (!vars)
 		return (NULL);
-	env_tab = ft_memalloc(sizeof(*env_tab) * (vars->used + 2));
+	if (!(env_tab = ft_memalloc(sizeof(*env_tab) * (vars->used + 2))))
+		sh_exit_error("Error Malloc");
 	i = 0;
 	while (i < vars->used)
 	{
 		if (!(env = (t_env *)array_get_at(vars, i)))
 			return (NULL);
-		env_tab[i] = ft_strjoin(env->name, "=");
-		env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1);
+		if (!(env_tab[i] = ft_strjoin(env->name, "=")) && env->name)
+			sh_exit_error("Error Malloc");
+		if (!(env_tab[i] = ft_strjoincl(env_tab[i], env->value, 1)) &&
+				env->value && env_tab[i])
+			sh_exit_error("Error Malloc");
 		i++;
 	}
 	env_tab[i] = NULL;

@@ -12,57 +12,49 @@
 
 #include <core/tcaps.h>
 
-BOOL	exec_arrow_right_normal(t_input *input)
+BOOL	exec_arrow_right_normal(t_window *wd)
 {
-	struct winsize	*ts;
-
 	log_dbg1("exec arrow right normal.");
-	ts = get_ts();
-	if (pos_in_str(input) == input->str->len && input->next)
+	if (pos_in_str(wd->cur) == wd->cur->str->len && wd->cur->next)
 	{
-		input = input->next;
+		wd->cur = wd->cur->next;
 		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
-		input->cpos = input_get_first_pos(input);
-		move_cursor_to(&input->cpos,
-					&(t_cpos){input->prev->cpos.cp_col, 0}, ts);
-		get_windows(0)->cur = input;
-		if (!input->select_pos.is_set)
+		wd->cur->cpos = input_get_first_pos(wd->cur);
+		move_cursor_to(&wd->cur->cpos,
+					&(t_cpos){wd->cur->prev->cpos.cp_col, 0}, &wd->ts);
+		if (!wd->cur->select_pos.is_set)
 		{
-			input->select_pos.is_set = true;
-			input->select_pos.cur_start = pos_in_str(input);
+			wd->cur->select_pos.is_set = true;
+			wd->cur->select_pos.cur_start = pos_in_str(wd->cur);
 		}
 	}
-	else if ((unsigned)(input->cpos.cp_col + (input->cpos.cp_line * ts->ws_col)
-						- input->offset_col) < input->str->len)
-		move_cursor_right(&input->cpos, ts);
-	input->select_pos.cur_end = pos_in_str(input);
+	else if ((unsigned)(wd->cur->cpos.cp_col +
+			(wd->cur->cpos.cp_line * wd->ts.ws_col) -
+			wd->cur->offset_col) < wd->cur->str->len)
+		move_cursor_right(&wd->cur->cpos, &wd->ts);
+	wd->cur->select_pos.cur_end = pos_in_str(wd->cur);
 	return (false);
 }
 
-BOOL	exec_arrow_left_normal(t_input *input)
+BOOL	exec_arrow_left_normal(t_window *wd)
 {
-	struct winsize	*ts;
-
 	log_dbg1("exec arrow left normal.");
-	ts = get_ts();
-	if (pos_in_str(input) == 0 && input->prev)
+	if (pos_in_str(wd->cur) == 0 && wd->cur->prev && !wd->cur->prev->lock)
 	{
-		input = input->prev;
+		wd->cur = wd->cur->prev;
 		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
-		input->cpos = input_get_last_pos(input);
-		move_cursor_to(&input->cpos, &(t_cpos){input->next->cpos.cp_col,
-											input->cpos.cp_line}, get_ts());
-		get_windows(0)->cur = input;
-		if (!input->select_pos.is_set)
+		wd->cur->cpos = input_get_last_pos(wd->cur);
+		move_cursor_to(&wd->cur->cpos, &(t_cpos){wd->cur->next->cpos.cp_col,
+											wd->cur->cpos.cp_line}, &wd->ts);
+		if (!wd->cur->select_pos.is_set)
 		{
-			input->select_pos.is_set = true;
-			input->select_pos.cur_start = pos_in_str(input);
+			wd->cur->select_pos.is_set = true;
+			wd->cur->select_pos.cur_start = pos_in_str(wd->cur);
 		}
 	}
-	else if (((input->cpos.cp_col + (input->cpos.cp_line * ts->ws_col)
-			- input->offset_col)) > 0)
-		move_cursor_left(&input->cpos, ts);
-	input->select_pos.cur_end = pos_in_str(input);
+	else if (((wd->cur->cpos.cp_col + (wd->cur->cpos.cp_line * wd->ts.ws_col)
+			- wd->cur->offset_col)) > 0)
+		move_cursor_left(&wd->cur->cpos, &wd->ts);
+	wd->cur->select_pos.cur_end = pos_in_str(wd->cur);
 	return (false);
 }
-

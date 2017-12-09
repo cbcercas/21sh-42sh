@@ -29,7 +29,7 @@ void		draw_char(t_input *input, char *c)
 		len = (int)ft_strlen(c);
 	redraw_input(input);
 	while (len--)
-		exec_arrow_right(NULL, input);
+		exec_arrow_right(NULL, get_windows(0));
 }
 
 /*

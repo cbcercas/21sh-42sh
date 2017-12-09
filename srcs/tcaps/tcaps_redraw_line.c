@@ -38,7 +38,7 @@ void	redraw_line(t_input *input)
 		tputs(tgetstr("nd", NULL), 0, &ft_putc_in);
 }
 
-void	reset_line(t_input *input)
+/*void	reset_line(t_input *input)
 {
 	size_t	pos;
 	size_t	savepos;
@@ -50,4 +50,4 @@ void	reset_line(t_input *input)
 	redraw_line(input);
 	while (pos != pos_in_str(input))
 		exec_arrow_right(NULL, input);
-}
+}*/

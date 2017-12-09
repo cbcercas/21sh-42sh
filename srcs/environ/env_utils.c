@@ -13,7 +13,6 @@
 #include <environ/env_utils.h>
 #include <environ/modif_env.h>
 #include <ftprintf.h>
-#include <logger.h>
 #include <tools/tools.h>
 
 /*

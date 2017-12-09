@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   select_deinit.c                                           :+:      :+:    :+:   */
+/*   deinit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gpouyat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/02 15:30:34 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/02 15:31:32 by jlasne           ###   ########.fr       */
+/*   Created: 2017/12/09 15:33:26 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/12/09 15:33:42 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/data.h>
+#include <logger.h>
 #include <termios.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <ftprintf.h>
 #include <core/progname.h>
 #include <libft.h>
+#include <ftprintf.h>
+#include <core/data.h>
 
 /*
 ** @brief      Restores the terminal attributes once the program is finished

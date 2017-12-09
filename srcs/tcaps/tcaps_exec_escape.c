@@ -13,13 +13,10 @@
 #include <types/bool.h>
 #include <core/tcaps.h>
 
-BOOL exec_escape_select(void)
+BOOL	exec_escape_select(t_window *wd)
 {
-	t_window	*wd;
 	t_cpos		cpos;
 
-	if (!(wd = get_windows(0)))
-		return (false);
 	if (wd->autocomp && !wd->autocomp->active)
 	{
 		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
@@ -35,17 +32,12 @@ BOOL exec_escape_select(void)
 	return (false);
 }
 
-BOOL exec_escape(const t_key *key, t_input *input)
+BOOL	exec_escape(const t_key *key, t_window *wd)
 {
-	t_window *wd;
-
 	(void)key;
-	(void)input;
-	if (!(wd = get_windows(0)))
-		return (false);
 	if (wd->autocomp)
-		return (exec_escape_select());
+		return (exec_escape_select(wd));
 	if (wd->select.is)
-		exec_insert_off(input);
+		exec_insert_off(wd->cur);
 	return (false);
 }
