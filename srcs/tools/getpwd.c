@@ -23,7 +23,7 @@ char	*get_pwd(void)
 	char		*pwd;
 
 	pwd = get_var_value(get_envs(), "PWD");
-	if (pwd && *pwd == '/' )
+	if (pwd && *pwd == '/')
 		return (ft_strdup(pwd));
 	pwd = getcwd(NULL, 0);
 	return (pwd);

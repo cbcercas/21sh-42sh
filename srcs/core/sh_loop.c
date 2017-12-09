@@ -95,7 +95,7 @@ BOOL				sh_loop(t_sh_data data, struct s_exec_data *exec_dat,
 	if (*ret == E_RET_AST_OK)
 	{
 		exec_exec(&data, exec_dat->ast);
-		get_windows(72); //TODO move this
+		get_windows(72);
 	}
 	if (!(*ret >= E_RET_LEXER_INCOMPLETE && *ret <= E_RET_LEXER_PIPE))
 	{
