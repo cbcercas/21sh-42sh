@@ -23,6 +23,7 @@
 # include <core/tcaps.h>
 # include <core/prompt.h>
 # include <builtins/builtin_exit.h>
+# include <sys/wait.h>
 
 typedef enum e_pid_type	t_pid_type;
 
