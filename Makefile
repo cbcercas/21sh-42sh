@@ -105,10 +105,6 @@ SRCS			+= autocomplete_is.c autocomplete_get_words.c \
 
 SRC_SUBDIR		+= secure_memory
 SRCS			+= ft_secu_free.c ft_secu_malloc.c \
-				string_dup_secu.c string_growth_secu.c string_insert_secu.c \
-				string_secu.c ft_strdup_secu.c \
-				ft_str_insert_secu.c ft_strjoincl_secu.c ft_strnew_secu.c \
-				ft_strsplit_secu.c ft_strsub_secu.c
 
 SRC_SUBDIR		+= select
 SRCS			+= select.c select_data.c select_display.c \

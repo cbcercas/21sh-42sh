@@ -21,12 +21,12 @@ char		*autocomplete_get_path(char *s)
 		return (".");
 	if (ft_strchr(s, '/'))
 	{
-		ret = ft_strdup_secu(s, M_LVL_AUTOC);
+		ret = ft_strdup(s);
 		tmp = ft_strrchr(ret, '/');
 		*++tmp = 0;
 		return (ret);
 	}
-	return (".");
+	return (ft_strdup("."));
 }
 
 static t_string	*make_content_path(t_array *content, char *path,
@@ -68,9 +68,11 @@ t_array		*autocomplete_get_content_paths(char *path)
 				if (make_content_path(content, path, file))
 					continue ;
 			array_destroy(&content, &string_clear);
+			ft_strdel(&path);
 			return (NULL);
 		}
 	}
 	(dir) ? closedir(dir) : 0;
+	ft_strdel(&path);
 	return (content);
 }

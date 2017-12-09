@@ -100,16 +100,6 @@ set(SOURCE_FILES
 
 		srcs/secure_memory/ft_secu_free.c
 		srcs/secure_memory/ft_secu_malloc.c
-		srcs/secure_memory/ft_str_insert_secu.c
-		srcs/secure_memory/ft_strdup_secu.c
-		srcs/secure_memory/ft_strjoincl_secu.c
-		srcs/secure_memory/string_dup_secu.c
-		srcs/secure_memory/string_growth_secu.c
-		srcs/secure_memory/string_insert_secu.c
-		srcs/secure_memory/string_secu.c
-		srcs/secure_memory/ft_strnew_secu.c
-		srcs/secure_memory/ft_strsub_secu.c
-		srcs/secure_memory/ft_strsplit_secu.c
 
 		srcs/select/select.c
 		srcs/select/select_data.c

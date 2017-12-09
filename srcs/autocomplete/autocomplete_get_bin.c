@@ -43,7 +43,7 @@ t_array	*autocomplete_get_bin(char *begin)
 
 	if (!(content = array_create(sizeof(t_string))))
 		return (NULL);
-	env_path = ft_strsplit_secu(get_var_value(get_envs(), "PATH"), ':', M_LVL_AUTOC);
+	env_path = ft_strsplit(get_var_value(get_envs(), "PATH"), ':');
 	while (env_path && *env_path && content->used <= 3000)
 	{
 		if ((dir = opendir(*env_path)) != NULL)
@@ -54,5 +54,6 @@ t_array	*autocomplete_get_bin(char *begin)
 		}
 		env_path++;
 	}
+	ft_freetab(env_path, ft_tablen(env_path));
 	return (content);
 }

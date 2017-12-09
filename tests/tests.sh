@@ -189,8 +189,9 @@ test_bats()
 		bats $path_of_file"/tests_bats/builtins.bats"
 		ret=`expr $ret + $?`
 		return 0;
-	elif [ $1 = "other" ] || [ $1 = "o" ]; then
-		bats $path_of_file"/tests_bats/and_or.bats" $path_of_file"/tests_bats/builtin_cd.bats" $path_of_file"/tests_bats/builtin_echo.bats" $path_of_file"/tests_bats/builtin_env.bats" $path_of_file"/tests_bats/builtin_exit.bats" $path_of_file"/tests_bats/builtin_history.bats" $path_of_file"/tests_bats/builtin_setenv.bats" $path_of_file"/tests_bats/builtin_unsetenv.bats" $path_of_file"/tests_bats/history_exp.bats" $path_of_file"/tests_bats/redirections.bats" $path_of_file"/tests_bats/pipe.bats"
+	elif [ $1 = "malloc" ] || [ $1 = "m" ]; then
+		cp $path_of_file/resources/.21sh_history.resource ~/.21sh_history
+		bats $path_of_file"/tests_bats/malloc.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	else
