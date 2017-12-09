@@ -165,7 +165,6 @@ set(SOURCE_FILES
 		srcs/term/term_modes.c
 
 		srcs/tools/ft_isdigit_str.c
-		srcs/tools/is_printstr.c
 		srcs/tools/sh_test_access.c
 		srcs/tools/is.c
 		srcs/tools/getpwd.c

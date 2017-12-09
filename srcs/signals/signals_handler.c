@@ -59,7 +59,6 @@ void	signals_sigwinch(void)
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	redraw_input(input);
-	//TODO refactor using tgoto
 	input = goto_input(input, tmp);
 	while (pos != pos_in_str(input) && pos_in_str(input) < input->str->len)
 		move_cursor_right(&input->cpos, get_ts());
