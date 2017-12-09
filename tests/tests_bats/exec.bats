@@ -541,10 +541,10 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->$name_exec: DOES_NOT_EXIST: No such file or directory"
     echo "                      cat: /tmp/redir_not_exist_cat: No such file or directory"
-    echo "                      rm: /tmp/redir_not_exist_cat: No such file or directory"
+    echo "                      rm: cannot remove '/tmp/redir_not_exist_cat': No such file or directory"
 	[ "${lines[0]}" = "$name_exec: DOES_NOT_EXIST: No such file or directory" ]
 	[ "${lines[1]}" = "cat: /tmp/redir_not_exist_cat: No such file or directory" ]
-	[ "${lines[2]}" = "rm: /tmp/redir_not_exist_cat: No such file or directory" ]
+	[ "${lines[2]}" = "rm: cannot remove '/tmp/redir_not_exist_cat': No such file or directory" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }

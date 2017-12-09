@@ -100,7 +100,7 @@ void						lexer_print_tokens(t_array *tokens);
 /*
 ** @file lexer_clean.c
 **
-** @brief Functions used to clear tokens (TODO)
+** @brief Functions used to clear tokens
 */
 
 void						lexer_clean_tokens(t_array *tokens);
