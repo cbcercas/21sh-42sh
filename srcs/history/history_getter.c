@@ -13,7 +13,7 @@
 #include <history/history.h>
 
 /*
-** @brief  Check if (TODO)
+** @brief  Checks if the given string contains a white space/tab etc
 ** @param line The string to check
 ** @return Returns 1 if line is a `\\ n` or NULL. Else returns 0
 */
@@ -36,7 +36,7 @@ int			sh_history_is_space_plus(char const *line)
 
 /*
 ** @brief Gets the search from what the user wants
-** @param line The user search request (TODO?)
+** @param line The user search request
 ** @return Returns the search
 */
 

@@ -47,9 +47,9 @@ void	init_signals(void *handler)
 }
 
 /*
-** @brief Waits for a process to finish (?TODO)
+** @brief Waits for a process to finish
 **
-** @param pid TODO
+** @param pid The pid to wait for
 ** @param wait_flag TODO
 **
 ** @return Returns the exit status

@@ -17,7 +17,7 @@
 **
 ** @param filename Filename/path to be tested
 **
-** @return Returns TODO
+** @return Returns Returns a retrurn value based on 0|1
 */
 
 int	sh_test_access(char const *filename)

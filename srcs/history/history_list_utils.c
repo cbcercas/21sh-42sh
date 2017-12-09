@@ -50,7 +50,9 @@ void	sh_history_del(void *i)
 }
 
 /*
-** @brief TODO
+** @brief Resets all the parameters and sets the session param to false
+ * When set to false, the session param means that the history entry is loaded
+ * from the file and not from the current shell session
 */
 
 void	sh_history_var_session_reset(void)

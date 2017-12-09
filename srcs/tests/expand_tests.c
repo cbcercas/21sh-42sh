@@ -14,7 +14,7 @@
 
 /*
 ** @brief Prints the expanded input
-** @param array_exp The t_array (TODO)
+** @param array_exp The t_array
 */
 
 void		expand_print_test(t_array *array_exp)

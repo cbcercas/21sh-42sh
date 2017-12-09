@@ -12,10 +12,6 @@
 
 #include <parser/parser.h>
 
-/*
-** @brief TODO
-*/
-
 static t_token_type	g_grammar2[19][19][1] =
 {
 	[E_TOKEN_NONE] =
@@ -270,10 +266,6 @@ static t_token_type	g_grammar2[19][19][1] =
 		[E_TOKEN_IO_NUMBER] = {1}
 	}
 };
-
-/*
-** @brief TODO
-*/
 
 static const char	*g_grammar[226] =
 {
