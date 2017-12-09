@@ -34,10 +34,12 @@ static char		*str_from_input(void)
 	{
 		if (!(line = ft_strjoincl(line, input->str->s, 1)))
 			sh_exit_error("Error Malloc");
+		if (line && input->str->s[input->str->len - 1] == '\\')
+			line[ft_strlen(line) - 1] = '\0';
 		if (input->next && input->str->s[input->str->len - 1] != '\\'
 			&& !(line = ft_strjoincl(line, "\n", 1)))
 			sh_exit_error("Error Malloc");
-		input = input->next;
+	input = input->next;
 	}
 	return (line);
 }
