@@ -39,7 +39,7 @@ BOOL	exec_ctrl_d(const t_key *key, t_window *wd)
 		exec_insert_off(wd->cur);
 		return (false);
 	}
-	if (wd->cur->str->len == 0)
+	if (wd->cur->str->len == 0 && wd->cur == wd->cur_head)
 	{
 		sh_history_save();
 		default_terminal_mode();
