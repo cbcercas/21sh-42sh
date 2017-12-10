@@ -129,6 +129,14 @@ char					*ast_aff(t_cmd *cmd);
 t_exp					*ast_search(t_array *expands, t_lim *lim, int prio);
 t_cmd					*ast_new_cmd(t_array *expands, ssize_t start,
 										ssize_t end, t_token_type type);
+
+/*
+** @file       ast_built_wr.c
+**
+** @brief      A helper for the ast_built.c file
+*/
+
 t_btree					*ast_built2(t_btree **ast, t_array *expands,
-									t_lim lim, int prio);
+									   t_lim lim, int prio);
+
 #endif
