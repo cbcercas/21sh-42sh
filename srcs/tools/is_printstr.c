@@ -18,7 +18,7 @@
 ** @param line String to be checked
 **
 ** @return Returns true if the string is printable, false otherwise
-**/
+*/
 
 BOOL	is_printstr(char const *line)
 {
