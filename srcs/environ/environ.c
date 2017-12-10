@@ -63,7 +63,7 @@ t_array		*init_local_var(void)
 		if (!get_var_value(get_envs(), "PATH"))
 		{
 			set_var(get_vars(), "PATH",
-					"/sbin:/bin:</usr/sbin:/usr/bin:/usr/local/sbin:/usr/local"
+					"/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local"
 							"/bin", true);
 		}
 	}
