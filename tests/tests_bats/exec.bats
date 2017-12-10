@@ -569,7 +569,7 @@ load test_helper
 
 
 @test "REDIRECTIONS: Testing [fd_above_limit] for 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'" {
-	expect=`zsh -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'`
+	expect=`sh -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'`
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'
     echo "ERROR:"
     display_line_output
@@ -579,20 +579,6 @@ load test_helper
     [ "$status" -eq 0 ]
 	check_leaks_function exec
 }
-
-
-@test "REDIRECTIONS: Testing [great_less_bigfile] for 'man tar > /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'" {
-	expect=`bash -c 'man tar > /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'`
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'man tar > /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; man tar >> /tmp/bigfile; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->$expect"
-    echo
-    [ "${output}" = "$expect" ]
-    [ "$status" -eq 0 ]
-	check_leaks_function exec
-}
-
 
 @test "REDIRECTIONS: Testing [great_less_bigfile] for 'man tar > /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'" {
 	expect=`bash -c 'man tar > /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; man tar >> /tmp/bigfile 2>&- ; cat < /tmp/bigfile | wc; rm -f /tmp/bigfile'`
@@ -631,14 +617,14 @@ load test_helper
 
 
 @test "REDIRECTIONS: Testing [] for 'o abcd > /tmp/redir_multi_op_great >> /tmp/redir_multi_op_dgreat; file /tmp/redir_multi_op_great; file /tmp/redir_multi_op_dgreat; rm -f /tmp/redir_multi_op_great /tmp/redir_multi_op_dgreat" {
+	expect=`echo abcd > /tmp/redir_multi_op_great >> /tmp/redir_multi_op_dgreat; file /tmp/redir_multi_op_great; file /tmp/redir_multi_op_dgreat; rm -f /tmp/redir_multi_op_great /tmp/redir_multi_op_dgreat`
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo abcd > /tmp/redir_multi_op_great >> /tmp/redir_multi_op_dgreat; file /tmp/redir_multi_op_great; file /tmp/redir_multi_op_dgreat; rm -f /tmp/redir_multi_op_great /tmp/redir_multi_op_dgreat'
 	echo "ERROR:"
 	display_line_output
 	echo "$name_exec EXPECTED ->/tmp/redir_multi_op_great: empty"
     echo "                      /tmp/redir_multi_op_dgreat: ASCII text"
-	[ "${lines[0]}" = "/tmp/redir_multi_op_great: empty" ]
-	[ "${lines[1]}" = "/tmp/redir_multi_op_dgreat: ASCII text" ]
-	[ "$status" -eq 0 ]
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
 	check_leaks_function exec
 }
 
