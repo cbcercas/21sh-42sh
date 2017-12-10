@@ -13,21 +13,7 @@ compiler:
   - clang
   - gcc
   
-addons:
-  apt:
-    packages:
-    - build-essential
-
-
 before_install:
-    - export LOCAL="$(mktemp --directory --tmpdir=${TMPDIR:/tmp} local.bin.XXXXXX)"
-    - curl -L http://downloads.sourceforge.net/zsh/zsh-5.0.7.tar.gz | tar zx
-    - cd zsh-5.0.7
-    - ./configure --prefix=$LOCAL
-    - make
-    - make install
-    - cd -
-    - export PATH="$LOCAL/bin:$PATH"
     - sed -i.bak 's/https:\/\/github.com\//git@github.com:/' .gitmodules
     - rm .gitmodules.bak
     - git submodule update --init
@@ -45,7 +31,6 @@ notifications:
   email:
     recipients:
       - jlasne@student.42.fr
-      - gpouyat@student.42.fr
     on_success: change
     on_failure: always
   slack:
