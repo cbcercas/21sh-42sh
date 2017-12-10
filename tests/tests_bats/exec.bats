@@ -247,17 +247,15 @@ load test_helper
     check_leaks_function exec
 }
 
-@test "EXEC: Testing [IN CORRECTION] for  mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi" {
-    rm -rf testa
-    expect=`sh -c "mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi"`
-    rm -rf testa
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi'
+@test "EXEC: Testing [IN CORRECTION] for  mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa" {
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa'
     echo "ERROR:"
-      rm -rf testa
     display_line_output
     echo "$name_exec EXPECTED ->$expect"
     echo
-    [ "${output}" = "$expect" ]
+    [ "${lines[0]}" = "." ]
+    [ "${lines[1]}" = ".." ]
+    [ "${lines[2]}" = "5" ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }
