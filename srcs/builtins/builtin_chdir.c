@@ -13,13 +13,14 @@
 #include <builtins/builtin_chdir.h>
 
 extern int g_optind;
+
 /*
 ** @brief Tests the path, to check if the user has the permission to cd in it.
 **
 ** @param path The path to be tested
 **
-** @return Returns true if user has perm to chdir in the requested folder.
-** This function will return false by default or if permissions aren't ok.
+** @return Returns `true` if user has perm to chdir in the requested folder.
+** This function will return `false` by default or if permissions aren't ok.
 */
 
 static BOOL	sh_test_path(char **dir, char *arg)
@@ -44,13 +45,14 @@ static BOOL	sh_test_path(char **dir, char *arg)
 }
 
 /*
-** @brief Gets the path
+** @brief Gets the path from `HOME` or `OLDPWD` environment values if available.
 **
-** @param arg The arguemnts passed to the cd builtin
-** @param dir The path
+** @param arg The arguments passed to the cd builtin
+** @param dir The path to fill with the values from the environment
 ** @param disp Indicator whether or not the path is displayed.
 **
-** @return Returns true if everything is ok. False otherwise
+** @return Returns true if `dir` has any content in it. Otherwise, `false` is
+** returned.
 */
 
 static BOOL	sh_get_dir(char *arg, char **dir, BOOL *disp)
@@ -75,12 +77,16 @@ static BOOL	sh_get_dir(char *arg, char **dir, BOOL *disp)
 }
 
 /*
-** @brief This function gets the dir, changes in absolute path, test the path
-** and expands dots for
+** @brief This function will initialize the chdir.
+** First, it'll get the directory and change it to an absolute path before
+** testing it.\n
+** Then, the path will be expanded if needed and displayed if needed
+** (for example `cd -`).
 **
-** @param arg The args passed at the cd builtin
+** @param arg The arguments passed to the cd builtin
 **
-** @return Returns the dir if everything went well, will return NULL otherwise
+** @return Returns the dir if everything went well.
+** This function will return NULL otherwise.
 */
 
 static char	*sh_do_chdir_init(char *arg)
@@ -111,11 +117,12 @@ static char	*sh_do_chdir_init(char *arg)
 /*
 ** @brief This function is the main function for the `chdir`/`cd` builtin.
 **
-** @param arg The args passed at the cd builtin
+** @param arg The arguments passed to the cd builtin
 ** @param opt The options passed to the cd builtin
 **
-** @return Returns the status of cd. cd will return 1 if there's an error.
-** Otherwise it will return 0.
+** @return Returns the status of `cd`.\n
+** `cd` will return 1 if there's an error,\n
+** otherwise it will return 0.
 */
 
 static int	sh_do_chdir(char *arg, int opt)
@@ -143,12 +150,12 @@ static int	sh_do_chdir(char *arg, int opt)
 }
 
 /*
-** @brief The function called when cd is typed. it handler options
+** @brief The function called when cd is typed. It handles options passed to it.
 **
 ** @param data The shell data used throughout the program
-** @param arg The args passed to cd
+** @param arg The arguments passed to cd
 **
-** @return Returns the ret value of cd
+** @return Returns the return value of cd (success or not of said builtin)
 */
 
 int			sh_chdir(t_sh_data *data, char **arg)
