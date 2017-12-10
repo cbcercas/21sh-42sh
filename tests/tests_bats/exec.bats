@@ -248,14 +248,13 @@ load test_helper
 }
 
 @test "EXEC: Testing [IN CORRECTION] for  mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa" {
+    expect=$(zsh -c 'mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa')
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa'
     echo "ERROR:"
     display_line_output
     echo "$name_exec EXPECTED ->$expect"
     echo
-    [ "${lines[0]}" = "." ]
-    [ "${lines[1]}" = ".." ]
-    [ "${lines[2]}" = "5" ]
+    [ "${output}" = "$expect" ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }
@@ -568,7 +567,7 @@ load test_helper
 
 
 @test "REDIRECTIONS: Testing [fd_above_limit] for 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'" {
-	expect=`sh -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'`
+	expect=`zsh -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'`
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'
     echo "ERROR:"
     display_line_output
