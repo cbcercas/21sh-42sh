@@ -16,6 +16,7 @@ find $EXEC_PATH/../ -iname "*.c" -o -iname "*.h" > filelist.tmp
 while read line; do
 	sed "12,$ {s/^\/\*/\/\*\*/g;}" $line | sed "s/^\*\*/\ \*/g" | sed "s/^\*\//\ \*\//g" > tmp
 	cat tmp > $line
+	echo $line
 done < filelist.tmp
 
 rm filelist.tmp
