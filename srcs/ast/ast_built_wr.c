@@ -15,19 +15,18 @@
 /*
 ** @brief ast_search2 Searches for the next token with priority
 **
-** @param expands Contains the token array
-** @param prio Priority for tokens
-**
+** @param expands Contains the expanded user input
+** @param lim Contains the virtual limits used by the AST.
+** @param prio Priority for tokens:\n
 ** 1 = ";" or "||" or "&&",\n
 ** 2 = "|",\n
 ** 3 = redirections,\n
 ** 4 = "&".
-** @param lim Contains the virtual limit
 **
-** @return Returns token or NULL.
+** @return Returns a t_exp on success, or it will return NULL.
 */
 
-t_exp				*ast_search2(t_array *expands, t_lim *lim, int prio)
+static t_exp			*ast_search2(t_array *expands, t_lim *lim, int prio)
 {
 	t_exp		*exp;
 
@@ -49,16 +48,17 @@ t_exp				*ast_search2(t_array *expands, t_lim *lim, int prio)
 }
 
 /*
-** @brief Counts number of tokens in a redirection.
+** @brief This function will count the number of tokens in given redirection
+** Example:
 **
-** ">" = one token\n
-** "2>" = two tokens,\n
-** "2> file" = tree tokens.
+** `>` = one token\n
+** `2>` = two tokens,\n
+** `2> file` = tree tokens.
 **
-** @param expands Contains the token arrays
-** @param lim Contains the count of tokens in a given redirection
+** @param expands Contains the expanded user input
+** @param lim Contains the virtual limits used by the AST
 **
-** @return Returns struct lim, containing number of tokens in given redirection
+** @return Returns a `lim` struct containing the number of tokens in a redir.
 */
 
 static t_lim		ast_built_redir_plus(t_array *expands, t_lim lim)
@@ -83,18 +83,18 @@ static t_lim		ast_built_redir_plus(t_array *expands, t_lim lim)
 }
 
 /*
-** @brief Counts number of tokens in a given 'word' command
+** @brief This function counts the number or `word` token in a given command.
+** Example:
 **
-** "ls" = one token,
+** `ls` = one token,\n
+** `ls -l` = two tokens,\n
+** `ls -l /foo/bar` = tree tokens.
 **
-** "ls -l" = two tokens,
+** @param expands Contains the expanded user input
+** @param lim Contains virtual limits used by the AST
 **
-** "ls -l /foo/bar" = tree tokens.
-**
-** @param expands Contains the token array
-** @param lim Contains count of tokens
-**
-** @return Returns struct lim, containing number of tokens in a 'word' command.
+** @return Returns a `lim` struct, containing the number of tokens in a
+** `word` command.
 */
 
 static t_lim		ast_built_word_plus(t_array *expands, t_lim lim)
@@ -116,19 +116,18 @@ static t_lim		ast_built_word_plus(t_array *expands, t_lim lim)
 }
 
 /*
-** @brief ast_built2 Builds the ast recursively for word and redirection
+** @brief ast_built2 Builds the ast recursively for words and redirections
 **
 ** @param ast Contains the abstract syntax tree
-** @param expands Contains the token array
-** @param lim Contains virtual limit and start pos
-** @param prio Priority for tokens
-**
+** @param expands Contains the expanded user input
+** @param lim Contains virtual limits for the AST
+** @param prio Priority for tokens:\n
 ** 1 = ";" or "||" or "&&",\n
 ** 2 = "|",\n
 ** 3 = redirections,\n
 ** 4 = "&".
 **
-** @return Returns the Abstract Syntax Tree
+** @return Returns the ast in a `btree` form
 */
 
 t_btree				*ast_built2(t_btree **ast, t_array *expands,
