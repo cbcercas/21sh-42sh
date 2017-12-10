@@ -93,8 +93,8 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 ** @brief Mallocs `cmd` and `cmd->av` for ast_new_cmd().
 **
 ** @param expands Contains the expanded user input in a token array form
-** @param start This is the position of the first token
-** @param end This is the position of the last token
+** @param start This is the position of the first token to merge
+** @param end This is the position of the last token to merge
 ** @param cmd This is the command struct.
 **
 ** @return If a malloc fails, the shell exits immediatly.\n
@@ -121,8 +121,8 @@ static BOOL		ast_new_init(t_array *expands, ssize_t start, ssize_t end,
 ** @brief Creates and allocates a new `cmd` struct
 **
 ** @param expands Contains the expanded user input in a token array form
-** @param start This is the position of the first token
-** @param end This is the position of the last token
+** @param start This is the position of the first token to merge
+** @param end This is the position of the last token to merge
 ** @param type Contains the type of the current token
 **
 ** @return Returns a newly allocated and filled `t_cmd` struct if everything
