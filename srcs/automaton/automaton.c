@@ -14,8 +14,7 @@
 
 /*
 ** @brief Initializes the automaton
-** Checks if the stack can be created and sets
-** the current state on START
+** Checks if the stack can be created and sets the current state on START
 **
 ** @param automaton the automaton
 **
