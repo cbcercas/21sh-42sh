@@ -11,7 +11,7 @@ echo -e "\n##################################"
 echo -e "###   Doxygen Comment Generator  ###"
 echo -e "##################################"
 
-find $EXEC_PATH/../ -iname "*.c" -o -iname "*.h" > filelist.tmp
+find $EXEC_PATH/../ -path $EXEC_PATH/../libcbc -prune -o -iname "*.c" -o -iname "*.h" > filelist.tmp
 
 while read line; do
 	sed "12,$ {s/^\/\*/\/\*\*/g;}" $line | sed "s/^\*\*/\ \*/g" | sed "s/^\*\//\ \*\//g" > tmp
