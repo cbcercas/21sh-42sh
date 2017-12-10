@@ -41,11 +41,13 @@ t_array			*autocomplete_get_bin(char *begin)
 	DIR				*dir;
 	struct dirent	*file;
 	char			**env_path;
+	char			**save_path;
 
 	if (!(content = array_create(sizeof(t_string))))
 		return (NULL);
 	if (!(env_path = ft_strsplit(get_var_value(get_envs(), "PATH"), ':')))
 		env_path = ft_strsplit(get_var_value(get_vars(), "PATH"), ':');
+	save_path = env_path;
 	while (env_path && *env_path && content->used <= 3000)
 	{
 		if ((dir = opendir(*env_path)) != NULL)
@@ -56,6 +58,7 @@ t_array			*autocomplete_get_bin(char *begin)
 		}
 		env_path++;
 	}
-	ft_freetab(env_path, ft_tablen(env_path));
+	if (save_path)
+		ft_freetab(save_path, ft_tablen(env_path));
 	return (content);
 }
