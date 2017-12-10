@@ -387,17 +387,6 @@ load test_helper
     check_leaks_function exec
 }
 
-@test "AND_OR: Testing [subshell_and] for '(false)&&echo a&&echo b'" {
-	skip "subshell"
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c '(false)&&echo a&&echo b'
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->"
-	[ "${lines[0]}" = "" ]
-	[ "$status" -eq 0 ]
-	check_leaks_function exec
-}
-
 @test "AND_OR: Testing [true_false_mix] for 'mkdir testfolder; cd testfolder; touch a; touch b;true && false && ls; true && false || ls; true || false && ls; true || false || ls ; false && true && ls; false && true || ls; false || true && ls; false || true || ls; cd ..; rm -rf testfolder'" {
 	expect=`mkdir testfolder; cd testfolder; touch a; touch b;true && false && ls; true && false || ls; true || false && ls; true || false || ls ; false && true && ls; false && true || ls; false || true && ls; false || true || ls; cd ..; rm -rf testfolder`
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'mkdir testfolder; cd testfolder; touch a; touch b;true && false && ls; true && false || ls; true || false && ls; true || false || ls ; false && true && ls; false && true || ls; false || true && ls; false || true || ls; cd ..; rm -rf testfolder'
