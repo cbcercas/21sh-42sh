@@ -249,7 +249,7 @@ load test_helper
 
 @test "EXEC: Testing [IN CORRECTION] for  mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa" {
     skip "merde travis !!!!!!"
-    expect=$(zsh -c 'mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa')
+    expect=$(bash -c 'mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa')
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'mkdir testa ; cd testa ; ls -a ; ls | cat | wc -c > fifi ; cat fifi ; rm -rf ../testa'
     echo "ERROR:"
     display_line_output
@@ -568,7 +568,7 @@ load test_helper
 
 
 @test "REDIRECTIONS: Testing [fd_above_limit] for 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'" {
-	 skip "merde travis !!!!!!"
+	skip "Skipped because of travis and problem when installing zsh"
 	expect=`zsh -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'`
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /tmp; echo abc 10>&-; echo def 11>&-; echo ghi 10>fd_above_limit; cat -e fd_above_limit; rm -f fd_above_limit'
     echo "ERROR:"
