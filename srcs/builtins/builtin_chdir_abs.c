@@ -14,10 +14,12 @@
 
 /*
 ** @brief Joins the current path with dir if it isn't absolute already
+** This function will test the first character of the given `dir` and if it
+** isnt a `/` it will get the current absolute path and join them together.
 **
-** @param dir The path that isn't absolute yet
+** @param dir The path/filename that you need to join with the current path
 **
-** @return void. The dir is edited through its pointer
+** @return void The dir is edited through a pointer
 */
 
 static void		join_current(char **dir)
@@ -68,9 +70,11 @@ static BOOL		change_in_abs_loop(char **cdpath, char **dir, BOOL *disp)
 ** @brief Changes the path to an absolute path
 **
 ** @param dir The path not yet absolute
-** @param disp Indicator whether or not the path is displayed.
+** @param disp Indicator whether or not the path should be displayed.
 **
-** @return Returns true if everything is ok. False otherwise
+** @return This function will return `true` if the given `dir` containing a
+** filename/path has successfully been changed into an absolute path.\n
+** It will otherwise return `false`
 */
 
 BOOL			change_in_abs(char **dir, BOOL *disp)
