@@ -29,6 +29,8 @@ char	find_first_quote(const char *str)
 			return (str[i]);
 		else if (str[i] == '"')
 			return (str[i]);
+		else if (str[i] == '`')
+			return (str[i]);
 	}
 	return (0);
 }
