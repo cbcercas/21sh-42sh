@@ -74,7 +74,6 @@ void		sh_history_builtin_n(char *path)
 /*
 ** @brief Displays -p option ret
 **
-** @param result result of history -p
 ** @param index index in arg
 ** @param arg passed at history -p
 */

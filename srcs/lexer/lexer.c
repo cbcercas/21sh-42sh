@@ -110,7 +110,7 @@ static const uint32_t g_char_type[129] = {
 	[']'] = E_CHAR_TYPE_LETTER,
 	['^'] = E_CHAR_TYPE_LETTER,
 	['_'] = E_CHAR_TYPE_LETTER,
-	['`'] = E_CHAR_TYPE_BQUOTE,
+	['`'] = E_CHAR_TYPE_SQUOTE,
 	['a'] = E_CHAR_TYPE_LETTER,
 	['b'] = E_CHAR_TYPE_LETTER,
 	['c'] = E_CHAR_TYPE_LETTER,
@@ -490,7 +490,7 @@ static const uint32_t g_tok_redir[129][129] =
 /*
 ** @brief Tokenizes one part of a string
 ** @param in The input
-** @param toks The t_array containing the tokens
+** @param tok The t_array containing the tokens
 ** @param a The automaton stepper
 */
 

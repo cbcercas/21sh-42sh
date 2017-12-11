@@ -41,6 +41,7 @@ static BOOL	exec_tab_one(char *cur, t_array *arr, t_window *wd)
 		if (!string_insert(wd->cur->str, string->s + len, pos_in_str(wd->cur)))
 			return (false);
 		redraw_input(wd->cur);
+		len = ft_strlen(string->s + len);
 		while (len--)
 			exec_arrow_right_normal(wd);
 	}
