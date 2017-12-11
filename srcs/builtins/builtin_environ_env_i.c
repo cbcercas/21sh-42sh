@@ -18,22 +18,22 @@ extern int g_optind;
 ** @brief Adds into the env a value
 **
 ** @param tmp The current env
-** @param argv Contains the args to be split
+** @param args Contains the args to be split
 **
 ** @return Returns the modified env
 */
 
-t_array	*sh_builtin_env_add(t_array *tmp, char **argv)
+t_array	*sh_builtin_env_add(t_array *tmp, char **args)
 {
 	char	*name;
 	char	*value;
 
 	if (tmp == NULL)
 		return (NULL);
-	while (g_optind != -1 && argv[g_optind] && ft_strchr(argv[g_optind], '='))
+	while (g_optind != -1 && args[g_optind] && ft_strchr(args[g_optind], '='))
 	{
-		name = split_var_name(argv[g_optind]);
-		value = split_var_value(argv[g_optind]);
+		name = split_var_name(args[g_optind]);
+		value = split_var_value(args[g_optind]);
 		set_var(tmp, name, value, true);
 		ft_strdel(&name);
 		ft_strdel(&value);

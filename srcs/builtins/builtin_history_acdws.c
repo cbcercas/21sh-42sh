@@ -119,30 +119,30 @@ void	sh_history_builtin_w(char *path)
 ** @brief The option -s stores the args in the history list as a single entry.
 ** The last command in the history list is removed before the args are added.
 **
-** @param argv The args passed to the `history -s` command
+** @param args The args passed to the `history -s` command
 ** @param index TODO
 */
 
-void	sh_history_builtin_s(char **argv, int index)
+void	sh_history_builtin_s(char **args, int index)
 {
 	char	*cmd_join;
 	char	*tmp;
 
 	cmd_join = NULL;
-	while (argv[index] && ft_isalnum(argv[index][0]))
+	while (args[index] && ft_isalnum(args[index][0]))
 	{
 		if (cmd_join && !(cmd_join = ft_strjoincl(cmd_join, " ", 1)))
 			sh_exit_error("Malloc Error");
-		if ((tmp = ft_strchr(argv[index], '\n')))
+		if ((tmp = ft_strchr(args[index], '\n')))
 		{
 			*tmp = 0;
-			cmd_join = ft_strjoincl(cmd_join, argv[index], 1);
+			cmd_join = ft_strjoincl(cmd_join, args[index], 1);
 			cmd_join = ft_strjoincl(cmd_join, "\\\n", 1);
 			tmp++;
 			cmd_join = ft_strjoincl(cmd_join, tmp, 1);
 		}
 		else
-			cmd_join = ft_strjoincl(cmd_join, argv[index], 1);
+			cmd_join = ft_strjoincl(cmd_join, args[index], 1);
 		index++;
 	}
 	if (cmd_join && sh_history_get())
