@@ -553,19 +553,6 @@ load test_helper
 	check_leaks_function exec
 }
 
-@test "BUILTIN_CD: Testing [cd_error_pwd] for 'cd /tmp; rm -rf toto; mkdir toto; unsetenv PWD; cd toto; pwd; cd -; setenv PWD=tata; cd toto; pwd; cd -; rm -rf toto; 2>&- cd tutu; cd /tmp; cd -; pwd; cd /tmp/toto; rm -rf /tmp/toto; cd -P .'" {
-	skip "behaviour consistent but not similar to bash, sh or zsh"
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /tmp; rm -rf toto; mkdir toto; unsetenv PWD; cd toto; pwd; cd -; setenv PWD=tata; cd toto; pwd; cd -; rm -rf toto; 2>&- cd tutu; cd /tmp; cd -; pwd; cd /tmp/toto; rm -rf /tmp/toto'
-	expect=`cd /tmp; rm -rf toto; mkdir toto; unsetenv PWD; cd toto; pwd; cd -; setenv PWD=tata; cd toto; pwd; cd -; rm -rf toto; 2>&- cd tutu; cd /tmp; cd -; pwd; cd /tmp/toto; rm -rf /tmp/toto`
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->$expect"
-	[ "${output}" = "$expect" ]
-	[ "$status" -eq 0 ]
-	check_leaks_function exec
-}
-
-
 @test "BUILTIN_CD: Testing [cd_minus_spec] for 'cd /tmp; cd /; cd -; cd -P -; cd -L -; cd -P -; cd -L -; cd tutu 2>&-; cd -'" {
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /tmp; cd /; cd -; cd -P -; cd -L -; cd -P -; cd -L -; cd tutu 2>&-; cd -'
 	expect=`cd /tmp; cd /; cd -; cd -P -; cd -L -; cd -P -; cd -L -; cd tutu 2>&-; cd -`
@@ -1309,19 +1296,6 @@ check_leaks_function exec
     [ "${lines[2]}" = "===== 2" ]
     [ "${lines[3]}" = "bla" ]
     [ "${lines[4]}" = "bli" ]
-    [ "$status" -eq 0 ]
-    check_leaks_function exec
-}
-
-@test "BUILTIN_ENV: Testing [subshell] for '(env -i A=1 B=2 C=3| cat -e) | wc'" {
-    skip "subhell"
-    expect=`(env -i A=1 B=2 C=3| cat -e) | wc`
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c '(env -i A=1 B=2 C=3| cat -e) | wc'
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->$expect"
-    echo
-    [ "${lines[0]}" = "$expect" ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }

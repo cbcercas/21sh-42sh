@@ -76,7 +76,6 @@ check_leaks_function expand
 }
 
 @test "EXPAND: Testing [simple replace] 100 vars" {
-  skip "Test takes to long and fails. TODO"
   i=0
   vars=""
   rets=""

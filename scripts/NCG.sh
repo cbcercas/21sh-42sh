@@ -11,11 +11,12 @@ echo -e "\n###################################"
 echo -e "###   Normed Comment Generator  ###"
 echo -e "###################################"
 
-find $EXEC_PATH/../ -iname "*.c" -o -iname "*.h" > filelist.tmp
+find $EXEC_PATH/../ -path $EXEC_PATH/../libcbc -prune -o -iname "*.c" -o -iname "*.h" > filelist.tmp
 
 while read line; do
      	sed "s/^\/\*\*/\/\*/g" $line | sed "s/^\ \*/\*\*/g" | sed "s/^\*\*\//\*\//g" > tmp
-     	cat tmp > $line 
+     	cat tmp > $line
+     	echo $line
 done < filelist.tmp
 rm filelist.tmp
 rm tmp

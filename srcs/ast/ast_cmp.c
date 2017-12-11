@@ -13,23 +13,20 @@
 #include <ast/ast.h>
 
 /*
-** @brief Finds and returns the type of given token
+** @brief Finds and returns the type of given token.\n
+** This function will compares priorities and returns the appropriate
+** `t_token_type`
 **
-** Compares priorities and returns appropriate type
-**
-** @param expands Contains the token array
-** @param prio Priority for tokens
-**
+** @param expands Contains the expanded user input
+** @param prio Priority for tokens:\n
 ** 1 = ";" or "||" or "&&",\n
 ** 2 = "|",\n
 ** 3 = redirections,\n
 ** 4 = "&".
-**
 ** @param cnt Contains the position of the current token
 ** @param type Contains the current token's type
 **
-** @return Returns the token type
-**
+** @return Returns a token type.\n
 ** Return values can be any token type defined in lexer.h
 */
 
@@ -50,23 +47,22 @@ t_token_type	return_type(int prio, t_token_type type, t_array *expands,
 }
 
 /*
-** @brief Associates priorities and tokens
-**
-** This will test possible matches between priorities and tokens, and will
-** then return true if they match
+** @brief Associates a given token to a priority.\n
+** This function will test the given token and every priority and will return
+** `true` if they match.
 **
 ** @param cnt Contains position of the current token
 ** @param expands Contains the token array
-** @param prio Priority for tokens
-**
+** @param prio Priority for tokens:\n
 ** 1 = ";" or "||" or "&&",\n
 ** 2 = "|",\n
 ** 3 = redirections,\n
 ** 4 = "&".
-**
 ** @param type Contains the type of current token
 **
-** @return Returns true if token and priority match, else returns false
+** @return The return value is based on the match or not of the token and the
+** priority. If `token` and `prio` match, This function will return `true`.\n
+** Else, This function will return `false`.
 */
 
 BOOL			ast_associate_prio(t_token_type type, int prio, ssize_t cnt,
@@ -85,11 +81,15 @@ BOOL			ast_associate_prio(t_token_type type, int prio, ssize_t cnt,
 }
 
 /*
-** @brief Compares given token type and returns appropriate priority for the ast
+** @brief Compares and returns the priority for each token.\n
+** If the token `type` is a `separator`, then it's priority will be set to 1.\n
+** If the token `type` is a `pipe`, then it's priority will be set to 2.\n
+** If the token `type` is a `redir`, then it's priority will be set to 3.\n
+** If the token `type` is a `word`, then it's priority will be set to 4.\n
 **
-** @param type Contains current token's type
+** @param type Contains the current token's type to be matched with a priority
 **
-** @return Returns the priority
+** @return Returns the priority of the given token `type`
 */
 
 static int		ast_get_prio(t_token_type type)
@@ -106,7 +106,7 @@ static int		ast_get_prio(t_token_type type)
 }
 
 /*
-** @brief Returns priority between two commands
+** @brief Checks if s1 is under s2 priority wise.
 **
 ** @param s1 First command to compare
 ** @param s2 Second command to compare

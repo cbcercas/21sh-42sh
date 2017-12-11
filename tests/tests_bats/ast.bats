@@ -331,7 +331,6 @@ load test_helper
 
 
 @test "AST: Testing [MIX] for 'mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi" {
-  #skip "because there is no expand yet"
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t ast "mkdir test ; cd test ; ls -a ; ls | cat | wc -c > fifi ; cat fifi" line
   echo "ERROR:"
   display_line_output
