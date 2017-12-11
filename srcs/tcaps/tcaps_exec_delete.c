@@ -23,10 +23,11 @@ BOOL			exec_delete(const t_key *key, t_window *wd)
 	size_t		pos;
 	t_input		*del;
 
-	(void)key;
-	if (!tcaps_init(wd) || wd->select.is)
+	if (!key || !tcaps_init(wd) || wd->select.is
+		|| (wd->autocomp && wd->autocomp->active))
 		return (false);
-	log_dbg1("exec delete.");
+	else if (wd->autocomp && !wd->autocomp->active)
+		get_windows(100);
 	pos = pos_in_str(wd->cur);
 	if (wd->cur->str->len > pos)
 		string_remove_char(wd->cur->str, pos);
