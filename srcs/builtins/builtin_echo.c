@@ -44,8 +44,8 @@ static char	*ft_replace(char *src1, char *src2, int index, int size)
 /*
 ** @brief Searches for occurrence of `little` in string `big`
 **
-** @param The string in which the function will search for `little`
-** @param The string to search in `big`
+** @param big The string in which the function will search for `little`
+** @param little The string to search in `big`
 **
 ** @return Returns the index of where `little` starts in `big`
 */

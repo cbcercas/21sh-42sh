@@ -78,11 +78,7 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 }
 
 /*
-** @brief checks if the env is empty or missing a key value
-**
-** @param environ The environ passed to the program when started
-**
-** @return void
+** @brief Displays a message when the shell is started with `env -i`
 */
 
 static void			sh_env_warn(void)
@@ -91,6 +87,8 @@ static void			sh_env_warn(void)
 	"features to not work proprelly.\n", PROGNAME, CL_RED, C_NONE, PROGNAME);
 	log_warn("was launched without an env provided. Using default.\n");
 }
+
+//TODO
 
 void				sh_check_env(char **environ)
 {

@@ -39,7 +39,7 @@ static void		join_current(char **dir)
 **
 ** @param cdpath is the cdpath environ variable
 ** @param dir The path not absolute
-** @param indicator whether or not the path is displayed.
+** @param disp indicator whether or not the path is displayed.
 **
 ** @return Returns true if everything is ok. False otherwise
 */

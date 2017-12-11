@@ -17,7 +17,8 @@ extern int g_optind;
 /*
 ** @brief Tests the path, to check if the user has the permission to cd in it.
 **
-** @param path The path to be tested
+** @param dir The path to be tested
+** @param arg The arguments passed to cd
 **
 ** @return Returns `true` if user has perm to chdir in the requested folder.
 ** This function will return `false` by default or if permissions aren't ok.

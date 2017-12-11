@@ -17,6 +17,7 @@
 **
 ** @param  data    The data of shell
 ** @param  item    The item in AST
+** @param  fds     The list of opened fds
 **
 ** @return         result of builtin
 */

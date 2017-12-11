@@ -104,8 +104,10 @@ BOOL			expand_hist_alpha(t_input *inp, size_t *i)
 
 /*
 ** @brief find the first occurence
+**
 ** @param i index in str
-** @param inp current input
+** @param input The current user input in a `t_input` array
+**
 ** @return input where is the first occurence
 */
 

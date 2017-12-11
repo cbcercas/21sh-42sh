@@ -47,8 +47,8 @@ static void	builtin_export_print(t_array *vars, BOOL color)
 /*
 ** @brief Executes option -p
 **
-** @param vars The local env
 ** @param color If set to true then the variables will be colored. Otherwise no.
+** @param argv The arguments passed to the builtin
 */
 
 static void	builtin_export_p(char **argv, BOOL color)
@@ -112,6 +112,7 @@ int			builtin_unset(t_sh_data *data, char **argv)
 ** @brief Exports a variable in the local var
 **
 ** @param argv The arguments used to export
+** @param color If set to true, the printed vars will be colored
 **
 ** @return Returns a ret value based on success of the operation
 */

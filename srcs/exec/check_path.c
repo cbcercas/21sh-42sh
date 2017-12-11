@@ -62,6 +62,7 @@ static char		**get_env_path(void)
 **
 ** @param ret The error value
 ** @param cmd_name The cmd executed that errored
+** @param free a `char **` to free
 */
 
 static void		sh_check_path_print_err(int ret, char const *cmd_name, char **free)
