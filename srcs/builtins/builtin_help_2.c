@@ -18,10 +18,11 @@
 
 void	sh_help_exit(void)
 {
-	ft_printf("%sexit%s [n]\n", CL_RED, C_NONE);
-	ft_printf("Cause the shell to exit with a status of n.\n");
-	ft_printf("If n is omitted, the exit status is that of the last command \
-executed.\n");
+	ft_printf("%sexit%s [%sn%s]\n", CL_RED, C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("Cause the shell to exit with a status of %sn%s.\n",
+															C_MAGENTA, C_NONE);
+	ft_printf("If %sn%s is omitted, the exit status is that of the last command"
+											" executed.\n", C_MAGENTA, C_NONE);
 	ft_printf("A trap on EXIT is executed before the shell terminates.\n");
 }
 
@@ -31,19 +32,39 @@ executed.\n");
 
 void	sh_help_cd(void)
 {
-	ft_printf("%scd%s [%s-L|-P%s] [directory]\n", CL_RED, C_NONE, C_CYAN,
-																		C_NONE);
-	ft_printf("Change the current working directory to directory.\n");
-	ft_printf("If directory is not supplied, the value of the HOME shell ");
+	ft_printf("%scd%s [%s-L|-P%s] [%sdirectory%s]\n", CL_RED, C_NONE, C_CYAN,
+													C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("\tChange the current working directory to %sdirectory%s.\n", C_MAGENTA, C_NONE);
+	ft_printf("If %sdirectory%s is not supplied, the value of the %s$HOME%s shell ", C_MAGENTA, C_NONE, C_GREEN, C_NONE);
 	ft_printf("variable is used.\n");
 	ft_printf("Any additional arguments following directory are ignored.\n");
-	ft_printf("The -P option means to not follow symbolic links: symbolic");
+	ft_printf("The %s-P%s option means to not follow symbolic links: symbolic", C_CYAN, C_NONE);
 	ft_printf(" links are resolved while cd is traversing directory and");
 	ft_printf(" before processing an instance of ‘..’ in directory.\n");
-	ft_printf("By default, or when the -L option is supplied, symbolic links");
+	ft_printf("By default, or when the %s-L%s option is supplied, symbolic links", C_CYAN, C_NONE);
 	ft_printf(" in directory are resolved after cd processes an instance of");
 	ft_printf(" ‘..’ in directory.\n");
-	ft_printf("If directory is ‘-’, it is converted to $OLDPWD before the");
+	ft_printf("If directory is ‘-’, it is converted to %s$OLDPWD%s before the", C_GREEN, C_NONE);
+	ft_printf("directory change is attempted.\n");
+	ft_printf("The return status is zero if the directory is successfully");
+	ft_printf("changed, non-zero otherwise.\n");
+}
+
+void	sh_help_chdir(void)
+{
+	ft_printf("%schdir%s [%s-L|-P%s] [%sdirectory%s]\n", CL_RED, C_NONE, C_CYAN,
+			  C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("\tChange the current working directory to %sdirectory%s.\n", C_MAGENTA, C_NONE);
+	ft_printf("If %sdirectory%s is not supplied, the value of the %s$HOME%s shell ", C_MAGENTA, C_NONE, C_GREEN, C_NONE);
+	ft_printf("variable is used.\n");
+	ft_printf("Any additional arguments following directory are ignored.\n");
+	ft_printf("The %s-P%s option means to not follow symbolic links: symbolic", C_CYAN, C_NONE);
+	ft_printf(" links are resolved while chdir is traversing directory and");
+	ft_printf(" before processing an instance of ‘..’ in directory.\n");
+	ft_printf("By default, or when the %s-L%s option is supplied, symbolic links", C_CYAN, C_NONE);
+	ft_printf(" in directory are resolved after chdir processes an instance of");
+	ft_printf(" ‘..’ in directory.\n");
+	ft_printf("If directory is ‘-’, it is converted to %s$OLDPWD%s before the", C_GREEN, C_NONE);
 	ft_printf("directory change is attempted.\n");
 	ft_printf("The return status is zero if the directory is successfully");
 	ft_printf("changed, non-zero otherwise.\n");
@@ -55,13 +76,9 @@ void	sh_help_cd(void)
 
 void	sh_help_setenv(void)
 {
-	if (get_data(NULL) && get_data(NULL)->opts.color)
-		ft_printf("%ssetenv%s [name]=[value]\n", CL_RED, C_NONE);
-	else
-		ft_printf("setenv [name]=[value]\n", CL_RED, C_NONE);
-	ft_printf("Sets the environment variable name with value value\n");
-	ft_printf("If name already has a value, then it is replaced with the \
-new one\n");
+	ft_printf("%ssetenv%s [%sname%s]=[%svalue%s]\n", CL_RED, C_NONE, C_CYAN, C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("Sets the environment variable %sname%s with value %svalue%s\n", C_CYAN, C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("If %sname%s already has a %svalue%s, then it is replaced with the new one\n", C_CYAN, C_NONE, C_MAGENTA, C_NONE);
 }
 
 /*
@@ -70,12 +87,9 @@ new one\n");
 
 void	sh_help_unsetenv(void)
 {
-	if (get_data(NULL) && get_data(NULL)->opts.color)
-		ft_printf("%sunsetenv%s [name]\n", CL_RED, C_NONE);
-	else
-		ft_printf("unsetenv [name]\n");
-	ft_printf("Deletes the environment variable name from local env\n");
-	ft_printf("If name doesnt exists, nothing happens\n");
+	ft_printf("%sunsetenv%s [%sname%s]\n", CL_RED, C_NONE, C_CYAN, C_NONE);
+	ft_printf("Deletes the environment variable %sname%s from env\n", C_CYAN, C_NONE);
+	ft_printf("If %sname%s doesnt exists, nothing happens\n", C_CYAN, C_NONE);
 	ft_printf("Optional arguments shall be passed to utility.\n");
 }
 

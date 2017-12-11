@@ -26,6 +26,10 @@ int			sh_builtin_help_helper(char **args)
 		sh_help_bonus();
 	else if (ft_strequ(args[1], "history"))
 		sh_help_history();
+	else if (ft_strequ(args[1], "export"))
+		sh_help_export();
+	else if (ft_strequ(args[1], "chdir"))
+		sh_help_chdir();
 	else
 	{
 		ft_printf("%s: Couldn't find the help wanted for %s\n",\
@@ -41,13 +45,13 @@ int			sh_builtin_help_helper(char **args)
 
 void		sh_help_history(void)
 {
-	ft_printf("%shistory%s [n] [cdanrwps]\n", CL_RED, C_NONE);
+	ft_printf("%shistory%s [%sn%s] [%scdanrwps%s]\n", CL_RED, C_NONE, C_MAGENTA, C_NONE, C_CYAN, C_NONE);
 	ft_printf("\thistory\n");
-	ft_printf("\t\thistory [n]\n");
+	ft_printf("\thistory [%sn%s]\n", C_MAGENTA, C_NONE);
 	ft_printf("\thistory %s-c%s\n", C_CYAN, C_NONE);
-	ft_printf("\thistory %s-d%s offset\n", C_CYAN, C_NONE);
-	ft_printf("\t\thistory [-anrw] [filename]\n");
-	ft_printf("\thistory %s-ps%s arg\n\n", C_CYAN, C_NONE);
+	ft_printf("\thistory %s-d%s %soffset%s\n", C_CYAN, C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("\thistory [%s-anrw%s] [%sfilename%s]\n", C_CYAN, C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("\thistory %s-ps%s %sarg%s\n\n", C_CYAN, C_NONE, C_MAGENTA, C_NONE);
 	ft_printf("With no options, display the history list with line numbers.\n");
 	ft_printf("\tOptions, if supplied, have the following meanings:\n");
 	ft_printf("%s-c%s\n", C_CYAN, C_NONE);
@@ -89,10 +93,10 @@ void		sh_help_history_helper(void)
 	ft_printf("%s-s%s\n", C_CYAN, C_NONE);
 	ft_printf("\tThe args are added to the end of the history list as a "
 					"single entry.\n");
-	ft_printf("\n\t\tWhen any of the -w, -r, -a, or -n options is used, if "
+	ft_printf("\n\t\tWhen any of the %s-w%s, %s-r%s, %s-a%s, or %s-n%s options is used, if "
 					"filename is given, then it is used as the history file"
 					". If not, then the value of the HISTFILE variable is "
-					"used.\n");
+					"used.\n", C_CYAN, C_NONE, C_CYAN, C_NONE, C_CYAN, C_NONE, C_CYAN, C_NONE);
 }
 
 /*
@@ -106,12 +110,12 @@ void		sh_help_pwd(void)
 	ft_printf("The pwd utility shall write to standard output an absolute"
 					"pathname of the current working directory, which does not"
 					" contain the filenames dot or dot-dot.\n");
-	ft_printf("%s-L%s\tIf the PWD environment variable contains an absolute"
+	ft_printf("%s-L%s\tIf the %sPWD%s environment variable contains an absolute"
 					" pathname of the current directory that does not contain"
 					" the filenames dot or dot-dot, pwd shall write this"
-					" pathname to standard output.Otherwise, the -L option"
+					" pathname to standard output.\n\tOtherwise, the %s-L%s option"
 					" shall behave as the %s-P%s option.\n",
-											C_CYAN, C_NONE, C_CYAN, C_NONE);
+											C_CYAN, C_NONE, C_GREEN, C_NONE, C_CYAN, C_NONE, C_CYAN, C_NONE);
 	ft_printf("%s-P%s\tThe pathname written to standard output shall not "
 					"contain any components that refer to files of type "
 										"symbolic link. \n", C_CYAN, C_NONE);
@@ -120,6 +124,22 @@ void		sh_help_pwd(void)
 					"utility shall behave as if %s-L%s had been specified.\n",
 			C_CYAN, C_NONE, C_CYAN, C_NONE, C_CYAN, C_NONE, C_CYAN,
 			C_NONE, C_CYAN, C_NONE);
+}
+
+void		sh_help_export(void)
+{
+	ft_printf("%sexport%s [%s-n%s] [name[=value] ...] or export -p\n",
+			  CL_RED, C_NONE, C_CYAN, C_NONE);
+	ft_printf("\tSet export attribute for shell variables.\n");
+	ft_printf("\tMarks each NAME for automatic export to the environment of subsequently\n");
+	ft_printf("\texecuted commands.  If VALUE is supplied, assign VALUE before exporting.\n");
+	ft_printf("\tOptions:\n");
+	ft_printf("\t\t-f\trefer to shell functions\n");
+	ft_printf("\t\t-n\tremove the export property from each NAME\n");
+	ft_printf("\t\t-p\tdisplay a list of all exported variables and functions\n");
+	ft_printf("\tAn argument of `--' disables further option processing.\n");
+	ft_printf("\tExit Status:\n");
+	ft_printf("\t\tReturns success unless an invalid option is given or NAME is invalid.\n");
 }
 
 /*

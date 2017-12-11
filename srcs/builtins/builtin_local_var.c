@@ -168,7 +168,7 @@ int			builtin_export(t_sh_data *data, char **args)
 		builtin_unset(data, args);
 	else if (opt == '?')
 	{
-		ft_dprintf(STDERR_FILENO, "export [-n] [name[=value] ...] or export "
+		ft_dprintf(STDERR_FILENO, "export [-n] [name[=value] ...] or export -p"
 				"-p\n");
 		return (1);
 	}

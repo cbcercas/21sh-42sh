@@ -37,6 +37,7 @@ Bug reports for **21-42sh** should be reported in the issues section on our [Git
   - [x] Waits for the end of a quote or double quote.
   - [x] ctrl+D and ctrl+C usable when editing a line or in multi-line.
   - [x] Multiline line editing
+  - [ ] TODO : ctrl+h === backspace, ctrl+w == clear avant cursor, ctrl+k == clear apres cursor
   
 
 - [x] Builtins with their POSIX options
