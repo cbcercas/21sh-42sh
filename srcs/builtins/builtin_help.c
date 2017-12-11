@@ -14,6 +14,7 @@
 
 /*
 ** @brief The function display default help
+**
 ** @param data The shell data used throughout the program
 **
 ** @return Returns the ret value of echo
@@ -115,8 +116,9 @@ void	sh_help_bonus(void)
 
 /*
 ** @brief The function called when help is executed
+**
 ** @param data The shell data used throughout the program
-** @param argv The args passed to help
+** @param args The args passed to help
 **
 ** @return Returns the ret value of help
 */

@@ -13,11 +13,12 @@
 #include <builtins/builtin_chdir.h>
 
 /*
-** @brief Finds the starting '..'
+** @brief This function will find the first `..` it will find in the string
+** `path` and return a pointer to it.
 **
-** @param path The path string to search
+** @param path The string to search into
 **
-** @return Returns the pointer to the '..'
+** @return Returns a pointer to the first `..` it'll find in `path`
 */
 
 static char		*find_start_ddots(char *path)
@@ -37,11 +38,11 @@ static char		*find_start_ddots(char *path)
 }
 
 /*
-** @brief Removes the extraenous dots for given path
+** @brief Removes the extraneous dots for given `path`.
 **
-** @param path Path to search
+** @param path String containing a path to remove the extraneous dots from.
 **
-** @return Returns the path without the extraenous dots
+** @return Returns the modified path without the extraneous dots inside.
 */
 
 static	char	*remove_dots(char *path)
@@ -67,11 +68,12 @@ static	char	*remove_dots(char *path)
 }
 
 /*
-** @brief Removes the extraneous backslashes from a given path
+** @brief Removes the extraneous backslashes from a given `path`
 **
-** @param path String from which to remove the extraenous backslashes
+** @param path String containing a path to remove the extraneous backslashes
+** from.
 **
-** @return The path modified without the backslashes
+** @return Returns the modified path without the extraneous backslashes inside.
 */
 
 static char		*remove_backslash(char *path)
@@ -86,11 +88,14 @@ static char		*remove_backslash(char *path)
 }
 
 /*
-** @brief Expands the path
+** @brief This function will expand a path given through a pointer.\n
+** It will first remove the dots then the backslashes. If a `./` or a `//` are
+** found in the modified string, the function will reset the modified path
+** and return the original one.
 **
-** @param path not expand
+** @param path The filename/path you want to modify
 **
-** @return path expand
+** @return path Returns the modified path
 */
 
 char			*expand_path(char **path)
@@ -103,7 +108,7 @@ char			*expand_path(char **path)
 	ret = *path;
 	ret = remove_dots(ret);
 	ret = remove_backslash(ret);
-	if (ft_strstr(ret, "./") || ft_strstr(ret, "/.") || ft_strstr(ret, "//"))
+	if (ft_strstr(ret, "./") || ft_strstr(ret, "//"))
 	{
 		log_warn("CD expand PATH wrong ! (%s) so return (%s)", ret, current);
 		ft_strdel(&ret);

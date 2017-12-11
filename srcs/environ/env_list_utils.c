@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include <environ/env_list_utils.h>
-#include <logger.h>
-#include <ftprintf.h>
+#include <tools/tools.h>
 
 /*
 ** @brief Splits a string and returns the name
@@ -71,18 +70,9 @@ t_env	*var_new(char *name, char *value, BOOL is_export)
 	t_env	*e;
 
 	if ((e = ft_memalloc(sizeof(*e))) == NULL)
-	{
-		log_fatal("Environ: can't create new environment varibles");
-		ft_dprintf(STDERR_FILENO, "Environ: can't create new environment \
-				varibles");
-	}
+		sh_exit_error("Environ: can't create new environment variables");
 	else if ((e->name = name) == NULL)
-	{
-		log_fatal("Environ: can't create new environment varibles");
-		ft_dprintf(STDERR_FILENO, "Environ: can't create new environment \
-				varibles");
-		ft_memdel((void**)&e);
-	}
+		sh_exit_error("Environ: can't create new environment variables");
 	else
 	{
 		e->value = value;

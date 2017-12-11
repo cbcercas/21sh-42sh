@@ -48,20 +48,30 @@ char		*input_to_history(t_input *input)
 t_input		*input_from_history(const char *hist)
 {
 	t_input		*input;
+	t_input		*save;
 	const char	*c;
 
 	if (!hist || !ft_strlen(hist) || !(input = input_new()))
 		return (NULL);
-	while ((c = ft_strstr(hist, "\\\n")) != NULL)
+	save = input;
+	while (((c = ft_strstr(hist, "\\\n")) != NULL)
+		   || ((c = ft_strstr(hist, "\\")) != NULL))
 	{
-		string_ninsert(input->str, hist, 0, c - hist);
-		hist = c + 2;
-		input = input_add_new(input);
+		if (!ft_strncmp(c, "\\\n", 2))
+			string_ninsert(save->str, hist, 0, c - hist);
+		else
+			string_insert(save->str, hist, 0);
+		hist = c + ((ft_strncmp(c, "\\\n", 2)) ? 1 : 2);
+		if (!(save = input_add_new(save)))
+		{
+			input_destroy(&input);
+			return (NULL);
+		}
 	}
-	if (input->str->len && input->str->s[input->str->len - 1] == '\\')
-		input = input_add_new(input);
-	string_ninsert(input->str, hist, 0, hist - c);
-	while (input->prev)
-		input = input->prev;
+	//if (input->str->len && input->str->s[input->str->len - 1] == '\\')
+	//	input = input_add_new(input);
+	string_insert(save->str, hist, 0);
+//	while (input->prev)
+//		input = input->prev;
 	return (input);
 }

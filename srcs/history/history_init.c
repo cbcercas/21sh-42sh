@@ -15,8 +15,8 @@
 /*
 ** @brief Helps initialize the history
 ** @param hists The t_array containing the history
-** @param fd TODO
-** @return TODO
+** @param fd The fd of the history file
+** @return Returns an appropriate return value (0|1) concording to the function
 */
 
 int		sh_history_init_one(t_array *hists, int fd)
@@ -85,7 +85,7 @@ void	sh_history_print_choice(int limit)
 
 /*
 ** @brief Initializes the history and diplay the choices
-** @param fd TODO
+** @param fd The fd of the history file
 ** @param limit The limit in bytes
 ** @return Returns the fd of the file
 */

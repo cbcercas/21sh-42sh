@@ -51,15 +51,14 @@ void	signals_sigwinch(void)
 	pos = pos_in_str(input);
 	tmp = input;
 	input = input_back_to_writable(input);
-	get_windows(1);
+	get_windows(101);
 	if (get_windows(0))
 		get_windows(0)->cur = input;
 	get_select()->is = false;
-	reset_select_pos();
+	reset_insert_pos();
 	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
 	sh_print_prompt(input, NULL, E_RET_REDRAW_PROMPT);
 	redraw_input(input);
-	//TODO refactor using tgoto
 	input = goto_input(input, tmp);
 	while (pos != pos_in_str(input) && pos_in_str(input) < input->str->len)
 		move_cursor_right(&input->cpos, get_ts());

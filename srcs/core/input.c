@@ -24,7 +24,10 @@ t_input			*input_new(void)
 	t_input	*input;
 
 	if (!(input = ft_memalloc(sizeof(*input))))
+	{
+		sh_exit_error("Malloc Error");
 		return (NULL);
+	}
 	input->next = NULL;
 	input->prev = NULL;
 	input->ts = get_ts();
@@ -83,7 +86,7 @@ static BOOL		sh_get_line_insert(t_input *input, t_key key)
 {
 	if (!string_insert(input->str, key.key, pos_in_str(input)))
 		return (false);
-	get_windows(10)->h_complet = true;
+	get_windows(110)->h_complet = true;
 	draw_char(input, key.key);
 	return (true);
 }
@@ -106,11 +109,10 @@ char			*sh_get_line(t_input *input, t_sh_opt *opts)
 	while (stop == false)
 	{
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN + 1);
-		if (!sh_get_char((char *)buff))
-			break ;
+		read(STDIN_FILENO, buff, (opts->tcaps) ? MAX_KEY_STRING_LEN : 1);
 		key = key_get(buff, opts->tcaps);
 		if (ft_strcmp(key.key_code, KEY_CODE_OTHER))
-			stop = key_exec(&key, input);
+			stop = key_exec(&key, get_windows(0));
 		else if (MAX_LEN_INPUT <= input->str->len)
 			tcaps_bell();
 		else if (is_printstr(buff) && !get_select()->is &&

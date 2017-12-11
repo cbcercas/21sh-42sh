@@ -68,6 +68,7 @@ static void		expand_hist_aff(void)
 	t_input		*inp;
 
 	inp = input_get_cur_head();
+	ft_putc_in('\n');
 	while (inp)
 	{
 		if (inp->str)

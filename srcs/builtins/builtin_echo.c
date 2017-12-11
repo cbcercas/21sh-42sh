@@ -15,14 +15,17 @@
 extern int g_optind;
 
 /*
-** @brief Replaces in src1 from index until size with scr2
+** @brief Replaces in `src1` from `index` until `size` with `scr2`
+** A little detail on the utility of this function. You give it `src1` which is
+** the string to modify.\n
+** From `index` and until `index+size` is reached, `src2` will be inserted.
 **
 ** @param src1 String to modify
-** @param src2 String used to modify
+** @param src2 String to insert
 ** @param index Where to start
 ** @param size how long should it replace
 **
-** @return Returns the modified string
+** @return Returns a newly malloced string with `src2` inside of it
 */
 
 static char	*ft_replace(char *src1, char *src2, int index, int size)
@@ -42,10 +45,13 @@ static char	*ft_replace(char *src1, char *src2, int index, int size)
 }
 
 /*
-** @brief search occurence (little) in string (big)
-** @param big string where this function search
-** @param little is the occurence
-** @return index of big where start little
+** @brief Searches for the number of occurrences of string `little` in string
+** `big`.
+**
+** @param big The string in which the function will search for `little`
+** @param little The string to search in `big`
+**
+** @return Returns the index of where `little` starts in `big`
 */
 
 static int	ft_index_strstr(const char *big, const char *little)
@@ -75,8 +81,11 @@ static int	ft_index_strstr(const char *big, const char *little)
 }
 
 /*
-** @brief Parses the \\ something for echo
+** @brief Parses the `\\`x for the echo builtin.
+** This builtin supports all the standart escape chars from POSIX
+**
 ** @param src The string to parse
+**
 ** @return Returns the parsed string
 */
 
@@ -135,14 +144,17 @@ static void	echo_print(char **arg, const char flag[2])
 }
 
 /*
-** @brief The function called when echo is executed
-** @param data The shell data used throughout the program
-** @param argv The args passed to echo
+** @brief The function called when echo is executed.\n
+** This function will parse the options given to the `echo` builtin and then
+** print what was asked
 **
-** @return Returns the ret value of echo
+** @param data The shell data used throughout the program
+** @param args The args passed to echo
+**
+** @return Returns a return value based on the success of the builtin (0|1)
 */
 
-int			sh_echo(t_sh_data *data, char **argv)
+int			sh_echo(t_sh_data *data, char **args)
 {
 	int		opt;
 	char	flag[2];
@@ -150,7 +162,7 @@ int			sh_echo(t_sh_data *data, char **argv)
 	(void)data;
 	ft_bzero(flag, 2);
 	ft_getopt_reset();
-	while ((opt = ft_getopt(((int)ft_tablen(argv)), argv, "Een")) != -1)
+	while ((opt = ft_getopt(((int)ft_tablen(args)), args, "Een")) != -1)
 	{
 		if (opt == 'n')
 			flag[0] = 1;
@@ -162,7 +174,7 @@ int			sh_echo(t_sh_data *data, char **argv)
 			break ;
 	}
 	if (opt != '?')
-		echo_print(&argv[g_optind], flag);
+		echo_print(&args[g_optind], flag);
 	if (!(flag[0] && opt != '?') && opt != '?')
 		ft_putstr("\n");
 	ft_getopt_reset();

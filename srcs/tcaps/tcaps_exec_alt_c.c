@@ -51,19 +51,20 @@ static t_input	*alt_c_mid(t_input *tmp, char **str, size_t start, size_t end)
 	return (tmp);
 }
 
-BOOL			exec_alt_c(const t_key *key, t_input *input)
+BOOL			exec_alt_c(const t_key *key, t_window *wd)
 {
 	t_input		*tmp;
 	char		*str;
 	size_t		start;
 	size_t		end;
 
-	(void)input;
 	(void)key;
-	str = NULL;
+	if (!tcaps_init(wd))
+		return (false);
 	if (!get_select()->is)
 		return (false);
-	tmp = input_get_cur_head();
+	str = NULL;
+	tmp = get_windows(0)->cur_head;
 	while (tmp && !tmp->select_pos.is_set)
 		tmp = tmp->next;
 	if (!tmp)

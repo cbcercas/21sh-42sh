@@ -38,7 +38,7 @@
 /*
 ** @struct s_secu_malloc
 **
-** @brief TOOD
+** @brief TODO
 */
 
 struct							s_secu_malloc
@@ -74,66 +74,6 @@ void							ft_secu_free_all(void);
 void							ft_secu_free_lvl(size_t lvl);
 
 /*
-** @file ft_str_insert_secu.c
-**
-** @brief Functions used to insert into a string securely
-*/
-
-char							*ft_str_insert_secu(char *src1, char *src2,
-														int index, size_t lvl);
-
-/*
-** @file ft_strdblfree.c
-**
-** @brief Functions used to free a char** securely
-*/
-
-void							ft_strdblfree(char **strdb);
-
-/*
-** @file ft_strdup_secu.c
-**
-** @brief Functions used to dup a string securely
-*/
-
-char							*ft_strdup_secu(char const *src, size_t lvl);
-
-/*
-** @file ft_strjoincl_secu.c
-**
-** @brief Functions used to join two strings together (TODO)
-*/
-
-char							*ft_strjoincl_secu(char *s1, char *s2, int free,
-																	size_t lvl);
-
-/*
-** @file ft_strnew_secu.c
-**
-** @brief Functions to create a new string securely
-*/
-
-char							*ft_strnew_secu(size_t size, size_t lvl);
-
-/*
-** @file ft_strsplit_secu.c
-**
-** @brief Functions to split a string into a char** securely
-*/
-
-char							**ft_strsplit_secu(char const *s, char c,
-																	size_t lvl);
-
-/*
-** @file ft_strsub_secu.c
-**
-** @brief Functions to sub to a string securely
-*/
-
-char							*ft_strsub_secu(char const *s,
-									unsigned int start, size_t len, size_t lvl);
-
-/*
 ** @file ft_secu_malloc.c
 **
 ** @brief Functions to malloc securely
@@ -142,50 +82,5 @@ char							*ft_strsub_secu(char const *s,
 void							*secu_malloc(size_t size);
 void							*ft_secu_malloc_lvl(size_t size, size_t lvl);
 t_mem							*get_mem(void);
-
-/*
-** @file string_growth_secu.c
-**
-** @brief Functions used to grow a t_string securely
-*/
-
-t_string						*string_growth_cap_secu(t_string *string,
-														size_t cap, size_t lvl);
-t_string						*string_growth_secu(t_string *string,
-																	size_t lvl);
-
-/*
-** @file string_secu.c
-**
-** @brief Functions to manage a t_string securely
-*/
-
-t_string						*string_init_cap_secu(t_string *string,
-														size_t cap, size_t lvl);
-t_string						*string_create_cap_secu(size_t cap, size_t lvl);
-t_string						*string_create_secu(size_t lvl);
-
-/*
-** @file string_insert_secu.c
-**
-** @brief Functions used to insert into a t_string securely
-*/
-
-t_string						*string_insert_secu(t_string *string,
-									const char *str, size_t pos, size_t lvl);
-t_string						*string_insert_front_secu(t_string *string,
-												const char *str, size_t lvl);
-t_string						*string_insert_back_secu(t_string *string,
-												const char *str, size_t lvl);
-
-/*
-** @file string_dup_secu.c
-**
-** @brief Functions used to dup a t_string securely
-*/
-
-t_string						*string_ndup_secu(const char *str, size_t n,
-																	size_t lvl);
-t_string						*string_dup_secu(const char *str, size_t lvl);
 
 #endif

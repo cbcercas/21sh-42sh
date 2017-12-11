@@ -14,9 +14,10 @@
 #include <core/tcaps.h>
 
 /*
-** @brief display char
-** @param input  current input
-** @param c the char to be "draw"
+** @brief Displays a char
+**
+** @param input This struct contains the current input
+** @param c The char to be "drawn"
 */
 
 void		draw_char(t_input *input, char *c)
@@ -28,7 +29,7 @@ void		draw_char(t_input *input, char *c)
 		len = (int)ft_strlen(c);
 	redraw_input(input);
 	while (len--)
-		exec_arrow_right(NULL, input);
+		exec_arrow_right(NULL, get_windows(0));
 }
 
 /*
@@ -38,8 +39,10 @@ void		draw_char(t_input *input, char *c)
 
 /*
 ** @brief display input
+**
 ** @param input start of draw
-** @return the last input draw
+**
+** @return the last input draw (TODO)
 */
 
 t_input		*input_draw(t_input *input)
@@ -66,6 +69,7 @@ t_input		*input_draw(t_input *input)
 
 /*
 ** @brief display input and replace cursor to the origin of input
+**
 ** @param input the current input
 */
 

@@ -13,10 +13,7 @@ builds with `clang` by default if it is available.  If you want to use `gcc` ins
 
 ## Reporting bugs
 
-Bug reports for **21-42sh** should be sent to:
-
-	jlasne@student.42.fr
-Or reported in the issues section on our [Github page](https://github.com/cbcercas/21-42sh) along with:
+Bug reports for **21-42sh** should be reported in the issues section on our [Github page](https://github.com/cbcercas/21-42sh) along with:
 * the version number (if available, else the commit used by the last build)
 * the machine and OS that it is running on
 * a list of the compilation flags
@@ -70,7 +67,7 @@ Or reported in the issues section on our [Github page](https://github.com/cbcerc
   - [ ] TODO
 
 - [x] Shell
-  - [x] options: v d t c C
+  - [x] options: v d t c C l
   - [ ] TODO
 
 - [x] Signals 

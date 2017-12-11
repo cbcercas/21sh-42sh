@@ -68,7 +68,7 @@ t_array		init_tests_ast(char *input)
 ** @brief Main function to test the ast.
 **
 ** @param av The args passed to the ast test
-** @param __p__environ The environ passed to the program
+** @param environ The environ passed to the program
 */
 
 void		sh_testing_ast(char *const *av, char **environ)

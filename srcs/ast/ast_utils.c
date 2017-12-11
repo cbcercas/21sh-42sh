@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 
 #include <ast/ast.h>
-#include <builtins/builtin_exit.h>
 
 /*
-** @brief Frees cmd content and cmd
+** @brief Frees the `t_cmd` struct and it's content.
+** This function will check if `cmd` isn't NULL beforehand. If it isn't,
+** it will free securely the `cmd->av` and set it to NULL before freeing the
+** struct `cmd` itself.
 **
-** @param cmd the cmd to be freed and deleted
-**
-** @return void
+** @param cmd The `cmd` struct to be freed
 */
 
 void			ast_del_cmd(t_cmd *cmd)
@@ -34,11 +34,13 @@ void			ast_del_cmd(t_cmd *cmd)
 }
 
 /*
-** @brief Displays content of cmd
+** @brief Displays the content of a given `t_cmd`.
+** This function will loop through `cmd->av` from 0 and print them.
 **
-** @param cmd Command struct containing cmd to be displayed
+** @param cmd The `t_cmd` struct to display the contents from
 **
-** @return Returns "" or NULL.
+** @return This function will return an empty string if successful.\n
+** Otherwise, it will return the string `"NULL"`.
 */
 
 char			*ast_aff(t_cmd *cmd)
@@ -61,16 +63,15 @@ char			*ast_aff(t_cmd *cmd)
 /*
 ** @brief Searches for the previous token with greater priority
 **
-** @param expands Contains the token array
-** @param prio Priority for tokens
-**
+** @param expands Contains the expanded user input
+** @param prio Priority for tokens:\n
 ** 1 = ";" or "||" or "&&",\n
 ** 2 = "|",\n
 ** 3 = redirections,\n
 ** 4 = "&".
-** @param lim Contains the virtual limit
+** @param lim Contains the virtual limits used by the AST.
 **
-** @return Returns token or NULL.
+** @return Returns a `t_exp` containing either the previous token or `NULL`.
 */
 
 t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
@@ -89,14 +90,16 @@ t_exp			*ast_search(t_array *expands, t_lim *lim, int prio)
 }
 
 /*
-** @brief malloc cmd and cmd->av for ast_new_cmd()
+** @brief Mallocs `cmd` and `cmd->av` for ast_new_cmd().
 **
-** @param expands is token arrays
-** @param start is positon of first token
-** @param end is positon of last token
-** @param cmd is the struc of command
+** @param expands Contains the expanded user input in a token array form
+** @param start This is the position of the first token to merge
+** @param end This is the position of the last token to merge
+** @param cmd This is the command struct.
 **
-** @return If an error has occurred, a value of false is returned
+** @return If a malloc fails, the shell exits immediatly.\n
+** Else, if `start` is bigger than `end`, `false` is returned.\n
+** Otherwise, `true` will be returned.
 */
 
 static BOOL		ast_new_init(t_array *expands, ssize_t start, ssize_t end,
@@ -115,14 +118,15 @@ static BOOL		ast_new_init(t_array *expands, ssize_t start, ssize_t end,
 }
 
 /*
-** @brief Creates and allocates a new cmd struct
+** @brief Creates and allocates a new `cmd` struct
 **
-** @param expands Contains the token array
-** @param start Contains position of the first token
-** @param end Contains position of the last token
-** @param type Contains the type of current token
+** @param expands Contains the expanded user input in a token array form
+** @param start This is the position of the first token to merge
+** @param end This is the position of the last token to merge
+** @param type Contains the type of the current token
 **
-** @return Returns new cmd or NULL
+** @return Returns a newly allocated and filled `t_cmd` struct if everything
+** went fine. Otherwise, `NULL` will be returned.
 */
 
 t_cmd			*ast_new_cmd(t_array *expands, ssize_t start, ssize_t end,

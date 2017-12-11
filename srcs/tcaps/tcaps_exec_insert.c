@@ -12,7 +12,7 @@
 
 #include <core/tcaps.h>
 
-void			reset_select_pos(void)
+void			reset_insert_pos(void)
 {
 	t_input		*input;
 
@@ -26,7 +26,7 @@ void			reset_select_pos(void)
 	}
 }
 
-static void		exec_select_off(t_input *input)
+void			exec_insert_off(t_input *input)
 {
 	size_t		pos_str;
 	t_cpos		dest;
@@ -49,50 +49,52 @@ static void		exec_select_off(t_input *input)
 	input_goto_line_end(input);
 	while (pos_in_str(input) != pos_str && pos_in_str(input))
 		move_cursor_left(&input->cpos, get_ts());
-	reset_select_pos();
+	reset_insert_pos();
 	get_select()->is = false;
 	get_windows(0) ? get_windows(0)->cur = input : 0;
 }
 
-BOOL			exec_select(const t_key *key, t_input *input)
+BOOL			exec_insert(const t_key *key, t_window *wd)
 {
 	(void)key;
-	if (!get_select()->is)
+	if (wd->autocomp && wd->autocomp->active)
+		return (false);
+	else if (wd->autocomp)
+		exec_escape_select(wd);
+	if (!wd->select.is)
 	{
 		get_select()->is = true;
-		get_select()->start_abs = input;
-		reset_select_pos();
-		input->select_pos.is_set = true;
-		input->select_pos.cur_start = pos_in_str(input);
-		input->select_pos.cur_end = input->select_pos.cur_start;
+		get_select()->start_abs = wd->cur;
+		reset_insert_pos();
+		wd->cur->select_pos.is_set = true;
+		wd->cur->select_pos.cur_start = pos_in_str(wd->cur);
+		wd->cur->select_pos.cur_end = wd->cur->select_pos.cur_start;
 	}
 	else
-		exec_select_off(input);
+		exec_insert_off(wd->cur);
 	return (false);
 }
 
-BOOL			exec_select_arrows(const t_key *key, t_input *input)
+BOOL			exec_insert_arrows(const t_key *key, t_window *wd)
 {
-	struct winsize	*ts;
 	size_t			start;
 	size_t			end;
 
-	if (!get_select()->is || !key)
+	if (!wd->select.is || !key)
 		return (false);
-	ts = get_ts();
-	if (input && input->str->s && input->str
-		&& input->str->s[pos_in_str(input)])
+	if (wd->cur && wd->cur->str->s && wd->cur->str
+		&& wd->cur->str->s[pos_in_str(wd->cur)])
 	{
-		start = input->select_pos.cur_start;
-		end = input->select_pos.cur_end;
+		start = wd->cur->select_pos.cur_start;
+		end = wd->cur->select_pos.cur_end;
 		log_dbg3("star = %d, end = %d", start, end);
 		if ((start < end && is_right_arrow(key->key)) ||
 			(start > end && is_left_arrow(key->key)) ||
 			(start == end && start == 0 && is_right_arrow(key->key)) ||
-			(get_select()->start_abs == input && start == end))
+			(get_select()->start_abs == wd->cur && start == end))
 			tputs(tgetstr("mr", NULL), 1, &ft_putc_in);
-		ft_putchar_fd(input->str->s[pos_in_str(input)], STDIN_FILENO);
-		if (input->cpos.cp_col + 1 != ts->ws_col)
+		ft_putchar_fd(wd->cur->str->s[pos_in_str(wd->cur)], STDIN_FILENO);
+		if (wd->cur->cpos.cp_col + 1 != wd->ts.ws_col)
 			tputs(tgetstr("le", NULL), 0, &ft_putc_in);
 		tputs(tgetstr("me", NULL), 1, &ft_putc_in);
 	}

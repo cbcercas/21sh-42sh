@@ -13,7 +13,7 @@
 #include <history/history.h>
 
 /*
-** @brief  Check if (TODO)
+** @brief  Checks if the given string contains a white space/tab etc
 ** @param line The string to check
 ** @return Returns 1 if line is a `\\ n` or NULL. Else returns 0
 */
@@ -36,7 +36,7 @@ int			sh_history_is_space_plus(char const *line)
 
 /*
 ** @brief Gets the search from what the user wants
-** @param line The user search request (TODO?)
+** @param line The user search request
 ** @return Returns the search
 */
 
@@ -53,7 +53,8 @@ const char	*sh_history_get_search(const char *line)
 	{
 		if (!(search = hists->used - 1))
 			return (NULL);
-		while (search != -1 && (h = (t_hist *)array_get_at(hists, (size_t)search))
+		while (search != -1 && (h = (t_hist *)array_get_at(hists, (size_t)
+				search))
 			&& !ft_strnequ(line, h->cmd, ft_strlen(line)))
 			search--;
 		if (h && (search != -1))
@@ -105,12 +106,7 @@ t_hist		*sh_history_set_new(char **cmd)
 		return (NULL);
 	hists = sh_history_get();
 	if ((h = (t_hist *)array_get_at(hists, 0)))
-	{
-		if (h->buf)
-			ft_secu_free(h->buf);
-		h->buf = NULL;
 		h->cur = -1;
-	}
 	if ((hists->used < 1 || ft_strcmp(*cmd, sh_history_get_at(-1)))
 			&& ((h = sh_history_new(ft_strdup(*cmd))) != NULL))
 	{

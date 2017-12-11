@@ -57,7 +57,8 @@ int		sh_builtin_env(t_sh_data *data, char **args);
 /*
 ** @file   builtin_environ_env_u.c
 **
-** @brief  TODO
+** @brief  Contains the functions used to handle the `-u` unset option for the
+** env builtin
 */
 
 t_array *sh_builtin_env_u(t_array *tmp, char **argv);
@@ -65,7 +66,8 @@ t_array *sh_builtin_env_u(t_array *tmp, char **argv);
 /*
 ** @file   builtin_environ_env_i.c
 **
-** @brief  TODO
+** @brief  Contains the functions used to handle the `-i` ignore env option
+** for the env builtin
 */
 
 t_array *sh_builtin_env_add(t_array *tmp, char **argv);

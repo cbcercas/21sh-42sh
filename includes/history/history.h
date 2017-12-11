@@ -38,15 +38,21 @@
 */
 
 /*
-** @brief TODO
+** @struct s_hist
 **
-** @arg TODO
+** @brief Contains all the info on each history entries
+**
+** @param cmd The command stored
+** @param cur The position of this command in the history
+** @param session If set to false, the cmd has been loaded from a file. If set
+** to true, the command has been added in the history from the current instance
+** of the program
+** @param next Is a pointer to the next history entry
 */
 
 typedef	struct		s_hist
 {
 	const char		*cmd;
-	char			*buf;
 	ssize_t			cur;
 	BOOL			session;
 	struct s_hist	*next;
@@ -150,7 +156,7 @@ t_input				*input_from_history(const char *hist);
 /*
 ** @file history_getter_2.c
 **
-** @brief TODO
+** @brief Contains functions to help get the history
 */
 
 const char			*history_get_next(char *str);

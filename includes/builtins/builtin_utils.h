@@ -29,19 +29,7 @@
 ** or global variables you will need.
 */
 
-/*
-** @typedef  XXX
-**
-** @brief    TODO
-*/
-
 typedef	int	(*t_builtin_fn)(t_sh_data *data, char **arg);
-
-/*
-** @typedef  t_builtin
-**
-** @brief    TODO
-*/
 
 /*
 ** @struct  s_builtin

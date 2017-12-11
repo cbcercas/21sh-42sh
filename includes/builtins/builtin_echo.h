@@ -34,6 +34,6 @@
 ** @brief  Contains the functions for the builtin echo
 */
 
-int	sh_echo(t_sh_data *data, char **arg);
+int	sh_echo(t_sh_data *data, char **args);
 
 #endif

@@ -26,8 +26,12 @@
 */
 
 /*
-** @brief TODO
-** @arg TODO
+** @brief Contains the environment
+**
+** @param next Contains a pointer to the next env value
+** @param name Contains the name of the env variable
+** @param value Contains the value of the env variable
+** @param is_export is set to true if the command is `X=Y` for example.
 */
 
 typedef struct		s_env

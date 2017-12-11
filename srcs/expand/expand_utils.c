@@ -74,5 +74,5 @@ void		sh_exp_del(void *i)
 void		sh_expand_destroy(t_array *array_exp)
 {
 	if (array_exp)
-		array_destroy(&array_exp, sh_exp_del);
+		array_destroy(&array_exp, (void *(*)(void *))&sh_exp_del);
 }

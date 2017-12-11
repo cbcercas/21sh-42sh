@@ -15,7 +15,8 @@
 
 /*
 ** @brief Prints the history
-** @param arg passed at history
+**
+** @param nb Number of entries to print (? TODO CHECK)
 */
 
 void	sh_history_builtin_print2(int nb)
@@ -39,7 +40,8 @@ void	sh_history_builtin_print2(int nb)
 
 /*
 ** @brief Prints the history
-** @param arg passed at history
+**
+** @param arg Arguments passed to history
 */
 
 void	sh_history_builtin_print(const char *arg)

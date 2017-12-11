@@ -68,7 +68,7 @@ BOOL		history_research_search(const char *line, t_input **result)
 				(h = (t_hist *)array_get_at(hists, (size_t)first->cur)) && \
 				!ft_strnequ(line, h->cmd, ft_strlen(line)))
 			first->cur--;
-		if (ft_strnequ(line, h->cmd, ft_strlen(line)))
+		if (h && ft_strnequ(line, h->cmd, ft_strlen(line)))
 			*result = input_from_history((char *)h->cmd);
 		else
 			return (true);

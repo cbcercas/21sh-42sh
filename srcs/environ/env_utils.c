@@ -13,13 +13,13 @@
 #include <environ/env_utils.h>
 #include <environ/modif_env.h>
 #include <ftprintf.h>
-#include <logger.h>
 #include <tools/tools.h>
 
 /*
 ** @brief Prints all the vars (env or local)
 **
 ** @param vars Vars to be printed (env or local)
+** @param color When set to true, the colors are displayed for the vars.
 */
 
 void		print_vars(t_array *vars, BOOL color)

@@ -3,28 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   deinit.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlasne <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: gpouyat <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/02 15:30:34 by jlasne            #+#    #+#             */
-/*   Updated: 2017/10/02 15:31:32 by jlasne           ###   ########.fr       */
+/*   Created: 2017/12/09 15:33:26 by gpouyat           #+#    #+#             */
+/*   Updated: 2017/12/09 15:33:42 by gpouyat          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <core/data.h>
+#include <logger.h>
 #include <termios.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <ftprintf.h>
 #include <core/progname.h>
 #include <libft.h>
+#include <ftprintf.h>
+#include <core/data.h>
 
 /*
-** @brief      Restores the terminal attributes
-**             once the program is ended
+** @brief      Restores the terminal attributes once the program is finished
 **
-** @param[in]  tattr  struct containing the current terminal attributes
+** @param[in]  tattr  Structure containing the current terminal attributes
 **
-** @return     int  Returns 0 if success and 1 otherwise
+** @return     int  Returns 0 if successful, and will return 1 otherwise.
 */
 
 int			sh_restore_tattr(struct termios *tattr)
@@ -50,11 +49,9 @@ int			sh_restore_tattr(struct termios *tattr)
 }
 
 /*
-** @brief      Uninitialize the program before exiting
+** @brief      uninitializes the program before exiting
 **
-** @param[in]  data  data needed to uninitialize
-**
-** @return     void
+** @param[in]  data  This structure contains the shell's data needed to deinit.
 */
 
 void		sh_deinit(t_sh_data *data)

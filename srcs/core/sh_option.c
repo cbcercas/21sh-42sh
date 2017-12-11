@@ -14,17 +14,18 @@
 #include <libft.h>
 #include <tests/sh_tests.h>
 #include <core/help.h>
+#include <malloc_test.h>
 
 extern char const	*g_optarg;
 extern int			g_optind;
 
 /*
-** @brief     Handles the options passed to the program
+** @brief     Helper to Handle the options passed to the program
 **
-** @param[in,out] opts     Contains the options passed by the user
-** @param[in] ac       Argument count for av
-** @param[in] av       Contains the arguments
-** @param[in] environ  Contains the env
+** @param opts     Contains the options passed by the user
+** @param opt      TODO
+** @param av       Contains the arguments
+** @param environ  Contains the env
 **
 ** @return    void
 */
@@ -52,6 +53,17 @@ static	void	sh_options_loop(int opt, t_sh_opt *opts, char *const *av,
 		opts->tcaps = false;
 }
 
+/*
+** @brief Handles the options passed to the program
+**
+** @param[in,out] opts     Contains the options passed by the user
+** @param[in] ac       Argument count for av
+** @param[in] av       Contains the arguments
+** @param[in] environ  Contains the env
+**
+** @return    void
+*/
+
 void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 						char **environ)
 {
@@ -62,12 +74,14 @@ void			sh_options(t_sh_opt *opts, int ac, char *const *av,
 	opts->tcaps = true;
 	opts->color = false;
 	ft_getopt_reset();
-	while ((opt = ft_getopt(ac, av, "schvd:t:lC")) >= 0)
+	while ((opt = ft_getopt(ac, av, "schvd:t:lCM:")) >= 0)
 	{
 		if (opt == 'c')
 			ret = true;
 		else if (opt == 's')
 			ret = false;
+		else if (opt == 'M')
+			ft_memalloc_test_init((size_t)ft_atoi(g_optarg));
 		else
 			sh_options_loop(opt, opts, av, environ);
 	}

@@ -13,11 +13,18 @@
 #include <ast/ast.h>
 
 /*
-** @brief swap_lim swap limits
+** @brief This functions will swap the `cnt` and `lim` values from the
+** struct `t_lim`.\n The swap is as follows:
+** \code{.c}
+** ret.lim = lim.cnt;
+** ret.cnt = lim.lim;
+** \endcode
+** Where `ret` is the new `t_lim` containing the swapped values and `lim`
+** the 'old' values.
 **
-** @param lim Contains virtual limit and start pos
+** @param lim The structure containing the variables to be swapped.
 **
-** @return Returns the Abstract Syntax Tree
+** @return Returns the swapped values in a new struct.
 */
 
 static t_lim			swap_lim(t_lim lim)
@@ -30,23 +37,22 @@ static t_lim			swap_lim(t_lim lim)
 }
 
 /*
-** @brief ast_built Builds the ast recursively
+** @brief ast_built Builds the ast recursively.\n
 **
-** @param ast Contains the abstract syntax tree
-** @param expands Contains the token array
-** @param lim Contains virtual limit and start pos
-** @param prio Priority for tokens
-**
+** @param ast This variable contains the empty AST
+** @param expands Contains the expanded user input
+** @param lim Contains the virtual limits needed by the ast
+** @param prio Priority for tokens:\n
 ** 1 = ";" or "||" or "&&",\n
 ** 2 = "|",\n
 ** 3 = redirections,\n
 ** 4 = "&".
 **
-** @return Returns the Abstract Syntax Tree
+** @return This function will return the AST once built as a `btree` struct.
 */
 
-t_btree					*ast_built(t_btree **ast,
-						t_array *expands, t_lim lim, int prio)
+t_btree					*ast_built(t_btree **ast, t_array *expands, t_lim lim,
+																	int prio)
 {
 	t_exp	*exp;
 	t_lim	lim_right;

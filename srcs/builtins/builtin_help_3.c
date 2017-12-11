@@ -14,7 +14,8 @@
 
 /*
 ** @brief The function called when help is the next of sh_builtin_help()
-** @param argv The args passed to help
+**
+** @param args The args passed to help
 **
 ** @return Returns the ret value of help
 */

@@ -12,7 +12,7 @@
 
 #include <autocomplete/autocomplete.h>
 
-int autocomplete_case_compare(const char s1, const char s2)
+int		autocomplete_case_compare(const char s1, const char s2)
 {
 	return (ft_toupper(s1) == ft_toupper(s2));
 }
@@ -21,7 +21,8 @@ int		autocomplete_strncmp(const char *s1, const char *s2, size_t n)
 {
 	if (!n)
 		return (0);
-	while ((autocomplete_case_compare(*s1, *s2)) && (*s1 != '\0' || *s2 != '\0') && (--n > 0))
+	while ((autocomplete_case_compare(*s1, *s2)) &&
+			(*s1 != '\0' || *s2 != '\0') && (--n > 0))
 	{
 		s1++;
 		s2++;
@@ -39,7 +40,7 @@ int		autocomplete_strnequ(char const *s1, char const *s2, size_t n)
 	return (1);
 }
 
-BOOL autocomplete_is_dots(const char *s)
+BOOL	autocomplete_is_dots(const char *s)
 {
 	if (!s)
 		return (false);
@@ -48,6 +49,7 @@ BOOL autocomplete_is_dots(const char *s)
 	return (false);
 }
 
+/*
 BOOL	autocomplete_get_repons(size_t possibilities)
 {
 	char	buff[MAX_KEY_STRING_LEN];
@@ -76,3 +78,4 @@ BOOL	autocomplete_get_repons(size_t possibilities)
 	raw_terminal_mode();
 	return (false);
 }
+*/

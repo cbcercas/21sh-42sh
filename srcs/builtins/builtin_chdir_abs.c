@@ -13,11 +13,13 @@
 #include <builtins/builtin_chdir.h>
 
 /*
-** @brief join current path with dir not absolute
+** @brief Joins the current path with dir if it isn't absolute already
+** This function will test the first character of the given `dir` and if it
+** isnt a `/` it will get the current absolute path and join them together.
 **
-** @param dir The path not absolute
+** @param dir The path/filename that you need to join with the current path
 **
-** @return
+** @return void The dir is edited through a pointer
 */
 
 static void		join_current(char **dir)
@@ -37,7 +39,7 @@ static void		join_current(char **dir)
 **
 ** @param cdpath is the cdpath environ variable
 ** @param dir The path not absolute
-** @param indicator whether or not the path is displayed.
+** @param disp indicator whether or not the path is displayed.
 **
 ** @return Returns true if everything is ok. False otherwise
 */
@@ -65,12 +67,14 @@ static BOOL		change_in_abs_loop(char **cdpath, char **dir, BOOL *disp)
 }
 
 /*
-** @brief change path to the absolute path
+** @brief Changes the path to an absolute path
 **
-** @param dir The path not absolute
-** @param disp indicator whether or not the path is displayed.
+** @param dir The path not yet absolute
+** @param disp Indicator whether or not the path should be displayed.
 **
-** @return Returns true if everything is ok. False otherwise
+** @return This function will return `true` if the given `dir` containing a
+** filename/path has successfully been changed into an absolute path.\n
+** It will otherwise return `false`
 */
 
 BOOL			change_in_abs(char **dir, BOOL *disp)

@@ -33,6 +33,5 @@
 
 int		sh_restore_tattr(struct termios *tattr);
 void	sh_deinit(t_sh_data *data);
-void	sh_data_free(t_sh_data **data);
 
 #endif

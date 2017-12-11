@@ -12,20 +12,23 @@
 
 #include <core/tcaps.h>
 
-BOOL	exec_backspace(const t_key *key, t_input *input)
+BOOL	exec_backspace(const t_key *key, t_window *wd)
 {
 	(void)key;
 	log_dbg3("User pressed backspace");
-	if (input->cpos.cp_line || (input->cpos.cp_col > input->offset_col))
+	if (wd->autocomp && wd->autocomp->active)
+		return (false);
+	else if (wd->autocomp)
+		get_windows(100);
+	if (wd->cur->cpos.cp_line || (wd->cur->cpos.cp_col > wd->cur->offset_col))
 	{
-		exec_arrow_left(key, input);
-		exec_delete(key, input);
+		exec_arrow_left_normal(wd);
+		exec_delete(key, wd);
 	}
-	else if (input->prev)
+	else if (wd->cur->prev && !wd->cur->prev->lock)
 	{
-		exec_arrow_left(key, input);
-		get_windows(0) ? get_windows(0)->cur = input->prev : 0;
-		exec_delete(key, input->prev);
+		exec_arrow_left_normal(wd);
+		exec_delete(key, wd);
 	}
 	else
 		tcaps_bell();

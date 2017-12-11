@@ -13,10 +13,6 @@
 #include <lexer/lexer.h>
 #include <tools/tools.h>
 
-/*
-** @brief TODO
-*/
-
 static const uint32_t g_char_type[129] = {
 	[0] = E_CHAR_TYPE_NONE,
 	[1] = E_CHAR_TYPE_LETTER,
@@ -114,7 +110,7 @@ static const uint32_t g_char_type[129] = {
 	[']'] = E_CHAR_TYPE_LETTER,
 	['^'] = E_CHAR_TYPE_LETTER,
 	['_'] = E_CHAR_TYPE_LETTER,
-	['`'] = E_CHAR_TYPE_BQUOTE,
+	['`'] = E_CHAR_TYPE_SQUOTE,
 	['a'] = E_CHAR_TYPE_LETTER,
 	['b'] = E_CHAR_TYPE_LETTER,
 	['c'] = E_CHAR_TYPE_LETTER,
@@ -468,9 +464,6 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 	}
 };
 
-/*
-** @brief TODO
-*/
 
 static const uint32_t g_tok_redir[129][129] =
 {
@@ -495,10 +488,10 @@ static const uint32_t g_tok_redir[129][129] =
 };
 
 /*
-** @brief Tokenizes one part of a string (TODO: make sure)
-** @param in TODO
-** @param toks The t_array containing the tokens
-** @param a TOOD
+** @brief Tokenizes one part of a string
+** @param in The input
+** @param tok The t_array containing the tokens
+** @param a The automaton stepper
 */
 
 static void			lexer_tokenize_one_loop(char const ***in, t_automaton **a,
@@ -549,7 +542,7 @@ static void			lexer_tokenize_one(char const **in, t_array *toks,
 ** @brief Tokenizes the input
 ** @param in The input
 ** @param toks The t_array containing the tokens
-** @param a TODO
+** @param a The automaton stepper
 */
 
 static void			lexer_tokenize(char const **in, t_array *toks,

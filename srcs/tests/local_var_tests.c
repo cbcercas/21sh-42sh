@@ -53,7 +53,7 @@ void	testing_local_vars_del(char *const *av)
 ** @brief Main function to test the local var module
 **
 ** @param av The arguments passed to the local var testing module
-** @param __p__environ The current environ
+** @param environ The current environ
 */
 
 void	testing_local_vars(char *const *av, char **environ)

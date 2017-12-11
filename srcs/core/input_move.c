@@ -15,9 +15,9 @@
 /*
 ** @brief Moves the cursor and input at the beginning
 **
-** @param input The input
+** @param input The current input
 **
-** @return Returns the new input state
+** @return Returns the new input with the cursor moved at the beginning
 */
 
 t_input	*input_back_to_origin(t_input *input)
@@ -48,6 +48,7 @@ t_input	*input_back_to_origin(t_input *input)
 
 /*
 ** @brief Moves the cursor to line end
+**
 ** @param input The current input
 */
 
@@ -97,7 +98,9 @@ t_cpos	input_get_last_pos(t_input *input)
 
 /*
 ** @brief Moves the cursor to the first not lock input
+**
 ** @param input The current input
+**
 ** @return Returns the input
 */
 
@@ -107,10 +110,8 @@ t_input	*input_back_to_writable(t_input *input)
 	t_cpos	dest;
 
 	save = NULL;
-	while (input && !input->lock)
+	while (input)
 	{
-		dest = input_get_first_pos(input);
-		move_cursor_to(&dest, &input->cpos, get_ts());
 		if (save)
 		{
 			input->cpos.cp_col = save->cp_col;

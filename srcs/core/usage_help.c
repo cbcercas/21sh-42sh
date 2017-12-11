@@ -21,8 +21,8 @@ void		sh_usage_help(void)
 {
 	ft_printf("Usage:\t./%s [option] ...\n", PROGNAME);
 	ft_printf("Shell options:\n");
-	ft_printf("\t-v\t\tverbose\n");
-	ft_printf("\t-d [0-7]\t\tdebug mode (need debug level):\n");
+	ft_printf("\t-v\t\tVerbose\n");
+	ft_printf("\t-d [0-7]\t\tDebug mode (need debug level):\n");
 	ft_printf("\t\t\t\t0: no log\n\t\t\t\t1: fatal\n\t\t\t\t2: error\n");
 	ft_printf("\t\t\t\t3: warning\n\t\t\t\t4: info\n");
 	ft_printf("\t\t\t\t5: debug level 1\n\t\t\t\t6: debug level 2");
@@ -37,9 +37,12 @@ void		sh_usage_help(void)
 	ft_printf("\t\t\t     expand: test expand module\n");
 	ft_printf("\t-c [string]\t\t If the -c option is present, then commands"
 					" are read from string.\n");
-	ft_printf("\t-C allows color in builtins. default in testing is true,"
+	ft_printf("\t-C Allows color in builtins. default in testing is true,"
 					" otherwise by default is false\n");
+	ft_printf("\t-l\t\tDisables the termcaps capabilities\n");
 }
+
+//TODO: Add color in the usage_help
 
 /*
 ** @brief Prints the usage and exits

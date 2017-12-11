@@ -27,17 +27,9 @@ t_hist	*sh_history_new(char *cmd)
 	if (sh_history_is_space_plus(cmd) || !is_printstr(cmd))
 		return (NULL);
 	if ((h = ft_memalloc(sizeof(*h))) == NULL)
-	{
-		log_fatal("History: can't create new history command");
-		ft_dprintf(STDERR_FILENO, "History: can't create new history command");
-	}
+		sh_exit_error("History: can't create new history command");
 	else if ((h->cmd = (const char *)cmd) == NULL)
-	{
-		log_fatal("History: can't create new history command");
-		ft_dprintf(STDERR_FILENO, "History: can't create new history command");
-		ft_memdel((void**)&h);
-	}
-	h->buf = NULL;
+		sh_exit_error("History: can't create new history command");
 	h->cur = -1;
 	return (h);
 }
@@ -55,13 +47,12 @@ void	sh_history_del(void *i)
 	h = (t_hist *)i;
 	if (h->cmd)
 		ft_strdel((char **)&(h->cmd));
-	if (h->buf)
-		ft_secu_free(h->buf);
-	h->buf = NULL;
 }
 
 /*
-** @brief TODO
+** @brief Resets all the parameters and sets the session param to false
+** When set to false, the session param means that the history entry is loaded
+** from the file and not from the current shell session
 */
 
 void	sh_history_var_session_reset(void)

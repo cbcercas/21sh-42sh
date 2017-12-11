@@ -53,7 +53,7 @@ void	sh_testing_env_del(char *const *av)
 ** @brief Main funtion used to test the env module
 **
 ** @param av The arguments passed to the test module
-** @param __p__environ The current environ
+** @param environ The current environ
 */
 
 void	sh_testing_env(char *const *av, char **environ)

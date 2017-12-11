@@ -9,9 +9,9 @@ load test_helper
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser ""
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->Fatal testing error: Couldn't catch the error."
+  echo "$name_exec EXPECTED ->$name_exec: EXIT-ERROR: Fatal testing error: Couldn't catch the error."
   echo
-  [ "${lines[0]}" = "Fatal testing error: Couldn't catch the error." ]
+  [ "${lines[0]}" = "$name_exec: EXIT-ERROR: Fatal testing error: Couldn't catch the error." ]
   [ "$status" -eq 1 ]
 check_leaks_function parser
 }
@@ -108,10 +108,10 @@ check_leaks_function parser
   run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -t parser "abc; ;abc"
   echo "ERROR:"
   echo "$name_exec OUTPUT   ->${lines[0]}"
-  echo "$name_exec EXPECTED ->${parser_error_simple_p}"
+  echo "$name_exec EXPECTED ->${parser_error_simple_pv}"
   echo
-  [ "${lines[0]}" = "${parser_error_simple_p}" ]
-  [ "$status" -eq 0 ]
+  [ "${lines[0]}" = "${parser_error_simple_pv}" ]
+  [ "$status" -eq 1 ]
 check_leaks_function parser
 }
 

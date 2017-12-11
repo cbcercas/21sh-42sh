@@ -13,7 +13,7 @@
 #include <history/history.h>
 
 /*
-** @brief Searches the history for `str` and returns the previous one (TODO?)
+** @brief Searches the history for `str` and returns the previous one
 **
 ** @param str The string to search
 **
@@ -49,7 +49,7 @@ const char	*history_get_prev(char *str)
 }
 
 /*
-** @brief Searches the history for `str` and returns the next one (TODO?)
+** @brief Searches the history for `str` and returns the next one
 **
 ** @param str The string to search
 **

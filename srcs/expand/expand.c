@@ -49,7 +49,10 @@ t_return	expand(t_array *tokens, t_array *expand)
 	while (i < tokens->used)
 	{
 		if (!(exp = exp_create_new((t_token *)array_get_at(tokens, i))))
+		{
+			sh_exit_error("Malloc error");
 			return (E_RET_EXPAND_ERROR);
+		}
 		if (!expand_exp(exp))
 			return (E_RET_EXPAND_ERROR);
 		expand_remove_quote(exp);

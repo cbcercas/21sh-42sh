@@ -58,7 +58,8 @@ void			*ft_secu_malloc_lvl(size_t size, size_t lvl)
 		sh_exit_error("Error Malloc");
 		return (NULL);
 	}
-	ptr = ft_memalloc(size);
+	if (!(ptr = ft_memalloc(size)))
+		sh_exit_error("Error Malloc");
 	secu_malloc->lvl = lvl;
 	secu_malloc->ptr = ptr;
 	secu_malloc->next = NULL;
@@ -88,9 +89,8 @@ t_mem			*get_mem(void)
 
 	if (mem == NULL)
 	{
-		if (!(mem = (t_mem *)malloc(sizeof(t_mem))))
+		if (!(mem = (t_mem *)ft_memalloc(sizeof(t_mem))))
 			sh_exit_error("Error Malloc");
-		ft_bzero(mem, sizeof(t_mem));
 		mem->first = NULL;
 		mem->last = NULL;
 	}

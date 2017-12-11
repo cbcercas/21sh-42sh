@@ -13,10 +13,10 @@
 #include <builtins/builtin_history.h>
 
 /*
-** @brief th option -r Read the contents of the history
-** file and use them as the current history.
+** @brief The option -r reads the contents of the history
+** file and uses them as the current history.
 **
-** @param path is filename
+** @param path Contains the filename/path of the history file
 */
 
 void		sh_history_builtin_r(char *path)
@@ -41,11 +41,11 @@ void		sh_history_builtin_r(char *path)
 }
 
 /*
-** @brief th option -n read the history lines not already read from the history
-** file into the current history list. These are lines appended to the history
-** file since the beginning of the current session.
+** @brief The option -n reads the history lines not already read from the
+** history file into the current history list. These are lines appended to the
+** history file since the beginning of the current session.
 **
-** @param path is filename
+** @param path Contains the filename/path of the history file
 */
 
 void		sh_history_builtin_n(char *path)
@@ -72,8 +72,8 @@ void		sh_history_builtin_n(char *path)
 }
 
 /*
-** @brief Display -p option ret
-** @param result result of history -p
+** @brief Displays -p option ret
+**
 ** @param index index in arg
 ** @param arg passed at history -p
 */
@@ -89,12 +89,12 @@ static void	sh_history_builtin_p_helper(int index, char **arg)
 }
 
 /*
-** @brief th option -p Perform history substitution on the following args
-** and display the result on the standard output.
-** Does not store the results in the history list.
+** @brief The option -p performs a history substitution on the following args
+** and displays the result on the standard output.
+** It does not store the results in the history list.
 ** Each arg must be quoted to disable normal history expansion.
 **
-** @param arg passed at history -p
+** @param arg Arguments passed at the `history -p` command
 */
 
 void		sh_history_builtin_p(char **arg)
