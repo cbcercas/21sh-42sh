@@ -70,7 +70,7 @@ t_window			*get_windows(int rst)
 		rst = 77;
 	}
 	if (rst >= 100)
-		select_deinit(&wd->autocomp);
+		select_deinit(&wd->autocomp, true);
 	if ((rst %= 100) && rst >= 40)
 		wd->h_complet = false;
 	if ((rst %= 40) && rst >= 20)

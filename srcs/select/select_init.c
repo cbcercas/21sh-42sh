@@ -22,13 +22,14 @@ void *select_init(t_sel_data *data, t_array *array, char *cur_word)
 	return (dsp_init());
 }
 
-void			select_deinit(t_sel_data **data)
+void select_deinit(t_sel_data **data, BOOL redraw)
 {
 	if (!data || !*data)
 		return;
 	if ((*data)->words)
 		word_list_destroy(&(*data)->words);
-	redraw_input(get_windows(0)->cur);
+	if (redraw)
+		redraw_input(get_windows(0)->cur);
 	if ((*data)->array)
 		array_destroy(&(*data)->array, (void *(*)(void *))&string_clear);
 	ft_memdel((void **)data);

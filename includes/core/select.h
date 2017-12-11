@@ -71,7 +71,7 @@ void			select_select(int selectable, BOOL color, t_array *arr,
 							  char *current);
 void *select_init(t_sel_data *data, t_array *argv, char *cur_word);
 void			select_init_opt(int selectable, BOOL color);
-void			select_deinit(t_sel_data **data);
+void select_deinit(t_sel_data **data, BOOL redraw);
 void			*select_exit(const char *fmt, ...);
 
 /*
