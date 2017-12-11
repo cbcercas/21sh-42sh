@@ -32,6 +32,7 @@ void select_deinit(t_sel_data **data, BOOL redraw)
 		redraw_input(get_windows(0)->cur);
 	if ((*data)->array)
 		array_destroy(&(*data)->array, (void *(*)(void *))&string_clear);
+	tputs(tgetstr("ve", NULL), 0, &ft_putc_in);
 	ft_memdel((void **)data);
 }
 

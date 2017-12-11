@@ -51,7 +51,7 @@ void	signals_sigwinch(void)
 	pos = pos_in_str(input);
 	tmp = input;
 	input = input_back_to_writable(input);
-	get_windows(1);
+	get_windows(101);
 	if (get_windows(0))
 		get_windows(0)->cur = input;
 	get_select()->is = false;
