@@ -85,8 +85,11 @@ BOOL				sh_loop(t_sh_data data, struct s_exec_data *exec_dat,
 {
 	char	*line;
 
-	if (!(line = sh_get_input(&data, NULL, *ret)))
+	if (!(line = sh_get_input(&data, NULL, *ret)) || !is_printstr(line))
+	{
+		ft_strdel(&line);
 		return (true);
+	}
 	print_verb(line);
 	if (input_get_cur())
 		input_get_cur()->prompt_type = *ret;

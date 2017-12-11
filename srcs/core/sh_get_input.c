@@ -14,6 +14,7 @@
 #include <core/input.h>
 #include <core/prompt.h>
 #include <tools/tools.h>
+#include <core/progname.h>
 
 /*
 ** @brief Gets the str from input
@@ -59,6 +60,13 @@ static char		*sh_get_input_no_tty(void)
 	line = NULL;
 	if (get_next_line(STDIN_FILENO, &line) <= 0)
 		return (NULL);
+	if (!is_printstr(line))
+	{
+		ft_dprintf(STDERR_FILENO, "%s: line: contains non-ascii"
+				" characters.\n", PROGNAME);
+		ft_strdel(&line);
+		return (NULL);
+	}
 	if (line)
 	{
 		input = input_get_cur_head();
