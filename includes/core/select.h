@@ -81,6 +81,7 @@ void		*dsp_init(void);
 void		dsp_reinit(void);
 void		display_word(t_sel_word *word, t_sel_display *dsp);
 void		display_list(t_sel_word *lst, t_sel_display *dsp);
+void		display_list_force(t_sel_word *lst, t_sel_display *dsp);
 void		display_line(t_sel_word *lst, t_sel_display *dsp);
 void		display_blank_line(struct winsize *ts);
 

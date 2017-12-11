@@ -83,6 +83,32 @@ void	display_list(t_sel_word *lst, t_sel_display *dsp)
 	}
 }
 
+void	display_list_force(t_sel_word *lst, t_sel_display *dsp)
+{
+	t_sel_word	*head;
+	size_t		i;
+	size_t		j;
+
+	if (!lst)
+		return;
+	head = lst;
+	head->prev->next = NULL;
+	while (lst)
+	{
+		i = lst->num + dsp->col_num;
+		while (lst && lst->num < i && lst->num < dsp->word_num)
+		{
+			display_print_word(lst);
+			j = lst->len;
+			while (j++ < dsp->col_size && dsp->col_num > 1)
+				ft_putchar_fd(' ', STDIN_FILENO);
+			lst = lst->next;
+		}
+		ft_putchar_fd('\n', STDIN_FILENO);
+	}
+	head->prev->next = head;
+}
+
 BOOL	word_is_on_screen(t_sel_display *disp, t_sel_word *word)
 {
 	size_t nb;
