@@ -67,15 +67,11 @@ BOOL			key_exec(t_key *key, t_window *window);
 ** @brief Contains the ctrl functions to be executed
 */
 
-BOOL			exec_ctrl_c(const t_key *key, t_window *wd) __attribute__
-((deprecated("Todo refactor new input design")));
-BOOL			exec_ctrl_d(const t_key *key, t_window *wd) __attribute__
-((deprecated("Todo refactor new input design")));
+BOOL			exec_ctrl_c(const t_key *key, t_window *wd);
+BOOL			exec_ctrl_d(const t_key *key, t_window *wd);
 BOOL			exec_ctrl_z(const t_key *key, t_window *wd);
-BOOL			exec_ctrl_a(const t_key *key, t_window *wd) __attribute__
-((deprecated("Todo refactor new input design")));
-BOOL			exec_ctrl_e(const t_key *key, t_window *wd) __attribute__
-((deprecated("Todo refactor new input design")));
+BOOL			exec_ctrl_a(const t_key *key, t_window *wd);
+BOOL			exec_ctrl_e(const t_key *key, t_window *wd);
 BOOL			exec_ctrl_l(const t_key *key, t_window *wd);
 
 /*
@@ -126,13 +122,10 @@ BOOL			exec_tab(const t_key *key,  t_window *wd);
 ** @brief Contains the arrow functions to be executed
 */
 
-BOOL			exec_arrow_right(const t_key *key, t_window *wd) __attribute__
-							((deprecated("Todo refactor new input design")));
-BOOL			exec_arrow_left(const t_key *key, t_window *wd) __attribute__
-							((deprecated("Todo refactor new input design")));
+BOOL			exec_arrow_right(const t_key *key, t_window *wd);
+BOOL			exec_arrow_left(const t_key *key, t_window *wd);
 BOOL			exec_arrow_up(const t_key *key, t_window *wd);
-BOOL			exec_arrow_down(const t_key *key, t_window *wd) __attribute__
-							((deprecated("Todo refactor new input design")));
+BOOL			exec_arrow_down(const t_key *key, t_window *wd);
 
 /*
 ** @file tcaps_exec_arrow_select.c
@@ -178,14 +171,10 @@ BOOL			exec_escape_select(t_window *wd);
 ** @brief Contains the alt arrow functions to be executed
 */
 
-BOOL			exec_alt_up(const t_key *key, t_window *wd) __attribute__
-							((deprecated("Todo refactor new input design")));
-BOOL			exec_alt_down(const t_key *key, t_window *wd) __attribute__
-							((deprecated("Todo refactor new input design")));
-BOOL			exec_alt_left(const t_key *key, t_window *wd) __attribute__
-							((deprecated("Todo refactor new input design")));
-BOOL			exec_alt_right(const t_key *key, t_window *wd)__attribute__
-							((deprecated("Todo refactor new input design")));
+BOOL			exec_alt_up(const t_key *key, t_window *wd);
+BOOL			exec_alt_down(const t_key *key, t_window *wd);
+BOOL			exec_alt_left(const t_key *key, t_window *wd);
+BOOL			exec_alt_right(const t_key *key, t_window *wd);
 
 /*
 ** @file tcaps_exec_end_home.c
@@ -193,10 +182,8 @@ BOOL			exec_alt_right(const t_key *key, t_window *wd)__attribute__
 ** @brief Contains the end/home functions to be executed
 */
 
-BOOL			exec_end(const t_key *key, t_window *wd) __attribute__
-							((deprecated("Todo refactor new input design")));
-BOOL			exec_start(const t_key *key, t_window *wd) __attribute__
-							((deprecated("Todo refactor new input design")));
+BOOL			exec_end(const t_key *key, t_window *wd);
+BOOL			exec_start(const t_key *key, t_window *wd);
 
 /*
 ** @file tcaps_exec_select.c
@@ -204,12 +191,9 @@ BOOL			exec_start(const t_key *key, t_window *wd) __attribute__
 ** @brief Contains the select functions to be executed
 */
 
-BOOL			exec_insert(const t_key *key, t_window *window) __attribute__
-							((deprecated("Todo refactor new input design")));
+BOOL			exec_insert(const t_key *key, t_window *window);
 void			exec_insert_off(t_input *input);
-//void			draw_reverse_char(char c, BOOL is_reverse);
-BOOL			exec_insert_arrows(const t_key *key, t_window *wd)
-				__attribute__ ((deprecated("Todo refactor new input design")));
+BOOL			exec_insert_arrows(const t_key *key, t_window *wd);
 void			reset_insert_pos(void);
 
 /*
@@ -236,10 +220,8 @@ BOOL			exec_alt_v(const t_key *key, t_window *wd);
 ** @brief Contains the redraw line functions
 */
 
-void			redraw_line(t_input *input) __attribute__
-									((deprecated("Use redraw_input instead")));
-void			reset_line(t_input *input) __attribute__
-										((deprecated("Refactor or remove")));
+void			redraw_line(t_input *input);
+void			reset_line(t_input *input);
 
 //void			tcaps_down(t_input *input);
 
