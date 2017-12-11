@@ -29,19 +29,19 @@ static void	sh_history_help(void)
 ** @brief Handles the options passed to the history builtin
 **
 ** @param data The shell's data used across the program
-** @param argv The options in string form
+** @param args The options in string form
 ** @param opt The options passed
 **
 ** @return Returns 1 if the options given are wrong, 0 otherwise
 */
 
-static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
+static int	sh_history_helper(t_sh_data *data, char **args, int opt)
 {
 	(void)data;
 	if (opt == 'p')
-		sh_history_builtin_p(argv);
+		sh_history_builtin_p(args);
 	else if (opt == -1)
-		sh_history_builtin_print(argv[g_optind]);
+		sh_history_builtin_print(args[g_optind]);
 	else if (opt == '?')
 	{
 		sh_history_help();
@@ -54,12 +54,12 @@ static int	sh_history_helper(t_sh_data *data, char **argv, int opt)
 ** @brief Main function for the history builtin
 **
 ** @param data The shell's data used across the program
-** @param argv The arguments passed to history
+** @param args The arguments passed to history
 **
 ** @return Returns a ret status upon success or failure
 */
 
-int			sh_history(t_sh_data *data, char **argv)
+int			sh_history(t_sh_data *data, char **args)
 {
 	int		opt;
 	int		ret;
@@ -67,23 +67,23 @@ int			sh_history(t_sh_data *data, char **argv)
 	(void)data;
 	ret = 0;
 	ft_getopt_reset();
-	opt = ft_getopt(((int)ft_tablen(argv)), argv, "cd:arwsnp");
+	opt = ft_getopt(((int)ft_tablen(args)), args, "cd:arwsnp");
 	if (opt == 'c')
 		sh_history_builtin_c();
 	else if (opt == 'd')
 		sh_history_builtin_d(g_optarg);
 	else if (opt == 'a')
-		sh_history_builtin_a(argv[g_optind]);
+		sh_history_builtin_a(args[g_optind]);
 	else if (opt == 'n')
-		sh_history_builtin_n(argv[g_optind]);
+		sh_history_builtin_n(args[g_optind]);
 	else if (opt == 'r')
-		sh_history_builtin_r(argv[g_optind]);
+		sh_history_builtin_r(args[g_optind]);
 	else if (opt == 'w')
-		sh_history_builtin_w(argv[g_optind]);
+		sh_history_builtin_w(args[g_optind]);
 	else if (opt == 's')
-		sh_history_builtin_s(argv, g_optind);
+		sh_history_builtin_s(args, g_optind);
 	else
-		ret = sh_history_helper(data, argv, opt);
+		ret = sh_history_helper(data, args, opt);
 	ft_getopt_reset();
 	return (ret);
 }

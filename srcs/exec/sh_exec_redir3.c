@@ -14,7 +14,7 @@
 
 /*
 ** @brief   push fd in fd list (less)
-** @param  item    struct of command
+**
 ** @param  fds     The list of fd
 ** @param  fd1      the first fd
 ** @param  fd2      the second fd

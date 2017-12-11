@@ -18,7 +18,7 @@
 ** `name=value` then they will be added int the env
 **
 ** @param data The shell data used throughout the program
-** @param argv The args passed to setenv
+** @param args The args passed to setenv
 **
 ** @return Returns the return value produced by setenv
 */
@@ -53,7 +53,7 @@ int		sh_builtin_setenv(t_sh_data *data, char **args)
 ** @brief The function called when unsetenv is executed
 **
 ** @param data The shell data used throughout the program
-** @param argv The args passed to unsetenv
+** @param args The args passed to unsetenv
 **
 ** @return Returns the return value produced by unsetenv
 */

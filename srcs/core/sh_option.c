@@ -22,10 +22,10 @@ extern int			g_optind;
 /*
 ** @brief     Helper to Handle the options passed to the program
 **
-** @param[in,out] opts     Contains the options passed by the user
-** @param[in] ac       Argument count for av
-** @param[in] av       Contains the arguments
-** @param[in] environ  Contains the env
+** @param opts     Contains the options passed by the user
+** @param opt      TODO
+** @param av       Contains the arguments
+** @param environ  Contains the env
 **
 ** @return    void
 */

@@ -82,12 +82,12 @@ static int			do_builtin_pwd(BOOL physical)
 ** @brief Main functions for the pwd builtin
 **
 ** @param data The shell's data used across the program
-** @param argv The args passed to pwd
+** @param args The args passed to pwd
 **
 ** @return Returns Returns a ret value based on success of the operation
 */
 
-int					sh_builtin_pwd(t_sh_data *data, char **argv)
+int					sh_builtin_pwd(t_sh_data *data, char **args)
 {
 	BOOL	physical;
 	int		ch;
@@ -95,7 +95,7 @@ int					sh_builtin_pwd(t_sh_data *data, char **argv)
 	(void)data;
 	ft_getopt_reset();
 	physical = false;
-	while ((ch = ft_getopt(((int)ft_tablen(argv)), argv, "LPh")) != -1)
+	while ((ch = ft_getopt(((int)ft_tablen(args)), args, "LPh")) != -1)
 	{
 		if (ch == 'L')
 		{
@@ -110,7 +110,7 @@ int					sh_builtin_pwd(t_sh_data *data, char **argv)
 		else
 			return (pwd_usage());
 	}
-	if (argv[g_optind])
+	if (args[g_optind])
 		return (pwd_usage());
 	return (do_builtin_pwd(physical));
 }

@@ -38,8 +38,9 @@ static BOOL		check_fd_search(t_list **fds, int fd_search)
 
 /*
 ** @brief   check if fd is open or if fd is on fds list + print errror
-** @param  fd_search   The fd to look for
+**
 ** @param  fds         the list of fd
+** @param fd The curent fd
 **
 ** @return true if fd is open, false otherwise
 */

@@ -70,6 +70,7 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 **
 ** @param  data    The data of shell
 ** @param  item    The item in AST
+** @param  fds     The list of opened fds
 **
 ** @return         result of sh_exec_builtin or sh_exec
 */

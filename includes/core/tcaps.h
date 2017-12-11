@@ -186,7 +186,7 @@ BOOL			exec_end(const t_key *key, t_window *wd);
 BOOL			exec_start(const t_key *key, t_window *wd);
 
 /*
-** @file tcaps_exec_select.c
+** @file tcaps_exec_insert.c
 **
 ** @brief Contains the select functions to be executed
 */
@@ -226,30 +226,19 @@ void			reset_line(t_input *input);
 //void			tcaps_down(t_input *input);
 
 /*
-** @file clean_term.c
+** @file tcaps_exec_escape_enter.c
 **
-** @brief Contains the functions to be executed
+** @brief Contains the escape and enter function sequence
 */
 
-void			clean_term(void);
-
-/*
-** @file get_curs_y.c
-**
-** @brief Contains the functions to be executed
-*/
-
-int				get_curs_y(void);
-
-/*
-** @file get_curs_x.c
-**
-** @brief Contains the functions to be executed
-*/
-
-int				get_curs_x(void);
 
 BOOL			exec_escape_enter(const t_key *key, t_input *input);
+
+/*
+** @file tcaps_exec_init.c
+**
+** @brief Contains the initialisation for the tcaps
+*/
 
 BOOL			tcaps_init(t_window *wd);
 

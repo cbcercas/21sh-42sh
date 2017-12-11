@@ -53,10 +53,7 @@ BOOL	exec_ctrl_d(const t_key *key, t_window *wd)
 BOOL	exec_ctrl_z(const t_key *key, t_window *wd)
 {
 	(void)key;
-	if (wd->autocomp->active)
-		return (exec_escape_select(wd));
-	if (get_select()->is)
-		return (false);
+	(void)wd;
 	tcaps_bell();
 	return (false);
 }

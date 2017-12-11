@@ -47,34 +47,34 @@ static void	builtin_export_print(t_array *vars, BOOL color)
 /*
 ** @brief Executes option -p
 **
-** @param vars The local env
 ** @param color If set to true then the variables will be colored. Otherwise no.
+** @param args The arguments passed to the builtin
 */
 
-static void	builtin_export_p(char **argv, BOOL color)
+static void	builtin_export_p(char **args, BOOL color)
 {
 	t_env	*var;
 
-	if (!argv || !(*argv))
+	if (!args || !(*args))
 		return (builtin_export_print(get_envs(), color));
-	while (*argv)
+	while (*args)
 	{
-		if ((var = get_var(get_envs(), *argv)) && color)
+		if ((var = get_var(get_envs(), *args)) && color)
 			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
 				var->is_export ? "export" : "typeset", var->name, var->value);
-		else if ((var = get_var(get_vars(), *argv)) && color)
+		else if ((var = get_var(get_vars(), *args)) && color)
 			ft_printf("\033[91m%s \033[94m%s\033[0m=%s\n",
 				var->is_export ? "export" : "typeset", var->name, var->value);
-		else if ((var = get_var(get_envs(), *argv)))
+		else if ((var = get_var(get_envs(), *args)))
 			ft_printf("%s %s=%s\n",
 				var->is_export ? "export" : "typeset", var->name, var->value);
-		else if ((var = get_var(get_vars(), *argv)))
+		else if ((var = get_var(get_vars(), *args)))
 			ft_printf("%s %s=%s\n",
 				var->is_export ? "export" : "typeset", var->name, var->value);
 		else
 			ft_dprintf(STDERR_FILENO,
-						"%s: export: no such variable: %s\n", PROGNAME, *argv);
-		argv++;
+						"%s: export: no such variable: %s\n", PROGNAME, *args);
+		args++;
 	}
 }
 
@@ -82,28 +82,28 @@ static void	builtin_export_p(char **argv, BOOL color)
 ** @brief Unsets a name and value from the local env
 **
 ** @param data The shell's data used across the program
-** @param argv Arguments passed to unset builtin
+** @param args Arguments passed to unset builtin
 **
 ** @return Returns a ret value based on success of the operation
 */
 
-int			builtin_unset(t_sh_data *data, char **argv)
+int			builtin_unset(t_sh_data *data, char **args)
 {
 	(void)data;
-	if (argv && *argv)
-		(argv)++;
+	if (args && *args)
+		(args)++;
 	else
 		return (1);
-	if (!(*argv))
+	if (!(*args))
 	{
 		ft_putstr_fd("unset: not enough arguments\n", STDERR_FILENO);
 		return (1);
 	}
-	while (*argv)
+	while (*args)
 	{
-		del_var(get_vars(), *argv);
-		del_var(get_envs(), *argv);
-		argv++;
+		del_var(get_vars(), *args);
+		del_var(get_envs(), *args);
+		args++;
 	}
 	return (0);
 }
@@ -111,34 +111,35 @@ int			builtin_unset(t_sh_data *data, char **argv)
 /*
 ** @brief Exports a variable in the local var
 **
-** @param argv The arguments used to export
+** @param args The arguments used to export
+** @param color If set to true, the printed vars will be colored
 **
 ** @return Returns a ret value based on success of the operation
 */
 
-int			builtin_export_var(char **argv, BOOL color)
+int			builtin_export_var(char **args, BOOL color)
 {
 	t_env	*var;
 	char	*name;
 	char	*value;
 
 	value = NULL;
-	if (argv && *argv)
-		(argv)++;
+	if (args && *args)
+		(args)++;
 	else
 		return (1);
-	if (!argv || !(*argv))
+	if (!args || !(*args))
 		builtin_export_print(get_envs(), color);
-	while (argv && *argv)
+	while (args && *args)
 	{
-		name = ft_strchr(*argv, '=') ? split_var_name(*argv) : ft_strdup(*argv);
+		name = ft_strchr(*args, '=') ? split_var_name(*args) : ft_strdup(*args);
 		var = get_var(get_vars(), name);
-		if (ft_strchr(*argv, '='))
-			set_var(get_envs(), name, (value = split_var_value(*argv)), true);
+		if (ft_strchr(*args, '='))
+			set_var(get_envs(), name, (value = split_var_value(*args)), true);
 		else if (var)
 			set_var(get_envs(), var->name, var->value, true);
 		del_var(get_vars(), name);
-		argv++;
+		args++;
 		ft_strdel(&name);
 		ft_strdel(&value);
 	}
@@ -149,29 +150,29 @@ int			builtin_export_var(char **argv, BOOL color)
 ** @brief Exports a value in the local env
 **
 ** @param data The shell's data used across the program
-** @param argv The args used
+** @param args The args used
 **
 ** @return Returns Returns a ret value based on success of the operation
 */
 
-int			builtin_export(t_sh_data *data, char **argv)
+int			builtin_export(t_sh_data *data, char **args)
 {
 	int		opt;
 
 	(void)data;
 	ft_getopt_reset();
-	opt = ft_getopt(((int)ft_tablen(argv)), argv, "pn:");
+	opt = ft_getopt(((int)ft_tablen(args)), args, "pn:");
 	if (opt == 'p')
-		builtin_export_p(&argv[g_optind], data->opts.color);
+		builtin_export_p(&args[g_optind], data->opts.color);
 	else if (opt == 'n')
-		builtin_unset(data, argv);
+		builtin_unset(data, args);
 	else if (opt == '?')
 	{
 		ft_dprintf(STDERR_FILENO, "export [-n] [name[=value] ...] or export "
 				"-p\n");
 		return (1);
 	}
-	else if (opt == -1 && builtin_export_var(argv, data ?
+	else if (opt == -1 && builtin_export_var(args, data ?
 												data->opts.color : false))
 		return (1);
 	return (0);
