@@ -53,5 +53,5 @@ void	history_research_start(char **line, t_input **result, BOOL *fail)
 	*line = NULL;
 	*result = NULL;
 	*fail = false;
-	history_research_prompt(*line, *result, *fail);
+	history_research_prompt(*line, *result, *fail, false);
 }
