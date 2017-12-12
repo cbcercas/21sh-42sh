@@ -54,8 +54,7 @@ t_input		*input_from_history(const char *hist)
 	if (!hist || !ft_strlen(hist) || !(input = input_new()))
 		return (NULL);
 	save = input;
-	while (((c = ft_strstr(hist, "\\\n")) != NULL)
-		   || ((c = ft_strstr(hist, "\\")) != NULL))
+	while (((c = ft_strstr(hist, "\\\n")) != NULL))
 	{
 		if (!ft_strncmp(c, "\\\n", 2))
 			string_ninsert(save->str, hist, 0, c - hist);
