@@ -96,6 +96,8 @@ t_array		*sh_builtins_init_helper(t_array *builtins)
 		return (NULL);
 	if (!sh_add_builtin("exit", builtin_exit))
 		return (NULL);
+	if (!sh_add_builtin("bonus", sh_help_bonus))
+		return (NULL);
 	return (builtins);
 }
 

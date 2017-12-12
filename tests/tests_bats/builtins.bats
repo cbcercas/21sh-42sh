@@ -1433,14 +1433,12 @@ check_leaks_function exec
     echo "ERROR:"
     display_line_output
     echo "$name_exec EXPECTED ->unsetenv [name]"
-    echo "                Deletes the environment variable name from local env"
+    echo "                Deletes the environment variable name from env"
     echo "                If name doesnt exists, nothing happens"
-    echo "                Optional arguments shall be passed to utility."
     echo
     [ "${lines[0]}" = "unsetenv [name]" ]
-    [ "${lines[1]}" = "Deletes the environment variable name from local env" ]
+    [ "${lines[1]}" = "Deletes the environment variable name from env" ]
     [ "${lines[2]}" = "If name doesnt exists, nothing happens" ]
-    [ "${lines[3]}" = "Optional arguments shall be passed to utility." ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }
