@@ -50,7 +50,7 @@ void	init_signals(void *handler)
 ** @brief Waits for a process to finish
 **
 ** @param pid The pid to wait for
-** @param wait_flag TODO
+** @param wait_flag wait_pid option
 **
 ** @return Returns the exit status
 */
@@ -78,8 +78,9 @@ int		sh_wait(pid_t pid, int wait_flag)
 }
 
 /*
-** @brief TODO
-** @return TODO
+** @brief Handles the signals
+**
+** @return Returns a bool based on success
 */
 
 BOOL	signals(int sig, void (*handler)(int))
