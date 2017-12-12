@@ -101,10 +101,12 @@ static BOOL		history_research_search(const char *line, t_input **result)
 }
 
 /*
-** @brief TODO
-** @param buff TODO
-** @param line TODO
-** @return TODO
+** @brief Handles writing and removing chars from `line`
+**
+** @param buff What the user entered
+** @param line The line the user entered before
+**
+** @return Returns the modified line
 */
 
 static char		*apply_buff(char *buff, char *line)
@@ -122,8 +124,9 @@ static char		*apply_buff(char *buff, char *line)
 }
 
 /*
-** @brief TODO
-** @param input TODO
+** @brief Main function for the ctrl+r research history
+**
+** @param input The current user input
 */
 
 void			history_research(t_input *input)

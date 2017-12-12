@@ -27,10 +27,6 @@ void				sh_arrays_reset(t_array *tokens, t_array *expands)
 }
 
 /*
-** TODO test reset
-*/
-
-/*
 ** @brief Lexes, parses, expands then builds the ast and returns it
 **
 ** @param ast The ast to be returned

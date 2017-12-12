@@ -14,9 +14,10 @@
 #include <tools/tools.h>
 
 /*
-** @brief TODO
-** @param secu_malloc TODO
-** @param mem TODO
+** @brief Adds `secu_malloc` in `mem`
+**
+** @param secu_malloc Item to add
+** @param mem List in which to add
 */
 
 static void		ft_s_malloc_mouv(t_secu_malloc *secu_malloc, t_mem *mem)
@@ -37,10 +38,10 @@ static void		ft_s_malloc_mouv(t_secu_malloc *secu_malloc, t_mem *mem)
 }
 
 /*
-** @brief Securely mallocs with a level ?TODO
+** @brief Securely mallocs with a category
 **
 ** @param size Size to be malloced
-** @param lvl TODO
+** @param lvl Pointer category
 **
 ** @return Returns a pointer to the malloced area in memory
 */
@@ -79,8 +80,9 @@ void			*secu_malloc(size_t size)
 }
 
 /*
-** @brief TODO
-** @return TODO
+** @brief Singleton to get the mem struct
+**
+** @return Return the `mem` struct
 */
 
 t_mem			*get_mem(void)

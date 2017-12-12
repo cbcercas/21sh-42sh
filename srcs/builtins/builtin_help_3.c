@@ -144,7 +144,3 @@ void	sh_help_export(void)
 	ft_printf("\t\tReturns success unless an invalid option is given or "
 					"%sNAME%s is invalid.\n", (col) ? C_CYAN : "", C_NONE);
 }
-
-/*
-** TODO: ADD unset
-*/

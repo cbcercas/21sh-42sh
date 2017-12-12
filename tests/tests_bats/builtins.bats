@@ -205,7 +205,7 @@ load test_helper
     echo "$name_exec EXPECTED ->exit"
     echo
     [ "${lines[0]}" = "exit" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 
@@ -216,7 +216,7 @@ load test_helper
     echo "$name_exec EXPECTED ->exit"
     echo
     [ "${lines[0]}" = "exit" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 

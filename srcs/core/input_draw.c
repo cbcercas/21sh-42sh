@@ -33,16 +33,11 @@ void		draw_char(t_input *input, char *c)
 }
 
 /*
-** TODO add suport of input > ts.ws_line
-** draw input from cursor to the end
-*/
-
-/*
 ** @brief display input
 **
 ** @param input start of draw
 **
-** @return the last input draw (TODO)
+** @return the last input draw
 */
 
 t_input		*input_draw(t_input *input)
@@ -62,10 +57,6 @@ t_input		*input_draw(t_input *input)
 	}
 	return (input);
 }
-
-/*
-** TODO add suport of input > ts.ws_line
-*/
 
 /*
 ** @brief display input and replace cursor to the origin of input

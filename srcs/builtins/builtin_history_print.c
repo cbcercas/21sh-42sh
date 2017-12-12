@@ -16,7 +16,7 @@
 /*
 ** @brief Prints the history
 **
-** @param nb Number of entries to print (? TODO CHECK)
+** @param nb Number from end to print from
 */
 
 void	sh_history_builtin_print2(int nb)
