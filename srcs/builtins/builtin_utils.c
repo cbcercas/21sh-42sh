@@ -53,7 +53,7 @@ t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 		return (NULL);
 	}
 	(void)name;
-	e->name = strdup(name);
+	e->name = ft_strdup(name);
 	e->len = ft_strlen(name);
 	e->fn = fn;
 	return (e);
