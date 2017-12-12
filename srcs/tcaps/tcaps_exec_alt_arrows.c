@@ -12,7 +12,6 @@
 
 #include <core/tcaps.h>
 
-
 BOOL		exec_alt_up(const t_key *key, t_window *wd)
 {
 	unsigned short		x;

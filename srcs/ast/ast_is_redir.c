@@ -77,7 +77,7 @@ static t_token_type	ast_return_type_redir_back(t_array *expands, ssize_t cnt)
 */
 
 t_token_type		ast_return_type_redir(t_array *expands, ssize_t cnt,
-										  t_token_type type)
+														t_token_type type)
 {
 	t_token_type	ret;
 	t_exp			*exp;
@@ -112,7 +112,7 @@ t_token_type		ast_return_type_redir(t_array *expands, ssize_t cnt,
 */
 
 BOOL				ast_is_redir(t_array *expands, ssize_t cnt,
-								 t_token_type type)
+													t_token_type type)
 {
 	if (ast_return_type_redir(expands, cnt, type) == E_TOKEN_NONE)
 		return (false);

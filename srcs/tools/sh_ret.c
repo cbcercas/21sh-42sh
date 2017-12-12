@@ -14,9 +14,9 @@
 
 /*
 ** @brief Returns the value of last command based on wait
- *
+**
 ** @param status return of wait
- *
+**
 ** @return Returns the return value
 */
 
