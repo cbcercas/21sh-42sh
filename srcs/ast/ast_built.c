@@ -46,7 +46,7 @@ static t_lim			swap_lim(t_lim lim)
 ** 1 = ";" or "||" or "&&",\n
 ** 2 = "|",\n
 ** 3 = redirections,\n
-** 4 = "&".
+** 4 = le reste.
 **
 ** @return This function will return the AST once built as a `btree` struct.
 */
@@ -72,8 +72,8 @@ t_btree					*ast_built(t_btree **ast, t_array *expands, t_lim lim,
 				(int (*)(void*, void*))&ast_cmp);
 		(*ast)->left = ast_built(&(*ast)->left, expands, lim, prio);
 		if (lim.cnt >= 0)
-			(*ast)->right = ast_built(&(*ast)->right, expands,
-									lim_right, prio + 1);
+			(*ast)->right = ast_built(&(*ast)->right, expands, lim_right,
+																	prio + 1);
 	}
 	else if (prio != 4)
 		*ast = ast_built(ast, expands, lim_right, prio + 1);
