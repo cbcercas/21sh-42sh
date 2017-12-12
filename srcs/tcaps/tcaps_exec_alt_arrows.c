@@ -12,43 +12,16 @@
 
 #include <core/tcaps.h>
 
-static BOOL	exec_alt_input(const t_key *key, t_window *wd, unsigned short x)
-{
-	if ((!wd->cur->prev && is_alt_up_arrow(key->key)) ||
-		(!wd->cur->next && is_alt_down_arrow(key->key)))
-		return (false);
-	wd->cur->cpos = (is_alt_up_arrow(key->key) ? input_get_first_pos(wd->cur) :
-					input_get_last_pos(wd->cur));
-	move_cursor_to(&wd->cur->cpos
-			, &(t_cpos){wd->cur->cpos.cp_col, wd->cur->cpos.cp_line}, get_ts());
-	if (is_alt_up_arrow(key->key))
-	{
-		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
-		wd->cur = wd->cur->prev;
-	}
-	else
-	{
-		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
-		wd->cur = wd->cur->next;
-	}
-	if (input_get_last_pos(wd->cur).cp_col < x)
-		wd->cur->cpos = input_get_last_pos(wd->cur);
-	else
-		wd->cur->cpos.cp_col = x;
-	move_cursor_to(&wd->cur->cpos
-			, &(t_cpos){wd->cur->cpos.cp_col, wd->cur->cpos.cp_line}, get_ts());
-	get_windows(0) ? get_windows(0)->cur = wd->cur : 0;
-	return (false);
-}
 
 BOOL		exec_alt_up(const t_key *key, t_window *wd)
 {
 	unsigned short		x;
+	t_cpos				ts;
 
-	if (!tcaps_init(wd))
+	if (!tcaps_init(wd) || wd->select.is)
 		return (false);
-	if (wd->select.is)
-		return (false);
+	ts.cp_col = 0;
+	ts.cp_line = 0;
 	log_dbg1("exec alt arrow up.");
 	x = wd->cur->cpos.cp_col;
 	if (!(wd->cur->cpos.cp_line <= 0 || (wd->cur->cpos.cp_line == 1 &&
@@ -64,17 +37,18 @@ BOOL		exec_alt_up(const t_key *key, t_window *wd)
 	if (!wd->cur->prev->prev && x <= wd->cur->prev->prompt_len &&
 		input_get_last_pos(wd->cur->prev).cp_line == 0)
 		x = x + (unsigned short)wd->cur->prev->prompt_len;
-	return (exec_alt_input(key, wd, x));
+	return (exec_alt_input(key, wd, x, ts));
 }
 
 BOOL		exec_alt_down(const t_key *key, t_window *wd)
 {
 	unsigned short		x;
+	t_cpos				ts;
 
-	if (!tcaps_init(wd))
+	if (!tcaps_init(wd) || wd->select.is)
 		return (false);
-	if (wd->select.is || !wd->cur->next || wd->cur->next->lock)
-		return (false);
+	ts.cp_col = 0;
+	ts.cp_line = 0;
 	log_dbg1("exec alt arrow down.");
 	x = wd->cur->cpos.cp_col;
 	if (wd->cur->cpos.cp_line != input_get_last_pos(wd->cur).cp_line)
@@ -92,7 +66,7 @@ BOOL		exec_alt_down(const t_key *key, t_window *wd)
 			&(t_cpos){wd->cur->cpos.cp_col, wd->cur->cpos.cp_line}, get_ts());
 		return (false);
 	}
-	return (exec_alt_input(key, wd, x));
+	return (exec_alt_input(key, wd, x, ts));
 }
 
 BOOL		exec_alt_left(const t_key *key, t_window *wd)

@@ -176,6 +176,9 @@ BOOL			exec_alt_down(const t_key *key, t_window *wd);
 BOOL			exec_alt_left(const t_key *key, t_window *wd);
 BOOL			exec_alt_right(const t_key *key, t_window *wd);
 
+BOOL			exec_alt_input(const t_key *key, t_window *wd, unsigned short x,
+					t_cpos ts);
+
 /*
 ** @file tcaps_exec_end_home.c
 **
