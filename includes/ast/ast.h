@@ -67,7 +67,7 @@ typedef struct s_cmd	t_cmd;
 /*
 ** @struct s_lim
 **
-** @brief virtual limit for ast_built/ast_built2
+** @brief virtual limits for the AST
 */
 
 struct					s_lim

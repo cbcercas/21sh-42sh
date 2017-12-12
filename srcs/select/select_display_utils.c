@@ -16,15 +16,15 @@
 static void	display_set_color(t_sel_word *word)
 {
 	if (word->st_mode & S_IFDIR)
-		ft_putstr_fd("\x1b[34m", STDIN_FILENO);
+		ft_putstr_fd("\x1b[91m", STDIN_FILENO);
 	else if (word->st_mode & S_IFLNK)
-		ft_putstr_fd("\x1b[35m", STDIN_FILENO);
+		ft_putstr_fd("\x1b[0m", STDIN_FILENO);
 	else if (word->st_mode & S_IFSOCK)
 		ft_putstr_fd("\x1b[32m", STDIN_FILENO);
 	else if (word->st_mode & S_IFIFO)
 		ft_putstr_fd("\x1b[33m", STDIN_FILENO);
 	else if (word->st_mode & S_IXUSR)
-		ft_putstr_fd("\x1b[31m", STDIN_FILENO);
+		ft_putstr_fd("\x1b[92m", STDIN_FILENO);
 	else if (word->st_mode & S_IFBLK)
 		ft_putstr_fd("\x1b[34;46m", STDIN_FILENO);
 	else if (word->st_mode & S_IFCHR)

@@ -67,8 +67,10 @@ void		btree_destroy(t_btree **root, void (*del)(void *))
 
 /*
 ** @brief Returns the biggest integer
+**
 ** @param left First integer to test
 ** @param right Second integet to test
+**
 ** @return Returns the biggest
 */
 
@@ -82,7 +84,9 @@ int			ft_max(int left, int right)
 
 /*
 ** @brief count the nb of level from root
+**
 ** @param root The btree
+**
 ** @return nb of level
 */
 

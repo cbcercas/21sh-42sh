@@ -36,7 +36,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 		if (pid == 0)
 		{
 			execve(cmd, av, envtab);
-			exit(0);
+			exit(EXIT_FAILURE);
 		}
 		else
 			*get_cmd_ret() = sh_return_cmd(sh_wait(0, 0));
