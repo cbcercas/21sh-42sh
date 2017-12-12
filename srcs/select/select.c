@@ -18,15 +18,15 @@ static void	select_print_all(t_window *wd)
 	char	buff[MAX_KEY_STRING_LEN];
 	t_cpos	cpos;
 
-	tputs(tgetstr("cr",NULL), 1, &ft_putc_in);
+	tputs(tgetstr("cr", NULL), 1, &ft_putc_in);
 	tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 	ft_dprintf(STDIN_FILENO,
-			   "%s: do you wish to see all %zu possibilities (%zu lines)? ",
-			   PROGNAME, wd->autocomp->disp.word_num,
-			   (wd->autocomp->disp.word_num / wd->autocomp->disp.col_num));
+			"%s: do you wish to see all %zu possibilities (%zu lines)? ",
+			PROGNAME, wd->autocomp->disp.word_num,
+			(wd->autocomp->disp.word_num / wd->autocomp->disp.col_num));
 	read(STDIN_FILENO, &buff, 1);
 	ft_putc_in((int)*buff);
-	tputs(tgetstr("cr",NULL), 1, &ft_putc_in);
+	tputs(tgetstr("cr", NULL), 1, &ft_putc_in);
 	tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 	if (*buff == 'y' || *buff == 'Y')
 	{
@@ -42,7 +42,8 @@ static void	select_print_all(t_window *wd)
 	move_cursor_to(&cpos, &wd->cur->cpos, &wd->ts);
 }
 
-void	select_select(int selectable, BOOL color, t_array *arr, char *current)
+void		select_select(int selectable, BOOL color, t_array *arr,
+																char *current)
 {
 	t_window	*wd;
 	t_cpos		cpos;
@@ -51,16 +52,16 @@ void	select_select(int selectable, BOOL color, t_array *arr, char *current)
 		return ;
 	if (!(wd->autocomp = select_get_data()))
 		return ;
-	if (!select_init(wd->autocomp , arr, current))
+	if (!select_init(wd->autocomp, arr, current))
 		return ((void)exec_escape_select(get_windows(0)));
 	select_init_opt(selectable, color);
 	if ((wd->autocomp ->disp.word_num / wd->autocomp ->disp.col_num)
 		> wd->autocomp ->disp.ts.ws_row)
 	{
 		select_print_all(wd);
-		return;
+		return ;
 	}
-	tputs(tgetstr("cr",NULL), 1, &ft_putc_in);
+	tputs(tgetstr("cr", NULL), 1, &ft_putc_in);
 	tputs(tgetstr("do", NULL), 0, &ft_putc_in);
 	display_list(wd->autocomp->words, &wd->autocomp->disp);
 	tputs(tgetstr("up", NULL), 0, &ft_putc_in);

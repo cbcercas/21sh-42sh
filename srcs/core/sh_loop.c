@@ -70,6 +70,14 @@ static t_return		sh_process(t_btree **ast, t_array *expands, t_array *tokens,
 	return (ret);
 }
 
+t_return			sh_reset_prompt(t_return *ret)
+{
+	input_destroy(&(input_get_cur_head())->next);
+	input_reset(input_get_cur_head());
+	*ret = E_RET_NEW_PROMPT;
+	return (*ret);
+}
+
 /*
 ** @brief Processes each line of input and executes it
 **
@@ -93,19 +101,15 @@ BOOL				sh_loop(t_sh_data data, struct s_exec_data *exec_dat,
 	print_verb(line);
 	if (input_get_cur())
 		input_get_cur()->prompt_type = *ret;
-	*ret = sh_process(&exec_dat->ast, &exec_dat->expand,
-					&exec_dat->tokens, line);
+	*ret = sh_process(&exec_dat->ast, &exec_dat->expand, &exec_dat->tokens,
+																		line);
 	if (*ret == E_RET_AST_OK)
 	{
 		exec_exec(&data, exec_dat->ast);
 		get_windows(72);
 	}
 	if (!(*ret >= E_RET_LEXER_INCOMPLETE && *ret <= E_RET_LEXER_PIPE))
-	{
-		input_destroy(&(input_get_cur_head())->next);
-		input_reset(input_get_cur_head());
-		*ret = E_RET_NEW_PROMPT;
-	}
+		*ret = sh_reset_prompt(ret);
 	if (exec_dat->ast)
 		btree_destroy(&exec_dat->ast, (void (*)(void*))&ast_del_cmd);
 	sh_arrays_reset(&exec_dat->tokens, &exec_dat->expand);

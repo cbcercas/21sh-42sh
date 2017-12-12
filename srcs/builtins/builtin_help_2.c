@@ -107,11 +107,14 @@ void	sh_help_setenv(void)
 
 	col = get_data(NULL)->opts.color;
 	ft_printf("%ssetenv%s [%sname%s]=[%svalue%s]\n", (col) ? CL_RED : "",
-		(col) ? C_NONE : "", (col) ? C_CYAN : "", (col) ? C_NONE : "", (col) ? C_MAGENTA : "", (col) ? C_NONE : "");
+		(col) ? C_NONE : "", (col) ? C_CYAN : "", (col) ? C_NONE : "",
+								(col) ? C_MAGENTA : "", (col) ? C_NONE : "");
 	ft_printf("Sets the environment variable %sname%s with value %svalue%s\n",
-				(col) ? C_CYAN : "", (col) ? C_NONE : "", (col) ? C_MAGENTA : "", (col) ? C_NONE : "");
+				(col) ? C_CYAN : "", (col) ? C_NONE : "",
+								(col) ? C_MAGENTA : "", (col) ? C_NONE : "");
 	ft_printf("If %sname%s already has a %svalue%s, then it is replaced with "
-"the new one\n", (col) ? C_CYAN : "", (col) ? C_NONE : "", (col) ? C_MAGENTA : "", (col) ? C_NONE : "");
+"the new one\n", (col) ? C_CYAN : "", (col) ? C_NONE : "",
+								(col) ? C_MAGENTA : "", (col) ? C_NONE : "");
 }
 
 /*
@@ -123,10 +126,10 @@ void	sh_help_unsetenv(void)
 	BOOL col;
 
 	col = get_data(NULL)->opts.color;
-	ft_printf("%sunsetenv%s [%sname%s]\n", (col) ? CL_RED : "", (col) ? C_NONE : "",
-												(col) ? C_CYAN : "", (col) ? C_NONE : "");
+	ft_printf("%sunsetenv%s [%sname%s]\n", (col) ? CL_RED : "",
+				(col) ? C_NONE : "", (col) ? C_CYAN : "", (col) ? C_NONE : "");
 	ft_printf("Deletes the environment variable %sname%s from env\n",
-												(col) ? C_CYAN : "", (col) ? C_NONE : "");
+									(col) ? C_CYAN : "", (col) ? C_NONE : "");
 	ft_printf("If %sname%s doesnt exists, nothing happens\n",
-												(col) ? C_CYAN : "", (col) ? C_NONE : "");
+									(col) ? C_CYAN : "", (col) ? C_NONE : "");
 }

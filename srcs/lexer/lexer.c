@@ -464,7 +464,6 @@ static const uint32_t g_stepper[E_STATE_MAX][E_CHAR_TYPE_MAX][2] =
 	}
 };
 
-
 static const uint32_t g_tok_redir[129][129] =
 {
 	['<'] =

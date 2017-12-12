@@ -65,7 +65,8 @@ static char		**get_env_path(void)
 ** @param free a `char **` to free
 */
 
-static void		sh_check_path_print_err(int ret, char const *cmd_name, char **free)
+static void		sh_check_path_print_err(int ret, char const *cmd_name,
+																	char **free)
 {
 	if (ret == -1)
 		ft_dprintf(STDERR_FILENO, "%s: permission denied: %s\n",

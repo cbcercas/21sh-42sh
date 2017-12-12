@@ -41,7 +41,7 @@ static char		*str_from_input(void)
 		if (input->next && input->str->s[input->str->len - 1] != '\\'
 			&& !(line = ft_strjoincl(line, "\n", 1)))
 			sh_exit_error("Error Malloc");
-	input = input->next;
+		input = input->next;
 	}
 	return (line);
 }

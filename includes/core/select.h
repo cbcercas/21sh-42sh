@@ -77,8 +77,8 @@ void							*select_exit(const char *fmt, ...);
 /*
 ** Display
 */
+
 void							*dsp_init(void);
-void							dsp_reinit(void);
 void							display_word(t_sel_word *word,
 															t_sel_display *dsp);
 void							display_list(t_sel_word *lst,
@@ -87,10 +87,6 @@ void							display_list_force(t_sel_word *lst,
 															t_sel_display *dsp);
 void							display_line(t_sel_word *lst,
 															t_sel_display *dsp);
-void							display_blank_line(struct winsize *ts);
-
-BOOL							word_is_on_screen(t_sel_display *disp,
-															t_sel_word *word);
 void							display_print_word(t_sel_word *word);
 
 /*
@@ -102,8 +98,4 @@ t_sel_word						*word_list_destroy(t_sel_word **list);
 
 t_sel_word						*word_get_current(void);
 t_sel_word						*word_get_num(size_t num);
-void							word_renum(t_sel_word *list);
-
-void							word_print_list(t_sel_word *list);
-
 #endif

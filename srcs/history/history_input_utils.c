@@ -67,10 +67,6 @@ t_input		*input_from_history(const char *hist)
 			return (NULL);
 		}
 	}
-	//if (input->str->len && input->str->s[input->str->len - 1] == '\\')
-	//	input = input_add_new(input);
 	string_insert(save->str, hist, 0);
-//	while (input->prev)
-//		input = input->prev;
 	return (input);
 }

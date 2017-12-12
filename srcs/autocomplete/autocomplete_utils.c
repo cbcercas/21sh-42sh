@@ -48,34 +48,3 @@ BOOL	autocomplete_is_dots(const char *s)
 		return (true);
 	return (false);
 }
-
-/*
-BOOL	autocomplete_get_repons(size_t possibilities)
-{
-	char	buff[MAX_KEY_STRING_LEN];
-	int		res;
-
-	if (possibilities <= 42)
-		return (true);
-	default_terminal_mode();
-	if (possibilities >= 3000)
-	{
-		ft_printf("\n%s: too many (%d possibilities)", PROGNAME,\
-				possibilities);
-		return (false);
-	}
-	ft_printf("\n%s: do you wish to see all %d possibilities ?", PROGNAME,\
-			possibilities);
-	raw_terminal_mode();
-	(void)ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
-	res = read(STDIN_FILENO, buff, MAX_KEY_STRING_LEN);
-	buff[res] = '\0';
-	if (!ft_strcmp(buff, "y") || !ft_strcmp(buff, KEY_CODE_TAB))
-		return (true);
-	default_terminal_mode();
-	ft_printf("\n");
-	autocomplete_display_prompt(get_windows(0)->cur);
-	raw_terminal_mode();
-	return (false);
-}
-*/

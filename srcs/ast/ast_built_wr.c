@@ -61,7 +61,7 @@ static t_exp			*ast_search2(t_array *expands, t_lim *lim, int prio)
 ** @return Returns a `lim` struct containing the number of tokens in a redir.
 */
 
-static t_lim		ast_built_redir_plus(t_array *expands, t_lim lim)
+static t_lim			ast_built_redir_plus(t_array *expands, t_lim lim)
 {
 	t_exp	*exp;
 
@@ -97,7 +97,7 @@ static t_lim		ast_built_redir_plus(t_array *expands, t_lim lim)
 ** `word` command.
 */
 
-static t_lim		ast_built_word_plus(t_array *expands, t_lim lim)
+static t_lim			ast_built_word_plus(t_array *expands, t_lim lim)
 {
 	t_exp	*exp;
 
@@ -130,7 +130,7 @@ static t_lim		ast_built_word_plus(t_array *expands, t_lim lim)
 ** @return Returns the ast in a `btree` form
 */
 
-t_btree				*ast_built2(t_btree **ast, t_array *expands,
+t_btree					*ast_built2(t_btree **ast, t_array *expands,
 									t_lim lim, int prio)
 {
 	t_exp	*exp;

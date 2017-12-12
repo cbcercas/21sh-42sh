@@ -42,7 +42,9 @@ void		sh_usage_help(void)
 	ft_printf("\t-l\t\tDisables the termcaps capabilities\n");
 }
 
-//TODO: Add color in the usage_help
+/*
+** TODO: Add color in the usage_help
+*/
 
 /*
 ** @brief Prints the usage and exits

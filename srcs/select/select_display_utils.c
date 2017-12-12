@@ -34,12 +34,13 @@ static void	display_set_color(t_sel_word *word)
 	else if (word->st_mode & S_ISGID)
 		ft_putstr_fd("\x1b[30;46m", STDIN_FILENO);
 	else if (word->st_mode & S_IWOTH)
-		ft_putstr_fd((word->st_mode & S_ISVTX) ? "\x1b[30;42m" : "\x1b[30;33m", STDIN_FILENO);
+		ft_putstr_fd((word->st_mode & S_ISVTX) ? "\x1b[30;42m" : "\x1b[30;33m",
+																STDIN_FILENO);
 	else
 		ft_putstr_fd("\x1b[0m", STDIN_FILENO);
 }
 
-void	display_print_word(t_sel_word *word)
+void		display_print_word(t_sel_word *word)
 {
 	t_sel_data	*data;
 

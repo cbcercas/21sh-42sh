@@ -18,10 +18,7 @@ static t_sel_word	*word_list_add(t_sel_word **list, t_sel_word *word)
 	if (!word)
 		return (NULL);
 	if (!(*list))
-	{
 		*list = word;
-		//word->cursor = true;
-	}
 	else
 	{
 		(*list)->next = word;
@@ -31,7 +28,7 @@ static t_sel_word	*word_list_add(t_sel_word **list, t_sel_word *word)
 	return (word);
 }
 
-static t_sel_word *word_new(const char *word)
+static t_sel_word	*word_new(const char *word)
 {
 	t_sel_word	*e;
 	struct stat st;
@@ -41,7 +38,7 @@ static t_sel_word *word_new(const char *word)
 		select_exit("Malloc failed... Exiting!");
 		return (NULL);
 	}
-	if(stat(word, &st) == 0)
+	if (stat(word, &st) == 0)
 		ft_memmove(&e->st_mode, &st.st_mode, sizeof(st.st_mode));
 	e->word = word;
 	e->len = ft_strlen(word);
@@ -63,7 +60,7 @@ t_sel_word			*word_list_destroy(t_sel_word **list)
 
 t_sel_word			*word_list_create(t_array *words)
 {
-	t_string	*word;
+	t_string	*w;
 	char		*str;
 	t_sel_word	*list;
 	t_sel_word	*last;
@@ -74,11 +71,11 @@ t_sel_word			*word_list_create(t_array *words)
 	last = NULL;
 	while (i++ < words->used)
 	{
-		word = array_get_at(words, i - 1);
-		if (!(str = ft_strclean(word->s)))
+		w = array_get_at(words, i - 1);
+		if (!(str = ft_strclean(w->s)))
 			return (word_list_destroy(&list));
 		if (ft_strcmp(str, ""))
-			if (!(last = word_list_add((list) ? &last : &list, word_new(word->s))))
+			if (!(last = word_list_add((list) ? &last : &list, word_new(w->s))))
 				return (word_list_destroy(&list));
 		ft_strdel(&str);
 	}
