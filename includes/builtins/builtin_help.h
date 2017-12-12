@@ -36,10 +36,10 @@
 */
 
 int		sh_builtin_help(t_sh_data *data, char **args);
-void sh_help_default();
+void	sh_help_default();
 void	sh_help_help(void);
 void	sh_help_echo(void);
-void	sh_help_bonus(void);
+int		sh_help_bonus(t_sh_data *data, char **args);
 
 /*
 ** @file   builtin_help_2.c

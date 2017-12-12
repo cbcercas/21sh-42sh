@@ -52,5 +52,5 @@
 # define BL_GREEN	  "\033[102m"
 # define BL_BLUE	  "\033[104m"
 # define BL_PURPLE	"\033[105m"
-
+# define C_BLINK "\033[5m"
 #endif

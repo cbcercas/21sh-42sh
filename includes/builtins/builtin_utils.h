@@ -18,6 +18,7 @@
 # include <builtins/builtin_pwd.h>
 # include <builtins/builtin_chdir.h>
 # include <builtins/builtin_history.h>
+# include <builtins/builtin_help.h>
 
 /*
 ** @file builtin_utils.h
