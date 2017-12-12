@@ -117,7 +117,7 @@ const char			*sh_history_get_at(ssize_t nb);
 */
 
 void				history_research_prompt(char *buff, t_input *result,
-												BOOL fail);
+											BOOL fail, BOOL del);
 void				history_research(t_input *input);
 
 /*
