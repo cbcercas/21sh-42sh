@@ -20,6 +20,7 @@ set(SOURCE_FILES
 		srcs/ast/ast_built.c
 		srcs/ast/ast_is_redir.c
 		srcs/ast/ast.c
+		srcs/ast/ast_built_wr.c
 
 		srcs/btree/btree_create_node.c
 		srcs/btree/btree_print.c
@@ -28,7 +29,7 @@ set(SOURCE_FILES
 
 		srcs/builtins/builtin_local_var.c
 		srcs/builtins/builtin_utils.c
-        srcs/builtins/builtin_utils2.c
+		srcs/builtins/builtin_utils2.c
 		srcs/builtins/builtin_chdir.c
 		srcs/builtins/builtin_chdir_expand.c
 		srcs/builtins/builtin_echo.c
@@ -48,6 +49,7 @@ set(SOURCE_FILES
 		srcs/builtins/builtin_local_var.c
 		srcs/builtins/builtin_help_3.c
 		srcs/builtins/builtin_help_4.c
+		srcs/builtins/builtin_chdir_abs.c
 
 		srcs/core/input_get.c
 		srcs/core/sh_option.c
@@ -86,6 +88,8 @@ set(SOURCE_FILES
 		srcs/exec/sh_fork.c
 		srcs/exec/sh_pipe.c
 		srcs/exec/sh_open.c
+		srcs/exec/sh_exec_builtin.c
+		srcs/exec/sh_exec_backup_fd.c
 
 		srcs/expand/expand.c
 		srcs/expand/expand_dol.c
@@ -96,6 +100,7 @@ set(SOURCE_FILES
 		srcs/expand/expand_quote.c
 		srcs/expand/expand_utils.c
 		srcs/expand/ft_replace.c
+		srcs/expand/expand_history_replace.c
 
 		srcs/secure_memory/ft_secu_free.c
 		srcs/secure_memory/ft_secu_malloc.c
@@ -150,6 +155,9 @@ set(SOURCE_FILES
 		srcs/tcaps/tcaps_exec_escape.c
 		srcs/tcaps/tcaps_key_exec.c
 		srcs/tcaps/tcaps_redraw_line.c
+		srcs/tcaps/tcaps_exec_escape_enter.c
+		srcs/tcaps/tcaps_exec_init.c
+		srcs/tcaps/tcaps_exec_alt_input.c
 
 		srcs/term/term_modes.c
 
@@ -160,6 +168,8 @@ set(SOURCE_FILES
 		srcs/tools/sh_ret.c
 		srcs/tools/array_free_elem.c
 		srcs/tools/is_printstr.c
+		srcs/tools/print_verb.c
+		srcs/tools/sh_exit_error.c
 
 		srcs/tests/lexer_tests.c
 		srcs/tests/env_tests.c
@@ -168,8 +178,7 @@ set(SOURCE_FILES
 		srcs/tests/expand_tests.c
 		srcs/tests/ast_tests.c
 		srcs/tests/exec_tests.c
-		srcs/tests/local_var_tests.c
-        srcs/tools/print_verb.c srcs/ast/ast_built_wr.c srcs/exec/sh_exec_builtin.c srcs/exec/sh_exec_backup_fd.c srcs/builtins/builtin_chdir_abs.c srcs/tcaps/tcaps_exec_escape_enter.c srcs/expand/expand_history_replace.c srcs/tools/sh_exit_error.c srcs/tcaps/tcaps_exec_init.c)
+		srcs/tests/local_var_tests.c)
 
 include_directories(includes)
 
