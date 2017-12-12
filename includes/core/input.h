@@ -6,7 +6,7 @@
 /*   By: chbravo- <chbravo-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/16 13:28:56 by chbravo-          #+#    #+#             */
-/*   Updated: 2017/11/21 08:32:37 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/12/12 13:56:23 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ struct					s_input
 };
 
 typedef enum e_mode		t_mode;
-enum 					e_mode
+enum					e_mode
 {
 	E_NORMAL,
 	E_AUTOCOMP,
@@ -134,7 +134,7 @@ struct					s_window
 	struct winsize		ts;
 	int					cmd_ret;
 	t_select			select;
-	t_sel_data		*autocomp;
+	t_sel_data			*autocomp;
 };
 
 /*
@@ -154,8 +154,6 @@ t_input					*input_hard_reset(t_input **input);
 ** @brief      Utility functions used by the input
 */
 
-void					reset_input(t_input *input) __attribute__
-									((deprecated("use input_reset instead")));
 size_t					pos_in_str(t_input *input);
 void					input_destroy(t_input **input);
 void					input_reset(t_input *input);

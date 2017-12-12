@@ -91,7 +91,6 @@ BOOL			exec_ctrl_r(const t_key *key, t_window *wd);
 
 BOOL			exec_ctrl_j_select(t_window *wd);
 
-
 /*
 ** @file tcaps_exec_backspace.c
 **
@@ -114,7 +113,7 @@ BOOL			exec_delete(const t_key *key, t_window *wd);
 ** @brief Contains the tab functions to be executed
 */
 
-BOOL			exec_tab(const t_key *key,  t_window *wd);
+BOOL			exec_tab(const t_key *key, t_window *wd);
 
 /*
 ** @file tcaps_exec_arrow.c
@@ -147,14 +146,13 @@ BOOL			exec_arrow_left_select(t_sel_data *data);
 BOOL			exec_arrow_up_select(t_sel_data *data);
 BOOL			exec_arrow_down_select(t_sel_data *data);
 
-
 /*
 ** @file tcaps_exec_escape.c
 **
 ** @brief Contains the escape functions to be executed
 */
 
-BOOL 			exec_escape(const t_key *key, t_window *wd);
+BOOL			exec_escape(const t_key *key, t_window *wd);
 
 /*
 ** @file tcaps_exec_escape.c
@@ -163,7 +161,6 @@ BOOL 			exec_escape(const t_key *key, t_window *wd);
 */
 
 BOOL			exec_escape_select(t_window *wd);
-
 
 /*
 ** @file tcaps_exec_alt_arrows.c
@@ -215,8 +212,6 @@ BOOL			exec_alt_c(const t_key *key, t_window *wd);
 
 BOOL			exec_alt_v(const t_key *key, t_window *wd);
 
-//BOOL			exec_alt_x(const t_key *key, t_input *input);
-
 /*
 ** @file tcaps_redraw_line.c
 **
@@ -226,14 +221,11 @@ BOOL			exec_alt_v(const t_key *key, t_window *wd);
 void			redraw_line(t_input *input);
 void			reset_line(t_input *input);
 
-//void			tcaps_down(t_input *input);
-
 /*
 ** @file tcaps_exec_escape_enter.c
 **
 ** @brief Contains the escape and enter function sequence
 */
-
 
 BOOL			exec_escape_enter(const t_key *key, t_input *input);
 
