@@ -13,7 +13,7 @@
 #include <core/select.h>
 #include <autocomplete/autocomplete.h>
 
-void *select_init(t_sel_data *data, t_array *array, char *cur_word)
+void	*select_init(t_sel_data *data, t_array *array, char *cur_word)
 {
 	data->array = array;
 	if (!(data->words = word_list_create(array)))
@@ -22,10 +22,10 @@ void *select_init(t_sel_data *data, t_array *array, char *cur_word)
 	return (dsp_init());
 }
 
-void select_deinit(t_sel_data **data, BOOL redraw)
+void	select_deinit(t_sel_data **data, BOOL redraw)
 {
 	if (!data || !*data)
-		return;
+		return ;
 	if ((*data)->words)
 		word_list_destroy(&(*data)->words);
 	if (redraw)
@@ -36,7 +36,7 @@ void select_deinit(t_sel_data **data, BOOL redraw)
 	ft_memdel((void **)data);
 }
 
-void			select_init_opt(int selectable, BOOL color)
+void	select_init_opt(int selectable, BOOL color)
 {
 	t_sel_opt	*opts;
 

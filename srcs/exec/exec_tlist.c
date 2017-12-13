@@ -26,7 +26,7 @@ void	exec_list_push(t_list **head, size_t fd)
 	if (!elem)
 	{
 		sh_exit_error("Error Malloc");
-		return;
+		return ;
 	}
 	elem->content = NULL;
 	elem->content_size = fd;

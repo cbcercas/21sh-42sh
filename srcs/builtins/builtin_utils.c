@@ -53,7 +53,7 @@ t_builtin	*sh_new_builtin(char *name, t_builtin_fn fn)
 		return (NULL);
 	}
 	(void)name;
-	e->name = strdup(name);
+	e->name = ft_strdup(name);
 	e->len = ft_strlen(name);
 	e->fn = fn;
 	return (e);
@@ -95,6 +95,8 @@ t_array		*sh_builtins_init_helper(t_array *builtins)
 	if (!sh_add_builtin("export", builtin_export))
 		return (NULL);
 	if (!sh_add_builtin("exit", builtin_exit))
+		return (NULL);
+	if (!sh_add_builtin("bonus", sh_help_bonus))
 		return (NULL);
 	return (builtins);
 }

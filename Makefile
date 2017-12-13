@@ -16,7 +16,7 @@ SRC_SUBDIR		= core
 SRCS			+= sh_get_input.c main.c prompt.c init.c input.c usage_help.c \
  					input_utils.c deinit.c input_windows.c input_draw.c \
  					input_move.c input_utils_2.c sh_loop.c sh_option.c \
- 					input_get.c sh_get_char.c
+ 					input_get.c
 
 SRC_SUBDIR		+= environ
 SRCS			+= environ.c env_list_utils.c getter_env.c env_utils.c \
@@ -30,7 +30,7 @@ SRCS			+= builtin_chdir.c builtin_chdir_abs.c builtin_chdir_expand.c \
 					builtin_help.c builtin_history_acdws.c builtin_history.c \
 					builtin_history_npr.c builtin_history_print.c \
 					builtin_local_var.c builtin_pwd.c builtin_utils2.c \
-					builtin_utils.c builtin_help_3.c
+					builtin_utils.c builtin_help_3.c builtin_help_4.c
 
 
 SRC_SUBDIR		+= exec
@@ -88,7 +88,8 @@ SRCS			+=	tcaps_exec_alt_arrows.c tcaps_exec_alt_c.c \
 					tcaps_exec_end_home.c tcaps_exec_insert.c tcaps_exec_tab.c \
 					tcaps_exec_escape_enter.c tcaps_exec_arrow_normal.c \
 					tcaps_exec_arrow_select.c tcaps_exec_escape.c \
-					tcaps_exec_ctrl_select.c tcaps_exec_init.c
+					tcaps_exec_ctrl_select.c tcaps_exec_init.c\
+					 tcaps_exec_alt_input.c
 
 SRC_SUBDIR		+= btree
 SRCS			+= btree_create_node.c btree_apply.c btree_print.c btree_utils.c

@@ -13,10 +13,12 @@
 #include <secure_memory/secure_memory.h>
 
 /*
-** @brief Searches into memory for a pointer (TODO)
-** @param ptr TOOD
-** @param mem TODO
-** @return TODO
+** @brief Searches into memory for a pointer
+**
+** @param ptr Pointer to search
+** @param mem Where to seach
+**
+** @return Returns the corresponding malloc struct
 */
 
 static t_secu_malloc	*ft_malloc_search(void *ptr, t_mem *mem)
@@ -80,8 +82,9 @@ void					ft_secu_free_all(void)
 }
 
 /*
-** @brief TODO
-** @param lvl TODO
+** @brief Frees a whole `lvl`
+**
+** @param lvl level to free
 */
 
 void					ft_secu_free_lvl(size_t lvl)

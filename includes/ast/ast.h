@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/19 09:44:50 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/10/11 15:19:08 by gpouyat          ###   ########.fr       */
+/*   Updated: 2017/12/12 13:54:09 by jlasne           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_cmd	t_cmd;
 /*
 ** @struct s_lim
 **
-** @brief virtual limit for ast_built/ast_built2
+** @brief virtual limits for the AST
 */
 
 struct					s_lim
@@ -137,6 +137,6 @@ t_cmd					*ast_new_cmd(t_array *expands, ssize_t start,
 */
 
 t_btree					*ast_built2(t_btree **ast, t_array *expands,
-									   t_lim lim, int prio);
+														t_lim lim, int prio);
 
 #endif

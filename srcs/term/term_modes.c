@@ -63,8 +63,8 @@ void		sh_store_tattr(t_sh_data *data)
 		data->tattr = NULL;
 		return ;
 	}
-	else if (!(data->tattr = (struct termios*)ft_memalloc(sizeof(struct termios)
-	)))
+	else if (!(data->tattr = (struct termios*)ft_memalloc(sizeof(struct
+																	termios))))
 		sh_exit_error("Error Malloc");
 	ft_memcpy(data->tattr, &save_tattr, sizeof(struct termios));
 }

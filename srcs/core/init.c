@@ -81,9 +81,6 @@ static void			sh_multi_init(t_sh_data *data, int ac, char *const *av,
 ** @brief Displays a message when the shell is started with `env -i`
 */
 
-
-//TODO
-
 void				sh_check_env(char **environ)
 {
 	char	*tmp;
@@ -122,7 +119,7 @@ static BOOL			sh_init_get_path(char *const *argv)
 	if (!(data = get_data(NULL)))
 		return (false);
 	ft_bzero(data->cwd, sizeof(data->cwd));
-	if(!(p = ft_strrchr(argv[0], '/')))
+	if (!(p = ft_strrchr(argv[0], '/')))
 	{
 		if (!getcwd(data->cwd, sizeof(data->cwd)))
 			return (false);

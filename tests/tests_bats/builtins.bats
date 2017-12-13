@@ -39,10 +39,11 @@ load test_helper
 
 @test "BUILTINS: Testing [Builtin PWD] for 'pwd -P'" {
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'pwd -P'
+	result = `pwd -P`
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->$PWD"
-	[ "${lines[0]}" = "$PWD" ]
+	echo "$name_exec EXPECTED ->$result"
+	[ "${lines[0]}" = "$result" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
@@ -205,7 +206,7 @@ load test_helper
     echo "$name_exec EXPECTED ->exit"
     echo
     [ "${lines[0]}" = "exit" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 
@@ -216,7 +217,7 @@ load test_helper
     echo "$name_exec EXPECTED ->exit"
     echo
     [ "${lines[0]}" = "exit" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 
@@ -1433,14 +1434,12 @@ check_leaks_function exec
     echo "ERROR:"
     display_line_output
     echo "$name_exec EXPECTED ->unsetenv [name]"
-    echo "                Deletes the environment variable name from local env"
+    echo "                Deletes the environment variable name from env"
     echo "                If name doesnt exists, nothing happens"
-    echo "                Optional arguments shall be passed to utility."
     echo
     [ "${lines[0]}" = "unsetenv [name]" ]
-    [ "${lines[1]}" = "Deletes the environment variable name from local env" ]
+    [ "${lines[1]}" = "Deletes the environment variable name from env" ]
     [ "${lines[2]}" = "If name doesnt exists, nothing happens" ]
-    [ "${lines[3]}" = "Optional arguments shall be passed to utility." ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }

@@ -36,10 +36,10 @@
 */
 
 int		sh_builtin_help(t_sh_data *data, char **args);
-void	sh_help_default(t_sh_data *data);
+void	sh_help_default();
 void	sh_help_help(void);
 void	sh_help_echo(void);
-void	sh_help_bonus(void);
+int		sh_help_bonus(t_sh_data *data, char **args);
 
 /*
 ** @file   builtin_help_2.c
@@ -49,6 +49,7 @@ void	sh_help_bonus(void);
 
 void	sh_help_exit(void);
 void	sh_help_cd(void);
+void	sh_help_chdir(void);
 void	sh_help_env(void);
 void	sh_help_setenv(void);
 void	sh_help_unsetenv(void);
@@ -63,5 +64,6 @@ int		sh_builtin_help_helper(char **args);
 void	sh_help_history(void);
 void	sh_help_history_helper(void);
 void	sh_help_pwd(void);
+void	sh_help_export(void);
 
 #endif

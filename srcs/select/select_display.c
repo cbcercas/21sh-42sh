@@ -12,14 +12,15 @@
 
 #include <core/select.h>
 
-void	display_word(t_sel_word *word, t_sel_display *dsp)
+void		display_word(t_sel_word *word, t_sel_display *dsp)
 {
 	t_cpos	dest;
 	size_t	i;
 
 	if (!word)
-		return;
-	dest.cp_col = (USHRT)(((word->num - dsp->first->num) % dsp->col_num) * (dsp->col_size + 1));
+		return ;
+	dest.cp_col = (USHRT)(((word->num - dsp->first->num) % dsp->col_num) *
+														(dsp->col_size + 1));
 	dest.cp_line = (USHRT)((word->num - dsp->first->num) / dsp->col_num);
 	move_cursor_to(&dest, &dsp->cpos, &dsp->ts);
 	display_print_word(word);
@@ -37,7 +38,7 @@ void	display_word(t_sel_word *word, t_sel_display *dsp)
 	move_cursor_to(&dest, &dsp->cpos, &dsp->ts);
 }
 
-void	display_line(t_sel_word *lst, t_sel_display *dsp)
+void		display_line(t_sel_word *lst, t_sel_display *dsp)
 {
 	size_t	i;
 
@@ -53,44 +54,48 @@ void	display_line(t_sel_word *lst, t_sel_display *dsp)
 	}
 }
 
-void	display_list(t_sel_word *lst, t_sel_display *dsp)
+static void	display_list_helper(t_sel_display *dsp)
+{
+	dsp->fixed_scroll = true;
+	tputs(tparm(tgetstr("cs", NULL), 1, dsp->ts.ws_row), 1, &ft_putc_in);
+	tputs(tparm(tgetstr("cm", NULL), 1, 0), 0, &ft_putc_in);
+	dsp->cpos.cp_col = 0;
+	dsp->cpos.cp_line = 0;
+}
+
+void		display_list(t_sel_word *lst, t_sel_display *dsp)
 {
 	t_sel_word	*save;
 
 	if (!lst)
-		return;
+		return ;
 	save = lst;
 	display_word(lst, dsp);
 	lst = lst->next;
 	while (lst && lst != save)
 	{
-		if ((dsp->ts.ws_row - 1)
-			<= (USHRT)(((lst->num - dsp->first->num) / dsp->col_num)))
+		if ((dsp->ts.ws_row - 1) <= (USHRT)(((lst->num - dsp->first->num) /
+																dsp->col_num)))
 		{
 			if (!dsp->fixed_scroll)
 			{
-				dsp->fixed_scroll = true;
-				tputs(tparm(tgetstr("cs", NULL), 1, dsp->ts.ws_row), 1,
-					  &ft_putc_in);
-				tputs(tparm(tgetstr("cm", NULL), 1, 0), 0, &ft_putc_in);
-				dsp->cpos.cp_col = 0;
-				dsp->cpos.cp_line = 0;
+				display_list_helper(dsp);
 			}
-			return;
+			return ;
 		}
 		display_word(lst, dsp);
 		lst = lst->next;
 	}
 }
 
-void	display_list_force(t_sel_word *lst, t_sel_display *dsp)
+void		display_list_force(t_sel_word *lst, t_sel_display *dsp)
 {
 	t_sel_word	*head;
 	size_t		i;
 	size_t		j;
 
 	if (!lst)
-		return;
+		return ;
 	head = lst;
 	head->prev->next = NULL;
 	while (lst)
@@ -107,16 +112,4 @@ void	display_list_force(t_sel_word *lst, t_sel_display *dsp)
 		ft_putchar_fd('\n', STDIN_FILENO);
 	}
 	head->prev->next = head;
-}
-
-BOOL	word_is_on_screen(t_sel_display *disp, t_sel_word *word)
-{
-	size_t nb;
-
-	nb = word->num - disp->first->num;
-	if (!disp->fixed_scroll)
-		return (true);
-	else if (nb < (disp->col_num * (disp->ts.ws_row - 1)))
-		return (true);
-	else return (false);
 }

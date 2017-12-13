@@ -12,6 +12,8 @@
 
 #include <automaton/automaton.h>
 #include <core/progname.h>
+#include <core/color.h>
+#include <core/data.h>
 
 /*
 ** @brief Prints the help when using a wrong option
@@ -19,30 +21,32 @@
 
 void		sh_usage_help(void)
 {
-	ft_printf("Usage:\t./%s [option] ...\n", PROGNAME);
-	ft_printf("Shell options:\n");
-	ft_printf("\t-v\t\tVerbose\n");
-	ft_printf("\t-d [0-7]\t\tDebug mode (need debug level):\n");
-	ft_printf("\t\t\t\t0: no log\n\t\t\t\t1: fatal\n\t\t\t\t2: error\n");
-	ft_printf("\t\t\t\t3: warning\n\t\t\t\t4: info\n");
-	ft_printf("\t\t\t\t5: debug level 1\n\t\t\t\t6: debug level 2");
-	ft_printf("\n\t\t\t\t7: debug level 3\n");
-	ft_printf("\t-t\t\ttesting mode:\n");
-	ft_printf("\t\t\t\tenv: test env module\n");
-	ft_printf("\t\t\t\t\t set VAR=value ... : set variable(s) and display"
-																	"env\n");
-	ft_printf("\t\t\t\t\t del VAR ... : delete variable(s) and display env\n");
-	ft_printf("\t\t\t      lexer: test lexer module\n");
-	ft_printf("\t\t\t     parser: test parser module\n");
-	ft_printf("\t\t\t     expand: test expand module\n");
-	ft_printf("\t-c [string]\t\t If the -c option is present, then commands"
-					" are read from string.\n");
-	ft_printf("\t-C Allows color in builtins. default in testing is true,"
-					" otherwise by default is false\n");
-	ft_printf("\t-l\t\tDisables the termcaps capabilities\n");
+	ft_printf("Usage:\t./%s [%soption%s] ...\n", PROGNAME, C_MAGENTA, C_NONE);
+	ft_printf("\tShell options:\n\t%s-v%s\n\t\tVerbose\n", C_CYAN, C_NONE);
+	ft_printf("\t%s-d%s [%s0%s-%s7%s]\n\t\tDebug mode (Requires debug level)"
+					":\n", C_CYAN, C_NONE, C_GREEN, C_NONE, C_GREEN, C_NONE);
+	ft_printf("\t\t\t\t%s0%s: no log\n\t\t\t\t%s1%s: fatal\n\t\t\t\t%s2%s: "
+				"error\n", C_GREEN, C_NONE, C_GREEN, C_NONE, C_GREEN, C_NONE);
+	ft_printf("\t\t\t\t%s3%s: warning\n\t\t\t\t%s4%s: info\n", C_GREEN,
+			C_NONE, C_GREEN, C_NONE);
+	ft_printf("\t\t\t\t%s5%s: debug level 1\n\t\t\t\t%s6%s: debug level 2",
+			C_GREEN, C_NONE, C_GREEN, C_NONE);
+	ft_printf("\n\t\t\t\t%s7%s: debug level 3\n", C_GREEN, C_NONE);
+	ft_printf("\t%s-t%s\n\t\ttesting mode:\n", C_CYAN, C_NONE);
+	ft_printf("\t\t\t%senv%s: test env module\n", C_MAGENTA, C_NONE);
+	ft_printf("\t\t\t\t%sset%s VAR=value ... : set variable(s) and display"
+												"env\n", C_MAGENTA, C_NONE);
+	ft_printf("\t\t\t\t%sdel%s VAR ... : delete variable(s) and display env\n",
+														C_MAGENTA, C_NONE);
+	ft_printf("\t\t\t%slexer%s: test lexer module\n", C_MAGENTA, C_NONE);
+	ft_printf("\t\t\t%sparser%s: test parser module\n", C_MAGENTA, C_NONE);
+	ft_printf("\t\t\t%sexpand%s: test expand module\n", C_MAGENTA, C_NONE);
+	ft_printf("\t%s-c%s [%sstring%s]\n\t\tIf the -c option is present, then "
+		"commands are read from string.\n", C_CYAN, C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("\t%s-C%s\n\t\tAllows color in builtins. default in testing is "
+					"true, otherwise by default is false\n", C_CYAN, C_NONE);
+	ft_printf("\t%s-l%s\n\t\tDisables the termcaps\n", C_CYAN, C_NONE);
 }
-
-//TODO: Add color in the usage_help
 
 /*
 ** @brief Prints the usage and exits

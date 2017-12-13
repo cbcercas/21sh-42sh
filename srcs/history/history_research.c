@@ -12,6 +12,30 @@
 
 #include <history/history.h>
 
+static void		history_research_prompt_clear(char *buff, BOOL fail, BOOL del)
+{
+	size_t		nb;
+	size_t		save;
+	size_t		len;
+
+	len = (ft_strlen(buff) + ft_strlen("bck-i-search:_  $>") +
+			(fail ? ft_strlen("failing ") : 0) - 2);
+	nb = len / get_windows(0)->ts.ws_col;
+	save = nb;
+	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
+	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
+	if (nb || (del && (len + 1 == get_windows(0)->ts.ws_col ||
+			len + 2 == get_windows(0)->ts.ws_col)))
+		save++;
+	while (nb--)
+	{
+		tputs(tgetstr("do", NULL), 0, &ft_putc_in);
+		tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
+	}
+	while (save--)
+		tputs(tgetstr("up", NULL), 0, &ft_putc_in);
+}
+
 /*
 ** @brief Prints the search/fail messages
 **
@@ -22,10 +46,10 @@
 ** @param fail Is the research failing (true/false)
 */
 
-void		history_research_prompt(char *buff, t_input *result, BOOL fail)
+void			history_research_prompt(char *buff, t_input *result, BOOL fail,
+										BOOL del)
 {
-	tputs(tgetstr("cr", NULL), 0, &ft_putc_in);
-	tputs(tgetstr("cd", NULL), 0, &ft_putc_in);
+	history_research_prompt_clear(buff, fail, del);
 	if (fail)
 		ft_putstr_fd("failing ", STDIN_FILENO);
 	ft_putstr_fd("bck-i-search:", STDIN_FILENO);
@@ -47,7 +71,7 @@ void		history_research_prompt(char *buff, t_input *result, BOOL fail)
 ** @return Returns true if found. False otherwise
 */
 
-BOOL		history_research_search(const char *line, t_input **result)
+static BOOL		history_research_search(const char *line, t_input **result)
 {
 	t_array	*hists;
 	t_hist	*h;
@@ -77,13 +101,15 @@ BOOL		history_research_search(const char *line, t_input **result)
 }
 
 /*
-** @brief TODO
-** @param buff TODO
-** @param line TODO
-** @return TODO
+** @brief Handles writing and removing chars from `line`
+**
+** @param buff What the user entered
+** @param line The line the user entered before
+**
+** @return Returns the modified line
 */
 
-static char	*apply_buff(char *buff, char *line)
+static char		*apply_buff(char *buff, char *line)
 {
 	if (buff[0] == 127 && line && ft_strlen(line))
 		line[ft_strlen(line) - 1] = 0;
@@ -98,11 +124,12 @@ static char	*apply_buff(char *buff, char *line)
 }
 
 /*
-** @brief TODO
-** @param input TODO
+** @brief Main function for the ctrl+r research history
+**
+** @param input The current user input
 */
 
-void		history_research(t_input *input)
+void			history_research(t_input *input)
 {
 	char		buff[MAX_KEY_STRING_LEN];
 	BOOL		fail;
@@ -116,7 +143,8 @@ void		history_research(t_input *input)
 	{
 		line = apply_buff(buff, line);
 		fail = history_research_search((const char *)line, &result);
-		history_research_prompt(line, result, fail);
+		history_research_prompt(line, result, fail, (buff[0] == 127 ?
+													true : false));
 		ft_bzero((void *)buff, MAX_KEY_STRING_LEN);
 	}
 	history_research_exit(result, line, input);

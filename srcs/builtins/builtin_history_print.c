@@ -16,22 +16,25 @@
 /*
 ** @brief Prints the history
 **
-** @param nb Number of entries to print (? TODO CHECK)
+** @param nb Number from end to print from
 */
 
 void	sh_history_builtin_print2(int nb)
 {
+	BOOL	col;
 	t_array	*hists;
 	t_hist	*h;
 	size_t	i;
 
+	col = get_data(NULL)->opts.color;
 	hists = sh_history_get();
 	i = (nb > 0 ? hists->used - nb : hists->used);
 	while (i < hists->used)
 	{
 		h = (t_hist *)array_get_at(hists, i);
 		if (get_data(NULL) && get_data(NULL)->opts.color)
-			ft_printf("%s %zu %s %s\n", C_MAGENTA, i + 1, C_NONE, h->cmd);
+			ft_printf("%s %zu %s %s\n", (col) ? C_MAGENTA : "", i + 1,
+																C_NONE, h->cmd);
 		else
 			ft_printf("%zu %s\n", i + 1, h->cmd);
 		i++;

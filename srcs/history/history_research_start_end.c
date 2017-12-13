@@ -13,10 +13,11 @@
 #include <history/history.h>
 
 /*
-** @brief TODO
-** @param result TODO
-** @param line TODO
-** @param input TODO
+** @brief Adds to the input the result of the ctrl+r search
+**
+** @param result User search result
+** @param line What the user searched
+** @param input The current input where `result` is added
 */
 
 void	history_research_exit(t_input *result, char *line, t_input *input)
@@ -42,10 +43,11 @@ void	history_research_exit(t_input *result, char *line, t_input *input)
 }
 
 /*
-** @brief TODO
-** @param line TODO
-** @param result TODO
-** @param fail TODO
+** @brief Initializes ctrl+r research
+**
+** @param line Current user search
+** @param result History result
+** @param fail If the search fails
 */
 
 void	history_research_start(char **line, t_input **result, BOOL *fail)
@@ -53,5 +55,5 @@ void	history_research_start(char **line, t_input **result, BOOL *fail)
 	*line = NULL;
 	*result = NULL;
 	*fail = false;
-	history_research_prompt(*line, *result, *fail);
+	history_research_prompt(*line, *result, *fail, false);
 }

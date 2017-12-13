@@ -70,7 +70,7 @@ static void	sh_print_fed2(void)
 
 static void	sh_print_fed1(void)
 {
-	ft_printf("%s", C_BLUE);
+	ft_printf("%s%s", C_BLUE, C_BLINK);
 	ft_printf("                                  ,,▄▄▄▄▄▄▄▄,,\n");
 	ft_printf("                           ,▄▄▓██████████████████▓▄▄,\n");
 	ft_printf("                       ,▄▓█████████▀▀▀▀▀▀▀▀▀▀██████████▄,\n");
@@ -115,6 +115,7 @@ void		sh_exit(t_sh_data *data, char **arg)
 		sh_deinit(data);
 	default_terminal_mode();
 	ft_printf("exit\n");
+	status = *get_cmd_ret();
 	if (arg && arg[1] && ft_isdigit(arg[1][0]))
 		status = ft_atoi(arg[1]);
 	else if (arg && arg[1] && ft_isalpha(arg[1][0]))

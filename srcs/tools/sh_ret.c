@@ -13,9 +13,11 @@
 #include <tools/tools.h>
 
 /*
-** @brief TODO
-** @param status TODO
-** @return TODO
+** @brief Returns the value of last command based on wait
+**
+** @param status return of wait
+**
+** @return Returns the return value
 */
 
 int		sh_return_cmd(int status)

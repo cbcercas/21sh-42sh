@@ -342,6 +342,3 @@ if [[ "$var_test_bats" != "" ]]; then
 	rm -rf check_leaks_tmp.log
 fi
 exit $ret
-
-#TODO: valgrind --trace-children=yes --log-file=toto.log --leak-check=full --track-origins=yes ./21sh
-#ajout check leaks comme option

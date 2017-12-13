@@ -38,7 +38,10 @@ static size_t		get_prompt(void)
 	if (!(path = get_pwd()))
 		path = "???";
 	basename = ft_basename(path);
-	retstr = (!*get_cmd_ret()) ? "\033[32m^_^" : "\033[91mX_X";
+	if (get_data(NULL)->opts.color)
+		retstr = (!*get_cmd_ret()) ? "\033[32m^_^" : "\033[91mX_X";
+	else
+		retstr = (!*get_cmd_ret()) ? "^_^" : "X_X";
 	ft_dprintf(STDIN_FILENO, "\033[0m(%s\033[0m) - %s - %s $ ",
 			retstr, user, basename);
 	len = 11 + 3 + ft_strlen(user) + ft_strlen(basename);

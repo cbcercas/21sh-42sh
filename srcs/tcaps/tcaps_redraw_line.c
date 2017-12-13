@@ -37,17 +37,3 @@ void	redraw_line(t_input *input)
 	while (col++ < input->cpos.cp_col)
 		tputs(tgetstr("nd", NULL), 0, &ft_putc_in);
 }
-
-/*void	reset_line(t_input *input)
-{
-	size_t	pos;
-	size_t	savepos;
-
-	pos = pos_in_str(input);
-	savepos = pos;
-	while (savepos--)
-		exec_arrow_left(NULL, input);
-	redraw_line(input);
-	while (pos != pos_in_str(input))
-		exec_arrow_right(NULL, input);
-}*/

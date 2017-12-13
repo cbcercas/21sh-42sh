@@ -23,7 +23,7 @@ extern int			g_optind;
 ** @brief     Helper to Handle the options passed to the program
 **
 ** @param opts     Contains the options passed by the user
-** @param opt      TODO
+** @param opt      Option given by getopt
 ** @param av       Contains the arguments
 ** @param environ  Contains the env
 **

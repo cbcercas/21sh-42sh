@@ -120,7 +120,7 @@ void	sh_history_builtin_w(char *path)
 ** The last command in the history list is removed before the args are added.
 **
 ** @param args The args passed to the `history -s` command
-** @param index TODO
+** @param index Where in the history to look
 */
 
 void	sh_history_builtin_s(char **args, int index)

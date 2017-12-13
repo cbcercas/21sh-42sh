@@ -15,7 +15,6 @@
 #include <core/progname.h>
 #include <core/input.h>
 
-
 void	*select_exit(const char *fmt, ...)
 {
 	va_list		list;
@@ -35,4 +34,3 @@ void	*select_exit(const char *fmt, ...)
 		get_windows(100);
 	return (NULL);
 }
-

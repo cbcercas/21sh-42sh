@@ -38,7 +38,12 @@
 /*
 ** @struct s_secu_malloc
 **
-** @brief TODO
+** @brief Contains all the info for the secu_malloc functions
+**
+** @param ptr Pointer to the malloc memory area
+** @param lvl Categorize the pointer
+** @param prev Previous struct
+** @param next Next struct
 */
 
 struct							s_secu_malloc
@@ -54,7 +59,10 @@ typedef struct s_secu_malloc	t_secu_malloc;
 /*
 ** @struct s_mem
 **
-** @brief TODO
+** @brief Main struct to hold the malloc securely
+**
+** @param first First node
+** @param last last node
 */
 
 typedef struct					s_mem
