@@ -59,7 +59,7 @@ SRC_SUBDIR		+= parser
 SRCS			+= parser.c
 
 SRC_SUBDIR		+= expand
-SRCS			+= expand_bquote.c expand.c expand_dol.c expand_history.c \
+SRCS			+= expand.c expand_dol.c expand_history.c \
 					expand_history_tools.c expand_merge.c expand_print.c \
 					expand_quote.c expand_utils.c ft_replace.c \
 					expand_history_replace.c

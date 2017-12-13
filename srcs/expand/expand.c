@@ -24,8 +24,6 @@ t_exp		*expand_exp(t_exp *exp)
 {
 	if (exp->type == E_TOKEN_WORD || exp->type == E_TOKEN_DQUOTE)
 		expand_dol(exp->str);
-	else if (exp->type == E_TOKEN_BQUOTE)
-		expand_bquote(exp->str);
 	return (exp);
 }
 

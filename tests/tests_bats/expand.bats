@@ -212,7 +212,7 @@ check_leaks_function expand
 
 @test "EXPAND: Testing [dbquote] with 'double 4'" {
   echo -e "blow\njob" > $history_loc
-  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand "\"\$VAR2\"toto"
+  run $val_cmd env -i VAR=toto VAR2=tata ${BATS_TEST_DIRNAME}/../../$name_exec -t expand '""$VAR2"toto"'
   echo
   echo "ERROR: \"\$VAR2\"toto\""
   echo
