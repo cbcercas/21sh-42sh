@@ -68,9 +68,26 @@ BOOL	expand_antislash(t_string *string, t_token_type type)
 	return (ignore);
 }
 
+static ssize_t	ft_index_strschr(const char *s, int c)
+{
+	char	c2;
+	ssize_t	i;
+
+	i = 0;
+	c2 = (char)c;
+	while (*s != c2)
+	{
+		if (*s == '\0')
+			return (-1);
+		s++;
+		i++;
+	}
+	return (i);
+}
+
 t_exp	*expand_remove_quote(t_exp *exp)
 {
-	char		*c;
+	ssize_t		c;
 	char		quote;
 	BOOL		ignore;
 
@@ -80,13 +97,11 @@ t_exp	*expand_remove_quote(t_exp *exp)
 	if (ignore == false)
 	{
 		if ((quote = find_first_quote(exp->str->s)) != 0)
-			while ((c = ft_strchr(exp->str->s, quote)))
-			{
-				exp->str->len = ft_strlen((char *)exp->str);
-				string_remove_char(exp->str, c - exp->str->s);
-			}
+			while ((c = ft_index_strschr(exp->str->s, quote)) >= 0)
+				string_remove_char(exp->str, (size_t)c);
 	}
 	if (exp->type == E_TOKEN_SQUOTE || exp->type == E_TOKEN_DQUOTE)
 		exp->type = E_TOKEN_WORD;
+	exp->str->len = ft_strlen((char *)exp->str);
 	return (exp);
 }

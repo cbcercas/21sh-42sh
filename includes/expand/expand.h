@@ -6,7 +6,7 @@
 /*   By: gpouyat <gpouyat@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/06 14:57:29 by gpouyat           #+#    #+#             */
-/*   Updated: 2017/11/21 12:41:27 by jlasne           ###   ########.fr       */
+/*   Updated: 2017/12/08 14:19:37 by mleroy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # include <environ/getter_env.h>
 # include <core/input.h>
 # include <history/history.h>
-
+# include <sys/wait.h>
+# include <libft.h>
 /*
 ** @file   expand.h
 **
