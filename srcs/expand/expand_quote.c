@@ -81,7 +81,10 @@ t_exp	*expand_remove_quote(t_exp *exp)
 	{
 		if ((quote = find_first_quote(exp->str->s)) != 0)
 			while ((c = ft_strchr(exp->str->s, quote)))
+			{
+				exp->str->len = ft_strlen((char *)exp->str);
 				string_remove_char(exp->str, c - exp->str->s);
+			}
 	}
 	if (exp->type == E_TOKEN_SQUOTE || exp->type == E_TOKEN_DQUOTE)
 		exp->type = E_TOKEN_WORD;
