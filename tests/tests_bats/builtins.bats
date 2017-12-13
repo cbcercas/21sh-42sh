@@ -39,10 +39,11 @@ load test_helper
 
 @test "BUILTINS: Testing [Builtin PWD] for 'pwd -P'" {
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'pwd -P'
+	result = `pwd -P`
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->$PWD"
-	[ "${lines[0]}" = "$PWD" ]
+	echo "$name_exec EXPECTED ->$result"
+	[ "${lines[0]}" = "$result" ]
 	[ "$status" -eq 0 ]
 	check_leaks_function exec
 }
