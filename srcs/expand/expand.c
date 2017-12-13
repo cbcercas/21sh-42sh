@@ -54,6 +54,8 @@ t_return	expand(t_array *tokens, t_array *expand)
 		if (!expand_exp(exp))
 			return (E_RET_EXPAND_ERROR);
 		expand_remove_quote(exp);
+		if (exp->str)
+			exp->str->len = ft_strlen(exp->str->s);
 		array_push(expand, (void *)exp);
 		i++;
 	}
