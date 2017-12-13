@@ -158,7 +158,7 @@ test_bats()
 		help_usage
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/compile_test.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats" $path_of_file"/tests_bats/builtins.bats"
+		bats $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats" $path_of_file"/tests_bats/builtins.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -216,6 +216,7 @@ tests_travis()
 		echo -e "../test.sh -h : for display help\n"
 		exit 1;
 	fi
+	export TEST_BATS_SAN="yes"
 	if [ ${TRAVIS_BRANCH} = "lexer" ]; then
 		test_bats 'lexer'
 	elif [ ${TRAVIS_BRANCH} = "parser" ] || [ ${TRAVIS_BRANCH} = "parser2" ]; then
@@ -282,11 +283,12 @@ for args in "$@"; do
 		"--valgrind=full")   set -- "$@" "-v 2" ;;
 		"--valgrind=default")   set -- "$@" "-v 1" ;;
 		"--valgrind=no")   set -- "$@" "-v 0" ;;
+		"--San")   set -- "$@" "-S 0" ;;
     *)        set -- "$@" "$args" ;;
   esac
 done
 
-while getopts ":s:b:hv:" option
+while getopts ":s:b:hv:S" option
 do
 	case $option in
 		s)
@@ -309,9 +311,23 @@ do
 			help_usage
 			exit 1;
 			;;
+		S)
+			if [[ "$TESTS_CHECK_LEAKS" = "0" ]]; then
+				export TEST_BATS_SAN="yes"
+				bats $path_of_file/tests_bats/compile_test.bats
+			else
+				echo "S and V are incompatible"
+				exit 2
+			fi
+			;;
 		v)
-			echo "arg=$OPTARG"
-			export TESTS_CHECK_LEAKS=$OPTARG
+			if [[ $TEST_BATS_SAN != "yes" ]]; then
+				echo "arg=$OPTARG"
+				export TESTS_CHECK_LEAKS=$OPTARG
+			else
+				echo "S and V are incompatible"
+				exit 2
+			fi
 			;;
 		:)
 			echo -e "the option $OPTARG requiert an argument\n"
