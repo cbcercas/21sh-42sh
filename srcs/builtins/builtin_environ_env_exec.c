@@ -36,6 +36,7 @@ int		sh_builtin_env_exec(char **av, t_array *envs)
 		if (pid == 0)
 		{
 			execve(cmd, av, envtab);
+			ft_dprintf(2, "%s: error exec(): %s\n", PROGNAME, cmd);
 			exit(EXIT_FAILURE);
 		}
 		else

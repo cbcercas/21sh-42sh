@@ -45,6 +45,7 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 {
 	char	*path;
 	pid_t	pid;
+	char	**vartab;
 
 	pid = -1;
 	if ((path = get_filename(item->av[0])))
@@ -56,8 +57,10 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 		{
 			set_var(get_envs(), "_", path, true);
 			exec_list_fd_dup(fds);
-			execve(path, item->av, var_to_tab(get_envs()));
+			execve(path, item->av, (vartab = var_to_tab(get_envs())));
 			ft_dprintf(2, "%s: error exec(): %s\n", PROGNAME, path);
+			if (vartab)
+				ft_freetab(vartab, ft_tablen(vartab));
 			exit(EXIT_FAILURE);
 		}
 	}
