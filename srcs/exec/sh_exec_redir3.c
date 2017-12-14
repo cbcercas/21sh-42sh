@@ -22,27 +22,20 @@
 ** @return
 */
 
-static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
+static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_array *fds)
 {
 	if (fd2 == -2)
 	{
 		if (fd1 != -1)
-			exec_list_push(&fds[CLOSE], (size_t)fd1);
+			sh_exec_new_redir_fd(fds, fd1, -1, true);
 		else
-			exec_list_push(&fds[CLOSE], STDIN_FILENO);
+			sh_exec_new_redir_fd(fds, STDIN_FILENO, -1, true);
 		return ;
 	}
 	if (fd1 != -1)
-	{
-		(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
-		exec_list_push(&fds[fd1], (size_t)fd2);
-	}
+		sh_exec_new_redir_fd(fds, fd1, fd2, false);
 	else
-	{
-		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing)
-						: 0);
-		exec_list_push(&fds[STDIN_FILENO], (size_t)fd2);
-	}
+		sh_exec_new_redir_fd(fds, STDIN_FILENO, fd2, false);
 }
 
 /*
@@ -56,28 +49,30 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_list **fds)
 */
 
 void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
-											t_list **fds)
+										  t_array *fds)
 {
 	if (item && item->type == E_TOKEN_GREATAND)
 	{
 		if (fd2 == -2)
 		{
 			if (fd1 != -1)
-				exec_list_push(&fds[CLOSE], (size_t)fd1);
+				sh_exec_new_redir_fd(fds, fd1, -1, true);//exec_list_push(&fds[CLOSE], (size_t)fd1);
 			else
-				exec_list_push(&fds[CLOSE], STDOUT_FILENO);
+				sh_exec_new_redir_fd(fds, STDOUT_FILENO, -1, true);
 			return ;
 		}
 		if (fd1 != -1)
 		{
-			(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
-			exec_list_push(&fds[fd1], (size_t)fd2);
+			sh_exec_new_redir_fd(fds, fd1, fd2, false);
+			//(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
+			//exec_list_push(&fds[fd1], (size_t)fd2);
 		}
 		else
 		{
-			(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO],
-											&exec_list_nothing) : 0);
-			exec_list_push(&fds[STDOUT_FILENO], (size_t)fd2);
+			sh_exec_new_redir_fd(fds, STDOUT_FILENO, fd2, false);
+			//(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO],
+			//								&exec_list_nothing) : 0);
+			//exec_list_push(&fds[STDOUT_FILENO], (size_t)fd2);
 		}
 		return ;
 	}

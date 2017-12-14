@@ -33,13 +33,3 @@ void	exec_list_push(t_list **head, size_t fd)
 	elem->next = NULL;
 	ft_lstpush_back(head, elem);
 }
-
-/*
-** @brief function for ft_lstdel
-*/
-
-void	exec_list_nothing(void *no, size_t thing)
-{
-	(void)no;
-	(void)thing;
-}

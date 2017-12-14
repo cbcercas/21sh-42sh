@@ -20,20 +20,20 @@
 ** @return true if fd_search is find, false otherwise
 */
 
-static BOOL		check_fd_search(t_list **fds, int fd_search)
+static t_redir_fd		*check_fd_search(t_array *fds, int fd_search)
 {
-	int		cnt;
+	size_t		cnt;
+	t_redir_fd	*fd;
 
 	cnt = 0;
-	log_info("EXEC: sh_exec_restore_fd");
-	while (cnt < FD_SETSIZE)
+	while (cnt < fds->used)
 	{
-		if ((cnt == fd_search && fds[cnt]) ||\
-		(fds[cnt] && (int)fds[cnt]->content_size == fd_search))
-			return (true);
+		fd = (t_redir_fd *)array_get_at(fds, cnt);
+		if (fd && ((!fd->close && fd->new_fd == fd_search) || fd->old_fd == fd_search))
+			return (fd);
 		cnt++;
 	}
-	return (false);
+	return (NULL);
 }
 
 /*
@@ -45,11 +45,14 @@ static BOOL		check_fd_search(t_list **fds, int fd_search)
 ** @return true if fd is open, false otherwise
 */
 
-BOOL			check_fd(int fd, t_list **fds)
+BOOL			check_fd(int fd, t_array *fds)
 {
 	struct stat test;
+	t_redir_fd	*find;
 
-	if (!fstat(fd, &test) || check_fd_search(fds, fd))
+	if ((find = check_fd_search(fds, fd)) && !find->close)
+		return (true);
+	if (!fstat(fd, &test) && !find)
 		return (true);
 	ft_dprintf(2, "%s: %d: bad file descriptor\n", PROGNAME, fd);
 	return (false);
@@ -106,6 +109,8 @@ int				sh_open_exec(t_btree *ast)
 		pos++;
 	if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[pos], ">"))
 		fd = open(item->av[pos + 1], O_CREAT | O_TRUNC | O_WRONLY , 0644);
+	else if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[pos], "<>"))
+		fd = open(item->av[pos + 1], O_CREAT | O_RDWR , 0644);
 	else if (item->type == E_TOKEN_LESSGREAT)
 		fd = open(item->av[pos + 1],O_RDONLY, 0644);
 	else if (item->type == E_TOKEN_DGREAT)

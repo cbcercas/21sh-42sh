@@ -109,7 +109,6 @@ void		sh_exit(t_sh_data *data, char **arg)
 {
 	int		status;
 
-	status = 0;
 	sh_history_save();
 	if (data)
 		sh_deinit(data);
@@ -128,7 +127,7 @@ void		sh_exit(t_sh_data *data, char **arg)
 	if (data && data->opts.color && get_windows(0) &&
 			get_windows(0)->ts.ws_col >= 80)
 		sh_print_fed1();
-	exit(status);
+	exit((status % 256));
 }
 
 /*

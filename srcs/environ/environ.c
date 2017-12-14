@@ -101,6 +101,6 @@ char		**var_to_tab(t_array *vars)
 			sh_exit_error("Error Malloc");
 		i++;
 	}
-	env_tab[i] = NULL;
+	env_tab ? env_tab[i] = NULL : 0;
 	return (env_tab);
 }

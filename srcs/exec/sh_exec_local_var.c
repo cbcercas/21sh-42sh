@@ -101,7 +101,7 @@ static void	sh_exec_local_set(BOOL only_set, t_cmd *item, int i)
 ** @return Return value based on success or failure
 */
 
-int			sh_exec_local_var(t_sh_data *data, t_cmd *item, t_list **fds)
+int			sh_exec_local_var(t_sh_data *data, t_cmd *item, t_array *fds)
 {
 	int			i;
 	BOOL		only_set;

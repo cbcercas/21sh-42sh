@@ -27,7 +27,7 @@
 ** @return     -1 on error or unknow TOKEN
 */
 
-int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
+int		sh_process_exec(t_sh_data *data, t_btree *ast, t_array *fds)
 {
 	if (!ast)
 		return (*get_cmd_ret());
@@ -67,20 +67,16 @@ int		sh_process_exec(t_sh_data *data, t_btree *ast, t_list **fds)
 
 int		exec_exec(t_sh_data *data, t_btree *ast)
 {
-	t_list	*fds[FD_SETSIZE + 1];
-	int		cnt;
+	t_array		*fds;
 
 	if (!ast)
 		return (-1);
-	cnt = 0;
 	*is_in_pipe() = false;
-	while (cnt < FD_SETSIZE + 1)
-	{
-		fds[cnt] = NULL;
-		cnt++;
-	}
+	if (!(fds = array_create(sizeof(t_redir_fd))))
+		sh_exit_error("Exec: create t_array");
 	remove_useless();
 	*get_cmd_ret() = sh_process_exec(data, ast, fds);
-	exec_list_fd_destroy(fds);
+	exec_array_fd_all_close(fds);
+	array_destroy(&fds, NULL);
 	return (*get_cmd_ret());
 }

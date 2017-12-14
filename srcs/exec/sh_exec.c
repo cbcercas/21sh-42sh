@@ -41,7 +41,7 @@ static int	sh_exec_parent(char *path, int pid)
 ** @return         status set by wait
 */
 
-static int	sh_exec(t_cmd *item, t_list **fds)
+static int	sh_exec(t_cmd *item, t_array *fds)
 {
 	char	*path;
 	pid_t	pid;
@@ -56,7 +56,7 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 		if (!pid)
 		{
 			set_var(get_envs(), "_", path, true);
-			exec_list_fd_dup(fds);
+			sh_exec_manage_fd(fds, false);
 			execve(path, item->av, (vartab = var_to_tab(get_envs())));
 			ft_dprintf(2, "%s: error exec(): %s\n", PROGNAME, path);
 			if (vartab)
@@ -78,18 +78,13 @@ static int	sh_exec(t_cmd *item, t_list **fds)
 ** @return         result of sh_exec_builtin or sh_exec
 */
 
-int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
+int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_array *fds)
 {
 	int		ret;
-	t_list	*backup[FD_SETSIZE];
-	int		cnt;
 
-	cnt = 0;
-	while (cnt < FD_SETSIZE)
-		backup[cnt++] = NULL;
 	log_info("EXEC: %s", item->av[0]);
-	sh_exex_creat_backup_fd_close(backup, fds);
-	exec_list_fd_close(fds);
+	sh_exec_create_backup_fd(fds, true);
+	sh_exec_manage_fd(fds, true);
 	if (item->av && item->av[0] && ft_strchr(item->av[0], '=') &&
 			ft_strlen(item->av[0]) != 1)
 		ret = sh_exec_local_var(data, item, fds);
@@ -97,9 +92,10 @@ int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_list **fds)
 		ret = sh_exec_builtin(data, item, fds);
 	else
 		ret = sh_exec(item, fds);
-	exec_list_fd_all_close(fds);
-	exec_list_fd_destroy(fds);
-	sh_exec_restore_fd(backup);
+	exec_array_fd_all_close(fds);
+	if (!sh_exec_restore_fd(fds))
+		return ((*get_cmd_ret() = 1));
+	array_reset(fds, NULL);
 	log_dbg3("EXEC: %s ret = %d", item->av[0], ret);
 	return (ret);
 }

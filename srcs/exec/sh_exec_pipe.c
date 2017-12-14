@@ -22,13 +22,11 @@
 ** @return
 */
 
-static void		sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds,
-								int *pipe)
+static void		sh_pipe_right(t_sh_data *data, t_btree *ast, t_array *fds,
+								 int *pipe)
 {
 	close(pipe[START]);
-	if (fds[STDIN_FILENO])
-		ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing);
-	exec_list_push(&fds[STDIN_FILENO], (size_t)pipe[END]);
+	sh_exec_new_redir_fd(fds, STDIN_FILENO, pipe[END], false);
 	sh_process_exec(data, ast->right, fds);
 	exit(EXIT_SUCCESS);
 }
@@ -43,18 +41,16 @@ static void		sh_pipe_right(t_sh_data *data, t_btree *ast, t_list **fds,
 ** @return
 */
 
-static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds,
+static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_array *fds,
 								int *pipe)
 {
 	close(pipe[END]);
-	if (fds[STDOUT_FILENO])
-		ft_lstdel(&fds[STDOUT_FILENO], &exec_list_nothing);
-	exec_list_push(&fds[STDOUT_FILENO], (size_t)pipe[START]);
+	sh_exec_new_redir_fd(fds, STDOUT_FILENO, pipe[START], false);
 	sh_process_exec(data, ast->left, fds);
 	exit(EXIT_SUCCESS);
 }
 
-/*
+ /*
 ** @brief execute pipe
 ** @param  data    The data of shell
 ** @param  ast     The AST (Analyse Syntax Tree[binary])
@@ -63,7 +59,7 @@ static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_list **fds,
 ** @return The list of pid's fork
 */
 
-static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
+static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_array *fds)
 {
 	int					pid;
 	int					pipe[2];
@@ -98,7 +94,7 @@ static t_list	*sh_exec_pipe2(t_sh_data *data, t_btree *ast, t_list **fds)
 ** @return The return of commands
 */
 
-int				sh_exec_pipe(t_sh_data *data, t_btree *ast, t_list **fds)
+int				sh_exec_pipe(t_sh_data *data, t_btree *ast, t_array *fds)
 {
 	t_list		*pids;
 

@@ -13,24 +13,7 @@
 #include <exec/exec.h>
 
 /*
-** @brief          display error of sh_exex_creat_backup_fd
-**
-** @param  fds     the list of fd
-** @param  cnt     the index in the list fd
-**
-** @return         true
-*/
-
-static BOOL	sh_exex_creat_backup_fd_error(t_list **fds, int cnt)
-{
-	ft_dprintf(STDERR_FILENO, "%s: Error dup", PROGNAME);
-	if (fds[cnt])
-		log_fatal("Error dup dup(%d)", (int)fds[cnt]->content_size);
-	return (true);
-}
-
-/*
-** @brief          create list of backup fd expect close fd
+** @brief          create list of backup fd
 **
 ** @param  fds     the list of fd
 ** @param  backup  the list of fd backup
@@ -38,29 +21,26 @@ static BOOL	sh_exex_creat_backup_fd_error(t_list **fds, int cnt)
 ** @return         false if everything is ok, false otherwise
 */
 
-BOOL		sh_exex_creat_backup_fd(t_list **backup, t_list **fds)
+BOOL		sh_exec_create_backup_fd(t_array *fds, BOOL close)
 {
-	int		cnt;
-	int		fd_back;
+	size_t		cnt;
+	t_redir_fd	*fd;
 
 	cnt = 0;
-	log_info("EXEC: sh_exex_creat_backup_fd");
-	while (cnt < FD_SETSIZE)
+	log_info("EXEC: sh_exec_create_backup");
+	while (cnt < fds->used)
 	{
-		if (fds[cnt] && (fd_back = dup(cnt)) != -1)
+		fd = (t_redir_fd *)array_get_at(fds, cnt);
+		if (fd->close == close && ((fd->backup = dup(fd->old_fd)) == -1))
 		{
-			exec_list_push(&backup[cnt], (size_t)fd_back);
-			if ((fd_back = dup(cnt)) != -1)
-				exec_list_push(&backup[(int)fds[cnt]->content_size],
-							(size_t)fd_back);
-			else
-				return (sh_exex_creat_backup_fd_error(fds, cnt));
+			ft_dprintf(STDERR_FILENO, "%s: Error dup(%d)\n", PROGNAME, fd->old_fd);
+			return (false);
 		}
-		else if (fds[cnt] && fd_back == -1)
-			return (sh_exex_creat_backup_fd_error(fds, cnt));
+		else if (fd->close == close)
+			log_dbg1("%d : backup = dup(%d)", fd->old_fd, fd->backup);
 		cnt++;
 	}
-	return (false);
+	return (true);
 }
 
 /*
@@ -71,59 +51,28 @@ BOOL		sh_exex_creat_backup_fd(t_list **backup, t_list **fds)
 ** @return         false if everything is ok, false otherwise
 */
 
-BOOL		sh_exec_restore_fd(t_list **backup)
+BOOL		sh_exec_restore_fd(t_array *fds)
 {
-	int		cnt;
-	t_list	*tmp;
+	size_t		cnt;
+	t_redir_fd	*fd;
 
 	cnt = 0;
 	log_info("EXEC: sh_exec_restore_fd");
-	while (cnt < FD_SETSIZE)
+	while (cnt < fds->used)
 	{
-		if ((tmp = backup[cnt]))
-			while (tmp)
+		fd = (t_redir_fd *)array_get_at(fds, cnt);
+		if (fd && fd->backup != -1)
+		{
+			if (dup2(fd->backup, fd->old_fd) == -1)
 			{
-				if (dup2((int)tmp->content_size, cnt) == -1)
-				{
-					ft_dprintf(STDERR_FILENO, "%s: Error dup", PROGNAME);
-					log_fatal("Error dup dup(%d, %d)", tmp->content_size, cnt);
-					return (true);
-				}
-				log_info("RESTORE = %d => %d", cnt, (int)tmp->content_size);
-				close((int)tmp->content_size);
-				tmp = tmp->next;
+				ft_dprintf(STDERR_FILENO, "%s: Error dup2\n", PROGNAME);
+				log_fatal("Error dup2(%d, %d)",fd->backup, fd->old_fd);
+				return (false);
 			}
-		if (backup[cnt])
-			ft_lstdel(&backup[cnt], &exec_list_nothing);
+			log_info("RESTORE = %d => %d", fd->old_fd, fd->backup);
+			close(fd->backup);
+		}
 		cnt++;
 	}
-	return (false);
-}
-
-/*
-** @brief          create list of backup fd only for close fd
-**
-** @param  fds     the list of fd
-** @param  backup  the list of fd backup
-**
-** @return         false if everything is ok, false otherwise
-*/
-
-BOOL		sh_exex_creat_backup_fd_close(t_list **backup, t_list **fds)
-{
-	int		fd_back;
-	t_list	*tmp;
-
-	log_info("EXEC: sh_exex_creat_backup_fd_close");
-	tmp = fds[CLOSE];
-	while (tmp)
-	{
-		if ((fd_back = dup((int)tmp->content_size)) != -1)
-			exec_list_push(&backup[(int)tmp->content_size], (size_t)fd_back);
-		else
-			return (sh_exex_creat_backup_fd_error(fds, (int)tmp->content_size));
-		log_dbg1("CREATE back : %d = (%d)", tmp->content_size, fd_back);
-		tmp = tmp->next;
-	}
-	return (false);
+	return (true);
 }

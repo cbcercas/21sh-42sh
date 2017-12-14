@@ -12,22 +12,39 @@
 
 #include <exec/exec.h>
 
+void	sh_exec_new_redir_fd(t_array *fds, int old, int new, BOOL close)
+{
+	t_redir_fd	fd;
+
+	if (!fds)
+		return ;
+	fd.new_fd = new;
+	fd.old_fd = old;
+	fd.close = close;
+	fd.backup = -1;
+	array_push(fds, (void *)&fd);
+}
+
 /*
 ** @brief manage fd from list, do dup
 ** @param fds list of fd
 ** @return true if everything is ok, false otherwise
 */
 
-BOOL	exec_list_fd_dup(t_list **fds)
+BOOL sh_exec_manage_fd(t_array *fds, BOOL is_close)
 {
-	int		cnt;
+	size_t		cnt;
+	t_redir_fd	*fd;
 
 	cnt = 0;
-	while (cnt < FD_SETSIZE)
+	while (cnt < fds->used)
 	{
-		if (fds[cnt] && (dup2((int)fds[cnt]->content_size, cnt) == -1))
+		fd = (t_redir_fd *)array_get_at(fds, cnt);
+		if (fd->close)
+			close(fd->old_fd);
+		else if (!is_close && (dup2(fd->new_fd, fd->old_fd) == -1))
 		{
-			log_fatal("ERROR: file: %s dup2 cnt %d", __FILE__, cnt);
+			log_fatal("ERROR: file: %s dup2(%d, %d)", __FILE__, fd->new_fd, fd->old_fd);
 			return (false);
 		}
 		cnt++;
@@ -36,62 +53,24 @@ BOOL	exec_list_fd_dup(t_list **fds)
 }
 
 /*
-** @brief destroy all list
-** @param fds list of fd
-** @return
-*/
-
-void	exec_list_fd_destroy(t_list **fds)
-{
-	int		cnt;
-
-	cnt = 0;
-	while (cnt < FD_SETSIZE + 1)
-	{
-		if (fds[cnt])
-			ft_lstdel(&fds[cnt], &exec_list_nothing);
-		cnt++;
-	}
-}
-
-/*
-** @brief manage fd from list, do close
-** @param fds list of fd
-** @return
-*/
-
-void	exec_list_fd_close(t_list **fds)
-{
-	t_list		*tmp;
-
-	tmp = fds[CLOSE];
-	log_info("EXEC exec_list_fd_close");
-	while (tmp)
-	{
-		log_dbg1("close = %d", tmp->content_size);
-		close((int)tmp->content_size);
-		tmp = tmp->next;
-	}
-}
-
-/*
 ** @brief close all fd from list
 ** @param fds list of fd
 ** @return
 */
 
-void	exec_list_fd_all_close(t_list **fds)
+void	exec_array_fd_all_close(t_array *fds)
 {
-	int		cnt;
+	size_t		cnt;
+	t_redir_fd	*fd;
 
 	cnt = 0;
-	log_info("EXEC exec_list_fd_all_close");
-	while (cnt < FD_SETSIZE)
+	while (cnt < fds->used)
 	{
-		if (fds[cnt] && (int)fds[cnt]->content_size > STDERR_FILENO)
+		fd = (t_redir_fd *)array_get_at(fds, cnt);
+		if (!fd->close && fd->new_fd > STDERR_FILENO)
 		{
-			close((int)fds[cnt]->content_size);
-			log_info("close %d", (int)fds[cnt]->content_size);
+			log_dbg1("CLOSE = %d", fd->old_fd);
+			close(fd->new_fd);
 		}
 		cnt++;
 	}

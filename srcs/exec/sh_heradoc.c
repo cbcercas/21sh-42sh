@@ -21,7 +21,7 @@
 ** @return true if everything is ok, false otherwise
 */
 
-static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd, t_list **fds)
+static BOOL		sh_heredoc_get_fd(t_cmd *item, int *fd, t_array *fds)
 {
 	if (ft_isdigit(item->av[0][0]))
 	{
@@ -93,7 +93,7 @@ static int		sh_heredoc_father(int pipe[2])
 ** @return ret of exec
 */
 
-int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
+int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_array *fds)
 {
 	int		fd;
 	int		pipe[2];
@@ -101,7 +101,7 @@ int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 
 	if (!ast || heredoc_init(pipe, &pid) == EXIT_FAILURE)
 		return (*get_cmd_ret());
-	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), &fd, NULL))
+	if (!sh_heredoc_get_fd(((t_cmd *)ast->item), &fd, fds))
 		return ((*get_cmd_ret() = EXIT_FAILURE));
 	if (!pid)
 	{
@@ -113,9 +113,7 @@ int				sh_exec_heredoc(t_sh_data *data, t_btree *ast, t_list **fds)
 	close(pipe[START]);
 	if (!sh_fork(E_PID_HERE))
 	{
-		(fds[STDIN_FILENO] ? ft_lstdel(&fds[STDIN_FILENO], &exec_list_nothing)
-						: 0);
-		exec_list_push(&fds[STDIN_FILENO], (size_t)pipe[END]);
+		sh_exec_new_redir_fd(fds, STDIN_FILENO, pipe[END], false);
 		sh_process_exec(data, ast->left, fds);
 		exit(EXIT_SUCCESS);
 	}

@@ -47,7 +47,7 @@ static BOOL		sh_exec_greatand_open_fd1(int *fd1, t_cmd *item, int *pos)
 */
 
 static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item,
-										t_list **fds)
+										 t_array *fds)
 {
 	int		pos;
 
@@ -82,7 +82,7 @@ static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item,
 ** @return ret of exec
 */
 
-int				sh_exec_greatand(t_sh_data *data, t_btree *ast, t_list **fds)
+int				sh_exec_greatand(t_sh_data *data, t_btree *ast, t_array *fds)
 {
 	int		fd1;
 	int		fd2;
