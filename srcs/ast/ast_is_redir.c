@@ -28,6 +28,8 @@ static t_token_type	ast_return_type_redir_front(t_array *expands, ssize_t cnt)
 {
 	t_exp		*exp;
 
+	if ((size_t)(cnt + 1) >= expands->used)
+		return (E_TOKEN_NONE);
 	exp = (t_exp *)array_get_at(expands, (size_t)cnt + 1);
 	if (exp && is_redirect(exp->type))
 		return (exp->type);
@@ -50,6 +52,8 @@ static t_token_type	ast_return_type_redir_back(t_array *expands, ssize_t cnt)
 {
 	t_exp		*exp;
 
+	if ((cnt - 1) < 0)
+		return (E_TOKEN_NONE);
 	exp = (t_exp *)array_get_at(expands, (size_t)cnt - 1);
 	if (exp && is_redirect(exp->type))
 		return (exp->type);
