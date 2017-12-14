@@ -105,11 +105,11 @@ int				sh_open_exec(t_btree *ast)
 	if (ft_isdigit(item->av[0][0]))
 		pos++;
 	if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[pos], ">"))
-		fd = open(item->av[pos + 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		fd = open(item->av[pos + 1], O_CREAT | O_TRUNC | O_WRONLY , 0644);
 	else if (item->type == E_TOKEN_LESSGREAT)
-		fd = open(item->av[pos + 1], O_RDWR, 0222);
+		fd = open(item->av[pos + 1],O_RDONLY, 0644);
 	else if (item->type == E_TOKEN_DGREAT)
-		fd = open(item->av[pos + 1], O_RDWR | O_CREAT | O_APPEND, 0644);
+		fd = open(item->av[pos + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (item->type == E_TOKEN_DLESS)
 		fd = here_find_fd(item);
 	if (fd == -1)
