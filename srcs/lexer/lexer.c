@@ -529,7 +529,9 @@ static void			lexer_tokenize_one(char const **in, t_array *toks,
 	}
 	else
 		tok.type = g_char_type[(int)**in];
-	while (**in && a->cur_state < E_STATE_END)
+	while (**in && a->cur_state < E_STATE_END &&
+			((tok.type != E_TOKEN_LESSGREAT && tok.type != E_TOKEN_DGREAT &&
+					tok.type != E_TOKEN_DLESS) || (*in) - tok.str <= 1))
 		lexer_tokenize_one_loop(&in, &a, &tok);
 	tok.len = (*in) - tok.str;
 	if (tok.type == E_TOKEN_AND)
