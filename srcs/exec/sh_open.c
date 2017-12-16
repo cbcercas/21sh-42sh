@@ -92,33 +92,43 @@ static int		here_find_fd(t_cmd *item)
 ** @return fd find
 */
 
+static int		sh_open_exec_type(t_cmd *item, int *pos)
+{
+	int		fd;
+
+	fd = -1;
+	if (!item || ft_tablen(item->av) < 2)
+		return (fd);
+	if (ft_isdigit(item->av[0][0]))
+		*pos = *pos + 1;
+	if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[*pos], ">"))
+		fd = open(item->av[*pos + 1], O_CREAT | O_TRUNC | O_WRONLY , 0644);
+	else if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[*pos], "<>"))
+		fd = open(item->av[*pos + 1], O_CREAT | O_RDWR , 0644);
+	else if (item->type == E_TOKEN_LESSGREAT)
+		fd = open(item->av[*pos + 1],O_RDONLY, 0644);
+	else if (item->type == E_TOKEN_DGREAT)
+		fd = open(item->av[*pos + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (item->type == E_TOKEN_DLESS)
+		fd = here_find_fd(item);
+	return (fd);
+}
+
 int				sh_open_exec(t_btree *ast)
 {
-	t_cmd	*item;
-	int		fd;
-	int		pos;
+	t_cmd		*item;
+	int			fd;
+	int			pos;
 
 	if (!ast || ast->right)
 		return (-1);
 	item = (t_cmd *)ast->item;
 	pos = 0;
-	fd = -1;
-	if (!item || ft_tablen(item->av) < 2)
-		return (fd);
-	if (ft_isdigit(item->av[0][0]))
-		pos++;
-	if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[pos], ">"))
-		fd = open(item->av[pos + 1], O_CREAT | O_TRUNC | O_WRONLY , 0644);
-	else if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[pos], "<>"))
-		fd = open(item->av[pos + 1], O_CREAT | O_RDWR , 0644);
-	else if (item->type == E_TOKEN_LESSGREAT)
-		fd = open(item->av[pos + 1],O_RDONLY, 0644);
-	else if (item->type == E_TOKEN_DGREAT)
-		fd = open(item->av[pos + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (item->type == E_TOKEN_DLESS)
-		fd = here_find_fd(item);
-	if (fd == -1)
+	fd = sh_open_exec_type(item, &pos);
+	if (fd == -1 && access(item->av[pos + 1], F_OK))
 		ft_dprintf(2, "%s: %s: No such file or directory\n", PROGNAME,
 				item->av[pos + 1]);
+	else
+		ft_dprintf(2, "%s: permission denied: %s\n", PROGNAME, item->av[pos + 1]);
 	return (fd);
 }
