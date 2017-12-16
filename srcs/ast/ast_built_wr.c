@@ -32,13 +32,13 @@ static t_exp			*ast_search2(t_array *expands, t_lim *lim, int prio)
 
 	exp = NULL;
 	log_dbg1("AST: SEARCH2 cnt: %d lim: %d", lim->cnt, lim->lim);
-	while (lim->cnt < lim->lim && lim->cnt <= (ssize_t)expands->used)
+	while (lim->cnt < lim->lim && lim->cnt < (ssize_t)expands->used)
 	{
-		lim->cnt++;
 		if (lim->cnt < (ssize_t)expands->used)
 			exp = (t_exp *)array_get_at(expands, (size_t)lim->cnt);
 		if (exp && ast_associate_prio(exp->type, prio, lim->cnt, expands))
 			break ;
+		lim->cnt++;
 	}
 	if (exp && exp->str)
 		log_dbg1("AST: SEARCH: find: cnt(%d)(%s)", lim->cnt, exp->str->s);
