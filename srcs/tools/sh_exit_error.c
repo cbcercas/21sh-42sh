@@ -12,6 +12,7 @@
 
 #include <tools/tools.h>
 #include <core/progname.h>
+#include <signals/signals.h>
 
 int				g_logger_fd;
 
@@ -35,5 +36,6 @@ void	sh_exit_error(const char *error)
 		if (g_logger_fd)
 			ft_putendl_fd("", g_logger_fd);
 	}
+	kill_childs(SIGTERM);
 	exit(EXIT_FAILURE);
 }
