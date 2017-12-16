@@ -128,7 +128,7 @@ int				sh_open_exec(t_btree *ast)
 	if (fd == -1 && access(item->av[pos + 1], F_OK))
 		ft_dprintf(2, "%s: %s: No such file or directory\n", PROGNAME,
 				item->av[pos + 1]);
-	else
+	else if (fd == -1)
 		ft_dprintf(2, "%s: permission denied: %s\n", PROGNAME, item->av[pos + 1]);
 	return (fd);
 }
