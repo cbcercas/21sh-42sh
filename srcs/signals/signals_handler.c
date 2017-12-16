@@ -27,7 +27,11 @@ void	signals_quit(int sig)
 	else if (sig == SIGABRT)
 		ft_putstr_fd("Shell Abort", 2);
 	else
-		sh_exit_error("The Shell Quit suddenly cause signal");
+	{
+		ft_putstr_fd("The Shell Quit suddenly cause signal : ", 2);
+		ft_putnbr_fd(sig, 2);
+		ft_putchar('\n');
+	}
 	if (g_logger_fd != -1)
 	{
 		ft_putstr_fd("Signals: Shell quit with signal:", g_logger_fd);
