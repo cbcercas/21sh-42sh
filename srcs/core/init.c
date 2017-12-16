@@ -154,5 +154,6 @@ t_sh_data			*sh_init(t_sh_data *data, int ac, char *const *av,
 	sh_check_env(environ);
 	if ((tgetent(STDIN_FILENO, get_var_value(get_envs(), "TERM"))) != 1)
 		sh_exit_error("Error on tgetent");
+	log_info("INIT: DONE");
 	return (data);
 }

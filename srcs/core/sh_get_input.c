@@ -56,13 +56,18 @@ static char		*sh_get_input_no_tty(void)
 {
 	char	*line;
 	t_input	*input;
+	size_t	len;
 
 	line = NULL;
 	if (get_next_line(STDIN_FILENO, &line) <= 0)
 		return (NULL);
-	if (!is_printstr(line))
+	if ((len = ft_strlen(line)) >= MAX_LEN_INPUT || !is_printstr(line))
 	{
-		ft_dprintf(STDERR_FILENO, "%s: line: contains non-ascii"
+		if(len)
+			ft_dprintf(STDERR_FILENO, "%s: line is too long: %zu, MAX is %zu "
+					"\n", PROGNAME, ft_strlen(line), MAX_LEN_INPUT);
+		else
+			ft_dprintf(STDERR_FILENO, "%s: line: contains non-ascii"
 				" characters.\n", PROGNAME);
 		ft_strdel(&line);
 		return (NULL);
