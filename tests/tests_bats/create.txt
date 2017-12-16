@@ -1,0 +1,26 @@
+echo toto > in ; cat -e >out<in ; cat out ; rm out in
+echo toto > in ; cat -e >out <in ; cat out ; rm out in
+echo toto > in ; cat -e >out <&in ; cat out ; rm out in
+echo toto > in ; cat -e >out<&in ; cat out ; rm out in
+echo toto > in ; cat -e >out<& in ; cat out ; rm out in
+true || false && ls
+cd /tmp && cd / | ls
+echo a > file | echo b > file; cat file ; rm file
+echo a||echo b&&echo c&&echo d;false&&false||false&&false;true
+echo lol && echo pouet && echo truc
+false && echo lol;true
+false && echo pouet;true
+echo pouet || echo lol
+true && false && ls;true
+true && false || ls;true
+true || false && ls;true
+true || false || ls;true
+false && true && ls;true
+false && true || ls;true
+false || true && ls;true
+false || true || ls;true
+ls this_file_does_not_exist 2>&1 > /tmp/redir_test_file;rm -f /tmp/redir_test_file;echo abc && echo def; echo 123 > /tmp/test_redir_file_stdout;echo \"---\" ; echo \"---\" ;cat /tmp/test_redir_file_stdout;rm -f /tmp/test_redir_file_stdout
+echo 'abc' > /tmp/redir_stdin_close;/bin/cat -e <&- </tmp/redir_stdin_close;echo 'def' <&- </tmp/redir_stdin_close;echo end;cat -e /tmp/redir_stdin_close;rm -f /tmp/redir_stdin_close
+echo 'abc' > /tmp/redir_lessgreat_file;/bin/cat 3<>/tmp/redir_lessgreat_file <&3 -e
+echo 'def' | cat 3<>/tmp/redir_lessgreat_file >&3 -e;/bin/cat -e /tmp/redir_lessgreat_file
+echo 'ghi' > /tmp/redir_lessgreat_file 4<>/tmp/redir_lessgreat_file ; cat -e /tmp/redir_lessgreat_file ; rm -f /tmp/redir_lessgreat_file

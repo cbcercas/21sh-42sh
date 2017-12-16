@@ -1,6 +1,71 @@
 #!/bin/bash
 
 ################################################################################
+#                              CREATE FUNCTION                                   #
+################################################################################
+
+load_bar()
+{
+	nb=$(($1/2))
+	echo -ne "   ["
+for i in `seq 1 "$nb"`;
+do
+	if [ $1 -le 40 ]; then
+		echo -ne "\033[1;31m"
+	elif [ $1 -le 60 ]; then
+		echo -ne "\033[1;33m"
+	elif [ $1 -le 70 ]; then
+		echo -ne "\033[1;35m"
+	else
+		echo -ne "\033[1;32m"
+	fi
+        echo -ne "#"
+done
+echo -ne "\033[1;0m]\r"
+echo -ne "($1%)"
+}
+
+create_test()
+{
+	file_bats="$path_of_file/tests_bats/create.bats"
+	file_txt="$path_of_file/tests_bats/create.txt"
+	nb_ligne=$(wc -l < "$file_txt")
+	cnt=0
+	echo -e "\n\033[1;36;1;4;5;7mCREATING TESTS LOAD in $file_txt > $file_bats!!\n\033[1;0m nb linges = ($nb_ligne)\n"
+	echo "#! / Usr / bin / env bats
+
+load test_helper
+
+#######################################################################
+#                            IN CORRECTION                            #
+#######################################################################" > $file_bats
+
+	while read -r line
+	do
+		name="$line"
+		echo '@test "EXEC: Testing [CREATE] for '"$name"'" {
+    expect=`'"$name"'`
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c' "'$name'"'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq 0 ]
+    check_leaks_function exec
+}' >> "$file_bats"
+sleep 0.01
+(( count++ ))
+load_bar $(($count * 100 /$nb_ligne)) $name
+	done < "$file_txt"
+	echo ""
+}
+
+################################################################################
+################################################################################
+
+
+################################################################################
 #                              BASE FUNCTION                                   #
 ################################################################################
 
@@ -158,7 +223,8 @@ test_bats()
 		help_usage
 		exit 2;
 	elif [ $1 = "A" ] || [ $1 = "all" ]; then
-		bats $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats" $path_of_file"/tests_bats/builtins.bats"
+		create_test
+		bats "$path_of_file/tests_bats/create.bats" $path_of_file"/tests_bats/lexer.bats" $path_of_file"/tests_bats/parser.bats" $path_of_file"/tests_bats/env.bats" $path_of_file"/tests_bats/expand.bats" $path_of_file"/tests_bats/ast.bats" $path_of_file"/tests_bats/exec.bats" $path_of_file"/tests_bats/builtins.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "parser" ] || [ $1 = "p" ]; then
@@ -182,7 +248,8 @@ test_bats()
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "exec" ] || [ $1 = "execution" ]; then
-		bats $path_of_file"/tests_bats/exec.bats"
+		create_test
+		bats "$path_of_file/tests_bats/create.bats" $path_of_file"/tests_bats/exec.bats"
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "builtins" ] || [ $1 = "b" ]; then
