@@ -24,3 +24,21 @@ echo 'abc' > /tmp/redir_stdin_close;/bin/cat -e <&- </tmp/redir_stdin_close;echo
 echo 'abc' > /tmp/redir_lessgreat_file;/bin/cat 3<>/tmp/redir_lessgreat_file <&3 -e
 echo 'def' | cat 3<>/tmp/redir_lessgreat_file >&3 -e;/bin/cat -e /tmp/redir_lessgreat_file
 echo 'ghi' > /tmp/redir_lessgreat_file 4<>/tmp/redir_lessgreat_file ; cat -e /tmp/redir_lessgreat_file ; rm -f /tmp/redir_lessgreat_file
+echo lol | wc -l | xargs echo > /tmp/testfile ; cat /tmp/testfile;cat -e < /tmp/testfile | wc -c | xargs echo;cat -e < /tmp/testfile | wc -c | xargs echo > /tmp/testfile2;cat /tmp/testfile2 ; rm /tmp/testfile /tmp/testfile2
+echo a | cat -e
+echo a | cat | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+echo def > /tmp/redir_one_to_all;cat 9</tmp/redir_one_to_all 8<&9 7<&8 6<&7 -e 5<&6 4<&5 3<&4 2<&3 1<&2 <&1;rm -f /tmp/redir_one_to_all
+echo abcd > /tmp/redir_multi_op_great >> /tmp/redir_multi_op_dgreat;file /tmp/redir_multi_op_great;file /tmp/redir_multi_op_dgreat;rm -f /tmp/redir_multi_op_great /tmp/redir_multi_op_dgreat
+echo merde > /tmp/redir_echo_in;cat 3</tmp/redir_echo_in <&3;rm -f /tmp/redir_echo_in
+ls;
+true && true   || echo 1
+true && false   || echo 3
+false && true   || echo 5
+false && false   || echo 7 ; true
+true ||   true && echo 9
+true ||   false && echo 11
+false ||   true && echo 13
+false ||   false && echo 15 ; true
+echo a&&echo b;echo c||echo d
+echo a&&echo b;echo c||echo d;
+env env_test_var=123 bash -c "env | grep env_test_var"

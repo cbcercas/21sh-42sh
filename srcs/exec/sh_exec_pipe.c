@@ -103,7 +103,7 @@ int				sh_exec_pipe(t_sh_data *data, t_btree *ast, t_array *fds)
 	log_info("MULTI WAIT");
 	while (pids)
 	{
-		sh_wait((int)pids->content_size, 0);
+		*get_cmd_ret() = sh_return_cmd(sh_wait((int)pids->content_size, 0));
 		pids = pids->next;
 	}
 	restore_sigwinch();

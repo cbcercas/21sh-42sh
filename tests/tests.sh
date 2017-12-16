@@ -45,13 +45,15 @@ load test_helper
 		name="$line"
 		echo '@test "EXEC: Testing [CREATE] for '"$name"'" {
     expect=`'"$name"'`
+    stat="$?"
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c' "'$name'"'
     echo "ERROR:"
     display_line_output
     echo "$name_exec EXPECTED ->$expect"
-    echo
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
     [ "${output}" = "$expect" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq $stat ]
     check_leaks_function exec
 }' >> "$file_bats"
 sleep 0.01

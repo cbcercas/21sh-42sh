@@ -113,7 +113,6 @@ void		sh_exit(t_sh_data *data, char **arg)
 	if (data)
 		sh_deinit(data);
 	default_terminal_mode();
-	ft_printf("exit\n");
 	status = *get_cmd_ret();
 	if (arg && arg[1] && ft_isdigit(arg[1][0]))
 		status = ft_atoi(arg[1]);
@@ -140,6 +139,7 @@ void		sh_exit(t_sh_data *data, char **arg)
 
 int			builtin_exit(t_sh_data *data, char **arg)
 {
+	ft_printf("exit\n");
 	sh_exit(data, arg);
 	return (EXIT_FAILURE);
 }
