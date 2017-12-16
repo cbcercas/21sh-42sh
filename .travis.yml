@@ -15,9 +15,10 @@ compiler:
 
 before_install:
   - git submodule update --init
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then rvm get stable; fi
 
 install:
-    - make  
+    - make
 
 before_script:
     - cd .. && git clone https://github.com/sstephenson/bats.git && cd bats && export PATH=$PATH:$PWD/bin/ && cd ../21-42sh
