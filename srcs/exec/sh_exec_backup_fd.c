@@ -25,13 +25,16 @@ BOOL		sh_exec_create_backup_fd(t_array *fds, BOOL close)
 {
 	size_t		cnt;
 	t_redir_fd	*fd;
+	struct stat buff;
 
 	cnt = 0;
 	log_info("EXEC: sh_exec_create_backup");
 	while (cnt < fds->used)
 	{
 		fd = (t_redir_fd *)array_get_at(fds, cnt);
-		if (fd->close == close && ((fd->backup = dup(fd->old_fd)) == -1))
+		if (fd->close == close && fstat(fd->old_fd, &buff))
+			fd->backup = -2;
+		else if (fd->close == close && ((fd->backup = dup(fd->old_fd)) == -1))
 		{
 			ft_dprintf(STDERR_FILENO, "%s: Error dup(%d)\n", PROGNAME, fd->old_fd);
 			return (false);
@@ -61,7 +64,7 @@ BOOL		sh_exec_restore_fd(t_array *fds)
 	while (cnt < fds->used)
 	{
 		fd = (t_redir_fd *)array_get_at(fds, cnt);
-		if (fd && fd->backup != -1)
+		if (fd && fd->backup >= 0)
 		{
 			if (dup2(fd->backup, fd->old_fd) == -1)
 			{
@@ -72,6 +75,8 @@ BOOL		sh_exec_restore_fd(t_array *fds)
 			log_info("RESTORE = %d => %d", fd->old_fd, fd->backup);
 			close(fd->backup);
 		}
+		else if (fd && fd->backup == -2)
+			close(fd->old_fd);
 		cnt++;
 	}
 	return (true);
