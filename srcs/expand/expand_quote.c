@@ -102,6 +102,5 @@ t_exp	*expand_remove_quote(t_exp *exp)
 	}
 	if (exp->type == E_TOKEN_SQUOTE || exp->type == E_TOKEN_DQUOTE)
 		exp->type = E_TOKEN_WORD;
-	exp->str->len = ft_strlen((char *)exp->str);
 	return (exp);
 }

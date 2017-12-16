@@ -63,7 +63,7 @@ static void		expand_dol_spec_replace(t_string *str, size_t *i)
 		tmp = ft_itoa(getpid());
 	if (tmp)
 	{
-		str->s = ft_replace_exp(str->s, tmp, *i, 2);
+		str = ft_replace_str(str, tmp, *i, 2);
 		*i += ft_strlen(tmp);
 	}
 	(fri && tmp) ? ft_strdel(&tmp) : 0;
@@ -87,9 +87,9 @@ static void		expand_dol_replace(t_string *str, int len, size_t *i)
 	tmp = sh_getenv_exp(&str->s[*i + 1]);
 	str->s[*i + 1 + len] = car_tmp;
 	if (tmp)
-		str->s = ft_replace_exp(str->s, tmp, *i, len + 1);
+		str = ft_replace_str(str, tmp, *i, len + 1);
 	else
-		str->s = ft_replace_exp(str->s, "", *i, len + 1);
+		str = ft_replace_str(str, "", *i, len + 1);
 	*i += ft_strlen(tmp);
 }
 
@@ -120,9 +120,8 @@ void			expand_dol(t_string *str)
 		else if (str->s[i] == '~' && ((tmp = get_var_value(get_envs(),
 						"HOME")) || (tmp =
 										get_var_value(get_vars(), "HOME"))))
-			str->s = ft_replace_exp(str->s, tmp, i, 1);
+			str = ft_replace_str(str, tmp, i, 1);
 		else
 			i++;
 	}
-	str->len = ft_strlen(str->s);
 }

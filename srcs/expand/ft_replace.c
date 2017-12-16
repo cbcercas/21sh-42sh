@@ -13,26 +13,6 @@
 #include <expand/expand.h>
 
 /*
-** @brief Checks if scr1 (The string to be modified) isnt to small compared
-** to index and size
-**
-** @param src1  String to be modified
-** @param index Where to start
-** @param size Size of the modification to be done
-**
-** @return Returns -1 on failure and 0 on success
-*/
-
-static int		ft_replace_init(char *src1, size_t index, int size)
-{
-	if (!src1 || ft_strlen(src1) < (size_t)(index + 1))
-		return (-1);
-	if ((ft_strlen(&src1[index]) < (size_t)size))
-		return (-1);
-	return (0);
-}
-
-/*
 ** @brief Replaces in string `scr1` from `index` and during `size` with `scr2`
 **
 ** @param src1 String to be modified
@@ -43,21 +23,11 @@ static int		ft_replace_init(char *src1, size_t index, int size)
 ** @return Returns the mofified string
 */
 
-char			*ft_replace_exp(char *src1, char *src2, size_t index, int size)
+t_string	*ft_replace_str(t_string *str, char *src, size_t pos, size_t len)
 {
-	char	*begin;
-	char	*end;
-	char	*ret;
-
-	if (ft_replace_init(src1, index, size))
-		return (NULL);
-	if (!(begin = ft_strnew((index + 1))))
-		sh_exit_error("Malloc Error");
-	begin = ft_strncpy(begin, src1, index);
-	end = ft_strjoin(src2, &src1[index + size]);
-	ret = ft_strjoin(begin, end);
-	ft_strdel(&begin);
-	ft_strdel(&end);
-	ft_strdel(&src1);
-	return (ret);
+	if (!src)
+		return (str);
+	string_remove(str, pos, len);
+	string_insert(str, src, pos);
+	return (str);
 }

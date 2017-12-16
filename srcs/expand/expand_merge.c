@@ -23,10 +23,6 @@
 void	expand_merge_now(t_exp *tmp1, t_exp *tmp2, t_array *array_exp,
 																	size_t *i)
 {
-	if (tmp1->str)
-		tmp1->str->len = ft_strlen(tmp1->str->s);
-	if (tmp2->str)
-		tmp2->str->len = ft_strlen(tmp2->str->s);
 	string_insert_back(tmp1->str, tmp2->str->s);
 	string_del(&tmp2->str);
 	array_remove_at(array_exp, *i + 1, NULL);
