@@ -236,5 +236,6 @@ BOOL			exec_escape_enter(const t_key *key, t_input *input);
 */
 
 BOOL			tcaps_init(t_window *wd);
+void			tcaps_check_needed(void);
 
 #endif

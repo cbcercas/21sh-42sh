@@ -104,9 +104,8 @@ void				sh_check_env(char **environ)
 		set_var(get_envs(), "SHLVL",
 				(tmp = ft_itoa(ft_atoi(get_var_value(
 						get_envs(), "SHLVL")) + 1)), true);
-	if (!(get_var(get_envs(), "TERM")) ||
-			ft_strequ(get_var_value(get_envs(), "TERM"), ""))
-		set_var(get_envs(), "TERM", "xterm", true);
+	if (!(get_var(get_envs(), "TERM")))
+		set_var(get_envs(), "TERM", "dump", true);
 	ft_strdel(&tmp);
 }
 
@@ -153,7 +152,12 @@ t_sh_data			*sh_init(t_sh_data *data, int ac, char *const *av,
 		sh_exit_error("Error when getting current working directory");
 	sh_check_env(environ);
 	if ((tgetent(STDIN_FILENO, get_var_value(get_envs(), "TERM"))) != 1)
-		sh_exit_error("Error on tgetent");
+	{
+		ft_dprintf(2, "%s: can't find terminal definition for %s.\n", PROGNAME,
+				get_var_value(get_envs(), "TERM"));
+		exit(EXIT_FAILURE);
+	}
+	tcaps_check_needed();
 	log_info("INIT: DONE");
 	return (data);
 }
