@@ -22,7 +22,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->pwd: invalind option -- 'g'"
 	[ "${lines[0]}" = "pwd: invalid option -- 'g'" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -115,7 +115,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->usage: pwd [-L | -P]"
 	[ "${lines[0]}" = "usage: pwd [-L | -P]" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 ######################################################################
@@ -366,7 +366,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->$cdnosuch: /this/doesnt/exists"
 	[ "${lines[0]}" = "$cdnosuch: /this/doesnt/exists" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -505,7 +505,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->21sh: cd: HOME not set"
 	[ "${lines[0]}" = "21sh: cd: HOME not set" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -515,7 +515,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->21sh: cd: OLDPWD not set"
 	[ "${lines[0]}" = "21sh: cd: OLDPWD not set" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -529,7 +529,7 @@ load test_helper
     echo "                      "
     echo "                      "
 	[ "${lines[0]}" = "cd: no such file or directory: -" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -539,7 +539,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->cd: [-L/-P] [path], use "help cd"
 	[ "${lines[0]}" = "cd: [-L/-P] [path], use "help cd" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -573,7 +573,7 @@ load test_helper
     echo "                      cd: too many arguments"
 	[ "${lines[0]}" = "cd: too many arguments" ]
 	[ "${lines[1]}" = "cd: too many arguments" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -596,7 +596,7 @@ load test_helper
     echo "                      cd: too many arguments"
 	[ "${lines[0]}" = "cd: no such file or directory: /tmp/nosuchfolder" ]
 	[ "${lines[1]}" = "cd: too many arguments" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -703,7 +703,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->$cdnosuch: /this/doesnt/exists"
 	[ "${lines[0]}" = "$cdnosuch: /this/doesnt/exists" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -776,7 +776,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->$cdnosuch: ////////.//////./////...////////"
 	[ "${lines[0]}" = "$cdnosuch: ////////.//////./////...////////" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 ######################################################################
@@ -802,7 +802,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->unset: not enough arguments"
 	[ "${lines[0]}" = "unset: not enough arguments" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -1440,7 +1440,7 @@ check_leaks_function exec
     [ "${lines[0]}" = "unsetenv [name]" ]
     [ "${lines[1]}" = "Deletes the environment variable name from env" ]
     [ "${lines[2]}" = "If name doesnt exists, nothing happens" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 
@@ -1453,7 +1453,7 @@ check_leaks_function exec
     echo
     [ "${lines[0]}" = "globalvar=456" ]
     [ "${lines[1]}" = "" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 ######################################################################

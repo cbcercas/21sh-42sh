@@ -8,14 +8,14 @@ echo lol && echo pouet && echo truc
 false && echo lol;true
 false && echo pouet;true
 echo pouet || echo lol
-true && false && ls;true
-true && false || ls;true
-true || false && ls;true
-true || false || ls;true
-false && true && ls;true
-false && true || ls;true
-false || true && ls;true
-false || true || ls;true
+true && false && ls
+true && false || ls
+true || false && ls
+true || false || ls
+false && true && ls
+false && true || ls
+false || true && ls
+false || true || ls
 ls this_file_does_not_exist 2>&1 > /tmp/redir_test_file;rm -f /tmp/redir_test_file;echo abc && echo def; echo 123 > /tmp/test_redir_file_stdout;echo \"---\" ; echo \"---\" ;cat /tmp/test_redir_file_stdout;rm -f /tmp/test_redir_file_stdout
 echo 'abc' > /tmp/redir_stdin_close;/bin/cat -e <&- </tmp/redir_stdin_close;echo 'def' <&- </tmp/redir_stdin_close;echo end;cat -e /tmp/redir_stdin_close;rm -f /tmp/redir_stdin_close
 echo 'abc' > /tmp/redir_lessgreat_file;/bin/cat 3<>/tmp/redir_lessgreat_file <&3 -e
@@ -39,3 +39,5 @@ false ||   false && echo 15 ; true
 echo a&&echo b;echo c||echo d
 echo a&&echo b;echo c||echo d;
 cat toto
+cat < NO_SUCH_file
+echo lol && echo pouet && echo truc; cat pouet && echo lol; false && echo pouet

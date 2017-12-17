@@ -45,7 +45,7 @@ load test_helper
 		name="$line"
 		echo '@test "EXEC: Testing [CREATE] for '"$name"'" {
 	run bash -c ' "'$name'"'
-    expect=$output
+    expect=$(echo "$output" | sed '"s/bash/\$name_exec/g"' )
     stat="$status"
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c' "'$name'"'
     echo "ERROR:"

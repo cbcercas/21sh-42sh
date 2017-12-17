@@ -345,22 +345,6 @@ load test_helper
 	check_leaks_function exec
 }
 
-@test "AND_OR: Testing [and_spec] for 'echo lol && echo pouet && echo truc; cat pouet && echo lol; false && echo pouet'" {
-	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo lol && echo pouet && echo truc; cat pouet && echo lol; false && echo pouet'
-	echo "ERROR:"
-	display_line_output
-	echo "$name_exec EXPECTED ->lol"
-    echo "                      pouet"
-    echo "                      truc"
-    echo "                      cat: pouet: No such file or directory"
-	[ "${lines[0]}" = "lol" ]
-	[ "${lines[1]}" = "pouet" ]
-	[ "${lines[2]}" = "truc" ]
-	[ "${lines[3]}" = "cat: pouet: No such file or directory" ]
-	[ "$status" -eq 0 ]
-	check_leaks_function exec
-}
-
 @test "AND_OR: Testing [or_spec] for 'cat pouet || echo lol; echo pouet || echo lol'" {
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cat pouet || echo lol; echo pouet || echo lol'
 	echo "ERROR:"

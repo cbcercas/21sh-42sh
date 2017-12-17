@@ -168,17 +168,17 @@ int			sh_chdir(t_sh_data *data, char **arg)
 	ret = -1;
 	ft_getopt_reset();
 	while ((opt = ft_getopt(((int)ft_tablen(arg)), arg, "LPh")) != -1)
-	{
-		if (opt == 'h' || opt == '?')
-			return (ft_dprintf(2, "cd: [-L/-P] [path], use \"help cd\"\n"));
+		if ((opt == 'h' || opt == '?') && ft_dprintf(2, "cd: [-L/-P] [path],"
+				" use \"help cd\"\n"))
+			return (1);
 		else if (ret == -1 && opt == 'P')
 			ret = 'P';
 		else if (ret == -1 && opt == 'L')
 			ret = 'L';
-	}
 	opt = ret;
-	if (arg && ft_tablen(&arg[g_optind]) > 1)
-		return (ft_dprintf(2, "cd: too many arguments\n"));
+	if (arg && ft_tablen(&arg[g_optind]) > 1 && ft_dprintf(2, "cd: too many"
+			" arguments\n"))
+		return (1);
 	if (arg)
 		ret = sh_do_chdir(arg[g_optind], opt);
 	else
