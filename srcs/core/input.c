@@ -84,9 +84,14 @@ t_input			*input_add_new(t_input *input)
 
 static BOOL		sh_get_line_insert(t_input *input, t_key key)
 {
+	t_window *wd;
+
+	wd = get_windows(0);
 	if (!string_insert(input->str, key.key, pos_in_str(input)))
 		return (false);
-	get_windows(110)->h_complet = true;
+	if (wd->autocomp)
+		exec_escape_select(wd);
+	get_windows(10)->h_complet = true;
 	draw_char(input, key.key);
 	return (true);
 }
