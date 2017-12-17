@@ -59,8 +59,8 @@ BOOL		exec_tab(const t_key *key, t_window *wd)
 	(void)key;
 	if (wd->cur->prev || wd->cur->next)
 		tcaps_bell();
-	if (wd->select.is || !wd->cur || !wd->cur->str || !wd->cur->str->len
-		|| wd->cur->prev || wd->cur->next)
+	if (wd->select.is || !wd->cur || !wd->cur->str || wd->cur->prev ||
+			wd->cur->next)
 		return (false);
 	if (wd->autocomp)
 		return (exec_tab_select(wd->autocomp));

@@ -67,5 +67,5 @@ void		sh_testing_exec(char *const *av, char **environ)
 	expand(&tokens, &expands);
 	ast_create(&ast, &expands);
 	exec_exec(get_data(NULL), ast);
-	exit(0);
+	exit(*get_cmd_ret() % 256);
 }
