@@ -58,7 +58,7 @@ t_array			*autocomplete_get_bin(char *begin)
 		}
 		env_path++;
 	}
-	if (save_path)
-		ft_freetab(save_path, ft_tablen(env_path));
+	if (save_path && *save_path)
+		ft_freetab(save_path, ft_tablen(save_path));
 	return (content);
 }
