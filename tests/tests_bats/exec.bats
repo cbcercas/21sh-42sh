@@ -12,7 +12,7 @@ load test_helper
     echo "$name_exec EXPECTED ->21sh: command not found: foo"
     echo
     [ "${lines[0]}" = "21sh: command not found: foo" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 
@@ -120,7 +120,7 @@ load test_helper
     echo "$name_exec EXPECTED ->$expect"
     echo
     [ "${output}" = "$expect" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 
@@ -268,7 +268,7 @@ load test_helper
     echo "$name_exec EXPECTED ->$expect"
     echo
     [ "${output}" = "$expect" ]
-    [ "$status" -eq 0 ]
+    [ "$status" -eq 1 ]
     check_leaks_function exec
 }
 
@@ -341,7 +341,7 @@ load test_helper
 	[ "${lines[2]}" = "d" ]
 	[ "${lines[3]}" = "cat: e: No such file or directory" ]
 	[ "${lines[4]}" = "cat: g: No such file or directory" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -547,7 +547,7 @@ load test_helper
     echo "                      cat: /tmp/redirs_file: Permission denied"
     echo "                      "
     echo "                      "
-	[ "${lines[0]}" = "$name_exec: /tmp/redirs_file: No such file or directory" ]
+	[ "${lines[0]}" = "$name_exec: permission denied: /tmp/redirs_file" ]
 	[ "${lines[1]}" = "cat: /tmp/redirs_file: Permission denied" ]
 	[ "${lines[2]}" = "" ]
 	[ "${lines[3]}" = "" ]
@@ -653,7 +653,7 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->"
 	[ "${lines[0]}" = "" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
 
@@ -750,6 +750,6 @@ load test_helper
 	display_line_output
 	echo "$name_exec EXPECTED ->$name_exec: command not found: unknown_cmd"
 	[ "${lines[0]}" = "$name_exec: command not found: unknown_cmd" ]
-	[ "$status" -eq 0 ]
+	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }

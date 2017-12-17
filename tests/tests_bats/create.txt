@@ -1,8 +1,5 @@
 echo toto > in ; cat -e >out<in ; cat out ; rm out in
 echo toto > in ; cat -e >out <in ; cat out ; rm out in
-echo toto > in ; cat -e >out <&in ; cat out ; rm out in
-echo toto > in ; cat -e >out<&in ; cat out ; rm out in
-echo toto > in ; cat -e >out<& in ; cat out ; rm out in
 true || false && ls
 cd /tmp && cd / | ls
 echo a > file | echo b > file; cat file ; rm file
@@ -41,4 +38,4 @@ false ||   true && echo 13
 false ||   false && echo 15 ; true
 echo a&&echo b;echo c||echo d
 echo a&&echo b;echo c||echo d;
-env env_test_var=123 bash -c "env | grep env_test_var"
+cat toto
