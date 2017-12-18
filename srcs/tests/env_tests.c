@@ -63,6 +63,11 @@ void	sh_testing_env_del(char *const *av)
 
 void	sh_testing_env(char *const *av, char **environ)
 {
+	if(ft_strlen(av[0]) >= MAX_LEN_INPUT)
+		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(av[0]),
+					MAX_LEN_INPUT);
+	else if (ft_strlen(av[0]) && !is_printstr(av[0]))
+		sh_exit_printf("line: contains non-ascii characters.");
 	init_environ(environ);
 	if (av[0] && (ft_strequ(av[0], "set")))
 		sh_testing_env_set(av);

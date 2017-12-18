@@ -55,6 +55,11 @@ void		sh_testing_exec(char *const *av, char **environ)
 	t_btree		*ast;
 
 	ast = NULL;
+	if(ft_strlen(av[0]) >= MAX_LEN_INPUT)
+		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(av[0]),
+					MAX_LEN_INPUT);
+	else if (ft_strlen(av[0]) &&!is_printstr(av[0]))
+		sh_exit_printf("line: contains non-ascii characters.");
 	init_environ(environ);
 	init_local_var();
 	sh_builtins_init();

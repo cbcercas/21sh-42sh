@@ -23,6 +23,11 @@ void			sh_testing_parser(char *const *av)
 	t_automaton	automaton;
 	t_array		tokens;
 
+	if(ft_strlen(av[0]) >= MAX_LEN_INPUT)
+		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(av[0]),
+					MAX_LEN_INPUT);
+	else if (ft_strlen(av[0]) && !is_printstr(av[0]))
+		sh_exit_printf("line: contains non-ascii characters.");
 	if (lexer_init(&tokens) == NULL)
 		sh_exit_error("Error initialising tokens");
 	else if (automaton_init(&automaton) == NULL)

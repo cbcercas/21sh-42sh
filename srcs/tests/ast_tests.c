@@ -18,7 +18,7 @@
 ** @param cmd The ast to be displayed
 */
 
-void		test_aff(t_cmd *cmd)
+static void		test_aff(t_cmd *cmd)
 {
 	static int			i = 0;
 	int					index;
@@ -44,11 +44,16 @@ void		test_aff(t_cmd *cmd)
 ** @return Returns the token t_array containing the lexed input
 */
 
-t_array		init_tests_ast(char *input)
+static t_array		init_tests_ast(char *input)
 {
 	t_automaton	automaton;
 	t_array		tokens;
 
+	if(ft_strlen(input) >= MAX_LEN_INPUT)
+		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(input),
+					MAX_LEN_INPUT);
+	else if (ft_strlen(input) && !is_printstr(input))
+		sh_exit_printf("line: contains non-ascii characters.");
 	if (lexer_init(&tokens) == NULL)
 		sh_exit_error("Error initialising tokens");
 	else if (automaton_init(&automaton) == NULL)

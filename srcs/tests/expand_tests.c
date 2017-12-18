@@ -74,6 +74,11 @@ void		sh_testing_expand(char *const *av, char **environ)
 	t_array		expand_array;
 	t_array		tokens;
 
+	if(ft_strlen(av[0]) >= MAX_LEN_INPUT)
+		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(av[0]),
+					MAX_LEN_INPUT);
+	else if (ft_strlen(av[0]) && !is_printstr(av[0]))
+		sh_exit_printf("line: contains non-ascii characters.");
 	init_environ(environ);
 	set_var(get_envs(), "HOME", "/tmp", true);
 	sh_history_init(sh_history_get());

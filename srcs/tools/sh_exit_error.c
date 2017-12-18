@@ -39,3 +39,21 @@ void	sh_exit_error(const char *error)
 	kill_childs(SIGTERM);
 	exit(EXIT_FAILURE);
 }
+
+void	sh_exit_printf(const char *fmt, ...)
+{
+	va_list		list;
+
+	if (fmt)
+	{
+		va_start(list, fmt);
+		ft_dprintf(STDERR_FILENO, "%s: ERROR: ", PROGNAME);
+		ft_vdprintf(STDERR_FILENO, fmt, list);
+		va_end(list);
+		va_start(list, fmt);
+		log_fatal(fmt, list);
+		va_end(list);
+	}
+	ft_putendl_fd("", STDERR_FILENO);
+	exit (EXIT_FAILURE);
+}
