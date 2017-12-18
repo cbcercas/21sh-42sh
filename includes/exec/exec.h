@@ -125,9 +125,12 @@ void	mini_input(char *end, int pipe_fd);
 ** @brief  Functions to manage FDs etc
 */
 BOOL sh_exec_manage_fd(t_array *fds, BOOL close);
+
 BOOL	sh_exec_create_backup_fd(t_array *fds, BOOL close);
 
 void	exec_array_fd_all_close(t_array *fds);
+
+void	keep_status_fd_tty(BOOL init);
 
 /*
 ** @file   sh_exec_builtin.c

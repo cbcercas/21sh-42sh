@@ -12,6 +12,27 @@
 
 #include <exec/exec.h>
 
+void	keep_status_fd_tty(BOOL init)
+{
+	int			cnt;
+	struct stat	buf;
+	static int fd_tty[3] = {0, 1, 2};
+
+	cnt = 3;
+	while(cnt--)
+	{
+		if (init)
+		{
+			if (fstat(cnt, &buf))
+				fd_tty[cnt] = -1;
+			else
+				fd_tty[cnt] = cnt;
+		}
+		else if (fd_tty[cnt] == -1)
+			close(cnt);
+	}
+}
+
 /*
 ** @brief          create list of backup fd
 **
@@ -32,11 +53,11 @@ BOOL		sh_exec_create_backup_fd(t_array *fds, BOOL close)
 	while (cnt < fds->used)
 	{
 		fd = (t_redir_fd *)array_get_at(fds, cnt);
-		if (fd->close == close && fstat(fd->old_fd, &buff))
+		if (fstat(fd->old_fd, &buff))
 			fd->backup = -2;
 		else if (fd->close == close && ((fd->backup = dup(fd->old_fd)) == -1))
 		{
-			ft_dprintf(STDERR_FILENO, "%s: Error dup(%d)\n", PROGNAME, fd->old_fd);
+			log_warn("%s: Error dup(%d)", PROGNAME, fd->old_fd);
 			return (false);
 		}
 		else if (fd->close == close)
@@ -68,7 +89,6 @@ BOOL		sh_exec_restore_fd(t_array *fds)
 		{
 			if (dup2(fd->backup, fd->old_fd) == -1)
 			{
-				ft_dprintf(STDERR_FILENO, "%s: Error dup2\n", PROGNAME);
 				log_fatal("Error dup2(%d, %d)",fd->backup, fd->old_fd);
 				return (false);
 			}

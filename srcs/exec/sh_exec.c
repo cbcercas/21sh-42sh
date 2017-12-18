@@ -93,8 +93,8 @@ int			sh_exec_simple(t_sh_data *data, t_cmd *item, t_array *fds)
 	else
 		ret = sh_exec(item, fds);
 	exec_array_fd_all_close(fds);
-	if (!sh_exec_restore_fd(fds))
-		return ((*get_cmd_ret() = 1));
+	sh_exec_restore_fd(fds);
+	keep_status_fd_tty(false);
 	array_reset(fds, NULL);
 	log_dbg3("EXEC: %s ret = %d", item->av[0], ret);
 	return (ret);

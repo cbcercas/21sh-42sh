@@ -72,6 +72,7 @@ int		exec_exec(t_sh_data *data, t_btree *ast)
 	if (!ast)
 		return (-1);
 	*is_in_pipe() = false;
+	keep_status_fd_tty(true);
 	if (!(fds = array_create(sizeof(t_redir_fd))))
 		sh_exit_error("Exec: create t_array");
 	remove_useless();
