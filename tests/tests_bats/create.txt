@@ -41,3 +41,17 @@ echo a&&echo b;echo c||echo d;
 cat toto
 cat < NO_SUCH_file
 echo lol && echo pouet && echo truc; cat pouet && echo lol; false && echo pouet
+env env env env env env env -i env ls
+cd /; cd -; cd /; cd ../; cd;
+ls | wc -l > toto; echo abc | wc -l >> toto; cat -e toto ; rm -rf toto
+ls /dev | grep tty | sort -r | rev > toto ; < toto cat | rev | wc -l > titi ; rm -rf titi
+echo ~
+echo ~/toutou
+echo true || echo false && echo maarek && echo joseph
+echo check only && echo priority || echo operators;
+echo toto; echo tata; echo titi;
+echo toto; echo tata; echo titi; echo jojo; echo jiji; echo jaja
+ls / | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | sort
+echo toto tata titi tete tutu toutou tuitui touatoua touytouy merciiiiiiiiiiiii
+rm -rf toto
+END
