@@ -775,20 +775,6 @@ load test_helper
     [ "$status" -eq $stat ]
     check_leaks_function exec
 }
-@test "EXEC: Testing [CREATE] for ls -l" {
-	run bash -c  'ls -l'
-    expect=$(echo "$output" | sed s/bash/$name_exec/g )
-    stat="$status"
-    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls -l'
-    echo "ERROR:"
-    display_line_output
-    echo "$name_exec EXPECTED ->$expect"
-    echo "EXITING STATUS:"
-    echo "$name_exec:$status = bash:$stat"
-    [ "${output}" = "$expect" ]
-    [ "$status" -eq $stat ]
-    check_leaks_function exec
-}
 @test "EXEC: Testing [CREATE] for echo "$TERM"" {
 	run bash -c  'echo "$TERM"'
     expect=$(echo "$output" | sed s/bash/$name_exec/g )
