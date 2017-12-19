@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(21sh)
+project(42sh)
 
 set(CMAKE_CXX_STANDARD 11)
 set (CMAKE_C_FLAGS "-g -Wall -Werror -Wextra")
@@ -186,6 +186,6 @@ include_directories(includes)
 add_subdirectory(libcbc)
 include_directories(libcbc/libft/includes libcbc/libftprintf/includes libcbc/liblogger/includes libcbc/libtcaps/includes)
 
-add_executable(21sh ${SOURCE_FILES})
+add_executable(42sh ${SOURCE_FILES})
 
-target_link_libraries(21sh cbc curses)
+target_link_libraries(42sh cbc curses)

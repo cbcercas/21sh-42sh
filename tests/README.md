@@ -67,8 +67,8 @@ For more information about bats : [Github-bats](https://github.com/sstephenson/b
     in test file tests/tests_bats/ast.bats, line 16)
      `check_leaks_function ast' failed
    ERROR:
-   21sh OUTPUT   ->AST NULL
-   21sh EXPECTED ->AST NULL
+   42sh OUTPUT   ->AST NULL
+   42sh EXPECTED ->AST NULL
    
    =======================================================================   # ERROR leaks are detected
    **[----- LEAKS DETECTED! -----]

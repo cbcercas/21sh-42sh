@@ -260,7 +260,7 @@ test_bats()
 		ret=`expr $ret + $?`
 		return 0;
 	elif [ $1 = "malloc" ] || [ $1 = "m" ]; then
-		cp $path_of_file/resources/.21sh_history.resource ~/.21sh_history
+		cp $path_of_file/resources/.42sh_history.resource ~/.42sh_history
 		bats $path_of_file"/tests_bats/malloc.bats"
 		ret=`expr $ret + $?`
 		return 0;
@@ -317,7 +317,7 @@ tests_travis()
 ################################################################################
 path_of_file=`dirname $0`
 ret=0
-name_of_exec="21sh"
+name_of_exec="42sh"
 
 var_test_bats=""
 var_tests_sh="1"

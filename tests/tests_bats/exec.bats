@@ -9,9 +9,9 @@ load test_helper
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'foo'
     echo "ERROR:"
     display_line_output
-    echo "$name_exec EXPECTED ->21sh: command not found: foo"
+    echo "$name_exec EXPECTED ->42sh: command not found: foo"
     echo
-    [ "${lines[0]}" = "21sh: command not found: foo" ]
+    [ "${lines[0]}" = "42sh: command not found: foo" ]
     [ "$status" -eq 1 ]
     check_leaks_function exec
 }
@@ -113,7 +113,7 @@ load test_helper
 }
 
 @test "EXEC: Testing [IN CORRECTION] for unsetenv PATH ; ls" {
-    expect="21sh: command not found: ls"
+    expect="42sh: command not found: ls"
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unsetenv PATH ; ls'
     echo "ERROR:"
     display_line_output

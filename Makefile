@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 21sh
+NAME = 42sh
 
 SRC_SUBDIR		= core
 SRCS			+= sh_get_input.c main.c prompt.c init.c input.c usage_help.c \
@@ -202,7 +202,7 @@ $(NAME): $(OBJS)
 		@printf "$(C_G)-->$(C_NO) ALL LINKED $(C_G)<--$(C_NO)\n"
 		@printf "INFO: Flags: $(CFLAGS)\n"
 		@printf "[\033[35m---------------------------------\033[0m]\n"
-		@printf "[\033[36m---------- 21sh Done ! ----------\033[0m]\n"
+		@printf "[\033[36m---------- 42sh Done ! ----------\033[0m]\n"
 		@printf "[\033[35m---------------------------------\033[0m]\n"
 
 $(OBJS_DIR)/%.o: %.c | $(OBJS_DIR)
@@ -233,18 +233,18 @@ re: fclean all
 
 clean:
 ifeq ($(shell [ -e $(OBJS_DIR) ] && echo 1 || echo 0),1)
-	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .o\033[0m]\n"
+	@printf "\033[35m42sh  :\033[0m [\033[31mSuppression des .o\033[0m]\n"
 	@$(RM) $(OBJS_DIR)
 endif
 ifeq ($(shell [ -e $(DEPS_DIR) ] && echo 1 || echo 0),1)
-	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression des .d\033[0m]\n"
+	@printf "\033[35m42sh  :\033[0m [\033[31mSuppression des .d\033[0m]\n"
 	@$(RM) $(DEPS_DIR)
 	@make clean -C $(LIB_CBC_DIR)
 endif
 
 fclean: clean
 ifeq ($(shell [ -e $(NAME) ] && echo 1 || echo 0),1)
-	@printf "\033[35m21sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]\n"
+	@printf "\033[35m42sh  :\033[0m [\033[31mSuppression de $(NAME)\033[0m]\n"
 	@$(RM) $(NAME)
 endif
 	@make fclean -C $(LIB_CBC_DIR)

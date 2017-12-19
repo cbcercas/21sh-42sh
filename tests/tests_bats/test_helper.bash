@@ -1,6 +1,6 @@
 #!/bin/bash
 
-name_exec="21sh"
+name_exec="42sh"
 
 display_line_output()
 {
@@ -31,7 +31,7 @@ parser_error_newline="$name_exec: Parse error near \`\n'"
 
 fatal="$name_exec: EXIT-ERROR: Fatal testing error: Couldn't catch the error."
 
-history_loc="/tmp/.21sh_history.resource"
+history_loc="/tmp/.42sh_history.resource"
 home_tests="/tmp"
 cdnosuch="cd: no such file or directory"
 ##########################

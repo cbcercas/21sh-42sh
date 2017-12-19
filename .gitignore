@@ -28,8 +28,8 @@
 *.i*86
 *.x86_64
 *.hex
+42sh
 21sh
-
 # Debug files
 *.dSYM/
 debug/

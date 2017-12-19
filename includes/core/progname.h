@@ -18,6 +18,6 @@
 ** @brief Contains the PROGNAME macro
 */
 
-# define PROGNAME "21sh"
+# define PROGNAME "42sh"
 
 #endif

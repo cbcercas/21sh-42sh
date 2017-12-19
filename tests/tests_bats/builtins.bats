@@ -503,8 +503,8 @@ load test_helper
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unsetenv HOME; cd'
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->21sh: cd: HOME not set"
-	[ "${lines[0]}" = "21sh: cd: HOME not set" ]
+	echo "$name_exec EXPECTED ->42sh: cd: HOME not set"
+	[ "${lines[0]}" = "42sh: cd: HOME not set" ]
 	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
@@ -513,8 +513,8 @@ load test_helper
 	run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'unsetenv OLDPWD; cd -'
 	echo "ERROR:"
 	display_line_output
-	echo "$name_exec EXPECTED ->21sh: cd: OLDPWD not set"
-	[ "${lines[0]}" = "21sh: cd: OLDPWD not set" ]
+	echo "$name_exec EXPECTED ->42sh: cd: OLDPWD not set"
+	[ "${lines[0]}" = "42sh: cd: OLDPWD not set" ]
 	[ "$status" -eq 1 ]
 	check_leaks_function exec
 }
@@ -1331,13 +1331,13 @@ check_leaks_function exec
 ################################################################################
 
 @test "BUILTIN_HISTORY: Testing [empty_history] for 'history'" {
-    rm ~/.21sh_history
+    rm ~/.42sh_history
     run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'history'
     echo "ERROR:"
     display_line_output
-    echo "$name_exec EXPECTED ->21sh: history: no history (yet)"
+    echo "$name_exec EXPECTED ->42sh: history: no history (yet)"
     echo
-    [ "${lines[0]}" = "21sh: history: no history (yet)" ]
+    [ "${lines[0]}" = "42sh: history: no history (yet)" ]
     [ "$status" -eq 0 ]
     check_leaks_function exec
 }

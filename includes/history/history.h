@@ -23,7 +23,7 @@
 # include <core/input.h>
 # include <core/tcaps.h>
 
-# define HISTORY_FILE ".21sh_history"
+# define HISTORY_FILE ".42sh_history"
 # define HISTORY_FILE_MAX 10000
 # define HISTORY_MAX 500
 
