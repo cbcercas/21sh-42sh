@@ -63,7 +63,7 @@ static char		*sh_get_input_no_tty(void)
 		return (NULL);
 	if ((len = ft_strlen(line)) >= MAX_LEN_INPUT || !is_printstr(line))
 	{
-		if(len >= MAX_LEN_INPUT)
+		if (len >= MAX_LEN_INPUT)
 			ft_dprintf(STDERR_FILENO, "%s: line is too long: %zu, MAX is %zu "
 					"\n", PROGNAME, ft_strlen(line), MAX_LEN_INPUT);
 		else

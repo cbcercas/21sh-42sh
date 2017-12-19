@@ -22,6 +22,7 @@
 # include <history/history.h>
 # include <sys/wait.h>
 # include <libft.h>
+
 /*
 ** @file   expand.h
 **
@@ -90,7 +91,8 @@ size_t					find_last_quote(const char *s);
 ** @brief Function used to replace a string with another (Use for the expand)
 */
 
-t_string	*ft_replace_str(t_string *str, char *src, size_t pos, size_t len);
+t_string				*ft_replace_str(t_string *str, char *src, size_t pos,
+																size_t len);
 
 /*
 ** @file expand_print.c

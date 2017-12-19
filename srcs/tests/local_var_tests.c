@@ -58,7 +58,7 @@ void	testing_local_vars_del(char *const *av)
 
 void	testing_local_vars(char *const *av, char **environ)
 {
-	if(ft_strlen(av[0]) >= MAX_LEN_INPUT)
+	if (ft_strlen(av[0]) >= MAX_LEN_INPUT)
 		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(av[0]),
 					MAX_LEN_INPUT);
 	else if (ft_strlen(av[0]) && !is_printstr(av[0]))

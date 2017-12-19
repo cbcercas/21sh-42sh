@@ -29,7 +29,8 @@ static t_redir_fd		*check_fd_search(t_array *fds, int fd_search)
 	while (cnt < fds->used)
 	{
 		fd = (t_redir_fd *)array_get_at(fds, cnt);
-		if (fd && ((!fd->close && fd->new_fd == fd_search) || fd->old_fd == fd_search))
+		if (fd && ((!fd->close && fd->new_fd == fd_search) ||
+													fd->old_fd == fd_search))
 			return (fd);
 		cnt++;
 	}
@@ -45,7 +46,7 @@ static t_redir_fd		*check_fd_search(t_array *fds, int fd_search)
 ** @return true if fd is open, false otherwise
 */
 
-BOOL			check_fd(int fd, t_array *fds)
+BOOL					check_fd(int fd, t_array *fds)
 {
 	struct stat test;
 	t_redir_fd	*find;
@@ -65,7 +66,7 @@ BOOL			check_fd(int fd, t_array *fds)
 ** @return true return fd find
 */
 
-static int		here_find_fd(t_cmd *item)
+static int				here_find_fd(t_cmd *item)
 {
 	int			fd;
 	struct stat	test;
@@ -92,7 +93,7 @@ static int		here_find_fd(t_cmd *item)
 ** @return fd find
 */
 
-static int		sh_open_exec_type(t_cmd *item, int *pos)
+static int				sh_open_exec_type(t_cmd *item, int *pos)
 {
 	int		fd;
 
@@ -102,11 +103,11 @@ static int		sh_open_exec_type(t_cmd *item, int *pos)
 	if (ft_isdigit(item->av[0][0]))
 		*pos = *pos + 1;
 	if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[*pos], ">"))
-		fd = open(item->av[*pos + 1], O_CREAT | O_TRUNC | O_WRONLY , 0644);
+		fd = open(item->av[*pos + 1], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (item->type == E_TOKEN_LESSGREAT && ft_strequ(item->av[*pos], "<>"))
-		fd = open(item->av[*pos + 1], O_CREAT | O_RDWR , 0644);
+		fd = open(item->av[*pos + 1], O_CREAT | O_RDWR, 0644);
 	else if (item->type == E_TOKEN_LESSGREAT)
-		fd = open(item->av[*pos + 1],O_RDONLY, 0644);
+		fd = open(item->av[*pos + 1], O_RDONLY, 0644);
 	else if (item->type == E_TOKEN_DGREAT)
 		fd = open(item->av[*pos + 1], O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (item->type == E_TOKEN_DLESS)
@@ -114,7 +115,7 @@ static int		sh_open_exec_type(t_cmd *item, int *pos)
 	return (fd);
 }
 
-int				sh_open_exec(t_btree *ast)
+int						sh_open_exec(t_btree *ast)
 {
 	t_cmd		*item;
 	int			fd;
@@ -129,6 +130,7 @@ int				sh_open_exec(t_btree *ast)
 		ft_dprintf(2, "%s: %s: No such file or directory\n", PROGNAME,
 				item->av[pos + 1]);
 	else if (fd == -1)
-		ft_dprintf(2, "%s: permission denied: %s\n", PROGNAME, item->av[pos + 1]);
+		ft_dprintf(2, "%s: permission denied: %s\n", PROGNAME,
+															item->av[pos + 1]);
 	return (fd);
 }

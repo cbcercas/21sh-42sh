@@ -12,14 +12,14 @@
 
 #include <exec/exec.h>
 
-void	keep_status_fd_tty(BOOL init)
+void		keep_status_fd_tty(BOOL init)
 {
 	int			cnt;
 	struct stat	buf;
-	static int fd_tty[3] = {0, 1, 2};
+	static int	fd_tty[3] = {0, 1, 2};
 
 	cnt = 3;
-	while(cnt--)
+	while (cnt--)
 	{
 		if (init)
 		{
@@ -89,7 +89,7 @@ BOOL		sh_exec_restore_fd(t_array *fds)
 		{
 			if (dup2(fd->backup, fd->old_fd) == -1)
 			{
-				log_fatal("Error dup2(%d, %d)",fd->backup, fd->old_fd);
+				log_fatal("Error dup2(%d, %d)", fd->backup, fd->old_fd);
 				return (false);
 			}
 			log_info("RESTORE = %d => %d", fd->old_fd, fd->backup);

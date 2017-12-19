@@ -47,7 +47,7 @@ static BOOL		sh_exec_greatand_open_fd1(int *fd1, t_cmd *item, int *pos)
 */
 
 static BOOL		sh_exec_greatand_open(int *fd1, int *fd2, t_cmd *item,
-										 t_array *fds)
+																t_array *fds)
 {
 	int		pos;
 

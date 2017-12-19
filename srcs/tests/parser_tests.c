@@ -23,7 +23,7 @@ void			sh_testing_parser(char *const *av)
 	t_automaton	automaton;
 	t_array		tokens;
 
-	if(ft_strlen(av[0]) >= MAX_LEN_INPUT)
+	if (ft_strlen(av[0]) >= MAX_LEN_INPUT)
 		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(av[0]),
 					MAX_LEN_INPUT);
 	else if (ft_strlen(av[0]) && !is_printstr(av[0]))

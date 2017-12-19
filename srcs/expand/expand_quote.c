@@ -18,7 +18,7 @@
 ** @return Returns the first `'` or `"` it'll find
 */
 
-char	find_first_quote(const char *str)
+char			find_first_quote(const char *str)
 {
 	int		i;
 
@@ -44,7 +44,7 @@ char	find_first_quote(const char *str)
 ** @return Returns true if ignored, false otherwise
 */
 
-BOOL	expand_antislash(t_string *string, t_token_type type)
+BOOL			expand_antislash(t_string *string, t_token_type type)
 {
 	int		i;
 	BOOL	ignore;
@@ -85,7 +85,7 @@ static ssize_t	ft_index_strschr(const char *s, int c)
 	return (i);
 }
 
-t_exp	*expand_remove_quote(t_exp *exp)
+t_exp			*expand_remove_quote(t_exp *exp)
 {
 	ssize_t		c;
 	char		quote;

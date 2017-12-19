@@ -64,7 +64,7 @@ BOOL		ft_isdigit_str(char *str);
 
 void		print_verb(char *line);
 void		sh_exit_error(const char *error);
-void	sh_exit_printf(const char *fmt, ...);
+void		sh_exit_printf(const char *fmt, ...);
 
 /*
 ** @file array_free_elem.c

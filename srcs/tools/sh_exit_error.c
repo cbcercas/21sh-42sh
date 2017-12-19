@@ -55,5 +55,5 @@ void	sh_exit_printf(const char *fmt, ...)
 		va_end(list);
 	}
 	ft_putendl_fd("", STDERR_FILENO);
-	exit (EXIT_FAILURE);
+	exit(EXIT_FAILURE);
 }

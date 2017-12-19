@@ -18,7 +18,7 @@
 ** @param cmd The ast to be displayed
 */
 
-static void		test_aff(t_cmd *cmd)
+static void			test_aff(t_cmd *cmd)
 {
 	static int			i = 0;
 	int					index;
@@ -49,7 +49,7 @@ static t_array		init_tests_ast(char *input)
 	t_automaton	automaton;
 	t_array		tokens;
 
-	if(ft_strlen(input) >= MAX_LEN_INPUT)
+	if (ft_strlen(input) >= MAX_LEN_INPUT)
 		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(input),
 					MAX_LEN_INPUT);
 	else if (ft_strlen(input) && !is_printstr(input))
@@ -76,7 +76,7 @@ static t_array		init_tests_ast(char *input)
 ** @param environ The environ passed to the program
 */
 
-void		sh_testing_ast(char *const *av, char **environ)
+void				sh_testing_ast(char *const *av, char **environ)
 {
 	t_btree		*ast;
 	t_array		expands;

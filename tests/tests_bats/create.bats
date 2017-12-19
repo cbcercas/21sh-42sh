@@ -607,3 +607,185 @@ load test_helper
     [ "$status" -eq $stat ]
     check_leaks_function exec
 }
+@test "EXEC: Testing [CREATE] for env env env env env env env -i env ls" {
+	run bash -c  'env env env env env env env -i env ls'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'env env env env env env env -i env ls'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for cd /; cd -; cd /; cd ../; cd;" {
+	run bash -c  'cd /; cd -; cd /; cd ../; cd;'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'cd /; cd -; cd /; cd ../; cd;'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for ls | wc -l > toto; echo abc | wc -l >> toto; cat -e toto ; rm -rf toto" {
+	run bash -c  'ls | wc -l > toto; echo abc | wc -l >> toto; cat -e toto ; rm -rf toto'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls | wc -l > toto; echo abc | wc -l >> toto; cat -e toto ; rm -rf toto'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for ls /dev | grep tty | sort -r | rev > toto ; < toto cat | rev | wc -l > titi ; rm -rf titi" {
+	run bash -c  'ls /dev | grep tty | sort -r | rev > toto ; < toto cat | rev | wc -l > titi ; rm -rf titi'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls /dev | grep tty | sort -r | rev > toto ; < toto cat | rev | wc -l > titi ; rm -rf titi'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for echo ~" {
+	run bash -c  'echo ~'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo ~'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for echo ~/toutou" {
+	run bash -c  'echo ~/toutou'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo ~/toutou'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for echo true || echo false && echo maarek && echo joseph" {
+	run bash -c  'echo true || echo false && echo maarek && echo joseph'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo true || echo false && echo maarek && echo joseph'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for echo check only && echo priority || echo operators;" {
+	run bash -c  'echo check only && echo priority || echo operators;'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo check only && echo priority || echo operators;'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for echo toto; echo tata; echo titi;" {
+	run bash -c  'echo toto; echo tata; echo titi;'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo toto; echo tata; echo titi;'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for echo toto; echo tata; echo titi; echo jojo; echo jiji; echo jaja" {
+	run bash -c  'echo toto; echo tata; echo titi; echo jojo; echo jiji; echo jaja'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo toto; echo tata; echo titi; echo jojo; echo jiji; echo jaja'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for ls / | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | sort" {
+	run bash -c  'ls / | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | sort'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'ls / | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | sort'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for echo toto tata titi tete tutu toutou tuitui touatoua touytouy merciiiiiiiiiiiii" {
+	run bash -c  'echo toto tata titi tete tutu toutou tuitui touatoua touytouy merciiiiiiiiiiiii'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'echo toto tata titi tete tutu toutou tuitui touatoua touytouy merciiiiiiiiiiiii'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}
+@test "EXEC: Testing [CREATE] for rm -rf toto" {
+	run bash -c  'rm -rf toto'
+    expect=$(echo "$output" | sed s/bash/$name_exec/g )
+    stat="$status"
+    run $val_cmd ${BATS_TEST_DIRNAME}/../../$name_exec -c 'rm -rf toto'
+    echo "ERROR:"
+    display_line_output
+    echo "$name_exec EXPECTED ->$expect"
+    echo "EXITING STATUS:"
+    echo "$name_exec:$status = bash:$stat"
+    [ "${output}" = "$expect" ]
+    [ "$status" -eq $stat ]
+    check_leaks_function exec
+}

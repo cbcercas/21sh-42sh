@@ -74,7 +74,7 @@ void		sh_testing_expand(char *const *av, char **environ)
 	t_array		expand_array;
 	t_array		tokens;
 
-	if(ft_strlen(av[0]) >= MAX_LEN_INPUT)
+	if (ft_strlen(av[0]) >= MAX_LEN_INPUT)
 		sh_exit_printf("line is too long: %zu, MAX is %zu", ft_strlen(av[0]),
 					MAX_LEN_INPUT);
 	else if (ft_strlen(av[0]) && !is_printstr(av[0]))

@@ -12,14 +12,15 @@
 
 #include <exec/exec.h>
 
-void	sh_exec_new_redir_fd(t_array *fds, int old, int new, BOOL close)
+void		sh_exec_new_redir_fd(t_array *fds, int old_fd, int new_fd,
+																	BOOL close)
 {
 	t_redir_fd	fd;
 
 	if (!fds)
 		return ;
-	fd.new_fd = new;
-	fd.old_fd = old;
+	fd.new_fd = new_fd;
+	fd.old_fd = old_fd;
 	fd.close = close;
 	fd.backup = -1;
 	array_push(fds, (void *)&fd);
@@ -31,7 +32,7 @@ void	sh_exec_new_redir_fd(t_array *fds, int old, int new, BOOL close)
 ** @return true if everything is ok, false otherwise
 */
 
-BOOL sh_exec_manage_fd(t_array *fds, BOOL is_close)
+BOOL		sh_exec_manage_fd(t_array *fds, BOOL is_close)
 {
 	size_t		cnt;
 	t_redir_fd	*fd;
@@ -44,7 +45,8 @@ BOOL sh_exec_manage_fd(t_array *fds, BOOL is_close)
 			close(fd->old_fd);
 		else if (!is_close && (dup2(fd->new_fd, fd->old_fd) == -1))
 		{
-			log_fatal("ERROR: file: %s dup2(%d, %d)", __FILE__, fd->new_fd, fd->old_fd);
+			log_fatal("ERROR: file: %s dup2(%d, %d)", __FILE__, fd->new_fd,
+																	fd->old_fd);
 			return (false);
 		}
 		cnt++;
@@ -58,7 +60,7 @@ BOOL sh_exec_manage_fd(t_array *fds, BOOL is_close)
 ** @return
 */
 
-void	exec_array_fd_all_close(t_array *fds)
+void		exec_array_fd_all_close(t_array *fds)
 {
 	size_t		cnt;
 	t_redir_fd	*fd;

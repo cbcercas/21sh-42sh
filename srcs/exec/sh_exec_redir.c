@@ -88,6 +88,7 @@ static BOOL		sh_exec_redir_init(t_btree *ast, t_cmd **item, int *fd)
 **
 ** @return ret of exec
 */
+
 int				sh_exec_redir(t_sh_data *data, t_btree *ast, t_array *fds)
 {
 	int		fd;

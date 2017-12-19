@@ -40,7 +40,7 @@ static char *g_tcaps_needed[] = {
 	NULL
 };
 
-void tcaps_check_needed(void)
+void	tcaps_check_needed(void)
 {
 	int	i;
 
@@ -49,7 +49,6 @@ void tcaps_check_needed(void)
 		if (!(tgetstr(g_tcaps_needed[i++], NULL)))
 			sh_exit_error("Failed to get needed terminal capabilities");
 }
-
 
 BOOL	tcaps_init(t_window *wd)
 {

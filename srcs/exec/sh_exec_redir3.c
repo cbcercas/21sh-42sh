@@ -18,8 +18,6 @@
 ** @param  fds     The list of fd
 ** @param  fd1      the first fd
 ** @param  fd2      the second fd
-**
-** @return
 */
 
 static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_array *fds)
@@ -40,40 +38,30 @@ static void		sh_exec_greatand_push_dup2(int fd1, int fd2, t_array *fds)
 
 /*
 ** @brief   push fd in fd list
+**
 ** @param  item    struct of command
 ** @param  fds     The list of fd
 ** @param  fd1      the first fd
 ** @param  fd2      the second fd
-**
-** @return
 */
 
 void			sh_exec_greatand_push_dup(int fd1, int fd2, t_cmd *item,
-										  t_array *fds)
+																t_array *fds)
 {
 	if (item && item->type == E_TOKEN_GREATAND)
 	{
 		if (fd2 == -2)
 		{
 			if (fd1 != -1)
-				sh_exec_new_redir_fd(fds, fd1, -1, true);//exec_list_push(&fds[CLOSE], (size_t)fd1);
+				sh_exec_new_redir_fd(fds, fd1, -1, true);
 			else
 				sh_exec_new_redir_fd(fds, STDOUT_FILENO, -1, true);
 			return ;
 		}
 		if (fd1 != -1)
-		{
 			sh_exec_new_redir_fd(fds, fd1, fd2, false);
-			//(fds[fd1] ? ft_lstdel(&fds[fd1], &exec_list_nothing) : 0);
-			//exec_list_push(&fds[fd1], (size_t)fd2);
-		}
 		else
-		{
 			sh_exec_new_redir_fd(fds, STDOUT_FILENO, fd2, false);
-			//(fds[STDOUT_FILENO] ? ft_lstdel(&fds[STDOUT_FILENO],
-			//								&exec_list_nothing) : 0);
-			//exec_list_push(&fds[STDOUT_FILENO], (size_t)fd2);
-		}
 		return ;
 	}
 	sh_exec_greatand_push_dup2(fd1, fd2, fds);

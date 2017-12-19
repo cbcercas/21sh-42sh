@@ -23,7 +23,7 @@
 */
 
 static void		sh_pipe_right(t_sh_data *data, t_btree *ast, t_array *fds,
-								 int *pipe)
+																	int *pipe)
 {
 	close(pipe[START]);
 	sh_exec_new_redir_fd(fds, STDIN_FILENO, pipe[END], false);
@@ -50,8 +50,9 @@ static void		sh_pipe_left(t_sh_data *data, t_btree *ast, t_array *fds,
 	exit(EXIT_SUCCESS);
 }
 
- /*
+/*
 ** @brief execute pipe
+**
 ** @param  data    The data of shell
 ** @param  ast     The AST (Analyse Syntax Tree[binary])
 ** @param  fds     The list of fd
