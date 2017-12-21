@@ -4,7 +4,8 @@
 
 **21-42sh** is a Linux CLI (Command Line Interpretor) thought, designed, and made by *chbravo-*, *jlasne*, *gpouyat* and *mleroy* for the school 42 as the last project before their first internship.
 
-Final grade : Not graded yet
+Final grade for 21sh: `100`
+Final grade for 42sh: `74`
 
 ## Installation | Compilation
 To compile **21-42sh**, clone the project with the submodules, get in the folder and then type `make`.  **21-42sh** auto-configures the build process, so no further intervention should be necessary.  **21-42sh**
