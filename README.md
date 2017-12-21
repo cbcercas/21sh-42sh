@@ -5,6 +5,7 @@
 **21-42sh** is a Linux CLI (Command Line Interpretor) thought, designed, and made by *chbravo-*, *jlasne*, *gpouyat* and *mleroy* for the school 42 as the last project before their first internship.
 
 Final grade for 21sh: `100`
+
 Final grade for 42sh: `74`
 
 ## Installation | Compilation
