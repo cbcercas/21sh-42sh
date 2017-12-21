@@ -70,6 +70,7 @@ BOOL			expand_hist_digit(t_input *inp, size_t *i)
 								size + 1))
 			return (true);
 		ft_dprintf(STDERR_FILENO, "\n%s: !%d: event not found\n", PROGNAME, nb);
+		get_windows(0)->cur = NULL;
 	}
 	return (false);
 }
@@ -97,6 +98,7 @@ BOOL			expand_hist_alpha(t_input *inp, size_t *i)
 		}
 		ft_dprintf(STDERR_FILENO, "\n%s: !%s: event not found\n", PROGNAME,
 				search);
+		get_windows(0)->cur = NULL;
 	}
 	ft_strdel(&search);
 	return (false);

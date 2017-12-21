@@ -65,7 +65,11 @@ BOOL			expand_hist_replace(t_input *input, char *hist, size_t *index,
 	BOOL	ret;
 
 	if (!hist || !input)
+	{
+		ft_dprintf(STDERR_FILENO, "\n%s: !!: event not found\n", PROGNAME);
+		get_windows(0)->cur = NULL;
 		return (false);
+	}
 	string_remove(input->str, *index, len - 1);
 	if (!ft_strchr(hist, '\\'))
 	{

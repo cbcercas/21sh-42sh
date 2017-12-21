@@ -100,8 +100,8 @@ int		sh_history_init_choice(int fd, int limit)
 	sh_history_print_choice(limit);
 	ft_putstr_fd(">", STDIN_FILENO);
 	get_next_line(0, &line);
-	get_history_init_choice(ft_atoi(line));
-	if (ft_strequ(line, "2") || ft_strequ(line, "3"))
+	line ? get_history_init_choice(ft_atoi(line)) : get_history_init_choice(1);
+	if (line && (ft_strequ(line, "2") || ft_strequ(line, "3")))
 	{
 		while (42)
 		{

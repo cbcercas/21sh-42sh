@@ -76,9 +76,10 @@ const char	*sh_history_get_at(ssize_t nb)
 	t_array	*hists;
 	t_hist	*h;
 
-	if (nb == 0)
-		return (NULL);
 	hists = sh_history_get();
+	if (nb == 0 || !hists || (nb < 0 && (ssize_t)(hists->used + nb) < 0)
+		|| (nb - 1 >= (ssize_t)hists->used))
+		return (NULL);
 	if (nb < 0)
 	{
 		if ((h = (t_hist *)array_get_at(hists, hists->used + nb)))
