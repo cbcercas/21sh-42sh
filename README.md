@@ -52,6 +52,7 @@ Bug reports for **21-42sh** should be reported in the issues section on our [Git
   - [x] `unset`
   - [x] `export`
   - [x] `history`
+  - [x] `pwd`
 
 - [x] Exec
   - [x] Executing commands stored in path with their parameters
@@ -111,7 +112,7 @@ Bug reports for **21-42sh** should be reported in the issues section on our [Git
   
 
 *To be put here, result of cloc*
-- [x] Tests: **21-42sh** contains automated tests found in the `tests/` folder
+- [x] Tests: **21-42sh** contains automated tests found in the `tests/` folder ([README](https://github.com/cbcercas/21sh-42sh/blob/master/tests/README.md))
   - [x] Tests for the lexer
   - [x] Tests for the parser
   - [x] Tests for the ast

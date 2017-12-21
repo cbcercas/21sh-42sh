@@ -38,7 +38,7 @@ __*(This option is no longer updated. By default, use the -b option)*__
          (the symbole "=" is optionnal).
  --------------
   ## Update/If you want add test:
-  Write news tests in `$ROOT_BRANCH/tests/tests_bats/$NAME_OF_MODULE.bats`  
+  1. Write news tests in `$ROOT_BRANCH/tests/tests_bats/$NAME_OF_MODULE.bats`  
   exemple:  
   ```bash
   @test "Lexer: Testing for 'l'" {                            # <= Name of test  
@@ -53,6 +53,8 @@ __*(This option is no longer updated. By default, use the -b option)*__
 For more information about bats : [Github-bats](https://github.com/sstephenson/bats)  
   __(You can modify variable in `$ROOT_BRANCH/tests/tests_bats/test_helper.bats` exemple: "$name_exec")__
 
+  2. Write line of command in create.txt
+  the script tests.sh build tests form `$ROOT_BRANCH/tests/tests_bats/create.txt` for you.
  --------------  
   --------------
   ## Check Leaks with Valgrind :fire: :
@@ -121,3 +123,4 @@ Done.
 
 75 tests, 8 failures, 6 skipped
 ```
+
