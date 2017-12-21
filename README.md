@@ -1,4 +1,4 @@
-# 21sh-42sh [![Build Status](https://travis-ci.com/cbcercas/21-42sh.svg?token=MVpT9pWnUSbCfBPKvyfA&branch=master)](https://travis-ci.com/cbcercas/21-42sh)
+# 21sh-42sh 
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
  [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) 
  
@@ -11,8 +11,11 @@ Final grade for 21sh: `100`
 Final grade for 42sh: `74`
 
 ## Installation | Compilation
-To compile **21sh-42sh**, clone the project with the submodules, get in the folder and then type `make`.  **21-42sh** auto-configures the build process, so no further intervention should be necessary.  **21-42sh**
+To compile **21sh-42sh**, first clone the project with the submodules (`git clone https://github.com/cbcercas/21sh-42sh.git --recursive --branch master` to clone the branch master for example).
+Once cloned and moved into the directory, type `make`.  **21-42sh** auto-configures the build process, so no further intervention should be necessary.  **21-42sh**
 builds with `clang` by default if it is available.  If you want to use `gcc` instead, type `make CC=gcc`
+
+The `DEV` and `SAN` flags are avaibles if you want to enable `-g` or `fsanetize`
 
 
 ## Reporting bugs
@@ -43,7 +46,7 @@ Bug reports for **21sh-42sh** should be reported in the [issues](https://github.
   - [x] Multiline line editing
   
 
-- [x] Builtins with their POSIX options
+- [x] Builtins with their POSIX options (For more info type `help` once in the shell)
   - [x] `cd` | `chdir`
   - [x] `echo`
   - [x] `exit`
@@ -117,7 +120,7 @@ Bug reports for **21sh-42sh** should be reported in the [issues](https://github.
   - [x] The history is printed in the log when exiting the program
   - [x] History research `ctrl+R.`
   
-- [x] Tests: **21sh-42sh** contains automated tests found in the `tests/` folder ([README](https://github.com/cbcercas/21sh-42sh/blob/master/tests/README.md))
+- [x] Tests: **21sh-42sh** contains automated tests found in the `tests/` folder ([See here](https://github.com/cbcercas/21sh-42sh/blob/master/tests/README.md))
   - [x] Tests for the lexer
   - [x] Tests for the parser
   - [x] Tests for the ast
@@ -131,6 +134,7 @@ Bug reports for **21sh-42sh** should be reported in the [issues](https://github.
   - [x] Logger
   - [x] Doc
 
+The output of `cloc` (Count Lines Of Code) as of 21/12/2017 22h30:
 ```
         465 text files.
         449 unique files.
