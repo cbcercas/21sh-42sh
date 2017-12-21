@@ -15,6 +15,19 @@
 #include <core/color.h>
 #include <core/data.h>
 
+static void	sh_usage_help_helper(void)
+{
+	ft_printf("\t\t\t%slexer%s: test lexer module\n", C_MAGENTA, C_NONE);
+	ft_printf("\t\t\t%sparser%s: test parser module\n", C_MAGENTA, C_NONE);
+	ft_printf("\t\t\t%sexpand%s: test expand module\n", C_MAGENTA, C_NONE);
+	ft_printf("\t\t\t%sast%s: test ast module\n", C_MAGENTA, C_NONE);
+	ft_printf("\t%s-c%s [%sstring%s]\n\t\tIf the -c option is present, then "
+					  "commands are read from string.\n", C_CYAN, C_NONE, C_MAGENTA, C_NONE);
+	ft_printf("\t%s-C%s\n\t\tAllows color in builtins. default in testing is "
+					  "true, otherwise by default is false\n", C_CYAN, C_NONE);
+	ft_printf("\t%s-l%s\n\t\tDisables the termcaps\n", C_CYAN, C_NONE);
+}
+
 /*
 ** @brief Prints the help when using a wrong option
 */
@@ -22,7 +35,9 @@
 void		sh_usage_help(void)
 {
 	ft_printf("Usage:\t./%s [%soption%s] ...\n", PROGNAME, C_MAGENTA, C_NONE);
-	ft_printf("\tShell options:\n\t%s-v%s\n\t\tVerbose\n", C_CYAN, C_NONE);
+	ft_printf("\tShell options:\n\t%s-h%s\n\t\tDisplays help about %s's options"
+												"\n", C_CYAN, C_NONE, PROGNAME);
+	ft_printf("\t%s-v%s\n\t\tVerbose mode\n", C_CYAN, C_NONE);
 	ft_printf("\t%s-d%s [%s0%s-%s7%s]\n\t\tDebug mode (Requires debug level)"
 					":\n", C_CYAN, C_NONE, C_GREEN, C_NONE, C_GREEN, C_NONE);
 	ft_printf("\t\t\t\t%s0%s: no log\n\t\t\t\t%s1%s: fatal\n\t\t\t\t%s2%s: "
@@ -38,14 +53,7 @@ void		sh_usage_help(void)
 												"env\n", C_MAGENTA, C_NONE);
 	ft_printf("\t\t\t\t%sdel%s VAR ... : delete variable(s) and display env\n",
 														C_MAGENTA, C_NONE);
-	ft_printf("\t\t\t%slexer%s: test lexer module\n", C_MAGENTA, C_NONE);
-	ft_printf("\t\t\t%sparser%s: test parser module\n", C_MAGENTA, C_NONE);
-	ft_printf("\t\t\t%sexpand%s: test expand module\n", C_MAGENTA, C_NONE);
-	ft_printf("\t%s-c%s [%sstring%s]\n\t\tIf the -c option is present, then "
-		"commands are read from string.\n", C_CYAN, C_NONE, C_MAGENTA, C_NONE);
-	ft_printf("\t%s-C%s\n\t\tAllows color in builtins. default in testing is "
-					"true, otherwise by default is false\n", C_CYAN, C_NONE);
-	ft_printf("\t%s-l%s\n\t\tDisables the termcaps\n", C_CYAN, C_NONE);
+	sh_usage_help_helper();
 }
 
 /*

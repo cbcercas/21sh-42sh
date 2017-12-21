@@ -1,5 +1,7 @@
-# 21-42sh [![Build Status](https://travis-ci.com/cbcercas/21-42sh.svg?token=MVpT9pWnUSbCfBPKvyfA&branch=master)](https://travis-ci.com/cbcercas/21-42sh)
-
+# 21sh-42sh [![Build Status](https://travis-ci.com/cbcercas/21-42sh.svg?token=MVpT9pWnUSbCfBPKvyfA&branch=master)](https://travis-ci.com/cbcercas/21-42sh)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+ [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) 
+ 
 ## Introduction
 
 **21sh-42sh** is a Linux CLI (Command Line Interface) thought, designed, and made by *chbravo-*, *gpouyat*, *jlasne* and *mleroy* for the school 42 as the last project before their first internship.
@@ -9,13 +11,13 @@ Final grade for 21sh: `100`
 Final grade for 42sh: `74`
 
 ## Installation | Compilation
-To compile **21-42sh**, clone the project with the submodules, get in the folder and then type `make`.  **21-42sh** auto-configures the build process, so no further intervention should be necessary.  **21-42sh**
+To compile **21sh-42sh**, clone the project with the submodules, get in the folder and then type `make`.  **21-42sh** auto-configures the build process, so no further intervention should be necessary.  **21-42sh**
 builds with `clang` by default if it is available.  If you want to use `gcc` instead, type `make CC=gcc`
 
 
 ## Reporting bugs
 
-Bug reports for **21-42sh** should be reported in the issues section on our [Github page](https://github.com/cbcercas/21-42sh) along with:
+Bug reports for **21sh-42sh** should be reported in the [issues](https://github.com/cbcercas/21sh-42sh/issues) section on our [Github page](https://github.com/cbcercas/21sh-42sh) along with:
 * the version number (if available, else the commit used by the last build)
 * the machine and OS that it is running on
 * a list of the compilation flags
@@ -39,7 +41,6 @@ Bug reports for **21-42sh** should be reported in the issues section on our [Git
   - [x] Waits for the end of a quote or double quote.
   - [x] ctrl+D and ctrl+C usable when editing a line or in multi-line.
   - [x] Multiline line editing
-  - [ ] TODO : ctrl+h === backspace, ctrl+w == clear avant cursor, ctrl+k == clear apres cursor
   
 
 - [x] Builtins with their POSIX options
@@ -67,30 +68,36 @@ Bug reports for **21-42sh** should be reported in the issues section on our [Git
   - [x] `\n` handling where `\n` can be used as a `;`. Example: `ls \n ls` == `ls ; ls`
 
 - [x] Prompt
-  - [x] Multi line editing
-  - [ ] TODO
+  - [x] Multi line editing with `\`, `'` and `"`
+  - [x] History handles the multi-line editing
 
 - [x] Shell
-  - [x] options: v d t c C l
-  - [ ] TODO
+  - [x] This shell proposes multiple options to enhance user experience
+  - [x] `h` This option will display help for all options as described here
+  - [x] `v` Verbose mode
+  - [x] `d` Debug mode (Enables the logger). A log file will be created where the binary exists. This option requires a log level from 0 to 7
+  - [x] `t` Test mode. This mode will test the module `X` with `Y` parameter as follows : `-t X Y`. Can be used with modules `env` `ast` `parser` `lexer` `ast`
+  - [x] `c` Command. Use this option to send a command to the shell and get it's output
+  - [x] `C` Color. Use this option to enable color in the shell
+  - [x] `l` Disables the termcaps. This is a debug option and not a feature ! To be used lightly
 
-- [x] Signals 
-  - [x] We kill all childs when we get a signal that kill the program so no zombie process is left behind
-  - [ ] TODO
+- [x] Signals
+  - [x] We kill all childs when we get a signal that kills the program so no zombie process is left behind
   
 - [x] Autocompletion
   - [x] Dynamic autocompletion
   - [x] Autocompletes binaries from `PATH`
   - [x] Autocompletes files and paths
   - [x] Autorefreshing with a new input from the user: modification of the list of possibility. TODO WIP
+  - [ ] Known bug: Autocompletion displays the full path (see [#124](https://github.com/cbcercas/21sh-42sh/issues/124))
+  - [ ] Known bug: Autocompletion doesnt work with relative paths (for example `~/`)
   
 - [x] Environ
-  - [x] Local Variables
-  - [x] env
-  - [x] Uses = syntax
-  - [ ] `unsetenv *` TODO WIP
-  - [x] Default env is given when **21-42sh** is started with env -i (TODO to be customized)
-  - [x] Message to warn the User when **21-42sh** is started without an env
+  - [x] Local Variables are available
+  - [x] Normal environment is used when the shell is started
+  - [x] Uses the `=` syntax (`VAR=VALUE`)
+  - [x] Default env is given when **21sh-42sh** is started with env -i (TODO to be customized)
+  - [x] Message to warn the User when **21sh-42sh** is started without an env
 
 - [x] Bonuses
   - [x] Heredocs "<<".
@@ -110,9 +117,7 @@ Bug reports for **21-42sh** should be reported in the issues section on our [Git
   - [x] The history is printed in the log when exiting the program
   - [x] History research `ctrl+R.`
   
-
-*To be put here, result of cloc*
-- [x] Tests: **21-42sh** contains automated tests found in the `tests/` folder ([README](https://github.com/cbcercas/21sh-42sh/blob/master/tests/README.md))
+- [x] Tests: **21sh-42sh** contains automated tests found in the `tests/` folder ([README](https://github.com/cbcercas/21sh-42sh/blob/master/tests/README.md))
   - [x] Tests for the lexer
   - [x] Tests for the parser
   - [x] Tests for the ast
@@ -127,24 +132,22 @@ Bug reports for **21-42sh** should be reported in the issues section on our [Git
   - [x] Doc
 
 ```
-	-h Used to display help about the options
-  	-v Verbose mode, displays what the user typed. Displayed in red when the -C option is given to (-Cv or -C -v)
-	-d [0-7] Debug mode (need debug level):
-			0: no log
-			1: fatal
-			2: error
-			3: warning
-			4: info
-			5: debug level 1
-			6: debug level 2
-			7: debug level 3
-	-t Testing mode:
-		env: test env module
-			set VAR=value ... : set variable(s) and displayenv
-			del VAR ... : delete variable(s) and display env
-		lexer: test lexer module
-		parser: test parser module
-		expand: test expand module
-	-c [string] If the -c option is present, then commands are read from string.
-	-C Allows color in builtins. default in testing is true, otherwise by default is false
+        465 text files.
+        449 unique files.
+         48 files ignored.
+   
+   http://cloc.sourceforge.net v 1.60  T=15.82 s (26.4 files/s, 1756.4 lines/s)
+   --------------------------------------------------------------------------------
+   Language                      files          blank        comment           code
+   --------------------------------------------------------------------------------
+   C                               321           2005           6128          12895
+   C/C++ Header                     63            713           2244           1644
+   Bourne Shell                     25            161             80            794
+   make                              3            132            111            374
+   CMake                             3             38              5            336
+   Bourne Again Shell                1             16              4             61
+   YAML                              1             10              0             33
+   --------------------------------------------------------------------------------
+   SUM:                            417           3075           8572          16137
+   --------------------------------------------------------------------------------
 ```
