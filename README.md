@@ -93,7 +93,7 @@ Bug reports for **21sh-42sh** should be reported in the [issues](https://github.
   - [x] Autocompletes files and paths
   - [x] Autorefreshing with a new input from the user: modification of the list of possibility. TODO WIP
   - [ ] Known bug: Autocompletion displays the full path (see [#124](https://github.com/cbcercas/21sh-42sh/issues/124))
-  - [ ] Known bug: Autocompletion doesnt work with relative paths (for example `~/`)
+  - [ ] Known bug: Autocompletion doesnt expand `~` or `$`.
   
 - [x] Environ
   - [x] Local Variables are available
