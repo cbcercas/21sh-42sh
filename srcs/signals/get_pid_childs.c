@@ -38,7 +38,7 @@ t_array		*get_pids_child(void)
 	static t_array	*e = NULL;
 
 	if (!e && (e = array_create(sizeof(t_pids))) == NULL)
-		sh_exit_error("get_pids_child: can't initialise pids child array");
+		return (NULL);
 	return (e);
 }
 
